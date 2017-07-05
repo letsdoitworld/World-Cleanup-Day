@@ -4,6 +4,7 @@ services:
         volumes:
             - "${ROOT_DIR}/backend-api:/src"
             - "${ROOT_DIR}/module-lucius:/module-lucius"
+            - "${ROOT_DIR}/module-logger:/module-logger"
             - "${ROOT_DIR}/module-service-factory:/module-service-factory"
         env_file:
             - ${ROOT_DIR}/backend-api/container.env
@@ -22,6 +23,7 @@ services:
         volumes:
             - "${ROOT_DIR}/backend-auth:/src"
             - "${ROOT_DIR}/module-lucius:/module-lucius"
+            - "${ROOT_DIR}/module-logger:/module-logger"
             - "${ROOT_DIR}/module-service-factory:/module-service-factory"
         env_file:
             - ${ROOT_DIR}/backend-auth/container.env

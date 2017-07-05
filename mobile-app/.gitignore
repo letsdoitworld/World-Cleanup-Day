@@ -1,0 +1,9 @@
+.vscode/
+node_modules/
+.expo/
+npm-debug.*
+.idea
+
+*.DS_STORE
+
+env.js

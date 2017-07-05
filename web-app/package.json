@@ -1,0 +1,48 @@
+{
+  "name": "web-app",
+  "version": "0.1.0",
+  "description": "Web app.",
+  "main": "index.js",
+  "repository": "git@gitlab.qualitance.com:ldiw/web-app.git",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "private": true,
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "node-sass-chokidar": "^0.0.3",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-google-maps": "^6.3.0",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0",
+    "redux-persist": "^4.8.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "@storybook/react": "^3.1.3",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-flowtype": "^2.34.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.1.0",
+    "flow-bin": "^0.48.0",
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "flow": "flow",
+    "lint": "eslint src/**/*.js",
+    "storybook": "start-storybook -p 9009 -s public -c .storybook ",
+    "build-storybook": "build-storybook -s public -c .storybook"
+  }
+}

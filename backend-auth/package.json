@@ -1,0 +1,13 @@
+{
+  "name": "backend-auth",
+  "version": "1.0.0",
+  "description": "Auth and session handling service.",
+  "main": "app.js",
+  "repository": "git@gitlab.qualitance.com:ldiw/backend-auth.git",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "fbgraph": "^1.4.1",
+    "module-logger": "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
+  }
+}

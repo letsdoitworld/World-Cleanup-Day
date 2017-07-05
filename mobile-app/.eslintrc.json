@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb",
+  "plugins": ["react", "jsx-a11y", "import"],
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "no-mixed-operators": 0,
+    "arrow-body-style": "off",
+    "react/forbid-prop-types": ["warn", { "forbid": ["any", "array", "object"] }]
+  },
+  "env": {
+    "jest": true
+  },
+  "parser": "babel-eslint"
+}

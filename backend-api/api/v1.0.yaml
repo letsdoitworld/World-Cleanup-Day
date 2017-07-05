@@ -1,0 +1,298 @@
+################################################################################
+info:
+  title: World Cleanup REST API
+  version: '1.0'
+################################################################################
+swagger: '2.0'
+basePath: "/api/v1"
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+- text/html
+- text/plain
+securityDefinitions:
+  Bearer:
+    description: "Verifies that the request carries a valid session token in the 'Authorization' header. The header value must follow the 'Bearer TOKEN' format. Apply this security to any endpoint that needs the user to be authenticated. The security schema takes no parameters. **Example:** `security: [Bearer: []]`"
+    type: apiKey
+    name: Authorization
+    in: header
+
+################################################################################
+paths:
+################################################################################
+  /auth/external:
+    x-swagger-router-controller: auth
+    post:
+      description: Obtain an authorization token in exchange for an OAUTH token from another authority.
+      operationId: authorizeWithExternal
+      parameters:
+        - $ref: "#/parameters/AuthRequest"
+      responses:
+        "200":
+          $ref: "#/responses/AuthData"
+  #-----------------------------------------------------------------------------
+  /datasets:
+    x-swagger-router-controller: datasets
+    get:
+      description: Fetch information about all the datasets offered by this server.
+      operationId: getManyDatasets
+      responses:
+        "200":
+          description: List of datasets.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Dataset"
+  #-----------------------------------------------------------------------------
+  /datasets/{id}:
+    x-swagger-router-controller: datasets
+    get:
+      description: Fetch information about a specific dataset, identified by its unique identifier.
+      operationId: getOneDataset
+      parameters:
+        - name: id
+          description: Dataset identifier.
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Individual dataset.
+          schema:
+            $ref: "#/definitions/Dataset"
+  #-----------------------------------------------------------------------------
+  /markers:
+    x-swagger-router-controller: markers
+    post:
+      description: Fetch location markers contained in a specific dataset, within a specific polygon, and for a certain zoom level.
+      operationId: getManyMarkers
+      parameters:
+        - name: query
+          in: body
+          required: true
+          schema:
+            type: object
+            required: [datasetId, zoom, polygon]
+            properties:
+              datasetId:
+                description: The unique identifier of the dataset that is to be queried for markers.
+                $ref: "#/definitions/DatasetId"
+              zoom:
+                description: The query will be performed only against this map zoom level.
+                $ref: "#/definitions/GeoZoom"
+              polygon:
+                description: An array of coordinates that describe a simple (non-intersecting) polygon. The query will return only markers found within the bounds of this polygon. Please note that the first and last points must be the same, and thus a minimum of 4 points are required to describe the simplest valid polygon (a triangle).
+                type: array
+                minItems: 4
+                items:
+                  $ref: "#/definitions/GeoPoint"
+      responses:
+        "200":
+          description: List of markers and clusters of markers.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Marker"
+    put:
+      description: Create a new marker in a certain dataset.
+      operationId: createMarker
+      parameters:
+        - name: query
+          in: body
+          required: true
+          schema:
+            type: object
+            required: [location]
+            properties:
+              datasetId:
+                $ref: "#/definitions/DatasetId"
+              location:
+                $ref: "#/definitions/GeoPoint"
+      responses:
+        "200":
+          description: The newly created marker.
+          schema:
+            $ref: "#/definitions/Marker"
+  #-----------------------------------------------------------------------------
+  /markers/{id}:
+    x-swagger-router-controller: markers
+    get:
+      description: Fetch information about a specific location marker or cluster.
+      operationId: getOneMarker
+      parameters:
+        - $ref: "#/parameters/MarkerId"
+      responses:
+        "200":
+          description: Individual marker or cluster.
+          schema:
+            $ref: "#/definitions/Marker"
+  #-----------------------------------------------------------------------------
+  /markers/{id}/images:
+    x-swagger-router-controller: markers
+    get:
+      description: Fetch the images associated with a specific marker.
+      operationId: getMarkerImages
+      parameters:
+        - $ref: "#/parameters/MarkerId"
+      responses:
+        "200":
+          description: List of images.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/MarkerImage"
+    put:
+      description: Create a new image and associate it with a specific marker.
+      operationId: createMarkerImage
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: "#/parameters/MarkerId"
+        - name: image
+          description: Image file.
+          in: formData
+          type: file
+          required: true
+      responses:
+        "200":
+          description: Properties of the newly created image.
+          schema:
+            $ref: "#/definitions/MarkerImage"
+################################################################################
+parameters:
+################################################################################
+  MarkerId:
+    description: Marker UUID.
+    name: id
+    in: path
+    required: true
+    type: string
+  AuthRequest:
+    description: Credentials used for authorization.
+    name: credentials
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [source, token]
+      properties:
+        source:
+          $ref: "#/definitions/AuthSource"
+        token:
+          $ref: "#/definitions/AuthToken"
+
+################################################################################
+responses:
+################################################################################
+  AuthData:
+    description: Contains authorization data.
+    schema:
+      type: object
+      required: [token]
+      properties:
+        token:
+          $ref: "#/definitions/AuthToken"
+################################################################################
+definitions:
+################################################################################
+  Marker:
+    description: A geographical location and assorted metadata.
+    type: object
+    required: [id, status, location]
+    properties:
+      id:
+        type: string
+        description: UUID that serves to uniquely identify this object.
+      location:
+        $ref: "#/definitions/GeoPoint"
+      cluster:
+        description: If not present, this object is a marker. If present, this object is a cluster and this property contains cluster-specific properties.
+        type: object
+        required: [count, zoom]
+        properties:
+          count:
+            type: number
+            format: int32
+            minimum: 1
+          zoom:
+            $ref: "#/definitions/GeoZoom"
+      status:
+        description: The current status of this marker. If it's a cluster, the status is determined by the majority of markers in it.
+        type: string
+        enum: [pending, active]
+  MarkerImage:
+    type: object
+    required: [id, url]
+    properties:
+      id:
+        description: Image UUID.
+        type: string
+      url:
+        description: Image URL.
+        type: string
+      #FIXME: thumbnail URL?
+  #-----------------------------------------------------------------------------
+  DatasetId:
+    type: string
+    description: UUID that serves to uniquely identify this dataset among any datasets anywhere.
+  Dataset:
+    description: A collection of data objects with a common internal structure.
+    type: object
+    required: [id, type, native]
+    properties:
+      id:
+        $ref: "#/definitions/DatasetId"
+      type:
+        description: The type of objects contained in this dataset.
+        type: string
+        enum:
+        - markers
+        - areas
+      native:
+        description: Whether the dataset is hosted natively on this server, and thus provides read/write operations, or is replicated from another server, and thus provides only read/only operations.
+        type: boolean
+      #FIXME: geographical info, so client can determine its relevance to a given location
+  #-----------------------------------------------------------------------------
+  GeoLongitude:
+    type: number
+    format: float
+    description: Geographical geodetic longitude, expressed in decimal degrees in
+      the range (-180, 180).
+    minimum: -180
+    exclusiveMinimum: true
+    maximum: 180
+    exclusiveMaximum: true
+  GeoLatitude:
+    type: number
+    format: float
+    description: Geographical geodetic latitude, expressed in decimal degrees in the
+      range (-90, 90).
+    minimum: -90
+    exclusiveMinimum: true
+    maximum: 90
+    exclusiveMaximum: true
+  GeoPoint:
+    type: object
+    description: A geographical point coordinate, expressed as latitude and longitude.
+    required: [latitude, longitude]
+    properties:
+      latitude:
+        $ref: "#/definitions/GeoLatitude"
+      longitude:
+        $ref: "#/definitions/GeoLongitude"
+  GeoZoom:
+    description: Map zoom level, expressed in discreet steps along a predefined scale.
+    type: number
+    format: int32
+    minimum: 1
+    maximum: 20
+  #-----------------------------------------------------------------------------
+  AuthSource:
+    type: string
+    enum: [facebook]
+  AuthToken:
+    type: string
+  #-----------------------------------------------------------------------------

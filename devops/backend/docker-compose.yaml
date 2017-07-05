@@ -1,0 +1,33 @@
+version: '2.1'
+services:
+    api:
+        volumes:
+            - "${ROOT_DIR}/backend-api:/src"
+            - "${ROOT_DIR}/module-lucius:/module-lucius"
+            - "${ROOT_DIR}/module-service-factory:/module-service-factory"
+        env_file:
+            - ${ROOT_DIR}/backend-api/container.env
+            - ./.env
+        ports:
+            - "50001:${API_PORT}"
+        links:
+            - auth
+        build:
+            context: .
+            dockerfile: Dockerfile-node
+        #environment:
+        #extends:
+            #service: api
+    auth:
+        volumes:
+            - "${ROOT_DIR}/backend-auth:/src"
+            - "${ROOT_DIR}/module-lucius:/module-lucius"
+            - "${ROOT_DIR}/module-service-factory:/module-service-factory"
+        env_file:
+            - ${ROOT_DIR}/backend-auth/container.env
+            - ./.env
+        ports:
+            - "50002:${AUTH_PORT}"
+        build:
+            context: .
+            dockerfile: Dockerfile-node

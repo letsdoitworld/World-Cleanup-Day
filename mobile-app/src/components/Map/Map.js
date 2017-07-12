@@ -19,7 +19,9 @@ class Map extends Component {
   };
 
   handleOnMarkerPress = index => {
-    this.props.onMarkerPress(index)
+    if(this.props.onMarkerPress) {
+      this.props.onMarkerPress(index);
+    }
   };
 
   onRegionChange = event => {
@@ -69,15 +71,16 @@ class Map extends Component {
   }
 
   render() {
+    const { circleProps, markers } = this.props;
     return (
       <MapView
-        ref={mapView => (this.mapView = mapView)}
+        ref={this.props.getRef}
         style={styles.container}
         onRegionChange={this.onRegionChange}
         provider="google"
         {...this.props}
       >
-        {this.props.markers.map((marker, index) => {
+        {markers.map((marker, index) => {
           return (
             <Marker
               marker={marker}
@@ -87,6 +90,14 @@ class Map extends Component {
             />
           );
         })}
+        {circleProps &&
+          <MapView.Circle
+            center={circleProps.center}
+            radius={circleProps.radius}
+            strokeWidth={circleProps.borderWidth}
+            strokeColor={circleProps.borderColor}
+            fillColor={circleProps.fillColor}
+          />}
       </MapView>
     );
   }
@@ -113,6 +124,17 @@ Map.propTypes = {
     longitudeDelta: PropTypes.number,
   }),
   onMarkerPress: PropTypes.func,
+  circleProps: PropTypes.shape({
+    radius: PropTypes.number.isRequired,
+    borderColor: PropTypes.string.isRequired,
+    fillColor: PropTypes.string.isRequired,
+    center: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+    }).isRequired,
+    borderWidth: PropTypes.number.isRequired,
+  }),
+  getRef: PropTypes.func
 };
 
 export default Map;

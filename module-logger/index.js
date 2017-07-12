@@ -1,22 +1,32 @@
 'use strict';
-
 const winston = require('winston');
 
-winston.addColors({
-    critical: 'magenta',
-    error: 'red',
-    warning: 'yellow',
-    info: 'green',
-    debug: 'cyan',
-});
+const LEVELS = [
+    {name: 'critical', color: 'magenta'},
+    {name: 'error', color: 'red'},
+    {name: 'warning', color: 'yellow'},
+    {name: 'info', color: 'green'},
+    {name: 'debug', color: 'cyan'},
+    {name: 'verbose', color: 'blue'},
+];
+
+winston.addColors(
+    LEVELS.reduce((prev, level, index) => {
+        prev[level.name] = level.color;
+        return prev;
+    }, {})
+);
 
 module.exports = new winston.Logger({
     transports: [
         new (winston.transports.Console)({
-            colorize: true, level: 'debug',
+            colorize: true,
+            level: process.env.LOG_LEVEL || 'debug',
+            'timestamp': true,
         }),
     ],
-    levels: {
-        critical: 0, error: 1, warning: 2, info: 3, debug: 4,
-    }
+    levels: LEVELS.reduce((prev, level, index) => {
+        prev[level.name] = index;
+        return prev;
+    }, {}),
 });

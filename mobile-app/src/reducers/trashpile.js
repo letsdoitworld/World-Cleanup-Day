@@ -16,10 +16,11 @@ const FETCH_TRASHPILE_GENERIC_TYPES_FAILURE =
   'FETCH_TRASHPILE_GENERIC_TYPES_FAILURE';
 
 const SET_PREVIEW_ADDRESS = 'trashpile/SET_PREVIEW_ADDRESS';
+const RESET_TRASHPILE_ADDRESS = 'RESET_TRASHPILE_ADDRESS';
 
 const INITIAL_STATE = {
   location: undefined,
-  address: { completeAddress: '', addressInfo: [] },
+  address: { completeAddress: '', addressInfo: [], country: '' },
   previewAddress: '',
   loading: false,
   types: [],
@@ -40,6 +41,8 @@ export default (state = { ...INITIAL_STATE }, action) => {
       return { ...state, previewAddress: action.payload };
     case FETCH_TRASHPILE_GENERIC_TYPES_SUCCESS:
       return { ...state, types: action.types };
+    case RESET_TRASHPILE_ADDRESS:
+      return { ...state, address: { ...INITIAL_STATE.address } };
     default:
       return state;
   }
@@ -140,12 +143,19 @@ const setTrashpileTypes = types => {
   };
 };
 
+const resetTrashpileAddress = () => {
+  return {
+    type: RESET_TRASHPILE_ADDRESS,
+  };
+};
+
 export const actions = {
   fetchTrashpileAddress,
   setFullLocation,
   fetchPreviewAddress,
   fetchTrashpileTypes,
   setTrashpileTypes,
+  resetTrashpileAddress,
 };
 
 // SELECTORS
@@ -161,6 +171,10 @@ const getPreviewAddress = state => {
   return state.previewAddress;
 };
 
+const getCountry = state => {
+  return getFullAddress(state).country;
+};
+
 const getTypes = state => state.types;
 
 export const selectors = {
@@ -168,4 +182,5 @@ export const selectors = {
   getFullAddress,
   getPreviewAddress,
   getTypes,
+  getCountry,
 };

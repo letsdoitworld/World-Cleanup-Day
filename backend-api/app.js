@@ -1,50 +1,34 @@
 'use strict';
 const express = require('express');
-const swaggerTools = require('swagger-tools');
-const yaml = require('yamljs');
+const yaml = require('js-yaml');
+const fs = require('fs');
 const apiService = require('module-service-factory')('api');
 const logger = require('module-logger');
+const swaggerInit = require('./modules/swagger-init');
 
-logger.info('Environment variables:', process.env);
-
-// swaggerRouter configuration
+// Configuration for the Swagger routers.
 const SWAGGER_ROUTER_OPTIONS = {
     controllers: './api/controllers',
+    ignoreMissingHandlers: true,
     // Conditionally turn on stubs (mock mode)
-    // useStubs: process.env.MOCK_API === 'true' ? true : false,
+    useStubs: process.env.MOCK_API === 'true',
 };
 
-// The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
+// Get the Swagger spec loaded as internal data object.
 const API_VERSION = process.env.API_VERSION || '1.0';
 const API_SPEC_FILE = `./api/v${API_VERSION}.yaml`;
-const swaggerDefinition = yaml.load(API_SPEC_FILE);
-logger.info(`Loaded specification from: ${API_SPEC_FILE}`)
+const swaggerDefinition = yaml.safeLoad(fs.readFileSync(API_SPEC_FILE, 'utf8'));
+logger.info(`API: Loaded specification from: ${API_SPEC_FILE}`)
 
-// Initialize the Swagger middleware
-swaggerTools.initializeMiddleware(swaggerDefinition, (swaggerMiddleware) => {
-    const app = express();
+// We use Express as the main transport.
+const app = express();
 
-    // Make Seneca available inside request handlers.
-    app.use((req, res, next) => {
-        req.seneca = apiService;
-        next();
-    });
-
-    // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
-    app.use(swaggerMiddleware.swaggerMetadata());
-
-    // Validate Swagger requests
-    app.use(swaggerMiddleware.swaggerValidator());
-
-    // Route validated requests to appropriate controller
-    app.use(swaggerMiddleware.swaggerRouter(SWAGGER_ROUTER_OPTIONS));
-
-    // Serve the Swagger documents and Swagger UI
-    app.use(swaggerMiddleware.swaggerUi());
-
-    // Start the server
+// Add Swagger capabilities to the transport app.
+swaggerInit.attachToConnectApp(swaggerDefinition, app, apiService, SWAGGER_ROUTER_OPTIONS)
+.then(appWithSwagger => {
+    // Start the server.
     const API_PORT = process.env.API_PORT || 80;
-    app.listen(API_PORT, '0.0.0.0', null, () => {
-        logger.info(`REST API is running on port ${API_PORT}.`);
+    appWithSwagger.listen(API_PORT, '0.0.0.0', null, () => {
+        logger.info(`API: running on port ${API_PORT}.`);
     });
 });

@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Image, Text } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { View, Image, Text, Modal } from 'react-native';
 
+import { compose } from 'recompose';
+
+import { withNavigationHelpers } from '../../services/Navigation';
+import { AlertModal } from '../../components/AlertModal';
 import { Map } from '../../components/Map';
 import { Button } from '../../components/Buttons';
-import { DEFAULT_ZOOM, MARKER_STATUSES, SCREEN_WIDTH } from '../../shared/constants';
+import {
+  DEFAULT_ZOOM,
+  MARKER_STATUSES,
+  EDIT_LOCATION_BOUND,
+} from '../../shared/constants';
+import { getDistanceBetweenPointsInMeters } from '../../shared/helpers';
 import { actions, selectors } from '../../reducers/trashpile';
 import styles from './styles';
+
+const MARKER_STATUS_IMAGES = {
+  regular: require('../../components/Map/images/pointer_regular.png'),
+  threat: require('../../components/Map/images/pointer_threat.png'),
+};
 
 class EditLocation extends Component {
   constructor(props) {
@@ -16,11 +29,33 @@ class EditLocation extends Component {
       containerWidth: 0,
       containerHeight: 0,
       trashpileCoordinates: props.markers[0].latlng,
+      showOutOfBondsModal: false,
+      initialLocation: {
+        latitude: props.initialRegion.latitude,
+        longitude: props.initialRegion.longitude,
+      },
+      disableButton: false,
+      loaded: false,
     };
   }
 
+  toggleModal = () => {
+    this.setState(
+      {
+        showOutOfBondsModal: !this.state.showOutOfBondsModal,
+      },
+      () => {
+        if (!this.state.showOutOfBondsModal) {
+          this.map.animateToRegion(this.props.initialRegion);
+        }
+      },
+    );
+  };
+
   componentWillMount() {
-    this.props.setLocation(this.state.trashpileCoordinates, { fetchAddress: true });
+    this.props.setLocation(this.state.trashpileCoordinates, {
+      fetchAddress: true,
+    });
   }
 
   handleOnLayout = ({ nativeEvent: { layout: { width, height } } }) => {
@@ -31,36 +66,86 @@ class EditLocation extends Component {
   };
 
   handleOnRegionChangeComplete = ({ latitude, longitude }) => {
-    this.setState({ trashpileCoordinates: { latitude, longitude } }, () =>
-      this.props.setAddress({ latitude, longitude }),
+    const { initialRegion } = this.props;
+    const distance = getDistanceBetweenPointsInMeters(
+      latitude,
+      longitude,
+      initialRegion.latitude,
+      initialRegion.longitude,
     );
+
+    const updatedState = {
+      trashpileCoordinates: { latitude, longitude },
+    };
+    if (this.state.loaded) {
+      updatedState.showOutOfBondsModal = distance > EDIT_LOCATION_BOUND;
+    } else {
+      updatedState.loaded = true;
+    }
+
+    this.setState(updatedState, () => {
+      if (distance < EDIT_LOCATION_BOUND) {
+        this.props.setAddress({ latitude, longitude });
+        this.setState({ disableButton: false });
+      }
+    });
+  };
+
+  handleOnRegionChange = () => {
+    if (!this.state.disableButton) {
+      this.setState({ disableButton: true });
+    }
   };
 
   handleSave = () => {
     this.props.setLocation(this.state.trashpileCoordinates);
-    // TODO update trashpoint with new coordinates
-    // { params: this.state.trashpileCoordinates }
     this.props.navigation.goBack();
   };
 
+  getCircleProps = ({ latitude, longitude }) => {
+    return {
+      center: {
+        latitude,
+        longitude,
+      },
+      borderColor: '#43619c',
+      fillColor: 'rgba(62,142,222,0.3)',
+      radius: EDIT_LOCATION_BOUND,
+      borderWidth: 1,
+    };
+  };
+
   render() {
-    const { markers, initialRegion, trashpileAddress } = this.props;
-    const { containerWidth, containerHeight } = this.state;
+    const {
+      markers,
+      initialRegion,
+      trashpileAddress,
+      navigation: { state: { params: { status = MARKER_STATUSES.REGULAR } } },
+    } = this.props;
+    const {
+      containerWidth,
+      containerHeight,
+      showOutOfBondsModal,
+      disableButton,
+    } = this.state;
 
     const imagePosition = {
-      top: containerHeight / 2 - 38,
-      left: (containerWidth - 28) / 2,
+      top: containerHeight / 2 - 49,
+      left: (containerWidth - 36) / 2,
     };
 
     return (
-      <View style={{ flex: 1, position: 'relative' }} onLayout={this.handleOnLayout}>
+      <View style={styles.container} onLayout={this.handleOnLayout}>
         <Map
           markers={markers}
           initialRegion={initialRegion}
           onRegionChangeComplete={this.handleOnRegionChangeComplete}
+          circleProps={this.getCircleProps(initialRegion)}
+          getRef={map => (this.map = map)}
+          onRegionChange={this.handleOnRegionChange}
         />
         <Image
-          source={require('../../components/Map/images/change_location_pin.png')}
+          source={MARKER_STATUS_IMAGES[status]}
           resizeMode="contain"
           style={[styles.image, imagePosition]}
         />
@@ -68,12 +153,20 @@ class EditLocation extends Component {
           <Text style={styles.addressLabel}>{trashpileAddress}</Text>
         </View>
         <Button
-          text="save"
-          customStyles={{
-            touchableContainer: { borderRadius: 0, width: SCREEN_WIDTH },
-          }}
+          text="Set trashpoint location"
           onPress={this.handleSave}
+          style={styles.saveButtonStyle}
+          disabled={disableButton}
         />
+        <Modal visible={showOutOfBondsModal} transparent animationType="fade">
+          <View style={styles.modalBackground}>
+            <AlertModal
+              headerText="Out of bounds"
+              text="Please place a point within 100 meters of your location."
+              buttons={[{ text: 'Ok, got it!', onPress: this.toggleModal }]}
+            />
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -114,4 +207,7 @@ const mapDispatchToProps = {
   setAddress: actions.fetchPreviewAddress,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditLocation);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withNavigationHelpers(),
+)(EditLocation);

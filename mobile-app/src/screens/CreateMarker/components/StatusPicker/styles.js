@@ -29,7 +29,8 @@ export default EStyleSheet.create({
   },
   option: {
     flex: -1,
-    marginLeft: getWidthPercentage(15),
+    marginLeft: getWidthPercentage(7),
+    marginRight: getWidthPercentage(7),
     alignItems: 'center',
   },
   image: {

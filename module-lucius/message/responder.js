@@ -10,8 +10,9 @@ const logger = require('module-logger');
  * @param {callback} next Provide the callback from a seneca.add() handler.
  * @param {callback} makeMessage Function that creates a Message object and optionally use an existing payload.
  * @param {callback} getFatalError Function that extracts exceptions wrapped in Seneca error responses.
+ * @param {string} pattern The pattern for the handler where this responder was used.
  */
-const Responder = function (next, makeMessage, getFatalError) {
+const Responder = function (next, makeMessage, getFatalError, pattern) {
 
     // Make next() available on this object.
     this.next = next;
@@ -23,7 +24,7 @@ const Responder = function (next, makeMessage, getFatalError) {
      * @returns {any} The callback output.
      */
     this.success = (payload = null) => {
-        logger.debug('Message success with payload:', payload);
+        logger.debug(`SENECA: Respond success to ${pattern} with payload ${payload}`);
         return next(null, makeMessage().setPayload(payload).export());
     };
     /**
@@ -34,7 +35,7 @@ const Responder = function (next, makeMessage, getFatalError) {
      * @returns {any} The callback output.
      */
     this.same = message => {
-        logger.debug('Message passthru:', message);
+        logger.debug(`SENECA: Respond passthru for ${pattern} with message ${message}`);
         return next(null, makeMessage(message).export());
     }
 
@@ -57,8 +58,8 @@ const Responder = function (next, makeMessage, getFatalError) {
         const M = makeMessage();
         errorSet.forEach(e => {
             M.setError(e);
-            logger.error(`${e.code}: ${e.message}`);
-            logger.debug(e);
+            logger.error(`SENECA: ${e.code}: ${e.message}`);
+            logger.debug('SENECA', e);
         }, this);
         return next(null, M.export());
     };
@@ -87,8 +88,8 @@ const Responder = function (next, makeMessage, getFatalError) {
                 e.code = oldCode;
             }
         }
-        logger.fatal(`${e.code}: ${e.message}`);
-        logger.debug(e);
+        logger.critical(`SENECA: ${e.code}: ${e.message}`);
+        logger.debug('SENECA', e);
         return next(e);
     };
 

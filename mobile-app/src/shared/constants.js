@@ -22,6 +22,7 @@ export const SIZE_20 = 20;
 export const SIZE_18 = 18;
 export const SIZE_24 = 24;
 export const DEFAULT_ZOOM = 0.002;
+export const EDIT_LOCATION_BOUND = 100; // meters
 export const MARKER_STATUSES = {
   CLEANED: 'cleaned',
   OUTDATED: 'outdated',

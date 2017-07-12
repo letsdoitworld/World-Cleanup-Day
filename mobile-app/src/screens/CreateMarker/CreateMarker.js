@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavigationActions } from 'react-navigation';
 import {
   StatusBar,
   View,
@@ -7,18 +8,20 @@ import {
   TextInput,
   TouchableHighlight,
   KeyboardAvoidingView,
+  Modal,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
+import { compose } from 'recompose';
+
+import { withNavigationHelpers } from '../../services/Navigation';
+import { withLoadingScreen } from '../../services/Loading';
 
 import CameraService from '../../services/Camera';
-import { selectors as userSelectors } from '../../reducers/user';
+import { selectors as userSelectors, actions as userActions } from '../../reducers/user';
 import { actions as mapActions } from '../../reducers/map';
-import {
-  actions as trashActions,
-  selectors as trashSelectors,
-} from '../../reducers/trashpile';
+import { actions as trashActions, selectors as trashSelectors } from '../../reducers/trashpile';
 import { Button } from '../../components/Buttons';
 import { LocationPicker } from './components/LocationPicker';
 import { StatusPicker } from './components/StatusPicker';
@@ -27,6 +30,8 @@ import { Divider } from '../../components/Divider';
 import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
 import { Tags } from '../../components/Tags';
 import { AmountPicker, AMOUNT_STATUSES } from '../../components/AmountPicker';
+import { CongratsModal } from './components/CongratsModal';
+import { AlertModal } from '../../components/AlertModal';
 import styles from './styles';
 
 const locationPropType = PropTypes.objectOf({
@@ -44,12 +49,13 @@ class CreateMarker extends Component {
     navigation: PropTypes.object.isRequired,
     setLocation: PropTypes.func.isRequired,
     createMarker: PropTypes.func.isRequired,
-    types: PropTypes.arrayOf(
-      PropTypes.shape({ text: PropTypes.string, selected: PropTypes.bool }),
-    ).isRequired,
+    types: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, selected: PropTypes.bool }))
+      .isRequired,
     location: locationPropType.isRequired,
     initialLocation: locationPropType.isRequired,
     address: PropTypes.string.isRequired,
+    congratsShown: PropTypes.bool.isRequired,
+    markCongratsShown: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -57,11 +63,12 @@ class CreateMarker extends Component {
 
     const { navigation: { state: { params } }, types } = props;
 
-    let state = {
+    const state = {
       photos: [],
       temporaryHashtag: '',
       amount: AMOUNT_STATUSES.handful,
-      status: 'regular'
+      status: 'regular',
+      congratsShown: false,
     };
 
     if (params) {
@@ -72,20 +79,38 @@ class CreateMarker extends Component {
     state.types = types;
     state.hashtags = [];
     this.state = state;
+
+    this.closeValidationButton = {
+      text: 'OK, got it!',
+      onPress: this.hideValidation,
+    };
   }
 
+  showValidation = (text) => {
+    this.setState({
+      validation: true,
+      validationText: text,
+    });
+  };
+  hideValidation = () => {
+    this.setState({
+      validation: false,
+    });
+  };
   componentWillMount() {
     const { setLocation, initialLocation } = this.props;
     setLocation(initialLocation);
   }
 
   handleEditLocationPress = () => {
-    this.props.navigation.navigate('EditLocation');
+    this.props.navigation.navigate('EditLocation', {
+      status: this.state.status,
+    });
   };
 
   handlePhotoAdd = () => {
     CameraService.takePhotoAsync()
-      .then(response => {
+      .then((response) => {
         if (!response) {
           return;
         }
@@ -100,7 +125,7 @@ class CreateMarker extends Component {
       .catch(() => {});
   };
 
-  handlePhotoDelete = index => {
+  handlePhotoDelete = (index) => {
     const { photos } = this.state;
     photos.splice(index, 1);
     this.setState({
@@ -121,18 +146,31 @@ class CreateMarker extends Component {
 
   handleHashtagDelete = index => () => {
     this.setState({
-      hashtags: [
-        ...this.state.hashtags.slice(0, index),
-        ...this.state.hashtags.slice(index + 1),
-      ],
+      hashtags: [...this.state.hashtags.slice(0, index), ...this.state.hashtags.slice(index + 1)],
     });
   };
+
+  validate() {
+    const { photos, types } = this.state;
+    if (!photos || photos.length === 0 || !types.find(type => type.selected)) {
+      this.showValidation(
+        "It's more useful for us if you to take at least one picture of the trashpoint and set it's trash type.",
+      );
+      return false;
+    }
+    return true;
+  }
 
   handleTrashpointCreate = () => {
     const { createMarker, location, navigation } = this.props;
     const { photos, types, hashtags, status = 'threat', amount } = this.state;
     const typeTexts = types.filter(t => t.selected).map(t => t.text);
     const hashtagsTexts = hashtags.map(t => t.text);
+
+    const valid = this.validate();
+    if (!valid) {
+      return;
+    }
 
     createMarker({
       latlng: location,
@@ -143,10 +181,16 @@ class CreateMarker extends Component {
       types: [...typeTexts, ...hashtagsTexts],
       amount: AMOUNT_STATUSES[amount],
     });
-    navigation.navigate('Tabs');
+    navigation.dispatch(
+      NavigationActions.reset({
+        index: 0,
+        key: null,
+        actions: [NavigationActions.navigate({ routeName: 'Tabs' })],
+      }),
+    );
   };
 
-  handleStatusChanged = status => {
+  handleStatusChanged = (status) => {
     this.setState({
       status,
     });
@@ -159,7 +203,7 @@ class CreateMarker extends Component {
       return;
     }
 
-    let text = temporaryHashtag.replace(/[^a-z0-9]+/gi, ' ');
+    let text = temporaryHashtag.replace(/[^0-9a-z]/gi, '');
 
     if (!text) {
       return;
@@ -167,9 +211,7 @@ class CreateMarker extends Component {
 
     text = `#${text}`;
 
-    const hashtagAlreadyExists = hashtags.find(
-      hashtag => hashtag.text === text,
-    );
+    const hashtagAlreadyExists = hashtags.find(hashtag => hashtag.text === text);
 
     if (hashtagAlreadyExists) {
       return this.setState({
@@ -183,29 +225,57 @@ class CreateMarker extends Component {
     });
   };
 
-  handleChangeHashtagText = text => {
+  handleChangeHashtagText = (text) => {
     this.setState({ temporaryHashtag: text });
   };
 
-  handleAmountSelect = amount => {
+  handleAmountSelect = (amount) => {
     this.setState({
       amount: AMOUNT_STATUSES[amount],
     });
   };
 
+  markCongratsShown = () => {
+    this.setState({
+      congratsShown: true,
+    });
+  };
+
   render() {
     const { location, initialLocation, address } = this.props;
-    const { photos, types, status, hashtags, temporaryHashtag,
-            amount = 0, } = this.state;
+    const {
+      photos,
+      types,
+      status,
+      hashtags,
+      temporaryHashtag,
+      amount = 0,
+      validation = false,
+      validationText,
+      congratsShown,
+    } = this.state;
     const addHashtagTextStyle = {};
     if (hashtags.length === MAX_HASHTAGS_NO) {
       addHashtagTextStyle.color = '#F1F1F1';
+    }
+    if (!congratsShown) {
+      return <CongratsModal onContinuePress={this.markCongratsShown} />;
     }
 
     return (
       <KeyboardAvoidingView behavior="position">
         <ScrollView style={{ backgroundColor: '#eeeeee' }}>
           <StatusBar translucent barStyle="default" />
+          {validation &&
+            <Modal animationType="fade" visible transparent>
+              <View style={styles.modalBackground}>
+                <AlertModal
+                  headerText="Save trashpoint"
+                  text={validationText}
+                  buttons={[this.closeValidationButton]}
+                />
+              </View>
+            </Modal>}
           <LocationPicker
             onEditLocationPress={this.handleEditLocationPress}
             value={location || initialLocation}
@@ -221,43 +291,39 @@ class CreateMarker extends Component {
               maxPhotos={3}
               photos={photos}
               onDeletePress={this.handlePhotoDelete}
-              onAddPress={this.handlePhotoAdd}/>
-        </View>
-        <Divider />
-        <View style={{ padding: getWidthPercentage(20) }}>
-          <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
-            Select trash amount
-          </Text>
-          <AmountPicker amount={amount} onSelect={this.handleAmountSelect} />
-          <View
-            style={{
-              paddingTop: getHeightPercentage(20),
-              alignItems: 'center',
-            }}
-          >
-            <Text
+              onAddPress={this.handlePhotoAdd}
+            />
+          </View>
+          <Divider />
+          <View style={{ padding: getWidthPercentage(20) }}>
+            <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
+              Select trash amount
+            </Text>
+            <AmountPicker amount={amount} onSelect={this.handleAmountSelect} />
+            <View
               style={{
-                color: '#3E8EDE',
-                fontFamily: 'noto-sans-bold',
-                fontSize: 13,
+                paddingTop: getHeightPercentage(20),
+                alignItems: 'center',
               }}
             >
-              {AMOUNT_STATUSES[amount].toUpperCase()}
-            </Text>
+              <Text
+                style={{
+                  color: '#3E8EDE',
+                  fontFamily: 'noto-sans-bold',
+                  fontSize: 13,
+                }}
+              >
+                {AMOUNT_STATUSES[amount].toUpperCase()}
+              </Text>
+            </View>
           </View>
-        </View>
-        <Divider />
+          <Divider />
           <View style={styles.tagsContainer}>
             <Text style={styles.trashtypesText}>
               Select trash type
             </Text>
             <Tags tags={types} onTagSelect={this.handleTypeSelect} />
-            <Text
-              style={[
-                styles.trashtypesText,
-                { marginTop: getHeightPercentage(15) },
-              ]}
-            >
+            <Text style={[styles.trashtypesText, { marginTop: getHeightPercentage(15) }]}>
               Additional added tags
             </Text>
             <Tags tags={hashtags} onTagDelete={this.handleHashtagDelete} />
@@ -265,30 +331,13 @@ class CreateMarker extends Component {
               <TextInput
                 style={styles.hashtagInput}
                 placeholderStyle={styles.hashtagInputPlaceholder}
-                placeholder="ie. #cocacola, #cans"
+                placeholder="ie. #brandname, #cans"
                 onChangeText={this.handleChangeHashtagText}
                 value={temporaryHashtag}
                 underlineColorAndroid="transparent"
                 maxLength={25}
                 onSubmitEditing={this.handleAddHahstag}
               />
-              <TouchableHighlight
-                onPress={this.handleAddHahstag}
-                style={styles.addTagTouchable}
-                underlayColor="transparent"
-                activeOpacity={1}
-              >
-                <View style={styles.addTagContainer}>
-                  <LinearGradient
-                    style={styles.addTagGradient}
-                    colors={GRADIENT_COLORS}
-                  >
-                    <Text style={[styles.addTagText, addHashtagTextStyle]}>
-                      Add tag
-                    </Text>
-                  </LinearGradient>
-                </View>
-              </TouchableHighlight>
             </View>
           </View>
           <Divider />
@@ -305,16 +354,9 @@ class CreateMarker extends Component {
               zone or something else?
             </Text>
             <View style={styles.containerBtnNote}>
-              <TouchableHighlight
-                onPress={() => {}}
-                underlayColor="transparent"
-                activeOpacity={1}
-              >
+              <TouchableHighlight onPress={() => {}} underlayColor="transparent" activeOpacity={1}>
                 <View style={[styles.addTagContainer]}>
-                  <LinearGradient
-                    style={styles.addReportLinearGradient}
-                    colors={GRADIENT_COLORS}
-                  >
+                  <LinearGradient style={styles.addReportLinearGradient} colors={GRADIENT_COLORS}>
                     <Text style={styles.addTagText}>
                       Leave a note
                     </Text>
@@ -342,9 +384,7 @@ const mapStateToProps = ({ user, trashpile }) => {
     initialLocation: userSelectors.getLocation(user),
     location: trashSelectors.getLocation(trashpile),
     address: trashSelectors.getFullAddress(trashpile),
-    types: trashSelectors
-      .getTypes(trashpile)
-      .map(text => ({ text, selected: false })),
+    types: trashSelectors.getTypes(trashpile).map(text => ({ text, selected: false })),
   };
   return props;
 };
@@ -355,4 +395,8 @@ const mapDispatch = {
   fetchTrashpileAddress: trashActions.fetchTrashpileAddress,
 };
 
-export default connect(mapStateToProps, mapDispatch)(CreateMarker);
+export default compose(
+  connect(mapStateToProps, mapDispatch),
+  withNavigationHelpers(),
+  withLoadingScreen(),
+)(CreateMarker);

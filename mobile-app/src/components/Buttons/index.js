@@ -1,5 +1,6 @@
 import SimpleButton from './SimpleButton';
-import styles from './styles';
+import ImageButton from './ImageButton';
+import Button from './Button';
 
-export { default as Button } from './Button';
-export { SimpleButton, styles };
+export { SimpleButton, ImageButton, Button};
+

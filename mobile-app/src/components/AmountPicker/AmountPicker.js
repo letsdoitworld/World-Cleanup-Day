@@ -57,7 +57,7 @@ class AmountPicker extends Component {
       { selected: false, flexStyle: 0.125 },
       { selected: false, flexStyle: 0.375 },
       { selected: false, flexStyle: 0.625 },
-      { selected: false, flexStyle: 0.875 },
+      { selected: false, flexStyle: 1.0 },
     ];
 
     let initialAmount = props.amount !== undefined ? props.amount : 0;
@@ -153,13 +153,14 @@ class AmountPicker extends Component {
               ]}
             />
             <View style={{ flex: 1 - sliderFlexAmount }} />
-            {!disabled &&
-              <View
-                style={[styles.sliderButton, { left: sliderLocation -  BUTTON_MIDDLE_SIZE}]}
-              >
-                <View style={styles.insideSliderButton} />
-              </View>}
+
           </View>
+          {!disabled &&
+          <View
+            style={[styles.sliderButton, { left: sliderLocation -  BUTTON_MIDDLE_SIZE}]}
+          >
+            <View style={styles.insideSliderButton} />
+          </View>}
         </View>
       </TouchableWithoutFeedback>
     );

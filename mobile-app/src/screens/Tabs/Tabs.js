@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import Camera from '../../services/Camera';
 
 import IconIO from '@expo/vector-icons/Ionicons';
 import EStyleSheet from 'react-native-extended-stylesheet';
+
+import { compose } from 'recompose';
+
+import { withNavigationHelpers } from '../../services/Navigation';
+import Camera from '../../services/Camera';
 
 import { BottomTabs } from '../../components/Tabs';
 import { getHeightPercentage } from '../../shared/helpers';
@@ -15,8 +19,15 @@ import { actions as mapActions } from '../../reducers/map';
 import { actions as userActions } from '../../reducers/user';
 
 import styles from './styles';
+import {
+  WHITE_COLOR,
+  SIZE_16,
+  SIZE_20,
+  SIZE_18,
+  SIZE_24,
+} from '../../shared/constants';
 
-import { WHITE_COLOR, SIZE_16, SIZE_20, SIZE_18, SIZE_24 } from '../../shared/constants';
+const CIRCLE_ICON_SIZE = getHeightPercentage(24);
 
 const appStyles = EStyleSheet.create({
   container: {
@@ -31,6 +42,10 @@ class Tabs extends Component {
     this.state = {
       activeIndex: 0,
     };
+
+    // this.dispatchNavigate = _.debounce(this.dispatchNavigate, 1000, {
+    //   leading: true, trailing: false,
+    // });
   }
 
   componentDidMount() {
@@ -41,6 +56,9 @@ class Tabs extends Component {
   }
 
   dispatchNavigate = (routeName, { params, activeIndex }) => {
+    if (this.state.activeIndex === activeIndex) {
+      return;
+    }
     this.tabs.dispatch(NavigationActions.navigate({ routeName, params }));
     this.setState({ activeIndex });
   };
@@ -106,27 +124,32 @@ class Tabs extends Component {
                 onRequestClose={this.handleOnClosePopover}
               >
                 <View style={styles.containerPopover}>
+                  <View
+                    style={styles.imageContainer}
+                  >
+                    <Image
+                      source={require('../../assets/images/img.png')}
+                      style={styles.popoverImageStyles}
+                    />
+                  </View>
                   <View style={styles.textWrapperPopover}>
                     <Text style={styles.titlePopover}>
-                      Create a trashpoint
+                      {this.props.popoverMessage}
                     </Text>
                     <Text style={styles.descriptionPopover}>
-                      Adding a trashpoint is the name of the game. Add more
-                      trashpoints to reach a higher level.
+                      Start creating trashpoints to make your community cleaner
+                      and healthier.
                     </Text>
                   </View>
                   <View style={styles.buttonPopover}>
-                    <SimpleButton
-                      onPress={this.handleClosePopover}
-                      text="Ok, got it!"
-                    />
+                    <SimpleButton onPress={this.handleClosePopover} text="Ok, got it!" />
                   </View>
                 </View>
               </Popover>}
             <View style={styles.containerAddPileButton}>
               <IconIO
                 name={'ios-add-circle-outline'}
-                size={getHeightPercentage(24)}
+                size={CIRCLE_ICON_SIZE}
                 color={WHITE_COLOR}
               />
             </View>
@@ -197,10 +220,13 @@ class Tabs extends Component {
   }
 }
 
-const mapStateToProps = ({ map: { showPopover, homePopoverDisplays } }) => {
+const mapStateToProps = ({
+  map: { showPopover, homePopoverDisplays, popoverMessage },
+}) => {
   return {
     showPopover,
     homePopoverDisplays,
+    popoverMessage
   };
 };
 
@@ -209,4 +235,4 @@ const mapDispatchToProps = {
   setCachedLocation: userActions.setCachedLocation,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tabs);
+export default compose(connect(mapStateToProps, mapDispatchToProps), withNavigationHelpers())(Tabs);

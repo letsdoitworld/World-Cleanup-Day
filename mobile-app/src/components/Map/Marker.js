@@ -41,7 +41,6 @@ const Marker = ({ marker, onMarkerPress, index }) => {
     <MapView.Marker
       coordinate={marker.latlng}
       onPress={() => onMarkerPress(index)}
-      centerOffset={pointOffset}
       style={!marker.isTrashPile ? { zIndex: 2 } : null}
       image={MARKER_STATUS_IMAGES[marker.status]}
     >

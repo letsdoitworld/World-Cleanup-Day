@@ -2,10 +2,10 @@
 const {Lucius} = require('module-lucius');
 
 module.exports = {
-    authorizeWithExternal: function (req, res, next) {
+    externalLogin: function (req, res, next) {
         return Lucius.connectHandle(
             req, res, next,
-            'role:auth,cmd:authorizeWithExternal',
+            'role:auth,cmd:externalLogin',
             req.swagger.params.credentials.value
         );
     },

@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import { View, Modal, Animated, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import IconIO from '@expo/vector-icons/Ionicons';
 
 import styles from './styles';
 import { SCREEN_WIDTH } from '../../shared/constants';
+import {
+  isAndroid,
+  getHeightPercentage,
+  getWidthPercentage,
+} from '../../shared/helpers';
+import { WHITE_COLOR } from '../../shared/constants';
+
+const CIRCLE_OUTLINE_SIZE = getHeightPercentage(24);
+const POPOVER_TOP_POSITION = getHeightPercentage(isAndroid() ? 73 : 50);
 
 class PopoverTooltip extends Component {
   constructor(props) {
@@ -65,8 +75,6 @@ class PopoverTooltip extends Component {
     let tooltip_container_height = nativeEvent.layout.height;
     const { tooltip_container_scale, will_popup } = this.state;
 
-    const topC = 10;
-
     if (
       will_popup &&
       tooltip_container_width > 0 &&
@@ -79,11 +87,12 @@ class PopoverTooltip extends Component {
           SCREEN_WIDTH
           ? SCREEN_WIDTH - tooltip_container_width
           : pageX + (width - tooltip_container_width) / 2;
-        let tooltip_container_y_final = pageY - tooltip_container_height - topC;
+        let tooltip_container_y_final =
+          pageY - tooltip_container_height - POPOVER_TOP_POSITION;
         let tooltip_triangle_down = true;
 
-        if (pageY - tooltip_container_height - topC < 0) {
-          tooltip_container_y_final = pageY + height + topC;
+        if (pageY - tooltip_container_height - POPOVER_TOP_POSITION < 0) {
+          tooltip_container_y_final = pageY + height + POPOVER_TOP_POSITION;
           tooltip_triangle_down = false;
         }
 
@@ -95,13 +104,18 @@ class PopoverTooltip extends Component {
         let tooltip_container_y = tooltip_container_scale.interpolate({
           inputRange: [0, 1],
           outputRange: [
-            tooltip_container_y_final + tooltip_container_height / 2 + topC,
+            tooltip_container_y_final +
+              tooltip_container_height / 2 +
+              POPOVER_TOP_POSITION,
             tooltip_container_y_final,
           ],
         });
 
         let tooltip_triangle_left_margin =
-          pageX + width / 2 - tooltip_container_x_final - 10;
+          pageX +
+          width / 2 -
+          tooltip_container_x_final -
+          getWidthPercentage(10);
 
         this.setState(
           {
@@ -191,6 +205,8 @@ class PopoverTooltip extends Component {
       tooltip_container_y,
     } = this.state;
 
+    let buttonStyles = {};
+
     return (
       <TouchableOpacity
         ref={component => (this._component_wrapper = component)}
@@ -227,13 +243,6 @@ class PopoverTooltip extends Component {
                     },
                   ]}
                 >
-                  {!tooltip_triangle_down &&
-                    <View
-                      style={[
-                        styles.triangle_up,
-                        { marginLeft: tooltip_triangle_left_margin },
-                      ]}
-                    />}
                   <View style={styles.contentWrapper}>
                     {children}
                   </View>
@@ -246,6 +255,15 @@ class PopoverTooltip extends Component {
                     />}
                 </View>
               </Animated.View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.toggle}>
+              <View style={styles.highlightedButtonStyles}>
+                <IconIO
+                  name={'ios-add-circle-outline'}
+                  size={CIRCLE_OUTLINE_SIZE}
+                  color={WHITE_COLOR}
+                />
+              </View>
             </TouchableOpacity>
           </Animated.View>
         </Modal>

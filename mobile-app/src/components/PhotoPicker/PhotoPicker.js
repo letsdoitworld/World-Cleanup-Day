@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Image, View, Text, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { ConfirmDelete } from './components/ConfirmDelete';
+import { AlertModal } from '../AlertModal';
 
 import styles from './styles';
 
@@ -35,6 +35,18 @@ class Photo extends React.Component {
     this.state = {
       showingConfirm: false,
     };
+
+    this.buttons = [
+      {
+        text: 'Cancel',
+        onPress: this.handleModalClosed,
+      },
+      {
+        text: 'Delete',
+        onPress: this.handleModalConfirmed,
+        style: styles.deleteButton,
+      },
+    ];
   }
   setConfirmState = (showingConfirm) => {
     this.setState({
@@ -65,9 +77,10 @@ class Photo extends React.Component {
           </TouchableOpacity>}
         <Modal visible={showingConfirm} transparent animationType="fade">
           <View style={styles.modalBackground}>
-            <ConfirmDelete
-              onCancel={this.handleModalClosed}
-              onConfirm={this.handleModalConfirmed}
+            <AlertModal
+              buttons={this.buttons}
+              headerText="Delete photo"
+              text="Are you sure you want to delete the photo? You cannot undo this."
             />
           </View>
 
@@ -84,14 +97,14 @@ Photo.propTypes = {
   onPress: PropTypes.func,
 };
 
-const PhotoPicker = ({ photos, onDeletePress, onAddPress, maxPhotos = undefined }) => {
+const PhotoPicker = ({ photos, onDeletePress, onAddPress, maxPhotos = undefined, title = 'Add trash photos'}) => {
   const hasAdd = !!onAddPress;
   const hasDelete = !!onDeletePress;
   const couldAddMorePhotos = maxPhotos && photos.length < maxPhotos;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add trash photos</Text>
+      <Text style={styles.title}>{title}</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

@@ -6,6 +6,8 @@ export default EStyleSheet.create({
   container: {
     marginTop: getHeightPercentage(20),
     width: getWidthPercentage(280),
+    position: 'relative',
+    paddingBottom: getHeightPercentage(10),
   },
   containerImages: {
     flexDirection: 'row',
@@ -33,9 +35,9 @@ export default EStyleSheet.create({
     height: getWidthPercentage(22),
     borderRadius: getWidthPercentage(11),
     backgroundColor: '#FFFFFF',
-    top: getHeightPercentage(-5.5),
     justifyContent: 'center',
     alignItems: 'center',
+    top: getHeightPercentage(42),
   },
   insideSliderButton: {
     backgroundColor: '#4AA5FF',

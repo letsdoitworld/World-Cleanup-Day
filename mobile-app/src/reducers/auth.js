@@ -1,4 +1,4 @@
-import { fetchNetworkTokenAsync, SOCIAL_NETWORKS, TokenFetchException } from '../services/Login';
+import { fetchNetworkTokenAsync, SOCIAL_NETWORKS } from '../services/Login';
 
 const SET_TOKEN = 'auth/SET_TOKEN';
 const SET_TOKEN_ERROR = 'auth/SET_TOKEN_ERROR';

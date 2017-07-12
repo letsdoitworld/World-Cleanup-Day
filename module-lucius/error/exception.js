@@ -18,6 +18,6 @@ module.exports = {
         // XXX: This is the right place to attach the stack to the error, because
         // this function is executed every time someone does `new MyError()`, so
         // the stack will cover the place where `new` happens (as well as this line).
-        this.stack = (new Error()).stack;
+        this.stack = (new Error(this.message)).stack;
     }),
 };

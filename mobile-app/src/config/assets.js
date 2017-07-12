@@ -95,9 +95,24 @@ export const images = [
   require('../components/AmountPicker/images/icon_truck_grey_fill.png'),
   require('../components/AmountPicker/images/icon_truck_grey_fill@2x.png'),
   require('../components/AmountPicker/images/icon_truck_grey_fill@3x.png'),
-
+  require('../assets/images/img.png'),
+  require('../assets/images/img@2x.png'),
+  require('../assets/images/img@3x.png'),
+  require('../assets/images/icon_notification_warning.png'),
+  require('../assets/images/icon_notification_warning@2x.png'),
+  require('../assets/images/icon_notification_warning@3x.png'),
+  require('../components/Header/images/icon_menu_arrowback.png'),
+  require('../components/Header/images/icon_menu_arrowback@2x.png'),
+  require('../components/Header/images/icon_menu_arrowback@3x.png'),
+  require('../components/Header/images/settings.png'),
+  require('../components/Header/images/settings@2x.png'),
+  require('../components/Header/images/settings@3x.png'),
+  require('../screens/CreateMarker/components/CongratsModal/images/image.png'),
+  require('../assets/images/icon_location.png'),
+  require('../assets/images/icon_location@2x.png'),
+  require('../assets/images/icon_location@3x.png'),
 ];
-export const fonts = [
-  { 'noto-sans-bold': require('../assets/fonts/NotoSans-Bold.ttf') },
-  { 'noto-sans-regular': require('../assets/fonts/NotoSans-Regular.ttf') },
-];
+export const fonts = {
+  'noto-sans-bold': require('../assets/fonts/NotoSans-Bold.ttf'),
+  'noto-sans-regular': require('../assets/fonts/NotoSans-Regular.ttf'),
+};

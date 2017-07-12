@@ -21,11 +21,18 @@ const styles = EStyleSheet.create({
     fontFamily: 'noto-sans-bold',
     fontSize: 13,
   },
+    disabledText:{
+      color:'#808080'
+    },
+    disabledBackground:{
+      backgroundColor:'$grey'
+    }
 });
 
-const Button = ({ style, text, onPress, customStyles }) => {
+const Button = ({ style, text, onPress, customStyles, disabled }) => {
   const touchableStyles = [styles.container];
   const textStyles = [styles.text];
+  let handleOnPress = onPress;
   if (_.has(customStyles, 'touchableContainer')) {
     touchableStyles.push(customStyles.touchableContainer);
   }
@@ -34,9 +41,15 @@ const Button = ({ style, text, onPress, customStyles }) => {
     textStyles.push(customStyles.text);
   }
 
+  if(disabled){
+    touchableStyles.push(styles.disabledBackground);
+    textStyles.push(styles.disabledText);
+    handleOnPress = _.noop;
+  }
+
   return (
     <View style={style}>
-      <TouchableOpacity style={touchableStyles} onPress={onPress}>
+      <TouchableOpacity style={touchableStyles} onPress={handleOnPress}>
         <Text style={textStyles}>{text}</Text>
       </TouchableOpacity>
     </View>
@@ -46,9 +59,7 @@ Button.defaultProps = {
   style: {},
 };
 
-const stylePropType = [PropTypes.object, PropTypes.number];
 Button.propTypes = {
-  style: PropTypes.oneOf([PropTypes.arrayOf(stylePropType), ...stylePropType]),
   text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
 };

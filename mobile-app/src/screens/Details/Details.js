@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import { Map } from '../../components/Map';
 import { SimpleButton } from '../../components/Buttons';
 import { getHeightPercentage, getWidthPercentage } from '../../shared/helpers';
-import { SCREEN_WIDTH } from '../../shared/constants';
+import { withLoadingScreen } from '../../services/Loading';
+import { SCREEN_WIDTH, DEFAULT_ZOOM } from '../../shared/constants';
 import { fetchTrashpileAddress as fetchTrashpileAddressAction } from '../../reducers/trashpile';
 import styles from './styles';
 import { PhotoPicker } from '../../components/PhotoPicker';
@@ -39,7 +41,7 @@ class Details extends Component {
     const isThreat = marker.status === 'threat';
     const latitude = marker.latlng.latitude;
     const longitude = marker.latlng.longitude;
-    const latitudeDelta = 0.0922;
+    const latitudeDelta = DEFAULT_ZOOM;
     const mapHeight = getHeightPercentage(160);
     const longitudeDelta = latitudeDelta * SCREEN_WIDTH / mapHeight;
 
@@ -65,14 +67,9 @@ class Details extends Component {
           <Text style={styles.streetContainer}>
             {`${streetAddress} ${streetNumber}`}
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: getHeightPercentage(5),
-            }}
-          >
+          <View style={styles.completeAddressContainer}>
             <Image
-              source={require('../../assets/images/icon_menu_map.png')}
+              source={require('../../assets/images/icon_location.png')}
               style={styles.locationImage}
             />
             <Text style={styles.addressContainer}>
@@ -81,53 +78,70 @@ class Details extends Component {
               )}, ${longitude.toFixed(6)}`}
             </Text>
           </View>
-          <Divider />
+          <Divider customStyles={{ backgroundColor: '#D9D9D9' }} />
           {isThreat &&
-            <View style={styles.imageContainer}>
+            <View
+              style={[
+                styles.imageContainer,
+                { paddingTop: getHeightPercentage(15) },
+              ]}
+            >
               <Image
                 source={require('./images/icon_status_small_threat.png')}
                 style={styles.threatImage}
+                resizeMode="contain"
               />
               <Text style={styles.threatText}>
                 This point is a threat!
               </Text>
             </View>}
-          <View style={styles.imageContainer}>
+          <View style={[styles.imageContainer,{paddingTop: !isThreat ? getHeightPercentage(15) : 0}]}>
             <Image
               source={require('./images/icon_creation.png')}
               style={styles.creationImage}
+              resizeMode="contain"
             />
-            <Text style={styles.createdText}>
+            <Text style={[styles.createdText,{width:getWidthPercentage(60)}]}>
               Created
             </Text>
-            <Text style={styles.dateCreatedText}>
-              13.02.2017 by Shirley Gonzales
-            </Text>
+            <View>
+              <Text style={styles.dateCreatedText}>
+                13.02.2017 by Shirley Gonzales
+              </Text>
+            </View>
           </View>
           <View style={styles.imageContainer}>
             <Image
               source={require('./images/icon_updated.png')}
               style={styles.updateImage}
+              resizeMode="contain"
             />
-            <Text style={styles.updatedText}>
-              Updatedd
+            <Text style={[styles.updatedText, {width: getWidthPercentage(60)}]}>
+              Updated
             </Text>
-            <Text style={styles.dateUpdatedText}>
-              03.04.2017 by Uzeyir Ismayilzada
-            </Text>
+            <View>
+              <Text style={styles.dateUpdatedText}>
+                03.04.2017 by Uzeyir Ismayilzada
+              </Text>
+            </View>
           </View>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
               marginTop: getHeightPercentage(2),
+              paddingLeft: getWidthPercentage(20),
             }}
           >
             <SimpleButton text="View full history" />
           </View>
         </View>
         <View>
-          <PhotoPicker maxPhotos={3} photos={marker.photos} />
+          <PhotoPicker
+            maxPhotos={3}
+            photos={marker.photos}
+            title="Trash photos"
+          />
         </View>
         <Divider />
         <View style={{ padding: getWidthPercentage(20) }}>
@@ -194,4 +208,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Details);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withLoadingScreen(),
+)(Details);

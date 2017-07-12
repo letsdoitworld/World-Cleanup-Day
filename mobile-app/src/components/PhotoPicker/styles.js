@@ -12,7 +12,7 @@ export default EStyleSheet.create({
     marginLeft: getWidthPercentage(20),
     fontFamily: 'noto-sans-bold',
     fontSize: 16,
-    color: '#2B2B2B',
+    color: '$textColor',
   },
   photoContainer: {
     flexDirection: 'row',
@@ -54,5 +54,8 @@ export default EStyleSheet.create({
   modalBackground: {
     backgroundColor: 'rgba(0,0,0,0.7)',
     flex: 1,
+  },
+  deleteButton: {
+    color: '$red',
   },
 });

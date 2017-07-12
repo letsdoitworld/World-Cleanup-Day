@@ -4,8 +4,8 @@ import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 
 import styles from './styles';
 
-const options = [
-  {
+export const options = {
+  threat: {
     id: 'threat',
     label: 'THREAT',
     image: require('./images/default-status-threat.png'),
@@ -13,14 +13,14 @@ const options = [
 
     color: '#fc515e',
   },
-  {
+  regular: {
     id: 'regular',
     label: 'REGULAR',
     image: require('./images/default-status-regular.png'),
     selectedImage: require('./images/selected-status-regular.png'),
     color: '#ff7a00',
   },
-];
+};
 
 const StatusPicker = ({ value, onChange }) => {
   return (
@@ -32,14 +32,13 @@ const StatusPicker = ({ value, onChange }) => {
         If a quick action is needed (toxic, heavy metals), please set as threat.
       </Text>
       <View style={styles.optionsContainer}>
-        {options.map((option) => {
+        {Object.values(options).map((option) => {
           const isSelected = value === option.id;
           const onImagePress = () => onChange(option.id);
           return (
-            <TouchableWithoutFeedback onPress={onImagePress}>
+            <TouchableWithoutFeedback key={option.id} onPress={onImagePress}>
               <View style={styles.option}>
                 <Image
-                  key={option.id}
                   style={styles.image}
                   resizeMode="contain"
                   source={isSelected ? option.selectedImage : option.image}

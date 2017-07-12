@@ -44,24 +44,25 @@ export default EStyleSheet.create({
   imageContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: getHeightPercentage(2),
   },
   creationImage: {
     width: 9,
     height: 9,
+    marginLeft: getWidthPercentage(3),
   },
   updateImage: {
     width: 11,
     height: 12,
+    marginLeft: getWidthPercentage(3),
   },
   createdText: {
     fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
     color: '#7d7d7d',
-    paddingLeft: '$sizeWidth10',
+    paddingLeft: getWidthPercentage(7),
   },
   dateCreatedText: {
-    color: '#2B2B2B',
+    color: '$textColor',
     fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
     marginLeft: getWidthPercentage(3),
@@ -70,10 +71,10 @@ export default EStyleSheet.create({
     fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
     color: '#7d7d7d',
-    paddingLeft: '$sizeWidth10',
+    paddingLeft: getWidthPercentage(6),
   },
   dateUpdatedText: {
-    color: '#2B2B2B',
+    color: '$textColor',
     fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
   },
@@ -84,13 +85,14 @@ export default EStyleSheet.create({
   typesTitle: {
     fontFamily: 'noto-sans-bold',
     fontSize: 16,
-    color: '#2B2B2B',
+    color: '$textColor',
   },
   containerTags: {
     marginTop: getHeightPercentage(15),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   containerTag: {
     paddingHorizontal: '$sizeWidth20',
@@ -103,5 +105,10 @@ export default EStyleSheet.create({
   tagText: {
     fontFamily: 'noto-sans-regular',
     fontSize: 13,
+  },
+  completeAddressContainer: {
+    flexDirection: 'row',
+    marginTop: getHeightPercentage(5),
+    marginBottom: '$sizeHeight20',
   },
 });

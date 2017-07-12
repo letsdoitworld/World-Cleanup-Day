@@ -1,0 +1,29 @@
+{
+    "root": true,
+    "parser": "babel-eslint",
+    "env": {
+        "browser": false,
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "no-tabs": 0,
+        "indent": ["error", 4],
+        "class-methods-use-this": 0,
+        "comma-dangle": ["error", "always-multiline"],
+        "space-before-function-paren": ["error", {
+            "anonymous": "always",
+            "named": "never"
+        }]
+    },
+    "globals": {},
+    "plugins": [],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "modules": true,
+            "arrowFunctions": true,
+            "classes": true
+        }
+    }
+}

@@ -4,6 +4,17 @@ const {E, LuciusError} = require('./error');
 const {Message, Responder} = require('./message');
 const logger = require('module-logger');
 
+const ConnectErrors = function (prefix = null, capitalizeCodes = false) {
+    this.errors = [];
+    this.add = (code, message) => {
+        if (prefix) code = prefix + code;
+        if (capitalizeCodes) code = code.toUpperCase();
+        this.errors.push({code, message});
+        return this;
+    }
+    this.export = () => this.errors;
+}
+
 class Lucius {
     constructor (seneca) {
         this.seneca = seneca;
@@ -51,6 +62,7 @@ class Lucius {
      * an instance of Message, allowing you to deal with it via standard methods.
      */
     async act(...params) {
+        logger.debug(`SENECA: Calling ${params[0]} with args ${JSON.stringify(params[1])}.`);
         const response = await this.promisifiedAct.apply(this.seneca, params);
         return this.makeMessage(response);
     }
@@ -62,6 +74,7 @@ class Lucius {
      * will also call next() for you.
      */
     add(...params) {
+        logger.debug(`SENECA: Registered ${params[0]}.`);
         // we separate the user-issued callback from the other params
         const customCallback = params.pop();
         // we require it to be async, to facilitate the use of await inside it
@@ -73,12 +86,29 @@ class Lucius {
             // we actually delegate the job to the user callback, to whom we provide
             // a Responder object that will help them produce standard payloads
             const responder = new Responder(
-                next, this.makeMessage, this.getFatalError);
+                next, this.makeMessage, this.getFatalError, params[0]);
             return customCallback.apply(this.seneca, [args, responder]);
         };
         // we place the wrapper callback back among the parameters and call add()
         params.push(wrapperCallback);
         return this.seneca.add.apply(this.seneca, params);
+    }
+
+    pluginInit (pluginName, customCallback = null) {
+        this.add(`init:${pluginName}`, async function (args, responder) {
+            logger.info(`SENECA: plugin "${pluginName}" was initialized.`);
+            logger.debug(`SENECA: plugin "${pluginName}" options:`, args);
+            if (customCallback && typeof customCallback === 'function') {
+                customCallback.apply(this, [pluginName]);
+            }
+            responder.next();
+        });
+    }
+
+    static connectErrors(...params) {
+        var obj = Object.create(ConnectErrors.prototype);
+        ConnectErrors.apply(obj, params);
+        return obj;
     }
 
     static async connectHandle(
@@ -87,23 +117,23 @@ class Lucius {
         cbSuccess = null, cbFailure = null, cbError = null
     ) {
         if (!cbSuccess) cbSuccess = payload => res.status(200).json(payload);
-        if (!cbFailure) cbFailure = response => res.status(400).json(response.errors());
+        if (!cbFailure) cbFailure = response => res.status(400).json(response.getErrors());
         if (!cbError) cbError = err => res.status(500).json([{code: err.code, message: err.message}]);
 
         try {
             const lucius = new Lucius(req.seneca);
             const response = await lucius.act(pattern, params);
             if (!response.isSuccessful()) {
-                response.errors().forEach(
-                    e => logger.error(`${e.code}: ${e.message}`)
+                response.getErrors().forEach(
+                    e => logger.error(`SENECA: ${e.code}: ${e.message}`)
                 );
                 return cbFailure(response);
             }
             return cbSuccess(response.getPayload());
         } catch (e) {
             const err = Lucius.getFatalError(e);
-            logger.fatal(`${err.code}: ${err.message}`);
-            logger.debug(err);
+            logger.critical(`SENECA: ${err.code}: ${err.message}`);
+            logger.debug('SENECA:', err);
             return cbError(err);
         }
     }

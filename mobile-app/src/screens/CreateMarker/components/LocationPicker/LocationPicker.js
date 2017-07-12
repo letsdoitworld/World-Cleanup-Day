@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Entypo } from '@expo/vector-icons';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 
-import { View, Text, TouchableOpacity } from 'react-native';
 import { Map } from '../../../../components/Map';
-import { SCREEN_WIDTH } from '../../../../shared/constants';
-
-// const latitude = marker.latlng.latitude;
-// const longitude = marker.latlng.longitude;
-// const latitudeDelta = 0.0922;
-// const mapHeight = getHeightPercentage(160);
-//
+import { SCREEN_WIDTH, DEFAULT_ZOOM } from '../../../../shared/constants';
 
 import styles from './styles';
 
@@ -24,7 +17,7 @@ const LocationPicker = ({
   onEditLocationPress,
   status,
 }) => {
-  const latitudeDelta = 0.0922;
+  const latitudeDelta = DEFAULT_ZOOM;
   const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
   const marker = {
     latlng: { latitude, longitude },
@@ -40,7 +33,7 @@ const LocationPicker = ({
           zoomEnabled={false}
           pitchEnabled={false}
           rotateEnabled={false}
-          initialRegion={{
+          region={{
             latitudeDelta,
             longitudeDelta,
             latitude,
@@ -54,7 +47,7 @@ const LocationPicker = ({
       </Text>
       <View style={styles.bottomContainer}>
         <View style={styles.iconContainer}>
-          <Entypo size={styles.$iconSize} name="location-pin" style={styles.icon} />
+          <Image source={require('../../../../assets/images/icon_location.png')}/>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>

@@ -22,14 +22,12 @@ export default EStyleSheet.create({
   },
   iconContainer: {
     marginLeft: getWidthPercentage(20),
-    width: getWidthPercentage(15),
   },
   $iconSize: 18,
   icon: {
     color: '#b3b3b3',
   },
   textContainer: {
-    marginLeft: getWidthPercentage(10),
   },
   text: {
     marginLeft: getWidthPercentage(10),
@@ -40,7 +38,7 @@ export default EStyleSheet.create({
   },
   editLocationContainer: {
     marginTop: getHeightPercentage(5),
-    marginLeft: getWidthPercentage(55),
+    marginLeft: getWidthPercentage(40),
     marginBottom: getHeightPercentage(20),
   },
   editLocation: {
@@ -49,10 +47,10 @@ export default EStyleSheet.create({
     textDecorationLine: 'underline',
   },
   streetContainer: {
-    fontFamily: 'noto-sans-bold',
+    fontFamily: '$boldFont',
     fontSize: 30,
     color: '#404040',
+    paddingHorizontal: getWidthPercentage(15),
     marginTop: getHeightPercentage(15),
-    marginLeft: getWidthPercentage(20),
   },
 });

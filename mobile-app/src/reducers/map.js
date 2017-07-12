@@ -12,12 +12,13 @@ const CREATE_MARKER_FAILURE = 'CREATE_MARKER_FAILURE';
 
 const TOGGLE_POPOVER = 'TOGGLE_POPOVER';
 const UPDATE_TEMPORARY_MARKER = 'UPDATE_TEMPORARY_MARKER';
+const SET_POPOVER_MESSAGE = 'SET_POPOVER_MESSAGE';
 
 const DEFAULT_STATE = {
   markers: [],
   loading: false,
-  showPopover: false,
   homePopoverDisplays: 0,
+  popoverMessage: 'Join other people who are mapping trash!',
 };
 
 export default (state = { ...DEFAULT_STATE }, action) => {
@@ -34,10 +35,17 @@ export default (state = { ...DEFAULT_STATE }, action) => {
         loading: false,
       };
     case TOGGLE_POPOVER:
+      if (state.homePopoverDisplays !== 0) {
+        return state;
+      }
       return {
         ...state,
-        showPopover: !state.showPopover,
         homePopoverDisplays: 1,
+      };
+    case SET_POPOVER_MESSAGE:
+      return {
+        ...state,
+        popoverMessage: action.popoverMessage,
       };
     case FETCH_MARKERS_FAILED:
     case CREATE_MARKER_FAILURE:

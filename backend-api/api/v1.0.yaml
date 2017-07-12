@@ -15,11 +15,20 @@ produces:
 - text/plain
 securityDefinitions:
   Bearer:
-    description: "Verifies that the request carries a valid session token in the 'Authorization' header. The header value must follow the 'Bearer TOKEN' format. Apply this security to any endpoint that needs the user to be authenticated. The security schema takes no parameters. **Example:** `security: [Bearer: []]`"
+    description: "Applying this schema to an endpoint will require the client to provide a valid JWT token in the `Authorization: Bearer TOKEN` header. **Example:** `security: [Bearer: []]`. This schema has no parameters."
     type: apiKey
-    name: Authorization
     in: header
-
+    name: Authorization
+  Roles:
+    description: "Applying this schema to an endpoint will compare the capabilities given as schema parameters with the user's capabilities on the backend. See the list of scopes for valid capability codes and their description. This schema does not make sense on its own, please use it in an `AND` combination with the `Bearer` schema. **Example:** `security: [{Bearer: [], Roles: [foo,bar]}]`"
+    type: oauth2
+    flow: implicit
+    authorizationUrl: http://foobar
+    scopes:
+      role:volunteer: The most basic type of generic user.
+      role:leader: Area leader.
+      role:admin: Country administrator.
+      role:superadmin: Global administrator.
 ################################################################################
 paths:
 ################################################################################
@@ -27,7 +36,7 @@ paths:
     x-swagger-router-controller: auth
     post:
       description: Obtain an authorization token in exchange for an OAUTH token from another authority.
-      operationId: authorizeWithExternal
+      operationId: externalLogin
       parameters:
         - $ref: "#/parameters/AuthRequest"
       responses:
@@ -38,7 +47,7 @@ paths:
     x-swagger-router-controller: datasets
     get:
       description: Fetch information about all the datasets offered by this server.
-      operationId: getManyDatasets
+      operationId: getAllDatasets
       responses:
         "200":
           description: List of datasets.
@@ -51,7 +60,7 @@ paths:
     x-swagger-router-controller: datasets
     get:
       description: Fetch information about a specific dataset, identified by its unique identifier.
-      operationId: getOneDataset
+      operationId: getDataset
       parameters:
         - name: id
           description: Dataset identifier.
@@ -64,108 +73,144 @@ paths:
           schema:
             $ref: "#/definitions/Dataset"
   #-----------------------------------------------------------------------------
-  /markers:
-    x-swagger-router-controller: markers
+  /overview/clusters:
+    x-swagger-router-controller: trashpoints
     post:
-      description: Fetch location markers contained in a specific dataset, within a specific polygon, and for a certain zoom level.
-      operationId: getManyMarkers
+      description: Fetch clustered trashpoints from a specific dataset, within a specific polygon, and for a certain zoom level.
+      operationId: getClustersOverview
       parameters:
-        - name: query
-          in: body
-          required: true
-          schema:
-            type: object
-            required: [datasetId, zoom, polygon]
-            properties:
-              datasetId:
-                description: The unique identifier of the dataset that is to be queried for markers.
-                $ref: "#/definitions/DatasetId"
-              zoom:
-                description: The query will be performed only against this map zoom level.
-                $ref: "#/definitions/GeoZoom"
-              polygon:
-                description: An array of coordinates that describe a simple (non-intersecting) polygon. The query will return only markers found within the bounds of this polygon. Please note that the first and last points must be the same, and thus a minimum of 4 points are required to describe the simplest valid polygon (a triangle).
-                type: array
-                minItems: 4
-                items:
-                  $ref: "#/definitions/GeoPoint"
+        - $ref: "#/parameters/MapQuery"
       responses:
         "200":
-          description: List of markers and clusters of markers.
+          description: List of simplified trashpoint and cluster data.
           schema:
             type: array
             items:
-              $ref: "#/definitions/Marker"
+              $ref: "#/definitions/Cluster"
+  /overview/trashpoints:
+    x-swagger-router-controller: trashpoints
+    post:
+      description: Fetch location trashpoints contained in a specific dataset, within a specific polygon, and for a certain zoom level.
+      operationId: getTrashpointsOverview
+      parameters:
+        - $ref: "#/parameters/MapQuery"
+      responses:
+        "200":
+          description: List of simplified trashpoint data.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/SimpleTrashpoint"
+  #-----------------------------------------------------------------------------
+  /trashpoints:
     put:
-      description: Create a new marker in a certain dataset.
-      operationId: createMarker
+      description: Create a new trashpoint in a certain dataset ID.
+      operationId: createTrashpoint
+      security: [{Bearer: [], Roles: [role:volunteer,role:leader,role:admin,role:superadmin]}]
       parameters:
         - name: query
           in: body
           required: true
           schema:
             type: object
-            required: [location]
             properties:
               datasetId:
                 $ref: "#/definitions/DatasetId"
               location:
                 $ref: "#/definitions/GeoPoint"
+              amount:
+                $ref: "#/definitions/TrashAmount"
+              trashComposition:
+                $ref: "#/definitions/TrashComposition"
+              status:
+                $ref: "#/definitions/TrashStatus"
       responses:
         "200":
-          description: The newly created marker.
+          description: The newly created trashpoint.
           schema:
-            $ref: "#/definitions/Marker"
-  #-----------------------------------------------------------------------------
-  /markers/{id}:
-    x-swagger-router-controller: markers
+            $ref: "#/definitions/Trashpoint"
+  /trashpoints/user/{id}:
+    x-swagger-router-controller: trashpoints
     get:
-      description: Fetch information about a specific location marker or cluster.
-      operationId: getOneMarker
+      description: Fetch full information about trashpoints associated to a specific user ID.
+      operationId: getUserTrashpoints
+      security: [Bearer: []]
       parameters:
-        - $ref: "#/parameters/MarkerId"
+        - $ref: "#/parameters/UUID"
+          #FIXME: pagination
       responses:
         "200":
-          description: Individual marker or cluster.
+          description: Individual trashpoint or cluster.
           schema:
-            $ref: "#/definitions/Marker"
-  #-----------------------------------------------------------------------------
-  /markers/{id}/images:
-    x-swagger-router-controller: markers
+            $ref: "#/definitions/Trashpoint"
+  /trashpoints/{id}:
+    x-swagger-router-controller: trashpoints
     get:
-      description: Fetch the images associated with a specific marker.
-      operationId: getMarkerImages
+      description: Fetch full information about a specific trashpoint ID.
+      operationId: getTrashpoint
       parameters:
-        - $ref: "#/parameters/MarkerId"
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: Individual trashpoint or cluster.
+          schema:
+            $ref: "#/definitions/Trashpoint"
+  #-----------------------------------------------------------------------------
+  /trashpoints/{id}/images:
+    x-swagger-router-controller: trashpoints
+    get:
+      description: Fetch the images associated with a specific trashpoint ID.
+      operationId: getTrashpointImages
+      parameters:
+        - $ref: "#/parameters/UUID"
       responses:
         "200":
           description: List of images.
           schema:
             type: array
             items:
-              $ref: "#/definitions/MarkerImage"
+              $ref: "#/definitions/TrashpointImage"
     put:
-      description: Create a new image and associate it with a specific marker.
-      operationId: createMarkerImage
+      description: Create a new image and associate it with a specific trashpoint ID.
+      operationId: createTrashpointImage
+      security: [{Bearer: [], Roles: [role:volunteer,role:leader,role:admin,role:superadmin]}]
       consumes:
         - multipart/form-data
       parameters:
-        - $ref: "#/parameters/MarkerId"
+        - $ref: "#/parameters/UUID"
         - name: image
           description: Image file.
           in: formData
           type: file
-          required: true
       responses:
         "200":
           description: Properties of the newly created image.
           schema:
-            $ref: "#/definitions/MarkerImage"
+            $ref: "#/definitions/TrashpointImage"
+
 ################################################################################
 parameters:
 ################################################################################
-  MarkerId:
-    description: Marker UUID.
+  MapQuery:
+    name: query
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [datasetId, zoom, polygon]
+      properties:
+        datasetId:
+          $ref: "#/definitions/DatasetId"
+        zoom:
+          $ref: "#/definitions/GeoZoom"
+        polygon:
+          description: An array of coordinates that describe a simple (non-intersecting) polygon. The query will return only trashpoints found within the bounds of this polygon. Please note that the first and last points must be the same, and thus a minimum of 4 points are required to describe the simplest valid polygon (a triangle).
+          type: array
+          minItems: 4
+          items:
+            $ref: "#/definitions/GeoPoint"
+  UUID:
+    description: UUID.
     name: id
     in: path
     required: true
@@ -195,35 +240,63 @@ responses:
       properties:
         token:
           $ref: "#/definitions/AuthToken"
+
 ################################################################################
 definitions:
 ################################################################################
-  Marker:
+  #-----------------------------------------------------------------------------
+  # High level map markers.
+  #-----------------------------------------------------------------------------
+  SimpleTrashpoint:
+    type: object
+    required: [id, location, status]
+    properties:
+      id:
+       type: string
+       description: UUID that serves to uniquely identify this object.
+      location:
+        $ref: "#/definitions/GeoPoint"
+      status:
+        $ref: "#/definitions/TrashStatus"
+  Cluster:
+    description: If not present, this object is a trashpoint. If present, this object is a cluster and this property contains cluster-specific properties.
+    type: object
+    required: [count, status, zoom]
+    properties:
+      count:
+        type: number
+        format: int32
+        minimum: 1
+      status:
+        $ref: "#/definitions/TrashStatus"
+      zoom:
+        $ref: "#/definitions/GeoZoom"
+  #-----------------------------------------------------------------------------
+  # Trashpoint characteristics.
+  #-----------------------------------------------------------------------------
+  Trashpoint:
     description: A geographical location and assorted metadata.
     type: object
-    required: [id, status, location]
+    required: [id, location, status, composition, amount, hashtags]
     properties:
       id:
         type: string
         description: UUID that serves to uniquely identify this object.
       location:
         $ref: "#/definitions/GeoPoint"
-      cluster:
-        description: If not present, this object is a marker. If present, this object is a cluster and this property contains cluster-specific properties.
-        type: object
-        required: [count, zoom]
-        properties:
-          count:
-            type: number
-            format: int32
-            minimum: 1
-          zoom:
-            $ref: "#/definitions/GeoZoom"
       status:
-        description: The current status of this marker. If it's a cluster, the status is determined by the majority of markers in it.
-        type: string
-        enum: [pending, active]
-  MarkerImage:
+        $ref: "#/definitions/TrashStatus"
+      composition:
+        $ref: "#/definitions/TrashComposition"
+      amount:
+        $ref: "#/definitions/TrashAmount"
+      hashtags:
+        $ref: "#/definitions/TrashHashtags"
+      #FIXME: updater user name and id
+      #FIXME: creator user name and id
+      #FIXME: updated timestamp (UTC)
+      #FIXME: created timestamp (UTC)
+  TrashpointImage:
     type: object
     required: [id, url]
     properties:
@@ -234,6 +307,34 @@ definitions:
         description: Image URL.
         type: string
       #FIXME: thumbnail URL?
+  TrashStatus:
+     type: string
+     description: The current status of this trashpoint. If it's a cluster, the status is determined by the majority of trashpoints in it.
+     minItems: 1
+     enum: [threat, regular, cleaned, outdated]
+  TrashComposition:
+     description: The type of composition the trash is made of.
+     type: array
+     uniqueItems: true
+     minItems: 1
+     items:
+       type: string
+     enum: [glass, electronics, paper, domestic waste, furniture, organic waste, plastic, metal]
+  TrashAmount:
+    description: The amount of trash.
+    type: string
+    minItems: 1
+    enum: [handful, bagful, cartload, truckload]
+  TrashHashtags:
+    description: Extra information added by the user describing the trash.
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      maxLength: 25
+      minLength: 1
+  #-----------------------------------------------------------------------------
+  # Dataset characteristics.
   #-----------------------------------------------------------------------------
   DatasetId:
     type: string
@@ -241,20 +342,16 @@ definitions:
   Dataset:
     description: A collection of data objects with a common internal structure.
     type: object
-    required: [id, type, native]
+    required: [id, type]
     properties:
       id:
         $ref: "#/definitions/DatasetId"
       type:
         description: The type of objects contained in this dataset.
         type: string
-        enum:
-        - markers
-        - areas
-      native:
-        description: Whether the dataset is hosted natively on this server, and thus provides read/write operations, or is replicated from another server, and thus provides only read/only operations.
-        type: boolean
-      #FIXME: geographical info, so client can determine its relevance to a given location
+        enum: [trashpoints]
+  #-----------------------------------------------------------------------------
+  # Geographical data.
   #-----------------------------------------------------------------------------
   GeoLongitude:
     type: number
@@ -290,9 +387,10 @@ definitions:
     minimum: 1
     maximum: 20
   #-----------------------------------------------------------------------------
+  # Authorization data structures.
+  #-----------------------------------------------------------------------------
   AuthSource:
     type: string
-    enum: [facebook]
+    enum: [facebook, google]
   AuthToken:
     type: string
-  #-----------------------------------------------------------------------------

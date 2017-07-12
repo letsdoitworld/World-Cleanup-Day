@@ -1,10 +1,13 @@
 'use strict';
 
 module.exports = {
-    EXAMPLE_ERROR_ONE: {
-        message: () => `Something failed.`,
+    AUTH_UNKNOWN_REMOTE_AUTHORITY: {
+        message: ({authority}) => `Unknown remote authority "${authority}".`,
     },
-    EXAMPLE_ERROR_TWO: {
-        message: ({id}) => `Something failed and has to do with id "${id}".`,
+    AUTH_REMOTE_ERROR: {
+        message: ({message}) => `An error has occured while querying a remote authority: ${message}`,
+    },
+    AUTH_INVALID_TOKEN: {
+        message: () => `Provided token has failed verification.`,
     },
 };

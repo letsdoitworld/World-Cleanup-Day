@@ -1,4 +1,8 @@
 import { Facebook, Google, Constants } from 'expo';
+import axios from 'axios';
+import Api from './Api';
+
+import { API_URL } from '../shared/constants';
 
 // TODO fetch these data from enviroment variables, instead of harcoding them
 const FACEBOOK_TEST_APP_ID = '490272021318582';
@@ -13,11 +17,14 @@ const SOCIAL_NETWORKS = {
   FACEBOOK: 'FACEBOOK',
   GOOGLE: 'GOOGLE',
 };
+const BACKEND_LOGIN_SOURCES = {
+  FACEBOOK: 'facebook',
+  GOOGLE: 'google',
+};
 
 const isTypeSuccess = (type) => {
   return type === 'success';
 };
-
 const loginFacebook = async () => {
   // TOOD check the other options that need to be send to Facebook, if any
   return Facebook.logInWithReadPermissionsAsync(FACEBOOK_TEST_APP_ID);
@@ -74,11 +81,28 @@ const fetchNetworkTokenAsync = async (network) => {
   }
 
   const { token, type } = await NETWORK_MAP[network]();
-
-  if (isTypeSuccess(type)) {
-    return { token };
+  if (!isTypeSuccess(type)) {
+    throw new TokenFetchException(network);
   }
-  throw new TokenFetchException(network);
+  try {
+    const response = await Api.post(
+      '/auth/external',
+      {
+        source: BACKEND_LOGIN_SOURCES[network],
+        token,
+      },
+      { withToken: false },
+    );
+
+    if (response.status !== 200) {
+      throw new TokenFetchException(network);
+    }
+
+    Api.setAuthToken(response.data.token);
+    return response.data.token;
+  } catch (ex) {
+    throw new TokenFetchException(network);
+  }
 };
 
 export {

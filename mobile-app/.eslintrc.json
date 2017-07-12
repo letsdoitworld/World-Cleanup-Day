@@ -5,7 +5,9 @@
     "react/jsx-filename-extension": 0,
     "no-mixed-operators": 0,
     "arrow-body-style": "off",
-    "react/forbid-prop-types": ["warn", { "forbid": ["any", "array", "object"] }]
+    "react/forbid-prop-types": ["off", { "forbid": ["any", "array", "object"] }],
+    "import/prefer-default-export": ["off"],
+    "react/no-array-index-key": ["warn"]
   },
   "env": {
     "jest": true

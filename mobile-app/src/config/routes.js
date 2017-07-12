@@ -1,49 +1,85 @@
 import React from 'react';
-import { StackNavigator, NavigationActions } from 'react-navigation';
-import { Text, Animated, Easing, View, StatusBar } from 'react-native';
-
-import { STATUS_BAR_HEIGHT } from '../shared/constants';
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
+import { Text, View, StatusBar, Image } from 'react-native';
 
 import Home from '../screens/Home';
-import Tabs from '../screens/Tabs';
 import Login from '../screens/Login';
 import CreateMarker from '../screens/CreateMarker';
 import EditLocation from '../screens/EditLocation';
-import { SimpleButton } from '../components/Buttons/';
-import { getWidthPercentage } from '../shared/helpers';
 import Details from '../screens/Details';
+import Profile from '../screens/Profile';
+import Settings from '../screens/Settings';
+import { Header, HEADER_BUTTONS_IMAGES } from '../components/Header';
+import { Logout } from '../components/Logout';
+import { CreateMarkerButton } from '../screens/CreateMarkerButton';
+import store from '../config/store';
+import { actions as trashpileActions } from '../reducers/trashpile';
 
-const HomeStack = StackNavigator(
-  {
-    Home: {
-      screen: Home,
-      navigationOptions: {
-        header: () => null,
-      },
-    },
-    Details: {
-      screen: Details,
-      navigationOptions: {
-        title: 'Trashpoint details',
-        headerTitleStyle: {
-          fontFamily: 'noto-sans-bold',
-          fontSize: 13,
-        },
-        headerBackTitleStyle: {},
-      },
+const imageFor = ({ image, activeImage }) => ({ focused }) => {
+  return (
+    <Image
+      source={focused ? activeImage : image}
+      width={18}
+      height={24}
+      resizeMode="contain"
+    />
+  );
+};
+const homeImage = require('../assets/images/icon_menu_map.png');
+const homeActiveImage = require('../assets/images/icon_menu_map_active.png');
+const activtyImage = require('../assets/images/icon_menu_activity.png');
+const activityActiveImage = require('../assets/images/icon_menu_activity_active.png');
+const updatesImage = require('../assets/images/icon_menu_updates.png');
+const updatesActiveImage = require('../assets/images/icon_menu_updates_active.png');
+const profileImage = require('../assets/images/icon_menu_profile.png');
+const profileActiveImage = require('../assets/images/icon_menu_profile_active.png');
+function getCurrentRouteName(navigationState) {
+  if (!navigationState) {
+    return null;
+  }
+  const route = navigationState.routes[navigationState.index];
+  // dive into nested navigators
+  if (route.routes) {
+    return getCurrentRouteName(route);
+  }
+  return route.routeName;
+}
+
+const HomeStack = StackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      header: () => null,
     },
   },
-  {
-    headerMode: 'screen',
-  },
-);
+});
 
-const TabStack = StackNavigator(
+const ProfileStack = StackNavigator({
+  ProfileStack: {
+    screen: Profile,
+    navigationOptions: ({ navigation }) => ({
+      header: () =>
+        <Header
+          title="My profile"
+          rightButtonImage={HEADER_BUTTONS_IMAGES.settings}
+          onPressRightButton={() => {
+            console.log(navigation);
+            navigation.navigate('Settings');
+          }}
+        />,
+    }),
+  },
+});
+
+const TabStack = TabNavigator(
   {
     Home: {
       screen: HomeStack,
       navigationOptions: {
-        header: () => null,
+        tabBarIcon: imageFor({
+          image: homeImage,
+          activeImage: homeActiveImage,
+        }),
       },
     },
     Step2: {
@@ -51,11 +87,20 @@ const TabStack = StackNavigator(
         return (
           <View style={{ flex: 1, paddingTop: 15 }}>
             <StatusBar />
-            {/* <Logout navigation={navigation} />*/}
+            <Logout navigation={navigation} />
             <Text>Step2</Text>
           </View>
         );
       },
+      navigationOptions: {
+        tabBarIcon: imageFor({
+          image: activtyImage,
+          activeImage: activityActiveImage,
+        }),
+      },
+    },
+    CreateMarkerButton: {
+      screen: CreateMarkerButton,
     },
     Step3: {
       screen: () => {
@@ -67,35 +112,28 @@ const TabStack = StackNavigator(
         );
       },
       navigationOptions: {
-        header: () => null,
+        tabBarIcon: imageFor({
+          image: updatesImage,
+          activeImage: updatesActiveImage,
+        }),
       },
     },
     Step4: {
-      screen: () => {
-        return (
-          <View style={{ flex: 1, paddingTop: 15 }}>
-            <StatusBar />
-            <Text>Step4</Text>
-          </View>
-        );
-      },
+      screen: ProfileStack,
       navigationOptions: {
-        header: () => null,
+        tabBarIcon: imageFor({
+          image: profileImage,
+          activeImage: profileActiveImage,
+        }),
       },
     },
   },
   {
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 0,
-        timing: Animated.timing,
-        easing: Easing.step0,
-      },
-    }),
-    cardStyle: {
-      paddingTop: StatusBar.currentHeight,
+    tabBarOptions: {
+      showLabel: false,
     },
-    headerMode: 'none',
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: 'bottom',
   },
 );
 
@@ -108,47 +146,53 @@ const AppNavigator = StackNavigator(
       },
     },
     Tabs: {
-      screen: ({ navigation }) => {
-        return <Tabs navigation={navigation} tabs={TabStack} />;
-      },
+      screen: TabStack,
       navigationOptions: {
         header: null,
       },
     },
     CreateMarker: {
       screen: CreateMarker,
-      navigationOptions: {
-        title: 'Create trash point',
-        headerStyle: {
-          marginTop: STATUS_BAR_HEIGHT,
-        },
-      },
+      navigationOptions: ({ navigation }) => ({
+        header: () =>
+          <Header
+            onPressLeftButton={() => navigation.goBack(null)}
+            title="Create a trashpoint"
+            titleLeftButton="Cancel"
+          />,
+      }),
+    },
+    Details: {
+      screen: Details,
+      navigationOptions: ({ navigation }) => ({
+        header: () =>
+          <Header
+            onPressLeftButton={() => navigation.goBack(null)}
+            title="Trashpoint details"
+            leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
+          />,
+      }),
     },
     EditLocation: {
       screen: EditLocation,
       navigationOptions: ({ navigation }) => ({
-        title: 'Edit location',
-        headerTitleStyle: {
-          fontFamily: 'noto-sans-bold',
-          fontSize: 13,
-        },
-        headerStyle: {
-          marginTop: STATUS_BAR_HEIGHT,
-        },
-
-        // TODO find a solution to centet the android title while having this button
-        headerLeft: (
-          <SimpleButton
-            text="Cancel"
-            onPress={() => navigation.dispatch(NavigationActions.back())}
-            textStyles={{
-              textDecorationLine: 'none',
-              fontFamily: 'noto-sans-bold',
-              fontSize: 13,
-              marginLeft: getWidthPercentage(15),
-            }}
-          />
-        ),
+        header: () =>
+          <Header
+            onPressLeftButton={() => navigation.goBack(null)}
+            title="Edit location"
+            titleLeftButton="Cancel"
+          />,
+      }),
+    },
+    Settings: {
+      screen: Settings,
+      navigationOptions: ({ navigation }) => ({
+        header: () =>
+          <Header
+            onPressLeftButton={() => navigation.goBack(null)}
+            title="Account settings"
+            leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
+          />,
       }),
     },
   },
@@ -157,4 +201,12 @@ const AppNavigator = StackNavigator(
   },
 );
 
-export default AppNavigator;
+export default () =>
+  <AppNavigator
+    onNavigationStateChange={(prevState, currentState) => {
+      const currentScreen = getCurrentRouteName(currentState);
+      if (currentScreen === 'Home') {
+        store.dispatch(trashpileActions.resetTrashpileAddress());
+      }
+    }}
+  />;

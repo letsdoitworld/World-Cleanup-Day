@@ -3,13 +3,20 @@ import { composeWithDevTools } from 'remote-redux-devtools';
 import { autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 
-import { mapReducer, userReducer, trashpileReducer, authReducer } from '../reducers';
+import {
+  mapReducer,
+  userReducer,
+  trashpileReducer,
+  authReducer,
+  appReducer,
+} from '../reducers';
 
 const rootReducer = combineReducers({
   map: mapReducer,
   user: userReducer,
   trashpile: trashpileReducer,
   auth: authReducer,
+  app: appReducer,
 });
 
 const resetStateOnSignOutReducer = reducer => (state, action) => {

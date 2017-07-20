@@ -25,7 +25,7 @@ We need your help to make the app better! For example, if you're a developer you
 
 ![World Cleanup Day](https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/github_poster.png)
 
-Thank you for considering contributing to World Cleanup Day Mobile App! See the [CONTRIBUTING.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/CONTRIBUTING.md). For more details, please <a href="mailto:kristiina@letsdoitworld.org">request access to</a> the World Cleanup Day Asana.
+Thank you for considering contributing to World Cleanup Day Mobile App! See the [CONTRIBUTING.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/CONTRIBUTING.md) for more details and please <a href="mailto:kristiina@letsdoitworld.org">request access to</a> the World Cleanup Day Asana.
 
 ## 3: Tell Your Friends!
 Join the movement and let's clean up the World together!

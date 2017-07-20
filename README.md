@@ -4,7 +4,7 @@ Over 17 million trash heroes have already cleaned up more than 500 000 tonnes of
 
 Together we will get rid of trash once and for all, save lives, improve health & reduce costs. Read below on how you can participate! Let's do it! 😃 
 
-## 1: Download World Cleanup App for iOS / Android and Start Mapping Trash
+## 1: Download World Cleanup and Start Mapping Trash
 
 <a href="https://play.google.com/store/apps/details?id=com.teeme.ldi" target="_blank"><img src="https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/google%402x.png" alt="World Cleanup App for Android" /></a>
 

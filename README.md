@@ -4,11 +4,7 @@ Over 17 million trash heroes have already cleaned up more than 500 000 tonnes of
 
 Read below on how you can participate! Let's do it! 😃 
 
-![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/header.png)
-![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/content.png)
-
-## 1: Download World Cleanup App for iOS / Android
-
+## 1: Download World Cleanup App for iOS / Android!
 
 <a href="https://play.google.com/store/apps/details?id=com.teeme.ldi" target="_blank"><img src="https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/google%402x.png" alt="World Cleanup App for Android" /></a>
 
@@ -20,13 +16,18 @@ Google Play:
 Apple App Store:
 <a href="https://itunes.apple.com/us/app/world-cleanup/id1237553057" target="_blank">https://itunes.apple.com/us/app/world-cleanup/id1237553057</a>
 
-## 2: Share the App video
+## 2: Start Mapping Trash!
+
+Watch this video on how mapping works:
 
 <a href="https://www.youtube.com/watch?feature=player_embedded&v=YnPvOVzbQpA
 " target="_blank"><img src="https://s3.eu-central-1.amazonaws.com/lets-do-it-world/world-cleanup-day-app-video.png" 
 alt="Let's Do It: World Cleanup Day!" width="100%" border="0" /></a>
 
-## 3: Help us Build!
+![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/header.png)
+![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/content.png)
+
+## 3: Help us Build the App!
 
 If you're a developer you can join us now by building the Share feature described below. Download the code and submit your ideas as a pull request. We're very happy to welcome you to the team!
 

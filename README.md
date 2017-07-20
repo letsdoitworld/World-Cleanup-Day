@@ -8,13 +8,7 @@ Together we will get rid of trash once and for all, save lives, improve health &
 
 <a href="https://play.google.com/store/apps/details?id=com.teeme.ldi" target="_blank"><img src="https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/google%402x.png" alt="World Cleanup App for Android" /></a>
 
-Google Play:
-<a href="https://play.google.com/store/apps/details?id=com.teeme.ldi" target="_blank">World Cleanup for Android</a>
-
 <a href="https://itunes.apple.com/us/app/world-cleanup/id1237553057" target="_blank"><img src="https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/apple%402x.png" alt="World Cleanup App for iOS" /></a>
-
-Apple App Store:
-<a href="https://itunes.apple.com/us/app/world-cleanup/id1237553057" target="_blank">https://itunes.apple.com/us/app/world-cleanup/id1237553057</a>
 
 Watch this video on how mapping works:
 

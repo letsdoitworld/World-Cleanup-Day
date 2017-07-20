@@ -1,4 +1,4 @@
-# Contributing to World Cleanup Day Mobile App
+# Contributing to World Cleanup Day App and Platform
 
 ## Code of Conduct
 

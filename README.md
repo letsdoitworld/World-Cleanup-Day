@@ -21,7 +21,7 @@ alt="Let's Do It: World Cleanup Day!" width="100%" border="0" /></a>
 
 ## 2: Help us Build the App
 
-We need your help to make the app better! For example, if you're a developer you can join us now by building the Share feature described below. Download the code and submit your ideas and pull requests. We're very happy to welcome you to the team!
+We need your help to make the app better! If you're a developer you can join us now by building the Share feature described below. Download the code and submit your ideas and pull requests. We're very happy to welcome you to the team!
 
 ![World Cleanup Day](https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/github_poster.png)
 
@@ -41,5 +41,3 @@ Join the movement and let's clean up the World together!
 ## License
 
 [GPL-3.0 license](https://opensource.org/licenses/GPL-3.0)
-
-

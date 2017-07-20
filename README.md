@@ -1,3 +1,4 @@
+![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/header.png)
 # World's Largest Civic Action: World Cleanup Day
 
 Over 17 million trash heroes have already cleaned up more than 500 000 tonnes of trash in over 100 countries! The movement against pollution is growing fast and we're now building the World Cleanup App and Platform for the hundreds of millions of people people joining the World Cleanup Day on **15th of September 2018**. 
@@ -16,7 +17,6 @@ Watch this video on how mapping works:
 " target="_blank"><img src="https://s3.eu-central-1.amazonaws.com/lets-do-it-world/world-cleanup-day-app-video.png" 
 alt="Let's Do It: World Cleanup Day!" width="100%" border="0" /></a>
 
-![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/header.png)
 ![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/content.png)
 
 ## 2: Help us Build the App

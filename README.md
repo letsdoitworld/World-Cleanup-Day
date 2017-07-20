@@ -23,7 +23,7 @@ alt="Let's Do It: World Cleanup Day!" width="100%" border="0" /></a>
 
 We need your help to make the app better! If you're a developer you can join us now by building the Share feature described below. Download the code and submit your ideas and pull requests. We're very happy to welcome you to the team!
 
-![World Cleanup Day](https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/github_poster.png)
+![World Cleanup Day](https://s3.eu-central-1.amazonaws.com/letsdoitworld-gfx/github_poster.jpg)
 
 Thank you for considering contributing to World Cleanup Day Mobile App! See the [CONTRIBUTING.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/CONTRIBUTING.md) for more details and please <a href="mailto:kristiina@letsdoitworld.org">request access to</a> the World Cleanup Day Asana.
 

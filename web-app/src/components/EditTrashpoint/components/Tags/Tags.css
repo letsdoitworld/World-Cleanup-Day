@@ -1,0 +1,109 @@
+.Tags-Composition-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.Tags-custom-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.Tags-title {
+    font-size: 15px;
+    color: rgba(43, 43, 43, 0.98);
+    letter-spacing: 0;
+    font-weight: 700;
+}
+
+.Tag-container {
+    flex: 1;
+    max-width: 110px;
+    border-radius: 50px;
+    background-color: white;
+    color: #4AA5FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 3px 5px;
+    font-size: 12px;
+    cursor: pointer;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+    flex-direction: row;
+    border-style:solid;
+    border-width:1px;
+}
+
+.Tag-container.selected {
+    color: white;
+    background-color: #4AA5FF;
+    background: linear-gradient(180deg, #4AA5FF 0%, #3E8EDE 100%);
+}
+
+.Tag-label {
+    max-width: 90px;
+    padding:5px;
+    flex:1;
+    cursor: inherit;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.Tags-add-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Tags-add-input {
+    height: 35px;
+    border: 1px solid #D9D9D9;
+    background-color: #FFFFFF;
+    box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    flex: 1;
+    outline: none;
+    padding-left: 20px;
+    padding-right: 25px;
+}
+
+.Tags-add-button {
+    position: relative;
+    left: -35px;
+    border-radius: 20px;
+    height: 19px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F1F1F1 100%);
+    flex: -1;
+    padding: 10px;
+    color: #3E8EDE;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.Tags-add-button-text {
+    flex:1;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.Tag-delete-container {
+    flex:0;
+    background-color: linear-gradient(-180deg, #fff 0%, #f1f1f1 100%);
+    padding: 5px;
+    border-radius: 50px;
+    float: right;
+}

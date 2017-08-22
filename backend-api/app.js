@@ -1,10 +1,11 @@
 'use strict';
+require('module-util/process').fatalUnhandledRejections();
 const express = require('express');
 const yaml = require('js-yaml');
 const fs = require('fs');
 const apiService = require('module-service-factory')('api');
 const logger = require('module-logger');
-const swaggerInit = require('./modules/swagger-init');
+const swaggerSetup = require('./modules/swagger-setup');
 
 // Configuration for the Swagger routers.
 const SWAGGER_ROUTER_OPTIONS = {
@@ -24,7 +25,7 @@ logger.info(`API: Loaded specification from: ${API_SPEC_FILE}`)
 const app = express();
 
 // Add Swagger capabilities to the transport app.
-swaggerInit.attachToConnectApp(swaggerDefinition, app, apiService, SWAGGER_ROUTER_OPTIONS)
+swaggerSetup.attachToConnectApp(swaggerDefinition, app, apiService, SWAGGER_ROUTER_OPTIONS)
 .then(appWithSwagger => {
     // Start the server.
     const API_PORT = process.env.API_PORT || 80;

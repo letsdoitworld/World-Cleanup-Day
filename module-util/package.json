@@ -1,0 +1,13 @@
+{
+  "name": "module-util",
+  "version": "1.0.0",
+  "description": "Useful util tools for LDIW.",
+  "main": "index.js",
+  "repository": "git@gitlab.qualitance.com:ldiw/module-util.git",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "moment": "^2.18.1",
+    "uuid": "^3.1.0"
+  }
+}

@@ -1,0 +1,56 @@
+.List {
+    width: 325px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto!important;
+}
+
+.List > button:nth-child(2n+1) {
+    background-color: #F6F6F6;
+}
+
+.List > div:nth-child(2n+1) {
+    background-color: #F6F6F6;
+}
+
+.List-search-container {
+    height: 60px;
+    width: 320px;
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.List-search-input {
+    height: 30px;
+    width: 290px;
+    border: 1px solid #D9D9D9;
+    border-radius: 100px;
+    background-color: #FFFFFF;
+    padding: 5px;
+    padding-left: 15px;
+}
+
+.List-search-input:focus {
+    outline-width: 0;
+}
+
+.List-search-input::-webkit-input-placeholder {
+    text-align: center;
+}
+
+.List-search-input::-moz-placeholder {
+    /* Firefox 18- */
+    text-align: center;
+}
+
+.List-search-input::-moz-placeholder {
+    /* Firefox 19+ */
+    text-align: center;
+}
+
+.List-search-input::-ms-input-placeholder {
+    text-align: center;
+}

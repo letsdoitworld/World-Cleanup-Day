@@ -2,16 +2,26 @@
 const Seneca = require('seneca');
 const logHandler = require('./modules/loggers/verbose');
 const logger = require('module-logger');
+const logFormat = logger.formatter('SENECA');
+
+const SENECA_TIMEOUT = parseInt(process.env.SENECA_TIMEOUT) || 10000;
+const SENECA_LOG_LEVEL = process.env.SENECA_LOG_LEVEL || 'quiet';
+const SERVICE_PORT = process.env.SERVICE_PORT || 80;
+const SENECA_PROTOCOL = 'http';
 
 module.exports = serviceName => {
-    // prepare options
-    const SENECA_TIMEOUT = parseInt(process.env.SENECA_TIMEOUT || 10000);
-    const SENECA_LOG_LEVEL = process.env.SENECA_LOG_LEVEL || 'quiet';
-
-    // make new service instance
+    // set options common to all instances
     const seneca = Seneca({
-        SENECA_TIMEOUT,
-        SENECA_LOG_LEVEL,
+        transport: {
+            'http': {
+                timeout: SENECA_TIMEOUT,
+            },
+            'tcp': {
+                timeout: SENECA_TIMEOUT,
+            },
+        },
+        log: SENECA_LOG_LEVEL,
+        // timeout: SENECA_TIMEOUT,
         internal: {
             logger: logHandler,
         },
@@ -22,36 +32,68 @@ module.exports = serviceName => {
 
     // set up inter-service connection routing
     switch (serviceName) {
-        case 'api':
-            seneca.client({
-                host: 'auth',
-                port: process.env.SERVICE_PORT || 80,
-                pin: 'role:auth',
-            });
+    case 'api':
+        seneca.client({
+            type: SENECA_PROTOCOL,
+            host: 'auth',
+            port: SERVICE_PORT,
+            pin: 'role:auth',
+        });
+        seneca.client({
+            type: SENECA_PROTOCOL,
+            host: 'db',
+            port: SERVICE_PORT,
+            pin: 'role:db',
+        });
         break;
-        case 'auth':
-            seneca.listen({
-                port: process.env.SERVICE_PORT || 80,
-                pin: 'role:auth',
-            });
-            seneca.client({
-                host: 'db',
-                port: process.env.SERVICE_PORT || 80,
-                pin: 'role:db',
-            });
+    case 'auth':
+        seneca.listen({
+            type: SENECA_PROTOCOL,
+            port: SERVICE_PORT,
+            pin: 'role:auth',
+        });
+        seneca.client({
+            type: SENECA_PROTOCOL,
+            host: 'db',
+            port: SERVICE_PORT,
+            pin: 'role:db',
+        });
         break;
-        case 'db':
-            seneca.listen({
-                port: process.env.SERVICE_PORT || 80,
-                pin: 'role:db',
-            });
+    case 'db':
+        seneca.listen({
+            type: SENECA_PROTOCOL,
+            port: SERVICE_PORT,
+            pin: 'role:db',
+        });
+        seneca.client({
+            type: SENECA_PROTOCOL,
+            host: 'auth',
+            port: SERVICE_PORT,
+            pin: 'role:auth',
+        });
+        seneca.client({
+            type: SENECA_PROTOCOL,
+            host: 'geo',
+            port: SERVICE_PORT,
+            pin: 'role:geo',
+        });
         break;
+    case 'geo':
+        seneca.listen({
+            type: SENECA_PROTOCOL,
+            port: SERVICE_PORT,
+            pin: 'role:geo',
+        });
+        break;
+    default:
+        throw new Error(`Unknown service '${serviceName}'.`);
     }
 
+    // log env vars right await
+    logger.debug('Environment variables:', process.env);
     // log when starting successfully
     seneca.ready(() => {
-        logger.info(`SENECA: service "${serviceName}" has started.`);
-        logger.debug('Environment variables:', process.env);
+        logger.info(...logFormat('SERVICE', serviceName, 'ready'));
     });
 
     return seneca;

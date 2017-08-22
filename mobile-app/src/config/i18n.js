@@ -23,33 +23,21 @@ const languageDetector = {
 
 i18n.use(languageDetector).init({
   fallbackLng: 'en',
-
-  resources: {
-    en: {
-      login: {
-        title: "Let's clean up the world together!",
-      },
-    },
-    de: {
-      login: {
-        title: "Let's clean up the world together in german!",
-      },
-    },
-  },
-
   // have a common namespace used around the full app
-  ns: ['common'],
-  defaultNS: 'common',
+  ns: ['general'],
+  defaultNS: 'general',
 
-  debug: true,
+  debug: false,
 
   // cache: {
   //   enabled: true
   // },
 
   interpolation: {
-    escapeValue: false, // not needed for react as it does escape per default to prevent xss!
+    // not needed for react as it does escape per default to prevent xss!
+    escapeValue: false,
   },
 });
+i18n.addResources('en', 'general', require('../trans/en.json'));
 
 export default i18n;

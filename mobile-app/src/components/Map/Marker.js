@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MapView } from 'expo';
 import { View, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import styles from './styles';
 
@@ -24,7 +25,7 @@ const MARKER_OFFSET = {
   y: 0,
 };
 
-const Marker = ({ marker, onMarkerPress, index }) => {
+const Marker = ({ marker, onMarkerPress = _.noop }) => {
   if (!marker) {
     return null;
   }
@@ -35,19 +36,20 @@ const Marker = ({ marker, onMarkerPress, index }) => {
     pointOffset = { ...TRASHPILE_MARKER_OFFSET };
   }
 
-  let showLabel = marker.isTrashPile && marker.clusterCount > 0;
+  let showLabel = marker.isTrashpile && marker.count > 0;
 
   return (
     <MapView.Marker
       coordinate={marker.latlng}
-      onPress={() => onMarkerPress(index)}
-      style={!marker.isTrashPile ? { zIndex: 2 } : null}
+      onPress={onMarkerPress}
+      style={!marker.isTrashpile ? { zIndex: 2 } : null}
       image={MARKER_STATUS_IMAGES[marker.status]}
+      identifier={String(marker.id)}
     >
       {showLabel &&
         <View style={styles.labelContainer}>
           <Text style={styles.labelText}>
-            {marker.clusterCount}
+            {marker.count}
           </Text>
         </View>}
       <MapView.Callout tooltip>
@@ -58,16 +60,17 @@ const Marker = ({ marker, onMarkerPress, index }) => {
 };
 
 Marker.propTypes = {
-  marker: PropTypes.shape({
-    latlng: PropTypes.shape(
-      PropTypes.objectOf({
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
-      }),
-    ),
-    title: PropTypes.string,
-    description: PropTypes.string,
-  }).isRequired,
+  // disabled becuase of too many warnings
+  // TODO fix this
+  // marker: PropTypes.shape({
+  //   latlng: 
+  //     PropTypes.objectOf({
+  //       latitude: PropTypes.number,
+  //       longitude: PropTypes.number,
+  //     }),
+  //   title: PropTypes.string,
+  //   description: PropTypes.string,
+  // }),
   onMarkerPress: PropTypes.func,
 };
 

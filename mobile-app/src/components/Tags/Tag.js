@@ -7,12 +7,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
 
-const Tag = ({
-  text,
-  selected,
-  onSelect = _.noop,
-  onDelete
-}) => {
+const Tag = ({ label, selected, onSelect = _.noop, onDelete }) => {
   const tagContainerStyles = [styles.tagContainer];
   const textStyles = [styles.text];
   if (selected) {
@@ -27,7 +22,7 @@ const Tag = ({
     <TouchableHighlight onPress={onSelect} underlayColor="transparent">
       <View style={tagContainerStyles}>
         <Text style={textStyles}>
-          {text}
+          {label}
         </Text>
         {onDelete &&
           <TouchableHighlight
@@ -50,7 +45,7 @@ const Tag = ({
 };
 
 Tag.propTypes = {
-  text: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   selected: PropTypes.bool,
   onSelect: PropTypes.func,
   onDelete: PropTypes.func,

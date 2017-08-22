@@ -1,5 +1,5 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { getHeightPercentage, getWidthPercentage } from '../../shared/helpers'
+import { getHeightPercentage, getWidthPercentage } from '../../shared/helpers';
 
 export default EStyleSheet.create({
   container: {
@@ -10,6 +10,10 @@ export default EStyleSheet.create({
     height: getHeightPercentage(212),
     width: getWidthPercentage(280),
     alignItems: 'center',
+  },
+  noButtonsContainer: {
+    height: getHeightPercentage(170),
+    paddingBottom: getHeightPercentage(20),
   },
   image: {
     marginTop: getHeightPercentage(20),
@@ -39,7 +43,6 @@ export default EStyleSheet.create({
     height: getHeightPercentage(48),
     width: getWidthPercentage(280),
     flexDirection: 'row',
-    
     backgroundColor: '#F2F2F2',
     borderRadius: 8,
   },

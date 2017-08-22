@@ -7,11 +7,43 @@
         "es6": true
     },
     "rules": {
-        "no-tabs": 0,
-        "indent": ["error", 4],
+        "no-tabs": 1,
+        "no-undef": 2,
+        "no-unused-vars": 1,
+        "no-const-assign": 2,
+        "no-dupe-args": 2,
+        "no-dupe-keys": 1,
+        "no-duplicate-case": 1,
+        "no-extra-parens": 1,
+        "no-extra-semi": 1,
+        "no-irregular-whitespace": 1,
+        "no-unreachable": 1,
+        "use-isnan": 1,
+        "valid-typeof": 1,
+        "curly": 1,
+        "default-case": 1,
+        "eqeqeq": 1,
+        "no-alert": 1,
+        "camelcase": 1,
+        "keyword-spacing": 1,
+        "no-trailing-spaces": 1,
+        "comma-dangle": [1, {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "exports": "always-multiline",
+            "functions": "ignore"
+        }],
+        "space-unary-ops": [1, {
+            "words": true,
+            "nonwords": false
+        }],
+        "indent": [1, 4],
+        "quotes": [1, "single", {
+            "allowTemplateLiterals": true
+        }],
         "class-methods-use-this": 0,
-        "comma-dangle": ["error", "always-multiline"],
-        "space-before-function-paren": ["error", {
+        "space-before-function-paren": [1, {
             "anonymous": "always",
             "named": "never"
         }]

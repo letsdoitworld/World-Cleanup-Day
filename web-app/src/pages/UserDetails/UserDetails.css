@@ -1,0 +1,139 @@
+.UserDetails {
+    width: 325px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 15px;
+    overflow-y: auto;
+}
+
+.UserDetails-close-button {
+    background-image: linear-gradient(-179deg, #4AA5FF 0%, #3E8EDE 100%);
+    position: absolute;
+    top: 0;
+    right: 10px;
+    padding: 7px 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.UserDetails-close-button img {
+    width: 14px;
+    height: 14px;
+}
+
+.UserDetails-image-container {
+    width: 100%;
+    /* height: 225px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: solid 1px #E6E6E6;
+}
+
+.UserDetails-image {
+    width: 128px;
+    height: 128px;
+    border-radius: 128px;
+}
+
+.UserDetails-info-container {
+    margin-top: 11px;
+    display: flex;
+    flex-direction: column;
+}
+
+.UserDetails-name {
+    text-align: center;
+    color: rgba(43, 43, 43, 0.98);
+    font-family: "Noto Sans";
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 27px;
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 325px;
+}
+
+.UserDetails-email {
+    text-align: center;
+    color: rgba(43, 43, 43, 0.98);
+    font-family: "Noto Sans";
+    font-size: 15px;
+    font-weight: bold;
+    max-width: 325px;
+    text-align: center;
+    line-height: 27px;
+    text-align: center;
+    padding-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.UserDetails-country-container {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.UserDetails-country-image {
+    flex: 0;
+    width: 11px;
+    height: 15px;
+    margin-right: 3px;
+}
+
+.UserDetails-country {
+    text-align: center;
+    color: #7F7F7F;
+    font-family: "Noto Sans";
+    font-size: 13px;
+    line-height: 18px;
+    text-align: center;
+}
+
+.UserDetails-role {
+    text-align: center;
+    color: rgba(43, 43, 43, 0.98);
+    font-family: "Noto Sans";
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: center;
+}
+
+.UserDetails-actions-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.UserDetails-block-user {
+    color: #FC515E;
+    font-family: "Noto Sans";
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 18px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.UserDetails-block-user.locked{
+    color: #6DD543;
+}
+
+.UserDetails-area-assign-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #E6E6E6;
+    text-align: center;
+}
+
+.UserDetails-area-assign-button {
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: underline;
+}

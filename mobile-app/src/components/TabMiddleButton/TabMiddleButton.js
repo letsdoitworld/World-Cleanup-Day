@@ -1,52 +1,93 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableWithoutFeedback, Text } from 'react-native';
-
-import Camera from '../../services/Camera';
-
 import { Ionicons } from '@expo/vector-icons';
-
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
+
+import { withCameraActions } from '../../services/Camera';
+import ImageService from '../../services/Image';
+import {
+  selectors as locationSels,
+  operations as locationOps,
+} from '../../reducers/location';
 
 import ButtonPopover from './components/ButtonPopover';
 
 import { Popover } from '../Popover';
 
 import styles from './styles';
-import { actions as mapActions } from '../../reducers/map';
-import { actions as userActions } from '../../reducers/user';
+import {
+  operations as appOperations,
+  selectors as appSelectors,
+} from '../../reducers/app';
 
 class TabMiddleButton extends Component {
+  static defaultProps = {
+    onPopoverShow: undefined,
+  };
   static propTypes = {
-    showPopover: PropTypes.bool,
-    homePopoverDisplays: PropTypes.number,
-    popoverMessage: PropTypes.string,
-    togglePopover: PropTypes.func,
-    setCachedLocation: PropTypes.func,
+    wasPopoverShown: PropTypes.bool.isRequired,
+    popoverMessage: PropTypes.string.isRequired,
+    onPopoverShow: PropTypes.func,
+    navigation: PropTypes.object.isRequired,
+    locationActive: PropTypes.bool.isRequired,
+    showLocationErrorModal: PropTypes.func.isRequired,
+    takePhotoAsync: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
-    this.state = { showPopover: props.showPopover };
+    this.state = { popoverShow: false };
 
-    if (props.homePopoverDisplays === 0) {
-      this.props.togglePopover();
+    if (!props.wasPopoverShown) {
+      this.onPopoverShow();
       const timer = setTimeout(() => {
         this.setState({ showPopover: true });
         clearTimeout(timer);
       }, 1000);
     }
   }
-  handlePress = () => {
-    this.props.navigation.goBack();
-    Camera.takePhotoAsync()
-      .then(({ cancelled, uri }) => {
-        if (cancelled) {
-          return;
-        }
-        // this.props.setCachedLocation();
-        this.props.navigation.navigate('CreateMarker', { photos: [uri] });
-      })
-      .catch(() => {});
+  onPopoverShow = () => {
+    if (this.props.onPopoverShow) {
+      this.props.onPopoverShow();
+    }
+  };
+  locationActiveGuard = () => {
+    const { locationActive } = this.props;
+    if (!locationActive) {
+      this.props.showLocationErrorModal();
+      return false;
+    }
+    return true;
+  };
+  handlePress = async () => {
+    if (!this.locationActiveGuard()) {
+      return;
+    }
+    try {
+      const {
+        cancelled,
+        uri,
+        base64,
+        width,
+        height,
+      } = await this.props.takePhotoAsync({ quality: 0.2, base64: true });
+      if (cancelled) {
+        return;
+      }
+      const thumbnailBase64 = await ImageService.getResizedImageBase64({
+        uri,
+        width,
+        height,
+      });
+      const { navigation, userLocation } = this.props;
+      navigation.navigate('CreateMarker', {
+        photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
+        coords: userLocation,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
   };
   handleOnClosePopover = () => {
     this.setState({ showPopover: false });
@@ -70,16 +111,18 @@ class TabMiddleButton extends Component {
   }
 }
 
-const mapStateToProps = ({ map: { showPopover, homePopoverDisplays, popoverMessage } }) => {
-  return {
-    showPopover,
-    homePopoverDisplays,
-    popoverMessage,
-  };
-};
+const mapStateToProps = state => ({
+  wasPopoverShown: appSelectors.wasPopoverShown(state),
+  popoverMessage: appSelectors.getPopoverMessage(state),
+  userLocation: locationSels.userLocationSelector(state),
+  locationActive: locationSels.hasLocationActive(state),
+});
 
 const mapDispatchToProps = {
-  togglePopover: mapActions.togglePopover,
-  setCachedLocation: userActions.setCachedLocation,
+  onPopoverShow: appOperations.setPopoverShown,
+  showLocationErrorModal: locationOps.setErrorModalVisible,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(TabMiddleButton);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withCameraActions(),
+)(TabMiddleButton);

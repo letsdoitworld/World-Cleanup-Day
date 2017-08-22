@@ -51,10 +51,6 @@ export default EStyleSheet.create({
   photoButtonText: {
     backgroundColor: '$white',
   },
-  modalBackground: {
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    flex: 1,
-  },
   deleteButton: {
     color: '$red',
   },

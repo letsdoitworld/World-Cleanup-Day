@@ -1,8 +1,7 @@
-import mapReducer from './map';
-import userReducer from './user';
-import trashpileReducer from './trashpile';
 import appReducer from './app';
+import { locationReducer } from './location';
+import { trashpileReducer } from './trashpile';
 
-export { mapReducer, userReducer, trashpileReducer, appReducer };
+export { default as userReducer } from './user';
 
-export { default as authReducer } from './auth';
+export { trashpileReducer, appReducer, locationReducer };

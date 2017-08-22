@@ -1,0 +1,48 @@
+.Sidebar {
+  background: #3E8EDE;
+  width: 120px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidebar-logo-container {
+  width: 80px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.Sidebar-logo-container img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.Sidebar-links-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.Sidebar-terms{
+  color: #fff;
+  padding: 15px 0;
+}
+.Sidebar-terms:hover{
+  background: rgba(0, 0, 0, .1);
+}
+.Sidebar-privacy{
+  color: #fff;
+  padding: 15px 0;
+}
+.Sidebar-privacy:hover{
+  background: rgba(0, 0, 0, .1);
+}
+.Sidebar-logout {
+  color: #fff;
+  padding: 30px 0;
+}
+
+.Sidebar-logout:hover {
+  background: rgba(0, 0, 0, .1);
+}

@@ -33,7 +33,7 @@ const Tags = ({ tags, onTagSelect = _.noop, onTagDelete, tagCustomStyles }) => {
 Tags.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
-      text: PropTypes.string,
+      label: PropTypes.string,
       selected: PropTypes.bool,
     }),
   ),

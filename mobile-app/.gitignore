@@ -6,4 +6,6 @@ npm-debug.*
 
 *.DS_STORE
 
+app.json
+
 env.js

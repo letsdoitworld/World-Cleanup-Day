@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { translate } from 'react-i18next';
 
 import { Map } from '../../../../components/Map';
 import { SCREEN_WIDTH, DEFAULT_ZOOM } from '../../../../shared/constants';
@@ -16,6 +17,7 @@ const LocationPicker = ({
   address: { streetAddress = '', locality = '', country = '', streetNumber = '', subLocality = '' },
   onEditLocationPress,
   status,
+  t,
 }) => {
   const latitudeDelta = DEFAULT_ZOOM;
   const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
@@ -58,7 +60,7 @@ const LocationPicker = ({
         </View>
       </View>
       <TouchableOpacity onPress={onEditLocationPress} style={styles.editLocationContainer}>
-        <Text style={styles.editLocation}>Edit location</Text>
+        <Text style={styles.editLocation}>{t('label_button_createTP_editloc')}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -66,7 +68,6 @@ const LocationPicker = ({
 
 LocationPicker.defaultProps = {
   value: undefined,
-  address: '',
   onEditLocationPress: undefined,
 };
 LocationPicker.propTypes = {
@@ -74,7 +75,7 @@ LocationPicker.propTypes = {
     latitude: PropTypes.number,
     longitude: PropTypes.number,
   }),
-  address: PropTypes.string,
+  address: PropTypes.any,
   onEditLocationPress: PropTypes.func,
 };
-export default LocationPicker;
+export default translate()(LocationPicker);

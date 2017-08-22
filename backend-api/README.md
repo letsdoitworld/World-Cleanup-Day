@@ -16,7 +16,7 @@ The Swagger API definitions are stored in `api/vN.json` files, where `N` is a ve
 
 You need to run `node app.js`.
 
-Developers are advised to run it through a file watcher and restarter like `supervisor`.
+Developers are advised to run it through a file watcher and restarter such as `supervisor`.
 
 The devops repository contains docker-compose recipes for running this inside a container.
 
@@ -27,9 +27,9 @@ Please note that the value of `host` and `port` below change depending on whethe
 Once up and running, the following URLs should be accessible:
 
 * `http://host:port/api/v1`: the REST API.
-  * Please see the definitions in the `api/version.json` files for the actual URL suffix ie. version 2 will 
-* `http://host:port/docs`: the API documentation.
-* `http://host:port/api-docs`: the API specification (Swagger 2.0 in JSON format).
+  * Please see the definitions in the `api/*.yaml` files for the actual URL suffix, because each version defines its own.
+* `http://host:port/docs`: the API documentation (only when `NODE_ENV` is `development`).
+* `http://host:port/api-docs`: the API specification (Swagger 2.0 in JSON format) (only when `NODE_ENV` is `development`).
 
 ## Git strategy
 

@@ -1,17 +1,17 @@
 import { Facebook, Google, Constants } from 'expo';
-import axios from 'axios';
+import _ from 'lodash';
+
 import Api from './Api';
 
-import { API_URL } from '../shared/constants';
+import {
+  FACEBOOK_APP_ID,
+  GOOGLE_ANDROID_APP_ID,
+  GOOGLE_IOS_APP_ID,
+  GOOGLE_ANDROID_EXPO_ID,
+  GOOGLE_IOS_EXPO_ID,
+} from '../../env';
 
-// TODO fetch these data from enviroment variables, instead of harcoding them
-const FACEBOOK_TEST_APP_ID = '490272021318582';
-const GOOGLE_ANDROID_TEST_ID =
-  '788448594922-vi1s9gtu7oluic42gl162k7lv5agcibq.apps.googleusercontent.com';
-// dev only id
-// TODO get the production id from env.js
-const GOOGLE_IOS_TEST_ID =
-  '788448594922-rj1msm8rvm2seg5jf59eo5gd36dukon1.apps.googleusercontent.com';
+const isStandaloneApp = Constants.appOwnership === 'standalone';
 
 const SOCIAL_NETWORKS = {
   FACEBOOK: 'FACEBOOK',
@@ -27,26 +27,27 @@ const isTypeSuccess = (type) => {
 };
 const loginFacebook = async () => {
   // TOOD check the other options that need to be send to Facebook, if any
-  return Facebook.logInWithReadPermissionsAsync(FACEBOOK_TEST_APP_ID);
+  const data = await Facebook.logInWithReadPermissionsAsync(FACEBOOK_APP_ID, {
+    behavior: isStandaloneApp ? 'native' : 'web',
+    scopes: ['public_profile', 'email'],
+  });
+  return data;
 };
 const loginGoogle = async () => {
-  // TODO check the other options that need to be sent to Google, if any
-  const isOnDevice = Constants.appOwnership !== 'expo';
-  const expoConfig = {
-    androidClientId: GOOGLE_ANDROID_TEST_ID,
-    iosClientId: GOOGLE_IOS_TEST_ID,
+  const config = {
+    androidStandaloneAppClientId: GOOGLE_ANDROID_APP_ID,
+    iosStandaloneAppClientId: GOOGLE_IOS_APP_ID,
+    androidClientId: GOOGLE_ANDROID_EXPO_ID,
+    iosClientId: GOOGLE_IOS_EXPO_ID,
+    behavior: 'web',
   };
-  const onDeviceConfig = {
-    androidStandaloneAppClientId: '',
-    iosStandaloneAppClientId: '',
-  };
-
-  const { accessToken, ...rest } = await Google.logInAsync(
-    isOnDevice ? onDeviceConfig : expoConfig,
-  );
-
-  // the access token property needs to be changed to token, since that the interface this is using
-  return { token: accessToken, ...rest };
+  try {
+    const { accessToken, ...rest } = await Google.logInAsync(config);
+    return { token: accessToken, ...rest };
+  } catch (ex) {
+    console.log(ex);
+    throw ex;
+  }
 };
 
 const NETWORK_MAP = {
@@ -84,25 +85,22 @@ const fetchNetworkTokenAsync = async (network) => {
   if (!isTypeSuccess(type)) {
     throw new TokenFetchException(network);
   }
-  try {
-    const response = await Api.post(
-      '/auth/external',
-      {
-        source: BACKEND_LOGIN_SOURCES[network],
-        token,
-      },
-      { withToken: false },
-    );
 
-    if (response.status !== 200) {
-      throw new TokenFetchException(network);
-    }
-
-    Api.setAuthToken(response.data.token);
-    return response.data.token;
-  } catch (ex) {
-    throw new TokenFetchException(network);
+  const response = await Api.post(
+    '/auth/external',
+    {
+      source: BACKEND_LOGIN_SOURCES[network],
+      token,
+    },
+    { withToken: false },
+  );
+  if (!_.has(response, 'data.token')) {
+    throw { error: 'Could not read authentification response data' };
   }
+
+  const networkToken = response.data.token;
+  Api.setAuthToken(networkToken);
+  return networkToken;
 };
 
 export {

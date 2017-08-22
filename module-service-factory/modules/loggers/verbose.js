@@ -1,16 +1,14 @@
 'use strict';
 const logger = require('module-logger');
 
-function Logger () {}
+function Logger() {}
 
 // Loggers are loaded via a `preload` function. This is a way
 // to signal seneca infrastructural plugins over business logic
 // plugins, which get loaded later in the chain.
 Logger.preload = function () {
-    var seneca = this;
-
     // Leftpad, AMIRITE
-    function pad (content, length) {
+    function pad(content, length) {
         content = content || '';
         while (content.length < length) {
             content = content + ' ';
@@ -21,7 +19,7 @@ Logger.preload = function () {
     // Everything something is logged it calls whatever
     // custom adapter is set. Adapters are passed the
     // current instance of Seneca plus the raw payload.
-    function adapter (context, payload) {
+    function adapter(context, payload) {
         var when = payload.when.toString()
         var kind = pad(payload.kind || '-', 8).toUpperCase()
         var type = pad(payload.case || '-', 8).toUpperCase()

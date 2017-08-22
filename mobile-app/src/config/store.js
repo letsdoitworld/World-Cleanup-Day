@@ -4,19 +4,17 @@ import { autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 import {
-  mapReducer,
-  userReducer,
+  locationReducer,
   trashpileReducer,
-  authReducer,
   appReducer,
+  userReducer,
 } from '../reducers';
 
 const rootReducer = combineReducers({
-  map: mapReducer,
-  user: userReducer,
+  location: locationReducer,
   trashpile: trashpileReducer,
-  auth: authReducer,
   app: appReducer,
+  user: userReducer,
 });
 
 const resetStateOnSignOutReducer = reducer => (state, action) => {
@@ -26,10 +24,10 @@ const resetStateOnSignOutReducer = reducer => (state, action) => {
   }
   // Note how we can purge sensitive data without hard reload easily.
   const stateWithoutSensitiveData = {
-    auth: undefined,
-    map: undefined,
+    app: state.app,
     user: undefined,
-    trashpile: state.thrashpile,
+    location: state.location,
+    trashpile: state.trashpile,
   };
   return reducer(stateWithoutSensitiveData, action);
 };
@@ -37,8 +35,5 @@ const resetStateOnSignOutReducer = reducer => (state, action) => {
 export default createStore(
   resetStateOnSignOutReducer(rootReducer),
   undefined,
-  composeWithDevTools(
-    applyMiddleware(thunk),
-    // autoRehydrate()
-  ),
+  composeWithDevTools(applyMiddleware(thunk), autoRehydrate()),
 );

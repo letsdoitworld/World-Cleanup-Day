@@ -7,7 +7,12 @@
     "arrow-body-style": "off",
     "react/forbid-prop-types": ["off", { "forbid": ["any", "array", "object"] }],
     "import/prefer-default-export": ["off"],
-    "react/no-array-index-key": ["warn"]
+    "react/no-array-index-key": ["warn"],
+    "react/jsx-wrap-multilines" : ["off"],
+    "max-len": ["error", 80]
+  },
+  "settings": {
+    "import/core-modules": ["src/services"]
   },
   "env": {
     "jest": true

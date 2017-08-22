@@ -6,117 +6,90 @@ import Marker from './Marker';
 import styles from './styles';
 
 class Map extends Component {
-  triggerEvent = (eventFn, ...args) => {
-    if (typeof eventFn === 'string') {
-      console.log(eventFn, ...args);
-    } else {
-      eventFn(...args);
+  displayMarkers = () => {
+    const { markers = [], handleOnMarkerPress } = this.props;
+    return markers.map((marker) => {
+      return (
+        <Marker
+          marker={marker}
+          key={marker.id}
+          onMarkerPress={handleOnMarkerPress}
+        />
+      );
+    });
+  };
+
+  displayCircle = () => {
+    const { circleProps } = this.props;
+    return circleProps
+      ? <MapView.Circle
+        center={circleProps.center}
+        radius={circleProps.radius}
+        strokeWidth={circleProps.borderWidth}
+        strokeColor={circleProps.borderColor}
+        fillColor={circleProps.fillColor}
+      />
+      : null;
+  };
+  onRegionChangeComplete = (region) => {
+    const { onRegionChangeComplete } = this.props;
+    let { longitudeDelta, longitude } = region;
+    if (onRegionChangeComplete) {
+      // on android, the longitude delta is sometimes negative ( which doesn't make any sense )
+      // https://github.com/airbnb/react-native-maps/issues/1386
+      if (longitudeDelta < 0) {
+        longitudeDelta += 360;
+      }
+      // sometimes, on iOS, the longitude can be higher that 180
+      // it has to be traslated to an equivalent negative lognitude
+      // i.e. 220 degrees means -150 degrees
+      if (longitude > 180) {
+        longitude -= 360;
+      }
+      if (longitude < -180) {
+        longitude += 360;
+      }
+      onRegionChangeComplete({
+        ...region,
+        longitude,
+        longitudeDelta,
+      });
     }
   };
-
-  onPress = event => {
-    // this.triggerEvent('onPress', event);
-  };
-
-  handleOnMarkerPress = index => {
-    if(this.props.onMarkerPress) {
-      this.props.onMarkerPress(index);
-    }
-  };
-
-  onRegionChange = event => {
-    // console.log("onRegionChange", event);
-  };
-
-  handleRegionChangeComplete = event => {
-    this.isZoomEvent(event)
-      ? this.onZoomComplete(event)
-      : this.onPanComplete(event);
-    this.previousCenter = event;
-  };
-
-  onZoomComplete = event => {
-    const { longitudeDelta, latitudeDelta, longitude, latitude } = event;
-    const northWest = {
-      latitude: event.latitude + event.latitudeDelta / 2,
-      longitude: event.longitude - event.longitudeDelta / 2,
-    },
-      southEast = {
-        latitude: event.latitude - event.latitudeDelta / 2,
-        longitude: event.longitude + event.longitudeDelta / 2,
-      };
-    const zoomEvent = {
-      northWest,
-      southEast,
-    };
-    this.triggerEvent('onZoomComplete', zoomEvent);
-  };
-
-  onPanComplete = event => {
-    this.triggerEvent('onPanComplete', event);
-  };
-
-  isZoomEvent(center) {
-    const { longitudeDelta, latitudeDelta, longitude, latitude } = center;
-    if (!this.previousCenter) {
-      return false;
-    }
-    if (
-      longitudeDelta !== this.previousCenter.longitudeDelta &&
-      latitudeDelta !== this.previousCenter.latitudeDelta
-    ) {
-      return true;
-    }
-    return false;
-  }
 
   render() {
-    const { circleProps, markers } = this.props;
     return (
       <MapView
+        rotateEnabled={false}
+        {...this.props}
         ref={this.props.getRef}
         style={styles.container}
-        onRegionChange={this.onRegionChange}
+        onRegionChangeComplete={this.onRegionChangeComplete}
         provider="google"
-        {...this.props}
       >
-        {markers.map((marker, index) => {
-          return (
-            <Marker
-              marker={marker}
-              key={index}
-              onMarkerPress={this.handleOnMarkerPress}
-              index={index}
-            />
-          );
-        })}
-        {circleProps &&
-          <MapView.Circle
-            center={circleProps.center}
-            radius={circleProps.radius}
-            strokeWidth={circleProps.borderWidth}
-            strokeColor={circleProps.borderColor}
-            fillColor={circleProps.fillColor}
-          />}
+        {this.displayMarkers()}
+        {this.displayCircle()}
       </MapView>
     );
   }
 }
 
 Map.propTypes = {
-  markers: PropTypes.arrayOf(
-    PropTypes.shape({
-      latlng: PropTypes.shape(
-        PropTypes.objectOf({
-          latitude: PropTypes.number,
-          longitude: PropTypes.number,
-        }),
-      ),
-      title: PropTypes.string,
-      description: PropTypes.string,
-    }),
-  ),
-  onRegionChangeComplete: PropTypes.func.isRequired,
+  // disabled becuase of too many warnings
+  // TODO fix this
+  // markers: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     latlng: PropTypes.shape(
+  //       PropTypes.objectOf({
+  //         latitude: PropTypes.number,
+  //         longitude: PropTypes.number,
+  //       }),
+  //     ),
+  //     title: PropTypes.string,
+  //     description: PropTypes.string,
+  //   }),
+  // ),
+  onRegionChangeComplete: PropTypes.func,
   initialRegion: PropTypes.shape({
     latitude: PropTypes.number,
     longitude: PropTypes.number,
@@ -134,7 +107,7 @@ Map.propTypes = {
     }).isRequired,
     borderWidth: PropTypes.number.isRequired,
   }),
-  getRef: PropTypes.func
+  getRef: PropTypes.func,
 };
 
 export default Map;

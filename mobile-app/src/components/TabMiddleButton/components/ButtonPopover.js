@@ -5,6 +5,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { SimpleButton } from '../../Buttons';
 import { getHeightPercentage, getWidthPercentage, isIOS } from '../../../shared/helpers';
 import { SCREEN_WIDTH } from '../../../shared/constants';
+import { translate } from 'react-i18next';
 
 const styles = EStyleSheet.create({
   $widthSize20: getWidthPercentage(20),
@@ -49,7 +50,7 @@ const styles = EStyleSheet.create({
     height: undefined,
   },
 });
-const ButtonPopover = ({ onPress, popoverMessage }) => {
+const ButtonPopover = ({ t, onPress, popoverMessage }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -60,15 +61,14 @@ const ButtonPopover = ({ onPress, popoverMessage }) => {
           {popoverMessage}
         </Text>
         <Text style={styles.description}>
-          Start creating trashpoints to make your community cleaner
-          and healthier.
+          {t('label_text_popover_text')}
         </Text>
       </View>
       <View style={styles.button}>
-        <SimpleButton onPress={onPress} text="Ok, got it!" />
+        <SimpleButton onPress={onPress} text={t('label_button_acknowledge')} />
       </View>
     </View>
   );
 };
 
-export default ButtonPopover;
+export default translate()(ButtonPopover);

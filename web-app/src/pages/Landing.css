@@ -1,0 +1,34 @@
+.Landing {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+}
+.Landing .Landing_content {
+  flex: 1;
+}
+
+.Sidebar-details {
+  display: flex;
+  box-shadow: 9px 3px 25px -8px rgba(0,0,0,0.65);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 325px;
+  bottom: 0;
+  z-index: 1;
+  background-color: #fff;
+  transform: translateX(-105%);
+  transition: transform .2s linear;
+
+}
+
+.Sidebar-details.isOpen {
+  transform: translateX(0);
+  transition: transform .2s linear;
+}
+
+.Landing .Header {
+  position: relative;
+  z-index: 1;
+}

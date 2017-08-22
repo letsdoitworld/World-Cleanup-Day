@@ -2,23 +2,22 @@
 const jwt = require('jsonwebtoken');
 const logger = require('module-logger');
 
-const SECRET = process.env.JWT_SECRET;
-const EXPIRATION = process.env.JWT_EXPIRATION;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = {
     create: content => {
         try {
-            return jwt.sign(content, SECRET, {expiresIn: EXPIRATION});
+            return jwt.sign(content, JWT_SECRET);
         } catch (e) {
-            logger.critical(e);
+            logger.fatal(e);
             return false;
         }
     },
     verify: token => {
         try {
-            return jwt.verify(token, SECRET);
+            return jwt.verify(token, JWT_SECRET);
         } catch (e) {
-            logger.critical(e);
+            logger.fatal(e);
             return false;
         }
     },

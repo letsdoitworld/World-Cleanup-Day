@@ -1,0 +1,81 @@
+.TrashpointListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 20px 20px 10px;
+  cursor: pointer;
+  min-height: 40px;
+}
+
+.TrashpointListItem.selected {
+  background: #F6F6F6;
+}
+
+.TrashpointListItem:hover {
+  background: #D8EDFF!important;
+}
+
+.TrashpointListItem-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.TrashpointListItem-status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.TrashpointListItem-title {
+  color: #3E8EDE;
+  letter-spacing: 0;
+  font-weight: 700;
+  text-align: left;
+}
+
+.TrashpointListItem-address {
+  font-weight: 400;
+  font-size: 13px;
+  color: #2B2B2B;
+  letter-spacing: 0;
+  line-height: 16px;
+  text-align: left;
+}
+
+.TrashpointListItem-threat {
+  background-image: linear-gradient(-180deg, #FE6669 0%, #FC505E 100%);
+  border: 1px solid #E93A47;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.TrashpointListItem-cleaned {
+  background-image: linear-gradient(-180deg, #7BEA4E 3%, #5DBA37 100%);
+  border: 1px solid #57B531;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.TrashpointListItem-regular {
+  background-image: linear-gradient(-180deg, #FF9900 0%, #FF7800 100%);
+  border: 1px solid #EE7200;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.TrashpointListItem-outdated {
+  background-image: linear-gradient(-180deg, #E3E3E3 0%, #C3C3C3 100%);
+  border: 1px solid #ABABAB;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+}

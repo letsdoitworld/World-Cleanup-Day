@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { translate } from 'react-i18next';
 
 import styles from './styles';
 
@@ -10,7 +11,6 @@ export const options = {
     label: 'THREAT',
     image: require('./images/default-status-threat.png'),
     selectedImage: require('./images/selected-status-threat.png'),
-
     color: '#fc515e',
   },
   regular: {
@@ -20,19 +20,27 @@ export const options = {
     selectedImage: require('./images/selected-status-regular.png'),
     color: '#ff7a00',
   },
+  cleaned: {
+    id: 'cleaned',
+    label: 'CLEANED',
+    image: require('./images/default-status-clean.png'),
+    selectedImage: require('./images/selected-status-clean.png'),
+    color: '#7BEA4E',
+  },
 };
 
-const StatusPicker = ({ value, onChange }) => {
+const StatusPicker = ({ value, onChange, display = ['threat', 'regular'], t }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>
-        Point status
+        {t('label_text_createTP_status_subtitle')}
       </Text>
       <Text style={styles.subHeader}>
-        If a quick action is needed (toxic, heavy metals), please set as threat.
+        {t('label_text_createTP_status_text')}
       </Text>
       <View style={styles.optionsContainer}>
-        {Object.values(options).map((option) => {
+        {display.map(prop => {
+          const option = options[prop];
           const isSelected = value === option.id;
           const onImagePress = () => onChange(option.id);
           return (
@@ -43,7 +51,9 @@ const StatusPicker = ({ value, onChange }) => {
                   resizeMode="contain"
                   source={isSelected ? option.selectedImage : option.image}
                 />
-                <Text style={[styles.imageText, { color: option.color }]}>{option.label}</Text>
+                <Text style={[styles.imageText, { color: option.color }]}>
+                  {option.label}
+                </Text>
               </View>
             </TouchableWithoutFeedback>
           );
@@ -66,4 +76,4 @@ StatusPicker.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default StatusPicker;
+export default translate()(StatusPicker);

@@ -111,4 +111,27 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(5),
     marginBottom: '$sizeHeight20',
   },
+  footer: {
+    backgroundColor: '$blue',
+    padding: getWidthPercentage(20),
+  },
+  footerText: {
+    color: '$white',
+    fontSize: '$fontDefaultSize',
+    fontFamily: '$boldFont',
+    textAlign: 'center',
+  },
+  footerButtons: {
+    flexDirection: 'row',
+    paddingTop: getHeightPercentage(15),
+  },
+  bottomContainer: {
+    height: getHeightPercentage(75),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  createButton: {
+    alignSelf: 'center',
+  },
 });

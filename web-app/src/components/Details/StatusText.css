@@ -1,0 +1,15 @@
+.StatusText {
+  display: flex;
+  min-height: 18px;
+}
+
+.StatusText img {
+
+}
+
+.StatusText span {
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 0;
+  padding-left: 4px;
+}

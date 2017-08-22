@@ -1,0 +1,17 @@
+{
+  "name": "backend-geo",
+  "version": "1.0.0",
+  "description": "Microservice that resolves geospatial queries.",
+  "main": "app.js",
+  "repository": "git@gitlab.qualitance.com:ldiw/backend-geo.git",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "caught": "^0.1.1",
+    "geojson-utils": "^1.1.0",
+    "module-logger": "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop",
+    "module-lucius": "git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#develop",
+    "module-service-factory": "git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#develop",
+    "module-util": "git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#develop"
+  }
+}

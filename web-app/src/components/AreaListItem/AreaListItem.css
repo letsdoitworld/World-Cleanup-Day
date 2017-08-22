@@ -1,0 +1,58 @@
+.AreaListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  max-width: 320px;
+}
+
+.AreaListItem-toggle-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.AreaListItem-trashlist-button {
+  margin-right: 5px;
+  color: #3E8EDE;
+  font-family: "Noto Sans";
+  font-size: 15px;
+  line-height: 20px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.AreaListItem-header{
+  user-select: none;
+}
+
+.AreaListItem-triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid black;
+}
+
+.AreaListItem-triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid black;
+}
+
+.AreaListItem-collapse-toggle {
+  margin-left: 10px;
+  width: 10px;
+  height: 10px;
+}
+
+.AreaListItem-text-container {
+  margin-left: 13px;
+  color: rgba(43, 43, 43, 0.98);
+  font-family: "Noto Sans";
+  font-size: 17px;
+  line-height: 20px;
+}

@@ -7,7 +7,7 @@
   "author": "Qualitance",
   "license": "GPL-3.0",
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "module-logger": "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
+    "module-logger": "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop",
+    "module-util": "git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#develop"
   }
 }

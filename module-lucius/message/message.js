@@ -17,6 +17,7 @@
  * @type {object}
  * @property {string} message - Succint message describing the error for developers.
  * @property {string} code - Machine-readable code used to identify the error.
+ * @property {string} __marker - Marker used for internal purposes.
  */
 
 /**
@@ -75,7 +76,7 @@ const Message = function (overwrite = null) {
      * @param {ErrorEntry} error An error definition.
      * @returns {Message} Self-reference, for method chaining.
      */
-    this.setError = ({message, code}) => {
+    this.setError = ({message, code, marker}) => {
         if (typeof message !== 'string') {
             throw new TypeError('Parameter "message" must be string.');
         }
@@ -83,7 +84,7 @@ const Message = function (overwrite = null) {
             throw new TypeError('Parameter "code" must be string.');
         }
         content.success = false;
-        content.errors.push({message, code});
+        content.errors.push({message, code, marker});
         return this;
     };
 

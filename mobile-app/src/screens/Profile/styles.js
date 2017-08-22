@@ -30,6 +30,8 @@ export default EStyleSheet.create({
     fontFamily: '$boldFont',
     fontSize: 20,
     color: '$textColor',
+    paddingRight: 20,
+    width: getWidthPercentage(165),
   },
   usernameImage: {
     width: getWidthPercentage(80),

@@ -1,0 +1,54 @@
+.StatusPicker {
+  background: #eee;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.StatusPicker-title {
+  font-size: 15px;
+  color: #2b2b2b;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.StatusPicker-subtitle {
+  font-size: 13px;
+  color: #2b2b2b;
+}
+
+.Status-statuses-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.StatusPicker-status-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.StatusPicker-status-container span {
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.StatusPicker-status-container > div {
+  display:flex;
+  flex-direction: column;
+}
+
+.StatusPicker-img-container {
+  cursor: pointer;
+  height: 75px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.StatusPicker-img-container img {
+  max-width: 100%;
+  max-height: 100%;
+}

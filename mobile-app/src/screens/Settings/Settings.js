@@ -1,89 +1,176 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 import _ from 'lodash';
 
-import { Item } from './components/Item';
+import { List, ListItem } from 'react-native-elements';
 import { withNavigationHelpers } from '../../services/Navigation';
-import { selectors as appSelectors } from '../../reducers/app';
-import { DropDownListModal } from '../../components/DropDownListModal';
+import { CountryModal } from './components/CountryModal';
+
 import {
-  actions as userActions,
-  selectors as userSelectors,
+  operations as userOps,
+  selectors as userSels,
 } from '../../reducers/user';
-import { selectors as trashpileSelectors } from '../../reducers/trashpile';
+import { COUNTRY_LIST } from '../../shared/constants';
+
+import styles, {
+  listItemProps,
+  downRightIcon,
+  defaultRightIcon,
+} from './styles';
 
 class Settings extends Component {
-  static propTypes = {
-    showCountryDropDownList: PropTypes.bool,
-    country: PropTypes.string,
-  };
-
   constructor(props) {
     super(props);
 
     this.state = {
-      showCountryDropDownList: false,
-      country: props.country,
+      showCountryModal: false,
+      countryFilter: undefined,
     };
+    this.handleCountryItemPress = _.debounce(
+      this.handleCountryItemPress,
+      2000,
+      {
+        trailing: false,
+        leading: true,
+      },
+    );
   }
 
-  handleCountryItemPress = () => {
+  getFilteredCountries() {
+    const { countryFilter } = this.state;
+    if (!countryFilter) {
+      return COUNTRY_LIST;
+    }
+    return COUNTRY_LIST.filter(
+      c => c.name.toLowerCase().indexOf(countryFilter.toLowerCase()) !== -1,
+    );
+  }
+  closeModal = () => {
     this.setState({
-      showCountryDropDownList: !this.state.showCountryDropDownList,
+      showCountryModal: false,
     });
   };
 
-  handleCountryValueChange = countryCode => {
-    const country = this.props.countries.find(
-      ({code}) => code === countryCode,
-    );
-    if (country) {
-      this.props.setProfileCountry(country.name);
-    }
+  handleCountryItemPress = () => {
+    this.setState(prevState => ({
+      showCountryModal: !prevState.showCountryModal,
+    }));
+  };
+
+  handleCountryChanged = (country) => {
     this.setState({
-      showCountryDropDownList: false,
-      country: _.has(country, 'name') ? country.name : '',
+      showCountryModal: false,
+      countryFilter: undefined,
     });
+    this.props.updateProfile({ country: country.code });
+  };
+  handleCountryFilterChanged = (countryFilter) => {
+    this.setState({ countryFilter });
+  };
+  handleLogoutPress = async () => {
+    const { logout, navigation } = this.props;
+    logout().then(() => {
+      navigation.resetTo('Login');
+    }, () => null);
+  };
+
+  handleTermsPress = () => {
+    this.props.navigation.navigate('Terms');
+  };
+  handlePrivacyPress = () => {
+    this.props.navigation.navigate('Privacy');
+  };
+  handleAboutPress = () => {
+    this.props.navigation.navigate('About');
+  };
+
+  renderModals = () => {
+    const { showCountryModal, countryFilter } = this.state;
+    return (
+      <View>
+        <CountryModal
+          visible={showCountryModal}
+          onPress={this.handleCountryChanged}
+          countries={this.getFilteredCountries()}
+          onSearchChange={this.handleCountryFilterChanged}
+          search={countryFilter}
+          onClose={this.closeModal}
+        />
+      </View>
+    );
   };
 
   render() {
-    const {country, showCountryDropDownList} = this.state;
+    const { country } = this.props;
+    const countrySubtitle = country
+      ? country.name
+      : this.props.t('label_country_picker_placeholder');
     return (
-      <View style={{ flex: 1 }}>
-        <Item
-          title="Country"
-          optionSelected={country}
-          imageStyles={{ width: 10, height: 6 }}
-          onPress={this.handleCountryItemPress}
-        />
+      <View>
+        <View style={styles.listContainer}>
+          <List containerStyle={[styles.separator, styles.list]}>
+            <ListItem
+              {...listItemProps}
+              title="Country"
+              subtitle={countrySubtitle}
+              onPress={this.handleCountryItemPress}
+            />
+          </List>
+          <List containerStyle={[styles.separator, styles.list]}>
+            <ListItem
+              {...listItemProps}
+              subtitleStyle={[styles.subtitle]}
+              onPress={this.handleTermsPress}
+              subtitle="Terms and Conditions"
+            />
+            <ListItem
+              {...listItemProps}
+              subtitleStyle={[styles.subtitle]}
+              onPress={this.handlePrivacyPress}
+              subtitle="Privacy Policy"
+            />
+          </List>
+          <List containerStyle={[styles.separator, styles.list]}>
+            <ListItem
+            {...listItemProps}
+              subtitleStyle={[styles.subtitle]}
+              onPress={this.handleAboutPress}
+              subtitle="About"
+            />
+          </List>
+          <List containerStyle={[styles.separator, styles.list]}>
+            <ListItem
+              subtitleStyle={[styles.subtitle, styles.logout]}
+              onPress={this.handleLogoutPress}
+              subtitle="Log out"
+              hideChevron
+            />
+          </List>
 
-        <DropDownListModal
-          items={this.props.countries}
-          onPressItem={this.handleCountryValueChange}
-          show={showCountryDropDownList}
-        />
+          {this.renderModals()}
+
+        </View>
       </View>
     );
   }
 }
-
-const mapStateToProps = ({ app, user, trashpile }) => {
+const mapState = (state) => {
   return {
-    countries: appSelectors.getCountries(app),
-    country:
-      userSelectors.getProfileCountry(user) ||
-        trashpileSelectors.getCountry(trashpile),
+    profile: userSels.getProfile(state),
+    country: userSels.getProfileCountry(state),
+    isProfileUpdating: userSels.isProfileUpdating(state),
   };
 };
-
-const mapDispatchToProps = {
-  setProfileCountry: userActions.setProfileCountry,
+const mapDispatch = {
+  logout: userOps.logout,
+  updateProfile: userOps.updateProfile,
 };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapState, mapDispatch),
   withNavigationHelpers(),
+  translate(),
 )(Settings);

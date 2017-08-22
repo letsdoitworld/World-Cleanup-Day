@@ -1,0 +1,42 @@
+.UserListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 13px;
+  padding-left: 8px;
+  padding-bottom: 9px;
+  cursor: pointer;
+}
+
+.UserListItem:hover {
+  background-color: #D8EDFF!important;
+}
+
+.UserListItem-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  margin-right: 7px;
+}
+
+.UserListItem-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.UserListItem-header {
+  height: 20px;
+  color: #3E8EDE;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.UserListItem-location {
+  height: 16px;
+  color: rgba(43, 43, 43, 0.98);
+  font-size: 13px;
+  line-height: 16px;
+}

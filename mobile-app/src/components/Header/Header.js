@@ -15,6 +15,7 @@ export const HEADER_BUTTONS_IMAGES = {
     styles: { width: 18, height: 18, alignSelf: 'flex-end' },
   },
 };
+import { translate } from 'react-i18next';
 
 class Header extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class Header extends React.Component {
   }
   render() {
     const {
-      title = 'Cancel',
+      title = this.props.t('label_button_cancel'),
       titleLeftButton = '',
       titleRightButton = '',
       leftButtonImage,
@@ -85,4 +86,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default translate()(Header);

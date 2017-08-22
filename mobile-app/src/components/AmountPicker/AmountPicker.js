@@ -54,18 +54,30 @@ class AmountPicker extends Component {
     super(props);
 
     const steps = [
-      { selected: false, flexStyle: 0.125 },
+      { selected: true, flexStyle: 0.125 },
       { selected: false, flexStyle: 0.375 },
       { selected: false, flexStyle: 0.625 },
       { selected: false, flexStyle: 1.0 },
     ];
 
-    let initialAmount = props.amount !== undefined ? props.amount : 0;
-    steps.forEach((step, index) => (step.selected = index <= initialAmount));
     this.state = {
-      sliderLocation: sliderPoints[initialAmount],
+      sliderLocation: sliderPoints[0],
       steps,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let initialAmount = nextProps.amount !== undefined
+      ? nextProps.amount
+      : AMOUNT_STATUSES.handful;
+
+    this.setState({
+      sliderLocation: sliderPoints[initialAmount],
+      steps: this.state.steps.map((step, index) => ({
+        ...step,
+        selected: index <= initialAmount,
+      })),
+    });
   }
 
   handlePress = evt => {
@@ -156,11 +168,14 @@ class AmountPicker extends Component {
 
           </View>
           {!disabled &&
-          <View
-            style={[styles.sliderButton, { left: sliderLocation -  BUTTON_MIDDLE_SIZE}]}
-          >
-            <View style={styles.insideSliderButton} />
-          </View>}
+            <View
+              style={[
+                styles.sliderButton,
+                { left: sliderLocation - BUTTON_MIDDLE_SIZE },
+              ]}
+            >
+              <View style={styles.insideSliderButton} />
+            </View>}
         </View>
       </TouchableWithoutFeedback>
     );

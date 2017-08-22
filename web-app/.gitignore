@@ -1,5 +1,7 @@
 .vscode/
 node_modules/
 .idea
-src/**/*.css
 build
+src/env.js
+
+.DS_STORE

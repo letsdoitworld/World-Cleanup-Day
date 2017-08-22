@@ -6,6 +6,7 @@ import DropDownItem from './DropDownItem';
 import { Button } from '../Buttons';
 import { Divider } from '../Divider';
 import styles from './styles';
+import { translate } from 'react-i18next';
 
 class DropDownListModal extends Component {
   static propTypes = {
@@ -53,7 +54,7 @@ class DropDownListModal extends Component {
             </View>
             <View style={styles.buttonWrapper}>
               <Button
-                text="Cancel"
+                text={this.props.t('label_button_cancel')}
                 customStyles={{ touchableContainer: { borderRadius: 10 } }}
                 onPress={this.handleCancel}
               />
@@ -65,4 +66,4 @@ class DropDownListModal extends Component {
   }
 }
 
-export default DropDownListModal;
+export default translate()(DropDownListModal);

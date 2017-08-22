@@ -28,6 +28,7 @@ export default EStyleSheet.create({
     color: '#b3b3b3',
   },
   textContainer: {
+    width: getWidthPercentage(280),
   },
   text: {
     marginLeft: getWidthPercentage(10),
@@ -52,5 +53,6 @@ export default EStyleSheet.create({
     color: '#404040',
     paddingHorizontal: getWidthPercentage(15),
     marginTop: getHeightPercentage(15),
+    width: getWidthPercentage(280),
   },
 });

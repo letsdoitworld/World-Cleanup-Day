@@ -1,0 +1,30 @@
+.SidebarItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  padding: 20px 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.SidebarItem-img-container {
+  width: 29px;
+  margin-bottom: 5px;
+}
+
+.SidebarItem-img-container img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.SidebarItem-title {
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #fff;
+  font-size: 12px;
+}
+
+.SidebarItem.active{
+  background-color:#2672BD;
+}

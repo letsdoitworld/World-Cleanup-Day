@@ -35,8 +35,9 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(10),
   },
   skipLogoutContainer: {
-    marginTop: getHeightPercentage(85),
     width: getWidthPercentage(210),
+    marginTop: getHeightPercentage(10),
+    marginBottom: getHeightPercentage(35)
   },
   skipLogout: {
     color: '$white',
@@ -44,7 +45,13 @@ export default EStyleSheet.create({
     textDecorationLine: 'underline',
     textAlign: 'center',
     backgroundColor: 'transparent',
-    fontWeight:'bold'
+    fontWeight: 'bold',
+  },
+  linksContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    paddingHorizontal: getWidthPercentage(30)
   },
   $fbButtonColor: '$fbColor',
   $googleButtonColor: '$googleColor',

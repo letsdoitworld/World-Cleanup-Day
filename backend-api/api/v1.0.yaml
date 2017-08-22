@@ -5,35 +5,71 @@ info:
 ################################################################################
 swagger: '2.0'
 basePath: "/api/v1"
-schemes:
-- http
+schemes: [http, https]
 consumes:
 - application/json
 produces:
 - application/json
 - text/html
 - text/plain
-securityDefinitions:
-  Bearer:
-    description: "Applying this schema to an endpoint will require the client to provide a valid JWT token in the `Authorization: Bearer TOKEN` header. **Example:** `security: [Bearer: []]`. This schema has no parameters."
-    type: apiKey
-    in: header
-    name: Authorization
-  Roles:
-    description: "Applying this schema to an endpoint will compare the capabilities given as schema parameters with the user's capabilities on the backend. See the list of scopes for valid capability codes and their description. This schema does not make sense on its own, please use it in an `AND` combination with the `Bearer` schema. **Example:** `security: [{Bearer: [], Roles: [foo,bar]}]`"
-    type: oauth2
-    flow: implicit
-    authorizationUrl: http://foobar
-    scopes:
-      role:volunteer: The most basic type of generic user.
-      role:leader: Area leader.
-      role:admin: Country administrator.
-      role:superadmin: Global administrator.
+################################################################################
+x-security-schemas:
+  description: This section documents the `x-security` endpoint markers.
+  bearer:
+    description: "The `bearer` string. Applying this schema to an endpoint will require the client to provide a valid JWT token as the `Authorization: Bearer JWT` header. **Example:** `x-security: [bearer]`."
+  ignore-terms-lock:
+    description: "The `ignore-terms-lock` string. Normally, all secured endpoints also check that the user has accepted the terms and conditions before granting access. Applying this schema to an endpoint skips this check. This schema has no effect if the endpoint is not secured with another schema."
+  roles:
+    description: "An array of strings. Applying this schema to an endpoint will grant access only if the logged-in user has one of the roles indicated by the strings. Please note that this schema needs another authentication schema (such as `bearer`) in order to obtain information about the user; applying it by itself will cause it to always fail."
+    valid-roles:
+      volunteer: The most basic type of generic user.
+      leader: Area leader.
+      admin: Country administrator.
+      superadmin: Global administrator.
 ################################################################################
 paths:
 ################################################################################
+  /me:
+    x-swagger-router-controller: users
+    get:
+      description: Information about the currently logged-in user.
+      operationId: getUserProfile
+      x-security: [bearer, ignore-terms-lock]
+      responses:
+        "200":
+          description: Account information.
+          schema:
+            $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+    put:
+      description: Change details about the user.
+      operationId: modifyUserProfile
+      x-security: [bearer, ignore-terms-lock]
+      parameters:
+        - $ref: "#/parameters/ModifyProfile"
+      responses:
+        "200":
+          description: Account information.
+          schema:
+            $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  /me/accept-terms:
+    x-swagger-router-controller: users
+    put:
+      description: Mark the terms and conditions accepted for the logged-in user account.
+      operationId: acceptTerms
+      x-security: [bearer, ignore-terms-lock]
+      responses:
+        "200":
+          description: The terms were marked accepted on this account.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /auth/external:
-    x-swagger-router-controller: auth
+    x-swagger-router-controller: users
     post:
       description: Obtain an authorization token in exchange for an OAUTH token from another authority.
       operationId: externalLogin
@@ -41,7 +77,22 @@ paths:
         - $ref: "#/parameters/AuthRequest"
       responses:
         "200":
-          $ref: "#/responses/AuthData"
+          description: Contains authorization data.
+          schema:
+            $ref: "#/definitions/AuthPermission"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /auth:
+    delete:
+      x-swagger-router-controller: users
+      description: End the user's session.
+      x-security: [bearer, ignore-terms-lock]
+      operationId: logout
+      responses:
+        "200":
+          description: User was logged out.
+        "default":
+          $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /datasets:
     x-swagger-router-controller: datasets
@@ -55,42 +106,213 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Dataset"
+        "default":
+          $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
-  /datasets/{id}:
-    x-swagger-router-controller: datasets
+  /admin/trashpoints:
+    x-swagger-router-controller: trashpoints
     get:
-      description: Fetch information about a specific dataset, identified by its unique identifier.
-      operationId: getDataset
+      description: Fetch location trashpoints contained in a specific dataset, within a specific polygon, and for a certain zoom level.
+      operationId: getAllTrashpoints
+      x-security: [bearer, roles:[superadmin]]
       parameters:
-        - name: id
-          description: Dataset identifier.
-          in: path
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/responses/AdminTrashpoints"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  /users:
+    x-swagger-router-controller: users
+    get:
+      description: Fetch all users.
+      operationId: getAllUsers
+      x-security: [bearer, {roles:[superadmin, leader]}]
+      responses:
+        "200":
+          description: List of accounts.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /users/{id}:
+    x-swagger-router-controller: users
+    get:
+      description: Fetch complete info about a specific user.
+      operationId: getOneUser
+      x-security: [bearer, {roles:[superadmin, leader]}]
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: Full account information.
+          schema:
+            $ref: "#/definitions/AccountExtended"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /users/{id}/lock:
+    x-swagger-router-controller: users
+    put:
+      description: Set lock status on an account.
+      operationId: lockAccount
+      x-security: [bearer, {roles:[superadmin, leader]}]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - name: request
+          in: body
           required: true
+          schema:
+            type: object
+            required: [locked]
+            properties:
+              locked:
+                description: "True if the account should be locked, false if it should be unlocked."
+                type: boolean
+      responses:
+        "200":
+          description: The user account was locked or unlocked successfully.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  /areas/user:
+    x-swagger-router-controller: areas
+    get:
+      description: List areas assigned to the account of the currently logged-in user.
+      operationId: getMyAreas
+      x-security: [bearer, {roles:[leader]}]
+      responses:
+        "200":
+          description: List of areas.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Area"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /areas/user/{id}:
+    x-swagger-router-controller: areas
+    get:
+      description: List areas assigned to a specific user.
+      operationId: getUserAreas
+      x-security: [bearer, {roles:[superadmin]}]
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: List of areas.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Area"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /areas:
+    x-swagger-router-controller: areas
+    get:
+      description: List all areas.
+      operationId: getAllAreas
+      x-security: [bearer, {roles:[superadmin]}]
+      parameters:
+        - name: parentId
+          in: query
+          description: Use if only areas with a specific parent should be returned.
+          required: false
           type: string
       responses:
         "200":
-          description: Individual dataset.
+          description: List of areas.
           schema:
-            $ref: "#/definitions/Dataset"
+            type: array
+            items:
+              $ref: "#/definitions/Area"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /areas/{id}/leader/{id2}:
+    x-swagger-router-controller: areas
+    put:
+      description: Assign an user as leader of an area.
+      operationId: assignAreaLeader
+      x-security: [bearer, {roles:[superadmin]}]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/UUID2"
+      responses:
+        "200":
+          description: User was successfully assigned to area.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /areas/{id}/leader:
+    x-swagger-router-controller: areas
+    delete:
+      description: Remove the leader of an area.
+      operationId: removeAreaLeader
+      x-security: [bearer, {roles:[superadmin]}]
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: User was successfully unassigned from area.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /areas/{id}/trashpoints:
+    x-swagger-router-controller: areas
+    get:
+      description: List of trashpoints falling into a specific area. Use special area code "-" (single dash) to request trashpoints which don't fall into any defined area.
+      operationId: getAreaTrashpoints
+      x-security: [bearer, {roles:[leader, superadmin]}]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/responses/AdminTrashpoints"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  # /datasets/{id}:
+  #   x-swagger-router-controller: datasets
+  #   get:
+  #     description: Fetch information about a specific dataset, identified by its unique identifier.
+  #     operationId: getDataset
+  #     parameters:
+  #       - name: id
+  #         description: Dataset identifier.
+  #         in: path
+  #         required: true
+  #         type: string
+  #     responses:
+  #       "200":
+  #         description: Individual dataset.
+  #         schema:
+  #           $ref: "#/definitions/Dataset"
+  #       "default":
+  #         $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /overview/clusters:
     x-swagger-router-controller: trashpoints
     post:
-      description: Fetch clustered trashpoints from a specific dataset, within a specific polygon, and for a certain zoom level.
+      description: Fetch clustered trashpoints from a specific dataset, within a certain rectangular area, and for a certain grid scale.
       operationId: getClustersOverview
       parameters:
         - $ref: "#/parameters/MapQuery"
       responses:
         "200":
-          description: List of simplified trashpoint and cluster data.
+          description: List of clusters.
           schema:
             type: array
             items:
               $ref: "#/definitions/Cluster"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /overview/trashpoints:
     x-swagger-router-controller: trashpoints
     post:
-      description: Fetch location trashpoints contained in a specific dataset, within a specific polygon, and for a certain zoom level.
+      description: Fetch isolated (ie. with no neighbors nearby) location trashpoints from a specific dataset, within a certain rectangular area, and for a certain grid scale.
       operationId: getTrashpointsOverview
       parameters:
         - $ref: "#/parameters/MapQuery"
@@ -100,49 +322,69 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/SimpleTrashpoint"
+              $ref: "#/definitions/OverviewTrashpoint"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /overview/trashpoints/grid:
+    x-swagger-router-controller: trashpoints
+    post:
+      description: Fetch isolated (ie. with no neighbors nearby) location trashpoints from a specific dataset, within a certain grid slot, for a certain grid scale.
+      operationId: getTrashpointsInGridCell
+      parameters:
+        - $ref: "#/parameters/MapQueryGrid"
+      responses:
+        "200":
+          description: List of simplified trashpoint data.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/OverviewTrashpoint"
+        "default":
+          $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /trashpoints:
+    x-swagger-router-controller: trashpoints
     put:
       description: Create a new trashpoint in a certain dataset ID.
       operationId: createTrashpoint
-      security: [{Bearer: [], Roles: [role:volunteer,role:leader,role:admin,role:superadmin]}]
+      x-security: [bearer]
       parameters:
-        - name: query
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              datasetId:
-                $ref: "#/definitions/DatasetId"
-              location:
-                $ref: "#/definitions/GeoPoint"
-              amount:
-                $ref: "#/definitions/TrashAmount"
-              trashComposition:
-                $ref: "#/definitions/TrashComposition"
-              status:
-                $ref: "#/definitions/TrashStatus"
+        - $ref: "#/parameters/CreateTrashpoint"
       responses:
         "200":
           description: The newly created trashpoint.
           schema:
             $ref: "#/definitions/Trashpoint"
-  /trashpoints/user/{id}:
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /trashpoints/user:
     x-swagger-router-controller: trashpoints
     get:
-      description: Fetch full information about trashpoints associated to a specific user ID.
-      operationId: getUserTrashpoints
-      security: [Bearer: []]
+      description: Fetch full information about trashpoints associated to the authenticated user.
+      operationId: getUserOwnTrashpoints
+      x-security: [bearer]
       parameters:
-        - $ref: "#/parameters/UUID"
-          #FIXME: pagination
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
       responses:
         "200":
-          description: Individual trashpoint or cluster.
+          description: List of trashpoints with a simplified set of associated data.
           schema:
-            $ref: "#/definitions/Trashpoint"
+            type: object
+            required: [total, pageSize, pageNumber, records]
+            properties:
+              total:
+                $ref: "#/definitions/PageTotal"
+              pageSize:
+                $ref: "#/definitions/PageSize"
+              pageNumber:
+                $ref: "#/definitions/PageNumber"
+              records:
+                type: array
+                items:
+                  $ref: "#/definitions/UserTrashpoint"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /trashpoints/{id}:
     x-swagger-router-controller: trashpoints
     get:
@@ -155,9 +397,25 @@ paths:
           description: Individual trashpoint or cluster.
           schema:
             $ref: "#/definitions/Trashpoint"
+        "default":
+          $ref: "#/responses/ErrorSet"
+    put:
+      description: Modify details of a specific trashpoint.
+      operationId: modifyTrashpoint
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/ModifyTrashpoint"
+      responses:
+        "200":
+          description: Individual trashpoint or cluster.
+          schema:
+            $ref: "#/definitions/Trashpoint"
+        "default":
+          $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /trashpoints/{id}/images:
-    x-swagger-router-controller: trashpoints
+    x-swagger-router-controller: images
     get:
       description: Fetch the images associated with a specific trashpoint ID.
       operationId: getTrashpointImages
@@ -170,51 +428,199 @@ paths:
             type: array
             items:
               $ref: "#/definitions/TrashpointImage"
+        "default":
+          $ref: "#/responses/ErrorSet"
     put:
-      description: Create a new image and associate it with a specific trashpoint ID.
-      operationId: createTrashpointImage
-      security: [{Bearer: [], Roles: [role:volunteer,role:leader,role:admin,role:superadmin]}]
-      consumes:
-        - multipart/form-data
+      description: Allocate a new image associated with a specific trashpoint ID.
+      operationId: allocateTrashpointImages
+      x-security: [bearer]
       parameters:
         - $ref: "#/parameters/UUID"
-        - name: image
-          description: Image file.
-          in: formData
-          type: file
+        - $ref: "#/parameters/ImageAllocate"
       responses:
         "200":
-          description: Properties of the newly created image.
-          schema:
-            $ref: "#/definitions/TrashpointImage"
+          $ref: "#/responses/StorageAuth"
+        "default":
+          $ref: "#/responses/ErrorSet"
+    post:
+      description: Confirm the upload of an image.
+      operationId: confirmTrashpointImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/ImageConfirm"
+      responses:
+        "200":
+          description: All indicated images were processed successfully.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /trashpoints/{id}/images/{id2}:
+    x-swagger-router-controller: images
+    delete:
+      description: Delete an image. The 1st ID indicates the trashpoint, the 2nd the image.
+      operationId: deleteTrashpointImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/UUID2"
+      responses:
+        "200":
+          description: The indicated image and their dependent images were deleted.
+        "default":
+          $ref: "#/responses/ErrorSet"
 
 ################################################################################
 parameters:
 ################################################################################
+  PageSize:
+    name: pageSize
+    in: query
+    description: number of items on a page.
+    required: true
+    type: integer
+    minimum: 10
+    maximum: 50
+  PageNumber:
+    name: pageNumber
+    in: query
+    description: number of items on a page.
+    required: true
+    type: integer
+    minimum: 1
+  #-----------------------------------------------------------------------------
+  ImageAllocate:
+    name: request
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [count]
+      properties:
+        count:
+          type: integer
+          minimum: 1
+          maximum: 3
+  ImageConfirm:
+    name: request
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [confirmed, failed]
+      properties:
+        confirmed:
+          description: List of image IDs that have been uploaded successfully.
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/definitions/UUID"
+        failed:
+          description: List of image IDs that have failed to upload.
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
+  ModifyProfile:
+    name: update
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [country]
+      properties:
+        country:
+          $ref: "#/definitions/CountryCode"
+  #-----------------------------------------------------------------------------
+  ModifyTrashpoint:
+    name: trashpoint
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [hashtags, composition, location, amount, name, address, status]
+      properties:
+        location:
+          $ref: "#/definitions/GeoPoint"
+        status:
+          $ref: "#/definitions/TrashModifyStatus"
+        amount:
+          $ref: "#/definitions/TrashAmount"
+        composition:
+          $ref: "#/definitions/TrashComposition"
+        name:
+          $ref: "#/definitions/TrashName"
+        address:
+          $ref: "#/definitions/TrashAddress"
+        hashtags:
+          $ref: "#/definitions/TrashHashtags"
+  CreateTrashpoint:
+    name: trashpoint
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [datasetId, location, status, amount, composition, name, address]
+      properties:
+        datasetId:
+          $ref: "#/definitions/UUID"
+        location:
+          $ref: "#/definitions/GeoPoint"
+        status:
+          $ref: "#/definitions/TrashCreateStatus"
+        amount:
+          $ref: "#/definitions/TrashAmount"
+        composition:
+          $ref: "#/definitions/TrashComposition"
+        name:
+          $ref: "#/definitions/TrashName"
+        address:
+          $ref: "#/definitions/TrashAddress"
+        hashtags:
+          $ref: "#/definitions/TrashHashtags"
+  #-----------------------------------------------------------------------------
   MapQuery:
     name: query
     in: body
     required: true
     schema:
       type: object
-      required: [datasetId, zoom, polygon]
+      required: [datasetId, rectangle, scale]
       properties:
         datasetId:
-          $ref: "#/definitions/DatasetId"
-        zoom:
-          $ref: "#/definitions/GeoZoom"
-        polygon:
-          description: An array of coordinates that describe a simple (non-intersecting) polygon. The query will return only trashpoints found within the bounds of this polygon. Please note that the first and last points must be the same, and thus a minimum of 4 points are required to describe the simplest valid polygon (a triangle).
-          type: array
-          minItems: 4
-          items:
-            $ref: "#/definitions/GeoPoint"
+          $ref: "#/definitions/UUID"
+        rectangle:
+          $ref: "#/definitions/GeoRectangle"
+        scale:
+          $ref: "#/definitions/GeoScale"
+  MapQueryGrid:
+    name: query
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [datasetId, scale, coordinates]
+      properties:
+        datasetId:
+          $ref: "#/definitions/UUID"
+        scale:
+          $ref: "#/definitions/GeoScale"
+        coordinates:
+          $ref: "#/definitions/GridCoordinates"
+  #-----------------------------------------------------------------------------
   UUID:
     description: UUID.
     name: id
     in: path
     required: true
     type: string
+  UUID2:
+    description: UUID.
+    name: id2
+    in: path
+    required: true
+    type: string
+  #-----------------------------------------------------------------------------
   AuthRequest:
     description: Credentials used for authorization.
     name: credentials
@@ -232,36 +638,105 @@ parameters:
 ################################################################################
 responses:
 ################################################################################
-  AuthData:
-    description: Contains authorization data.
+  AdminTrashpoints:
+    description: List of trashpoints for admin consumption.
     schema:
-      type: object
-      required: [token]
-      properties:
-        token:
-          $ref: "#/definitions/AuthToken"
-
+      $ref: "#/definitions/PaginatedTrashpoints"
+  AreaTrashpoints:
+    description: List of trashpoints for area leader consumption.
+    schema:
+      $ref: "#/definitions/PaginatedAreaTrashpoints"
+  StorageAuth:
+    description: A short-term authorization allowing access to storage operations.
+    schema:
+      type: array
+      items:
+        type: object
+        required: [permission, type]
+        properties:
+          permission:
+            $ref: "#/definitions/AuthPermission"
+          type:
+            description: The type of resource.
+            $ref: "#/definitions/TrashImageType"
+  ErrorSet:
+    description: Contains errors.
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Error"
 ################################################################################
 definitions:
 ################################################################################
   #-----------------------------------------------------------------------------
-  # High level map markers.
+  # Area properties.
   #-----------------------------------------------------------------------------
-  SimpleTrashpoint:
+  Area:
     type: object
-    required: [id, location, status]
+    required: [id, name]
     properties:
       id:
-       type: string
-       description: UUID that serves to uniquely identify this object.
-      location:
-        $ref: "#/definitions/GeoPoint"
-      status:
-        $ref: "#/definitions/TrashStatus"
+        description: A unique code in geo HASC notation. Eg. US.CA.SF would mean US > California > San Francisco.
+        type: string
+      name:
+        type: string
+      # outline: #FIXME: don't need the outline on frontend for now
+      #   type: object #FIXME: describe the geojson structure explicitly
+      parentId:
+        description: Each area can optionally be classified as physically located under another.
+        type: string
+      leaderId:
+        description: Area can be optionally be assigned to a user.
+        $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
+  # Account properties.
+  #-----------------------------------------------------------------------------
+  Account:
+    type: object
+    required: [id, role]
+    properties:
+      id:
+        $ref: "#/definitions/UUID"
+      name:
+        type: string
+      email:
+        type: string
+      role:
+        type: string
+        enum: [volunteer, leader, admin, superadmin]
+      country:
+        $ref: "#/definitions/CountryCode"
+      pictureURL:
+        type: string
+      termsAcceptedAt:
+        $ref: "#/definitions/ISOTimestamp"
+      locked:
+        type: boolean
+  AccountExtended:
+    allOf:
+    - "$ref": "#/definitions/Account"
+    - type: object
+      required: [locked, createdAt, createdBy]
+      properties:
+        locked:
+          type: boolean
+        createdAt:
+          $ref: "#/definitions/ISOTimestamp"
+        createdBy:
+          $ref: "#/definitions/UUID"
+        updatedAt:
+          description: When the account was last modified. If missing it means this is a freshly created account.
+          $ref: "#/definitions/ISOTimestamp"
+        updatedBy:
+          description: Who caused this account to be last modified. If missing it means this is a freshly created account.
+          $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
+  # Cluster characteristics.
+  #-----------------------------------------------------------------------------
   Cluster:
     description: If not present, this object is a trashpoint. If present, this object is a cluster and this property contains cluster-specific properties.
     type: object
-    required: [count, status, zoom]
+    required: [count, status, location, coordinates]
     properties:
       count:
         type: number
@@ -269,19 +744,85 @@ definitions:
         minimum: 1
       status:
         $ref: "#/definitions/TrashStatus"
-      zoom:
-        $ref: "#/definitions/GeoZoom"
+      location:
+        $ref: "#/definitions/GeoPoint"
+      coordinates:
+        $ref: "#/definitions/GridCoordinates"
   #-----------------------------------------------------------------------------
-  # Trashpoint characteristics.
+  # Simplified trashpoint versions, for optimized transfer.
+  #-----------------------------------------------------------------------------
+  OverviewTrashpoint:
+    description: Simplified version of trashpoint, used when listing trashpoint overviews.
+    type: object
+    required: [id, location, status]
+    properties:
+      id:
+        $ref: "#/definitions/UUID"
+      location:
+        $ref: "#/definitions/GeoPoint"
+      status:
+        $ref: "#/definitions/TrashStatus"
+  UserTrashpoint:
+    description: Simplified version of trashpoint, used when listing a user's own trashpoints.
+    type: object
+    required: [id, status, name, address]
+    properties:
+      id:
+        $ref: "#/definitions/UUID"
+      status:
+        $ref: "#/definitions/TrashStatus"
+      name:
+        type: string
+        description: A unique name of this trashpoint.
+      address:
+        type: string
+        description: The address where the trashpoint was created.
+      location:
+        $ref: "#/definitions/GeoPoint"
+  #-----------------------------------------------------------------------------
+  # Trashpoints as paginated sets.
+  #-----------------------------------------------------------------------------
+  PaginatedTrashpoints:
+    type: object
+    required: [total, pageSize, pageNumber, records]
+    properties:
+      total:
+        $ref: "#/definitions/PageTotal"
+      pageSize:
+        $ref: "#/definitions/PageSize"
+      pageNumber:
+        $ref: "#/definitions/PageNumber"
+      records:
+        type: array
+        items:
+          $ref: "#/definitions/UserTrashpoint"
+  PaginatedAreaTrashpoints:
+    allOf:
+    - $ref: "#/definitions/PaginatedTrashpoints"
+    - type: object
+      required: [statusCounts]
+      properties:
+        statusCounts:
+          type: object
+          properties:
+            threat:
+              $ref: "#/definitions/Count"
+            regular:
+              $ref: "#/definitions/Count"
+            cleaned:
+              $ref: "#/definitions/Count"
+            outdated:
+              $ref: "#/definitions/Count"
+  #-----------------------------------------------------------------------------
+  # Full trashpoint characteristics.
   #-----------------------------------------------------------------------------
   Trashpoint:
     description: A geographical location and assorted metadata.
     type: object
-    required: [id, location, status, composition, amount, hashtags]
+    required: [id, location, status, composition, amount, hashtags, name, address, createdAt, createdBy, updatedAt, updatedBy]
     properties:
       id:
-        type: string
-        description: UUID that serves to uniquely identify this object.
+        $ref: "#/definitions/UUID"
       location:
         $ref: "#/definitions/GeoPoint"
       status:
@@ -290,66 +831,127 @@ definitions:
         $ref: "#/definitions/TrashComposition"
       amount:
         $ref: "#/definitions/TrashAmount"
+      name:
+        type: string
+        description: A unique name of this trashpoint.
+      address:
+        type: string
+        description: The address where the trashpoint was created.
       hashtags:
         $ref: "#/definitions/TrashHashtags"
-      #FIXME: updater user name and id
-      #FIXME: creator user name and id
-      #FIXME: updated timestamp (UTC)
-      #FIXME: created timestamp (UTC)
-  TrashpointImage:
-    type: object
-    required: [id, url]
-    properties:
-      id:
-        description: Image UUID.
+      counter:
+        type: integer
+        minimum: 1
+      createdAt:
+        $ref: "#/definitions/ISOTimestamp"
+      updatedAt:
+        $ref: "#/definitions/ISOTimestamp"
+      createdBy:
+        $ref: "#/definitions/UUID"
+      updatedBy:
+        $ref: "#/definitions/UUID"
+      createdByName:
         type: string
-      url:
-        description: Image URL.
+        description: Name of the user that created this trashpoint.
+      updatedByName:
         type: string
-      #FIXME: thumbnail URL?
+        description: Name of the user that updated this trashpoint.
+      areas:
+        type: array
+        items:
+          type: string
+          minLength: 1
   TrashStatus:
-     type: string
-     description: The current status of this trashpoint. If it's a cluster, the status is determined by the majority of trashpoints in it.
-     minItems: 1
-     enum: [threat, regular, cleaned, outdated]
+    type: string
+    description: The current status of this trashpoint. If it's a cluster, the status is determined by the majority of trashpoints in it.
+    enum: [threat, regular, cleaned, outdated]
+  TrashCreateStatus:
+    type: string
+    description: The initial status of a newly created trashpoint.
+    enum: [threat, regular]
+  TrashModifyStatus:
+    type: string
+    description: Change the status of the trashpoint.
+    enum: [threat, regular, cleaned]
   TrashComposition:
-     description: The type of composition the trash is made of.
-     type: array
-     uniqueItems: true
-     minItems: 1
-     items:
-       type: string
-     enum: [glass, electronics, paper, domestic waste, furniture, organic waste, plastic, metal]
+    description: The type of composition the trash is made of.
+    type: array
+    uniqueItems: true
+    minItems: 1
+    items:
+      type: string
+      enum: [glass, electronics, paper, domestic waste, furniture, organic waste, plastic, metal, tyres]
   TrashAmount:
     description: The amount of trash.
     type: string
     minItems: 1
     enum: [handful, bagful, cartload, truckload]
+  TrashName:
+    type: string
+    minLength: 1
+    maxLength: 50
+  TrashAddress:
+    type: string
+    minLength: 1
+    maxLength: 250
   TrashHashtags:
     description: Extra information added by the user describing the trash.
     type: array
+    maxItems: 15
     uniqueItems: true
     items:
+      description: 1-25 characters plus leading hash (#).
       type: string
-      maxLength: 25
-      minLength: 1
+      pattern: '^#[a-zA-Z0-9]+$'
+      minLength: 2
+      maxLength: 26
+  #-----------------------------------------------------------------------------
+  # Trashpoint image characteristics.
+  #-----------------------------------------------------------------------------
+  TrashpointImage:
+    type: object
+    required: [id, trashpointId, type]
+    properties:
+      id:
+        description: The unique identifier for this image.
+        $ref: "#/definitions/UUID"
+      trashpointId:
+        description: The identifier of the trashpoint this image is associated with.
+        $ref: "#/definitions/UUID"
+      type:
+        $ref: "#/definitions/TrashImageType"
+      url:
+        description: The URL at which the image is available. Not present when the status is not "ready".
+        type: string
+      parentId:
+        description: Depending on the type, some images are related to another.
+        $ref: "#/definitions/UUID"
+  TrashImageType:
+    type: string
+    enum: [medium, thumbnail]
   #-----------------------------------------------------------------------------
   # Dataset characteristics.
   #-----------------------------------------------------------------------------
-  DatasetId:
-    type: string
-    description: UUID that serves to uniquely identify this dataset among any datasets anywhere.
   Dataset:
     description: A collection of data objects with a common internal structure.
     type: object
     required: [id, type]
     properties:
       id:
-        $ref: "#/definitions/DatasetId"
+        $ref: "#/definitions/UUID"
       type:
         description: The type of objects contained in this dataset.
         type: string
         enum: [trashpoints]
+  #-----------------------------------------------------------------------------
+  # Grid data.
+  #-----------------------------------------------------------------------------
+  GridCoordinates:
+    description: A set of integer representing the coordinates of a cluster grid cell.
+    type: array
+    items:
+      type: number
+      format: int32
   #-----------------------------------------------------------------------------
   # Geographical data.
   #-----------------------------------------------------------------------------
@@ -380,17 +982,77 @@ definitions:
         $ref: "#/definitions/GeoLatitude"
       longitude:
         $ref: "#/definitions/GeoLongitude"
-  GeoZoom:
-    description: Map zoom level, expressed in discreet steps along a predefined scale.
-    type: number
-    format: int32
-    minimum: 1
-    maximum: 20
+  GeoRectangle:
+    description: Two geopoints that represent the corners of a rectangle.
+    type: object
+    required: [nw, se]
+    properties:
+      nw:
+        $ref: "#/definitions/GeoPoint"
+      se:
+        $ref: "#/definitions/GeoPoint"
+  GeoScale:
+    type: string
+    enum: [1000km, 500km, 300km, 200km, 180km, 160km, 140km, 120km, 100km, 90km, 80km, 70km, 60km, 50km, 30km, 20km, 10km, 5km, 3km, 2km, 1km, 500m, 300m, 200m, 100m, 50m, 30m, 20m, 10m, 5m, 1m]
   #-----------------------------------------------------------------------------
   # Authorization data structures.
   #-----------------------------------------------------------------------------
   AuthSource:
     type: string
     enum: [facebook, google]
+  AuthPermission:
+    type: object
+    required: [token, resourceId]
+    properties:
+      token:
+        $ref: "#/definitions/AuthToken"
+      resourceId:
+        $ref: "#/definitions/UUID"
   AuthToken:
     type: string
+  #-----------------------------------------------------------------------------
+  # Generic data.
+  #-----------------------------------------------------------------------------
+  UUID:
+    type: string
+    description: UUID that serves to uniquely identify this object.
+  CountryCode:
+    description: ISO ALPHA-3 country code.
+    type: string
+    enum: [ABW, AFG, AGO, AIA, ALA, ALB, AND, ARE, ARG, ARM, ASM, ATA, ATF, ATG, AUS, AUT, AZE, BDI, BEL, BEN, BES, BFA, BGD, BGR, BHR, BHS, BIH, BLM, BLR, BLZ, BMU, BOL, BRA, BRB, BRN, BTN, BVT, BWA, CAF, CAN, CCK, CHE, CHL, CHN, CIV, CMR, COD, COG, COK, COL, COM, CPV, CRI, CUB, CUW, CXR, CYM, CYP, CZE, DEU, DJI, DMA, DNK, DOM, DZA, ECU, EGY, ERI, ESH, ESP, EST, ETH, FIN, FJI, FLK, FRA, FRO, FSM, GAB, GBR, GEO, GGY, GHA, GIB, GIN, GLP, GMB, GNB, GNQ, GRC, GRD, GRL, GTM, GUF, GUM, GUY, HKG, HMD, HND, HRV, HTI, HUN, IDN, IMN, IND, IOT, IRL, IRN, IRQ, ISL, ISR, ITA, JAM, JEY, JOR, JPN, KAZ, KEN, KGZ, KHM, KIR, KNA, KOR, KWT, LAO, LBN, LBR, LBY, LCA, LIE, LKA, LSO, LTU, LUX, LVA, MAC, MAF, MAR, MCO, MDA, MDG, MDV, MEX, MHL, MKD, MLI, MLT, MMR, MNE, MNG, MNP, MOZ, MRT, MSR, MTQ, MUS, MWI, MYS, MYT, NAM, NCL, NER, NFK, NGA, NIC, NIU, NLD, NOR, NPL, NRU, NZL, OMN, PAK, PAN, PCN, PER, PHL, PLW, PNG, POL, PRI, PRK, PRT, PRY, PSE, PYF, QAT, REU, ROU, RUS, RWA, SAU, SDN, SEN, SGP, SGS, SHN, SJM, SLB, SLE, SLV, SMR, SOM, SPM, SRB, SSD, STP, SUR, SVK, SVN, SWE, SWZ, SXM, SYC, SYR, TCA, TCD, TGO, THA, TJK, TKL, TKM, TLS, TON, TTO, TUN, TUR, TUV, TZA, UGA, UKR, UMI, URY, USA, UZB, VAT, VCT, VEN, VGB, VIR, VNM, VUT, WLF, WSM, YEM, ZAF, ZMB, ZWE]
+  ISOTimestamp:
+    description: ISO8601 timestamp.
+    type: string
+    pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'
+  #-----------------------------------------------------------------------------
+  # Error structure.
+  #-----------------------------------------------------------------------------
+  Error:
+    type: object
+    required: [message]
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+  #-----------------------------------------------------------------------------
+  # Pagination-specific properties.
+  #-----------------------------------------------------------------------------
+  PageTotal:
+    description: Total number of user's trashpoints.
+    type: integer
+    minimum: 0
+  PageSize:
+    description: The number of trashpoints returned.
+    type: integer
+    minimum: 10
+    maximum: 50
+  PageNumber:
+    description: The number of the page requested regarding pagination.
+    type: integer
+    minimum: 1
+  Count:
+    description: A count of some sort.
+    type: number
+    format: int32
+    minimum: 0

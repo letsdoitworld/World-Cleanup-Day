@@ -17,7 +17,7 @@ For the current list of CTC members, see the project [README.md](https://github.
 
 ## Contributors
 
-World Cleanup is an open source project and we love to receive contributions from you! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests or writing code which can be incorporated into World Cleanup. See the [CONTRIBUTING.md](https://github.com/letsdoitworld/World-Cleanup/blob/master/CONTRIBUTING.md)
+World Cleanup is an open source project and we love to receive contributions from you! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests or writing code which can be incorporated into World Cleanup. See the [CONTRIBUTING.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/CONTRIBUTING.md)
 
 ## Collaborators
 
@@ -36,9 +36,9 @@ If one or more Collaborators oppose a proposed change, then the change can not b
 
 Collaborators may opt to elevate significant or controversial modifications to the CTC by assigning the `ctc-review` label to a pull request or issue. The CTC should serve as the final arbiter where required.
 
-For the current list of Collaborators, see the project [README.md](https://github.com/letsdoitworld/World-Cleanup/blob/master/Readme.md).
+For the current list of Collaborators, see the project [README.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/Readme.md).
 
-A guide for Collaborators is maintained in [CONTRIBUTING.md](https://github.com/letsdoitworld/World-Cleanup/blob/master/CONTRIBUTING.md).
+A guide for Collaborators is maintained in [CONTRIBUTING.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/CONTRIBUTING.md).
 
 ### Collaborator Activities
 

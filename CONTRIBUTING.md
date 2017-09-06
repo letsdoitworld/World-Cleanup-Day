@@ -45,7 +45,7 @@ Discussion of non-technical topics including subjects like intellectual property
 
 ## Code Contributions
 
-The WOrld Cleanup project has an open governance model and welcomes new contributors. Individuals making significant and valuable contributions are made
+The World Cleanup project has an open governance model and welcomes new contributors. Individuals making significant and valuable contributions are made
 _Collaborators_ and given commit-access to the project. See the [GOVERNANCE.md](./GOVERNANCE.md) document for more information about how this
 works.
 
@@ -64,7 +64,6 @@ $ git remote add upstream ...
 #### Which branch?
 
 For developing new features and bug fixes, the `master` branch should be pulled and built upon.
-
 
 ### Step 2: Branch
 
@@ -94,10 +93,7 @@ $ git commit
 
 Writing good commit logs is important. A commit log should describe what changed and why. Follow these guidelines when writing one:
 
-1. The first line should be 50 characters or less and contain a short description of the change. All words in the description should be in
-   lowercase with the exception of proper nouns, acronyms, and the ones that refer to code, like function/variable names. The description should
-   be prefixed with the name of the changed subsystem and start with an imperative verb. Example: "net: add localAddress and localPort
-   to Socket"
+1. The first line should be 50 characters or less and contain a short description of the change. All words in the description should be in lowercase with the exception of proper nouns, acronyms, and the ones that refer to code, like function/variable names. The description should be prefixed with the name of the changed subsystem and start with an imperative verb. Example: "net: add localAddress and localPort to Socket"
 2. Keep the second line blank.
 3. Wrap all other lines at 72 columns.
 
@@ -185,10 +181,9 @@ $ git commit --amend
 $ git push --force-with-lease origin my-branch
 ```
 
-**Important:** The `git push --force-with-lease` command is one of the few ways to delete history in git. Before you use it, make sure you understand the risks. If in doubt, you can always ask for guidance in the Pull Request or on [IRC in the #node-dev channel](https://webchat.freenode.net?channels=node-dev&uio=d4).
+**Important:** The `git push --force-with-lease` command is one of the few ways to delete history in git. Before you use it, make sure you understand the risks. If in doubt, you can always ask for guidance in the Pull Request.
 
-Feel free to post a comment in the Pull Request to ping reviewers if you are awaiting an answer on something. If you encounter words or acronyms that
-seem unfamiliar, refer to this [glossary](https://sites.google.com/a/chromium.org/dev/glossary).
+Feel free to post a comment in the Pull Request to ping reviewers if you are awaiting an answer on something.
 
 Note that multiple commits often get squashed when they are landed (see the notes about [commit squashing](#commit-squashing)).
 
@@ -204,31 +199,19 @@ When a collaborator lands your Pull Request, they will post a comment to the Pul
 
 ### Commit Squashing
 
-When the commits in your Pull Request land, they will be squashed into one commit per logical change. Metadata will be added to the commit
-message (including links to the Pull Request, links to relevant issues, and the names of the reviewers). The commit history of your Pull Request,
-however, will stay intact on the Pull Request page.
-
-For the size of "one logical change", [0b5191f](/commit/0b5191f15d0f311c804d542b67e2e922d98834f8) can be a good example. It touches the implementation, the documentation, and the tests, but is still one logical change. In general, the tests should always pass when each individual commit lands on the master branch.
+When the commits in your Pull Request land, they will be squashed into one commit per logical change. Metadata will be added to the commit message (including links to the Pull Request, links to relevant issues, and the names of the reviewers). The commit history of your Pull Request, however, will stay intact on the Pull Request page. In general, the tests should always pass when each individual commit lands on the master branch.
 
 ### Getting Approvals for Your Pull Request
 
-A Pull Request is approved either by saying LGTM, which stands for "Looks Good To Me", or by using GitHub's Approve button. GitHub's Pull Request review feature can be used during the process.
-For more information, check out the official documentation](https://help.github.com/articles/reviewing-changes-in-pull-requests/).
-
-After you push new changes to your branch, you need to get approval for these new changes again, even if GitHub shows "Approved" because the reviewers have hit the buttons before.
+A Pull Request is approved either by using GitHub's Approve button. GitHub's Pull Request review feature can be used during the process. For more information, check out the official documentation](https://help.github.com/articles/reviewing-changes-in-pull-requests/). After you push new changes to your branch, you need to get approval for these new changes again, even if GitHub shows "Approved" because the reviewers have hit the buttons before.
 
 ### CI Testing
 
-Every Pull Request needs to be tested to make sure that it works on the platforms that World Cleanuo supports. This is done by running the code through the CI system.
-
-Only a Collaborator can start a CI run. Usually one of them will do it for you as approvals for the Pull Request come in.
-If not, you can ask a Collaborator to start a CI run.
+Every Pull Request needs to be tested to make sure that it works on the platforms that World Cleanuo supports. This is done by running the code through the CI system. Only a Collaborator can start a CI run. Usually one of them will do it for you as approvals for the Pull Request come in. If not, you can ask a Collaborator to start a CI run.
 
 ### Waiting Until the Pull Request Gets Landed
 
-A Pull Request needs to stay open for at least 48 hours (72 hours on a weekend) from when it is submitted, even after it gets approved and
-passes the CI. This is to make sure that everyone has a chance to weigh in. If the changes are trivial, collaborators may decide it
-doesn't need to wait. A Pull Request may well take longer to be merged in. All these precautions are important because World Cleanup is widely used, so don't be discouraged!
+A Pull Request needs to stay open for at least 48 hours (72 hours on a weekend) from when it is submitted, even after it gets approved and passes the CI. This is to make sure that everyone has a chance to weigh in. If the changes are trivial, collaborators may decide it doesn't need to wait. A Pull Request may well take longer to be merged in. All these precautions are important because World Cleanup is widely used, so don't be discouraged!
 
 ## Developer's Certificate of Origin 1.1
 

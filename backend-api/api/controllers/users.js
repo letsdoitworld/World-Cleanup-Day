@@ -30,7 +30,11 @@ module.exports = {
         res => res.json(), // blank body
     ),
     getAllUsers: senecaRequestMw(
-        'role:db,cmd:getAccounts'
+        'role:db,cmd:getAccounts',
+        req => ({
+            pageSize: req.swagger.params.pageSize.value,
+            pageNumber: req.swagger.params.pageNumber.value,
+        }),
     ),
     getOneUser: senecaRequestMw(
         'role:db,cmd:getAccountById',

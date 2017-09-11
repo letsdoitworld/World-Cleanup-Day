@@ -50,12 +50,24 @@ class Lucius {
     /**
      * This wraps seneca.act() in an async version, and wraps the response inside
      * an instance of Message, allowing you to deal with it via standard methods.
+     * @param {string} pattern Seneca message addressing pattern.
+     * @param {object} [args={}] Extra arguments to be passed to seneca.act().
+     * @param {object} [fallbackUserInfo=undefined] If provided, and if args doesn't
+     *   already carry user information in args.__, it will use this parameter.
+     * @returns {Message} A Lucius message instance.
      * @memberof Lucius
      */
-    async request(...params) {
-        logger.debug(...logFormat('SEND', params[0], params[1]));
+    async request(pattern, args = {}, fallbackUserInfo = undefined) {
+        // if args doesn't already contain user info and it was provided explicitly,
+        // overwrite it in params
+        if (!args.__ && fallbackUserInfo) {
+            args.__ = fallbackUserInfo;
+        }
+
+        const params = [pattern, args];
+        logger.debug(...logFormat('SEND', pattern, params));
         const response = await this.promisifiedAct.apply(this.seneca, params);
-        logger.debug(...logFormat('RECV', params[0], params[1], response));
+        logger.debug(...logFormat('RECV', pattern, params, response));
         return this.makeMessage(response);
     }
 
@@ -76,7 +88,7 @@ class Lucius {
             throw new TypeError('Callback was not declared async.');
         }
         // we fabricate a callback which observes the signature that seneca expects
-        const wrapperCallback = (async function (args, next) {
+        const wrapperCallback = async function (args, next) {
             try {
                 logger.debug(...logFormat('ENTER', pattern, args));
                 // split out special arguments
@@ -86,7 +98,7 @@ class Lucius {
                 const responder = new Responder(this.makeMessage);
                 // ...and also a Connector object which can chain logical actions
                 // and provides helper functions that reduce boilerplate code
-                const connector = new Connector(responder, this);
+                const connector = new Connector(responder, this, __);
                 // we actually delegate the job to the custom callback
                 const result = await customCallback.apply(this.seneca, [connector, args, __]);
                 if (!(result instanceof Connector)) {
@@ -126,7 +138,7 @@ class Lucius {
                 logger.fatal(...logFormat('CRASH', pattern, args, e));
                 return next(e);
             }
-        }).bind(this);
+        }.bind(this);
         // we place the wrapper callback back among the parameters and call add()
         params.push(wrapperCallback);
         return this.seneca.add.apply(this.seneca, params);

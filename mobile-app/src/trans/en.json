@@ -100,6 +100,7 @@
   "label_header_editTP": "Edit a trashpoint",
   "label_button_editTP_save": "Save trashpoint changes",
   "label_alert_editTP_edit": "Trashpoint successfully updated",
+  "label_alert_editTP_delete": "Trashpoint successfully deleted",
 
   "label_error_editTP_out_of_rng_subtitle": "Out of range",
   "label_error_editTP_out_of_rng_text": "A point can only be edx`ited if you are within 100 meters of it.",
@@ -156,6 +157,8 @@
   "label_delete_photo_subtitle": "Are you sure you want to delete the photo? You cannot undo this.",
 
   "label_text_about_1": "This app is an initiative by Let's Do It World",
-  "label_text_about_2": "In order to provide a systematic database which we can use to clean up on our World Cleanup Day on 15th September 2018",
-  "label_text_about_3": "This app is a joint cooperation with"
+  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
+  "label_text_about_3": "This app is a joint cooperation with",
+  "label_button_editTP_delete": "Delete trashpoint",
+  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
 }

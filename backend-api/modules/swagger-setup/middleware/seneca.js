@@ -22,12 +22,12 @@ const handler = async function (req, res, next, pattern, params, cbSuccess = nul
     }
     // make sure params is never undefined
     params = params || {};
-    // selectively add extra info to params.__
-    params.__ = util.object.filter(req.__, {user: true, session: true});
+    // collect certain bits of user info
+    const userInfo = util.object.filter(req.__, {user: true, session: true});
     // make the seneca request
     const lucius = new Lucius(req.__.seneca);
     try {
-        const response = await lucius.request(pattern, params);
+        const response = await lucius.request(pattern, params, userInfo);
         if (!response.isSuccessful()) {
             // business logic errors are signalled with 400
             res.status(400);

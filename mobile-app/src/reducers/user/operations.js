@@ -1,10 +1,25 @@
 import { fetchNetworkTokenAsync, SOCIAL_NETWORKS } from '../../services/Login';
 import Api from '../../services/Api';
 import actions from './actions';
+import { operations as appOps } from '../app';
+import i18n from '../../config/i18n';
 
 const googleLogin = () => async (dispatch) => {
   try {
-    const token = await fetchNetworkTokenAsync(SOCIAL_NETWORKS.GOOGLE);
+    let token;
+    // const token = 'ex_token';
+    // dispatch(actions.setToken(token));
+    // return token;
+    try {
+      token = await fetchNetworkTokenAsync(SOCIAL_NETWORKS.GOOGLE);
+    } catch (ex) {
+      if (ex.code && ex.code === 'AUTH_ACCOUNT_IS_LOCKED') {
+        dispatch(
+          appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
+        );
+      }
+      return;
+    }
     dispatch(actions.setToken(token));
     return token;
   } catch (ex) {
@@ -14,10 +29,21 @@ const googleLogin = () => async (dispatch) => {
 };
 const facebookLogin = () => async (dispatch) => {
   try {
+    let token;
     // const token = 'ex_token';
     // dispatch(actions.setToken(token));
     // return token;
-    const token = await fetchNetworkTokenAsync(SOCIAL_NETWORKS.FACEBOOK);
+    try {
+      token = await fetchNetworkTokenAsync(SOCIAL_NETWORKS.FACEBOOK);
+    } catch (ex) {
+      if (ex.code && ex.code === 'AUTH_ACCOUNT_IS_LOCKED') {
+        dispatch(
+          appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
+        );
+      }
+      return;
+    }
+
     dispatch(actions.setToken(token));
     return token;
   } catch (ex) {

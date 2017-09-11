@@ -1,7 +1,8 @@
 import { Facebook, Google, Constants } from 'expo';
 import _ from 'lodash';
+import axios from 'axios';
 
-import Api from './Api';
+import Api, { handleApiError } from './Api';
 
 import {
   FACEBOOK_APP_ID,
@@ -85,15 +86,23 @@ const fetchNetworkTokenAsync = async (network) => {
   if (!isTypeSuccess(type)) {
     throw new TokenFetchException(network);
   }
-
-  const response = await Api.post(
-    '/auth/external',
-    {
+  let response;
+  try {
+    response = await axios.post(`${Api.baseURL}/auth/external`, {
       source: BACKEND_LOGIN_SOURCES[network],
       token,
-    },
-    { withToken: false },
-  );
+    });
+  } catch (ex) {
+    response = ex.response;
+    if (response.data && _.isArray(response.data) && response.data.length > 0) {
+      const error = response.data[0];
+      if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
+        throw error;
+      }
+    } else {
+      handleApiError(ex);
+    }
+  }
   if (!_.has(response, 'data.token')) {
     throw { error: 'Could not read authentification response data' };
   }

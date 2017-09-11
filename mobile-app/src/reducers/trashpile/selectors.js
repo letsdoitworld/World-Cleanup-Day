@@ -75,6 +75,10 @@ const userTrashpointsRefreshing = createSelector(
   state => state.refreshing,
 );
 const getGridValue = createSelector(legacySelector, state => state.gridValue);
+const getMarkerDeleting = createSelector(
+  legacySelector,
+  state => state.markerDeleting,
+);
 
 export default {
   stateSelector,
@@ -93,4 +97,6 @@ export default {
   userTrashpointsPageSize,
   userTrashpointsCanLoadMore,
   userTrashpointsRefreshing,
+
+  getMarkerDeleting,
 };

@@ -87,7 +87,7 @@ AreaList.propTypes = {
 };
 
 const mapState = state => ({
-  areas: areaSels.getNestedAreas(state),
+  areas: areaSels.getNestedAreas(state).filter(a => a.id !== '-'),
   loading: areaSels.areAreasLoading(state),
   error: areaSels.hasAreasError(state),
 });

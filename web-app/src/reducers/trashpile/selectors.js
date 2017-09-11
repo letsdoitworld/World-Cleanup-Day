@@ -6,8 +6,18 @@ const adminSel = createSelector(stateSel, state => state.admin);
 const detailsSel = createSelector(stateSel, state => state.details);
 const markerAreasSel = createSelector(stateSel, state => state.markerAreas);
 
-const getAreasTrashpoints = createSelector(markerAreasSel, state => state.areasTrashpoints.markers);
-const canLoadMoreAreasTrashpoints = createSelector(markerAreasSel, state => state.areasTrashpoints.canLoadMore);
+const getAreasTrashpoints = createSelector(
+  markerAreasSel,
+  state => state.areasTrashpoints.markers,
+);
+const canLoadMoreAreasTrashpoints = createSelector(
+  markerAreasSel,
+  state => state.areasTrashpoints.canLoadMore,
+);
+const getStatusCounts = createSelector(
+  markerAreasSel,
+  state => state.areasTrashpoints.statusCounts,
+);
 
 const getAllMarkers = createSelector(markersSel, state => state.markers);
 const getMarkerDetails = createSelector(detailsSel, state => state.marker);
@@ -38,5 +48,6 @@ export default {
   getGridValue,
   getFocusedLocation,
   getAreasTrashpoints,
-  canLoadMoreAreasTrashpoints
+  canLoadMoreAreasTrashpoints,
+  getStatusCounts,
 };

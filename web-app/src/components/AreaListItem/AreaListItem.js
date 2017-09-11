@@ -35,9 +35,15 @@ class AreaListItem extends React.Component {
   };
 
   renderRightLabel = () => {
-    const { area } = this.props;
+    const { area, rightLabel } = this.props;
+    if (rightLabel) {
+      if (_.isFunction(rightLabel)) {
+        return rightLabel(area);
+      }
+      return rightLabel;
+    }
     if (!area || !area.trashCount) {
-      return '0';
+      return 'View';
     }
     return String(area.trashCount);
 
@@ -83,13 +89,13 @@ class AreaListItem extends React.Component {
               </span>
             </div>
           </div>
-          {!!rightLabel &&
-            <div
-              onClick={() => onClick(area)}
-              className="AreaListItem-trashlist-button"
-            >
-              {this.renderRightLabel()}
-            </div>}
+
+          <div
+            onClick={() => onClick(area)}
+            className="AreaListItem-trashlist-button"
+          >
+            {this.renderRightLabel()}
+          </div>
         </div>
         {hasChildren &&
           <Collapse isOpened={this.state.isOpen}>
@@ -110,7 +116,7 @@ class AreaListItem extends React.Component {
 }
 AreaListItem.defaultProps = {
   leftPadding: 0,
-  rightLabel: 'View',
+  rightLabel: undefined,
 };
 AreaListItem.propTypes = {
   onClick: PropTypes.func.isRequired,

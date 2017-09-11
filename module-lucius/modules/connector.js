@@ -3,9 +3,10 @@ const {isAsyncFunction} = require('./util');
 const {Message} = require('../message');
 
 class Connector {
-    constructor(responder, lucius) {
+    constructor(responder, lucius, userInfo) {
         this.responder = responder;
         this.lucius = lucius;
+        this.userInfo = userInfo;
         this.calls = [];
         this.store = {};
     }
@@ -153,7 +154,7 @@ class Connector {
      * @memberof Connector
      */
     multiRequest(pattern, args) {
-        this.use((async function (input, responder) {
+        this.use(async function (input, responder) {
             let params;
             if (typeof args === 'undefined') {
                 params = input;
@@ -167,14 +168,14 @@ class Connector {
             }
             const results = [];
             for (let i = 0; i < params.length; i++) {
-                let ret = await this.lucius.request(pattern, params[i]);
+                let ret = await this.lucius.request(pattern, params[i], this.userInfo);
                 if (!ret.isSuccessful()) {
                     return ret;
                 }
                 results.push(ret.getPayload());
             }
             return responder.success(results);
-        }).bind(this));
+        }.bind(this));
         return this;
     }
 
@@ -190,7 +191,7 @@ class Connector {
      * @memberof Connector
      */
     request(pattern, args) {
-        this.use((async function (input) {
+        this.use(async function (input) {
             let params;
             if (typeof args === 'undefined') {
                 params = input;
@@ -199,8 +200,8 @@ class Connector {
             } else {
                 params = args;
             }
-            return await this.lucius.request(pattern, params);
-        }).bind(this));
+            return await this.lucius.request(pattern, params, this.userInfo);
+        }.bind(this));
         return this;
     }
 

@@ -22,21 +22,26 @@ const markersReducer = (state = MARKERS_INITIAL_STATE, action) => {
       const index = state.markers.findIndex(
         ({ id }) => action.marker.id === id,
       );
-      let newMarkers = [];
-      if (index !== -1) {
-        newMarkers = [
-          ...state.markers.slice(0, index),
-          action.marker,
-          ...state.markers.slice(index + 1),
-        ];
+      const markerAlreadyExists = index !== -1;
+      const newMarkers = [...state.markers];
+      if (markerAlreadyExists) {
+        newMarkers[index] = {
+          ...state.markers[index],
+          ...action.marker,
+        };
       } else {
-        newMarkers = [...state.markers, action.marker];
+        newMarkers.push({ ...action.marker });
       }
       return {
         ...state,
         markers: newMarkers,
       };
     }
+    case TYPES.DELETE_MARKER_SUCCESS:
+      return {
+        ...state,
+        markers: state.markers.filter(m => m.id !== action.payload.markerId),
+      };
     default:
       return state;
   }
@@ -83,6 +88,11 @@ const adminMarkersReducer = (state = ADMIN_MARKERS_STATE, action) => {
         markers: newMarkers,
       };
     }
+    case TYPES.DELETE_MARKER_SUCCESS:
+      return {
+        ...state,
+        markers: state.markers.filter(m => m.id !== action.payload.markerId),
+      };
     default:
       return state;
   }
@@ -120,6 +130,14 @@ const markerDetailsReducer = (state = MARKER_DETAILS_STATE, action) => {
       };
     case TYPES.FETCH_MARKER_DETAILS_FAILED:
       return { ...state, loading: false };
+    case TYPES.DELETE_MARKER_SUCCESS:
+      if (state.marker.id !== action.payload.markerId) {
+        return state;
+      }
+      return {
+        ...state,
+        marker: MARKER_DETAILS_STATE.marker,
+      };
 
     // DEFAULT
     default:
@@ -148,6 +166,7 @@ const MARKER_AREA_STATE = {
   loading: false,
   error: false,
   canLoadMore: true,
+  statusCounts: undefined,
 };
 const markerAreaReducer = (state = MARKER_AREA_STATE, action) => {
   switch (action.type) {
@@ -164,9 +183,11 @@ const markerAreaReducer = (state = MARKER_AREA_STATE, action) => {
         loading: false,
         error: false,
         pageNumber: action.payload.pageNumber,
-        markers: (state.markers || []).concat(action.payload.markers),
+        markers: (action.payload.reset ? [] : state.markers).concat(
+          action.payload.markers,
+        ),
         canLoadMore: action.payload.canLoadMore,
-        // TODO set canLoadMore
+        statusCounts: action.payload.statusCounts,
       };
     case TYPES.FETCH_AREA_MARKERS_ERROR:
       return {
@@ -180,7 +201,7 @@ const markerAreaReducer = (state = MARKER_AREA_STATE, action) => {
         ...state,
         markers: [],
         canLoadMore: false,
-        pageNumber: 1
+        pageNumber: 1,
       };
     default:
       return state;

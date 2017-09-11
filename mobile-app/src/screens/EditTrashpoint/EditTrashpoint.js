@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
 import { MessageBarManager } from 'react-native-message-bar';
+import moment from 'moment';
 import {
   StatusBar,
   View,
@@ -11,6 +12,7 @@ import {
   KeyboardAvoidingView,
   Modal,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -22,6 +24,7 @@ import { withNavigationHelpers } from '../../services/Navigation';
 
 import { withCameraActions } from '../../services/Camera';
 import { operations as locationOperations } from '../../reducers/location';
+import { selectors as userSels } from '../../reducers/user';
 import { Button } from '../../components/Buttons';
 import { LocationPicker } from '../CreateMarker/components/LocationPicker';
 import { StatusPicker } from '../CreateMarker/components/StatusPicker';
@@ -84,7 +87,7 @@ class EditTrashpoint extends Component {
       status: marker.status,
       congratsShown: false,
       trashCompositionTypes: TRASH_COMPOSITION_TYPE_LIST.map(
-        trashCompositionType => {
+        (trashCompositionType) => {
           return {
             ...trashCompositionType,
             selected:
@@ -110,14 +113,14 @@ class EditTrashpoint extends Component {
     this.fetchAddressAsync(this.props.marker.latlng);
   }
 
-  fetchAddressAsync = async coords => {
+  fetchAddressAsync = async (coords) => {
     const address = await locationOperations.fetchAddress(
       coords || this.state.initialLocation,
     );
     this.setState({ address });
   };
 
-  showValidation = text => {
+  showValidation = (text) => {
     this.setState({
       validation: true,
       validationText: text,
@@ -130,13 +133,28 @@ class EditTrashpoint extends Component {
     });
   };
 
+  shouldRenderDelete = () => {
+    const { marker, authUser } = this.props;
+    if (!marker || !marker.id) {
+      return false;
+    }
+    if (marker.createdBy !== authUser.id) {
+      return false;
+    }
+    const hourDiff = Math.abs(moment().diff(moment(marker.createdAt), 'hours'));
+    if (hourDiff >= 24) {
+      return false;
+    }
+    return true;
+  };
+
   handleEditLocationPress = () => {
     const { initialLocation, status, address } = this.state;
     this.props.navigation.navigate('EditLocation', {
       status,
       initialLocation,
       address,
-      onGoBack: coords => {
+      onGoBack: (coords) => {
         this.setState(
           { editableLocation: coords },
           async () => await this.fetchAddressAsync(coords),
@@ -148,7 +166,7 @@ class EditTrashpoint extends Component {
   handlePhotoAdd = () => {
     this.props
       .takePhotoAsync({ quality: 0.2, base64: true })
-      .then(async response => {
+      .then(async (response) => {
         if (!response) {
           return;
         }
@@ -175,7 +193,7 @@ class EditTrashpoint extends Component {
       .catch(() => {});
   };
 
-  handlePhotoDelete = index => {
+  handlePhotoDelete = (index) => {
     const { photos } = this.state;
     if (photos[index].parentId) {
       const [deletedPhoto] = photos.splice(index, 1);
@@ -247,7 +265,7 @@ class EditTrashpoint extends Component {
       return;
     }
 
-    const deletedImagePromises = deletedPhotos.map(dp => {
+    const deletedImagePromises = deletedPhotos.map((dp) => {
       return trashpileOperations.deleteImage(this.props.marker.id, dp.parentId);
     });
     Promise.all(deletedImagePromises).then(() => {
@@ -265,7 +283,7 @@ class EditTrashpoint extends Component {
         id: marker.id,
         oldMarkerPhotos: marker.photos,
       }).then(
-        res => {
+        (res) => {
           if (res) {
             if (!res.photoStatus) {
               setErrorMessage(t('label_edit_marker_missing_photos'));
@@ -283,7 +301,7 @@ class EditTrashpoint extends Component {
     });
   };
 
-  handleStatusChanged = status => {
+  handleStatusChanged = (status) => {
     this.setState({
       status,
       statusChanged: this.props.marker.status !== status,
@@ -321,7 +339,7 @@ class EditTrashpoint extends Component {
     });
   };
 
-  showSuccessAlert = message => {
+  showSuccessAlert = (message) => {
     MessageBarManager.showAlert({
       title: message,
       alertType: 'success',
@@ -345,13 +363,26 @@ class EditTrashpoint extends Component {
     });
   };
 
-  handleChangeHashtagText = text => {
+  handleChangeHashtagText = (text) => {
     this.setState({ temporaryHashtag: text });
   };
 
-  handleAmountSelect = amount => {
+  handleAmountSelect = (amount) => {
     this.setState({
       amount: AMOUNT_STATUSES[amount],
+    });
+  };
+
+  handleDeletePress = () => {
+    const { marker, navigation } = this.props;
+    if (!marker) {
+      return;
+    }
+    this.props.deleteMarker({ markerId: marker.id }).then((res) => {
+      if (res) {
+        this.showSuccessAlert(this.props.t('label_alert_editTP_delete'));
+        navigation.resetTo('Tabs');
+      }
     });
   };
 
@@ -512,6 +543,12 @@ class EditTrashpoint extends Component {
               text={this.props.t('label_button_editTP_save')}
               onPress={this.handleTrashpointUpdate}
             />
+            {this.shouldRenderDelete() &&
+              <TouchableOpacity onPress={this.handleDeletePress}>
+                <Text style={styles.deleteButton}>
+                  {this.props.t('label_button_editTP_delete')}
+                </Text>
+              </TouchableOpacity>}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -519,14 +556,16 @@ class EditTrashpoint extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     marker: trashpileSelectors.markerDetailsSelector(state),
     loading: trashpileSelectors.isLoading(state),
+    markerDeleting: trashpileSelectors.getMarkerDeleting(state),
+    authUser: userSels.getProfile(state),
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     updateTrashpoint(marker) {
       return dispatch(trashpileOperations.createMarker(marker, true));
@@ -534,14 +573,18 @@ const mapDispatchToProps = dispatch => {
     fetchMarkerDetails(markerId) {
       return dispatch(trashpileOperations.fetchMarkerDetails(markerId));
     },
-    setErrorMessage: appOps.setErrorMessage,
+    setErrorMessage: (...args) => dispatch(appOps.setErrorMessage(...args)),
+    deleteMarker: (...args) =>
+      dispatch(trashpileOperations.deleteMarker(...args)),
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withNavigationHelpers(),
-  withLoadingScreen(props => props.loading, { compact: false }),
+  withLoadingScreen(props => props.loading || props.markerDeleting, {
+    compact: false,
+  }),
   withCameraActions(),
   translate(),
 )(EditTrashpoint);

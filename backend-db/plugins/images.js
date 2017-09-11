@@ -7,6 +7,15 @@ const {Image} = require('../modules/db/types');
 
 const PLUGIN_NAME = 'images';
 
+const fetchImages = async function ({trashpoint, status}, responder) {
+    const ret = await db.getTrashpointImages(trashpoint.id, status);
+    const response = ret.map(img => util.object.filter(img, {
+        id: true, trashpointId: true, type: true, file: true, parentId: true,
+        server: true, url: true,
+    }));
+    return responder.success(response);
+};
+
 module.exports = function () {
     const lucius = new Lucius(this);
 
@@ -88,7 +97,7 @@ module.exports = function () {
     });
 
     lucius.register('role:db,cmd:deleteTrashpointImages', async function (connector, args, __) {
-        // args: trashpointId, imageId
+        // args: trashpointId, request.delete[image id, image id, ...]
         return connector.input(args)
         // verify that the trashpoint exists
         .request('role:db,cmd:getTrashpointById', {id: args.trashpointId})
@@ -214,7 +223,7 @@ module.exports = function () {
 
             // if at least one image was deleted, update trashpoint ts
             if (deletedSomething) {
-                db.touchTrashpoint(trashpoint.id, __.user.id);
+                await db.touchTrashpoint(trashpoint.id, __.user.id);
             }
 
             if (errors.length) {
@@ -271,7 +280,7 @@ module.exports = function () {
             }
             // update trashpoint ts
             if (anythingChanged) {
-                db.touchTrashpoint(trashpoint.id, __.user.id);
+                await db.touchTrashpoint(trashpoint.id, __.user.id);
             }
             // compose response
             if (errors.length) {
@@ -281,20 +290,24 @@ module.exports = function () {
         })
     });
 
+    lucius.register('role:db,cmd:getTrashpointImageSimple', async function (connector, args, __) {
+        //args: trashpoint, status
+        return connector.input(args)
+        .use(fetchImages)
+        .input(images => images.map(img => util.object.filter(img, {id: true, status: true, type: true})))
+    });
+
     lucius.register('role:db,cmd:getTrashpointImages', async function (connector, args, __) {
         //args: trashpointId
         return connector.input(args)
         // verify that the trashpoint exists
         .request('role:db,cmd:getTrashpointById', {id: args.trashpointId})
         // fetch images from db
-        .use(async function (trashpoint, responder) {
-            const ret = await db.getTrashpointImages(trashpoint.id, Image.STATUS_READY);
-            const response = ret.map(img => util.object.filter(img, {
-                id: true, trashpointId: true, type: true, file: true, parentId: true,
-                server: true, url: true,
-            }));
-            return responder.success(response);
-        })
+        .input(trashpoint => ({
+            trashpoint,
+            status: Image.STATUS_READY,
+        }))
+        .use(fetchImages)
         .set('images')
         // fetch URLs for the images
         .input(images =>

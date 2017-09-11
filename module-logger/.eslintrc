@@ -38,7 +38,9 @@
             "words": true,
             "nonwords": false
         }],
-        "indent": [1, 4],
+        "indent": [1, 4, {
+            "SwitchCase": 1
+        }],
         "quotes": [1, "single", {
             "allowTemplateLiterals": true
         }],

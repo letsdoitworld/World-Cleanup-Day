@@ -20,6 +20,7 @@ export const fetchAreaTrashpoints = ({
   areaId,
   pageSize,
   pageNumber,
+  reset,
 }) => async dispatch => {
   try {
     const response = await ApiService.get(
@@ -28,9 +29,10 @@ export const fetchAreaTrashpoints = ({
       )}?pageSize=${pageSize}&pageNumber=${pageNumber}`,
     );
     if (!response || !response.data || !Array.isArray(response.data.records)) {
-      return dispatch({
+      dispatch({
         type: TYPES.FETCH_AREA_MARKERS_ERROR,
       });
+      return false;
     }
 
     const total = response.data.total || 0;
@@ -39,6 +41,7 @@ export const fetchAreaTrashpoints = ({
     dispatch({
       type: TYPES.FETCH_AREA_MARKERS_SUCESS,
       payload: {
+        reset,
         markers: response.data.records.map(marker => ({
           ...marker,
           position: {
@@ -50,10 +53,13 @@ export const fetchAreaTrashpoints = ({
         })),
         areaId,
         canLoadMore,
+        statusCounts: response.data.statusCounts,
       },
     });
+    return true;
   } catch (e) {
     console.log(e);
+    return false;
   }
 };
 
@@ -193,9 +199,9 @@ export const fetchAdminTrashpoints = (
       });
     }
 
-    const adminTrashpoints = response.data &&
-      Array.isArray(response.data.records)
-      ? response.data.records.map(marker => ({
+    const adminTrashpoints =
+      response.data && Array.isArray(response.data.records)
+        ? response.data.records.map(marker => ({
           ...marker,
           position: {
             lat: marker.location.latitude,
@@ -204,7 +210,7 @@ export const fetchAdminTrashpoints = (
           key: marker.id,
           isTrashpile: true,
         }))
-      : [];
+        : [];
 
     dispatch({
       type: TYPES.FETCH_ADMIN_TRASHPOINTS_SUCCESS,
@@ -326,7 +332,6 @@ export const handleUpload = async ({ photos, markerId }) => {
       });
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
-
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
 
     if (uploadedPhotosResponses) {
@@ -426,6 +431,10 @@ export const createMarker = (
           latitude: createMarkerResponse.data.location.latitude,
           longitude: createMarkerResponse.data.location.longitude,
         },
+        position: {
+          lat: createMarkerResponse.data.location.latitude,
+          lng: createMarkerResponse.data.location.longitude,
+        },
       },
     });
     return {
@@ -444,6 +453,19 @@ const focusMapLocation = location => ({
   },
 });
 
+const deleteMarker = ({ markerId }) => async dispatch => {
+  dispatch({ type: TYPES.DELETE_MARKER });
+  const response = await ApiService.delete(`/trashpoints/${markerId}`, {
+    skipError: false,
+  });
+  if (!response || !response.status || response.status !== 200) {
+    dispatch({ type: TYPES.DELETE_MARKER_ERROR });
+    return false;
+  }
+  dispatch({ type: TYPES.DELETE_MARKER_SUCCESS, payload: { markerId } });
+  return true;
+};
+
 const resetAreaTrashpoints = () => ({ type: TYPES.RESET_AREA_TRASHPOINTS });
 
 export default {
@@ -458,4 +480,5 @@ export default {
   focusMapLocation,
   fetchAreaTrashpoints,
   resetAreaTrashpoints,
+  deleteMarker,
 };

@@ -40,15 +40,23 @@ const isOwnTrashpoint = createSelector(
   (userProfileId, markerCreatorId) => userProfileId === markerCreatorId,
 );
 
-const getProfileCountry = createSelector(getProfile, profile => {
+const getProfileCountry = createSelector(getProfile, (profile) => {
   if (!profile || !profile.country) {
     return undefined;
   }
   return COUNTRY_LIST.find(c => c.code === profile.country);
 });
-const getRole = createSelector(getProfile, profile => profile.role);
+const getRole = createSelector(getProfile, (profile) => {
+  if (!profile) {
+    return undefined;
+  }
+  return profile.role;
+});
 const isLeader = createSelector(getRole, role => role === USER_ROLES.LEADER);
-const isSuperAdmin = createSelector(getRole, role => role === USER_ROLES.SUPERADMIN);
+const isSuperAdmin = createSelector(
+  getRole,
+  role => role === USER_ROLES.SUPERADMIN,
+);
 
 const getCachedLocation = () => undefined;
 export default {
@@ -65,5 +73,5 @@ export default {
   isProfileUpdating,
   getRole,
   isLeader,
-  isSuperAdmin
+  isSuperAdmin,
 };

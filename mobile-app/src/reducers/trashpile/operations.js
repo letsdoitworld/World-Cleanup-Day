@@ -1,3 +1,4 @@
+import { ImageStore } from 'react-native';
 import { FileSystem } from 'expo';
 import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES } from '../../shared/constants';
 import types from './types';
@@ -169,6 +170,9 @@ const fetchMarkerDetails = (markerId) => {
 };
 
 export const handleUpload = async ({ photos, markerId }) => {
+  if ((photos || []).length === 0) {
+    return true;
+  }
   const photosResponse = await getUploadURIsForPhotos(photos, markerId);
 
   const uploadedPhotosIds = {
@@ -215,6 +219,11 @@ export const handleUpload = async ({ photos, markerId }) => {
         uploadedPhotosIds.backendConfirmed = true;
       }
     }
+    (thumbnailsPhotos || []).forEach((photo) => {
+      if (photo && photo.uri) {
+        ImageStore.removeImageForTag(photo.uri);
+      }
+    });
   }
 
   await Promise.all(
@@ -293,7 +302,9 @@ export const createMarker = (
       }
       if (isEdit && toDeletePhotos.length > 0) {
         try {
-          await Promise.all(toDeletePhotos.map(p => deleteImage(id, p.parentId)));
+          await Promise.all(
+            toDeletePhotos.map(p => deleteImage(id, p.parentId)),
+          );
         } catch (ex) {
           console.log(ex);
         }
@@ -305,7 +316,9 @@ export const createMarker = (
           markerId: createMarkerResponse.data.id,
         });
       }
-      
+      if (uploadStatus === undefined) {
+        uploadStatus = true;
+      }
 
       dispatch({
         type: types.CREATE_MARKER_SUCCESS,
@@ -396,6 +409,19 @@ export const fetchUserTrashpoints = ({ reset = false } = {}) => async (
   return response.data;
 };
 
+const deleteMarker = ({ markerId }) => async (dispatch) => {
+  dispatch(actions.deleteMarker());
+  const response = await Api.delete(`/trashpoints/${markerId}`, {
+    skipError: false,
+  });
+  if (!response || !response.status || response.status !== 200) {
+    dispatch(actions.deleteMarkerError());
+    return false;
+  }
+  dispatch(actions.deleteMarkerSuccess({ markerId }));
+  return true;
+};
+
 export default {
   fetchAllMarkers,
   createMarker,
@@ -404,4 +430,5 @@ export default {
   handleUpload,
   deleteImage,
   fetchClusterTrashpoints,
+  deleteMarker,
 };

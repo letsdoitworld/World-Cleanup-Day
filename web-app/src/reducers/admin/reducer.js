@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
+import _ from 'lodash';
+
 import TYPES from './types';
+
+import { types } from '../areas';
 
 const USERS_STATE = {
   users: [],
+  canLoadMore: true,
   loading: false,
   error: false,
 };
@@ -12,7 +17,15 @@ const usersReducer = (state = USERS_STATE, action) => {
     case TYPES.FETCH_USERS_REQUEST:
       return { ...state, loading: true, error: false };
     case TYPES.FETCH_USERS_SUCCESS:
-      return { ...state, loading: false, users: action.users, error: false };
+      return {
+        ...state,
+        loading: false,
+        users: (action.payload.reset ? [] : state.users).concat(
+          action.payload.users,
+        ),
+        canLoadMore: action.payload.canLoadMore,
+        error: false,
+      };
     case TYPES.FETCH_USERS_FAILED:
       return { ...state, loading: false, error: true };
     case TYPES.SET_USER_LOCKED: {
@@ -28,6 +41,20 @@ const usersReducer = (state = USERS_STATE, action) => {
         ...users.slice(userIndex + 1),
       ];
       return { ...state, users: newUsers };
+    }
+    case types.ASSIGN_AREA_LEADER: {
+      return {
+        ...state,
+        users: state.users.map(u => {
+          if (u.id === action.payload.userId) {
+            return {
+              ...u,
+              role: 'leader',
+            };
+          }
+          return u;
+        }),
+      };
     }
     default:
       return state;

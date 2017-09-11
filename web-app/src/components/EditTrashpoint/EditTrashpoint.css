@@ -106,22 +106,22 @@
     background: #eee;
 }
 
-.EditTrashpoint-edit-button-container{
+.EditTrashpoint-button-container{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     margin-top:20px;
     margin-bottom: 20px;
     background-color: white;
     border-top: none;
-    cursor: pointer;
 }
 .EditTrashpoint-edit-button {
+    cursor: pointer;
     height: 35px;
     width: 280px;
     border-radius: 100px;
     background: linear-gradient(180deg, #4AA5FF 0%, #3E8EDE 100%);
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+    flex:1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -129,4 +129,18 @@
 .EditTrashpoint-edit-button p {
     text-align: center;
     color:white;
+}
+
+.EditTrashpoint-delete-button{
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.EditTrashpoint-delete-button p {
+    cursor: pointer;
+    text-align: center;
+    color:#EB5E63;
+    text-decoration: underline;
+    font-weight: bold;
 }

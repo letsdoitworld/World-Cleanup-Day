@@ -5,12 +5,13 @@ import { getHeightPercentage, getWidthPercentage } from '../../shared/helpers';
 export default EStyleSheet.create({
     $headerTopMargin: '$statusBarHeight',
     bottomContainer: {
-        height: getHeightPercentage(75),
+        height: getHeightPercentage(100),
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
     },
     createButton: {
+        marginTop: getHeightPercentage(20),
         alignSelf: 'center',
     },
     hashtagInput: {
@@ -96,4 +97,13 @@ export default EStyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.7)',
         flex: 1,
     },
+    deleteButton:{
+        marginTop: getHeightPercentage(20),
+        marginBottom: getHeightPercentage(20),
+        color: '#EB5E63',
+        fontFamily: '$boldFont',
+        textAlign: 'center',
+        fontSize: 13,
+        textDecorationLine: 'underline',
+    }
 });

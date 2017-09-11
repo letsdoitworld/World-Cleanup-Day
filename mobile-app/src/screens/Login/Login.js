@@ -92,8 +92,8 @@ class Login extends Component {
           if (!userProfile.country && locationActive) {
             this.setState({ loading: true });
             fetchAddress(location).then(
-              ({ country }) => {
-                const userCountry = COUNTRY_LIST.find(c => c.name === country);
+              ({ countryAlpha2Code }) => {
+                const userCountry = COUNTRY_LIST.find(c => c.code === countryAlpha2Code);
                 if (userCountry) {
                   updateProfile({ country: userCountry.code }).then(() => {
                     this.setState({ loading: false });

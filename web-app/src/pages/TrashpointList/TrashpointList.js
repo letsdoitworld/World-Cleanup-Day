@@ -7,6 +7,33 @@ import { actions, selectors } from '../../reducers/trashpile';
 import { List } from '../../components/List';
 import { TrashpointListItem } from './components/TrashpointListItem';
 
+const STATUS_COUNT_HASH = {
+  threat: {
+    label: 'THREAT',
+    color: '#FC505E',
+    background: 'linear-gradient(180deg, #FE6669 0%, #FC505E 100%)',
+    borderColor: '#E93A47',
+  },
+  regular: {
+    label: 'REGULAR',
+    color: '#FF7800',
+    background: 'linear-gradient(180deg, #FF9900 0%, #FF7800 100%)',
+    borderColor: '#EE7200',
+  },
+  cleaned: {
+    label: 'CLEANED',
+    color: '#5DBA37',
+    background: 'linear-gradient(180deg, #7BEA4E 0%, #5DBA37 100%)',
+    borderColor: '#57B531',
+  },
+  outdated: {
+    label: 'OUTDATED',
+    color: '#E3E3E3',
+    background: 'linear-gradient(180deg, #E3E3E3 0%, #C3C3C3 100%)',
+    borderColor: '#ABABAB',
+  },
+};
+
 class TrashpointList extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +41,7 @@ class TrashpointList extends Component {
     this.state = {
       page: 1,
       pageSize: 15,
+      loaded: false,
     };
 
     this.handleLoadMore = _.debounce(this.handleLoadMore.bind(this), 300, {
@@ -22,12 +50,19 @@ class TrashpointList extends Component {
     });
   }
   componentWillMount() {
-    const { page, pageSize } = this.state;
-    this.props.fetchTrashpoints({
-      areaId: this.props.selectedArea.id,
-      pageNumber: page,
-      pageSize,
-    });
+    const { page, pageSize, loaded } = this.state;
+    this.props
+      .fetchTrashpoints({
+        areaId: this.props.selectedArea.id,
+        pageNumber: page,
+        pageSize,
+        reset: !loaded,
+      })
+      .then(res => {
+        if (res) {
+          this.setState({ loaded: true });
+        }
+      });
   }
 
   handleTrashpointClick = id => {
@@ -53,27 +88,70 @@ class TrashpointList extends Component {
         });
       },
     );
-  }
+  };
   renderItems() {
     const { trashpoints = [] } = this.props;
     return trashpoints.map(t =>
-      <TrashpointListItem
+      (<TrashpointListItem
         title={t.name}
         {...t}
         key={t.id}
         handleClick={this.handleTrashpointClick}
-      />,
+      />),
     );
   }
 
+  renderStatusCounts = () => {
+    const { statusCounts } = this.props;
+    if (!statusCounts) {
+      return null;
+    }
+
+    return (
+      <div className="StatusCounts-container">
+        {_.map(STATUS_COUNT_HASH, (status, key) => {
+          const count = statusCounts[key] || 0;
+          return (
+            <div className="StatusCount-container" key={key}>
+              <div
+                className="StatusCount-circle"
+                style={{
+                  border: `1px solid ${status.borderColor}`,
+                  background: status.background,
+                }}
+              >
+                <span className="StatusCount-circle-label">
+                  {count}
+                </span>
+              </div>
+              <span
+                style={{ color: status.color }}
+                className="StatusCount-label"
+              >
+                {status.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   render() {
     return (
-      <List
-        infinite
-        isInfiniteLoading={this.props.loading}
-        onInfiniteLoad={this.handleLoadMore}
-        items={this.renderItems()}
-      />
+      <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
+        <div style={{ flex: -1 }}>
+          {this.renderStatusCounts()}
+        </div>
+        <div style={{ flex: '1' }}>
+          <List
+            infinite
+            isInfiniteLoading={this.props.loading}
+            onInfiniteLoad={this.handleLoadMore}
+            items={this.renderItems()}
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -82,6 +160,7 @@ const mapState = state => ({
   trashpoints: selectors.getAreasTrashpoints(state),
   loading: selectors.getAdminTrashpointsLoading(state),
   canLoadMore: selectors.canLoadMoreAreasTrashpoints(state),
+  statusCounts: selectors.getStatusCounts(state),
 });
 
 const mapDispatch = dispatch => ({

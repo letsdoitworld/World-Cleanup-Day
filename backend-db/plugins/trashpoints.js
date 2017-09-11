@@ -2,7 +2,7 @@
 const {E, LuciusError, Lucius} = require('module-lucius');
 const util = require('module-util');
 const db = require('../modules/db');
-const {Dataset, Account} = require('../modules/db/types');
+const {Dataset, Account, Image} = require('../modules/db/types');
 
 const PLUGIN_NAME = 'trashpoints';
 
@@ -232,6 +232,73 @@ module.exports = function () {
                 pageNumber,
             }
             return responder.success(response);
+        })
+    });
+
+    lucius.register('role:db,cmd:deleteTrashpoint', async function (connector, args, __) {
+        return connector
+        .input(args)
+        // check that trashpoint exists
+        .use(async function ({trashpointId}, responder) {
+            const trashpoint = await db.getTrashpoint(trashpointId);
+            if (!trashpoint) {
+                return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: trashpointId}));
+            }
+            return responder.success(trashpoint);
+        })
+        .set('trashpoint')
+        // check if user may delete
+        .use(async function (trashpoint, responder) {
+            // superadmin can delete any trashpoint
+            if (__.user.role === Account.ROLE_SUPERADMIN) {
+                return responder.success();
+            }
+            // if user is the trashpoint's creator
+            if (trashpoint.createdBy === __.user.id
+                // they can only delete it during the first 24h
+                && trashpoint.createdAt >= util.time.getNowUTCShifted(-24, 'hours')
+            ) {
+                return responder.success();
+            }
+            // area leader can remove it only if trashpoint falls in one of their areas
+            else if (__.user.role === Account.ROLE_LEADER) {
+                const leadAreas = await db.getAreasForLeader(__.user.id);
+                if (Array.isArray(leadAreas) && Array.isArray(trashpoint.areas)) {
+                    const userAreas = leadAreas.map(area => area.id);
+                    for (let uA of userAreas) {
+                        for (let tA of trashpoint.areas) {
+                            if (uA === tA) {
+                                return responder.success();
+                            }
+                        }
+                    }
+                }
+            }
+            // found no reason to allow delete
+            return responder.failure(new LuciusError(E.ACCESS_DENIED))
+        })
+        // obtain image ids (all statuses)
+        .get(['trashpoint'])
+        .request('role:db,cmd:getTrashpointImageSimple')
+        .input(images => images.filter(img => img.type === Image.TYPE_MEDIUM).map(img => img.id))
+        .set('imageIds')
+        // delete the trashpoint images
+        .get(['trashpoint', 'imageIds'])
+        .input(({trashpoint, imageIds}) => ({
+            trashpointId: trashpoint.id,
+            request: {
+                delete: imageIds,
+            },
+        }))
+        .request('role:db,cmd:deleteTrashpointImages')
+        // delete the trashpoint
+        .get(['trashpoint'])
+        .use(async function ({trashpoint}, responder) {
+            const ret = await db.removeTrashpoint(trashpoint.id);
+            if (!ret) {
+                return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: trashpoint.id}))
+            }
+            return responder.success();
         })
     });
 

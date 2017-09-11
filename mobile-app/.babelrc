@@ -8,15 +8,5 @@
         "transform-react-jsx-source"
       ]
     }
-  },
-  "plugins": [
-    [
-      "module-resolver",
-      {
-        "alias": {
-          "@root": "./src"
-        }
-      }
-    ]
-  ]
+  }
 }

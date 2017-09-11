@@ -51,6 +51,31 @@ const designDocs = {
                 },
             },
         },
+        byName: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account') {
+                            emit(doc.name, doc);
+                        }
+                    },
+                },
+            },
+        },
+        countAll: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account') {
+                            emit(null, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
     },
     sessions: {
         all: {

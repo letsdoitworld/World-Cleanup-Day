@@ -10,7 +10,7 @@ import {
 } from '../../reducers/user';
 
 import { UserDetails } from '../../pages/UserDetails';
-import { TrashpointList } from '../../pages/TrashpointList';
+import { CreateTrashpoint } from '../../components/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
@@ -21,10 +21,6 @@ import { Privacy } from '../../components/Privacy';
 import trashpointIcon from '../../assets/trashpoint_menu.png';
 import userIcon from '../../assets/user_menu.png';
 
-const SIDEBAR_LINKS = [
-  { image: trashpointIcon, title: 'Trashpoints', url: '/areas' },
-  { image: userIcon, title: 'Users', url: '/users' },
-];
 const BOTTOM_LINKS = [
   { title: 'Terms & conditions', url: '/terms' },
   { title: 'Privacy Policy', url: '/privacy' },
@@ -47,7 +43,7 @@ class Home extends React.Component {
 
   renderTermsRoute = () => <Terms />;
   renderPrivacyRoute = () => <Privacy />;
-  renderNormalRoute = () =>
+  renderNormalRoute = ({ history }) =>
     (<div
       style={{
         height: '100%',
@@ -62,17 +58,32 @@ class Home extends React.Component {
         <Route path="/users" exact component={UserList} />
         {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
+        <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
         <Route path="/trashpoints/:id" exact component={TrashpointDetails} />
       </Switch>
       <div className="Home-map-container">
         <AdminMap />
       </div>
+      {/* <div
+        onClick={() => {
+          history.push('/trashpoints/create');
+        }}
+        className="Home-create-marker-button"
+      >
+        <span>Place trashpoint</span>
+      </div> */}
     </div>);
 
   render() {
     const { userProfile } = this.props;
     if (!userProfile.termsAcceptedAt) {
       return this.renderTerms();
+    }
+    const SIDEBAR_LINKS = [
+      { image: trashpointIcon, title: 'Trashpoints', url: '/areas' },
+    ];
+    if (userProfile.role === 'superadmin') {
+      SIDEBAR_LINKS.push({ image: userIcon, title: 'Users', url: '/users' });
     }
     return (
       <div className="Home">
@@ -82,6 +93,7 @@ class Home extends React.Component {
           onLogout={this.handleLogout}
           links={SIDEBAR_LINKS}
           bottomLinks={BOTTOM_LINKS}
+          authUser={userProfile}
         />
         <Switch>
           <Route path="/terms" render={this.renderTermsRoute} />

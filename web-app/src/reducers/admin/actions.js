@@ -2,27 +2,50 @@ import { ApiService } from '../../services';
 import { API_ENDPOINTS } from '../../shared/constants';
 import TYPES from './types';
 
-const fetchUsers = () => async dispatch => {
+
+
+const fetchUsers = ({ page, pageSize, reset }) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USERS_REQUEST });
   try {
-    const response = await ApiService.get(API_ENDPOINTS.FETCH_USERS);
-    if (!response) {
-      return dispatch({
+    const url = API_ENDPOINTS.FETCH_USERS({ page, pageSize });
+    const response = await ApiService.get(url);
+    if (
+      !response ||
+      !response.data ||
+      !response.status ||
+      response.status !== 200
+    ) {
+      dispatch({
         type: TYPES.FETCH_USERS_FAILED,
       });
+      return false;
     }
-
-    const users = Array.isArray(response.data) ? response.data : [];
+    const data = response.data;
+    const users = Array.isArray(data.records) ? data.records : [];
+    const total = data.total;
+    const canLoadMore = data.pageSize * data.pageNumber < total;
 
     dispatch({
       type: TYPES.FETCH_USERS_SUCCESS,
-      users,
+      payload: {
+        page: data.pageNumber,
+        users,
+        reset,
+        canLoadMore,
+      },
     });
+    return {
+      page,
+      users,
+      reset,
+      canLoadMore,
+    };
   } catch (e) {
     console.log(e);
-    return dispatch({
+    dispatch({
       type: TYPES.FETCH_USERS_FAILED,
     });
+    return false;
   }
 };
 

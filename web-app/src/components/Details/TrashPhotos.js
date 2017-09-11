@@ -11,7 +11,8 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
       {photos.map((photo, index) =>
         (<div key={index} className="TrashPhotos-img-container">
           <img src={photo} alt="" key={index} />
-          {canEdit && photos.length > 1 && <button onClick={() => onDeleteClick(index)}>X</button>}
+          {canEdit &&
+            <button onClick={() => onDeleteClick(index)}>X</button>}
         </div>),
       )}
       {onAddClick &&
@@ -30,6 +31,7 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
               alignItems: 'flex-end',
               justifyContent: 'flex-start',
             }}
+            multiple={false}
             onDrop={onAddClick}
             accept="image/*"
           >

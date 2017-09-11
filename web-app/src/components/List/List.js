@@ -7,7 +7,7 @@ class List extends Component {
   getWindowHeight = () =>
       (window.innerHeight ||
     document.documentElement.clientHeight ||
-    document.body.clientHeight) - 50;
+    document.body.clientHeight);
   render() {
     const { headerContent, infinite, onInfiniteLoad, items } = this.props;
     if (infinite) {
@@ -16,8 +16,8 @@ class List extends Component {
           containerHeight={this.getWindowHeight()}
           onInfiniteLoad={onInfiniteLoad}
           className="List"
-          elementHeight={90}
-          infiniteLoadBeginEdgeOffset={300}
+          elementHeight={this.props.elementHeight}
+          infiniteLoadBeginEdgeOffset={200}
         >
           {items}
         </Infinite>
@@ -35,12 +35,14 @@ List.defaultProps = {
   headerContent: null,
   infinite: false,
   onInfiniteLoad: undefined,
+  elementHeight: 90,
 };
 List.propTypes = {
   headerContent: PropTypes.element,
   items: PropTypes.array.isRequired,
   infinite: PropTypes.bool,
   onInfiniteLoad: PropTypes.func,
+  elementHeight: PropTypes.number,
 };
 
 export default List;

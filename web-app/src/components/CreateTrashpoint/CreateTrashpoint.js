@@ -1,69 +1,58 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  TrashpointDate,
-  TrashAmount,
-  TrashPhotos,
-  StatusText,
-} from '../Details';
-import { AlertModal } from '../../components/AlertModal';
+import { TrashAmount, TrashPhotos, StatusText } from '../Details';
+
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';
 import { actions as trashpileOperations } from '../../reducers/trashpile';
-
+import { AlertModal } from '../../components/AlertModal';
 import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
-import { EditLocation } from '../../components/EditLocation';
-import { Tags } from './components/Tags';
-import StatusPicker from './StatusPicker';
+import { EditLocation, EditLocationInput } from '../../components/EditLocation';
+import { Tags } from '../EditTrashpoint/components/Tags';
+import StatusPicker from '../EditTrashpoint/StatusPicker';
 import closeButton from '../../assets/closeButton.png';
 import imageLocation from '../../assets/icon_location@2x.png';
 
-import './EditTrashpoint.css';
+import './CreateTrashpoint.css';
 
-class EditTrashpoint extends Component {
+class CreateTrashpoint extends Component {
   constructor(props) {
     super(props);
 
-    const { marker } = props;
-    const {
-      name,
-      address,
-      amount,
-      status,
-      thumbnails,
-      hashtags,
-      composition,
-      location,
-    } = marker;
-
     this.state = {
-      name,
-      address,
-      location,
+      name: '',
+      address: '',
+      location: undefined,
       editLocation: false,
-      amount,
-      status,
+      amount: 'handful',
+      status: 'threat',
       composition: TRASH_COMPOSITION_TYPE_LIST.map(t => ({
         label: t.label,
         value: t.type,
-        selected: composition.indexOf(t.type) >= 0,
+        selected: false,
       })),
-      hashtags: hashtags.map(h => ({ label: h, value: h, selected: true })),
-      photos: thumbnails,
+      hashtags: [],
+      photos: [],
       validationMessage: undefined,
     };
   }
   // TODO implement validation
   validate = () => {
-    const { composition } = this.state;
+    const { composition, location, photos } = this.state;
     if (composition.filter(c => c.selected).length === 0) {
       this.setState({
         validationMessage: 'You must select at least 1 trash type',
       });
       return false;
     }
-    if (this.getPhotos().length === 0) {
+    if (!location) {
+      this.setState({
+        validationMessage: 'You must select a location.',
+      });
+      return false;
+    }
+    if (photos.length === 0) {
       this.setState({
         validationMessage: 'You must upload at least 1 photo.',
       });
@@ -71,10 +60,9 @@ class EditTrashpoint extends Component {
     }
     return true;
   };
-
   handleStatusChange = status => this.setState({ status: status.id });
   handleTrashpointUpdate = () => {
-    const { updateTrashpoint, marker } = this.props;
+    const { createTrashpoint } = this.props;
     const {
       location,
       name,
@@ -90,7 +78,7 @@ class EditTrashpoint extends Component {
       return;
     }
 
-    updateTrashpoint({
+    createTrashpoint({
       location,
       status,
       photos,
@@ -99,11 +87,10 @@ class EditTrashpoint extends Component {
       hashtags: hashtags.map(t => t.value),
       address,
       name,
-      id: marker.id,
     }).then(
       res => {
         if (res) {
-          this.props.actions.onTrashpointEditSuccess();
+          this.props.history.push(`/trashpoints/${res.id}`);
         }
       },
       err => console.log(err),
@@ -112,16 +99,10 @@ class EditTrashpoint extends Component {
 
   handlePhotoDelete = index => {
     const { photos } = this.state;
-    const photo = photos[index];
-    if (photos[index].parentId) {
-      photos[index].delete = true;
-      this.setState({});
-    } else {
-      photos.splice(index, 1);
-      this.setState({
-        photos,
-      });
-    }
+    photos.splice(index, 1);
+    this.setState({
+      photos,
+    });
   };
   handlePhotoAdd = async photos => {
     if (!photos || photos.length === 0) {
@@ -129,6 +110,7 @@ class EditTrashpoint extends Component {
     }
     const photo = photos[0];
     const base64 = await ImageService.getBase64(photo);
+
     const {
       base64: thumbnailBase64,
     } = await ImageService.getResizedImageBase64({
@@ -138,7 +120,13 @@ class EditTrashpoint extends Component {
     this.setState({
       photos: [
         ...this.state.photos,
-        { uri: photo.preview, base64, thumbnail: { base64: thumbnailBase64 } },
+        {
+          uri: photo.preview,
+          base64,
+          thumbnail: {
+            base64: thumbnailBase64,
+          },
+        },
       ],
     });
   };
@@ -192,35 +180,35 @@ class EditTrashpoint extends Component {
   handleEditLocationOpen = () => {
     this.setState({ editLocation: true });
   };
-
-  getPhotos = () => {
-    const { photos } = this.state;
-    const filteredPhotos = photos.filter(p => !p.delete);
-    return filteredPhotos;
+  handleCloseClick = () => {
+    this.props.history.push('/');
   };
 
-  handleTrashpointDelete = () => {
-    const { marker, history } = this.props;
-    if (!marker) {
-      return;
-    }
-    this.props.deleteMarker({ markerId: marker.id }).then(res => {
-      if (res) {
-        history.push('/');
-      }
-    });
-  };
   handleModalClicked = () => {
     this.setState({
       validationMessage: false,
     });
   };
 
+  renderAddressLine = () => {
+    const { location, address } = this.state;
+    const { latitude, longitude } = location || {};
+    if (address && latitude && longitude) {
+      return `${address} | ${location.latitude.toFixed(
+        6,
+      )}, ${location.longitude.toFixed(6)}`;
+    }
+    if (address) {
+      return address;
+    }
+    if (latitude && longitude) {
+      return `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(
+        6,
+      )}`;
+    }
+  };
+
   render() {
-    const {
-      marker: { created, updated, createdByName, updatedByName },
-      actions,
-    } = this.props;
     const {
       name,
       address,
@@ -229,11 +217,12 @@ class EditTrashpoint extends Component {
       composition,
       hashtags,
       status,
+      photos,
       validationMessage,
     } = this.state;
-    const { latitude, longitude } = location;
+    const { latitude, longitude } = location || {};
     return (
-      <div className="EditTrashpoint">
+      <div className="CreateTrashpoint">
         <AlertModal
           message={validationMessage}
           isOpen={!!validationMessage}
@@ -242,43 +231,41 @@ class EditTrashpoint extends Component {
         <EditLocation
           onClose={this.handleEditLocationClosed}
           onLocationChange={this.handleLocationChanged}
-          location={{ lat: latitude, lng: longitude }}
+          location={location ? { lat: latitude, lng: longitude } : undefined}
           visible={this.state.editLocation}
+          textInput
         />
         <div style={{ padding: '20px' }}>
-          <span className="EditTrashpoint-name">
+          <span className="CreateTrashpoint-name">
             {name}
           </span>
           <button
-            className="EditTrashpoint-close-button"
-            onClick={actions.onCloseEditClick}
+            className="CreateTrashpoint-close-button"
+            onClick={this.handleCloseClick}
           >
             <img src={closeButton} alt="" />
           </button>
-          <div className="EditTrashpoint-address-container">
+          <div className="CreateTrashpoint-address-container">
             <div>
               <img src={imageLocation} alt="" />
             </div>
-            <span className="EditTrashpoint-address">
-              {address} | {latitude.toFixed(6)}, {longitude.toFixed(6)}
+            <span className="CreateTrashpoint-address">
+              {this.renderAddressLine()}
             </span>
           </div>
-          <div className="EditTrashpoint-edit-location-container">
+          <div className="CreateTrashpoint-edit-location-container">
             <span
               onClick={this.handleEditLocationOpen}
-              className="EditTrashpoint-edit-location-button"
+              className="CreateTrashpoint-edit-location-button"
             >
               Edit location
             </span>
           </div>
-          <div className="EditTrashpoint-divider" />
+          <div className="CreateTrashpoint-edit-location-text">
+            <EditLocationInput onChange={this.handleLocationChanged} />
+          </div>
+          <div className="CreateTrashpoint-divider" />
           <StatusText status={status} />
-          <TrashpointDate
-            createdDate={created}
-            updatedDate={updated}
-            createdBy={createdByName}
-            updatedBy={updatedByName}
-          />
         </div>
         <div>
           <StatusPicker
@@ -286,9 +273,10 @@ class EditTrashpoint extends Component {
             onStatusChange={this.handleStatusChange}
           />
         </div>
-        <div className="EditTrashpoint-default-container">
+        <div className="CreateTrashpoint-default-container">
           <TrashPhotos
-            photos={this.getPhotos().map(p => {
+            onAddClick={photos.length < 3 ? this.handlePhotoAdd : undefined}
+            photos={photos.map(p => {
               if (p.url || p.uri) {
                 return p.url || p.uri;
               }
@@ -296,15 +284,14 @@ class EditTrashpoint extends Component {
                 return `data:image/jpg;base64,${p.base64}`;
               }
             })}
-            onAddClick={this.handlePhotoAdd}
             onDeleteClick={this.handlePhotoDelete}
             canEdit
           />
         </div>
-        <div className="EditTrashpoint-default-container">
+        <div className="CreateTrashpoint-default-container">
           <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
         </div>
-        <div className="EditTrashpoint-default-container">
+        <div className="CreateTrashpoint-default-container">
           <Tags
             composition={composition}
             tags={hashtags}
@@ -314,35 +301,24 @@ class EditTrashpoint extends Component {
             onTagDelete={this.handleTagDelete}
           />
         </div>
-        <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
+        <div className="CreateTrashpoint-default-container CreateTrashpoint-edit-button-container">
           <div
-            className="EditTrashpoint-edit-button"
+            className="CreateTrashpoint-edit-button"
             onClick={this.handleTrashpointUpdate}
           >
-            <p>Save trashpoint changes</p>
-          </div>
-          <div
-            className="EditTrashpoint-delete-button"
-            onClick={this.handleTrashpointDelete}
-          >
-            <p>Delete trashpoint</p>
+            <p>Create trashpoint</p>
           </div>
         </div>
-        <div className="EditTrashpoint-filler" />
+        <div className="CreateTrashpoint-filler" />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateTrashpoint(marker) {
-    return dispatch(trashpileOperations.createMarker(marker, true));
+  createTrashpoint(marker) {
+    return dispatch(trashpileOperations.createMarker(marker, false));
   },
-  fetchMarkerDetails(markerId) {
-    return dispatch(trashpileOperations.fetchMarkerDetails(markerId));
-  },
-  deleteMarker: (...args) =>
-    dispatch(trashpileOperations.deleteMarker(...args)),
 });
 
-export default connect(undefined, mapDispatchToProps)(EditTrashpoint);
+export default connect(undefined, mapDispatchToProps)(CreateTrashpoint);

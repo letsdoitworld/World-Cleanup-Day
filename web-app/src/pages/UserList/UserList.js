@@ -12,10 +12,14 @@ class UserList extends PureComponent {
 
     this.state = {
       search: '',
+      page: 1,
+      pageSize: 20,
+      loaded: false,
+      canLoadMore: true,
     };
   }
   componentDidMount() {
-    this.props.fetchUsers();
+    // this.handleLoadMoreUsers();
   }
 
   getUsers = () => {
@@ -37,6 +41,27 @@ class UserList extends PureComponent {
       return;
     }
     this.props.history.push(`/users/${id}`);
+  };
+
+  handleLoadMoreUsers = () => {
+    const { page, pageSize, loaded, canLoadMore } = this.state;
+    const { loading } = this.props;
+    if (loading || !canLoadMore) {
+      return;
+    }
+    this.props
+      .fetchUsers({
+        page,
+        pageSize,
+        reset: !loaded,
+      })
+      .then(res => {
+        this.setState({
+          page: res.page + 1,
+          canLoadMore: res.canLoadMore,
+          loaded: true,
+        });
+      });
   };
 
   renderItems(users) {
@@ -62,10 +87,14 @@ class UserList extends PureComponent {
       </div>
     );
   }
+
   render() {
     const users = this.getUsers();
     return (
       <List
+        elementHeight={62}
+        infinite
+        onInfiniteLoad={this.handleLoadMoreUsers}
         headerContent={this.renderHeaderContent()}
         items={this.renderItems(users)}
       />
@@ -75,6 +104,10 @@ class UserList extends PureComponent {
 
 const mapState = state => ({
   users: selectors.getUsers(state),
+  canLoadMore: selectors.canLoadMoreUsers(state),
+  lastPage: selectors.getUsersLastPage(state),
+  loading: selectors.getUsersLoading(state),
+  pageSize: selectors.getUsersPageSize(state),
 });
 const mapDispatch = {
   fetchUsers: actions.fetchUsers,

@@ -4,6 +4,9 @@ module.exports = {
     API_UNEXPECTED_ERROR: {
         message: () => `An unexpected error has occured.`,
     },
+    ACCESS_DENIED: {
+        message: () => `You are not allowed to perform this operation.`,
+    },
     AUTH_UNKNOWN_REMOTE_AUTHORITY: {
         message: ({authority}) => `Unknown remote authority '${authority}'.`,
     },

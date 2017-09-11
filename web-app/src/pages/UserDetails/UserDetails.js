@@ -98,7 +98,22 @@ class UserDetails extends React.Component {
       <UserAreas onClick={this.handleRemoveAreaClicked} areas={userAreas} />
     );
   };
-
+  canBlockUser = () => {
+    const { user, authUser } = this.props;
+    if (!user || !authUser) {
+      return false;
+    }
+    if (user.id === authUser.id) {
+      return false;
+    }
+    if (authUser.role !== 'superadmin') {
+      return false;
+    }
+    if (user.role === 'superadmin') {
+      return false;
+    }
+    return true;
+  };
   renderRoleName = () => {
     const { user } = this.props;
     switch (user.role) {
@@ -191,7 +206,7 @@ class UserDetails extends React.Component {
               </div>}
           </div>
           <div className="UserDetails-actions-container">
-            {user.id !== authUser.id &&
+            {this.canBlockUser() &&
               <span
                 onClick={this.handleBlockClicked}
                 className={classnames('UserDetails-block-user', {

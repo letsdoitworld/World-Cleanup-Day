@@ -1,0 +1,37 @@
+.StatusCounts-container {
+    flex: -1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.StatusCount-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.StatusCount-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.StatusCount-circle-label {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: center
+}
+
+.StatusCount-label {
+    font-family: "Noto Sans";
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 14px;
+    text-align: center;
+}

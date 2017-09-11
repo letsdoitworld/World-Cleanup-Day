@@ -41,8 +41,24 @@ const layer = {
     //========================================================
     // ACCOUNTS
     //========================================================
-    getAccounts: async () => {
-        return await adapter.getEntities('Account', '_design/all/_view/view', {sorted: false});
+    getAccounts: async (pageSize = 10, pageNumber = 1) => {
+        return await adapter.getEntities(
+            'Account',
+            '_design/byName/_view/view',
+            {
+                sorted: true,
+                limit: pageSize,
+                skip: pageSize * (pageNumber - 1),
+                descending: true,
+            }
+        );
+    },
+    countAccounts: async () => {
+        const ret = await adapter.getRawDocs('Account', '_design/countAll/_view/view', {});
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
     },
     getAccount: async id => {
         return await adapter.getOneEntityById('Account', '_design/all/_view/view', id);
@@ -344,6 +360,9 @@ const layer = {
 
         return await layer.getTrashpoint(id);
     },
+    removeTrashpoint: async id => {
+        return await adapter.removeDocument('Trashpoint', '_design/all/_view/view', id);
+    },
 
     //========================================================
     // IMAGES
@@ -381,14 +400,14 @@ const layer = {
     removeImage: async id => {
         return await adapter.removeDocument('Image', '_design/all/_view/view', id);
     },
-    getTrashpointImages: async (trashpointId, status) => {
+    getTrashpointImages: async (trashpointId, status = null) => {
         const ret = await adapter.getEntities(
             'Image',
             '_design/byTrashpointAndStatusAndCreation/_view/view',
             {
                 descending: true, //XXX: when desc=true, startkey and endkey are reversed
-                startkey: [trashpointId, status, {}],
-                endkey: [trashpointId, status],
+                startkey: status ? [trashpointId, status, {}] : [trashpointId, {}],
+                endkey: status ? [trashpointId, status] : [trashpointId],
                 sorted: true,
             }
         );

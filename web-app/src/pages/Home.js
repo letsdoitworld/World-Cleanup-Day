@@ -66,7 +66,7 @@ class Home extends Component {
         if (index === LINKS.Trashpoints) {
           this.props.fetchAdminTrashpoints(50, 1);
         } else if (index === LINKS.Users) {
-          this.props.fetchUsers();
+          this.props.fetchUsers({page: 1, pageSize: 20 });
         }
       },
     );

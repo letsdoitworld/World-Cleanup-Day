@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import querystring from 'query-string';
+import _ from 'lodash';
 
 import { actions, selectors } from '../../reducers/trashpile';
 import { EditTrashpoint } from '../../components/EditTrashpoint';
 import { Details } from '../../components/Details';
+import { selectors as userSelectors } from '../../reducers/user';
 
 class TrashDetails extends React.Component {
   constructor(props) {
@@ -61,20 +63,52 @@ class TrashDetails extends React.Component {
     onEditTrashpointClick: this.handleEditTrashpoint,
     onTrashpointEditSuccess: this.handleEditSuccess,
   };
+  canUserEditTrashPoint = () => {
+    const { authUser, marker } = this.props;
+    if (!authUser) {
+      return false;
+    }
+    if (!marker || !marker.id) {
+      return false;
+    }
+    if (authUser.role === 'superadmin') {
+      return true;
+    }
+    if (!Array.isArray(authUser.areas)) {
+      return false;
+    }
+    if (authUser.areas.length === 0) {
+      return false;
+    }
+    if (!Array.isArray(marker.areas)) {
+      return false;
+    }
+    return _.intersection(authUser.areas, marker.areas).length > 0;
+  };
   render() {
+    const { history } = this.props;
     if (this.state.edit) {
       return (
-        <EditTrashpoint marker={this.props.marker} actions={this.actions} />
+        <EditTrashpoint
+          history={history}
+          marker={this.props.marker}
+          actions={this.actions}
+        />
       );
     }
     return (
-      <Details marker={this.props.marker} actions={this.actions} canEdit />
+      <Details
+        marker={this.props.marker}
+        actions={this.actions}
+        canEdit={this.canUserEditTrashPoint()}
+      />
     );
   }
 }
 
 const mapState = state => ({
   marker: selectors.getMarkerDetails(state),
+  authUser: userSelectors.getProfile(state),
 });
 const mapDispatch = {
   fetchMarkerDetails: actions.fetchMarkerDetails,

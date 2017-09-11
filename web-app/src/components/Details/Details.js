@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import closeButton from '../../assets/closeButton.png';
 import imageLocation from '../../assets/icon_location@2x.png';
 import StatusText from './StatusText';
@@ -49,9 +50,9 @@ class Details extends Component {
             <span className="Details-address">
               {address} |
               {location
-                ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(
+                ? `${location.latitude.toFixed(
                     6,
-                  )}`
+                  )}, ${location.longitude.toFixed(6)}`
                 : ''}
             </span>
           </div>
@@ -73,11 +74,21 @@ class Details extends Component {
         <div className="Details-default-container">
           <span className="Details-trash-type-title">Trash type</span>
           <div className="Details-composition-tag">
-            {[...composition, ...hashtags].map((text, index) =>
-              (<span key={index}>
-                {text}
-              </span>),
-            )}
+            {[...composition, ...hashtags].map((text, index) => {
+              const isHashtag = text.indexOf('#') === 0;
+              const label = isHashtag
+                ? text
+                : (TRASH_COMPOSITION_TYPE_LIST.find(t => t.type === text) || {})
+                    .label;
+              if (!label) {
+                return null;
+              }
+              return (
+                <span key={index}>
+                  {label}
+                </span>
+              );
+            })}
           </div>
         </div>
         <div className="Details-filler" />

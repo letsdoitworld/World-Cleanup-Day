@@ -23,6 +23,9 @@
   letter-spacing: 0;
   color: #fff;
   font-size: 12px;
+  max-width: 120px;
+  word-wrap: break-word;
+  text-align: center;
 }
 
 .SidebarItem.active{

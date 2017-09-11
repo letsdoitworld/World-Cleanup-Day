@@ -94,6 +94,25 @@ const markersReducer = (state = INITIAL_STATE, action) => {
       return { ...state };
     case types.FETCH_USER_TRASHPOINTS_FAILED:
       return { ...state, loading: false };
+    case types.DELETE_MARKER:
+      return {
+        ...state,
+        markerDeleting: true,
+      };
+    case types.DELETE_MARKER_ERROR:
+      return {
+        ...state,
+        markerDeleting: false,
+      };
+    case types.DELETE_MARKER_SUCCESS:
+      return {
+        ...state,
+        markerDeleting: false,
+        markers: state.markers.filter(m => m.id !== action.payload.markerId),
+        markerDetails: state.markerDetails.id === action.payload.markerId
+          ? INITIAL_STATE.markerDetails
+          : state.markerDetails,
+      };
     default:
       return state;
   }
@@ -139,7 +158,7 @@ const userTrashpointsReducer = (
         loading: false,
         error: false,
         trashpoints: trashpoints.concat(action.payload.trashpoints),
-        page: action.payload.reset ? 2 : ((state.page || 1) + 1),
+        page: action.payload.reset ? 2 : (state.page || 1) + 1,
         initialLoad: true,
         endReached: action.payload.endReached,
         refreshing: false,

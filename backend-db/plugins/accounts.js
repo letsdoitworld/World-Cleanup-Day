@@ -64,13 +64,16 @@ module.exports = function () {
         })
     });
 
-    lucius.register('role:db,cmd:getAccounts', async function (connector, args, __) {
-        return connector
-        .use(async function (params, responder) {
-            const accounts = await db.getAccounts();
-            return responder.success(
-                accounts.map(a => filterBriefAccountData(a))
-            );
+    lucius.register('role:db,cmd:getAccounts', async function (connector, args) {
+        return connector.input(args)
+        .use(async function ({pageSize, pageNumber}, responder) {
+            const accounts = await db.getAccounts(pageSize, pageNumber);
+            return responder.success({
+                total: await db.countAccounts(),
+                pageSize,
+                pageNumber,
+                records: accounts.map(a => filterBriefAccountData(a)),
+            });
         })
     });
 
@@ -121,14 +124,20 @@ module.exports = function () {
     lucius.register('role:db,cmd:getAccountById', async function (connector, args, __) {
         return connector.input(args)
         .use(async function ({accountId, filterFields}, responder) {
-            const account = await db.getAccount(accountId);
+            let account = await db.getAccount(accountId);
             if (!account) {
                 return responder.failure(new LuciusError(
                     E.ACCOUNT_NOT_FOUND, {id: accountId}))
             }
-            return responder.success(
-                filterFields ? filterBriefAccountData(account) : account
-            );
+            if (filterFields) {
+                account = filterBriefAccountData(account);
+            }
+            if (account.role === Account.ROLE_LEADER) {
+                account.areas = (await db.getAreasForLeader(account.id)).map(area => area.id);
+            } else {
+                account.areas = [];
+            }
+            return responder.success(account);
         });
     });
 

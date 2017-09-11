@@ -20,12 +20,13 @@ export const API_ENDPOINTS = {
     `/trashpoints/${trashpointId}/images`,
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
-  FETCH_USERS: '/users',
-  FETCH_USER_BY_ID: (id) => `/users/${id}`,
+  FETCH_USERS: ({ page, pageSize }) =>
+    `/users?pageNumber=${page}&pageSize=${pageSize}`,
+  FETCH_USER_BY_ID: id => `/users/${id}`,
   FETCH_ADMIN_TRASHPOINTS: '/admin/trashpoints',
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
-  LOCK_USER: (userId) => `/users/${userId}/lock`,
-  FETCH_AREA_TRASHPOINTS: (areaId) => `/areas/${areaId}/trashpoints`
+  LOCK_USER: userId => `/users/${userId}/lock`,
+  FETCH_AREA_TRASHPOINTS: areaId => `/areas/${areaId}/trashpoints`,
 };
 export const BACKEND_LOGIN_SOURCES = {
   FACEBOOK: 'facebook',

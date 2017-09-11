@@ -17,7 +17,7 @@ const createAxiosInstance = ({ authToken, baseURL }) => {
   return axios.create(config);
 };
 
-const handleApiError = (error) => {
+export const handleApiError = (error) => {
   if (error && error.response && error.response.status === 403) {
     resetTo(rootNav, 'Login');
     store.dispatch(userOps.logout());
@@ -102,7 +102,7 @@ class ApiService {
     }
   }
 
-  async delete(url, { skipError = false }) {
+  async delete(url, { skipError = false } = {}) {
     try {
       return await this.getApiInstance(true).delete(url);
     } catch (e) {

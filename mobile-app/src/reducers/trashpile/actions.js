@@ -2,7 +2,7 @@ import types from './types';
 
 const resetMarkerDetails = () => ({ type: types.RESET_MARKER_DETAILS });
 
-const setGridValue = gridValue => ({ type: types.SET_GRID_VALUE, gridValue });
+const setLastDelta = delta => ({ type: types.SET_GRID_VALUE, delta });
 
 const fetchUserTrashpoints = ({ reset } = {}) => ({
   type: types.FETCH_USER_TRASHPOINTS_REQUEST,
@@ -42,7 +42,7 @@ export default {
   fetchUserTrashpoints,
   fetchUserTrashpointsSuccess,
   fetchUserTrashpointsError,
-  setGridValue,
+  setLastDelta,
 
   deleteMarker,
   deleteMarkerSuccess,

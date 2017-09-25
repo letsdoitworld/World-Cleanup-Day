@@ -1,9 +1,10 @@
-import { Platform, Dimensions, StatusBar } from 'react-native';
+import { Platform, Dimensions, StatusBar, PixelRatio } from 'react-native';
 
 const window = Dimensions.get('window');
 
 export { API_URL } from '../../env';
 export { COUNTRY_LIST, COUNTRIES_HASH } from './countries';
+
 
 export const GOOGLE_GEOCODE_API_URL =
   'https://maps.google.com/maps/api/geocode/json';
@@ -16,6 +17,10 @@ export const STATUS_BAR_HEIGHT = Platform.select({
 
 export const SCREEN_WIDTH = window.width;
 export const SCREEN_HEIGHT = window.height;
+export const DIAGONALE_IN_PX = Math.sqrt(Math.pow(SCREEN_WIDTH, 2) + Math.pow(SCREEN_HEIGHT, 2));
+
+const original = PixelRatio.getPixelSizeForLayoutSize(Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2)));
+export const MARKER_DIAGONALE_IN_PX =  2*original;
 export const PLATFORM_NAME = Platform.OS;
 export const ICON_COLOR = '#a1a1a1';
 export const WHITE_COLOR = '#fff';
@@ -24,6 +29,7 @@ export const SIZE_20 = 20;
 export const SIZE_18 = 18;
 export const SIZE_24 = 24;
 export const DEFAULT_ZOOM = 0.002;
+export const MIN_ZOOM = 0.0004;
 export const NO_LOCATION_ZOOM = 30;
 export const EDIT_LOCATION_BOUND = 100; // meters
 export const MARKER_STATUSES = {
@@ -133,7 +139,10 @@ export const GRID_HASH = {
   270000: '30km',
   380000: '50km',
   450000: '100km',
-  850000: '200km',
+  480000: '160km',
+  950000: '200km',
+  1500000: '300km',
+  1750000: '500km',
 
   '1m': 50,
   '5m': 100,
@@ -154,7 +163,10 @@ export const GRID_HASH = {
   '30km': 270000,
   '50km': 380000,
   '100km': 450000,
-  '200km': 850000,
+  '160km': 480000,
+  '200km': 950000,
+  '300km': 1500000,
+  '500km': 1750000,
 };
 
 export const DELTA_HASH = {
@@ -234,10 +246,13 @@ export const DELTA_HASH = {
     latitudeDelta: 3.0123450416548607,
     longitudeDelta: 2.6738975197076797,
   },
-  850000: {
-    latitudeDelta: 4.826367019845939,
-    longitudeDelta: 4.32493194937706,
+  480000: {
+    latitudeDelta: 3.649570939221597,
+    longitudeDelta: 3.111969977617264
   },
+  950000: { latitudeDelta: 7.438098893575727, longitudeDelta: 9.286720231175423 },
+  1500000: { latitudeDelta: 11.71877894364489, longitudeDelta: 15.01618623733521 },
+  1750000: { latitudeDelta: 13.73698652411373, longitudeDelta: 16.42137944698334 }
 };
 
 export const GRID_VALUES = [
@@ -260,11 +275,14 @@ export const GRID_VALUES = [
   270000,
   380000,
   450000,
-  850000,
+  480000,
+  950000,
+  1500000,
+  1750000
 ];
 
 export const USER_ROLES = {
-    VOLUNTEER: 'volunteer',
-    LEADER: 'leader',
-    SUPERADMIN: 'superadmin',
+  VOLUNTEER: 'volunteer',
+  LEADER: 'leader',
+  SUPERADMIN: 'superadmin',
 };

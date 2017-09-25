@@ -25,6 +25,7 @@ const usersReducer = (state = USERS_STATE, action) => {
         ),
         canLoadMore: action.payload.canLoadMore,
         error: false,
+        total: action.payload.total
       };
     case TYPES.FETCH_USERS_FAILED:
       return { ...state, loading: false, error: true };

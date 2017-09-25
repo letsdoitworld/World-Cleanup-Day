@@ -28,7 +28,7 @@ import { LocationPicker } from './components/LocationPicker';
 import { StatusPicker } from './components/StatusPicker';
 import { PhotoPicker } from '../../components/PhotoPicker';
 import { Divider } from '../../components/Divider';
-import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
+import { getWidthPercentage, getHeightPercentage, handleSentryError } from '../../shared/helpers';
 import { Tags } from '../../components/Tags';
 import { AmountPicker, AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { CongratsModal } from './components/CongratsModal';
@@ -44,6 +44,7 @@ import {
 } from '../../reducers/trashpile';
 import _ from 'lodash';
 import styles from './styles';
+import { NavigationActions } from 'react-navigation'
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
 
@@ -81,6 +82,7 @@ class CreateMarker extends Component {
       initialLocation: params.coords,
       editableLocation: params.coords,
       address: {},
+      disableCreateTrashpointButton: false
     };
 
     this.state = state;
@@ -136,10 +138,13 @@ class CreateMarker extends Component {
       validation: false,
     });
   };
+
   handleBackPress() {
     const { navigation } = this.props;
-    navigation.goBack(null);
-    navigation.navigate('Home');
+    navigation.dispatch(NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Tabs' })]
+    }));
     return true;
   }
 
@@ -160,31 +165,31 @@ class CreateMarker extends Component {
 
   handlePhotoAdd = () => {
     this.props
-      .takePhotoAsync({ quality: 0.2, base64: true })
-      .then(async (response) => {
-        if (!response) {
-          return;
-        }
-        const { cancelled, uri, base64, width, height } = response;
+        .takePhotoAsync({ quality: 0.2, base64: true })
+        .then(async (response) => {
+          if (!response) {
+            return;
+          }
+          const { cancelled, uri, base64, width, height } = response;
 
-        if (cancelled) {
-          return;
-        }
+          if (cancelled) {
+            return;
+          }
 
-        const { photos } = this.state;
-        const thumbnailBase64 = await ImageService.getResizedImageBase64({
-          uri,
-          width,
-          height,
-        });
-        this.setState({
-          photos: [
-            ...photos,
-            { uri, base64, thumbnail: { base64: thumbnailBase64 } },
-          ],
-        });
-      })
-      .catch(() => {});
+          const { photos } = this.state;
+          const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height,
+          });
+          this.setState({
+            photos: [
+              ...photos,
+              { uri, base64, thumbnail: { base64: thumbnailBase64 } },
+            ],
+          });
+        })
+        .catch((err) => handleSentryError(err));
   };
 
   handlePhotoDelete = (index) => {
@@ -243,29 +248,31 @@ class CreateMarker extends Component {
       return;
     }
 
-    createMarker({
-      location: this.state.editableLocation,
-      status,
-      photos,
-      composition: [
-        ...trashCompositionTypes.filter(t => t.selected).map(t => t.type),
-      ],
-      hashtags: [...hashtags.map(t => t.label)],
-      amount: AMOUNT_STATUSES[amount],
-      address: completeAddress,
-      name: `${streetAddress} ${streetNumber}`,
-    }).then(
-      (res) => {
-        if (res) {
-          if (!res.photoStatus) {
-            setErrorMessage(t('label_create_marker_missing_photos'));
+    this.setState({ disableCreateTrashpointButton: true }, () => {
+      createMarker({
+        location: this.state.editableLocation,
+        status,
+        photos,
+        composition: [
+          ...trashCompositionTypes.filter(t => t.selected).map(t => t.type),
+        ],
+        hashtags: [...hashtags.map(t => t.label)],
+        amount: AMOUNT_STATUSES[amount],
+        address: completeAddress,
+        name: `${streetAddress} ${streetNumber}`,
+      }).then(
+        (res) => {
+          if (res) {
+            if (!res.photoStatus) {
+              setErrorMessage(t('label_create_marker_missing_photos'));
+            }
+            navigation.resetTo('Tabs');
+            setTimeout(this.showSuccessAlert);
           }
-          navigation.resetTo('Tabs');
-          setTimeout(this.showSuccessAlert);
-        }
-      },
-      () => {},
-    );
+        },
+        () => {},
+      );
+    });
   };
 
   showSuccessAlert = () => {
@@ -363,6 +370,7 @@ class CreateMarker extends Component {
       initialLocation,
       editableLocation,
       address = {},
+      disableCreateTrashpointButton
     } = this.state;
     const addHashtagTextStyle = {};
     if (hashtags.length === MAX_HASHTAGS_NO) {
@@ -488,6 +496,7 @@ class CreateMarker extends Component {
               style={styles.createButton}
               text={this.props.t('label_button_createTP_confirm_create')}
               onPress={this.handleTrashpointCreate}
+              disabled={disableCreateTrashpointButton}
             />
           </View>
         </ScrollView>

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { RoundButton } from '../../components/Buttons';
+
 class EditLocationInput extends React.Component {
   constructor(props) {
     super(props);
@@ -14,11 +16,11 @@ class EditLocationInput extends React.Component {
   };
   handleSetClicked = () => {
     const { value } = this.state;
-    const latlngString = value.split(/, ?/);
+    const latlngString = value.replace(/ */g, '').split(/, ?/);
     if (latlngString.length !== 2) {
       return;
     }
-    const latlng = latlngString.map(i => parseInt(i, 10));
+    const latlng = latlngString.map(i => parseFloat(i, 10));
 
     const [lat, lng] = latlng;
     if (isNaN(lat) || isNaN(lng)) {
@@ -47,13 +49,16 @@ class EditLocationInput extends React.Component {
       >
         <input
           type="text"
-          placeholder="Lat,lng"
+          placeholder="latitude, longitude"
           onChange={this.handleInputChanged}
           value={this.state.value}
         />
-        <div style={{ cursor: 'pointer' }}>
-          <span onClick={this.handleSetClicked}>Set location</span>
-        </div>
+
+        <RoundButton
+          buttonStyle={{ height: '23px', padding: '10px 30px' }}
+          onClick={this.handleSetClicked}
+          title="Set"
+        />
       </div>
     );
   }

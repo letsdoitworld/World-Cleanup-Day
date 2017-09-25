@@ -1,6 +1,7 @@
-import { ImageStore } from 'react-native';
+import { ImageStore, PixelRatio } from 'react-native';
 import { FileSystem } from 'expo';
-import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES } from '../../shared/constants';
+import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES, DIAGONALE_IN_PX, MARKER_DIAGONALE_IN_PX, MIN_ZOOM,
+DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
 import { Api } from '../../services';
 import axios from 'axios';
@@ -8,43 +9,46 @@ import { selectors as appSelectors } from '../app';
 import { selectors as trashpileSelectors } from '../trashpile';
 import {
   convertToByteArray,
-  getGridValue,
-  getDistanceBetweenPointsInMeters,
   guid,
   destinationPoint,
+  handleSentryError
 } from '../../shared/helpers';
 
 import actions from './actions';
 import selectors from './selectors';
 
-const fetchAllMarkers = (
-  viewPortLeftTopCoordinate,
+
+
+const fetchAllMarkers = (viewPortLeftTopCoordinate,
   viewPortRightBottomCoordinate,
-  // delta,
+  delta
 ) => {
   return async (dispatch, getState) => {
     dispatch({ type: types.FETCH_ALL_MARKERS_REQUEST });
     const datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
 
-    const diagonaleInMeters = getDistanceBetweenPointsInMeters(
-      viewPortLeftTopCoordinate.latitude,
-      viewPortLeftTopCoordinate.longitude,
-      viewPortRightBottomCoordinate.latitude,
-      viewPortRightBottomCoordinate.longitude,
-    );
-    const gridValueObj = getGridValue(diagonaleInMeters);
-    dispatch(actions.setGridValue(gridValueObj));
+    let cellSize = 0;
+    if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
+      cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) /  SCREEN_WIDTH;
+    } else {
+      cellSize =(180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 /  SCREEN_WIDTH;
+    }
+    const latitudeDelta = delta.latitudeDelta / 3;
+    const longitudeDelta = delta.latitudeDelta / 3;
+    const newDelta = {
+      latitudeDelta: latitudeDelta < MIN_ZOOM ? MIN_ZOOM : latitudeDelta,
+      longitudeDelta: longitudeDelta < MIN_ZOOM ? MIN_ZOOM : longitudeDelta,
+      cellSize
+    };
+    dispatch(actions.setLastDelta(newDelta));
     const body = {
       datasetId,
       rectangle: {
         nw: viewPortLeftTopCoordinate,
         se: viewPortRightBottomCoordinate,
       },
-      scale: gridValueObj.gridValue,
+      cellSize,
     };
-
-    // console.log('-----grid value------', gridValueObj.gridValue);
-    // console.log('-----delta-----------', delta);
 
     const [markersRes, clustersRes] = await Promise.all([
       Api.post(API_ENDPOINTS.FETCH_OVERVIEW_TRASHPOINTS, body, {
@@ -90,7 +94,7 @@ const fetchAllMarkers = (
   };
 };
 
-const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => {
+const fetchClusterTrashpoints = ({ cellSize, coordinates, clusterId }) => {
   return async (dispatch, getState) => {
     try {
       const datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
@@ -98,7 +102,7 @@ const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => {
 
       const body = {
         datasetId,
-        scale,
+        cellSize,
         coordinates,
       };
       const response = await Api.post(
@@ -125,6 +129,7 @@ const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => {
         });
       }
     } catch (e) {
+      handleSentryError(e);
       console.log(e);
     }
   };
@@ -241,8 +246,7 @@ export const handleUpload = async ({ photos, markerId }) => {
   );
 };
 
-export const createMarker = (
-  {
+export const createMarker = ({
     id,
     hashtags,
     composition,
@@ -253,8 +257,7 @@ export const createMarker = (
     amount,
     photos,
   },
-  isEdit,
-) => {
+  isEdit,) => {
   return async (dispatch, getState) => {
     try {
       dispatch({ type: types.CREATE_MARKER_REQUEST });
@@ -306,6 +309,7 @@ export const createMarker = (
             toDeletePhotos.map(p => deleteImage(id, p.parentId)),
           );
         } catch (ex) {
+          handleSentryError(ex);
           console.log(ex);
         }
       }
@@ -335,6 +339,7 @@ export const createMarker = (
         photoStatus: uploadStatus,
       };
     } catch (ex) {
+      handleSentryError(ex);
       dispatch({ type: types.CREATE_MARKER_FAILED });
     }
   };
@@ -356,12 +361,15 @@ export const uploadPhotosOnAzure = (photos) => {
   return Promise.all(
     photos.map(({ url, blob }) => {
       return axios
-        .put(url, blob, {
-          headers: {
-            'x-ms-blob-type': 'BlockBlob',
-          },
-        })
-        .catch(res => res);
+      .put(url, blob, {
+        headers: {
+          'x-ms-blob-type': 'BlockBlob',
+        },
+      })
+      .catch(res => {
+        handleSentryError(res);
+        return res;
+      });
     }),
   );
 };
@@ -372,10 +380,8 @@ export const confirmUploadedPhotos = (trashpointId, uploadedPhotos) => {
   return promise;
 };
 
-export const fetchUserTrashpoints = ({ reset = false } = {}) => async (
-  dispatch,
-  getState,
-) => {
+export const fetchUserTrashpoints = ({ reset = false } = {}) => async (dispatch,
+  getState,) => {
   dispatch(actions.fetchUserTrashpoints({ reset }));
 
   const state = getState();

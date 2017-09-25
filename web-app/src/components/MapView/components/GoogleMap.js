@@ -27,6 +27,7 @@ export default withGoogleMap(props => {
       options={{
         mapTypeControl: false,
         streetViewControl: false,
+        minZoom: 3
       }}
       onIdle={isIdle}
       onDragEnd={onBoundsChanged}

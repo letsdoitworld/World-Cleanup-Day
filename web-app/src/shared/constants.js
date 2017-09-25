@@ -3,6 +3,7 @@ export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.27&libr
 export const DEFAULT_ZOOM_LEVEL = 18;
 export const NO_PERMISSION_ZOOM_LEVEL = 9;
 export const ESTONIA_CENTER_COORDINATES = { lat: 58.5953, lng: 25.0136 };
+export const MARKER_DIAGONALE_IN_PX = 2 * Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2));
 export const DATASETS_TYPES = {
   TRASHPOINTS: 'trashpoints',
 };
@@ -20,8 +21,8 @@ export const API_ENDPOINTS = {
     `/trashpoints/${trashpointId}/images`,
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
-  FETCH_USERS: ({ page, pageSize }) =>
-    `/users?pageNumber=${page}&pageSize=${pageSize}`,
+  FETCH_USERS: ({ page, pageSize, area }) =>
+    `/users?pageNumber=${page}&pageSize=${pageSize}${area ? `&country=${area}` : ''}`,
   FETCH_USER_BY_ID: id => `/users/${id}`,
   FETCH_ADMIN_TRASHPOINTS: '/admin/trashpoints',
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
@@ -109,6 +110,7 @@ export const GRID_HASH = {
   380000: '50km',
   450000: '100km',
   850000: '200km',
+  900000: '500km',
 
   '1m': 50,
   '5m': 100,
@@ -130,6 +132,7 @@ export const GRID_HASH = {
   '50km': 380000,
   '100km': 450000,
   '200km': 850000,
+  '500km': 900000
 };
 
 export const DELTA_HASH = {
@@ -213,6 +216,10 @@ export const DELTA_HASH = {
     latitudeDelta: 4.826367019845939,
     longitudeDelta: 4.32493194937706,
   },
+  900000: {
+    latitudeDelta: 4.59693647594942,
+    longitudeDelta: 13.51318359375
+  }
 };
 
 export const GRID_VALUES = [

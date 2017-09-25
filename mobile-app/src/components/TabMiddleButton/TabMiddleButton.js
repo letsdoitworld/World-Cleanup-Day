@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
+import { handleSentryError } from '../../shared/helpers';
 import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';
 import {
@@ -35,6 +36,7 @@ class TabMiddleButton extends Component {
     showLocationErrorModal: PropTypes.func.isRequired,
     takePhotoAsync: PropTypes.func.isRequired,
   };
+
   constructor(props) {
     super(props);
     this.state = { popoverShow: false };
@@ -47,6 +49,7 @@ class TabMiddleButton extends Component {
       }, 1000);
     }
   }
+
   onPopoverShow = () => {
     if (this.props.onPopoverShow) {
       this.props.onPopoverShow();
@@ -86,24 +89,26 @@ class TabMiddleButton extends Component {
         coords: userLocation,
       });
     } catch (e) {
+      handleSentryError(e);
       console.log(e.message);
     }
   };
   handleOnClosePopover = () => {
     this.setState({ showPopover: false });
   };
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
         <View style={styles.container}>
           <Ionicons name={'ios-add-circle-outline'} size={24} color={'white'} />
           {this.state.showPopover &&
-            <Popover show onRequestClose={this.handleOnClosePopover}>
-              <ButtonPopover
-                onPress={this.handleOnClosePopover}
-                popoverMessage={this.props.popoverMessage}
-              />
-            </Popover>}
+          <Popover show onRequestClose={this.handleOnClosePopover}>
+            <ButtonPopover
+              onPress={this.handleOnClosePopover}
+              popoverMessage={this.props.popoverMessage}
+            />
+          </Popover>}
         </View>
 
       </TouchableWithoutFeedback>

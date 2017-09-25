@@ -30,7 +30,7 @@ import { LocationPicker } from '../CreateMarker/components/LocationPicker';
 import { StatusPicker } from '../CreateMarker/components/StatusPicker';
 import { PhotoPicker } from '../../components/PhotoPicker';
 import { Divider } from '../../components/Divider';
-import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
+import { getWidthPercentage, getHeightPercentage, handleSentryError } from '../../shared/helpers';
 import { Tags } from '../../components/Tags';
 import { AmountPicker, AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { StatusText } from '../../components/StatusText';
@@ -90,8 +90,7 @@ class EditTrashpoint extends Component {
         (trashCompositionType) => {
           return {
             ...trashCompositionType,
-            selected:
-              marker.composition.indexOf(trashCompositionType.type) !== -1,
+            selected: marker.composition.indexOf(trashCompositionType.type) !== -1,
           };
         },
       ),
@@ -100,6 +99,7 @@ class EditTrashpoint extends Component {
       editableLocation: marker.latlng,
       address: {},
       deletedPhotos: [],
+      disableEditTrashpointButton: false
     };
     this.state.maxPhotos = this.state.photos.length + 3;
 
@@ -165,32 +165,32 @@ class EditTrashpoint extends Component {
 
   handlePhotoAdd = () => {
     this.props
-      .takePhotoAsync({ quality: 0.2, base64: true })
-      .then(async (response) => {
-        if (!response) {
-          return;
-        }
-        const { cancelled, uri, base64, width, height } = response;
+        .takePhotoAsync({ quality: 0.2, base64: true })
+        .then(async (response) => {
+          if (!response) {
+            return;
+          }
+          const { cancelled, uri, base64, width, height } = response;
 
-        if (cancelled) {
-          return;
-        }
+          if (cancelled) {
+            return;
+          }
 
-        const { photos } = this.state;
-        const thumbnailBase64 = await ImageService.getResizedImageBase64({
-          uri,
-          width,
-          height,
-        });
-        this.setState({
-          photos: [
-            ...photos,
-            { uri, base64, thumbnail: { base64: thumbnailBase64 } },
-          ],
-          statusChanged: false,
-        });
-      })
-      .catch(() => {});
+          const { photos } = this.state;
+          const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height,
+          });
+          this.setState({
+            photos: [
+              ...photos,
+              { uri, base64, thumbnail: { base64: thumbnailBase64 } },
+            ],
+            statusChanged: false,
+          });
+        })
+        .catch((err) => handleSentryError(err));
   };
 
   handlePhotoDelete = (index) => {
@@ -265,39 +265,41 @@ class EditTrashpoint extends Component {
       return;
     }
 
-    const deletedImagePromises = deletedPhotos.map((dp) => {
-      return trashpileOperations.deleteImage(this.props.marker.id, dp.parentId);
-    });
-    Promise.all(deletedImagePromises).then(() => {
-      updateTrashpoint({
-        location: this.state.editableLocation,
-        status,
-        photos,
-        composition: [
-          ...trashCompositionTypes.filter(t => t.selected).map(t => t.type),
-        ],
-        hashtags: [...hashtags.map(t => t.label)],
-        amount: AMOUNT_STATUSES[amount],
-        address: completeAddress,
-        name: `${streetAddress} ${streetNumber}`,
-        id: marker.id,
-        oldMarkerPhotos: marker.photos,
-      }).then(
-        (res) => {
-          if (res) {
-            if (!res.photoStatus) {
-              setErrorMessage(t('label_edit_marker_missing_photos'));
+    this.setState({ disableEditTrashpointButton: true }, () => {
+      const deletedImagePromises = deletedPhotos.map((dp) => {
+        return trashpileOperations.deleteImage(this.props.marker.id, dp.parentId);
+      });
+      Promise.all(deletedImagePromises).then(() => {
+        updateTrashpoint({
+          location: this.state.editableLocation,
+          status,
+          photos,
+          composition: [
+            ...trashCompositionTypes.filter(t => t.selected).map(t => t.type),
+          ],
+          hashtags: [...hashtags.map(t => t.label)],
+          amount: AMOUNT_STATUSES[amount],
+          address: completeAddress,
+          name: `${streetAddress} ${streetNumber}`,
+          id: marker.id,
+          oldMarkerPhotos: marker.photos,
+        }).then(
+          (res) => {
+            if (res) {
+              if (!res.photoStatus) {
+                setErrorMessage(t('label_edit_marker_missing_photos'));
+              }
+              this.props.fetchMarkerDetails(marker.id).then(() => {
+                navigation.goBack(null);
+                setTimeout(() =>
+                  this.showSuccessAlert(this.props.t('label_alert_editTP_edit')),
+                );
+              });
             }
-            this.props.fetchMarkerDetails(marker.id).then(() => {
-              navigation.goBack(null);
-              setTimeout(() =>
-                this.showSuccessAlert(this.props.t('label_alert_editTP_edit')),
-              );
-            });
-          }
-        },
-        err => console.log(err),
-      );
+          },
+          err => console.log(err),
+        );
+      });
     });
   };
 
@@ -399,6 +401,7 @@ class EditTrashpoint extends Component {
       editableLocation,
       address = {},
       photos,
+      disableEditTrashpointButton,
     } = this.state;
     const { marker } = this.props;
     const addHashtagTextStyle = {};
@@ -542,13 +545,14 @@ class EditTrashpoint extends Component {
               style={styles.createButton}
               text={this.props.t('label_button_editTP_save')}
               onPress={this.handleTrashpointUpdate}
+              disabled={disableEditTrashpointButton}
             />
             {this.shouldRenderDelete() &&
-              <TouchableOpacity onPress={this.handleDeletePress}>
-                <Text style={styles.deleteButton}>
-                  {this.props.t('label_button_editTP_delete')}
-                </Text>
-              </TouchableOpacity>}
+            <TouchableOpacity onPress={this.handleDeletePress}>
+              <Text style={styles.deleteButton}>
+                {this.props.t('label_button_editTP_delete')}
+              </Text>
+            </TouchableOpacity>}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

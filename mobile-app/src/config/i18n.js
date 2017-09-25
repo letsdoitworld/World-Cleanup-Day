@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import Expo from 'expo';
+import {handleSentryError} from '../shared/helpers';
 
 const languageDetector = {
   type: 'languageDetector',
@@ -13,6 +14,7 @@ const languageDetector = {
           callback(lang);
         }
       } catch (ex) {
+        handleSentryError(ex)
         callback('en');
       }
     });

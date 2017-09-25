@@ -1,5 +1,6 @@
 'use strict';
 const senecaRequestMw = require('../../modules/swagger-setup/middleware/seneca');
+const filters = require('./filters');
 
 module.exports = {
     createTrashpoint: senecaRequestMw(
@@ -37,15 +38,15 @@ module.exports = {
     ),
     getTrashpointsOverview: senecaRequestMw(
         'role:db,cmd:getTrashpointsOverview',
-        req => req.swagger.params.query.value,
+        req => filters.convertGeoScale(req.swagger.params.query.value),
     ),
     getClustersOverview: senecaRequestMw(
         'role:db,cmd:getClustersOverview',
-        req => req.swagger.params.query.value,
+        req => filters.convertGeoScale(req.swagger.params.query.value),
     ),
     getTrashpointsInGridCell: senecaRequestMw(
         'role:db,cmd:getTrashpointsInGridCell',
-        req => req.swagger.params.query.value,
+        req => filters.convertGeoScale(req.swagger.params.query.value),
     ),
     getAllTrashpoints: senecaRequestMw(
         'role:db,cmd:getAdminTrashpoints',

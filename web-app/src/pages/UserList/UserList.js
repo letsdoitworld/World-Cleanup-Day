@@ -16,8 +16,14 @@ class UserList extends PureComponent {
       pageSize: 20,
       loaded: false,
       canLoadMore: true,
+      area: props.location && props.location.search
+        ? props.location.search
+               .substring(1, props.location.search.length)
+               .split('=')[1]
+        : undefined,
     };
   }
+
   componentDidMount() {
     // this.handleLoadMoreUsers();
   }
@@ -27,7 +33,7 @@ class UserList extends PureComponent {
     const { users } = this.props;
     if (search) {
       return (users || [])
-        .filter(u => u.name.toLowerCase().indexOf(search.toLowerCase()) >= 0);
+      .filter(u => u.name.toLowerCase().indexOf(search.toLowerCase()) >= 0);
     }
     return users;
   };
@@ -44,36 +50,39 @@ class UserList extends PureComponent {
   };
 
   handleLoadMoreUsers = () => {
-    const { page, pageSize, loaded, canLoadMore } = this.state;
+    const { page, pageSize, loaded, canLoadMore, area } = this.state;
     const { loading } = this.props;
     if (loading || !canLoadMore) {
       return;
     }
     this.props
-      .fetchUsers({
-        page,
-        pageSize,
-        reset: !loaded,
-      })
-      .then(res => {
-        this.setState({
-          page: res.page + 1,
-          canLoadMore: res.canLoadMore,
-          loaded: true,
+        .fetchUsers({
+          page,
+          pageSize,
+          reset: !loaded,
+          area
+        })
+        .then(res => {
+          this.setState({
+            page: res.page + 1,
+            canLoadMore: res.canLoadMore,
+            loaded: true,
+          });
         });
-      });
   };
 
   renderItems(users) {
     return users.map(u =>
-      (<UserListItem
+      <UserListItem
         onClick={() => this.handleUserClick(u)}
         key={u.id}
         user={u}
-      />),
+      />,
     );
   }
+
   renderHeaderContent() {
+    const { total } = this.props;
     return (
       <div className="List-search-container">
         <input
@@ -82,8 +91,11 @@ class UserList extends PureComponent {
           value={this.state.search}
           onChange={this.handleSearchChanged}
           name="search"
-          placeholder="Username or email"
+          placeholder="Name"
         />
+        <div className="List-search-total">
+          {total ? total : 0} users
+        </div>
       </div>
     );
   }
@@ -108,6 +120,7 @@ const mapState = state => ({
   lastPage: selectors.getUsersLastPage(state),
   loading: selectors.getUsersLoading(state),
   pageSize: selectors.getUsersPageSize(state),
+  total: selectors.getTotalUsers(state),
 });
 const mapDispatch = {
   fetchUsers: actions.fetchUsers,

@@ -244,6 +244,7 @@ class EditTrashpoint extends Component {
           onLocationChange={this.handleLocationChanged}
           location={{ lat: latitude, lng: longitude }}
           visible={this.state.editLocation}
+          status={status}
         />
         <div style={{ padding: '20px' }}>
           <span className="EditTrashpoint-name">
@@ -284,6 +285,7 @@ class EditTrashpoint extends Component {
           <StatusPicker
             status={status}
             onStatusChange={this.handleStatusChange}
+            showCleaned
           />
         </div>
         <div className="EditTrashpoint-default-container">

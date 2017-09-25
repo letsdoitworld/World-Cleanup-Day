@@ -23,12 +23,14 @@ class MarkersMap extends React.Component {
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
   };
+
   constructor(props) {
     super(props);
     this.state = {
       updateRegion: true,
     };
   }
+
   handleSetMapComponent = map => {
     this.map = map;
     if (map) {
@@ -47,8 +49,8 @@ class MarkersMap extends React.Component {
     ) {
       const { focusedLocation } = nextProps;
       if (this.map) {
-        
-        const { latitude, longitude} = focusedLocation;
+
+        const { latitude, longitude } = focusedLocation;
         const bounds = {
           north: latitude - 0.0001,
           south: latitude + 0.0001,
@@ -64,8 +66,13 @@ class MarkersMap extends React.Component {
     if (!this.state.updateRegion) {
       return this.setState({ updateRegion: true });
     }
+    const mapElContainer = this.map.getDiv();
+    const mapSize = {
+      height: parseInt(getComputedStyle(mapElContainer).height),
+      width: parseInt(getComputedStyle(mapElContainer).width)
+    };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    this.props.fetchAllTrashpoints(nw, se);
+    this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {
@@ -106,6 +113,7 @@ class MarkersMap extends React.Component {
       }
     }
   };
+
   render() {
     const { markers } = this.props;
     return (

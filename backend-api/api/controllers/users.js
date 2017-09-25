@@ -34,6 +34,7 @@ module.exports = {
         req => ({
             pageSize: req.swagger.params.pageSize.value,
             pageNumber: req.swagger.params.pageNumber.value,
+            country: req.swagger.params.country.value,
         }),
     ),
     getOneUser: senecaRequestMw(

@@ -12,7 +12,7 @@ import { withNavigationHelpers } from '../../services/Navigation';
 import Camera from '../../services/Camera';
 
 import { BottomTabs } from '../../components/Tabs';
-import { getHeightPercentage } from '../../shared/helpers';
+import { getHeightPercentage, handleSentryError } from '../../shared/helpers';
 import { Popover } from '../../components/Popover';
 import { SimpleButton } from '../../components/Buttons';
 import { actions as mapActions } from '../../reducers/map';
@@ -113,7 +113,7 @@ class Tabs extends Component {
               this.props.setCachedLocation();
               this.props.navigation.navigate('CreateMarker', { photos: [uri] });
             })
-            .catch(() => {});
+            .catch((err) => handleSentryError(err));
         },
         children: (
           <View>

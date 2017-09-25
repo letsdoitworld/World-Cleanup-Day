@@ -79,12 +79,16 @@ class ApiService {
   }
 }
 const IS_PRODUCTION = window.location.host === 'app.worldcleanupday.com';
+// export const BASE_URL = 'http://10.100.1.143:60000/api/v1'
+
 export const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'https://api-qa.app.worldcleanupday.com/api/v1'
     : IS_PRODUCTION
-      ? `${window.location.protocol}//api.${window.location.host}/api/v1`
-      : `${window.location.protocol}//api-${window.location.host}/api/v1`;
+    ? `${window.location.protocol}//api.${window.location.host}/api/v1`
+    : `${window.location.protocol}//api-${window.location.host}/api/v1`;
+
+
 const apiService = new ApiService();
 apiService.setBaseURL(BASE_URL);
 

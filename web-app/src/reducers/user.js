@@ -141,6 +141,7 @@ const isAllowedRole = state => {
   const role = getRole(state);
   return role === USER_ROLES.SUPERADMIN || role === USER_ROLES.LEADER;
 };
+const isAreaLeader = state => getRole(state) === USER_ROLES.LEADER;
 
 export const selectors = {
   getUserToken,
@@ -148,6 +149,7 @@ export const selectors = {
   getRole,
   isSuperAdmin,
   isAllowedRole,
+  isAreaLeader
 };
 
 export default authReducer;

@@ -4,6 +4,13 @@ import { AsyncStorage, Image, View } from 'react-native';
 import { AppLoading, Font, Asset } from 'expo';
 import { I18nextProvider, translate } from 'react-i18next';
 import { compose } from 'recompose';
+import Sentry from 'sentry-expo';
+
+// Remove this once Sentry is correctly setup.
+// Sentry.enableInExpoDevelopment = true;
+
+Sentry.config('https://01dc6c7400df4dc9a62eb620893bbe58@sentry.io/219694').install()
+
 import { MessageBar, MessageBarManager } from 'react-native-message-bar';
 import { persistStoreAsync } from './config/persist';
 import { withLocationGuard } from './services/Location';
@@ -14,6 +21,7 @@ import store from './config/store';
 import Navigator from './config/routes';
 import { images, fonts } from './config/assets';
 import { operations as appOperations } from './reducers/app';
+import { handleSentryError } from './shared/helpers';
 import './config/styles';
 
 import i18n from './config/i18n';
@@ -49,6 +57,7 @@ class App extends Component {
   componentWillMount() {
     this.configAppAsync();
   }
+
   componentWillUnmount() {
     MessageBarManager.unregisterMessageBar();
   }
@@ -67,6 +76,7 @@ class App extends Component {
         this.setState({ assetsLoaded: true });
       },
       (e) => {
+        handleSentryError(e);
         console.log(e.message);
       },
     );

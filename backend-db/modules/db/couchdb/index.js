@@ -49,12 +49,34 @@ const layer = {
                 sorted: true,
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),
-                descending: true,
+            }
+        );
+    },
+    getAccountsByCountry: async (country, pageSize = 10, pageNumber = 1) => {
+        return await adapter.getEntities(
+            'Account',
+            '_design/byCountryAndName/_view/view',
+            {
+                sorted: true,
+                limit: pageSize,
+                skip: pageSize * (pageNumber - 1),
+                startkey: [country],
+                endkey: [country, {}],
             }
         );
     },
     countAccounts: async () => {
         const ret = await adapter.getRawDocs('Account', '_design/countAll/_view/view', {});
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
+    countAccountsForCountry: async country => {
+        const ret = await adapter.getRawDocs('Account', '_design/countByCountry/_view/view', {
+            key: country,
+            group: true,
+        });
         if (!ret.length) {
             return 0;
         }
@@ -113,17 +135,14 @@ const layer = {
         }
         return true;
     },
-    setAccountLock: async (accountId, locked, updatedBy) => {
-        const account = await layer.getRawAccountDoc(accountId);
-        if (!account) {
-            return false;
-        }
-        if (account.role === types.Account.ROLE_SUPERADMIN) {
+    setAccountLock: async (accountId, locked, updatedBy, rawAccountDoc = null) => {
+        rawAccountDoc = rawAccountDoc || await layer.getRawAccountDoc(accountId);
+        if (!rawAccountDoc) {
             return false;
         }
         const ret = await adapter.modifyDocument(
             'Account',
-            account,
+            rawAccountDoc,
             {},
             {
                 locked,
@@ -255,7 +274,8 @@ const layer = {
             }
         );
     },
-    getGridCellTrashpoints: async (datasetId, scale, gridCoord) => {
+    getGridCellTrashpoints: async (datasetId, cellSize, gridCoord) => {
+        const scale = grid.getScaleForCellSize(cellSize);
         const ret = await adapter.getEntities(
             'Trashpoint',
             `_design/byGridCell${scale}/_view/view`,
@@ -268,29 +288,34 @@ const layer = {
         );
         return ret.filter(val => val !== null);
     },
-    getOverviewTrashpoints: async (datasetId, scale, nwLat, nwLong, seLat, seLong) => {
+    getOverviewTrashpoints: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+        const scale = grid.getScaleForCellSize(cellSize);
         const ret = await layer.getOverview('Trashpoint', `_design/isolated${scale}/_view/view`,
             datasetId, scale, nwLat, nwLong, seLat, seLong);
         return ret.filter(row => adapter.rawDocToEntity('Trashpoint', row));
     },
-    getOverviewClusters: async (datasetId, scale, nwLat, nwLong, seLat, seLong) => {
+    getOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+        const scale = grid.getScaleForCellSize(cellSize);
         const ret = await layer.getOverview('Trashpoint', `_design/clusters${scale}/_view/view`,
-            datasetId, scale, nwLat, nwLong, seLat, seLong);
+            datasetId, scale, nwLat, nwLong, seLat, seLong, {
+                'group_level': 2,
+            });
         return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
     },
-    getOverview: async (datatype, view, datasetId, scale, nwLat, nwLong, seLat, seLong) => {
-        const cellCoords = grid.geoCornersToCells([nwLong, nwLat], [seLong, seLat], grid.SCALES[scale]);
+    getOverview: async (datatype, view, datasetId, scale, nwLat, nwLong, seLat, seLong, extraViewParams = {}) => {
+        const cellCoords = grid.geoCornersToCells(
+            [nwLong, nwLat], [seLong, seLat], grid.SCALES[scale]);
         const ret = await adapter.getRawDocs(
             datatype,
             view,
-            {
+            Object.assign({
                 startkey: [datasetId, cellCoords[0]],
                 endkey: [datasetId, cellCoords[1]],
                 'inclusive_end': true,
                 group: true,
                 reduce: true,
                 sorted: false,
-            },
+            }, extraViewParams),
             false // leave data untouched, we need the keys
         );
         if (!ret || !ret.data || !ret.data.rows) {
@@ -480,7 +505,7 @@ const layer = {
             update,
             {
                 updatedAt: util.time.getNowUTC(),
-                updatedBy: who,
+                updatedBy: who || undefined,
             }
         );
     },
@@ -500,6 +525,16 @@ const layer = {
                     parentId: area.parent || undefined,
                 });
             }
+            else {
+                if (existingAreas[area.code].name !== area.name
+                    || existingAreas[area.code].parentId !== area.parent
+                ) {
+                    await layer.modifyArea(area.code, null, {
+                        name: area.name,
+                        parentId: area.parent || undefined,
+                    });
+                }
+            }
         }
         return true;
     },
@@ -515,7 +550,6 @@ const layer = {
             byStatus ? false : true // for statuses we'll need the keys
         );
         if (byStatus) {
-            console.log('-----------', ret.data.rows);
             if (!ret || !ret.data || !ret.data.rows || !ret.data.rows.length) {
                 return {};
             }

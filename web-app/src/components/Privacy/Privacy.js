@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TERMS_URL =
-  'https://storeldiweustaging.blob.core.windows.net/static-resources/privacy.html';
+  'https://storeldiweuprod.blob.core.windows.net/static-resources/privacy.html';
 
 const Privacy = () =>
   (<div className="Privacy-container">

@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import { Loader } from '../../components/Spinner';
 import { AreaListItem } from '../../components/AreaListItem';
 import { TrashpointList } from '../TrashpointList';
+import { getCountryFromStr } from '../../shared/helpers';
 
 import {
   selectors as areaSels,
   actions as areaActs,
 } from '../../reducers/areas';
 import { selectors as userSels } from '../../reducers/user';
-import {actions as trashpileActions} from '../../reducers/trashpile';
+import { actions as trashpileActions } from '../../reducers/trashpile';
 
 class AreaList extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class AreaList extends React.Component {
       selectedArea: undefined,
     };
   }
+
   componentWillMount() {
     const {
       loading,
@@ -38,12 +40,19 @@ class AreaList extends React.Component {
       }
     }
   }
+
   handleListItemClick = area => {
+    const { match, isAreaLeader, history } = this.props;
+    const isUserAreas = match && match.path && match.path === '/user-areas';
+    if (isUserAreas && isAreaLeader) {
+      const areaId = getCountryFromStr(area.parentId ? area.parentId : area.id);
+      return history.push(`/users?area=${areaId}`);
+    }
+
     this.setState({ selectedArea: area });
-    // this.props.history.push(`/areas/${area.id}/trashpoints`);
   };
   renderInnerAreaList = () => {
-    const { loading, areas, error } = this.props;
+    const { loading, areas, error, match } = this.props;
     if (loading) {
       return (
         <div className="AreaList-message">
@@ -61,20 +70,22 @@ class AreaList extends React.Component {
     if (areas.length === 0) {
       return <div className="AreaList-message">You have no assigned areas</div>;
     }
-    return areas.map((a, i) =>
-      (<AreaListItem
+    return areas.map((a, i) => (
+      <AreaListItem
         onClick={this.handleListItemClick}
         index={i}
         area={a}
         key={a.id}
-      />),
-    );
+        match={match}
+      />
+    ));
   };
   handleBackClick = () => {
     this.setState({ selectedArea: undefined }, () => {
       this.props.resetAreaTrashpoints();
     });
   };
+
   render() {
     const { selectedArea } = this.state;
     if (selectedArea) {
@@ -87,19 +98,16 @@ class AreaList extends React.Component {
             >
               <div className="AreaList-top-band-left-arrow" />
             </div>
-            <div className="AreaList-top-band-area">
-              {selectedArea.name}
-            </div>
+            <div className="AreaList-top-band-area">{selectedArea.name}</div>
           </div>
-          <TrashpointList history={this.props.history} selectedArea={selectedArea}/>
+          <TrashpointList
+            history={this.props.history}
+            selectedArea={selectedArea}
+          />
         </div>
       );
     }
-    return (
-      <div className="AreaList">
-        {this.renderInnerAreaList()}
-      </div>
-    );
+    return <div className="AreaList">{this.renderInnerAreaList()}</div>;
   }
 }
 AreaList.defaultProps = {
@@ -119,7 +127,12 @@ AreaList.propTypes = {
   getAreas: PropTypes.func.isRequired,
 };
 
-const mapState = state => {
+const mapState = (state, props) => {
+  const { match } = props;
+
+  const isUserAreas = match && match.path && match.path === '/user-areas';
+  const isAreaLeader = userSels.isAreaLeader(state);
+
   const isAdmin = userSels.isSuperAdmin(state);
   if (isAdmin) {
     return {
@@ -131,17 +144,20 @@ const mapState = state => {
   }
   const userId = userSels.getProfile(state).id;
   return {
-    areas: areaSels.getUserNestedAreas(state, userId),
+    areas: isUserAreas
+      ? areaSels.getUserListNestedAreas(state, userId)
+      : areaSels.getUserNestedAreas(state, userId),
     loading: areaSels.areUserAreasLoading(state, userId),
     error: areaSels.hasUserAreaError(state, userId),
     isAdmin,
     userId,
+    isAreaLeader,
   };
 };
 const mapDispatch = {
   getAreas: areaActs.getAreas,
   getUserAreas: areaActs.getUserAreas,
-  resetAreaTrashpoints: trashpileActions.resetAreaTrashpoints
+  resetAreaTrashpoints: trashpileActions.resetAreaTrashpoints,
 };
 
 export default connect(mapState, mapDispatch)(AreaList);

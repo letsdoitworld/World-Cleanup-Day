@@ -5,6 +5,7 @@ import { operations as userOps } from '../reducers/user';
 import { GENERIC_SERVER_ERROR, ERRORS } from '../shared/constants';
 import { resetTo, rootNav } from '../services/Navigation';
 import i18n from '../config/i18n';
+import { handleSentryError } from '../shared/helpers';
 
 const createAxiosInstance = ({ authToken, baseURL }) => {
   const config = {};
@@ -34,6 +35,7 @@ export const handleApiError = (error) => {
 class ApiService {
   authToken = '';
   baseURL = '';
+
   constructor() {
     this.createNetworkInstances();
   }
@@ -69,6 +71,7 @@ class ApiService {
   getApiInstance(withToken) {
     return withToken ? this.axios : this.publicAxios;
   }
+
   async get(url, options = { withToken: true }, axiosOptions) {
     try {
       return await this.getApiInstance(options.withToken).get(
@@ -76,9 +79,11 @@ class ApiService {
         axiosOptions,
       );
     } catch (e) {
+      handleSentryError(e);
       handleApiError(e);
     }
   }
+
   async post(url, data, options = { withToken: true }, headers) {
     try {
       return await this.getApiInstance(options.withToken).post(
@@ -87,9 +92,11 @@ class ApiService {
         headers,
       );
     } catch (e) {
+      handleSentryError(e);
       handleApiError(e);
     }
   }
+
   async put(url, data, options = { withToken: true }, headers) {
     try {
       return await this.getApiInstance(options.withToken).put(
@@ -98,6 +105,7 @@ class ApiService {
         headers,
       );
     } catch (e) {
+      handleSentryError(e);
       handleApiError(e);
     }
   }
@@ -106,6 +114,7 @@ class ApiService {
     try {
       return await this.getApiInstance(true).delete(url);
     } catch (e) {
+      handleSentryError(e);
       if (!skipError) {
         handleApiError(e);
       } else {

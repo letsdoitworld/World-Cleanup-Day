@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES } from '../../shared/constants';
+import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES, MARKER_DIAGONALE_IN_PX } from '../../shared/constants';
 import {
   convertToByteArray,
   getDistanceBetweenPointsInMeters,
@@ -63,10 +63,8 @@ export const fetchAreaTrashpoints = ({
   }
 };
 
-const fetchAllMarkers = (
-  viewPortLeftTopCoordinate,
-  viewPortRightBottomCoordinate,
-) => async (dispatch, getState) => {
+const fetchAllMarkers = (viewPortLeftTopCoordinate,
+  viewPortRightBottomCoordinate, mapSize) => async (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_ALL_MARKERS_REQUEST });
   const datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
 
@@ -78,6 +76,12 @@ const fetchAllMarkers = (
   );
   const grid = getGridValue(diagonaleInMeters);
   dispatch(setGridValue(grid));
+  let cellSize = 0;
+  if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
+    cellSize = 38 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) / mapSize.width;
+  } else {
+    cellSize = (180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 38 / mapSize.width;
+  }
 
   const body = {
     datasetId,
@@ -85,7 +89,7 @@ const fetchAllMarkers = (
       nw: viewPortLeftTopCoordinate,
       se: viewPortRightBottomCoordinate,
     },
-    scale: grid.gridValue,
+    cellSize,
   };
 
   const [markersRes, clustersRes] = await Promise.all([
@@ -143,10 +147,8 @@ const fetchAllMarkers = (
   });
 };
 
-const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => async (
-  dispatch,
-  getState,
-) => {
+const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => async (dispatch,
+  getState,) => {
   try {
     const datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
     const markers = selectors.getAllMarkers(getState());
@@ -184,10 +186,8 @@ const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => async (
   }
 };
 
-export const fetchAdminTrashpoints = (
-  pageSize,
-  pageNumber,
-) => async dispatch => {
+export const fetchAdminTrashpoints = (pageSize,
+  pageNumber,) => async dispatch => {
   dispatch({ type: TYPES.FETCH_ADMIN_TRASHPOINTS_REQUEST });
   try {
     const response = await ApiService.get(
@@ -202,14 +202,14 @@ export const fetchAdminTrashpoints = (
     const adminTrashpoints =
       response.data && Array.isArray(response.data.records)
         ? response.data.records.map(marker => ({
-          ...marker,
-          position: {
-            lat: marker.location.latitude,
-            lng: marker.location.longitude,
-          },
-          key: marker.id,
-          isTrashpile: true,
-        }))
+        ...marker,
+        position: {
+          lat: marker.location.latitude,
+          lng: marker.location.longitude,
+        },
+        key: marker.id,
+        isTrashpile: true,
+      }))
         : [];
 
     dispatch({
@@ -284,12 +284,12 @@ export const uploadPhotosOnAzure = photos =>
   Promise.all(
     photos.map(({ url, blob }) =>
       axios
-        .put(url, blob, {
-          headers: {
-            'x-ms-blob-type': 'BlockBlob',
-          },
-        })
-        .catch(res => res),
+      .put(url, blob, {
+        headers: {
+          'x-ms-blob-type': 'BlockBlob',
+        },
+      })
+      .catch(res => res),
     ),
   );
 
@@ -310,26 +310,26 @@ export const handleUpload = async ({ photos, markerId }) => {
 
   if (photosResponse) {
     const thumbnailsPhotos = photosResponse.data
-      .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
-      .map(({ permission: { token, resourceId } }, index) => {
-        const { thumbnail: { base64 } } = photos[index];
-        return {
-          url: token,
-          id: resourceId,
-          blob: convertToByteArray(base64),
-        };
-      });
+                                           .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
+                                           .map(({ permission: { token, resourceId } }, index) => {
+                                             const { thumbnail: { base64 } } = photos[index];
+                                             return {
+                                               url: token,
+                                               id: resourceId,
+                                               blob: convertToByteArray(base64),
+                                             };
+                                           });
 
     const mediumPhotos = photosResponse.data
-      .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
-      .map(({ permission: { token, resourceId } }, index) => {
-        const { base64 } = photos[index];
-        return {
-          url: token,
-          id: resourceId,
-          blob: convertToByteArray(base64),
-        };
-      });
+                                       .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
+                                       .map(({ permission: { token, resourceId } }, index) => {
+                                         const { base64 } = photos[index];
+                                         return {
+                                           url: token,
+                                           id: resourceId,
+                                           blob: convertToByteArray(base64),
+                                         };
+                                       });
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
@@ -354,8 +354,7 @@ export const handleUpload = async ({ photos, markerId }) => {
   );
 };
 
-export const createMarker = (
-  {
+export const createMarker = ({
     id,
     hashtags,
     composition,
@@ -366,8 +365,7 @@ export const createMarker = (
     amount,
     photos,
   },
-  isEdit,
-) => async (dispatch, getState) => {
+  isEdit,) => async (dispatch, getState) => {
   try {
     dispatch({ type: TYPES.CREATE_MARKER_REQUEST });
     const newMarker = {

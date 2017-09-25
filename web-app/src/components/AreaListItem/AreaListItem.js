@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 import _ from 'lodash';
 
+import { COUNTRIES_HASH } from '../../shared/countries';
+import { getCountryFromStr } from '../../shared/helpers';
+
 class AreaListItem extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +13,7 @@ class AreaListItem extends React.Component {
       isOpen: false,
     };
   }
+
   getContainerStyle = () => {
     let containerStyle = {};
     if (this.props.index % 2 === 1) {
@@ -46,17 +50,19 @@ class AreaListItem extends React.Component {
       return 'View';
     }
     return String(area.trashCount);
-
-    // const { rightLabel } = this.props;
-    // if (_.isFunction(rightLabel)) {
-    //   return rightLabel(this.props.area);
-    // }
-    // return rightLabel;
   };
 
   render() {
-    const { onClick, area, rightLabel } = this.props;
+    const { onClick, area, match } = this.props;
     const hasChildren = area.children && area.children.length > 0;
+    const isUserAreas = match && match.path && match.path === '/user-areas';
+    let areaName = area.name;
+    if (isUserAreas) {
+      const name = COUNTRIES_HASH[getCountryFromStr(area.parentId ? area.parentId : area.id)];
+      if (name) {
+        areaName = name;
+      }
+    }
 
     return (
       <div>
@@ -72,20 +78,20 @@ class AreaListItem extends React.Component {
             />
             <div className="AreaListItem-collapse-toggle">
               {hasChildren &&
-                <div
-                  className={
-                    this.state.isOpen
-                      ? 'AreaListItem-triangle-up'
-                      : 'AreaListItem-triangle-down'
-                  }
-                />}
+              <div
+                className={
+                  this.state.isOpen
+                    ? 'AreaListItem-triangle-up'
+                    : 'AreaListItem-triangle-down'
+                }
+              />}
             </div>
             <div className="AreaListItem-text-container">
               <span
                 style={{ fontWeight: this.state.isOpen ? 'bold' : 'normal' }}
                 className="AreaListItem-header"
               >
-                {area.name}
+                {areaName}
               </span>
             </div>
           </div>
@@ -97,19 +103,19 @@ class AreaListItem extends React.Component {
             {this.renderRightLabel()}
           </div>
         </div>
-        {hasChildren &&
-          <Collapse isOpened={this.state.isOpen}>
-            {area.children.map((a, i) =>
-              (<AreaListItem
-                leftPadding={this.props.leftPadding + 10}
-                rightLabel={this.props.rightLabel}
-                key={a.id}
-                index={i + 1}
-                area={a}
-                onClick={onClick}
-              />),
-            )}
-          </Collapse>}
+        {hasChildren && !isUserAreas &&
+        <Collapse isOpened={this.state.isOpen}>
+          {area.children.map((a, i) =>
+            (<AreaListItem
+              leftPadding={this.props.leftPadding + 10}
+              rightLabel={this.props.rightLabel}
+              key={a.id}
+              index={i + 1}
+              area={a}
+              onClick={onClick}
+            />),
+          )}
+        </Collapse>}
       </div>
     );
   }

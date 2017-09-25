@@ -44,6 +44,38 @@ const getUserNestedAreas = (state, userId) => {
   };
 
   areas.forEach(assignAreaChildren);
+  // if (role === USER_ROLES.LEADER) {
+  //   areas = _.map(_.groupBy(areas, a => a.parentId), group => _.first(group));
+  // }
+  return areas;
+};
+const getUserListNestedAreas = (state, userId) => {
+  const stateAreas = getUserAreas(state, userId);
+
+  if (!stateAreas) {
+    return [];
+  }
+  const role = userSelectors.getRole(state);
+
+  let areas = [];
+  if (role !== USER_ROLES.LEADER) {
+    areas = _.cloneDeep(_.filter(stateAreas, a => !a.parentId));
+  } else {
+    areas = _.cloneDeep(stateAreas);
+  }
+  const getAreaChildren = area =>
+    _.filter(stateAreas, a => a.parentId === area.id);
+  const assignAreaChildren = area => {
+    area.children = getAreaChildren(area);
+    if (area.children && area.children.length > 0) {
+      area.children.forEach(assignAreaChildren);
+    }
+  };
+
+  areas.forEach(assignAreaChildren);
+  if (role === USER_ROLES.LEADER) {
+    areas = _.map(_.groupBy(areas, a => a.parentId), group => _.first(group));
+  }
   return areas;
 };
 
@@ -81,4 +113,5 @@ export default {
   getAreas,
   getNestedAreas,
   getUserNestedAreas,
+  getUserListNestedAreas,
 };

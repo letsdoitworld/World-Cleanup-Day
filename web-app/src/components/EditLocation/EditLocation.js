@@ -28,7 +28,19 @@ class EditLocation extends React.Component {
     }
   };
   render() {
-    const { visible } = this.props;
+    const { visible, location, status } = this.props;
+
+    const points = [];
+
+    if (location && location.lat && location.lng) {
+      const { lat, lng } = location;
+      points.push({
+        id: 'none',
+        isTrashpile: true,
+        position: { lat, lng },
+        status: status || 'regular',
+      });
+    }
 
     return (
       <Modal
@@ -37,7 +49,11 @@ class EditLocation extends React.Component {
         onRequestClose={this.props.onClose}
         isOpen={visible}
       >
-        <MapView onClick={this.handleMapClick} location={this.props.location} />
+        <MapView
+          onClick={this.handleMapClick}
+          points={points}
+          location={location}
+        />
       </Modal>
     );
   }

@@ -4,7 +4,7 @@
   "label_button_google":"Continue with Google",
   "label_button_try_app":"Try out the app without account",
   "label_button_acknowledge":"Ok, got it!",
-  "label_button_cancel":"Cancelar",
+  "label_button_cancel":"Cancel",
   "label_button_continue":"Continue",
   "label_trash_status_threat":"threat",
   "label_trash_status_regular":"regular",

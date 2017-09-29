@@ -218,7 +218,7 @@ class EditTrashpoint extends Component {
 
   render() {
     const {
-      marker: { created, updated, createdByName, updatedByName },
+      marker: { createdAt, updatedAt, createdByName, updatedByName },
       actions,
     } = this.props;
     const {
@@ -275,8 +275,8 @@ class EditTrashpoint extends Component {
           <div className="EditTrashpoint-divider" />
           <StatusText status={status} />
           <TrashpointDate
-            createdDate={created}
-            updatedDate={updated}
+            createdDate={createdAt}
+            updatedDate={updatedAt}
             createdBy={createdByName}
             updatedBy={updatedByName}
           />

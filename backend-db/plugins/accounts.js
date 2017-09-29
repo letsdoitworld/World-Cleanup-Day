@@ -100,23 +100,42 @@ module.exports = function () {
 
     lucius.register('role:db,cmd:getAccounts', async function (connector, args, __) {
         return connector.input(args)
-        .use(async function ({pageSize, pageNumber, country}, responder) {
+        .use(async function ({pageSize, pageNumber, country, nameSearch}, responder) {
+            if (nameSearch) {
+                nameSearch = nameSearch.toLowerCase();
+            }
             let accounts;
             let total;
             if (__.user.role === Account.ROLE_SUPERADMIN) {
-                accounts = await db.getAccounts(pageSize, pageNumber);
-                total = await db.countAccounts();
+                if (nameSearch) {
+                    accounts = await db.getAccountsByNameSearch(nameSearch, pageSize, pageNumber, country);
+                    total = await db.countAccountsForNameSearch(nameSearch, country);
+                }
+                else if (country) {
+                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber);
+                    total = await db.countAccountsForCountry(country);
+                }
+                else {
+                    accounts = await db.getAccounts(pageSize, pageNumber);
+                    total = await db.countAccounts();
+                }
             }
             else {
                 if (!country) {
-                    return responder.failure(new LuciusError(E.PARAMETER_COUNTRY_REQUIRED));
+                    return responder.failure(new LuciusError(E.COUNTRY_REQUIRED));
                 }
                 const leaderCountries = countriesForLeader(await db.getAreasForLeader(__.user.id));
                 if (leaderCountries.indexOf(country) === -1) {
                     return responder.failure(new LuciusError(E.ACCESS_DENIED));
                 }
-                accounts = await db.getAccountsByCountry(country, pageSize, pageNumber);
-                total = await db.countAccountsForCountry(country);
+                if (nameSearch) {
+                    accounts = await db.getAccountsByNameSearch(nameSearch, pageSize, pageNumber, country);
+                    total = await db.countAccountsForNameSearch(nameSearch, country);
+                }
+                else {
+                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber);
+                    total = await db.countAccountsForCountry(country);
+                }
             }
             return responder.success({
                 total,

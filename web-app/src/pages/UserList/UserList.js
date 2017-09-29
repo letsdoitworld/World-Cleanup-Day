@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { debounce } from 'lodash';
 
 import { actions, selectors } from '../../reducers/admin';
 import { List } from '../../components/List';
@@ -21,26 +22,26 @@ class UserList extends PureComponent {
                .substring(1, props.location.search.length)
                .split('=')[1]
         : undefined,
+      pageSearch: 1,
+      pageSizeSearch: 20,
+      notSearched: false
     };
-  }
 
-  componentDidMount() {
-    // this.handleLoadMoreUsers();
+    this.handleSearchDebounced = debounce(() => {
+      this.setState({
+        pageSearch: 1,
+        pageSizeSearch: 20,
+      },() => this.handleLoadMoreUsers(true))
+    }, 300);
   }
-
-  getUsers = () => {
-    const { search } = this.state;
-    const { users } = this.props;
-    if (search) {
-      return (users || [])
-      .filter(u => u.name.toLowerCase().indexOf(search.toLowerCase()) >= 0);
-    }
-    return users;
-  };
 
   handleSearchChanged = event => {
-    this.setState({ search: event.target.value });
+    this.setState(
+      { search: event.target.value },
+      () => this.handleSearchDebounced()
+    );
   };
+
   handleUserClick = user => {
     const { id } = user;
     if (!id) {
@@ -49,30 +50,67 @@ class UserList extends PureComponent {
     this.props.history.push(`/users/${id}`);
   };
 
-  handleLoadMoreUsers = () => {
-    const { page, pageSize, loaded, canLoadMore, area } = this.state;
+  handleLoadMoreUsers = (isSearch, isLoadingMore) => {
+    const { page, pageSize, loaded, canLoadMore, area, search, pageSearch, pageSizeSearch, notSearched } = this.state;
     const { loading } = this.props;
-    if (loading || !canLoadMore) {
-      return;
+    const validSearch = search && search.length >= 3;
+
+
+    const fetchUsersParams = {
+      page,
+      pageSize,
+      reset: !loaded,
+      area
+    };
+
+    if (isSearch && validSearch) {
+      fetchUsersParams.page = pageSearch;
+      fetchUsersParams.pageSize = pageSizeSearch;
+      fetchUsersParams.nameSearch = search.substring(0, 10);
+      fetchUsersParams.isLoadingMore = isLoadingMore;
+
+      if (loading || !canLoadMore ) {
+        if(notSearched && isLoadingMore) {
+          return;
+        }
+      }
+
+      return this.props
+                 .fetchUsers(fetchUsersParams)
+                 .then(res => {
+                   this.setState({
+                     pageSearch: res.page + 1,
+                     canLoadMore: res.canLoadMore,
+                     loaded: true,
+                     page: 1,
+                     notSearched: true
+                   });
+                 });
     }
+
+    if (loading || !canLoadMore) {
+      if(!notSearched) {
+        return;
+      }else{
+        fetchUsersParams.reset = true;
+      }
+    }
+
     this.props
-        .fetchUsers({
-          page,
-          pageSize,
-          reset: !loaded,
-          area
-        })
+        .fetchUsers(fetchUsersParams)
         .then(res => {
           this.setState({
             page: res.page + 1,
             canLoadMore: res.canLoadMore,
             loaded: true,
+            pageSearch: 1,
+            notSearched: false
           });
         });
   };
 
-  renderItems(users) {
-    return users.map(u =>
+  renderItems() {
+    return this.props.users.map(u =>
       <UserListItem
         onClick={() => this.handleUserClick(u)}
         key={u.id}
@@ -101,14 +139,14 @@ class UserList extends PureComponent {
   }
 
   render() {
-    const users = this.getUsers();
+    const { search } = this.state;
     return (
       <List
         elementHeight={62}
         infinite
-        onInfiniteLoad={this.handleLoadMoreUsers}
+        onInfiniteLoad={() => this.handleLoadMoreUsers(search && search.length >= 3, true)}
         headerContent={this.renderHeaderContent()}
-        items={this.renderItems(users)}
+        items={this.renderItems()}
       />
     );
   }

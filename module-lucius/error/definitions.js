@@ -47,6 +47,9 @@ module.exports = {
     ACCOUNT_CANNOT_SELF_LOCK: {
         message: () => `An account cannot set lock status on itself.`,
     },
+    COUNTRY_REQUIRED: {
+        message: () => `Area leaders must provide a country with the request.`,
+    },
     TRASHPOINT_NOT_FOUND: {
         message: ({id}) => `Trashpoint does not exist: '${id}'.`,
     },

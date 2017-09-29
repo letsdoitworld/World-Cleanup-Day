@@ -134,6 +134,7 @@ paths:
         - $ref: "#/parameters/PageSize"
         - $ref: "#/parameters/PageNumber"
         - $ref: "#/parameters/Country"
+        - $ref: "#/parameters/NameSearch"
       responses:
         "200":
           description: List of accounts.
@@ -531,6 +532,14 @@ parameters:
           uniqueItems: true
           items:
             $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
+  NameSearch:
+    name: nameSearch
+    in: query
+    required: false
+    type: string
+    minLength: 3
+    maxLength: 10
   #-----------------------------------------------------------------------------
   Country:
     name: country
@@ -1024,7 +1033,7 @@ definitions:
     description: The horizontal resolution of the clustering grid, expressed in geodetic longitude degrees.
     type: number
     format: float
-    minimum: 0.000009
+    minimum: 0.000001
   #-----------------------------------------------------------------------------
   # Authorization data structures.
   #-----------------------------------------------------------------------------

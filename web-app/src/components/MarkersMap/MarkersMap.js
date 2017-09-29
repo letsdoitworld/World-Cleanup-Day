@@ -10,7 +10,7 @@ import {
   actions as trashpileActions,
 } from '../../reducers/trashpile';
 import { getViewportPoints } from '../../shared/helpers';
-import { GRID_HASH, DELTA_HASH } from '../../shared/constants';
+import { GRID_HASH, DELTA_HASH, GRID_MIN_VALUE } from '../../shared/constants';
 
 class MarkersMap extends React.Component {
   static defaultProps = {
@@ -88,7 +88,7 @@ class MarkersMap extends React.Component {
         ...DELTA_HASH[diagonaleInMeters],
         ...marker.position,
       };
-      if (!this.props.gridValue.maxZoomedIn) {
+      if (diagonaleInMeters !== GRID_MIN_VALUE) {
         const { lat, lng, latitudeDelta, longitudeDelta } = region;
         const bounds = {
           north: lat - latitudeDelta / 16,
@@ -99,16 +99,30 @@ class MarkersMap extends React.Component {
 
         this.map.fitBounds(bounds);
       } else {
+
         this.setState(
           {
             updateRegion: false,
           },
-          () =>
+          () => {
+            let cellSize = 0;
+            const mapElContainer = this.map.getDiv();
+            const mapSize = {
+              height: parseInt(getComputedStyle(mapElContainer).height),
+              width: parseInt(getComputedStyle(mapElContainer).width)
+            };
+            const { nw, se } = getViewportPoints(this.map.getBounds());
+            if (se.longitude > nw.longitude) {
+              cellSize = 38 * (se.longitude - nw.longitude) / mapSize.width;
+            } else {
+              cellSize = (180 - nw.longitude + se.longitude + 180) * 38 / mapSize.width;
+            }
             this.props.fetchClusterTrashpoints({
-              scale: this.props.gridValue.gridValueToZoom,
+              cellSize,
               coordinates: marker.coordinates,
               clusterId: marker.id,
-            }),
+            })
+          },
         );
       }
     }

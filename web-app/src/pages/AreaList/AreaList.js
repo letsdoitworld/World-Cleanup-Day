@@ -18,7 +18,7 @@ class AreaList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedArea: undefined,
+      selectedArea: props.location.state ? props.location.state.selectedArea : undefined,
     };
   }
 

@@ -65,6 +65,20 @@ const layer = {
             }
         );
     },
+    getAccountsByNameSearch: async (nameSearch, pageSize = 10, pageNumber = 1, country = null) => {
+        return await adapter.getEntities(
+            'Account',
+            '_design/byNamePieces/_view/view',
+            {
+                reduce: false,
+                sorted: true,
+                limit: pageSize,
+                skip: pageSize * (pageNumber - 1),
+                startkey: country  ? [nameSearch, country] : [nameSearch],
+                endkey: country ? [nameSearch, country, {}] : [nameSearch, {}],
+            }
+        );
+    },
     countAccounts: async () => {
         const ret = await adapter.getRawDocs('Account', '_design/countAll/_view/view', {});
         if (!ret.length) {
@@ -76,6 +90,18 @@ const layer = {
         const ret = await adapter.getRawDocs('Account', '_design/countByCountry/_view/view', {
             key: country,
             group: true,
+        });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
+    countAccountsForNameSearch: async (nameSearch, country = null) => {
+        const ret = await adapter.getRawDocs('Account', '_design/byNamePieces/_view/view', {
+            startkey: country  ? [nameSearch, country] : [nameSearch],
+            endkey: country ? [nameSearch, country, {}] : [nameSearch, {}],
+            reduce: true,
+            group: false,
         });
         if (!ret.length) {
             return 0;

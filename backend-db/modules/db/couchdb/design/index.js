@@ -75,6 +75,41 @@ const designDocs = {
                 },
             },
         },
+        byNamePieces: {
+            $version: 2,
+            views: {
+                view: {
+                    map: function (doc) {
+                        function splitter(L, bit) {
+                            var chunks = {};
+                            for (var i = 0; i < bit.length - L + 1; i++) {
+                                chunks[bit.substring(i, i + L)] = true;
+                            }
+                            return chunks;
+                        }
+                        function collator(L, name) {
+                            var bits = name.replace(/\s+/g, ' ').replace(/^\s/g, '').replace(/\s$/g, '').toLowerCase().split(' ');
+                            var chunks = {};
+                            for (var b = 0; b < bits.length; b++) {
+                                Object.getOwnPropertyNames(splitter(L, bits[b])).forEach(function (prop) {
+                                    chunks[prop] = true;
+                                });
+                            }
+                            return Object.getOwnPropertyNames(chunks);
+                        }
+                        if (doc.$doctype === 'account') {
+                            for (var i = 3; i <= 10; i++) {
+                                var pieces = collator(i, doc.name);
+                                for (var k = 0; k < pieces.length; k++) {
+                                    emit([pieces[k], doc.country, doc.name], doc);
+                                }
+                            }
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
         countAll: {
             $version: 1,
             views: {

@@ -147,7 +147,7 @@ const fetchAllMarkers = (viewPortLeftTopCoordinate,
   });
 };
 
-const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => async (dispatch,
+const fetchClusterTrashpoints = ({ cellSize, coordinates, clusterId }) => async (dispatch,
   getState,) => {
   try {
     const datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
@@ -155,7 +155,7 @@ const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => async (di
 
     const body = {
       datasetId,
-      scale,
+      cellSize,
       coordinates,
     };
     const response = await ApiService.post(

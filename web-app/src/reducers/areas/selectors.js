@@ -73,9 +73,9 @@ const getUserListNestedAreas = (state, userId) => {
   };
 
   areas.forEach(assignAreaChildren);
-  if (role === USER_ROLES.LEADER) {
-    areas = _.map(_.groupBy(areas, a => a.parentId), group => _.first(group));
-  }
+  // if (role === USER_ROLES.LEADER) {
+  //   areas = _.map(_.groupBy(areas, a => a.parentId), group => _.first(group));
+  // }
   return areas;
 };
 

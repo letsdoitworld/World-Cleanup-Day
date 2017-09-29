@@ -149,10 +149,10 @@ const mapDispatchToProps = dispatch => {
         ),
       );
     },
-    fetchClusterTrashpoints(scale, coordinates, clusterId) {
+    fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
       dispatch(
         trashpileOperations.fetchClusterTrashpoints({
-          scale,
+          cellSize,
           coordinates,
           clusterId,
         }),

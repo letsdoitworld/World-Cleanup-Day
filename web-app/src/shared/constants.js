@@ -4,6 +4,7 @@ export const DEFAULT_ZOOM_LEVEL = 18;
 export const NO_PERMISSION_ZOOM_LEVEL = 9;
 export const ESTONIA_CENTER_COORDINATES = { lat: 58.5953, lng: 25.0136 };
 export const MARKER_DIAGONALE_IN_PX = 2 * Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2));
+const MAX_ZOOM_LEVEL = 22;
 export const DATASETS_TYPES = {
   TRASHPOINTS: 'trashpoints',
 };
@@ -21,8 +22,8 @@ export const API_ENDPOINTS = {
     `/trashpoints/${trashpointId}/images`,
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
-  FETCH_USERS: ({ page, pageSize, area }) =>
-    `/users?pageNumber=${page}&pageSize=${pageSize}${area ? `&country=${area}` : ''}`,
+  FETCH_USERS: ({ page, pageSize, area, nameSearch }) =>
+    `/users?pageNumber=${page}&pageSize=${pageSize}${area ? `&country=${area}` : ''}${nameSearch ? `&nameSearch=${nameSearch}` : ''}`,
   FETCH_USER_BY_ID: id => `/users/${id}`,
   FETCH_ADMIN_TRASHPOINTS: '/admin/trashpoints',
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
@@ -88,6 +89,8 @@ export const USER_ROLES = {
   LEADER: 'leader',
   SUPERADMIN: 'superadmin',
 };
+
+export const GRID_MIN_VALUE = 50;
 
 export const GRID_HASH = {
   50: '1m',

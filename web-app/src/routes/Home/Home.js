@@ -8,6 +8,9 @@ import {
   actions as userActions,
   selectors as userSels,
 } from '../../reducers/user';
+import {
+  actions as adminActions
+} from '../../reducers/admin';
 
 import { UserDetails } from '../../pages/UserDetails';
 import { CreateTrashpoint } from '../../components/CreateTrashpoint';
@@ -88,6 +91,8 @@ class Home extends React.Component {
         url: userProfile.role === USER_ROLES.LEADER ? '/user-areas' : '/users'
       });
     }
+
+    SIDEBAR_LINKS.forEach(link => link.onClick = () => this.props.resetUsers());
     return (
       <div className="Home">
         <Sidebar
@@ -114,6 +119,7 @@ const mapState = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),
   agreeToTerms: () => dispatch(userActions.agreeToTerms()),
+  resetUsers: () => dispatch(adminActions.resetUsers())
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);

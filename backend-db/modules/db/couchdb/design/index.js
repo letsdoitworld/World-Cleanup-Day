@@ -76,7 +76,7 @@ const designDocs = {
             },
         },
         byNamePieces: {
-            $version: 2,
+            $version: 3,
             views: {
                 view: {
                     map: function (doc) {
@@ -88,7 +88,7 @@ const designDocs = {
                             return chunks;
                         }
                         function collator(L, name) {
-                            var bits = name.replace(/\s+/g, ' ').replace(/^\s/g, '').replace(/\s$/g, '').toLowerCase().split(' ');
+                            var bits = name.trim().toLowerCase().split(/\s+/);
                             var chunks = {};
                             for (var b = 0; b < bits.length; b++) {
                                 Object.getOwnPropertyNames(splitter(L, bits[b])).forEach(function (prop) {

@@ -6,10 +6,6 @@ archy@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/archy/-/archy-1.0.0.tgz#f9c8c13757cc1dd7bc379ac77b2c62a5c2868c40"
 
-async@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-1.0.0.tgz#f8fc04ca3a13784ade9e1641af98578cfbd647a9"
-
 backoff@~2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/backoff/-/backoff-2.5.0.tgz#f616eda9d3e4b66b8ca7fca79f695722c5f8e26f"
@@ -28,27 +24,15 @@ boom@4.x.x:
   dependencies:
     hoek "4.x.x"
 
-colors@1.0.x:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
-
 core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
-
-cycle@1.0.x:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/cycle/-/cycle-1.0.3.tgz#21e80b2be8580f98b468f379430662b046c34ad2"
 
 eraro@0.4, eraro@0.4.1, eraro@~0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/eraro/-/eraro-0.4.1.tgz#6538730769a1e89ffc3f0c7e2c94d5a1f866629d"
   dependencies:
     lodash "~2.4.1"
-
-eyes@0.1.x:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
 
 gate-executor@1.1.1:
   version "1.1.1"
@@ -61,8 +45,8 @@ gex@0.2.2:
     lodash "3.10.0"
 
 hoek@4.x.x:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.1.1.tgz#9cc573ffba2b7b408fb5e9c2a13796be94cddce9"
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
 
 inherits@~2.0.1:
   version "2.0.3"
@@ -71,10 +55,6 @@ inherits@~2.0.1:
 isarray@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
-
-isstream@0.1.x:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
 json-stringify-safe@5.0.1:
   version "5.0.1"
@@ -114,12 +94,6 @@ lru-cache@4.0.1:
 minimist@1.2.0, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
-
-"module-logger@git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#68be016112bfdc381d5e0c374e3037e9b4f120d1"
-  dependencies:
-    winston "^2.3.1"
 
 ndjson@1.4.3:
   version "1.4.3"
@@ -219,7 +193,7 @@ seneca-transport@2.1.1:
     reconnect-core "1.3.0"
     wreck "9.0.0"
 
-seneca@^3.4.1:
+seneca@=3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/seneca/-/seneca-3.4.1.tgz#1cc252cbff0917adc8dabe9e993d45faadb5a8be"
   dependencies:
@@ -249,10 +223,6 @@ split2@^0.2.1:
   dependencies:
     through2 "~0.6.1"
 
-stack-trace@0.0.x:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
-
 string_decoder@~0.10.x:
   version "0.10.31"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
@@ -272,17 +242,6 @@ use-plugin@0.3.2:
     lodash "4.15"
     nid "0.3"
     norma "0.3"
-
-winston@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-2.3.1.tgz#0b48420d978c01804cf0230b648861598225a119"
-  dependencies:
-    async "~1.0.0"
-    colors "1.0.x"
-    cycle "1.0.x"
-    eyes "0.1.x"
-    isstream "0.1.x"
-    stack-trace "0.0.x"
 
 wreck@12.2.0:
   version "12.2.0"

@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Web app.",
   "main": "index.js",
-  "repository": "git@gitlab.qualitance.com:ldiw/web-app.git",
   "author": "Qualitance",
   "license": "GPL-3.0",
   "private": true,

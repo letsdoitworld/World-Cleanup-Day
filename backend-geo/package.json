@@ -3,16 +3,11 @@
   "version": "1.0.0",
   "description": "Microservice that resolves geospatial queries.",
   "main": "app.js",
-  "repository": "git@gitlab.qualitance.com:ldiw/backend-geo.git",
   "author": "Qualitance",
   "license": "GPL-3.0",
   "dependencies": {
-    "@turf/bbox": "^4.7.3",
-    "@turf/inside": "^4.7.3",
-    "caught": "^0.1.1",
-    "module-logger": "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop",
-    "module-lucius": "git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#develop",
-    "module-service-factory": "git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#develop",
-    "module-util": "git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#develop"
+    "@turf/bbox": "=4.7.3",
+    "@turf/inside": "=4.7.3",
+    "caught": "=0.1.1"
   }
 }

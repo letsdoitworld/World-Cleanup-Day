@@ -73,7 +73,7 @@ services:
         env_file:
             - ${SERVICE_DIR}/couchdb/.env
             - ./.env
-        image: registry.ops.worldcleanupday.com/couchdb_geocouch:latest
+        image: couchdb:1.6.1
         ports:
             - "127.0.0.1:5984:5984"
         volumes:

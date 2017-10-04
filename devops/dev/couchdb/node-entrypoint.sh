@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 INIT_FLAG=/.initialized
 
 if [ ! -f "$INIT_FLAG" ]; then

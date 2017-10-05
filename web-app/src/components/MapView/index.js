@@ -61,6 +61,7 @@ class MapView extends Component {
       onClick,
       center: propCenter,
       zoom: propZoom,
+      cursor,
     } = this.props;
     const { mapLocation, zoom, mapLoaded } = this.state;
 
@@ -72,6 +73,7 @@ class MapView extends Component {
 
     return (
       <GoogleMapView
+        cursor={cursor}
         onClick={onClick}
         containerElement={<div style={{ height: '100%' }} />}
         mapElement={<div style={{ height: '100%' }} />}

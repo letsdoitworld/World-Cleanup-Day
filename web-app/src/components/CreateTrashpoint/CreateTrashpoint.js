@@ -238,7 +238,6 @@ class CreateTrashpoint extends Component {
           location={location ? { lat: latitude, lng: longitude } : undefined}
           visible={this.state.editLocation}
           status={status}
-          textInput
         />
         <div style={{ padding: '20px' }}>
           <span className="CreateTrashpoint-name">{name}</span>

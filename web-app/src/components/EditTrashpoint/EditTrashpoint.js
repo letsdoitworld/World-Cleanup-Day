@@ -13,7 +13,7 @@ import ImageService from '../../services/Image';
 import { actions as trashpileOperations } from '../../reducers/trashpile';
 
 import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
-import { EditLocation } from '../../components/EditLocation';
+import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from './components/Tags';
 import StatusPicker from './StatusPicker';
 import closeButton from '../../assets/closeButton.png';
@@ -247,9 +247,7 @@ class EditTrashpoint extends Component {
           status={status}
         />
         <div style={{ padding: '20px' }}>
-          <span className="EditTrashpoint-name">
-            {name}
-          </span>
+          <span className="EditTrashpoint-name">{name}</span>
           <button
             className="EditTrashpoint-close-button"
             onClick={actions.onCloseEditClick}
@@ -271,6 +269,9 @@ class EditTrashpoint extends Component {
             >
               Edit location
             </span>
+          </div>
+          <div className="CreateTrashpoint-edit-location-text">
+            <EditLocationInput onChange={this.handleLocationChanged} />
           </div>
           <div className="EditTrashpoint-divider" />
           <StatusText status={status} />
@@ -345,6 +346,9 @@ const mapDispatchToProps = dispatch => ({
   },
   deleteMarker: (...args) =>
     dispatch(trashpileOperations.deleteMarker(...args)),
+  updateMarkerLocation: (...args) => {
+    dispatch(trashpileOperations.updateMarkerLocation(...args));
+  },
 });
 
 export default connect(undefined, mapDispatchToProps)(EditTrashpoint);

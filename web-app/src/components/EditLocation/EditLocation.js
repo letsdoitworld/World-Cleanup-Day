@@ -50,6 +50,7 @@ class EditLocation extends React.Component {
         isOpen={visible}
       >
         <MapView
+          cursor="initial"
           onClick={this.handleMapClick}
           points={points}
           location={location}

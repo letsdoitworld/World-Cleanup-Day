@@ -58,7 +58,7 @@
   "label_header_createTP":"Loo uus prügi punkt",
   "label_button_createTP_editloc":"Redigeeri asukohta",
   "label_header_edit_loc":"Redigeeri asukohta",
-  "label_button_edit_loc_set":"Set trashpoint location",
+  "label_button_edit_loc_set":"Määra punkti asukoht",
   "label_text_createTP_status_subtitle":"Point status",
   "label_text_createTP_status_text":"If a quick action is needed (toxic, heavy metals), please set as threat.",
   "label_text_createTP_add_photos":"Add trash photos",

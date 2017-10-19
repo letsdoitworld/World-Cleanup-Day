@@ -26,10 +26,10 @@ class Teams extends Component {
     this.handleTeamChange = this.handleTeamChange.bind(this);
   }
 
-  handleTeamChange = (team) => {
-    console.log(e);
-    this.props.updateProfile({ team: team.id });
-  };
+  handleTeamChange(team) {
+    console.log('Join to team: ', team);
+    this.props.updateTeam({ team: team.id });
+  }
 
   render() {
     const team  = this.props.team;
@@ -37,6 +37,7 @@ class Teams extends Component {
       this.props.teams.filter(function(obj) {
         return obj.id !== team.id;
       });
+    const handleTeamChange = this.handleTeamChange;
     return (
       <View style={styles.container}>
         {teams.map(function(teamsItem, key){
@@ -54,7 +55,7 @@ class Teams extends Component {
                 <View style={styles.actionContainer}>
                   <SimpleButton
                     style={styles.teamJoinButton}
-                    onPress={() => this.handleTeamChange(teamsItem)}
+                    onPress={() => handleTeamChange(teamsItem)}
                     text="Join"
                   />
                 </View>
@@ -74,7 +75,7 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = {
-  updateProfile: userOps.updateProfile,
+  updateTeam: teamsOps.updateTeam,
 };
 
 export default compose(

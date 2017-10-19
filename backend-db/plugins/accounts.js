@@ -13,6 +13,7 @@ const filterBriefAccountData = account => util.object.filter(account, {
     role: true,
     locked: true,
     country: true,
+    team: true,
     pictureURL: true,
     termsAcceptedAt: true,
 });
@@ -172,7 +173,8 @@ module.exports = function () {
                     socialAccount.name,
                     socialAccount.email,
                     Account.ROLE_VOLUNTEER,
-                    socialAccount.pictureURL
+                    socialAccount.pictureURL,
+                    Account.DEFAULT_TEAM
                 );
             }
             return responder.success(account);

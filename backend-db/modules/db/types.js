@@ -51,6 +51,7 @@ class Account extends Type {
             role: true,
             pictureURL: true,
             country: true,
+            team: true,
             termsAcceptedAt: true,
             locked: true,
             createdAt: true,
@@ -69,6 +70,7 @@ declareConstants(Account, {
     ROLE_LEADER: 'leader',
     ROLE_ADMIN: 'admin',
     ROLE_SUPERADMIN: 'superadmin',
+    DEFAULT_TEAM: 0,
 });
 
 class Session extends Type {

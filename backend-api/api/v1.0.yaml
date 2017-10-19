@@ -68,6 +68,22 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /me/join-team:
+    x-swagger-router-controller: users
+    put:
+      description: Join user to team.
+      operationId: modifyUserTeam
+      x-security: [bearer, ignore-terms-lock]
+      parameters:
+        - $ref: "#/parameters/ModifyTeam"
+      responses:
+        "200":
+          description: Account information.
+          schema:
+            $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /auth/external:
     x-swagger-router-controller: users
     post:
@@ -558,6 +574,19 @@ parameters:
       properties:
         country:
           $ref: "#/definitions/CountryCode"
+  #-----------------------------------------------------------------------------
+  ModifyTeam:
+    name: update
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [team]
+      properties:
+        team:
+          type: number
+          format: int32
+          minimum: 0
   #-----------------------------------------------------------------------------
   ModifyTrashpoint:
     name: trashpoint

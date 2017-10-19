@@ -42,6 +42,9 @@ const profileReducer = (state = profileInitialState, action) => {
         loading: true,
       };
     case types.FETCH_PROFILE_SUCCESS:
+      // TODO! Delete when backend is ready
+      action.payload.team = 1;
+      //
       return {
         ...state,
         loading: false,
@@ -62,6 +65,9 @@ const profileReducer = (state = profileInitialState, action) => {
         updatingError: undefined,
       };
     case types.UPDATE_PROFILE_DONE:
+      // TODO! Delete when backend is ready
+      action.payload.team = 1;
+      //
       return {
         ...state,
         updating: false,

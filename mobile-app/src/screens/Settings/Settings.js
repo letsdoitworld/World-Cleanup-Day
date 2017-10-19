@@ -60,6 +60,10 @@ class Settings extends Component {
     }));
   };
 
+  handleTeamPress = () => {
+    this.props.navigation.navigate('Teams');
+  };
+
   handleCountryChanged = (country) => {
     this.setState({
       showCountryModal: false,
@@ -104,7 +108,7 @@ class Settings extends Component {
   };
 
   render() {
-    const { country } = this.props;
+    const { country, team } = this.props;
     const countrySubtitle = country
       ? country.name
       : this.props.t('label_country_picker_placeholder');
@@ -117,6 +121,12 @@ class Settings extends Component {
               title="Country"
               subtitle={countrySubtitle}
               onPress={this.handleCountryItemPress}
+            />
+            <ListItem
+              {...listItemProps}
+              title="Team"
+              subtitle={team.name}
+              onPress={this.handleTeamPress}
             />
           </List>
           <List containerStyle={[styles.separator, styles.list]}>
@@ -161,6 +171,7 @@ const mapState = (state) => {
   return {
     profile: userSels.getProfile(state),
     country: userSels.getProfileCountry(state),
+    team: userSels.getProfileTeam(state),
     isProfileUpdating: userSels.isProfileUpdating(state),
   };
 };

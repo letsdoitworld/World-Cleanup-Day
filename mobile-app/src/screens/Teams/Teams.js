@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
 import { Divider } from '../../components/Divider';
-import { SimpleButton } from '../../components/Buttons';
+import { BlueButton } from '../../components/Buttons';
 import { withNavigationHelpers } from '../../services/Navigation';
 
 import {
@@ -32,14 +32,14 @@ class Teams extends Component {
   }
 
   render() {
-    const team  = this.props.team;
+    const { t, team } = this.props;
     const teams = !team ? this.props.teams :
       this.props.teams.filter(function(obj) {
         return obj.id !== team.id;
       });
     const handleTeamChange = this.handleTeamChange;
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {teams.map(function(teamsItem, key){
           return (
             <View>
@@ -53,10 +53,10 @@ class Teams extends Component {
                   </Text>
                 </View>
                 <View style={styles.actionContainer}>
-                  <SimpleButton
-                    style={styles.teamJoinButton}
+                  <BlueButton
+                    text="Join"//{t('label_button_join')}
                     onPress={() => handleTeamChange(teamsItem)}
-                    text="Join"
+                    disabled={team.id === teamsItem.id}
                   />
                 </View>
               </View>
@@ -64,7 +64,7 @@ class Teams extends Component {
             </View>
           );
         })}
-      </View>
+      </ScrollView>
     );
   }
 }

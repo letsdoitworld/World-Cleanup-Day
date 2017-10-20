@@ -72,14 +72,4 @@ export default EStyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  teamLeaveButton: {
-    width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomLeftRadius: '$radius10',
-    borderBottomRightRadius: '$radius10',
-    height: getHeightPercentage(35),
-    color: '$white',
-    backgroundColor: '#3e8ede',
-  },
 });

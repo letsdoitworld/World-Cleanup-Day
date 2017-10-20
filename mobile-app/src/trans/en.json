@@ -160,5 +160,7 @@
   "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
   "label_text_about_3": "This app is a joint cooperation with",
   "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_locked_account_warning": "Your account is locked. For details contact an administrator.",
+
+  "label_button_join": "Join"
 }

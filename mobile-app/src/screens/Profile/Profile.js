@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
 import { Divider } from '../../components/Divider';
-import { SimpleButton } from '../../components/Buttons';
+import { GrayButton } from '../../components/Buttons';
 import { selectors as userSelectors } from '../../reducers/user';
 import { withNavigationHelpers } from '../../services/Navigation';
 import styles from './styles';
@@ -51,8 +51,7 @@ class Profile extends Component {
                 <Text style={styles.teamText}>
                   {team.name}
                 </Text>
-                <SimpleButton
-                  style={styles.teamLeaveButton}
+                <GrayButton
                   text="Leave"
                 />
               </View>

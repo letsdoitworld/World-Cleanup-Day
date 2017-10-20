@@ -13,10 +13,17 @@ export default EStyleSheet.create({
     backgroundColor: '$white',
   },
   nameContainer: {
-    paddingLeft: getWidthPercentage(20),
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: getWidthPercentage(60),
+    paddingLeft: getWidthPercentage(10),
   },
   actionContainer: {
-    paddingRight: getWidthPercentage(20),
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: getWidthPercentage(15),
+    paddingLeft: getWidthPercentage(5),
+    paddingRight: getWidthPercentage(10),
   },
   teamTitle: {
     fontFamily: '$boldFont',
@@ -25,7 +32,7 @@ export default EStyleSheet.create({
   },
   teamText: {
     fontFamily: '$font',
-    fontSize: 20,
+    fontSize: 14,
     color: '$textColor',
   },
   teamJoinButton: {

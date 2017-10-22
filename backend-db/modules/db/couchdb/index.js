@@ -666,8 +666,8 @@ const layer = {
                 );
             }
             else {
-                if (existingAreas[team.id].name !== team.name
-                    || existingAreas[team.id].description !== team.description
+                if (existingTeams[team.id].name !== team.name
+                    || existingTeams[team.id].description !== team.description
                 ) {
                     await layer.modifyTeam(team.id, null, {
                         name: team.name,

@@ -209,6 +209,35 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /teams:
+    x-swagger-router-controller: teams
+    get:
+      description: List all teams.
+      operationId: getAllTeams
+      responses:
+        "200":
+          description: List of teams.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Team"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/{id}:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch complete info about a specific team.
+      operationId: getTeam
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: Full team information.
+          schema:
+            $ref: "#/definitions/Team"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /areas/user:
     x-swagger-router-controller: areas
     get:
@@ -748,6 +777,22 @@ definitions:
       leaderId:
         description: Area can be optionally be assigned to a user.
         $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
+  # Team properties.
+  #-----------------------------------------------------------------------------
+  Team:
+    type: object
+    required: [id, name]
+    properties:
+      id:
+        description: A unique code of team
+        type: string
+      name:
+        description: A name of team
+        type: string
+      description:
+        description: Desctiption of team
+        type: string
   #-----------------------------------------------------------------------------
   # Account properties.
   #-----------------------------------------------------------------------------

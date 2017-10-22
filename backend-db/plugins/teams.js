@@ -39,10 +39,22 @@ module.exports = function () {
 
     lucius.register('role:db,cmd:getAllTeams', async function (connector, args) {
         return connector.input(args)
-        .use(async function (responder) {
-            const teams = await db.getAllAreas();
-            return responder.success(teams);
-        });
+            .use(async function ({}, responder) {
+                const teams = await db.getAllTeams();
+                return responder.success(teams);
+            });
+    });
+
+    lucius.register('role:db,cmd:getTeam', async function (connector, args, __) {
+        return connector.input(args)
+            .use(async function ({id}, responder) {
+                let team = await db.getTeam(id);
+                if (!team) {
+                    return responder.failure(new LuciusError(E.TEAM_NOT_FOUND, {id: id}));
+                }
+
+                return responder.success(team);
+            });
     });
 
     return PLUGIN_NAME;

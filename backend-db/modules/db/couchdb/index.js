@@ -613,6 +613,71 @@ const layer = {
         }
         return false;
     },
+
+    //========================================================
+    // TEAMS
+    //========================================================
+    getTeam: async id => {
+        return await adapter.getOneEntityById('Team', '_design/all/_view/view', id);
+    },
+    getAllTeams: async () => {
+        const ret = await adapter.getEntities('Team', '_design/all/_view/view', {sorted: false});
+        return ret;
+    },
+    getRawTeamDoc: async id => {
+        return await adapter.getOneRawDocById('Team', '_design/all/_view/view', id);
+    },
+    createTeam: async (id, who, create) => {
+        await adapter.createDocument('Team', id, create, {
+            createdAt: util.time.getNowUTC(),
+            createdBy: who || undefined,
+        });
+        return await layer.getTeam(id);
+    },
+    modifyTeam: async (id, who, update, rawTeamDoc = null) => {
+        return await adapter.modifyDocument(
+            'Team',
+            rawTeamDoc || await layer.getRawTeamDoc(id),
+            update,
+            {
+                updatedAt: util.time.getNowUTC(),
+                updatedBy: who || undefined,
+            }
+        );
+    },
+    seedTeams: async (metadata) => {
+        const ret = await layer.getAllTeams();
+        if (!Array.isArray(ret)) {
+            return false;
+        }
+        const existingTeams = ret.reduce((prev, team) => {
+            prev[team.id] = team;
+            return prev;
+        }, {});
+        for (let team of metadata) {
+            if (!existingTeams[team.id]) {
+                await layer.createTeam(
+                    team.id,
+                    null,
+                    {
+                        name: team.name,
+                        description: team.description,
+                    }
+                );
+            }
+            else {
+                if (existingAreas[team.id].name !== team.name
+                    || existingAreas[team.id].description !== team.description
+                ) {
+                    await layer.modifyTeam(team.id, null, {
+                        name: team.name,
+                        description: team.description || undefined,
+                    });
+                }
+            }
+        }
+        return true;
+    },
 };
 
 module.exports = layer;

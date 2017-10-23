@@ -21,6 +21,7 @@ import store from './config/store';
 import Navigator from './config/routes';
 import { images, fonts } from './config/assets';
 import { operations as appOperations } from './reducers/app';
+import { operations as teamsOperations } from './reducers/teams';
 import { handleSentryError } from './shared/helpers';
 import './config/styles';
 
@@ -71,6 +72,7 @@ class App extends Component {
         storage: AsyncStorage,
       }),
       store.dispatch(appOperations.fetchDatasets()),
+      store.dispatch(teamsOperations.getTeams()),
     ]).then(
       () => {
         this.setState({ assetsLoaded: true });

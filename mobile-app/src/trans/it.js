@@ -42,7 +42,7 @@
   "label_text_activity_empty_text":"You haven't added any trashpoints yet. When you do, they will be listed here.",
   "label_text_activity_empty_hint":"Add a trashpoint!",
   "label_header_notific":"Notifiche",
-  "label_text_notific_empty_subtitle":"Nothing to see here!",
+  "label_text_notific_empty_subtitle":"Niente da vedere qui!",
   "label_text_notific_empty_text":"We haven't seen any notifications come in yet, but we'll let you know when we do!",
   "label_header_profile":"Il mio profilo",
   "label_header_settings":"Impostazioni dell'account",

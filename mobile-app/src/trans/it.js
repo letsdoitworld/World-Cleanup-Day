@@ -19,7 +19,7 @@
   "label_TP_created_date":"Creato",
   "label_TP_updated_date":"Aggiornato",
   "label_TP_by":" da ",
-  "label_trash_amount_handful":"handful",
+  "label_trash_amount_handful":"manciata",
   "label_trash_amount_bagful":"bagful",
   "label_trash_amount_cartloadl":"cartload",
   "label_trash_amount_truckload":"truckload",

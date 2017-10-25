@@ -1,6 +1,7 @@
 import actions from './actions';
 import Api from '../../services/Api';
 import types from './types';
+import teamsOps from '../teams/operations';
 import { DATASETS_TYPES, API_ENDPOINTS } from '../../shared/constants';
 
 const setPopoverShown = () => async dispatch => {

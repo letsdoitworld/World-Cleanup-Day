@@ -93,6 +93,7 @@ export const DATASETS_TYPES = {
 export const API_ENDPOINTS = {
   FETCH_DATASETS: '/datasets',
   USER_ME: '/me',
+  USER_TEAM: '/me/join-team',
   USER_AUTH: '/auth/external',
   FETCH_OVERVIEW_CLUSTERS: '/overview/clusters',
   FETCH_OVERVIEW_TRASHPOINTS: '/overview/trashpoints',
@@ -105,6 +106,9 @@ export const API_ENDPOINTS = {
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
+  FETCH_TEAMS: '/teams',
+  FETCH_TEAM: teamId =>
+    `/teams/${teamId}`,
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {

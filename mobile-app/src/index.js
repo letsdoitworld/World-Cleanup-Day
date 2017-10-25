@@ -71,8 +71,8 @@ class App extends Component {
         store,
         storage: AsyncStorage,
       }),
+      store.dispatch(teamsOperations.fetchTeams()),
       store.dispatch(appOperations.fetchDatasets()),
-      store.dispatch(teamsOperations.getTeams()),
     ]).then(
       () => {
         this.setState({ assetsLoaded: true });

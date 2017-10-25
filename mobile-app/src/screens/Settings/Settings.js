@@ -112,6 +112,7 @@ class Settings extends Component {
     const countrySubtitle = country
       ? country.name
       : this.props.t('label_country_picker_placeholder');
+    const teamName = team && team.name ? team.name : null;
     return (
       <View>
         <View style={styles.listContainer}>
@@ -125,7 +126,7 @@ class Settings extends Component {
             <ListItem
               {...listItemProps}
               title="Team"
-              subtitle={team.name}
+              subtitle={teamName}
               onPress={this.handleTeamPress}
             />
           </List>

@@ -37,6 +37,8 @@ class Teams extends Component {
       this.props.teams.filter(function(obj) {
         return obj.id !== team.id;
       });
+
+    console.log('teams', teams);
     const handleTeamChange = this.handleTeamChange;
     return (
       <ScrollView style={styles.container}>

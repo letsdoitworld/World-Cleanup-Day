@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
 import { Divider } from '../../components/Divider';
-import { BlueButton } from '../../components/Buttons';
+import { BlueButton, GrayButton } from '../../components/Buttons';
 import { withNavigationHelpers } from '../../services/Navigation';
 
 import {
@@ -23,29 +23,28 @@ import styles from './styles';
 class Teams extends Component {
   constructor(props) {
     super(props);
-    this.handleTeamChange = this.handleTeamChange.bind(this);
+    this.handleTeamJoinPress = this.handleTeamJoinPress.bind(this);
+    this.handleTeamLeavePress = this.handleTeamLeavePress.bind(this);
   }
 
-  handleTeamChange(team) {
-    console.log('Join to team: ', team);
+  handleTeamJoinPress(team) {
     this.props.updateTeam({ team: team.id });
   }
 
-  render() {
-    const { t, team } = this.props;
-    const teams = !team ? this.props.teams :
-      this.props.teams.filter(function(obj) {
-        return obj.id !== team.id;
-      });
+  handleTeamLeavePress(team) {
+    this.props.updateTeam({ team: '' });
+  }
 
-    console.log('teams', teams);
-    const handleTeamChange = this.handleTeamChange;
+  render() {
+    const { t, team, teams } = this.props;
+    const handleTeamJoinPress = this.handleTeamJoinPress;
+    const handleTeamLeavePress = this.handleTeamLeavePress;
     return (
       <ScrollView style={styles.container}>
-        {teams.map(function(teamsItem, key){
+        {teams.map(function(teamsItem){
           return (
-            <View>
-              <View style={styles.teamContainer} key={key}>
+            <View key={teamsItem.id}>
+              <View style={styles.teamContainer}>
                 <View style={styles.nameContainer}>
                   <Text style={styles.teamTitle}>
                     {teamsItem.name}
@@ -55,11 +54,19 @@ class Teams extends Component {
                   </Text>
                 </View>
                 <View style={styles.actionContainer}>
-                  <BlueButton
-                    text="Join"//{t('label_button_join')}
-                    onPress={() => handleTeamChange(teamsItem)}
-                    disabled={team.id === teamsItem.id}
-                  />
+                  {(() => {
+                    return team && team.id === teamsItem.id ? (
+                      <GrayButton
+                        text={t('label_button_leave')}
+                        onPress={() => handleTeamLeavePress(teamsItem)}
+                      />
+                    ) : (
+                      <BlueButton
+                        text={t('label_button_join')}
+                        onPress={() => handleTeamJoinPress(teamsItem)}
+                      />
+                    );
+                  })()}
                 </View>
               </View>
               <Divider />

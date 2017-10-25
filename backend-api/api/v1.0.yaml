@@ -68,7 +68,7 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
-  /me/join-team:
+  /me/team:
     x-swagger-router-controller: users
     put:
       description: Join user to team.
@@ -613,9 +613,7 @@ parameters:
       required: [team]
       properties:
         team:
-          type: number
-          format: int32
-          minimum: 0
+          $ref: "#/definitions/UUID"
   #-----------------------------------------------------------------------------
   ModifyTrashpoint:
     name: trashpoint

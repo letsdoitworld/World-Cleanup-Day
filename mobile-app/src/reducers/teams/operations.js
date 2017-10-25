@@ -6,7 +6,6 @@ import { API_ENDPOINTS } from '../../shared/constants';
 
 const updateTeam = profile => async (dispatch) => {
   dispatch(userActions.updateProfile());
-
   try {
     const response = await Api.put(API_ENDPOINTS.USER_TEAM, profile);
     if (!response || !response.data) {

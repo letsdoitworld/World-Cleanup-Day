@@ -70,7 +70,7 @@ declareConstants(Account, {
     ROLE_LEADER: 'leader',
     ROLE_ADMIN: 'admin',
     ROLE_SUPERADMIN: 'superadmin',
-    DEFAULT_TEAM: 0,
+    DEFAULT_TEAM: null,
 });
 
 class Session extends Type {

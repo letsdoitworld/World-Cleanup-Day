@@ -162,5 +162,9 @@
   "label_button_editTP_delete": "Delete trashpoint",
   "label_locked_account_warning": "Your account is locked. For details contact an administrator.",
 
-  "label_button_join": "Join"
+  "label_button_join": "Join",
+  "label_button_leave": "Leave",
+  "label_text_my_team": "My Team",
+  "label_text_join_to_team": "Join a team",
+  "label_text_join_to_team_description": "Join your sisters and brothers in arms!"
 }

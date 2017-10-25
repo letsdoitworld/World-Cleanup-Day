@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 
 import { Divider } from '../../components/Divider';
-import { GrayButton } from '../../components/Buttons';
+import { GrayButton, BlueButton } from '../../components/Buttons';
 import { selectors as userSelectors } from '../../reducers/user';
+import { operations as teamsOps } from '../../reducers/teams';
 import { withNavigationHelpers } from '../../services/Navigation';
 import styles from './styles';
 
 class Profile extends Component {
+  handleJoinTeamPress = () => {
+    this.props.navigation.navigate('Teams');
+  };
+  handleLeaveTeamPress = (team) => {
+      this.props.updateTeam({ team: '' });
+  }
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL
       ? { uri: profile.pictureURL }
@@ -17,7 +25,7 @@ class Profile extends Component {
     return <Image source={img} style={styles.usernameImage} />;
   };
   render() {
-    const { profile, country, team } = this.props;
+    const { t, profile, country, team } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.infoContainer}>
@@ -45,14 +53,34 @@ class Profile extends Component {
           <View>
             <View style={styles.teamContainer}>
               <Text style={styles.teamTitle}>
-                My Team
+                {t('label_text_my_team')}
               </Text>
               <View style={styles.teamNameContainer}>
                 <Text style={styles.teamText}>
                   {team.name}
                 </Text>
                 <GrayButton
-                  text="Leave"
+                  text={t('label_button_leave')}
+                  onPress={this.handleLeaveTeamPress}
+                />
+              </View>
+            </View>
+            <Divider />
+          </View>
+        }
+        {!team &&
+          <View>
+            <View style={styles.teamContainer}>
+              <Text style={styles.teamTitle}>
+                {t('label_text_join_to_team')}
+              </Text>
+              <View style={styles.teamNameContainer}>
+                <Text style={styles.teamText}>
+                  {t('label_text_join_to_team_description')}
+                </Text>
+                <BlueButton
+                  text={t('label_button_join')}
+                  onPress={this.handleJoinTeamPress}
                 />
               </View>
             </View>
@@ -71,10 +99,12 @@ const mapStateToProps = (state) => {
     team: userSelectors.getProfileTeam(state),
   };
 };
-
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  updateTeam: teamsOps.updateTeam,
+};
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withNavigationHelpers(),
+  translate(),
 )(Profile);

@@ -165,8 +165,8 @@ class CreateTrashpoint extends Component {
     });
 
     this.setState({
-      name: data.streetAddress,
-      address: data.completeAddress,
+      name: data.streetAddress || 'Unknown address',
+      address: data.completeAddress || 'Unknown address',
       location: {
         latitude: lat,
         longitude: lng,

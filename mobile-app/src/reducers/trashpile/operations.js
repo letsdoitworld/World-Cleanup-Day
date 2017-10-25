@@ -5,7 +5,7 @@ DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
 import { Api } from '../../services';
 import axios from 'axios';
-import { selectors as appSelectors } from '../app';
+import { selectors as appSelectors, operations as appOps } from '../app';
 import { selectors as trashpileSelectors } from '../trashpile';
 import {
   convertToByteArray,
@@ -25,7 +25,15 @@ const fetchAllMarkers = (viewPortLeftTopCoordinate,
 ) => {
   return async (dispatch, getState) => {
     dispatch({ type: types.FETCH_ALL_MARKERS_REQUEST });
-    const datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+    let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+    if (!datasetId) {
+      try {
+        await dispatch(appOps.fetchDatasets());
+        datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+      } catch (ex) {
+        return dispatch({ type: types.FETCH_ALL_MARKERS_FAILED });
+      }
+    }
 
     let cellSize = 0;
     if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
@@ -97,7 +105,15 @@ const fetchAllMarkers = (viewPortLeftTopCoordinate,
 const fetchClusterTrashpoints = ({ cellSize, coordinates, clusterId }) => {
   return async (dispatch, getState) => {
     try {
-      const datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+      let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+      if (!datasetId) {
+        try {
+          await dispatch(appOps.fetchDatasets());
+          datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+        } catch (ex) {
+          return dispatch({ type: types.FETCH_ALL_MARKERS_FAILED });
+        }
+      }
       const markers = trashpileSelectors.markersSelector(getState());
 
       const body = {
@@ -273,9 +289,16 @@ export const createMarker = ({
       let newPhotos = [];
       let toDeletePhotos = [];
       if (!isEdit) {
-        newMarker.datasetId = appSelectors.trashpointsDatasetUUIDSelector(
-          getState(),
-        );
+        let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+        if (!datasetId) {
+          try {
+            await dispatch(appOps.fetchDatasets());
+            datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+          } catch (ex) {
+            return dispatch({ type: types.FETCH_ALL_MARKERS_FAILED });
+          }
+        }
+        newMarker.datasetId = datasetId;
       } else {
         newPhotos = photos.filter(({ id }) => {
           return id === undefined;
@@ -366,9 +389,23 @@ export const uploadPhotosOnAzure = (photos) => {
           'x-ms-blob-type': 'BlockBlob',
         },
       })
-      .catch(res => {
-        handleSentryError(res);
-        return res;
+      .catch(() => {
+        return axios
+        .put(url, blob, {
+          headers: {
+            'x-ms-blob-type': 'BlockBlob',
+          },
+        }).catch(() => {
+          return axios
+          .put(url, blob, {
+            headers: {
+              'x-ms-blob-type': 'BlockBlob',
+            },
+          }).catch((res) => {
+            handleSentryError(res);
+            return res;
+          });
+        });
       });
     }),
   );

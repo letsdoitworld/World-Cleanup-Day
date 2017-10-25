@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { translate } from 'react-i18next';
 
-import { operations as appOps } from '../../reducers/app';
+import { operations as appOps, selectors as appSels } from '../../reducers/app';
 
 import { withNavigationHelpers } from '../../services/Navigation';
 
@@ -82,7 +82,8 @@ class CreateMarker extends Component {
       initialLocation: params.coords,
       editableLocation: params.coords,
       address: {},
-      disableCreateTrashpointButton: false
+      disableCreateTrashpointButton: false,
+      locationSetByUser: false,
     };
 
     this.state = state;
@@ -118,6 +119,17 @@ class CreateMarker extends Component {
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    const { isConnected: wasConnected } = this.props;
+    const { isConnected} = nextProps;
+    const { address, locationSetByUser } = this.state;
+    if (!wasConnected && isConnected && !locationSetByUser &&
+      (!address || !address.completeAddress)) {
+      this.fetchAddressAsync();
+    }
   }
 
   fetchAddressAsync = async (coords) => {
@@ -157,7 +169,10 @@ class CreateMarker extends Component {
       onGoBack: (coords) => {
         this.setState(
           { editableLocation: coords },
-          async () => await this.fetchAddressAsync(coords),
+          async () => {
+            this.setState({ locationSetByUser: true });
+            await this.fetchAddressAsync(coords);
+          },
         );
       },
     });
@@ -511,6 +526,7 @@ const mapDispatch = {
 };
 
 const mapStateToProps = state => ({
+  isConnected: appSels.isConnected(state),
   loading: trashpileSelectors.isLoading(state),
 });
 

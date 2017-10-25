@@ -1,32 +1,66 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NetInfo, View, ActivityIndicator, Platform } from 'react-native';
 import { translate } from 'react-i18next';
+
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+
+import { operations as appOps, selectors as appSels } from '../reducers/app';
 import { AlertModal } from '../components/AlertModal';
+
+const CONNECTION_CHECK_INTERVAL = 10; // seconds
+
+const mapState = (state) => {
+  return {
+    isConnected: appSels.isConnected(state),
+    connectionChecked: appSels.wasConnectionChecked(state),
+  };
+};
+const mapDispatch = {
+  setConnectionChecked: appOps.setConnectionChecked,
+  updateNetworkStatus: appOps.updateNetworkStatus,
+};
 
 export const withNetworkGuard = () => (WrappedComponent) => {
   const networkGuard = class extends Component {
+
+    static propTypes = {
+      updateNetworkStatus: PropTypes.func.isRequired,
+      setConnectionChecked: PropTypes.func.isRequired,
+      isConnected: PropTypes.bool.isRequired,
+      connectionChecked: PropTypes.bool.isRequired,
+    }
     constructor(props) {
       super(props);
 
-      this.state = { isConnected: false, connectionChecked: false };
-
       // create a new instance of the function
       // so it can be discarded safely from netinfo when the component unmounts
-      this.handleConnectionStatusChanged = this.handleConnectionStatusChanged.bind(
-        this,
-      );
+      this.handleConnectionStatusChanged =
+        this.handleConnectionStatusChanged.bind(this);
     }
     componentWillMount() {
       this.checkConnection();
+
+      this.connectionCheckInterval = setInterval(async () => {
+        const isConnected = await NetInfo.isConnected.fetch();
+
+        if (isConnected !== this.props.isConnected) {
+          this.handleConnectionStatusChanged(isConnected);
+        }
+      }, 1000 * CONNECTION_CHECK_INTERVAL);
     }
     componentWillUnmount() {
       NetInfo.isConnected.removeEventListener(
         'change',
         this.handleConnectionStatusChanged,
       );
+      if (this.connectionCheckInterval) {
+        clearInterval(this.connectionCheckInterval);
+      }
     }
     handleConnectionStatusChanged(isConnected) {
-      this.setState({ isConnected });
+      this.props.updateNetworkStatus(isConnected);
     }
     checkConnection = async () => {
       let isConnected = await NetInfo.isConnected.fetch();
@@ -36,17 +70,16 @@ export const withNetworkGuard = () => (WrappedComponent) => {
         android: isConnected,
         ios: true,
       });
-      
-      
+
       NetInfo.isConnected.addEventListener(
         'change',
         this.handleConnectionStatusChanged,
       );
-
-      this.setState({ isConnected, connectionChecked: true });
+      this.props.updateNetworkStatus(isConnected);
+      this.props.setConnectionChecked();
     };
     render() {
-      const { connectionChecked, isConnected } = this.state;
+      const { connectionChecked, isConnected } = this.props;
       const showUserWarning = connectionChecked && !isConnected;
 
       if (!connectionChecked) {
@@ -70,5 +103,8 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       );
     }
   };
-  return translate()(networkGuard);
+  return compose(
+    translate(),
+    connect(mapState, mapDispatch),
+  )(networkGuard);
 };

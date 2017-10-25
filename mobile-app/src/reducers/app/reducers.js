@@ -12,6 +12,22 @@ const errorInitialState = {
   message: undefined,
 };
 
+const networkStatusState = {
+  isConnected: false,
+  connectionChecked: false,
+};
+
+const networkReducer = (state = networkStatusState, action) => {
+  switch (action.type) {
+    case types.SET_CONNECTION_CHECKED:
+      return { ...state, connectionChecked: true };
+    case types.UPDATE_NETWORK_STATUS:
+      return { ...state, isConnected: action.payload.isConnected };
+    default:
+      return state;
+  }
+};
+
 const popoverReducer = (state = popoverInitialState, action) => {
   switch (action.type) {
     case types.SET_POPOVER_SHOWN:
@@ -61,4 +77,5 @@ export default combineReducers({
   popover: popoverReducer,
   error: errorReducer,
   config: configReducer,
+  network: networkReducer,
 });

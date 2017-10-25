@@ -18,7 +18,9 @@ class AreaList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedArea: props.location.state ? props.location.state.selectedArea : undefined,
+      selectedArea: props.location.state
+        ? props.location.state.selectedArea
+        : undefined,
     };
   }
 
@@ -87,7 +89,11 @@ class AreaList extends React.Component {
   };
 
   render() {
+    const { loading } = this.props;
     const { selectedArea } = this.state;
+    if (selectedArea && loading) {
+      return <Loader />;
+    }
     if (selectedArea) {
       return (
         <div className="AreaList">
@@ -147,7 +153,9 @@ const mapState = (state, props) => {
     areas: isUserAreas
       ? areaSels.getUserListNestedAreas(state, userId)
       : areaSels.getUserNestedAreas(state, userId),
-    loading: areaSels.areUserAreasLoading(state, userId),
+    loading: isUserAreas
+      ? areaSels.areUserAreasLoading(state, userId)
+      : areaSels.areAreasLoading(state),
     error: areaSels.hasUserAreaError(state, userId),
     isAdmin,
     userId,

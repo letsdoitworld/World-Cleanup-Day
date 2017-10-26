@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Api from '../../services/Api';
 import userActions from '../user/actions';
 import types from './types';
@@ -26,7 +27,7 @@ const fetchTeams = () => {
       return dispatch({ type: types.FETCH_TEAMS_FAILED });
     }
 
-    const { data } = response;
+    const data = _.isEmpty(response.data) ? [] : _.sortBy(response.data, ['name']);
     dispatch({
       type: types.FETCH_TEAMS_SUCCESS,
       payload: data,

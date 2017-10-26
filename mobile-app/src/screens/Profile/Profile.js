@@ -3,13 +3,19 @@ import { View, Image, Text } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import { List, ListItem } from 'react-native-elements';
 
 import { Divider } from '../../components/Divider';
 import { GrayButton, BlueButton } from '../../components/Buttons';
 import { selectors as userSelectors } from '../../reducers/user';
 import { operations as teamsOps } from '../../reducers/teams';
 import { withNavigationHelpers } from '../../services/Navigation';
-import styles from './styles';
+
+import styles, {
+  listItemProps,
+  downRightIcon,
+  defaultRightIcon,
+} from './styles';
 
 class Profile extends Component {
   handleJoinTeamPress = () => {
@@ -18,10 +24,13 @@ class Profile extends Component {
   handleLeaveTeamPress = (team) => {
       this.props.updateTeam({ team: '' });
   }
+  handleTeamPress = () => {
+      this.props.navigation.navigate('Teams');
+  }
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL
       ? { uri: profile.pictureURL }
-      : require('./avatar.png');
+      : require('./images/avatar.png');
     return <Image source={img} style={styles.usernameImage} />;
   };
   render() {

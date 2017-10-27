@@ -82,7 +82,7 @@
   "label_error_editTP_out_of_rng_subtitle": "Vahemikust väljas",
   "label_error_editTP_out_of_rng_text": "Punkti saate muuta ainult siis, kui olete 100 meetri raadiuses.",
   "label_error_saveTP_subtitle": "Salvesta prügi punkt",
-  "label_error_saveTP_pic_and_type": "It's more useful for us if you to take at least one picture of the trashpoint and set its trash type.",
+  "label_error_saveTP_pic_and_type": "Palun lisa pilt prügi punktist ning määra prügi tüüp.",
   "label_error_saveTP_picture": "It's more useful for us if you to take at least one picture of the trashpoint before saving.",
   "label_error_saveTP_trash_type": "It's more useful for us if you set the trashpoint's type before saving.",
   "label_error_change_loc_subtitle": "Out of bounds",

@@ -22,11 +22,11 @@ class Profile extends Component {
     this.props.navigation.navigate('Teams');
   };
   handleLeaveTeamPress = (team) => {
-      this.props.updateTeam({ team: '' });
-  }
+    this.props.updateTeam({ team: '' });
+  };
   handleTeamPress = () => {
-      this.props.navigation.navigate('Teams');
-  }
+    this.props.navigation.navigate('Teams');
+  };
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL
       ? { uri: profile.pictureURL }
@@ -35,6 +35,7 @@ class Profile extends Component {
   };
   render() {
     const { t, profile, country, team } = this.props;
+    //const {}
     return (
       <View style={styles.container}>
         <View style={styles.infoContainer}>
@@ -57,45 +58,18 @@ class Profile extends Component {
             }
           </View>
         </View>
-        <Divider />
-        {team &&
-          <View>
-            <View style={styles.teamContainer}>
-              <Text style={styles.teamTitle}>
-                {t('label_text_my_team')}
-              </Text>
-              <View style={styles.teamNameContainer}>
-                <Text style={styles.teamText}>
-                  {team.name}
-                </Text>
-                <GrayButton
-                  text={t('label_button_leave')}
-                  onPress={this.handleLeaveTeamPress}
-                />
-              </View>
-            </View>
-            <Divider />
-          </View>
-        }
-        {!team &&
-          <View>
-            <View style={styles.teamContainer}>
-              <Text style={styles.teamTitle}>
-                {t('label_text_join_to_team')}
-              </Text>
-              <View style={styles.teamNameContainer}>
-                <Text style={styles.teamText}>
-                  {t('label_text_join_to_team_description')}
-                </Text>
-                <BlueButton
-                  text={t('label_button_join')}
-                  onPress={this.handleJoinTeamPress}
-                />
-              </View>
-            </View>
-            <Divider />
-          </View>
-        }
+        <View style={styles.listContainer}>
+          <List containerStyle={[styles.separator, styles.list]}>
+            <ListItem
+              {...listItemProps}
+              title={team ? t('label_text_your_team') : t('label_text_join_to_team')}
+              subtitle={team ? team.name : t('label_text_join_to_team_description')}
+              avatar={require('./images/img_increaseimpact_jointeam.png')}
+              onPress={this.handleTeamPress}
+              subtitleNumberOfLines={2}
+            />
+          </List>
+        </View>
       </View>
     );
   }

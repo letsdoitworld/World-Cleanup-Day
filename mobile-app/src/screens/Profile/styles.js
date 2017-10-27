@@ -2,7 +2,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
 
-export default EStyleSheet.create({
+const styles = EStyleSheet.create({
   container: {},
   infoContainer: {
     paddingHorizontal: getWidthPercentage(20),
@@ -42,34 +42,60 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(20),
     alignItems: 'center',
   },
-  teamContainer: {
-    paddingHorizontal: getWidthPercentage(20),
-    paddingVertical: getHeightPercentage(20),
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    backgroundColor: '$white',
+  listContainer: {
+    marginTop: 0,
   },
-  teamTitle: {
-    fontFamily: '$boldFont',
-    fontSize: 20,
-    color: '$textColor',
-    paddingRight: 20,
-    width: getWidthPercentage(165),
+  separator: {
+    marginTop: getHeightPercentage(20),
   },
-  teamText: {
-    fontFamily: '$font',
-    fontSize: 20,
-    color: '$textColor',
-    paddingRight: 20,
-    textAlign: 'left',
-    width: getWidthPercentage(165),
+  list: {
+    backgroundColor: 'white',
   },
-  teamNameContainer: {
-    paddingHorizontal: getWidthPercentage(20),
-    paddingVertical: getHeightPercentage(20),
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  listItem: {
+    paddingTop: 13,
+    paddingBottom: 13,
+    borderWidth: 0,
   },
 });
+export default styles;
+export const rightIcon = {
+  name: 'chevron-right',
+  type: 'entypo',
+};
+export const listItemProps = {
+  containerStyle: {
+    paddingTop: 13,
+    paddingBottom: 13,
+  },
+  chevronColor: '#3E8EDE',
+  titleStyle: {
+    fontFamily: 'noto-sans-bold',
+    fontSize: 20,
+    color: '#3E8EDE',
+  },
+  avatarStyle: {
+    backgroundColor: 'white',
+    height: getHeightPercentage(60),
+    width: getWidthPercentage(60),
+    overflow: 'hidden',
+  },
+  avatarContainerStyle: {
+    marginLeft: getWidthPercentage(20),
+    marginTop: getHeightPercentage(20),
+  },
+  titleContainerStyle: {
+    marginLeft: getWidthPercentage(50),
+    marginTop: getHeightPercentage(5),
+  },
+  subtitleContainerStyle: {
+    marginLeft: getWidthPercentage(50),
+    minHeight: 50,
+  },
+  subtitleStyle: {
+    fontFamily: 'noto-sans-regular',
+    fontSize: 15,
+    color: '#404040',
+  },
+  underlayColor: 'rgba(255,255,255,0.3)',
+  rightIcon,
+};

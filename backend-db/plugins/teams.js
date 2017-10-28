@@ -23,7 +23,18 @@ module.exports = function () {
     lucius.register('role:db,cmd:getAllTeams', async function (connector, args) {
         return connector.input(args)
             .use(async function ({}, responder) {
-                const teams = await db.getAllTeams();
+                let teams = await db.getAllTeams();
+                teams.sort((a, b) => {
+                    const nameA = a.name.toUpperCase();
+                    const nameB = b.name.toUpperCase();
+
+                    if (nameA > nameB) {
+                        return 1;
+                    } else if (nameA < nameB) {
+                        return -1;
+                    }
+                    return 0;
+                });
                 return responder.success(teams);
             });
     });

@@ -27,7 +27,7 @@ const fetchTeams = () => {
       return dispatch({ type: types.FETCH_TEAMS_FAILED });
     }
 
-    const data = _.isEmpty(response.data) ? [] : _.sortBy(response.data, ['name']);
+    const { data } = response;
     dispatch({
       type: types.FETCH_TEAMS_SUCCESS,
       payload: data,

@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import { List, ListItem } from 'react-native-elements';
 
-import { Divider } from '../../components/Divider';
-import { GrayButton, BlueButton } from '../../components/Buttons';
 import { selectors as userSelectors } from '../../reducers/user';
 import { operations as teamsOps } from '../../reducers/teams';
 import { withNavigationHelpers } from '../../services/Navigation';

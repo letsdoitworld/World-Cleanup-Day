@@ -98,7 +98,7 @@
   "label_privacy_policy_header": "Informativa sulla Privacy",
   "label_about_header": "About",
   "label_edit_trashpoint_button": "Edit trashpoint",
-  "label_100m_limit_modal": "A point can only be edited if you are within 100 meters of it.",
+  "label_100m_limit_modal": "Un punto può essere modificato solo se sei nel raggio di 100 metri da esso.",
   "label_retry_button": "Riprova",
   "label_country_picker_placeholder": "Scegli il tuo paese",
   "label_camera_permission_warning_ios": "You must change camera access permissions. To do this, go to Settings > Privacy > Camera",

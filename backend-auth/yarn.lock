@@ -547,33 +547,6 @@ minimist@1.2.0, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-"module-logger@git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#783373daf06ed247415404e90c852365b27d6f6e"
-  dependencies:
-    winston "^2.3.1"
-
-"module-lucius@git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#d9557d01a49868a00adb6a543d32ef7922756012"
-  dependencies:
-    bluebird "^3.5.0"
-    module-logger "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
-
-"module-service-factory@git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#20dd31f5a3bd0f2f1069cc67a236fa7ebaf741c4"
-  dependencies:
-    module-logger "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
-    seneca "^3.4.1"
-
-"module-util@git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#07d6e4b990dbb9d2220bd3d8ce0535271024ae3e"
-  dependencies:
-    moment "^2.18.1"
-    uuid "^3.1.0"
-
 moment@2.x.x, moment@^2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"

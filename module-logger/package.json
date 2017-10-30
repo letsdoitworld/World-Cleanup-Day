@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Logger tool.",
   "main": "index.js",
-  "repository": "git@gitlab.qualitance.com:ldiw/module-logger.git",
   "author": "Qualitance",
   "license": "GPL-3.0",
   "dependencies": {

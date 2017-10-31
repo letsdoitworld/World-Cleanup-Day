@@ -165,6 +165,20 @@ const designDocs = {
             },
         },
     },
+    teamtrashpoints: {
+        all: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'teamtrashpoints') {
+                            emit(doc._id, doc);
+                        }
+                    },
+                },
+            },
+        },
+    },
     areas: {
         all: {
             $version: 1,

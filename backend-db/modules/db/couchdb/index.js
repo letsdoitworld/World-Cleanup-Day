@@ -403,12 +403,23 @@ const layer = {
         create.hashtags = create.hashtags || [];
 
         const id = util.uuid.random();
+        const account = await layer.getAccount(who);
         await adapter.createDocument('Trashpoint', id, create, {
             updatedAt: util.time.getNowUTC(),
             updatedBy: who,
             createdAt: util.time.getNowUTC(),
             createdBy: who,
         });
+        if(account && account.team) {
+            await adapter.createDocument('TeamTrashpoint', id, {
+                team: account.team
+            }, {
+                updatedAt: util.time.getNowUTC(),
+                updatedBy: who,
+                createdAt: util.time.getNowUTC(),
+                createdBy: who,
+            });
+        }
 
         return await layer.getTrashpoint(id);
     },
@@ -677,6 +688,27 @@ const layer = {
             }
         }
         return true;
+    },
+
+    //========================================================
+    // TEAMTRASHPOINTS
+    //========================================================
+    getTeamTrashpoint: async id => {
+        return await adapter.getOneEntityById('TeamTrashpoint', '_design/all/_view/view', id);
+    },
+    getAllTeamTrashpoints: async () => {
+        const ret = await adapter.getEntities('TeamTrashpoint', '_design/all/_view/view', {sorted: false});
+        return ret;
+    },
+    getRawTeamTraspointDoc: async id => {
+        return await adapter.getOneRawDocById('TeamTrashpoint', '_design/all/_view/view', id);
+    },
+    createTeamTraspoint: async (id, who, create) => {
+        await adapter.createDocument('TeamTrashpoint', id, create, {
+            createdAt: util.time.getNowUTC(),
+            createdBy: who || undefined,
+        });
+        return await layer.getTeamTrashpoint(id);
     },
 };
 

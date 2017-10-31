@@ -22,6 +22,7 @@ const TYPE_TO_DB_MAP = {
     'Session': 'sessions',
     'Area': 'areas',
     'Team': 'teams',
+    'TeamTrashpoint': 'teamtrashpoints',
 }
 
 const cdb = require('./driver');

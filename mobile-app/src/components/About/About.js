@@ -48,6 +48,8 @@ const About = ({ t }) =>
         />
       </TouchableOpacity>
     </View>
+    <Text style={styles.aboutText}>{t('label_text_about_4')}</Text>
+    <Text style={styles.aboutText}>{t('label_text_about_5')}</Text>
   </View>;
 
 export default translate()(About);

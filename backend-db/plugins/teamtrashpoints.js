@@ -33,5 +33,23 @@ module.exports = function () {
             });
     });
 
+    lucius.register('role:db,cmd:getCountTeamTrashpoints', async function (connector, args, __) {
+        return connector.input(args)
+            .use(async function ({}, responder) {
+                let teams = await db.getAllTeams();
+                let teamsCount = [];
+
+                for (let team of teams) {
+                    let total = await db.countTrashpointsForTeam(team.id);
+                    teamsCount.push({
+                        id: team.id,
+                        name: team.name,
+                        trashpoints: total
+                    });
+                }
+                return responder.success(teamsCount);
+            });
+    });
+
     return PLUGIN_NAME;
 };

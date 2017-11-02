@@ -237,6 +237,20 @@ paths:
             $ref: "#/definitions/Team"
         "default":
           $ref: "#/responses/ErrorSet"
+  /teamtrashpoints:
+    x-swagger-router-controller: teamtrashpoints
+    get:
+      description: List all teams with trashpoints counter.
+      operationId: getCountTeamTrashpoints
+      responses:
+        "200":
+          description: List of teams with trashpoints counter.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/TeamTrashpoint"
+        "default":
+          $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /areas/user:
     x-swagger-router-controller: areas
@@ -790,6 +804,19 @@ definitions:
         type: string
       description:
         description: Desctiption of team
+        type: string
+  TeamTrashpoint:
+    type: object
+    required: [id, name]
+    properties:
+      id:
+        description: A unique code of team
+        type: string
+      name:
+        description: A name of team
+        type: string
+      trashpoints:
+        description: Count of trashpoints of team
         type: string
   #-----------------------------------------------------------------------------
   # Account properties.

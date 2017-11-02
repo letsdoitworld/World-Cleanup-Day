@@ -70,4 +70,4 @@ Lockfile:
       stack-trace "0.0.x"
 
 Trace: 
-  Error: ENOENT: no such file or directory, open '/module-logger/node_modules/eyes/test/eyes-test.js'
+  Error: ENOENT: no such file or directory, utime '/module-logger/node_modules/async/.jshintrc'

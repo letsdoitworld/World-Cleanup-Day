@@ -178,6 +178,19 @@ const designDocs = {
                 },
             },
         },
+        countByTeam: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'teamtrashpoints' && doc.team) {
+                            emit(doc.team, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
     },
     areas: {
         all: {

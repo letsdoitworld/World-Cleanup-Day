@@ -710,6 +710,16 @@ const layer = {
         });
         return await layer.getTeamTrashpoint(id);
     },
+    countTrashpointsForTeam: async team => {
+        const ret = await adapter.getRawDocs('TeamTrashpoint', '_design/countByTeam/_view/view', {
+            key: team,
+            group: true,
+        });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
 };
 
 module.exports = layer;

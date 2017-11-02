@@ -298,4 +298,4 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
 
 Trace: 
-  Error: ENOENT: no such file or directory, open '/module-service-factory/node_modules/archy/.travis.yml'
+  Error: ENOENT: no such file or directory, open '/module-service-factory/node_modules/split2/.README.md.un~'

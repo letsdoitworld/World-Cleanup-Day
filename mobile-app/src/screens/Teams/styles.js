@@ -3,7 +3,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
 
 export default EStyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: '$white',
+  },
   teamContainer: {
     paddingHorizontal: getWidthPercentage(20),
     paddingVertical: getHeightPercentage(20),
@@ -44,5 +46,17 @@ export default EStyleSheet.create({
     height: getHeightPercentage(35),
     color: '$white',
     backgroundColor: '#3e8ede',
+  },
+  inputContainer: {
+    marginTop: getHeightPercentage(20),
+    marginBottom: getHeightPercentage(20),
+    paddingHorizontal: 5,
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: getWidthPercentage(20),
+    paddingVertical: getHeightPercentage(20),
   },
 });

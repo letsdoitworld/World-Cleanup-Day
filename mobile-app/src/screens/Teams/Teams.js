@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, ActivityIndicator } from 'react-native';
+import { FormInput } from 'react-native-elements';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
@@ -25,6 +26,33 @@ class Teams extends Component {
     super(props);
     this.handleTeamJoinPress = this.handleTeamJoinPress.bind(this);
     this.handleTeamLeavePress = this.handleTeamLeavePress.bind(this);
+    this.handleSearchChanged = this.handleSearchChanged.bind(this);
+
+    this.state = {
+      loading: true,
+      search: undefined,
+    };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+        this.setState({ loading: false });
+    }, 500);
+  }
+
+  getFilteredTeams() {
+    const { search } = this.state;
+    const { teams } = this.props;
+    if (!search) {
+      return teams;
+    }
+    return teams.filter(
+      c => c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1,
+    );
+  }
+
+  handleSearchChanged(search) {
+    this.setState({ search });
   }
 
   handleTeamJoinPress(team) {
@@ -36,43 +64,59 @@ class Teams extends Component {
   }
 
   render() {
-    const { t, team, teams } = this.props;
+    const { t, team } = this.props;
+    const { loading, search } = this.state;
     const handleTeamJoinPress = this.handleTeamJoinPress;
     const handleTeamLeavePress = this.handleTeamLeavePress;
+    const handleSearchChanged = this.handleSearchChanged;
+    const teams = this.getFilteredTeams();
     return (
       <ScrollView style={styles.container}>
-        {teams.map(function(teamsItem){
-          return (
-            <View key={teamsItem.id}>
-              <View style={styles.teamContainer}>
-                <View style={styles.nameContainer}>
-                  <Text style={styles.teamTitle}>
-                    {teamsItem.name}
-                  </Text>
-                  <Text style={styles.teamText}>
-                    {teamsItem.description && teamsItem.description}
-                  </Text>
-                </View>
-                <View style={styles.actionContainer}>
-                  {(() => {
-                    return team && team.id === teamsItem.id ? (
-                      <GrayButton
-                        text={t('label_button_leave')}
-                        onPress={() => handleTeamLeavePress(teamsItem)}
-                      />
-                    ) : (
-                      <BlueButton
-                        text={t('label_button_join')}
-                        onPress={() => handleTeamJoinPress(teamsItem)}
-                      />
-                    );
-                  })()}
-                </View>
-              </View>
-              <Divider />
+        {loading
+          ? <View style={styles.loadingContainer}>
+              <ActivityIndicator />
             </View>
-          );
-        })}
+          : <View>
+              <FormInput
+                containerStyle={styles.inputContainer}
+                placeholder="Search"
+                value={search}
+                onChangeText={handleSearchChanged}
+              />
+              {teams.map(function(teamsItem){
+                return (
+                <View key={teamsItem.id}>
+                  <View style={styles.teamContainer}>
+                    <View style={styles.nameContainer}>
+                      <Text style={styles.teamTitle}>
+                        {teamsItem.name}
+                      </Text>
+                      <Text style={styles.teamText}>
+                        {teamsItem.description && teamsItem.description}
+                      </Text>
+                    </View>
+                    <View style={styles.actionContainer}>
+                      {(() => {
+                          return team && team.id === teamsItem.id ? (
+                            <GrayButton
+                              text={t('label_button_leave')}
+                              onPress={() => handleTeamLeavePress(teamsItem)}
+                            />
+                          ) : (
+                            <BlueButton
+                              text={t('label_button_join')}
+                              onPress={() => handleTeamJoinPress(teamsItem)}
+                            />
+                          );
+                      })()}
+                    </View>
+                  </View>
+                  <Divider />
+                </View>
+                );
+              })}
+            </View>
+        }
       </ScrollView>
     );
   }

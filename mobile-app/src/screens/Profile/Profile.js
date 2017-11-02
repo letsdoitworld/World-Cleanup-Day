@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableHighlight } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import { List, ListItem } from 'react-native-elements';
 
+import { Divider } from '../../components/Divider';
 import { selectors as userSelectors } from '../../reducers/user';
 import { operations as teamsOps } from '../../reducers/teams';
 import { withNavigationHelpers } from '../../services/Navigation';
 
-import styles, {
-  listItemProps,
-  downRightIcon,
-  defaultRightIcon,
-} from './styles';
+import styles from './styles';
 
 class Profile extends Component {
   handleJoinTeamPress = () => {
@@ -28,12 +24,11 @@ class Profile extends Component {
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL
       ? { uri: profile.pictureURL }
-      : require('./images/avatar.png');
+      : require('./avatar.png');
     return <Image source={img} style={styles.usernameImage} />;
   };
   render() {
     const { t, profile, country, team } = this.props;
-    //const {}
     return (
       <View style={styles.container}>
         <View style={styles.infoContainer}>
@@ -56,18 +51,32 @@ class Profile extends Component {
             }
           </View>
         </View>
-        <View style={styles.listContainer}>
-          <List containerStyle={[styles.separator, styles.list]}>
-            <ListItem
-              {...listItemProps}
-              title={team ? t('label_text_your_team') : t('label_text_join_to_team')}
-              subtitle={team ? team.name : t('label_text_join_to_team_description')}
-              avatar={require('./images/img_increaseimpact_jointeam.png')}
-              onPress={this.handleTeamPress}
-              subtitleNumberOfLines={2}
-            />
-          </List>
-        </View>
+        <Divider />
+        <TouchableHighlight onPress={this.handleTeamPress} activeOpacity={0.7} underlayColor="transparent">
+          <View style={styles.teamContainer}>
+            <View style={styles.teamIconContainer}>
+              <Image source={require('./team.png')} style={styles.teamIconImage} />
+            </View>
+            <View style={styles.teamContentContainer}>
+              <View style={styles.teamTitleContainer}>
+                <Text style={styles.teamTitle}>
+                  {team ? t('label_text_your_team') : t('label_text_join_to_team')}
+                </Text>
+              </View>
+              <View style={styles.teamNameContainer}>
+                <Text style={styles.teamName}>
+                  {team ? team.name : t('label_text_join_to_team_description')}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.teamChevronContainer}>
+              <Image
+                style={styles.teamChevron}
+                source={require('../../assets/images/icon_menu_arrowforward.png')}
+              />
+            </View>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }

@@ -2,7 +2,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
 
-const styles = EStyleSheet.create({
+export default EStyleSheet.create({
   container: {},
   infoContainer: {
     paddingHorizontal: getWidthPercentage(20),
@@ -42,60 +42,51 @@ const styles = EStyleSheet.create({
     marginTop: getHeightPercentage(20),
     alignItems: 'center',
   },
-  listContainer: {
-    marginTop: 0,
+  teamContainer: {
+    paddingHorizontal: getWidthPercentage(20),
+    paddingVertical: getHeightPercentage(20),
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    backgroundColor: '$white',
+    flexWrap: 'wrap',
   },
-  separator: {
-    marginTop: getHeightPercentage(20),
+  teamIconContainer: {
+    width: '20%',
+    flexGrow: 1,
   },
-  list: {
-    backgroundColor: 'white',
+  teamIconImage: {
+    width: getWidthPercentage(40),
+    height: getWidthPercentage(40),
   },
-  listItem: {
-    paddingTop: 13,
-    paddingBottom: 13,
-    borderWidth: 0,
+  teamContentContainer: {
+    flexGrow: 1,
+    width: '70%',
+
   },
-});
-export default styles;
-export const rightIcon = {
-  name: 'chevron-right',
-  type: 'entypo',
-};
-export const listItemProps = {
-  containerStyle: {
-    paddingTop: 13,
-    paddingBottom: 13,
+  teamTitleContainer: {
   },
-  chevronColor: '#3E8EDE',
-  titleStyle: {
-    fontFamily: 'noto-sans-bold',
+  teamTitle: {
+    fontFamily: '$boldFont',
     fontSize: 20,
     color: '#3E8EDE',
+    paddingRight: 20,
   },
-  avatarStyle: {
-    backgroundColor: 'white',
-    height: getHeightPercentage(60),
-    width: getWidthPercentage(60),
-    overflow: 'hidden',
+  teamNameContainer: {
   },
-  avatarContainerStyle: {
-    marginLeft: getWidthPercentage(20),
-    marginTop: getHeightPercentage(20),
-  },
-  titleContainerStyle: {
-    marginLeft: getWidthPercentage(50),
-    marginTop: getHeightPercentage(5),
-  },
-  subtitleContainerStyle: {
-    marginLeft: getWidthPercentage(50),
-    minHeight: 50,
-  },
-  subtitleStyle: {
-    fontFamily: 'noto-sans-regular',
+  teamName: {
+    fontFamily: '$font',
     fontSize: 15,
     color: '#404040',
+    paddingRight: 20,
   },
-  underlayColor: 'rgba(255,255,255,0.3)',
-  rightIcon,
-};
+  teamChevronContainer: {
+    width: '10%',
+    alignItems: 'flex-end',
+    height: '100%',
+    paddingTop: 10,
+  },
+  teamChevron: {
+    height: getHeightPercentage(15),
+  },
+});

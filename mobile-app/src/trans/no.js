@@ -124,7 +124,7 @@
   "label_text_about_2": "All dataen samlet fra brukere over hele verden vil vises på det globale søppelkartet for å sette i gang verdensomspennende ryddebegivenheter på Verdens Ryddedag, 15. september, 2018",
   "label_text_about_3": "Denne appen er i samarbeid med",
   "label_text_about_4": "Estisk produkt, sponset av landet og regjeringen",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_text_about_5": "Sponsorer: det estiske miljøverndepartementet, utenriksdepartementet av Republikken Estland, Republikken Estlands 100-program",
   "label_button_editTP_delete": "Slett søppelpunkt",
   "label_locked_account_warning": "Kontoen din er låst. For detaljer, ta kontakt med en administrator."
 }

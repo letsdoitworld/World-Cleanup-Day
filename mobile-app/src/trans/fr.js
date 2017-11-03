@@ -121,10 +121,10 @@
   "label_delete_photo_title": "Supprimer la photo",
   "label_delete_photo_subtitle": "Êtes-vous sûr de vouloir supprimer la photo ? Vous ne pourrez plus annuler. ",
   "label_text_about_1": "Cette application est une initiative de Let's Do It World",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_text_about_2": "Toutes les données recueillies par les utilisateurs dans le monde entier vont être visualisables sur notre carte mondiale de déchets. Cela permettra d'initier des nettoyages dans le monde entier pendant le World Cleanup Day, le 15 septembre 2018.",
+  "label_text_about_3": "Cette application est une collaboration avec",
+  "label_text_about_4": "Produit Estonien, financé par le pays et le gouvernement",
+  "label_text_about_5": "Bailleurs de fonds : le Ministère de l'environnement Estonien, le Ministère des affaires étrangères Estonien et le programme Estonien \"100 program\"",
   "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_locked_account_warning": "Votre compte est verrouillé. Pour plus d'informations, veuillez contacter un administrateur. "
 }

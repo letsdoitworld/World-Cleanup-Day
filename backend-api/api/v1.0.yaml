@@ -73,7 +73,7 @@ paths:
     put:
       description: Join user to team.
       operationId: modifyUserTeam
-      x-security: [bearer, ignore-terms-lock]
+      x-security: [bearer]
       parameters:
         - $ref: "#/parameters/ModifyTeam"
       responses:
@@ -223,6 +223,20 @@ paths:
               $ref: "#/definitions/Team"
         "default":
           $ref: "#/responses/ErrorSet"
+  /teams/trashpoints:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch information about trashpoints for all teams.
+      operationId: getCountTeamsTrashpoints
+      responses:
+        "200":
+          description: List of teams with data about trashpoints.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Team"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /teams/{id}:
     x-swagger-router-controller: teams
     get:
@@ -235,20 +249,6 @@ paths:
           description: Full team information.
           schema:
             $ref: "#/definitions/Team"
-        "default":
-          $ref: "#/responses/ErrorSet"
-  /teamtrashpoints:
-    x-swagger-router-controller: teamtrashpoints
-    get:
-      description: List all teams with trashpoints counter.
-      operationId: getCountTeamTrashpoints
-      responses:
-        "200":
-          description: List of teams with trashpoints counter.
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/TeamTrashpoint"
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
@@ -805,19 +805,9 @@ definitions:
       description:
         description: Desctiption of team
         type: string
-  TeamTrashpoint:
-    type: object
-    required: [id, name]
-    properties:
-      id:
-        description: A unique code of team
-        type: string
-      name:
-        description: A name of team
-        type: string
       trashpoints:
-        description: Count of trashpoints of team
-        type: string
+        description: How many trashpoints have this team
+        type: integer
   #-----------------------------------------------------------------------------
   # Account properties.
   #-----------------------------------------------------------------------------

@@ -165,33 +165,6 @@ const designDocs = {
             },
         },
     },
-    teamtrashpoints: {
-        all: {
-            $version: 1,
-            views: {
-                view: {
-                    map: function (doc) {
-                        if (doc.$doctype === 'teamtrashpoints') {
-                            emit(doc._id, doc);
-                        }
-                    },
-                },
-            },
-        },
-        countByTeam: {
-            $version: 1,
-            views: {
-                view: {
-                    map: function (doc) {
-                        if (doc.$doctype === 'teamtrashpoints' && doc.team) {
-                            emit(doc.team, null);
-                        }
-                    },
-                    reduce: '_count',
-                },
-            },
-        },
-    },
     areas: {
         all: {
             $version: 1,
@@ -409,6 +382,19 @@ const designDocs = {
                     map: function (doc) {
                         if (doc.$doctype === 'trashpoint') {
                             emit(doc.createdBy, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
+        countByTeam: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'trashpoint') {
+                            emit(doc.team, null);
                         }
                     },
                     reduce: '_count',

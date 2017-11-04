@@ -39,6 +39,29 @@ module.exports = function () {
             });
     });
 
+    lucius.register('role:db,cmd:getCountTeamsTrashpoints', async function (connector, args) {
+        return connector.input(args)
+            .use(async function ({}, responder) {
+                let teams = await db.getAllTeams();
+                teams.sort((a, b) => {
+                    const nameA = a.name.toUpperCase();
+                    const nameB = b.name.toUpperCase();
+
+                    if (nameA > nameB) {
+                        return 1;
+                    } else if (nameA < nameB) {
+                        return -1;
+                    }
+                    return 0;
+                });
+                let i, len;
+                for (i = 0, len = teams.length; i < len; i++) {
+                    teams[i]['trashpoints'] = await db.countTeamTrashpoints(teams[i].id);
+                }
+                return responder.success(teams);
+            });
+    });
+
     lucius.register('role:db,cmd:getTeam', async function (connector, args, __) {
         return connector.input(args)
             .use(async function ({id}, responder) {

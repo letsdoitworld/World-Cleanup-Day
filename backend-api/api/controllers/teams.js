@@ -5,6 +5,9 @@ module.exports = {
     getAllTeams: senecaRequestMw(
         'role:db,cmd:getAllTeams',
     ),
+    getCountTeamsTrashpoints: senecaRequestMw(
+        'role:db,cmd:getCountTeamsTrashpoints',
+    ),
     getTeam: senecaRequestMw(
         'role:db,cmd:getTeam',
         req => ({

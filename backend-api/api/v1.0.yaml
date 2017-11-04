@@ -802,7 +802,7 @@ definitions:
       name:
         description: A name of team
         type: string
-      description:
+      teamDescription:
         description: Desctiption of team
         type: string
       trashpoints:
@@ -832,6 +832,8 @@ definitions:
         $ref: "#/definitions/ISOTimestamp"
       locked:
         type: boolean
+      team:
+        type: string
   AccountPlusAreas:
     allOf:
     - "$ref": "#/definitions/Account"

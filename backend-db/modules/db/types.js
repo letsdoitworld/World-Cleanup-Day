@@ -205,7 +205,7 @@ class Team extends Type {
         this.value = util.object.filter(data, {
             id: true,
             name: true,
-            description: true,
+            teamDescription: true,
             trashpoints: true,
             createdAt: true,
             createdBy: true,

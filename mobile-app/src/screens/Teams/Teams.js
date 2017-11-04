@@ -92,7 +92,7 @@ class Teams extends Component {
                         {teamsItem.name}
                       </Text>
                       <Text style={styles.teamText}>
-                        {teamsItem.description && teamsItem.description}
+                        {teamsItem.teamDescription && teamsItem.teamDescription}
                       </Text>
                     </View>
                     <View style={styles.actionContainer}>

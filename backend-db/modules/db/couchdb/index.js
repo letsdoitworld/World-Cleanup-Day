@@ -676,17 +676,17 @@ const layer = {
                     null,
                     {
                         name: team.name,
-                        description: team.description,
+                        teamDescription: team.teamDescription,
                     }
                 );
             }
             else {
                 if (existingTeams[team.id].name !== team.name
-                    || existingTeams[team.id].description !== team.description
+                    || existingTeams[team.id].teamDescription !== team.teamDescription
                 ) {
                     await layer.modifyTeam(team.id, null, {
                         name: team.name,
-                        description: team.description || undefined,
+                        teamDescription: team.teamDescription || undefined,
                     });
                 }
             }

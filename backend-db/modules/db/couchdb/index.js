@@ -628,20 +628,10 @@ const layer = {
     //========================================================
     // TEAMS
     //========================================================
-    getTeam: async id => {
-        return await adapter.getOneEntityById('Team', '_design/all/_view/view', id);
-    },
-    getAllTeams: async () => {
-        const ret = await adapter.getEntities('Team', '_design/all/_view/view', {sorted: false});
-        return ret;
-    },
-    getCountTeamsTrashpoints: async () => {
-        const ret = await adapter.getEntities('Team', '_design/all/_view/view', {sorted: false});
-        return ret;
-    },
-    getRawTeamDoc: async id => {
-        return await adapter.getOneRawDocById('Team', '_design/all/_view/view', id);
-    },
+    getTeam: id => adapter.getOneEntityById('Team', '_design/all/_view/view', id),
+    getAllTeams: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
+    getCountTeamsTrashpoints: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
+    getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/all/_view/view', id),
     createTeam: async (id, who, create) => {
         await adapter.createDocument('Team', id, create, {
             createdAt: util.time.getNowUTC(),

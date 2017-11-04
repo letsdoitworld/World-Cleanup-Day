@@ -13,9 +13,9 @@ const filterBriefAccountData = account => util.object.filter(account, {
     role: true,
     locked: true,
     country: true,
-    team: true,
     pictureURL: true,
     termsAcceptedAt: true,
+    team: true,
 });
 
 const countriesForLeader = areasForLeader => {

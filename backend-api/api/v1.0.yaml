@@ -216,11 +216,7 @@ paths:
       operationId: getAllTeams
       responses:
         "200":
-          description: List of teams.
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Team"
+          $ref: "#/responses/Teams"
         "default":
           $ref: "#/responses/ErrorSet"
   /teams/trashpoints:
@@ -230,11 +226,7 @@ paths:
       operationId: getCountTeamsTrashpoints
       responses:
         "200":
-          description: List of teams with data about trashpoints.
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Team"
+          $ref: "#/responses/Teams"
         "default":
           $ref: "#/responses/ErrorSet"
   /teams/{id}:
@@ -747,6 +739,12 @@ responses:
     description: List of trashpoints for area leader consumption.
     schema:
       $ref: "#/definitions/PaginatedAreaTrashpoints"
+  Teams:
+    description: List of teams.
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Team"
   StorageAuth:
     description: A short-term authorization allowing access to storage operations.
     schema:

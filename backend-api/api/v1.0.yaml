@@ -831,7 +831,9 @@ definitions:
       locked:
         type: boolean
       team:
-        type: string
+        type:
+          - string
+          - 'null'
   AccountPlusAreas:
     allOf:
     - "$ref": "#/definitions/Account"

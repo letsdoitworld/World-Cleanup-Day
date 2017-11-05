@@ -107,6 +107,7 @@ export const API_ENDPOINTS = {
     `/trashpoints/${trashpointId}/images/${imageId}`,
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
   FETCH_TEAMS: '/teams',
+  FETCH_TEAMS_TRASHPOINTS: '/teams/trashpoints',
   FETCH_TEAM: teamId =>
     `/teams/${teamId}`,
 };

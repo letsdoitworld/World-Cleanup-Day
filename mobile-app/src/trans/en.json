@@ -166,7 +166,9 @@
   "label_button_leave": "Leave",
   "label_text_my_team": "My Team",
   "label_text_team": "Team",
+  "label_teams_header": "Team",
   "label_text_your_team": "Your team: ",
   "label_text_join_to_team": "Join a team",
-  "label_text_join_to_team_description": "Join your sisters and brothers in arms!"
+  "label_text_join_to_team_description": "Join your sisters and brothers in arms!",
+  "label_text_select_team_hint": "Search"
 }

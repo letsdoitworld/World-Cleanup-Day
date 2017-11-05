@@ -79,7 +79,7 @@ class Teams extends Component {
           : <View>
               <FormInput
                 containerStyle={styles.inputContainer}
-                placeholder="Search"
+                placeholder={t('label_text_select_team_hint')}
                 value={search}
                 onChangeText={handleSearchChanged}
               />

@@ -345,7 +345,7 @@ const AppNavigator = StackNavigator(
         header: () =>
           <Header
             onPressLeftButton={() => navigation.goBack(null)}
-            title="Teams"
+            title={i18n.t('label_teams_header')}
             leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
           />,
       }),

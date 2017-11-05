@@ -29,6 +29,9 @@ export const API_ENDPOINTS = {
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
   LOCK_USER: userId => `/users/${userId}/lock`,
   FETCH_AREA_TRASHPOINTS: areaId => `/areas/${areaId}/trashpoints`,
+  FETCH_TEAMS: '/teams',
+  FETCH_TEAMS_TRASHPOINTS: '/teams/trashpoints',
+  FETCH_TEAM: teamId => `/teams/${teamId}`,
 };
 export const BACKEND_LOGIN_SOURCES = {
   FACEBOOK: 'facebook',

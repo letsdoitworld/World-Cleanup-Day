@@ -178,7 +178,6 @@ export const handleUpload = async ({ photos, markerId }) => {
   if ((photos || []).length === 0) {
     return true;
   }
-  console.log('photos', photos);
   const photosResponse = await getUploadURIsForPhotos(photos, markerId);
 
   const uploadedPhotosIds = {
@@ -186,7 +185,6 @@ export const handleUpload = async ({ photos, markerId }) => {
     failed: [],
     backendConfirmed: false,
   };
-  console.log('photosResponse', photosResponse);
   if (photosResponse) {
     const thumbnailsPhotos = photosResponse.data
       .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
@@ -211,7 +209,6 @@ export const handleUpload = async ({ photos, markerId }) => {
       });
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
-    console.log('handledPhotos', handledPhotos);
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
 
     if (uploadedPhotosResponses) {

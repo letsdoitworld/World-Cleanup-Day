@@ -43,7 +43,6 @@ const configReducer = (
     case types.FETCH_DATASETS_REQUEST:
       return { ...state, loading: true };
     case types.FETCH_DATASETS_SUCCESS:
-      console.log(action.trashpointsDatasetUUID);
       return {
         ...state,
         loading: false,

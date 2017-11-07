@@ -57,7 +57,9 @@ module.exports = function () {
                 let i, len;
                 for (i = 0, len = teams.length; i < len; i++) {
                     teams[i]['trashpoints'] = await db.countTeamTrashpoints(teams[i].id);
+                    teams[i]['users'] = await db.countAccountsForTeam(teams[i].id);
                 }
+
                 return responder.success(teams);
             });
     });

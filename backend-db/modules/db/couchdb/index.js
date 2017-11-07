@@ -96,6 +96,18 @@ const layer = {
         }
         return parseInt(ret.pop());
     },
+    countAccountsForTeam: async teamId => {
+        const ret = await adapter.getRawDocs(
+            'Account',
+            '_design/countByTeam/_view/view', {
+              key: teamId,
+              group: true,
+            });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
     countAccountsForNameSearch: async (nameSearch, country = null) => {
         const ret = await adapter.getRawDocs('Account', '_design/byNamePieces/_view/view', {
             startkey: country  ? [nameSearch, country] : [nameSearch],

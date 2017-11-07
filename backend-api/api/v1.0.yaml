@@ -806,6 +806,9 @@ definitions:
       trashpoints:
         description: How many trashpoints have this team
         type: integer
+      users:
+        description: How many users have this team
+        type: integer
   #-----------------------------------------------------------------------------
   # Account properties.
   #-----------------------------------------------------------------------------

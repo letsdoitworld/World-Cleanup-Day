@@ -44,7 +44,7 @@ class TeamsList extends PureComponent {
       return teams;
     }
     return teams.filter(
-      c => c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1,
+      c => c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
     );
   };
 
@@ -95,6 +95,16 @@ class TeamsList extends PureComponent {
           </button>
           <button
             className={
+              this.state.sortBy === 'users' ?
+              'TeamsList-sort-button TeamsList-sort-button-active' :
+              'TeamsList-sort-button'
+            }
+            onClick={() => this.handleSetSort('users')}
+          >
+            Users
+          </button>
+          <button
+            className={
               this.state.sortBy === 'trashpoints' ?
               'TeamsList-sort-button TeamsList-sort-button-active' :
               'TeamsList-sort-button'
@@ -110,16 +120,13 @@ class TeamsList extends PureComponent {
 
   render() {
     const { search } = this.state;
-
-
-      return (
-        <List
-          elementHeight={62}
-          headerContent={this.renderHeaderContent()}
-          items={this.renderItems()}
-        />
-      );
-
+    return (
+      <List
+        elementHeight={62}
+        headerContent={this.renderHeaderContent()}
+        items={this.renderItems()}
+      />
+    );
   }
 }
 

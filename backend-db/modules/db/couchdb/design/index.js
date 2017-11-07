@@ -136,6 +136,19 @@ const designDocs = {
                 },
             },
         },
+        countByTeam: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account' && doc.team) {
+                            emit(doc.team, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
     },
     sessions: {
         all: {
@@ -393,7 +406,7 @@ const designDocs = {
             views: {
                 view: {
                     map: function (doc) {
-                        if (doc.$doctype === 'trashpoint') {
+                        if (doc.$doctype === 'trashpoint' && doc.team) {
                             emit(doc.team, null);
                         }
                     },

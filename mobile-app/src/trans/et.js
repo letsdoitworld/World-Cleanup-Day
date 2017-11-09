@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "Koristame maailma koos!",
+  "label_text_app_subtitle": "Koristame koos terve maailma ära!",
   "label_button_facebook": "Logi sisse Facebookiga",
   "label_button_google": " Logi sisse Google'iga",
   "label_button_try_app": "Proovi rakendust ilma sisselogimata",

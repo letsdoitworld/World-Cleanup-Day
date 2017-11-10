@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "Давайте очистим мир вместе !",
+  "label_text_app_subtitle": "Давайте очистим мир вместе!",
   "label_button_facebook": "Продолжить с Фейсбук",
   "label_button_google": "Продолжить с Гугл",
   "label_button_try_app": "Испытай приложение не создавая аккаунт",
@@ -106,8 +106,8 @@
   "label_camera_error_title": "Отказ доступа к камере",
   "label_error_modal_default_title": "О нет!",
   "label_error_modal_default_subtitle": "Обнаружена ошибка сервера!",
-  "label_location_permission_warning_ios": "Вы должны изменить права доступа фото камеры. Чтобы сделать это, перейдите на страницу Настройки > Конфиденциальность > Камера.",
-  "label_location_permission_warning_android": "You must change location permissions. To do this, go to Settings > Apps.",
+  "label_location_permission_warning_ios": "Необходимо изменить разрешения для определения местоположения. Чтобы сделать это, зайдите в Настройки > Конфиденциальность > Сервис локализации.",
+  "label_location_permission_warning_android": "Необходимо изменить разрешения для определения местоположения. Чтобы сделать это, зайдите в Настройки - Приложений.",
   "label_location_off_warning": "Location Services are turned off. Please enable your GPS in your Settings to use the application.",
   "label_location_modal_title": "Enable location",
   "label_network_off_warning_title": "No network connection",

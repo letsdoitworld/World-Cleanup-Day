@@ -41,7 +41,7 @@
   "label_text_activity_empty_subtitle": "Тут нічого не видно!",
   "label_text_activity_empty_text": "Ви ще не додали жодної засміченої точки. Коли ти додаси точку, вона буде відображена тут.",
   "label_text_activity_empty_hint": "Add a trashpoint!",
-  "label_header_notific": "Notifications",
+  "label_header_notific": "Оголошення",
   "label_text_notific_empty_subtitle": "Тут нічого не видно!",
   "label_text_notific_empty_text": "We haven't seen any notifications come in yet, but we'll let you know when we do!",
   "label_header_profile": "Мій профіль",

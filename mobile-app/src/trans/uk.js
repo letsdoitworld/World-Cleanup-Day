@@ -60,7 +60,7 @@
   "label_header_edit_loc": "Редагувати місцезнаходження",
   "label_button_edit_loc_set": "Встановити розташування сміттєзвалища",
   "label_text_createTP_status_subtitle": "Статус точки",
-  "label_text_createTP_status_text": "If a quick action is needed (toxic, heavy metals), please set as threat.",
+  "label_text_createTP_status_text": "У разі необхідності термінових дій (токсичні матеріали, важкі метали), будь ласка зазначте як погрозу.",
   "label_text_createTP_add_photos": "Додати фотографії сміття",
   "label_text_createTP_select_amount": "Оберіть кількість сміття",
   "label_text_createTP_select_type": "Оберіть тип сміття",

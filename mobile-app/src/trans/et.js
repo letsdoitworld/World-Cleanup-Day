@@ -125,6 +125,6 @@
   "label_text_about_3": "See rakendus on ühine koostöö",
   "label_text_about_4": "Eesti toode, riigi ja valitsuse poolt toetatud",
   "label_text_about_5": "Rahastajad: Keskkonnaministeerium, Välisministeerium, Eesti Vabariik 100",
-  "label_button_editTP_delete": "Kustuta prügi punkt",
+  "label_button_editTP_delete": "Kustuta prügi leiukoht",
   "label_locked_account_warning": "Teie konto on lukustatud. Lisateabe saamiseks pöörduge administraatori poole."
 }

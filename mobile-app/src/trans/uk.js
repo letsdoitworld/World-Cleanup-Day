@@ -88,7 +88,7 @@
   "label_error_change_loc_subtitle": "Порушено межі",
   "label_error_change_loc_text": "Будь ласка, розташуйте точку в межах 100 метрів від вашого розташування.",
   "label_error_generic_error_subtitle": "Порушено межі",
-  "label_error_generic_error_text": "There was an error on the server.",
+  "label_error_generic_error_text": "Помилка на сервері.",
   "label_error_network_subtitle": "Немає підключення до мережі",
   "label_error_network_text": "Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.",
   "label_error_location_subtitle": "Увімкнути місцезнаходження",

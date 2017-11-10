@@ -91,12 +91,12 @@
   "label_error_generic_error_text": "There was an error on the server.",
   "label_error_network_subtitle": "Немає підключення до мережі",
   "label_error_network_text": "Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.",
-  "label_error_location_subtitle": "Enable location",
+  "label_error_location_subtitle": "Увімкнути місцезнаходження",
   "label_error_location_text": "Location Services are turned off. Please enable your GPS in your Settings to use the application.",
   "label_error_loc_permission_text": "Location Services are not permitted. Please allow them in order to use the application.",
-  "label_trash_details_header": "Trashpoint details",
+  "label_trash_details_header": "Подробніше про точку забруднення",
   "label_privacy_policy_header": "Політика конфіденційності",
-  "label_about_header": "About",
+  "label_about_header": "Про",
   "label_edit_trashpoint_button": "Редагувати забруднену точку",
   "label_100m_limit_modal": "A point can only be edited if you are within 100 meters of it.",
   "label_retry_button": "Повторити спробу",
@@ -126,5 +126,5 @@
   "label_text_about_4": "Estonian product, sponsored by the country and government",
   "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
   "label_button_editTP_delete": "Видалити забруднену точку",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_locked_account_warning": "Ваш обліковий запис заблоковано. Для детальної інформації зв’яжіться з адміністратором."
 }

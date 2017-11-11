@@ -83,7 +83,7 @@
   "label_error_editTP_out_of_rng_text": "Точку можна змінювати тільки якщо ви знаходитися у радіусі 100 метрів.",
   "label_error_saveTP_subtitle": "Зберегти забруднену точку",
   "label_error_saveTP_pic_and_type": "Для нас буде корисніше, якщо ви зробите хоча б одне зображення забрудненої точки та визначите її статус.",
-  "label_error_saveTP_picture": "It's more useful for us if you to take at least one picture of the trashpoint before saving.",
+  "label_error_saveTP_picture": "Для нас буде корисніше якщо ви зробите принаймні одне зображення забрудненої точки перш ніж зберегтися.",
   "label_error_saveTP_trash_type": "It's more useful for us if you set the trashpoint's type before saving.",
   "label_error_change_loc_subtitle": "Порушено межі",
   "label_error_change_loc_text": "Будь ласка, розташуйте точку в межах 100 метрів від вашого розташування.",

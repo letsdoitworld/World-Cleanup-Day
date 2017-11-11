@@ -11,7 +11,7 @@
   "label_trash_status_cleaned": "pastruar",
   "label_trash_status_outdated": "i vjetruar",
   "label_trash_status_user": "përdorues",
-  "label_trash_status_change_location": "ndrroVendodhjen",
+  "label_trash_status_change_location": "ndërroVendodhjen",
   "label_trash_status_state_threat": "Kjo pikë është një kërcënim!",
   "label_trash_status_state_regular": "Kjo është një pikë normale mbeturinash.",
   "label_trash_status_state_cleaned": "Kjo pikë është pastruar!",

@@ -14,7 +14,7 @@
   "label_trash_status_change_location": "изменитьМестоположение",
   "label_trash_status_state_threat": "Эта точка опасна!",
   "label_trash_status_state_regular": "Обычная мусорная точка.",
-  "label_trash_status_state_cleaned": "Место было очищено!",
+  "label_trash_status_state_cleaned": "Точка была очищена!",
   "label_trash_status_state_outdated": "Данные о точке устарели!",
   "label_TP_created_date": "Создано",
   "label_TP_updated_date": "Обновлено",

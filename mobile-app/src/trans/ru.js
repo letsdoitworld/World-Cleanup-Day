@@ -49,7 +49,7 @@
   "label_button_country_empty": "Страна",
   "label_text_country": "Страна",
   "label_header_select_country": "Выберите страну",
-  "label_text_select_country_hint": "Search",
+  "label_text_select_country_hint": "Поиск",
   "label_button_tc": "Terms and Conditions",
   "label_button_logout": "Log out",
   "label_text_congrats_image": "Trash captured",

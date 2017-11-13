@@ -12,7 +12,7 @@
   "label_trash_status_outdated": "veraltet",
   "label_trash_status_user": "Benutzer",
   "label_trash_status_change_location": "wechsel den Ort",
-  "label_trash_status_state_threat": "This point is a threat!",
+  "label_trash_status_state_threat": "dieser Punkt ist eine Bedrohung!",
   "label_trash_status_state_regular": "This is a regular trashpoint.",
   "label_trash_status_state_cleaned": "This point is cleaned!",
   "label_trash_status_state_outdated": "This point is outdated!",

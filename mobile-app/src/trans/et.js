@@ -13,7 +13,7 @@
   "label_trash_status_user": "kasutaja",
   "label_trash_status_change_location": "muuda asukohta",
   "label_trash_status_state_threat": "Ohtlik prügipunkt!",
-  "label_trash_status_state_regular": "Sage prügi leiukoht.",
+  "label_trash_status_state_regular": "Tavaline prügipunkt.",
   "label_trash_status_state_cleaned": "Koristatud prügipunkt!",
   "label_trash_status_state_outdated": "Aegunud prügipunkt!",
   "label_TP_created_date": "Loodud",

@@ -123,8 +123,8 @@
   "label_text_about_1": "Esta aplicación es una iniciativa de Let´s Do It World",
   "label_text_about_2": "Todos los datos recopilados por los usuarios en todo el mundo será visualizado en el mapa global de la basura para iniciar acciones de limpieza en todo el mundo, en el Día Mundial de la Limpieza, el 15 de septiembre de 2018",
   "label_text_about_3": "Esta aplicación es una cooperación conjunta con",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_text_about_4": "Producto de Estonia, patrocinado por el país y el gobierno",
+  "label_text_about_5": "Financiadores: Ministerio de Ambiente de Estonia, el Ministerio de Relaciones Exteriores de la República de Estonia, Programa 100 de la República de Estonia",
   "label_button_editTP_delete": "Eliminar punto de basura",
   "label_locked_account_warning": "Su cuenta está bloqueada. Para obtener más información, póngase en contacto con un administrador."
 }

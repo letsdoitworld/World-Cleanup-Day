@@ -61,7 +61,7 @@
   "label_button_edit_loc_set": "Enregistrer la localisation du spot",
   "label_text_createTP_status_subtitle": "Etat du spot",
   "label_text_createTP_status_text": "Si une intervention urgente est nécessaire (toxiques, métaux lourds...), veuillez choisir \"dangereux\".",
-  "label_text_createTP_add_photos": "Add trash photos",
+  "label_text_createTP_add_photos": "Ajouter des photos de ces déchets",
   "label_text_createTP_select_amount": "Select trash amount",
   "label_text_createTP_select_type": "Select trash type",
   "label_text_createTP_add_hashtags": "Additional added tags",

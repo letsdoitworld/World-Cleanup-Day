@@ -105,7 +105,7 @@
   "label_camera_permission_warning_android": "Du skal ændre tilladelser til kameraadgang. For at gøre dette, gå til Indstillinger > Apps",
   "label_camera_error_title": "Kameraadgang nægtet",
   "label_error_modal_default_title": "Oh nej!",
-  "label_error_modal_default_subtitle": "The fail whale detected a server error!",
+  "label_error_modal_default_subtitle": "Vi fandt en fejl på serveren!",
   "label_location_permission_warning_ios": "You must change location permissions. To do this, go to Settings > Privacy > Location services.",
   "label_location_permission_warning_android": "You must change location permissions. To do this, go to Settings > Apps.",
   "label_location_off_warning": "Location Services are turned off. Please enable your GPS in your Settings to use the application.",

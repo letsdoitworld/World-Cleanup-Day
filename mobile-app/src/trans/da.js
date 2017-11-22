@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "Lad oss rydde op verden sammen!",
+  "label_text_app_subtitle": "Lad os rydde op verden sammen!",
   "label_button_facebook": "Fortsæt med Facebook",
   "label_button_google": "Fortsæt med Google",
   "label_button_try_app": "Afprøv appen uden konto",
@@ -124,7 +124,7 @@
   "label_text_about_2": "Alle data indsamlet af brugernes worldwide vil blive visualiseret på det globale affaldskort for at indlede verdensomspændende begivenheder for oprydning på Verdensdagen for oprydning, d. 15. september 2018",
   "label_text_about_3": "Denne app er et fælles samarbejde med",
   "label_text_about_4": "Estisk produkt, som er sponsoreret af landet og regeringen",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_text_about_5": "Finansieringskilder: Estisk Ministeriet for miljø, Udenrigsministeriet af Republikken Estland, Estisk Republik 100 program",
+  "label_button_editTP_delete": "Slet affaldspoint",
+  "label_locked_account_warning": "Din konto er låst. Kontakt en administrator for flere detaljer."
 }

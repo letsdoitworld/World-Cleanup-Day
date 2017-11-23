@@ -1,7 +1,7 @@
 {
-  "label_text_app_subtitle": "Let's clean up the world together!",
-  "label_button_facebook": "Continue with Facebook",
-  "label_button_google": "Continue with Google",
+  "label_text_app_subtitle": "让我们一起清理世界吧!",
+  "label_button_facebook": "在脸书中继续",
+  "label_button_google": "在谷歌中继续",
   "label_button_try_app": "Try out the app without account",
   "label_button_acknowledge": "Ok, got it!",
   "label_button_cancel": "Cancel",

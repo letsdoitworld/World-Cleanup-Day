@@ -124,7 +124,7 @@
   "label_text_about_2": "Toutes les données recueillies par les utilisateurs dans le monde entier vont être visualisables sur notre carte mondiale de déchets. Cela permettra d'initier des nettoyages dans le monde entier pendant le World Cleanup Day, le 15 septembre 2018.",
   "label_text_about_3": "Cette application a été réalisée en collaboration avec",
   "label_text_about_4": "Produit Estonien, financé par le pays et le gouvernement",
-  "label_text_about_5": "Bailleurs de fonds : le Ministère de l'environnement Estonien, le Ministère des affaires étrangères Estonien et le programme Estonien \"100 program\"",
+  "label_text_about_5": "Donateurs : Ministère de l'Environnement Estonien, Ministère des Affaires Étrangères Estonien et le programme Estonien \"Estonia100\"",
   "label_button_editTP_delete": "Supprimer la décharge",
-  "label_locked_account_warning": "Votre compte est verrouillé. Pour plus d'informations, veuillez contacter un administrateur. "
+  "label_locked_account_warning": "Votre compte est verrouillé. Pour plus d'informations, veuillez contacter un administrateur."
 }

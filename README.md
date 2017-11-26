@@ -38,6 +38,9 @@ Join the movement and let's clean up the World together!
 * Wikipedia: https://en.wikipedia.org/wiki/Let%27s_Do_It!_World
 * Homepage: https://www.letsdoitworld.org/
 
+## Roadmap
+See [Roadmap.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/ROADMAP.md)
+
 ## License
 
 [GPL-3.0 license](https://opensource.org/licenses/GPL-3.0)

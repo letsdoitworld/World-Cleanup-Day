@@ -33,4 +33,3 @@
 
 # Questions
 * What type of auth should the WCD API allow?
-* What are the Google API limits?

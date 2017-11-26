@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "让我们一起清理世界吧!",
+  "label_text_app_subtitle": "让我们一起来清洁地球吧！",
   "label_button_facebook": "在脸书中继续",
   "label_button_google": "在谷歌中继续",
   "label_button_try_app": "无账户试用本应用",
@@ -120,11 +120,11 @@
   "label_button_delete": "删除",
   "label_delete_photo_title": "删除照片",
   "label_delete_photo_subtitle": "确认删除照片？你将无法撤消此操作。",
-  "label_text_about_1": "This app is an initiative by Let's Do It World",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_text_about_1": "本应用为Let's Do It World的倡议之一",
+  "label_text_about_2": "世界各地用户所收集的所有数据将显示在全球废弃物地图中，以便在世界清洁日当天，2018年12月15日，发起全球性清洁活动",
+  "label_text_about_3": "本应用为联合行动，协同",
+  "label_text_about_4": "爱沙尼亚产品，受国家与政府资助",
+  "label_text_about_5": "资助者：爱沙尼亚共和国环境部，爱沙尼亚共和国外交部，爱沙尼亚共和国100计划",
+  "label_button_editTP_delete": "删除废弃物点",
+  "label_locked_account_warning": "您的帐户已锁定。请与管理员联系获取详细信息。"
 }

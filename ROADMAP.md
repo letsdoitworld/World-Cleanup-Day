@@ -10,7 +10,7 @@
 * * UX Improvements 
 * 2.5 Victorious Rabbit
 * 3.0 Unnamed Animal
-* * Create Events? (May 2018)
+* * Events (Deadline May 2018)
 
 # Stuff We Want To Build
 

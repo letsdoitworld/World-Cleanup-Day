@@ -18,7 +18,7 @@
   "label_trash_status_state_outdated": "Данные о точке устарели!",
   "label_TP_created_date": "Создано",
   "label_TP_updated_date": "Обновлено",
-  "label_TP_by": " by ",
+  "label_TP_by": " по ",
   "label_trash_amount_handful": "небольшая куча мусора",
   "label_trash_amount_bagful": "полный мешок",
   "label_trash_amount_cartloadl": "воз",

@@ -124,7 +124,7 @@
   "label_text_about_2": "Tất cả các dữ liệu được thu thập bởi người dùng trên toàn thế giới sẽ được hiển thị trong bản đồ rác toàn cầu để khởi động cho sự kiện làm sạch trên toàn thế giới cho Ngày dọn dẹp 15 tháng 9 năm 2018",
   "label_text_about_3": "Ứng dụng này là một sự hợp tác chung với",
   "label_text_about_4": "Là sản phẩm của Estonia, được tài trợ bởi các quốc gia và chính phủ",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_text_about_5": "Nhà tài trợ: Bộ tài nguyên và môi trường Estonia, Bộ ngoại giao của cộng hòa Estonia, 100 chương trình của cộng hòa Estonia",
+  "label_button_editTP_delete": "Xóa điểm đổ rác",
+  "label_locked_account_warning": "Tài khoản của bạn bị khóa. Để biết chi tiết xin liên hệ với quản trị viên."
 }

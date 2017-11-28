@@ -121,10 +121,10 @@
   "label_delete_photo_title": "Fotoğrafı sil",
   "label_delete_photo_subtitle": "Fotoğrafı silmek istediğinizden emin misiniz? Bu geri alamazsınız.",
   "label_text_about_1": "Bu uygulama Let's Do It World'nin bir inisiyatifidir",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_text_about_2": "Dünya çapındaki kullanıcılar tarafından toplanan tüm veriler, 15 Eylül 2018 Dünya Temizleme Günü'nde dünya çapında temizlik etkinlikleri başlatmak için kullanılan genel çöp kutusu haritasında görselleştirilecektir",
+  "label_text_about_3": "Bu uygulama ile ortak bir işbirliği",
+  "label_text_about_4": "Estonya ürünü, ülke ve hükümet sponsorluğunda",
+  "label_text_about_5": "Kaynaklar: Estonya Çevre Bakanlığı, Estonya Cumhuriyeti Dışişleri Bakanlığı, Estonya Cumhuriyeti 100 programı",
+  "label_button_editTP_delete": "Çöp kutusunu sil",
+  "label_locked_account_warning": "Hesabınız kilitli. Ayrıntılar için yönetici ile iletişime geçin."
 }

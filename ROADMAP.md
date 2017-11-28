@@ -9,7 +9,7 @@
 * * Translations
 * * UX Improvements 
 * 2.5 Victorious Rabbit
-* 3.0 Unnamed Animal
+* 3.0 Dancing Lion
 * * Events (Deadline May 2018)
 
 # Stuff We Want To Build

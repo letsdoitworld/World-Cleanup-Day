@@ -36,7 +36,7 @@ export default EStyleSheet.create({
   },
   skipLogoutContainer: {
     width: getWidthPercentage(210),
-    marginTop: getHeightPercentage(10),
+    marginTop: getHeightPercentage(25),
     marginBottom: getHeightPercentage(35)
   },
   skipLogout: {

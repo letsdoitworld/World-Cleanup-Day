@@ -1,16 +1,21 @@
 # Version History
 
 * 1.0 Romanian Lynx
+ * Initial release based on Romanian Let's Do It app
+ 
 * 2.0 Lazy Unicorn
-  * Add Teams (MPV)
+ * Complete app re-write
+ * Includes alpha-version of Teams
 
 # Upcoming Versions
 * 2.1 Baby Sloth
-  * Publish Translations
+  * Translations
   * UX Improvements
 
 * 2.2 Purple Butterfly
   * Offline mode, support basic functionality w/o Internet connection and sync data back to cloud when Internet is available.
+  
+ * 2.2 Add Teams (MPV)
 
 * 2.3 Webby Spider
   * Basic Web App for phone not running Android or iOS / are running a modified unsupported version of Android

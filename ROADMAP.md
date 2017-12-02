@@ -1,11 +1,11 @@
 # Version History
 
 * 1.0 Romanian Lynx
- * Initial release based on Romanian Let's Do It app
+  * Initial release based on Romanian Let's Do It app
  
 * 2.0 Lazy Unicorn
- * Complete app re-write
- * Includes alpha-version of Teams
+  * Complete app re-write
+  * Includes alpha-version of Teams
 
 # Upcoming Versions
 * 2.1 Baby Sloth

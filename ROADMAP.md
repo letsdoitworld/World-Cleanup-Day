@@ -2,24 +2,24 @@
 
 * 1.0 Romanian Lynx
 * 2.0 Lazy Unicorn
-* * Add Teams (MPV)
+  * Add Teams (MPV)
 
 # Upcoming Versions
 * 2.1 Baby Sloth
-* * Publish Translations
-* * UX Improvements
+  * Publish Translations
+  * UX Improvements
 
 * 2.2 Purple Butterfly
-* * Offline mode, support basic functionality w/o Internet connection and sync data back to cloud when Internet is available.
+  * Offline mode, support basic functionality w/o Internet connection and sync data back to cloud when Internet is available.
 
 * 2.3 Webby Spider
-* Basic Web App for phone not running Android or iOS / are running a modified unsupported version of Android
+  * Basic Web App for phone not running Android or iOS / are running a modified unsupported version of Android
 
 * 2.5 Victorious Rabbit
-* * Share Functionality
+  * Share Functionality
 
 * 3.0 Dancing Lion
-* * Events (Deadline May 2018)
+  * Events (Deadline May 2018)
 
 # Stuff We Want To Build
 

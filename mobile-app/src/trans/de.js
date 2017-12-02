@@ -54,7 +54,7 @@
   "label_button_logout": "Abmelden",
   "label_text_congrats_image": "Müll erbeutet",
   "label_text_congrats_subtitle": "Gute Arbeit!",
-  "label_text_congrats_text": "Now save the point by verifying the data.",
+  "label_text_congrats_text": "Nun speichere den Standort indem Du die Daten überprüfst.",
   "label_header_createTP": "Erstelle einen Trashpoint",
   "label_button_createTP_editloc": "Standort bearbeiten",
   "label_header_edit_loc": "Standort bearbeiten",

@@ -1,7 +1,7 @@
 # Version History
 
 * 1.0 Romanian Lynx
-  * Initial release based on Romanian Let's Do It app
+  * Initial release based on the Let's Do It, Romania! app
  
 * 2.0 Lazy Unicorn
   * Complete app re-write

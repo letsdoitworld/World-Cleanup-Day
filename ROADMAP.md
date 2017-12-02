@@ -10,7 +10,7 @@
 * * UX Improvements
 
 * 2.2 Purple Butterfly
-** Offline mode, support basic functionality w/o Internet connection and sync data back to cloud when Internet is available.
+* * Offline mode, support basic functionality w/o Internet connection and sync data back to cloud when Internet is available.
 
 * 2.3 Webby Spider
 * Basic Web App for phone not running Android or iOS / are running a modified unsupported version of Android

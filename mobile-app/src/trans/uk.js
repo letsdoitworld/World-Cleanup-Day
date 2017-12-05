@@ -84,7 +84,7 @@
   "label_error_saveTP_subtitle": "Зберегти забруднену точку",
   "label_error_saveTP_pic_and_type": "Для нас буде корисніше, якщо ви зробите хоча б одне зображення забрудненої точки та визначите її статус.",
   "label_error_saveTP_picture": "Для нас буде корисніше якщо ви зробите принаймні одне зображення забрудненої точки перш ніж зберегтися.",
-  "label_error_saveTP_trash_type": "It's more useful for us if you set the trashpoint's type before saving.",
+  "label_error_saveTP_trash_type": "Для нас буде зручніше, якщо ви оберете тип сміття перед збереженням.",
   "label_error_change_loc_subtitle": "Порушено межі",
   "label_error_change_loc_text": "Будь ласка, розташуйте точку в межах 100 метрів від вашого розташування.",
   "label_error_generic_error_subtitle": "Порушено межі",

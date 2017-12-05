@@ -93,7 +93,7 @@
   "label_error_network_text": "Передачу даних вимкнено. Увімкніть передачу даних або підключіться до Wi-Fi для користування додатком.",
   "label_error_location_subtitle": "Увімкнути місцезнаходження",
   "label_error_location_text": "Сервіс визначення місцезнаходження вимкнено. Будь ласка увімкніть GPS в Налаштуваннях для користування додатком.",
-  "label_error_loc_permission_text": "Location Services are not permitted. Please allow them in order to use the application.",
+  "label_error_loc_permission_text": "Визначення місцезнаходження вимкнено. Будь ласка змініть налаштування для використання додатку.",
   "label_trash_details_header": "Подробніше про точку забруднення",
   "label_privacy_policy_header": "Політика конфіденційності",
   "label_about_header": "Про",

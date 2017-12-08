@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "Let's clean up the world together!",
+  "label_text_app_subtitle": "Uban ta sa paglimpyo sa kalibutan!",
   "label_button_facebook": "Continue with Facebook",
   "label_button_google": "Continue with Google",
   "label_button_try_app": "Try out the app without account",

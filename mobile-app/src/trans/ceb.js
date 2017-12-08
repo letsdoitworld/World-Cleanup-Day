@@ -108,7 +108,7 @@
   "label_error_modal_default_subtitle": "Nakadetek ug sayop sa serber ang pakyas na balyena!",
   "label_location_permission_warning_ios": "Kinahanglan nimo ilisan pagtugot sa lokasyon. Aron mahimo ni, adto sa Settings > Privacy > Location services.",
   "label_location_permission_warning_android": "Kinahanglan nimo ilisan ang pagtugot sa lokasyon. Aron mahimo ni, adto sa Settings > Apps.",
-  "label_location_off_warning": "Location Services are turned off. Please enable your GPS in your Settings to use the application.",
+  "label_location_off_warning": "Nakapalong ang serbisyo para sa Lokasyon. Palihug ug abri sa sa imong GPS sa Settings aron magamit ang application.",
   "label_location_modal_title": "Enable location",
   "label_network_off_warning_title": "No network connection",
   "label_network_off_warning": "Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.",

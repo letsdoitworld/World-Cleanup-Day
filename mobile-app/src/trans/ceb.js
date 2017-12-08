@@ -121,10 +121,10 @@
   "label_delete_photo_title": "Papha ang litrato",
   "label_delete_photo_subtitle": "Segurado ka gusto nimo paphun ang litraro? Dili na ni mausab.",
   "label_text_about_1": "Kini nga app kay inisyatiba sa Let's Do It World",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
+  "label_text_about_2": "Tanang datos na nakolekta sa mga users sa tibuok kalibutan kay gamiton sa pag-visualize sa global trash map aron masugdan ang mga event sa panghinlo sa tibuok kalibutan sa World Cleanup Day sa 15 Setyembre 2018",
+  "label_text_about_3": "Kini na app kay nahimo pinaagi sa kooperasyon sa",
+  "label_text_about_4": "Produkto sa Estonia, ki-isponsoran sa nasod ug sa gobyerno",
+  "label_text_about_5": "Gipondohan sa: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_button_editTP_delete": "Papha ang trashpoint",
   "label_locked_account_warning": "Your account is locked. For details contact an administrator."
 }

@@ -52,7 +52,7 @@
   "label_text_select_country_hint": "Pangitaa",
   "label_button_tc": "Terms and Conditions",
   "label_button_logout": "Log out",
-  "label_text_congrats_image": "Trash captured",
+  "label_text_congrats_image": "Nakasakup ug basura",
   "label_text_congrats_subtitle": "Great job!",
   "label_text_congrats_text": "Now save the point by verifying the data.",
   "label_header_createTP": "Create a trashpoint",

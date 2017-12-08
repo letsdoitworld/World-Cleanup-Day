@@ -1,7 +1,7 @@
 {
   "label_text_app_subtitle": "Uban ta sa paglimpyo sa kalibutan!",
-  "label_button_facebook": "Padayun pinaagi sa Facebook",
-  "label_button_google": "Padayun pinaagi sa Google",
+  "label_button_facebook": "Padayon pinaagi sa Facebook",
+  "label_button_google": "Padayon pinaagi sa Google",
   "label_button_try_app": "Suwayi ang app na walay account",
   "label_button_acknowledge": "Ok, kasabot ko!",
   "label_button_cancel": "Kansilaha",
@@ -126,5 +126,5 @@
   "label_text_about_4": "Produkto sa Estonia, ki-isponsoran sa nasod ug sa gobyerno",
   "label_text_about_5": "Gipondohan sa: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
   "label_button_editTP_delete": "Papha ang trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_locked_account_warning": "Kitrangkahan ang imong account. Kontaka ang administrador para sa detalye."
 }

@@ -50,7 +50,7 @@
   "label_text_country": "Nasod",
   "label_header_select_country": "Pagpili ug Nasod",
   "label_text_select_country_hint": "Pangitaa",
-  "label_button_tc": "Terms and Conditions",
+  "label_button_tc": "Mga Termino ug Kondisyon",
   "label_button_logout": "Log out",
   "label_text_congrats_image": "Nakasakup ug basura",
   "label_text_congrats_subtitle": "Maayo na trabaho!",

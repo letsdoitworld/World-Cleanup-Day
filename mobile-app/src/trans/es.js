@@ -124,7 +124,7 @@
   "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
   "label_text_about_3": "This app is a joint cooperation with",
   "label_text_about_4": "Producto de Estonia, patrocinado por el país y el gobierno",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_text_about_5": "Financiadores: Ministerio de medio ambiente de Estonia, Ministerio de relaciones exteriores de la República de Estonia, República de Estonia \"programa 100\"",
   "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_locked_account_warning": "Su cuenta está bloqueada. Para obtener más información, póngase en contacto con un administrador."
 }

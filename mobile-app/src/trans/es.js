@@ -101,7 +101,7 @@
   "label_100m_limit_modal": "Un punto sólo puede editarse estando a 100 metros o menos de él.",
   "label_retry_button": "Reintentar",
   "label_country_picker_placeholder": "Elija su país",
-  "label_camera_permission_warning_ios": "You must change camera access permissions. To do this, go to Settings > Privacy > Camera",
+  "label_camera_permission_warning_ios": "Debe cambiar los permisos de acceso de la cámara. Para ello, vaya a Configuración > Privacidad > Cámara",
   "label_camera_permission_warning_android": "You must change camera access permissions. To do this, go to Settings > Apps",
   "label_camera_error_title": "Camera Access Denied",
   "label_error_modal_default_title": "Oh noes!",

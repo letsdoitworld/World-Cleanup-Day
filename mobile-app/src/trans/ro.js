@@ -103,8 +103,8 @@
   "label_country_picker_placeholder": "Alege ţara ta",
   "label_camera_permission_warning_ios": "Trebuie să modificaţi permisiunile de acces ale camerei. Pentru a face acest lucru, mergeţi la setări > confidenţialitate > cameră",
   "label_camera_permission_warning_android": "Trebuie să modificaţi permisiunile de acces ale camerei. Pentru a face acest lucru, mergeţi la setări > aplicații",
-  "label_camera_error_title": "Camera Access Denied",
-  "label_error_modal_default_title": "Oh noes!",
+  "label_camera_error_title": "Accesul camerei este refuzat",
+  "label_error_modal_default_title": "Oh nu!",
   "label_error_modal_default_subtitle": "The fail whale detected a server error!",
   "label_location_permission_warning_ios": "You must change location permissions. To do this, go to Settings > Privacy > Location services.",
   "label_location_permission_warning_android": "You must change location permissions. To do this, go to Settings > Apps.",
@@ -123,8 +123,8 @@
   "label_text_about_1": "This app is an initiative by Let's Do It World",
   "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
   "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_text_about_4": "Produs Estonian, sponsorizat de ţară şi de guvern",
+  "label_text_about_5": "Finanţatori: Ministerul Mediului al Estoniei, Ministerul Afacerilor Externe al Estoniei, Program 100 al Republicii Estoniei",
+  "label_button_editTP_delete": "Şterge locul cu gunoi",
+  "label_locked_account_warning": "Contul tău este blocat. Pentru detalii contactează un administrator."
 }

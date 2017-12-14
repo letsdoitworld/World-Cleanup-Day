@@ -111,7 +111,7 @@
   "label_location_off_warning": "Servicios de localización desactivados. Active el GPS en Configuración, para utilizar la aplicación.",
   "label_location_modal_title": "Habilitar localización",
   "label_network_off_warning_title": "Ninguna conexión de red",
-  "label_network_off_warning": "Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.",
+  "label_network_off_warning": "Datos móviles desactivados. Activar datos móviles o conectar el teléfono a Wi-Fi para utilizar la aplicación.",
   "label_loading_image_text": "Ya casi...",
   "label_loading_image_subtext": "Espere mientras guardamos sus acciones.",
   "label_create_marker_missing_photos": "No se pudieron cargar las fotos de marcador. Trate de agregarlas otra vez.",
@@ -121,10 +121,10 @@
   "label_delete_photo_title": "Borrar foto",
   "label_delete_photo_subtitle": "¿Seguro que desea eliminar la foto? No se puede deshacer.",
   "label_text_about_1": "Esta aplicación es una iniciativa de Let's Do It World",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
+  "label_text_about_2": "Todos los datos recopilados por los usuarios en todo el mundo serán visualizados en el mapa global de la basura para iniciar acciones de limpieza en todo el mundo, en el World Cleanup Day (Día Mundial de la Limpieza) el 15 de septiembre de 2018",
+  "label_text_about_3": "Esta aplicación es una cooperación conjunta con",
   "label_text_about_4": "Producto de Estonia, patrocinado por el país y el gobierno",
   "label_text_about_5": "Financiadores: Ministerio de medio ambiente de Estonia, Ministerio de relaciones exteriores de la República de Estonia, República de Estonia \"programa 100\"",
-  "label_button_editTP_delete": "Delete trashpoint",
+  "label_button_editTP_delete": "Eliminar punto de basura",
   "label_locked_account_warning": "Su cuenta está bloqueada. Para obtener más información, póngase en contacto con un administrador."
 }

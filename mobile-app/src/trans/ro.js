@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "Let's clean up the world together!",
+  "label_text_app_subtitle": "Haideţi să curățăm lumea împreună!",
   "label_button_facebook": "Continuă cu Facebook",
   "label_button_google": "Continuă cu Google",
   "label_button_try_app": "Încercă aplicația fără să fi autentificat",
@@ -19,8 +19,8 @@
   "label_TP_created_date": "Creat",
   "label_TP_updated_date": "Actualizat",
   "label_TP_by": " de ",
-  "label_trash_amount_handful": "handful",
-  "label_trash_amount_bagful": "bagful",
+  "label_trash_amount_handful": "de luat în mână",
+  "label_trash_amount_bagful": "de luat în sacosă",
   "label_trash_amount_cartloadl": "cartload",
   "label_trash_amount_truckload": "truckload",
   "label_trash_type_plastic": "Plastic",

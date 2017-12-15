@@ -121,7 +121,7 @@
   "label_delete_photo_title": "Burahin ang litrato",
   "label_delete_photo_subtitle": "Sigurado ka bang gusto mong burahin ang litrato. Hindi mo na ito maibabalik.",
   "label_text_about_1": "Ang app na ito ay pinangunahan ng Let's Do It World",
-  "label_text_about_2": "Lahat ng datos na nakolekta ng mga user sa buong mundo ay gagamitin upang maipakita ang pandaigdig na trash map at simulan ang paglilinis sa buong mundo sa World Cleanup Day, 15 Setyembre 2018",
+  "label_text_about_2": "Lahat ng datos na makokolekta ng mga user sa buong mundo ay gagamitin sa pagwari ng global trash map para masimulan ang pandaigdigang paglilinis sa World Cleanup Day, ika-15 ng Setyembre 2018",
   "label_text_about_3": "Ang app na ito ay sinugpungan ng",
   "label_text_about_4": "Produktong Estonian, tinaguyod ng bansa at gobyerno",
   "label_text_about_5": "Mga Nag-pondo: Ministro ng Kalikasan ng Bansang Estonia, Ministro ng Ugnayang Panlabas ng Republika ng Estonia, Repulika ng Estonia 100 programa",

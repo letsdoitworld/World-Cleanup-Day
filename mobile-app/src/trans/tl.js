@@ -50,7 +50,7 @@
   "label_text_country": "Bansa",
   "label_header_select_country": "Pumili ng bansa",
   "label_text_select_country_hint": "Hanapin",
-  "label_button_tc": "Mga Termini at Kundisyon",
+  "label_button_tc": "Mga Termino at Kundisyon",
   "label_button_logout": "Mag-log out",
   "label_text_congrats_image": "Ang basura ay nakuhanan na",
   "label_text_congrats_subtitle": "Magaling!",
@@ -122,9 +122,9 @@
   "label_delete_photo_subtitle": "Sigurado ka bang gusto mong burahin ang litrato. Hindi mo na ito maibabalik.",
   "label_text_about_1": "Ang app na ito ay pinangunahan ng Let's Do It World",
   "label_text_about_2": "Lahat ng datos na nakolekta ng mga user sa buong mundo ay gagamitin upang maipakita ang pandaigdig na trash map at simulan ang paglilinis sa buong mundo sa World Cleanup Day, 15 Setyembre 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_text_about_3": "Ang app na ito ay sinugpungan ng",
+  "label_text_about_4": "Produktong Estonian, tinaguyod ng bansa at gobyerno",
+  "label_text_about_5": "Mga Nag-pondo: Ministro ng Kalikasan ng Bansang Estonia, Ministro ng Ugnayang Panlabas ng Republika ng Estonia, Repulika ng Estonia 100 programa",
+  "label_button_editTP_delete": "Burahin ang trashpoint",
+  "label_locked_account_warning": "Nakalock ang iyong account. Para sa mga detalye, sumangguni sa administrador."
 }

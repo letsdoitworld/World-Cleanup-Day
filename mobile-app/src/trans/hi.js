@@ -124,7 +124,7 @@
   "label_text_about_2": "विश्व भर में साफ-सफाई की घटनाओं को शुरू करने के लिए विश्व भर के उपयोगकर्ताओं द्वारा जुटाए गए सभी तथ्य को विश्व साफ-सफाई दिवस, 15 सितंबर 2018 पर वैश्विक कचरा मानचित्र में दिखाया जाएगा",
   "label_text_about_3": "यह एप्लिकेशन एक संयुक्त सहयोग है इनके साथ",
   "label_text_about_4": "एस्टोनियाई उत्पाद, देश और सरकार द्वारा प्रायोजित किया हुआ",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_text_about_5": "निधि कारक: एस्टोनियाई पर्यावरण मंत्रालय, एस्टोनियों गणराज्य के विदेश मामलों के मंत्रालय, एस्टोनियन गणराज्य 100 प्रोग्राम",
   "label_button_editTP_delete": "कचरे का स्थल को हटाए",
   "label_locked_account_warning": "आपका खाता लॉक किया गया है| विवरण के लिए किसी व्यवस्थापक के साथ सम्पर्क स्थापित करें|"
 }

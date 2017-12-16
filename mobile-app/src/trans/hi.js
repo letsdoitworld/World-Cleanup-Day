@@ -44,7 +44,7 @@
   "label_header_notific": "सूचनाएं",
   "label_text_notific_empty_subtitle": "Nothing to see here!",
   "label_text_notific_empty_text": "We haven't seen any notifications come in yet, but we'll let you know when we do!",
-  "label_header_profile": "My profile",
+  "label_header_profile": "मेरी पार्श्वचित्र",
   "label_header_settings": "खाते के सेटिंग्स",
   "label_button_country_empty": "देश",
   "label_text_country": "देश",

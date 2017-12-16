@@ -121,7 +121,7 @@
   "label_delete_photo_title": "तस्वीर हटाएं",
   "label_delete_photo_subtitle": "क्या आपको यकीन है आप इस तस्वीर को हटाना चाहते हैं? आप इसे पूर्ववत नहीं कर सकते।",
   "label_text_about_1": "यह एप्लिकेशन Let's Do It World द्वारा एक पहल है",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
+  "label_text_about_2": "विश्व भर में साफ-सफाई की घटनाओं को शुरू करने के लिए विश्व भर के उपयोगकर्ताओं द्वारा जुटाए गए सभी तथ्य को विश्व साफ-सफाई दिवस, 15 सितंबर 2018 पर वैश्विक कचरा मानचित्र में दिखाया जाएगा",
   "label_text_about_3": "This app is a joint cooperation with",
   "label_text_about_4": "एस्टोनियाई उत्पाद, देश और सरकार द्वारा प्रायोजित किया हुआ",
   "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",

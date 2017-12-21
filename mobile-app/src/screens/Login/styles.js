@@ -24,7 +24,7 @@ export default EStyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
-    marginTop: getHeightPercentage(77),
+    marginTop: getHeightPercentage(70),
     alignItems: 'center',
   },
   button: {
@@ -36,7 +36,7 @@ export default EStyleSheet.create({
   },
   skipLogoutContainer: {
     width: getWidthPercentage(210),
-    marginTop: getHeightPercentage(25),
+    marginTop: getHeightPercentage(30),
     marginBottom: getHeightPercentage(35)
   },
   skipLogout: {

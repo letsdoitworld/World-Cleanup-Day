@@ -327,26 +327,24 @@ class CreateMarker extends Component {
       return;
     }
 
-    let label = temporaryHashtag.replace(/[^0-9a-z]/gi, '');
+    let labels = temporaryHashtag.replace(/[^0-9a-z,]/gi, '').split(',');
 
-    if (!label) {
+    if (labels.length === 1 && labels[0] === '') {
       return;
     }
 
-    label = `#${label}`;
+    labels = labels.map(label => `#${label}`);
 
-    const hashtagAlreadyExists = hashtags.find(
-      hashtag => hashtag.label === label,
-    );
+    labels = _.difference(labels, hashtags.map(hashtag => hashtag.label));
 
-    if (hashtagAlreadyExists) {
+    if (labels.length === 0) {
       return this.setState({
         temporaryHashtag: '',
       });
     }
 
     this.setState({
-      hashtags: [...hashtags, { label }],
+      hashtags: [...hashtags, ...labels.map(label => ({ label }))],
       temporaryHashtag: '',
     });
   };

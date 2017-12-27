@@ -1,7 +1,7 @@
 {
   "label_text_app_subtitle": "Annuleren",
   "label_button_facebook": "Doorgaan met Facebook",
-  "label_button_google": "Continue with Google",
+  "label_button_google": "Ga verder met Google",
   "label_button_try_app": "Try out the app without account",
   "label_button_acknowledge": "Ok, got it!",
   "label_button_cancel": "Annuleren",

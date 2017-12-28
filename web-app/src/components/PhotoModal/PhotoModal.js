@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import closeButton from '../../assets/closeButton.png';
@@ -15,5 +16,11 @@ const PhotoModal = ({ onClose, photoUrl, isOpen }) => (
     </div>
   </Modal>
 );
+
+PhotoModal.propTypes = {
+  onClose: PropTypes.func,
+  photoUrl: PropTypes.string,
+  isOpen: PropTypes.bool,
+};
 
 export default PhotoModal;

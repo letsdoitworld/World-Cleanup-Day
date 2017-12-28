@@ -40,6 +40,9 @@ Join the movement and let's clean up the World together!
 * Wikipedia: https://en.wikipedia.org/wiki/Let%27s_Do_It!_World
 * Homepage: https://www.letsdoitworld.org/
 
+## API
+See the [API docs](http://ldiw-api.s3-website.eu-central-1.amazonaws.com/)
+
 ## Roadmap
 See [Roadmap.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/ROADMAP.md)
 

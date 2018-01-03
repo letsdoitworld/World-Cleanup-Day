@@ -19,7 +19,7 @@
   "label_TP_created_date": "Criado",
   "label_TP_updated_date": "Atualizado",
   "label_TP_by": " por ",
-  "label_trash_amount_handful": "handful",
+  "label_trash_amount_handful": "um punhado",
   "label_trash_amount_bagful": "bagful",
   "label_trash_amount_cartloadl": "cartload",
   "label_trash_amount_truckload": "truckload",

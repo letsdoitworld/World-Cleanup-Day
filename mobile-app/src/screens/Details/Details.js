@@ -329,9 +329,15 @@ class Details extends Component {
     const latitudeDelta = DEFAULT_ZOOM;
     const mapHeight = getHeightPercentage(160);
     const longitudeDelta = latitudeDelta * SCREEN_WIDTH / mapHeight;
-    const thumbnails = _.has(marker, 'thumbnails')
-      ? marker.thumbnails.map(({ url }) => url)
-      : [];
+    const thumbnails = marker.thumbnails || [];
+    const mediumPhotos = marker.mediumPhotos || [];
+
+    const photos = thumbnails.map(thumbnail => ({
+      thumbnailUrl: thumbnail.url,
+      mediumPhotoUrl: mediumPhotos.find(
+        mediumPhoto => mediumPhoto.id === thumbnail.parentId,
+      ).url,
+    }));
 
     return (
       <ScrollView style={styles.container}>
@@ -390,7 +396,7 @@ class Details extends Component {
           {/* </View>*/}
         </View>
         <View>
-          <PhotoPicker maxPhotos={3} photos={thumbnails} title="Trash photos" />
+          <PhotoPicker maxPhotos={3} photos={photos} title="Trash photos" />
         </View>
         <Divider />
         <View style={{ padding: getWidthPercentage(20) }}>

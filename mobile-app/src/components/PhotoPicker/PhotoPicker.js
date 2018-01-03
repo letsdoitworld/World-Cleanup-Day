@@ -49,57 +49,77 @@ class Photo extends React.Component {
       },
     ];
   }
+
   setConfirmState = (showingConfirm) => {
     this.setState({
       showingConfirm,
     });
-  };
+  }
+
   handlePhotoDeletePress = () => {
     this.setConfirmState(true);
-  };
+  }
+
   handleModalClosed = () => {
     this.setConfirmState(false);
-  };
+  }
+
   handleModalConfirmed = () => {
     this.setConfirmState(false);
-    this.props.onPress();
-  };
+    this.props.onDeletePress();
+  }
+
+  openPhotoModal = () => {
+    const { photo } = this.props;
+    console.log('Open photo modal called!', photo);
+  }
+
   render() {
-    const { photo, onPress } = this.props;
+    const { photo, onDeletePress } = this.props;
     const { showingConfirm } = this.state;
     return (
-      <LazyImage key={photo} style={[styles.photo]} source={{ uri: photo }}>
-        <View>
-          {onPress &&
-            <TouchableOpacity
-              onPress={this.handlePhotoDeletePress}
-              style={styles.photoButtonContainer}
-            >
-              <Ionicons
-                size={styles.$photoSize}
-                name="md-close"
-                style={styles.photoButton}
-              />
-            </TouchableOpacity>}
+      <TouchableOpacity onPress={this.openPhotoModal}>
+        <LazyImage
+          key={photo}
+          style={[styles.photo]}
+          source={{ uri: photo.thumbnailUrl }}
+        >
+          <View>
+            {onDeletePress &&
+              <TouchableOpacity
+                onPress={this.handlePhotoDeletePress}
+                style={styles.photoButtonContainer}
+              >
+                <Ionicons
+                  size={styles.$photoSize}
+                  name="md-close"
+                  style={styles.photoButton}
+                />
+              </TouchableOpacity>}
 
-          <AlertModal
-            visible={showingConfirm}
-            buttons={this.buttons}
-            onOverlayPress={this.handleModalClosed}
-            title={this.props.t('label_delete_photo_title')}
-            subtitle={this.props.t('label_delete_photo_subtitle')}
-          />
-        </View>
-      </LazyImage>
+            <AlertModal
+              visible={showingConfirm}
+              buttons={this.buttons}
+              onOverlayPress={this.handleModalClosed}
+              title={this.props.t('label_delete_photo_title')}
+              subtitle={this.props.t('label_delete_photo_subtitle')}
+            />
+          </View>
+        </LazyImage>
+      </TouchableOpacity>
     );
   }
 }
+
 Photo.defaultProps = {
-  onPress: undefined,
+  onDeletePress: undefined,
 };
 Photo.propTypes = {
-  photo: PropTypes.string.isRequired,
-  onPress: PropTypes.func,
+  photo: PropTypes.shape({
+    thumbnailUrl: PropTypes.string.isRequired,
+    mediumPhotoUrl: PropTypes.string.isRequired,
+  }).isRequired,
+  onDeletePress: PropTypes.func,
 };
 
 const PhotoComponent = translate()(Photo);
@@ -117,7 +137,6 @@ const PhotoPicker = ({
   const hasPhotos = !!photos;
   const couldAddMorePhotos =
     maxPhotos && hasPhotos && photos.length < maxPhotos;
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -131,15 +150,15 @@ const PhotoPicker = ({
         style={styles.photoContainer}
       >
         {hasPhotos &&
-          photos.map((uri, index) => {
+          photos.map((photo, index) => {
             const onDeletePhotoPress = hasDelete
               ? () => onDeletePress(index)
               : undefined;
             return (
               <PhotoComponent
-                key={uri}
-                photo={uri}
-                onPress={onDeletePhotoPress}
+                key={photo.thumbnailUrl}
+                photo={photo}
+                onDeletePress={onDeletePhotoPress}
               />
             );
           })}
@@ -158,7 +177,10 @@ PhotoPicker.defaultProps = {
   onAddPress: undefined,
 };
 PhotoPicker.propTypes = {
-  photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  photos: PropTypes.arrayOf(PropTypes.shape({
+    thumbnailUrl: PropTypes.string.isRequired,
+    mediumPhotoUrl: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
   onDeletePress: PropTypes.func,
   onAddPress: PropTypes.func,
   maxPhotos: PropTypes.number,

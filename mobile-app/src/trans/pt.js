@@ -121,9 +121,9 @@
   "label_delete_photo_title": "Apagar foto",
   "label_delete_photo_subtitle": "Tem a certeza que quer apagar a foto? Não pode voltar a recuperá-la.",
   "label_text_about_1": "Esta app é uma iniciativa da Let's Do It World",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
+  "label_text_about_2": "Todos os dados agregados pelos utlizadores serão visualizados no mapa de lixo global para iniciar eventos de limpeza mundial no Dia Mundial da Limpeza, 15 de Setembro 2018",
+  "label_text_about_3": "Esta aplicação é uma cooperação com",
+  "label_text_about_4": "Produto Estoniano, pratocinado pelo país e governo",
   "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
   "label_button_editTP_delete": "Apagar Ponto de Lixo",
   "label_locked_account_warning": "A sua conta está bloqueada. Para mais detalhes contacte o Administrador."

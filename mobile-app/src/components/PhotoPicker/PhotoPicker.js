@@ -104,6 +104,9 @@ class Photo extends React.Component {
           <Modal
             visible={this.state.showZoomedPhoto}
             onRequestClose={this.closeZoomedPhoto}
+            style={{
+              backgroundColor: '#d8d8d8',
+            }}
           >
             <Image
               style={{
@@ -111,7 +114,27 @@ class Photo extends React.Component {
               }}
               resizeMode="contain"
               source={{ uri: this.state.zoomedPhotoUrl }}
-            />
+            >
+              <TouchableOpacity
+                onPress={this.closeZoomedPhoto}
+                style={{
+                  width: 50,
+                  height: 50,
+                  marginLeft: 410,
+                  marginTop: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#fe6669',
+                  borderRadius: 4,
+                }}
+              >
+                <Ionicons
+                  size={styles.$photoSize}
+                  name="md-close"
+                  style={styles.photoButton}
+                />
+              </TouchableOpacity>
+            </Image>
           </Modal>
           <View>
             {onDeletePress &&

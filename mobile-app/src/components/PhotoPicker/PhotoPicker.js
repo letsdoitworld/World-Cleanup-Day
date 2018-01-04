@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Modal,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import _ from 'lodash';
 import { translate } from 'react-i18next';
 
 import { AlertModal } from '../AlertModal';
@@ -35,6 +41,7 @@ class Photo extends React.Component {
     super(props);
     this.state = {
       showingConfirm: false,
+      showZoomedPhoto: false,
     };
 
     this.buttons = [
@@ -69,21 +76,43 @@ class Photo extends React.Component {
     this.props.onDeletePress();
   }
 
-  openPhotoModal = () => {
+  openZoomedPhoto = () => {
     const { photo } = this.props;
     console.log('Open photo modal called!', photo);
+    this.setState({
+      zoomedPhotoUrl: photo.mediumPhotoUrl,
+      showZoomedPhoto: true,
+    });
+  }
+
+  closeZoomedPhoto = () => {
+    this.setState({
+      showZoomedPhoto: false,
+    });
   }
 
   render() {
     const { photo, onDeletePress } = this.props;
     const { showingConfirm } = this.state;
     return (
-      <TouchableOpacity onPress={this.openPhotoModal}>
+      <TouchableOpacity onPress={this.openZoomedPhoto}>
         <LazyImage
           key={photo}
           style={[styles.photo]}
           source={{ uri: photo.thumbnailUrl }}
         >
+          <Modal
+            visible={this.state.showZoomedPhoto}
+            onRequestClose={this.closeZoomedPhoto}
+          >
+            <Image
+              style={{
+                flex: 1,
+              }}
+              resizeMode="contain"
+              source={{ uri: this.state.zoomedPhotoUrl }}
+            />
+          </Modal>
           <View>
             {onDeletePress &&
               <TouchableOpacity
@@ -114,6 +143,7 @@ class Photo extends React.Component {
 Photo.defaultProps = {
   onDeletePress: undefined,
 };
+
 Photo.propTypes = {
   photo: PropTypes.shape({
     thumbnailUrl: PropTypes.string.isRequired,
@@ -137,6 +167,7 @@ const PhotoPicker = ({
   const hasPhotos = !!photos;
   const couldAddMorePhotos =
     maxPhotos && hasPhotos && photos.length < maxPhotos;
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -171,11 +202,13 @@ const PhotoPicker = ({
     </View>
   );
 };
+
 PhotoPicker.defaultProps = {
   maxPhotos: undefined,
   onDeletePress: undefined,
   onAddPress: undefined,
 };
+
 PhotoPicker.propTypes = {
   photos: PropTypes.arrayOf(PropTypes.shape({
     thumbnailUrl: PropTypes.string.isRequired,
@@ -185,4 +218,5 @@ PhotoPicker.propTypes = {
   onAddPress: PropTypes.func,
   maxPhotos: PropTypes.number,
 };
+
 export default translate()(PhotoPicker);

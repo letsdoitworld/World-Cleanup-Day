@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Image,
   View,
   Text,
   TouchableOpacity,
   ScrollView,
-  Modal,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { translate } from 'react-i18next';
 
 import { AlertModal } from '../AlertModal';
+import { PhotoModal } from '../PhotoModal';
 import { LazyImage } from './components/LazyImage';
 
 import styles from './styles';
@@ -78,7 +77,6 @@ class Photo extends React.Component {
 
   openZoomedPhoto = () => {
     const { photo } = this.props;
-    console.log('Open photo modal called!', photo);
     this.setState({
       zoomedPhotoUrl: photo.mediumPhotoUrl,
       showZoomedPhoto: true,
@@ -101,41 +99,11 @@ class Photo extends React.Component {
           style={[styles.photo]}
           source={{ uri: photo.thumbnailUrl }}
         >
-          <Modal
+          <PhotoModal
             visible={this.state.showZoomedPhoto}
             onRequestClose={this.closeZoomedPhoto}
-            style={{
-              backgroundColor: '#d8d8d8',
-            }}
-          >
-            <Image
-              style={{
-                flex: 1,
-              }}
-              resizeMode="contain"
-              source={{ uri: this.state.zoomedPhotoUrl }}
-            >
-              <TouchableOpacity
-                onPress={this.closeZoomedPhoto}
-                style={{
-                  width: 50,
-                  height: 50,
-                  marginLeft: 410,
-                  marginTop: 30,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#fe6669',
-                  borderRadius: 4,
-                }}
-              >
-                <Ionicons
-                  size={styles.$photoSize}
-                  name="md-close"
-                  style={styles.photoButton}
-                />
-              </TouchableOpacity>
-            </Image>
-          </Modal>
+            photoUrl={this.state.zoomedPhotoUrl}
+          />
           <View>
             {onDeletePress &&
               <TouchableOpacity

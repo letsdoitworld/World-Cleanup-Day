@@ -47,7 +47,7 @@ const StatusPicker = ({ value, onChange, display = ['threat', 'regular'], t }) =
             <TouchableWithoutFeedback key={option.id} onPress={onImagePress}>
               <View style={styles.option}>
                 <Image
-                  style={styles.image}
+                  style={isSelected ? styles.selectedImage : styles.image}
                   resizeMode="contain"
                   source={isSelected ? option.selectedImage : option.image}
                 />
@@ -58,7 +58,6 @@ const StatusPicker = ({ value, onChange, display = ['threat', 'regular'], t }) =
             </TouchableWithoutFeedback>
           );
         })}
-
       </View>
     </View>
   );

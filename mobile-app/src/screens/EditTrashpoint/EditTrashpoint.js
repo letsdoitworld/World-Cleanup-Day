@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
 import { MessageBarManager } from 'react-native-message-bar';
+import Slider from 'react-native-slider';
 import moment from 'moment';
 import {
   StatusBar,
@@ -37,6 +38,7 @@ import { StatusText } from '../../components/StatusText';
 import { TrashpointDate } from '../../components/TrashpointDate';
 import { withLoadingScreen } from '../../services/Loading';
 import { AlertModal } from '../../components/AlertModal';
+import { CustomSlider } from '../../components/CustomSlider';
 import {
   TRASH_COMPOSITION_TYPE_LIST,
   MARKER_STATUSES,
@@ -462,6 +464,7 @@ class EditTrashpoint extends Component {
           </View>
           <Divider />
           <View style={{ padding: getWidthPercentage(20) }}>
+            <CustomSlider width={400} maximumValue={3} step={1}/>
             <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
               {this.props.t('label_text_createTP_select_amount')}
             </Text>

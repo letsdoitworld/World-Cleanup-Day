@@ -125,6 +125,6 @@
   "label_text_about_3": "Questa app è una collaborazione congiunta con",
   "label_text_about_4": "Estonian product, sponsored by the country and government",
   "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
+  "label_button_editTP_delete": "Cancella il punto di rifiuti",
   "label_locked_account_warning": "Il tuo account è bloccato. Per ulteriori informazioni contattare un amministratore."
 }

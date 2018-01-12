@@ -12,65 +12,49 @@ import { range } from 'lodash';
 const NATIVE_SLIDER_DEFAULT_MARGIN = 12;
 const NATIVE_SLIDER_DEFAULT_PADDING = 16;
 
-class CustomSlider extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      sliderValue: 0,
-    };
-  }
-
-  handleOnValueChange = (value) => {
-    this.setState({
-      sliderValue: value,
-    });
-  }
-
-  render() {
-    return (
-      <View
-        style={{
-          marginTop: 30,
-          paddingTop: 7,
-          flexDirection: 'row',
-          alignItems: 'center',
-          // backgroundColor: 'blue',
-          width: this.props.width,
-        }}
-      >
-        {range(0, this.props.maximumValue + 1).map((currentStep) => 
-          <View
-            style={{
-              position: 'absolute',
-              left: (this.props.width / this.props.maximumValue) * currentStep,
-              top: 0,
-              width: 2,
-              height: 30,
-              backgroundColor: "#4AA5FF",
-            }}
-          />
-        )}
-        <Slider width={this.props.width} maximumValue={this.props.maximumValue} step={this.props.step}
-          trackStyle={{
-            height: this.props.trackHeight,
-            backgroundColor: '#F7F7F7',
-            borderRadius: this.props.trackHeight,
+const CustomSlider = (props) => {
+  return (
+    <View
+      style={{
+        marginTop: 30,
+        paddingTop: 7,
+        flexDirection: 'row',
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+        width: props.width,
+      }}
+    >
+      {range(0, props.maximumValue + 1).map((currentStep) =>
+        <View
+          style={{
+            position: 'absolute',
+            left: (props.width / props.maximumValue) * currentStep,
+            top: 0,
+            width: 2,
+            height: 30,
+            backgroundColor: "#4AA5FF",
           }}
-          thumbStyle={{
-            height: this.props.knobSize,
-            width: this.props.knobSize,
-            borderRadius: this.props.knobSize,
-            borderColor: '#FFFFFF',
-            borderWidth: this.props.knobSize - this.props.innerKnobSize,
-            backgroundColor: '#4AA5FF',
-          }}
-          minimumTrackTintColor="#4AA5FF"
-          maximumTrackTintColor="#4AA5FF"
         />
-      </View>
-    );
-  }
+      )}
+      <Slider width={props.width} maximumValue={props.maximumValue} step={props.step}
+        trackStyle={{
+          height: props.trackHeight,
+          backgroundColor: '#F7F7F7',
+          borderRadius: props.trackHeight,
+        }}
+        thumbStyle={{
+          height: props.knobSize,
+          width: props.knobSize,
+          borderRadius: props.knobSize,
+          borderColor: '#FFFFFF',
+          borderWidth: props.knobSize - props.innerKnobSize,
+          backgroundColor: '#4AA5FF',
+        }}
+        minimumTrackTintColor="#4AA5FF"
+        maximumTrackTintColor="#4AA5FF"
+      />
+    </View>
+  );
 }
 
 CustomSlider.defaultProps = {

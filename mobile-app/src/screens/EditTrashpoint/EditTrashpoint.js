@@ -464,7 +464,20 @@ class EditTrashpoint extends Component {
           </View>
           <Divider />
           <View style={{ padding: getWidthPercentage(20) }}>
-            <CustomSlider width={400} maximumValue={3} step={1}/>
+            <CustomSlider
+              width={400}
+              maximumValue={3}
+              step={1}
+              gradationData={[{
+                position: 14,
+              }, {
+                position: 137,
+              }, {
+                position: 260,
+              }, {
+                position: 382,
+              }]}
+            />
             <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
               {this.props.t('label_text_createTP_select_amount')}
             </Text>

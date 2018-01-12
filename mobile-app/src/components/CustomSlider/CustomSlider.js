@@ -24,11 +24,11 @@ const CustomSlider = (props) => {
         width: props.width,
       }}
     >
-      {range(0, props.maximumValue + 1).map((currentStep) =>
+      {props.gradationData.map(data =>
         <View
           style={{
             position: 'absolute',
-            left: (props.width / props.maximumValue) * currentStep,
+            left: data.position,
             top: 0,
             width: 2,
             height: 30,
@@ -70,7 +70,10 @@ CustomSlider.propTypes = {
   knobSize: PropTypes.number,
   innerKnobSize: PropTypes.number,
   trackHeight: PropTypes.number,
-  gradationData: PropTypes.object,
+  gradationData: PropTypes.shape({
+    position: PropTypes.number.isRequired,
+    image: PropTypes.string,
+  }),
 };
 
 CustomSlider.propTypes = {};

@@ -1,42 +1,67 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  StyleSheet,  
+  StyleSheet,
   View,
   Text,
+  Image,
 } from 'react-native';
 import Slider from 'react-native-slider';
 
-import { range } from 'lodash';
+const GradationLine = (props) => (
+  <View
+    style={{
+      width: 2,
+      height: 28,
+      backgroundColor: "#4AA5FF",
+    }}
+  />
+);
 
-const NATIVE_SLIDER_DEFAULT_MARGIN = 12;
-const NATIVE_SLIDER_DEFAULT_PADDING = 16;
+const Gradation = (props) => (
+  <View 
+    style={{
+      position: 'absolute',
+      left: props.position - 16.5,
+      top: 0,
+      flexDirection: 'column',
+      alignItems: 'center',
+    }}
+  >
+    <Image
+      source={props.image}
+      resizeMode="contain"
+      style={{
+        marginBottom: 10,
+        width: 33,
+        height: 33,
+      }}
+    />
+    <GradationLine />
+  </View>
+);
 
 const CustomSlider = (props) => {
   return (
     <View
       style={{
         marginTop: 30,
-        paddingTop: 7,
+        height: 88,
         flexDirection: 'row',
-        alignItems: 'center',
-        // backgroundColor: 'blue',
         width: props.width,
       }}
     >
-      {props.gradationData.map(data =>
-        <View
-          style={{
-            position: 'absolute',
-            left: data.position,
-            top: 0,
-            width: 2,
-            height: 30,
-            backgroundColor: "#4AA5FF",
-          }}
+      {props.gradationData.map(data => (
+        <Gradation
+          position={data.position}
+          image={data.image}
         />
-      )}
-      <Slider width={props.width} maximumValue={props.maximumValue} step={props.step}
+      ))}
+
+      <Slider
+        width={props.width}
+        maximumValue={props.maximumValue}
+        step={props.step}
         trackStyle={{
           height: props.trackHeight,
           backgroundColor: '#F7F7F7',
@@ -50,12 +75,16 @@ const CustomSlider = (props) => {
           borderWidth: props.knobSize - props.innerKnobSize,
           backgroundColor: '#4AA5FF',
         }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+        }}
         minimumTrackTintColor="#4AA5FF"
         maximumTrackTintColor="#4AA5FF"
       />
     </View>
   );
-}
+};
 
 CustomSlider.defaultProps = {
   knobSize: 32,
@@ -72,10 +101,8 @@ CustomSlider.propTypes = {
   trackHeight: PropTypes.number,
   gradationData: PropTypes.shape({
     position: PropTypes.number.isRequired,
-    image: PropTypes.string,
+    image: PropTypes.object,
   }),
 };
-
-CustomSlider.propTypes = {};
 
 export default CustomSlider;

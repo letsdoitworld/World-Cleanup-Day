@@ -469,13 +469,17 @@ class EditTrashpoint extends Component {
               maximumValue={3}
               step={1}
               gradationData={[{
-                position: 14,
+                position: 16,
+                image: require('../../components/AmountPicker/images/icon_handful_blue_outline.png'),
               }, {
-                position: 137,
+                position: 139,
+                image: require('../../components/AmountPicker/images/icon_bagful_blue_outline.png'),
               }, {
-                position: 260,
+                position: 262,
+                image: require('../../components/AmountPicker/images/icon_cartload_blue_outline.png'),
               }, {
-                position: 382,
+                position: 384,
+                image: require('../../components/AmountPicker/images/icon_truck_blue_outline.png'),
               }]}
             />
             <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>

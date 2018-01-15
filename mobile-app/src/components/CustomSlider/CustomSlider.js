@@ -62,6 +62,7 @@ const CustomSlider = (props) => {
         width={props.width}
         maximumValue={props.maximumValue}
         step={props.step}
+        onValueChange={props.onValueChange}
         trackStyle={{
           height: props.trackHeight,
           backgroundColor: '#F7F7F7',
@@ -96,6 +97,7 @@ CustomSlider.propTypes = {
   width: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
   maximumValue: PropTypes.number.isRequired,
+  onValueChange: PropTypes.func,
   knobSize: PropTypes.number,
   innerKnobSize: PropTypes.number,
   trackHeight: PropTypes.number,

@@ -373,7 +373,7 @@ class EditTrashpoint extends Component {
 
   handleAmountSelect = (amount) => {
     this.setState({
-      amount: AMOUNT_STATUSES[amount],
+      amount,
     });
   };
 
@@ -464,10 +464,14 @@ class EditTrashpoint extends Component {
           </View>
           <Divider />
           <View style={{ padding: getWidthPercentage(20) }}>
+            <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
+              {this.props.t('label_text_createTP_select_amount')}
+            </Text>
             <CustomSlider
               width={400}
               maximumValue={3}
               step={1}
+              onValueChange={this.handleAmountSelect}
               gradationData={[{
                 position: 16,
                 image: require('../../components/AmountPicker/images/icon_handful_blue_outline.png'),
@@ -482,10 +486,6 @@ class EditTrashpoint extends Component {
                 image: require('../../components/AmountPicker/images/icon_truck_blue_outline.png'),
               }]}
             />
-            <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
-              {this.props.t('label_text_createTP_select_amount')}
-            </Text>
-            <AmountPicker amount={amount} onSelect={this.handleAmountSelect} />
             <View
               style={{
                 paddingTop: HEIGHT_SIZE20,

@@ -7,12 +7,13 @@ import {
   Image,
 } from 'react-native';
 import Slider from 'react-native-slider';
+import { getWidthPercentage } from '../../shared/helpers';
 
 const GradationLine = (props) => (
   <View
     style={{
       width: 2,
-      height: 28,
+      height: getWidthPercentage(15),
       backgroundColor: "#4AA5FF",
     }}
   />
@@ -22,7 +23,7 @@ const Gradation = (props) => (
   <View 
     style={{
       position: 'absolute',
-      left: props.position - 16.5,
+      left: props.position - props.imageSize / 2,
       top: 0,
       flexDirection: 'column',
       alignItems: 'center',
@@ -33,20 +34,26 @@ const Gradation = (props) => (
       resizeMode="contain"
       style={{
         marginBottom: 10,
-        width: 33,
-        height: 33,
+        width: props.imageSize,
+        height: props.imageSize,
       }}
     />
     <GradationLine />
   </View>
 );
+Gradation.defaultProps = {
+  imageSize: getWidthPercentage(23),
+};
+Gradation.propTypes = {
+  imageSize: PropTypes.number,
+};
 
 const CustomSlider = (props) => {
   return (
     <View
       style={{
         marginTop: 30,
-        height: 88,
+        height: getWidthPercentage(62),
         flexDirection: 'row',
         width: props.width,
       }}
@@ -88,9 +95,9 @@ const CustomSlider = (props) => {
 };
 
 CustomSlider.defaultProps = {
-  knobSize: 32,
-  innerKnobSize: 24,
-  trackHeight: 14,
+  knobSize: getWidthPercentage(20),
+  innerKnobSize: getWidthPercentage(15),
+  trackHeight: getWidthPercentage(9),
 };
 
 CustomSlider.propTypes = {

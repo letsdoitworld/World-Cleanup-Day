@@ -372,6 +372,8 @@ class EditTrashpoint extends Component {
   };
 
   handleAmountSelect = (amount) => {
+    console.log(`Amount from slider: ${amount}`);
+    console.log(`Amount saved in state: ${AMOUNT_STATUSES[amount]}`);
     this.setState({
       amount,
     });
@@ -474,16 +476,20 @@ class EditTrashpoint extends Component {
               onValueChange={this.handleAmountSelect}
               gradationData={[{
                 position: 16,
-                image: require('../../components/AmountPicker/images/icon_handful_blue_outline.png'),
+                image: this.state.amount >= 0 ? require('../../components/AmountPicker/images/icon_handful_blue_fill.png')
+                                              : require('../../components/AmountPicker/images/icon_handful_blue_outline.png'),
               }, {
                 position: 139,
-                image: require('../../components/AmountPicker/images/icon_bagful_blue_outline.png'),
+                image: this.state.amount >= 1 ? require('../../components/AmountPicker/images/icon_bagful_blue_fill.png')
+                                              : require('../../components/AmountPicker/images/icon_bagful_blue_outline.png'),
               }, {
                 position: 262,
-                image: require('../../components/AmountPicker/images/icon_cartload_blue_outline.png'),
+                image: this.state.amount >= 2 ? require('../../components/AmountPicker/images/icon_cartload_blue_fill.png')
+                                              : require('../../components/AmountPicker/images/icon_cartload_blue_outline.png'),
               }, {
                 position: 384,
-                image: require('../../components/AmountPicker/images/icon_truck_blue_outline.png'),
+                image: this.state.amount >= 3 ? require('../../components/AmountPicker/images/icon_cartload_blue_fill.png')
+                                              : require('../../components/AmountPicker/images/icon_truck_blue_outline.png'),
               }]}
             />
             <View

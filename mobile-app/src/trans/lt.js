@@ -74,7 +74,7 @@
   "label_text_editTP_ask": "Ar ši šiukšlių taško informacija šiandien vis dar teisinga?",
   "label_text_editTP_letsconfirm": "Taip, patvirtinu",
   "label_alert_editTP_confirm": "Šiukšlių taškas sėkmingai patvirtintas",
-  "label_text_editTP_letsedit": "No, let's edit",
+  "label_text_editTP_letsedit": "Ne, redaguoti",
   "label_header_editTP": "Edit a trashpoint",
   "label_button_editTP_save": "Save trashpoint changes",
   "label_alert_editTP_edit": "Trashpoint successfully updated",

@@ -50,6 +50,8 @@ import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';
 import { withLoadingScreen } from '../../services/Loading';
 
+import { AMOUNT_HASH } from '../../shared/constants';
+
 const ALERT_CHECK_IMG = require('../CreateMarker/alert_check.png');
 
 const SIZE_WIDTH135 = getWidthPercentage(135);
@@ -408,7 +410,7 @@ class Details extends Component {
                 fontSize: 13,
               }}
             >
-              {marker.amount.toUpperCase()}
+              {this.props.t(AMOUNT_HASH[marker.amount]).toUpperCase()}
             </Text>
           </View>
         </View>

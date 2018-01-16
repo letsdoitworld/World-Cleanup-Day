@@ -121,7 +121,7 @@
   "label_delete_photo_title": "Elimina la foto",
   "label_delete_photo_subtitle": "Sei sicuro di che voler cancellare la foto? Non è possibile annullare questo.",
   "label_text_about_1": "Questa app è un iniziativa di Let's Do It World",
-  "label_text_about_2": "Tutti i dati che sono raccolti dagli utenti in tutto il mondo verranno visualizzati nella mappatura globale dei rifiuti per l'avvio l'evento mondiale clean-up (pulizia) nel giorno World Cleanup (pulizia mondiale), 15 Settembre 2018",
+  "label_text_about_2": "Tutti i dati che sono raccolti dagli utenti in tutto il mondo verranno visualizzati nella mappatura globale di rifiuti per l'avvio l'evento mondiale clean-up (pulizia) nel giorno World Cleanup (pulizia mondiale), 15 Settembre 2018",
   "label_text_about_3": "Questa app è una collaborazione congiunta con",
   "label_text_about_4": "Prodotti estone, sponsorizzati dal paese e dal governo",
   "label_text_about_5": "Finanziatori: Ministero dell'ambiente Estone, Ministero degli affari esteri della Repubblica d'Estonia, Repubblica di Estonia 100 programmi",

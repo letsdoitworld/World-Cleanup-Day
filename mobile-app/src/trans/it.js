@@ -59,7 +59,7 @@
   "label_button_createTP_editloc": "Modifica la posizione",
   "label_header_edit_loc": "Modifica la posizione",
   "label_button_edit_loc_set": "Imposta la posizione del punto di rifiuti",
-  "label_text_createTP_status_subtitle": "Stato dei punti",
+  "label_text_createTP_status_subtitle": "Stato del punto",
   "label_text_createTP_status_text": "Se è necessario un'azione rapida (tossici, metalli pesanti), si prega di impostare come un pericolo.",
   "label_text_createTP_add_photos": "Aggiungi le foto di rifiuti",
   "label_text_createTP_select_amount": "Selezionare la quantità di rifiuti",

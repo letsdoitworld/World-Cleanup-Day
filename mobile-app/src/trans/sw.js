@@ -38,7 +38,7 @@
   "label_text_popover_subtitle": "Ungana na watu wanao chora ramani sehemu zenye taka!",
   "label_text_popover_text": "Anza kuunda maeneo yenye taka, kufanya jamii yako safi na salama.",
   "label_header_activity": "My activity",
-  "label_text_activity_empty_subtitle": "Nothing to see here!",
+  "label_text_activity_empty_subtitle": "Hamna kitu!",
   "label_text_activity_empty_text": "You haven't added any trashpoints yet. When you do, they will be listed here.",
   "label_text_activity_empty_hint": "Add a trashpoint!",
   "label_header_notific": "Notifications",

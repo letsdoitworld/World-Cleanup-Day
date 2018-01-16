@@ -1,7 +1,7 @@
 {
-  "label_text_app_subtitle": "Let's clean up the world together!",
-  "label_button_facebook": "Continue with Facebook",
-  "label_button_google": "Continue with Google",
+  "label_text_app_subtitle": "Tuungane pamoja tusafishe Dunia!",
+  "label_button_facebook": "Endelea na usajili wa Facebook",
+  "label_button_google": "Endelea na usajili wa kwenye mtandao wa google",
   "label_button_try_app": "Try out the app without account",
   "label_button_acknowledge": "Ok, got it!",
   "label_button_cancel": "Cancel",

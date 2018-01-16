@@ -39,5 +39,6 @@ i18n.use(languageDetector).init({
   },
 });
 i18n.addResources('en', 'general', require('../trans/en.json'));
+i18n.addResources('ro', 'general', require('../trans/ro.json'));
 
 export default i18n;

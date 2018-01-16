@@ -387,7 +387,7 @@ class Details extends Component {
           {/* </View>*/}
         </View>
         <View>
-          <PhotoPicker maxPhotos={3} photos={thumbnails} title="Trash photos" />
+          <PhotoPicker maxPhotos={3} photos={thumbnails} title={this.props.t('label_text_detailsTP_photos')} />
         </View>
         <Divider />
         <View style={{ padding: getWidthPercentage(20) }}>

@@ -70,7 +70,7 @@ const CARTLOAD_IMAGE_DATA = {
 const TRUCKLOAD_IMAGE_DATA = {
   default: require('../../components/AmountPicker/images/icon_truck_blue_outline.png'),
   active: require('../../components/AmountPicker/images/icon_truck_blue_fill.png'),
-}
+};
 
 const MAX_HASHTAGS_NO = 15;
 const GRADIENT_COLORS = ['#FFFFFF', '#F1F1F1'];

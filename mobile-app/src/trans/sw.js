@@ -126,5 +126,5 @@
   "label_text_about_4": "Estonia product, umedhaminiwa na nchi na serikali",
   "label_text_about_5": "Wadhamini: Wizara ya mazingira ya Estonia, Wizara ya mambo ya kigeni ya Jamhuri ya Estonia, Estonian Republic 100 program",
   "label_button_editTP_delete": "Futa eneo lenye taka",
-  "label_locked_account_warning": "Akaunti yako imefungwa. kwa taarifa zaidi wasiliana na uongozi."
+  "label_locked_account_warning": "Akaunti yako imefungwa. Kwa taarifa zaidi wasiliana na uongozi."
 }

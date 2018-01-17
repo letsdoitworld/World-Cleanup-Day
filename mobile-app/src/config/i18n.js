@@ -84,7 +84,8 @@ i18n.addResources('ht', 'general', require('../trans/ht.json'));
 i18n.addResources('hu', 'general', require('../trans/hu.json'));
 i18n.addResources('hy', 'general', require('../trans/hy.json'));
 
-i18n.addResources('id', 'general', require('../trans/id.json'));
+// Android sends 'in' as language id for Indonesia (it should be id)
+i18n.addResources('in', 'general', require('../trans/id.json'));
 i18n.addResources('ig', 'general', require('../trans/ig.json'));
 i18n.addResources('io', 'general', require('../trans/io.json'));
 i18n.addResources('is', 'general', require('../trans/is.json'));

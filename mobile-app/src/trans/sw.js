@@ -90,7 +90,7 @@
   "label_error_generic_error_subtitle": "Nje ya mipaka",
   "label_error_generic_error_text": "Kulikuwa na kosa katika seva.",
   "label_error_network_subtitle": "Hakuna mtandao uliounganishwa",
-  "label_error_network_text": "Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.",
+  "label_error_network_text": "Simu yako haijaunganishwa na intaneti, washa intaneti au unganisha simu yako na Wi-Fi ili utumie programu.",
   "label_error_location_subtitle": "Enable location",
   "label_error_location_text": "Location Services are turned off. Please enable your GPS in your Settings to use the application.",
   "label_error_loc_permission_text": "Location Services are not permitted. Please allow them in order to use the application.",

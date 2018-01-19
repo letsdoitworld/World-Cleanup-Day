@@ -74,10 +74,10 @@ export const TRASH_COMPOSITION_TYPE_LIST = [
 ];
 
 export const AMOUNT_HASH = {
-  handful: 'HANDFUL',
-  bagful: 'BAGFUL',
-  cartload: 'CARTLOAD',
-  truckload: 'TRUCKLOAD',
+  handful: 'label_trash_amount_handful',
+  bagful: 'label_trash_amount_bagful',
+  cartload: 'label_trash_amount_cartloadl',
+  truckload: 'label_trash_amount_truckload',
 };
 
 export const ERRORS = {

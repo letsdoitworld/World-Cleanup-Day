@@ -126,5 +126,5 @@
   "label_text_about_4": "Estonian product, sponsored by the country and government",
   "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
   "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_locked_account_warning": "Jūsų paskyra užblokuota. Susisiekite su administratoriumi."
 }

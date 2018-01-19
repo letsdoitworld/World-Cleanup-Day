@@ -1,0 +1,13 @@
+.EditLocationInput-text{
+  height: 35px;
+  border: 1px solid #D9D9D9;
+  background-color: #FFFFFF;
+  -webkit-box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  -ms-flex: 1 1 0%;
+  flex: 1 1 0%;
+  outline: none;
+  padding-left: 20px;
+  padding-right: 25px;
+}

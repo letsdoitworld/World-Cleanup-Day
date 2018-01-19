@@ -15,6 +15,7 @@ const canLoadMoreUsers = createSelector(
   usersSelector,
   state => state.canLoadMore,
 );
+const getTotalUsers = createSelector(usersSelector, state => state.total);
 
 const userSelector = createSelector(adminSelector, state => state.user);
 const getUser = createSelector(userSelector, state => state.user);
@@ -29,6 +30,7 @@ export default {
   getUsersLastPage,
   canLoadMoreUsers,
   getUsersPageSize,
+  getTotalUsers,
 
   getUser,
   getUserLoading,

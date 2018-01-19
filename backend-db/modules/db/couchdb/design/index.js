@@ -63,6 +63,53 @@ const designDocs = {
                 },
             },
         },
+        byCountryAndName: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account' && doc.country) {
+                            emit([doc.country, doc.name], doc);
+                        }
+                    },
+                },
+            },
+        },
+        byNamePieces: {
+            $version: 3,
+            views: {
+                view: {
+                    map: function (doc) {
+                        function splitter(L, bit) {
+                            var chunks = {};
+                            for (var i = 0; i < bit.length - L + 1; i++) {
+                                chunks[bit.substring(i, i + L)] = true;
+                            }
+                            return chunks;
+                        }
+                        function collator(L, name) {
+                            var bits = name.trim().toLowerCase().split(/\s+/);
+                            var chunks = {};
+                            for (var b = 0; b < bits.length; b++) {
+                                Object.getOwnPropertyNames(splitter(L, bits[b])).forEach(function (prop) {
+                                    chunks[prop] = true;
+                                });
+                            }
+                            return Object.getOwnPropertyNames(chunks);
+                        }
+                        if (doc.$doctype === 'account') {
+                            for (var i = 3; i <= 10; i++) {
+                                var pieces = collator(i, doc.name);
+                                for (var k = 0; k < pieces.length; k++) {
+                                    emit([pieces[k], doc.country, doc.name], doc);
+                                }
+                            }
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
         countAll: {
             $version: 1,
             views: {
@@ -70,6 +117,19 @@ const designDocs = {
                     map: function (doc) {
                         if (doc.$doctype === 'account') {
                             emit(null, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
+        countByCountry: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account' && doc.country) {
+                            emit(doc.country, null);
                         }
                     },
                     reduce: '_count',
@@ -317,17 +377,28 @@ const designDocs = {
     },
 };
 
+/**
+ * VERSION HISTORY FOR THE CLUSTERING VIEWS:
+ * 1: grid cell location at cell center
+ * 2: grid cell location at center of bbox of points in cell
+ * 3: switch clustering slope from decimal levels to logarithmic
+ * 4: fine-tune clustering logarithmic slope
+ * 5: fix rereduce logic bug in 'isolated' views
+ * 6: remap scales for viewport width in longitude degrees instead of viewport diagonal in meters
+ * 7: fix rereduce logic bug in 'cluster' views
+ * 8: change clustering slope function from exp(x) to 2^x
+ */
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(1, 'isolated', templates.isolatedTrashpoints),
+    tools.makeGridScaleDesignDocs(8, 'isolated', templates.isolatedTrashpoints),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(1, 'clusters', templates.trashpointClusters),
+    tools.makeGridScaleDesignDocs(8, 'clusters', templates.trashpointClusters),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(1, 'byGridCell', templates.trashpointsByGridCell),
+    tools.makeGridScaleDesignDocs(8, 'byGridCell', templates.trashpointsByGridCell),
 );
 
 module.exports = designDocs;

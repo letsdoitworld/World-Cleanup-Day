@@ -1,3 +1,7 @@
+#WARNING
+BUILDING ON ANDROID UPDATES THE JS IN THE ALREADY DEPLOYED CLIENTS
+FOR MORE DETAILS SEE [this](https://expo.canny.io/feature-requests/p/support-isremotejsenabled-on-android)
+
 ## Local development instructions
 
 1. yarn

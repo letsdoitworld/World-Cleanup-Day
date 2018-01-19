@@ -20,11 +20,12 @@ const usersReducer = (state = USERS_STATE, action) => {
       return {
         ...state,
         loading: false,
-        users: (action.payload.reset ? [] : state.users).concat(
-          action.payload.users,
-        ),
+        users: action.payload.isSearch ?
+          (action.payload.isLoadingMore ? [...state.users, ...action.payload.users] : action.payload.users) :
+          (action.payload.reset ? [] : state.users).concat(action.payload.users),
         canLoadMore: action.payload.canLoadMore,
         error: false,
+        total: action.payload.total
       };
     case TYPES.FETCH_USERS_FAILED:
       return { ...state, loading: false, error: true };
@@ -42,6 +43,8 @@ const usersReducer = (state = USERS_STATE, action) => {
       ];
       return { ...state, users: newUsers };
     }
+    case TYPES.RESET_USERS:
+      return { ...state, users: [] };
     case types.ASSIGN_AREA_LEADER: {
       return {
         ...state,

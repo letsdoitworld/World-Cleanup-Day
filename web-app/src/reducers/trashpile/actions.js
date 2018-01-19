@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES } from '../../shared/constants';
+import {
+  API_ENDPOINTS,
+  TRASHPOINT_IMAGE_TYPES,
+  MARKER_DIAGONALE_IN_PX,
+} from '../../shared/constants';
 import {
   convertToByteArray,
   getDistanceBetweenPointsInMeters,
@@ -29,10 +33,17 @@ export const fetchAreaTrashpoints = ({
       )}?pageSize=${pageSize}&pageNumber=${pageNumber}`,
     );
     if (!response || !response.data || !Array.isArray(response.data.records)) {
-      dispatch({
-        type: TYPES.FETCH_AREA_MARKERS_ERROR,
-      });
-      return false;
+      const response = await ApiService.get(
+        `${API_ENDPOINTS.FETCH_AREA_TRASHPOINTS(
+          areaId,
+        )}?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+      );
+      if (!response) {
+        dispatch({
+          type: TYPES.FETCH_AREA_MARKERS_ERROR,
+        });
+        return false;
+      }
     }
 
     const total = response.data.total || 0;
@@ -66,6 +77,7 @@ export const fetchAreaTrashpoints = ({
 const fetchAllMarkers = (
   viewPortLeftTopCoordinate,
   viewPortRightBottomCoordinate,
+  mapSize,
 ) => async (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_ALL_MARKERS_REQUEST });
   const datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
@@ -78,6 +90,25 @@ const fetchAllMarkers = (
   );
   const grid = getGridValue(diagonaleInMeters);
   dispatch(setGridValue(grid));
+  let cellSize = 0;
+  if (
+    viewPortRightBottomCoordinate.longitude >
+    viewPortLeftTopCoordinate.longitude
+  ) {
+    cellSize =
+      38 *
+      (viewPortRightBottomCoordinate.longitude -
+        viewPortLeftTopCoordinate.longitude) /
+      mapSize.width;
+  } else {
+    cellSize =
+      (180 -
+        viewPortLeftTopCoordinate.longitude +
+        viewPortRightBottomCoordinate.longitude +
+        180) *
+      38 /
+      mapSize.width;
+  }
 
   const body = {
     datasetId,
@@ -85,7 +116,7 @@ const fetchAllMarkers = (
       nw: viewPortLeftTopCoordinate,
       se: viewPortRightBottomCoordinate,
     },
-    scale: grid.gridValue,
+    cellSize,
   };
 
   const [markersRes, clustersRes] = await Promise.all([
@@ -143,17 +174,18 @@ const fetchAllMarkers = (
   });
 };
 
-const fetchClusterTrashpoints = ({ scale, coordinates, clusterId }) => async (
-  dispatch,
-  getState,
-) => {
+const fetchClusterTrashpoints = ({
+  cellSize,
+  coordinates,
+  clusterId,
+}) => async (dispatch, getState) => {
   try {
     const datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
     const markers = selectors.getAllMarkers(getState());
 
     const body = {
       datasetId,
-      scale,
+      cellSize,
       coordinates,
     };
     const response = await ApiService.post(

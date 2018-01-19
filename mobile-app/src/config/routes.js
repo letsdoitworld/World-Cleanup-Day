@@ -1,5 +1,5 @@
 import React from 'react';
-import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions } from 'react-navigation';
 import { Image } from 'react-native';
 
 import Home from '../screens/Home';
@@ -216,8 +216,10 @@ const AppNavigator = StackNavigator(
         header: () =>
           <Header
             onPressLeftButton={() => {
-              navigation.goBack(null);
-              navigation.navigate('Home');
+              navigation.dispatch(NavigationActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Tabs' })]
+              }))
             }}
             title={i18n.t('label_header_createTP')}
             titleLeftButton={i18n.t('label_button_cancel')}

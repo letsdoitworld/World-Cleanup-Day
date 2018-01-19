@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withGoogleMap, GoogleMap } from 'react-google-maps';
 
 import { LocationService } from '../../services';
 import {
@@ -6,7 +7,7 @@ import {
   ESTONIA_CENTER_COORDINATES,
   NO_PERMISSION_ZOOM_LEVEL,
 } from '../../shared/constants';
-import GoogleMap from './components/GoogleMap';
+import GoogleMapView from './components/GoogleMap';
 import { Loader } from '../../components/Spinner';
 import { noop } from '../../shared/helpers';
 
@@ -16,9 +17,10 @@ class MapView extends Component {
     this.state = {
       mapLocation: undefined,
       zoom: DEFAULT_ZOOM_LEVEL,
-      mapLoaded: false,
+      mapLoaded: false
     };
   }
+
   componentWillMount() {
     if (this.props.location) {
       this.setState({
@@ -59,6 +61,7 @@ class MapView extends Component {
       onClick,
       center: propCenter,
       zoom: propZoom,
+      cursor,
     } = this.props;
     const { mapLocation, zoom, mapLoaded } = this.state;
 
@@ -69,7 +72,8 @@ class MapView extends Component {
     }
 
     return (
-      <GoogleMap
+      <GoogleMapView
+        cursor={cursor}
         onClick={onClick}
         containerElement={<div style={{ height: '100%' }} />}
         mapElement={<div style={{ height: '100%' }} />}

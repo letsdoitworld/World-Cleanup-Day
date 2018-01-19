@@ -27,6 +27,11 @@ const getActiveScreen = createSelector(
   state => state.activeScreen,
 );
 
+const networkSelector = createSelector(stateSelector, state => state.network);
+const wasConnectionChecked =
+  createSelector(networkSelector, state => state.connectionChecked);
+const isConnected = createSelector(networkSelector, state => state.isConnected);
+
 export default {
   wasPopoverShown,
   getPopoverMessage,
@@ -38,4 +43,7 @@ export default {
 
   trashpointsDatasetUUIDSelector,
   getActiveScreen,
+
+  wasConnectionChecked,
+  isConnected,
 };

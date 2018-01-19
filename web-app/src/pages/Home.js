@@ -65,7 +65,7 @@ class Home extends Component {
       () => {
         if (index === LINKS.Trashpoints) {
           this.props.fetchAdminTrashpoints(50, 1);
-        } else if (index === LINKS.Users) {
+        } else if (index === LINKS.Users ) {
           this.props.fetchUsers({page: 1, pageSize: 20 });
         }
       },
@@ -211,6 +211,7 @@ const mapStateToProps = state => ({
   getUsersLoading: adminSelectors.getUsersLoading(state),
   users: adminSelectors.getUsers(state),
   markerDetails: trashpileSelectors.getMarkerDetails(state),
+  userProfile: adminSelectors.getUser(state)
 });
 
 const mapDispatchToProps = {

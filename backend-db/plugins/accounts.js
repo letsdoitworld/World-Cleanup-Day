@@ -17,6 +17,20 @@ const filterBriefAccountData = account => util.object.filter(account, {
     termsAcceptedAt: true,
 });
 
+const countriesForLeader = areasForLeader => {
+    const leaderAreaHash = areasForLeader
+        // only need the country code
+        .map(area => area.id)
+        // extract the top level country codes for all areas
+        // eg. [US.CA.SF, RO.AB, RO.BC] will become {US:true, RO:true}
+        .reduce((topAreaHash, areaCode) => {
+            topAreaHash[areaCode.split('.').shift()] = true;
+            return topAreaHash;
+        }, {})
+    ;
+    return Object.getOwnPropertyNames(leaderAreaHash);
+};
+
 module.exports = function () {
     const lucius = new Lucius(this);
 
@@ -27,10 +41,30 @@ module.exports = function () {
     lucius.register('role:db,cmd:lockAccount', async function (connector, args, __) {
         return connector.input(args)
         .use(async function ({accountId, locked}, responder) {
+            // basic sanity checks
             if (accountId === __.user.id) {
                 return responder.failure(new LuciusError(E.ACCOUNT_CANNOT_SELF_LOCK));
             }
-            const ret = await db.setAccountLock(accountId, locked, __.user.id);
+            const rawAccount = await db.getRawAccountDoc(accountId);
+            if (!rawAccount) {
+                return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id: accountId}));
+            }
+            if (__.user.role === Account.ROLE_LEADER) {
+                // superadmins can only be [un]locked by other superadmins
+                if (rawAccount.role === Account.ROLE_SUPERADMIN) {
+                    return responder.failure(new LuciusError(E.ACCESS_DENIED));
+                }
+                // leaders may only access users whose country falls in one of their areas
+                if (!rawAccount.country) {
+                    return responder.failure(new LuciusError(E.ACCOUNT_NOT_SUBJECT_TO_LEADER, {accountId, leaderId: __.user.id}));
+                }
+                const leaderCountries = countriesForLeader(await db.getAreasForLeader(__.user.id));
+                if (leaderCountries.indexOf(rawAccount.country) === -1) {
+                    return responder.failure(new LuciusError(E.ACCOUNT_NOT_SUBJECT_TO_LEADER, {accountId, leaderId: __.user.id}));
+                }
+            }
+            // perform [un]lock
+            const ret = await db.setAccountLock(accountId, locked, __.user.id, rawAccount);
             if (!ret) {
                 return responder.failure(new LuciusError(
                     E.ACCOUNT_NOT_FOUND, {id: accountId}))
@@ -64,12 +98,47 @@ module.exports = function () {
         })
     });
 
-    lucius.register('role:db,cmd:getAccounts', async function (connector, args) {
+    lucius.register('role:db,cmd:getAccounts', async function (connector, args, __) {
         return connector.input(args)
-        .use(async function ({pageSize, pageNumber}, responder) {
-            const accounts = await db.getAccounts(pageSize, pageNumber);
+        .use(async function ({pageSize, pageNumber, country, nameSearch}, responder) {
+            if (nameSearch) {
+                nameSearch = nameSearch.toLowerCase();
+            }
+            let accounts;
+            let total;
+            if (__.user.role === Account.ROLE_SUPERADMIN) {
+                if (nameSearch) {
+                    accounts = await db.getAccountsByNameSearch(nameSearch, pageSize, pageNumber, country);
+                    total = await db.countAccountsForNameSearch(nameSearch, country);
+                }
+                else if (country) {
+                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber);
+                    total = await db.countAccountsForCountry(country);
+                }
+                else {
+                    accounts = await db.getAccounts(pageSize, pageNumber);
+                    total = await db.countAccounts();
+                }
+            }
+            else {
+                if (!country) {
+                    return responder.failure(new LuciusError(E.COUNTRY_REQUIRED));
+                }
+                const leaderCountries = countriesForLeader(await db.getAreasForLeader(__.user.id));
+                if (leaderCountries.indexOf(country) === -1) {
+                    return responder.failure(new LuciusError(E.ACCESS_DENIED));
+                }
+                if (nameSearch) {
+                    accounts = await db.getAccountsByNameSearch(nameSearch, pageSize, pageNumber, country);
+                    total = await db.countAccountsForNameSearch(nameSearch, country);
+                }
+                else {
+                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber);
+                    total = await db.countAccountsForCountry(country);
+                }
+            }
             return responder.success({
-                total: await db.countAccounts(),
+                total,
                 pageSize,
                 pageNumber,
                 records: accounts.map(a => filterBriefAccountData(a)),
@@ -124,11 +193,32 @@ module.exports = function () {
     lucius.register('role:db,cmd:getAccountById', async function (connector, args, __) {
         return connector.input(args)
         .use(async function ({accountId, filterFields}, responder) {
+            // see if target account exists
             let account = await db.getAccount(accountId);
             if (!account) {
-                return responder.failure(new LuciusError(
-                    E.ACCOUNT_NOT_FOUND, {id: accountId}))
+                return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id: accountId}));
             }
+            // users can always see their own account info
+            if (__.user.id !== account.id
+                // superadmins can see any user's account info
+                && __.user.role !== Account.ROLE_SUPERADMIN
+            ) {
+                // leaders may only access users whose country falls in one of their areas
+                if (__.user.role === Account.ROLE_LEADER) {
+                    if (!account.country) {
+                        return responder.failure(new LuciusError(E.ACCOUNT_NOT_SUBJECT_TO_LEADER, {accountId, leaderId: __.user.id}));
+                    }
+                    const leaderCountries = countriesForLeader(await db.getAreasForLeader(__.user.id));
+                    if (leaderCountries.indexOf(account.country) === -1) {
+                        return responder.failure(new LuciusError(E.ACCOUNT_NOT_SUBJECT_TO_LEADER, {accountId, leaderId: __.user.id}));
+                    }
+                }
+                else {
+                    // fallback to deny in all other cases
+                    return responder.failure(new LuciusError(E.ACCESS_DENIED));
+                }
+            }
+            // prepare account data
             if (filterFields) {
                 account = filterBriefAccountData(account);
             }

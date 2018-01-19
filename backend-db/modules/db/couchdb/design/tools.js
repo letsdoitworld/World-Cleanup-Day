@@ -23,7 +23,6 @@ const makeScaleView = (scale, view) => {
     return replaceTemplateMacros(view, {
         '$$LENGTH$$': grid.SCALES[scale],
         '$$GRID_CONVERTER$$': grid.geoToGrid.toString(),
-        '$$GET_CELL_CENTER$$': grid.gridToGeoCenter.toString(),
     });
 };
 

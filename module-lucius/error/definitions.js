@@ -4,9 +4,6 @@ module.exports = {
     API_UNEXPECTED_ERROR: {
         message: () => `An unexpected error has occured.`,
     },
-    ACCESS_DENIED: {
-        message: () => `You are not allowed to perform this operation.`,
-    },
     AUTH_UNKNOWN_REMOTE_AUTHORITY: {
         message: ({authority}) => `Unknown remote authority '${authority}'.`,
     },
@@ -35,14 +32,23 @@ module.exports = {
     AREA_LEADER_EXISTS: {
         message: ({id}) => `Area '${id}' already has a leader.`,
     },
+    ACCOUNT_NOT_SUBJECT_TO_LEADER: {
+        message: ({accountId, leaderId}) => `Account ${accountId} cannot be modified by leader '${leaderId}'.`,
+    },
     ACCOUNT_ROLE_UNFIT_FOR_LEADER: {
         message: ({id, role}) => `Role '${role}' of account '${id}' cannot become area leader.`,
+    },
+    ACCESS_DENIED: {
+        message: () => `Not enough privileges for performing this operation.`,
     },
     ACCOUNT_NOT_FOUND: {
         message: ({id}) => `Account does not exist: '${id}'.`,
     },
     ACCOUNT_CANNOT_SELF_LOCK: {
         message: () => `An account cannot set lock status on itself.`,
+    },
+    COUNTRY_REQUIRED: {
+        message: () => `Area leaders must provide a country with the request.`,
     },
     TRASHPOINT_NOT_FOUND: {
         message: ({id}) => `Trashpoint does not exist: '${id}'.`,

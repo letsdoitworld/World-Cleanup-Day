@@ -21,6 +21,7 @@ import {
   getHeightPercentage,
   getWidthPercentage,
   getDistanceBetweenPointsInMeters,
+  handleSentryError
 } from '../../shared/helpers';
 import {
   SCREEN_WIDTH,
@@ -113,6 +114,7 @@ class Details extends Component {
           ) <= 100;
         this.setState({ showFooter });
       } catch (e) {
+        handleSentryError(ex);
         console.log(e.message);
       }
     }
@@ -248,6 +250,7 @@ class Details extends Component {
         });
       }
     } catch (e) {
+      handleSentryError(e);
       console.log(e.message);
     }
   };

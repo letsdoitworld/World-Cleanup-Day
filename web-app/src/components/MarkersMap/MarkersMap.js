@@ -10,7 +10,7 @@ import {
   actions as trashpileActions,
 } from '../../reducers/trashpile';
 import { getViewportPoints } from '../../shared/helpers';
-import { GRID_HASH, DELTA_HASH } from '../../shared/constants';
+import { GRID_HASH, DELTA_HASH, GRID_MIN_VALUE } from '../../shared/constants';
 
 class MarkersMap extends React.Component {
   static defaultProps = {
@@ -23,12 +23,14 @@ class MarkersMap extends React.Component {
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
   };
+
   constructor(props) {
     super(props);
     this.state = {
       updateRegion: true,
     };
   }
+
   handleSetMapComponent = map => {
     this.map = map;
     if (map) {
@@ -47,8 +49,8 @@ class MarkersMap extends React.Component {
     ) {
       const { focusedLocation } = nextProps;
       if (this.map) {
-        
-        const { latitude, longitude} = focusedLocation;
+
+        const { latitude, longitude } = focusedLocation;
         const bounds = {
           north: latitude - 0.0001,
           south: latitude + 0.0001,
@@ -64,8 +66,13 @@ class MarkersMap extends React.Component {
     if (!this.state.updateRegion) {
       return this.setState({ updateRegion: true });
     }
+    const mapElContainer = this.map.getDiv();
+    const mapSize = {
+      height: parseInt(getComputedStyle(mapElContainer).height),
+      width: parseInt(getComputedStyle(mapElContainer).width)
+    };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    this.props.fetchAllTrashpoints(nw, se);
+    this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {
@@ -81,7 +88,7 @@ class MarkersMap extends React.Component {
         ...DELTA_HASH[diagonaleInMeters],
         ...marker.position,
       };
-      if (!this.props.gridValue.maxZoomedIn) {
+      if (diagonaleInMeters !== GRID_MIN_VALUE) {
         const { lat, lng, latitudeDelta, longitudeDelta } = region;
         const bounds = {
           north: lat - latitudeDelta / 16,
@@ -92,20 +99,35 @@ class MarkersMap extends React.Component {
 
         this.map.fitBounds(bounds);
       } else {
+
         this.setState(
           {
             updateRegion: false,
           },
-          () =>
+          () => {
+            let cellSize = 0;
+            const mapElContainer = this.map.getDiv();
+            const mapSize = {
+              height: parseInt(getComputedStyle(mapElContainer).height),
+              width: parseInt(getComputedStyle(mapElContainer).width)
+            };
+            const { nw, se } = getViewportPoints(this.map.getBounds());
+            if (se.longitude > nw.longitude) {
+              cellSize = 38 * (se.longitude - nw.longitude) / mapSize.width;
+            } else {
+              cellSize = (180 - nw.longitude + se.longitude + 180) * 38 / mapSize.width;
+            }
             this.props.fetchClusterTrashpoints({
-              scale: this.props.gridValue.gridValueToZoom,
+              cellSize,
               coordinates: marker.coordinates,
               clusterId: marker.id,
-            }),
+            })
+          },
         );
       }
     }
   };
+
   render() {
     const { markers } = this.props;
     return (

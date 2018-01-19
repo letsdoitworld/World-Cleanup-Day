@@ -2,12 +2,10 @@ import { ApiService } from '../../services';
 import { API_ENDPOINTS } from '../../shared/constants';
 import TYPES from './types';
 
-
-
-const fetchUsers = ({ page, pageSize, reset }) => async dispatch => {
+const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USERS_REQUEST });
   try {
-    const url = API_ENDPOINTS.FETCH_USERS({ page, pageSize });
+    const url = API_ENDPOINTS.FETCH_USERS({ page, pageSize, area, nameSearch });
     const response = await ApiService.get(url);
     if (
       !response ||
@@ -32,6 +30,9 @@ const fetchUsers = ({ page, pageSize, reset }) => async dispatch => {
         users,
         reset,
         canLoadMore,
+        total,
+        isSearch: !!nameSearch,
+        isLoadingMore
       },
     });
     return {
@@ -39,6 +40,7 @@ const fetchUsers = ({ page, pageSize, reset }) => async dispatch => {
       users,
       reset,
       canLoadMore,
+      total
     };
   } catch (e) {
     console.log(e);
@@ -82,8 +84,11 @@ const setUserLocked = (userId, locked) => async dispatch => {
   });
 };
 
+const resetUsers = () => ({ type: TYPES.RESET_USERS });
+
 export default {
   fetchUsers,
   fetchUser,
   setUserLocked,
+  resetUsers,
 };

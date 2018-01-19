@@ -32,6 +32,9 @@
   font-size: 15px;
   font-weight: bold;
   line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: normal;
 }
 
 .UserListItem-location {

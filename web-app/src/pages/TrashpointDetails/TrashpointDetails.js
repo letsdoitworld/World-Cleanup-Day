@@ -7,6 +7,7 @@ import { actions, selectors } from '../../reducers/trashpile';
 import { EditTrashpoint } from '../../components/EditTrashpoint';
 import { Details } from '../../components/Details';
 import { selectors as userSelectors } from '../../reducers/user';
+import { USER_ROLES } from '../../shared/constants';
 
 class TrashDetails extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class TrashDetails extends React.Component {
       edit: false,
     };
   }
+
   componentDidMount() {
     const { match, history } = this.props;
     this.fetchMarkerDetails({
@@ -22,6 +24,7 @@ class TrashDetails extends React.Component {
       focusMap: !!querystring.parse(history.location.search).focus,
     });
   }
+
   componentWillReceiveProps = nextProps => {
     if (this.props.match.params !== nextProps.match.params) {
       this.fetchMarkerDetails({
@@ -41,7 +44,15 @@ class TrashDetails extends React.Component {
     });
   };
   handleOnCloseDetailsClick = () => {
-    this.props.history.push('/');
+    let url =  '/';
+    if(this.props.location.state && this.props.location.state.selectedArea) {
+      url = `${url}areas`;
+    }
+    this.props.history.push(url, {
+      selectedArea: this.props.authUser.role !== USER_ROLES.VOLUNTEER ?
+        (this.props.location.state ? this.props.location.state.selectedArea : undefined) :
+        undefined
+    });
   };
 
   handleOnCloseEditClick = () => {
@@ -85,6 +96,7 @@ class TrashDetails extends React.Component {
     }
     return _.intersection(authUser.areas, marker.areas).length > 0;
   };
+
   render() {
     const { history } = this.props;
     if (this.state.edit) {

@@ -6,6 +6,10 @@
     overflow-y: auto!important;
 }
 
+.padding-list {
+    padding-top: 60px;
+}
+
 .List > button:nth-child(2n+1) {
     background-color: #F6F6F6;
 }
@@ -15,12 +19,13 @@
 }
 
 .List-search-container {
-    height: 60px;
-    width: 320px;
+    height: 80px;
+    width: 325px;
     background-color: #F6F6F6;
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    padding-top: 10px;
 }
 
 .List-search-input {
@@ -31,6 +36,14 @@
     background-color: #FFFFFF;
     padding: 5px;
     padding-left: 15px;
+}
+
+.List-search-total {
+    align-self: stretch;
+    margin: 10px 0;
+    padding-left: 10px;
+    color: rgba(43, 43, 43, 0.98);
+    font-size: 13px;
 }
 
 .List-search-input:focus {

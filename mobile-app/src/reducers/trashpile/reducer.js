@@ -20,11 +20,7 @@ const INITIAL_STATE = {
   loadingMarkers: false,
   loadingClusters: false,
   loading: false,
-  gridValue: {
-    gridValue: undefined,
-    gridValueToZoom: undefined,
-    maxZoomedIn: false,
-  },
+  delta: undefined,
 };
 
 const markersReducer = (state = INITIAL_STATE, action) => {
@@ -81,7 +77,7 @@ const markersReducer = (state = INITIAL_STATE, action) => {
     case types.RESET_MARKER_DETAILS:
       return { ...state, markerDetails: { ...INITIAL_STATE.markerDetails } };
     case types.SET_GRID_VALUE:
-      return { ...state, gridValue: action.gridValue };
+      return { ...state, delta: action.delta };
 
     /* -----Errors-------*/
     case types.FETCH_ALL_MARKERS_FAILED:
@@ -135,10 +131,8 @@ const {
   FETCH_USER_TRASHPOINTS_REQUEST,
   FETCH_USER_TRASHPOINTS_SUCCESS,
 } = types;
-const userTrashpointsReducer = (
-  state = USER_TRASHPOINTS_INITAL_STATE,
-  action,
-) => {
+const userTrashpointsReducer = (state = USER_TRASHPOINTS_INITAL_STATE,
+  action,) => {
   if (action.meta && action.meta.logout) {
     return USER_TRASHPOINTS_INITAL_STATE;
   }

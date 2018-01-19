@@ -2,4 +2,10 @@
   width: 152px;
   position: absolute;
   left: 20px;
-  top: 13px; }
+  top: -5px; 
+}
+.Logo img{
+  width:150px;
+  height: 150px;
+  object-fit: contain;
+}

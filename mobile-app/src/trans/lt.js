@@ -81,7 +81,7 @@
   "label_alert_editTP_delete": "Šiukšlių taškas sėkmingai ištrintas",
   "label_error_editTP_out_of_rng_subtitle": "Out of range",
   "label_error_editTP_out_of_rng_text": "A point can only be edx`ited if you are within 100 meters of it.",
-  "label_error_saveTP_subtitle": "Save trashpoint",
+  "label_error_saveTP_subtitle": "Išsaugoti šiukšlių tašką",
   "label_error_saveTP_pic_and_type": "It's more useful for us if you to take at least one picture of the trashpoint and set its trash type.",
   "label_error_saveTP_picture": "It's more useful for us if you to take at least one picture of the trashpoint before saving.",
   "label_error_saveTP_trash_type": "It's more useful for us if you set the trashpoint's type before saving.",

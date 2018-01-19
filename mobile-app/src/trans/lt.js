@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "Sutvarkykim pasaulį kartu!",
+  "label_text_app_subtitle": "Sutvarkykime pasaulį kartu!",
   "label_button_facebook": "Tęsti su Facebook",
   "label_button_google": "Tęsti su Google",
   "label_button_try_app": "Išbandyti programėlę be registracijos",
@@ -93,7 +93,7 @@
   "label_error_network_text": "Mobilieji duomenys išjungti. Jei norite naudoti programą, įjunkite mobiliuosius duomenis arba prijunkite telefoną prie \"Wi-Fi\" tinklo.",
   "label_error_location_subtitle": "Enable location",
   "label_error_location_text": "Vietos nustatymo paslauga išjungta. Įjunkite GPS funkciją, kad galėtumėte naudotis šia aplikacija.",
-  "label_error_loc_permission_text": "Location Services are not permitted. Please allow them in order to use the application.",
+  "label_error_loc_permission_text": "Vietos nustatymo paslauga negalima. Įjunkite ją, jei norite naudotis šia programa.",
   "label_trash_details_header": "Šiukšlių taško informacija",
   "label_privacy_policy_header": "Privatumo politika",
   "label_about_header": "Apie",
@@ -106,7 +106,7 @@
   "label_camera_error_title": "Camera Access Denied",
   "label_error_modal_default_title": "O ne!",
   "label_error_modal_default_subtitle": "The fail whale detected a server error!",
-  "label_location_permission_warning_ios": "You must change location permissions. To do this, go to Settings > Privacy > Location services.",
+  "label_location_permission_warning_ios": "Įjunkite vietos nustatymo funkciją. Norėdami tai padaryti, eikite į Nustatymai>Privatumas>Vietos nustatymo paslauga.",
   "label_location_permission_warning_android": "Įjunkite vietos nustatymo funkciją. Norėdami tai padaryti, eikite į Parametrai > programėlės.",
   "label_location_off_warning": "Vietos nustatymo paslauga išjungta. Įjunkite GPS funkciją, kad galėtumėte naudotis šia aplikacija.",
   "label_location_modal_title": "Enable location",
@@ -124,7 +124,7 @@
   "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
   "label_text_about_3": "This app is a joint cooperation with",
   "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_text_about_5": "Finansuoja: Estijos aplinkos ministerija, Estijos Respublikos užsienio reikalų ministerija, Estijos Respublikos programa 100",
   "label_button_editTP_delete": "Ištrinti šiukšlių tašką",
   "label_locked_account_warning": "Jūsų paskyra užblokuota. Susisiekite su administratoriumi."
 }

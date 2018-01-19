@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
+import { translate } from 'react-i18next';
 import moment from 'moment';
 
 import styles from './styles';
@@ -10,15 +11,16 @@ const TrashpointDate = ({
   updatedDate,
   createdBy,
   updatedBy,
+  t
 }) => {
     let createdDateStr = createdDate ? moment(createdDate).format(DATE_FORMAT) : '';
     let updatedDateStr = updatedDate ? moment(updatedDate).format(DATE_FORMAT) : '';
     if(createdBy){
-      createdDateStr = `${createdDateStr} by ${createdBy}`;
+      createdDateStr = `${createdDateStr} ${t('label_TP_by')} ${createdBy}`;
     }
 
     if(updatedBy){
-      updatedDateStr = `${updatedDateStr} by ${updatedBy}`;
+      updatedDateStr = `${updatedDateStr} ${t('label_TP_by')} ${updatedBy}`;
     }
   return (
     <View>
@@ -29,7 +31,7 @@ const TrashpointDate = ({
           resizeMode="contain"
         />
         <Text style={styles.createdText}>
-          Created
+          {t('label_TP_created_date')}
         </Text>
         <View>
           <Text style={styles.dateText}>
@@ -44,7 +46,7 @@ const TrashpointDate = ({
           resizeMode="contain"
         />
         <Text style={styles.updatedText}>
-          Updated
+          {t('label_TP_updated_date')}
         </Text>
         <View>
           <Text style={styles.dateText}>
@@ -56,4 +58,4 @@ const TrashpointDate = ({
   );
 };
 
-export default TrashpointDate;
+export default translate()(TrashpointDate);

@@ -476,7 +476,7 @@ class EditTrashpoint extends Component {
                   fontSize: 13,
                 }}
               >
-                {AMOUNT_HASH[AMOUNT_STATUSES[amount]]}
+                {this.props.t(AMOUNT_HASH[AMOUNT_STATUSES[amount]]).toUpperCase()}
               </Text>
             </View>
           </View>

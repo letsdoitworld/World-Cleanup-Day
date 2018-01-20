@@ -122,7 +122,7 @@
   "label_delete_photo_subtitle": "Ar tikrai norite ištrinti šią nuotrauką? ",
   "label_text_about_1": "This app is an initiative by Let's Do It World",
   "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
+  "label_text_about_3": "Ši mobilioji programėlė sukurta bendradarbiaujant su",
   "label_text_about_4": "Estiškas produktas, kurį remia valstybė ir vyriausybė",
   "label_text_about_5": "Finansuoja: Estijos aplinkos ministerija, Estijos Respublikos užsienio reikalų ministerija, Estijos Respublikos programa 100",
   "label_button_editTP_delete": "Ištrinti šiukšlių tašką",

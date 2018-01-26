@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image,
+  ImageBackground,
   Animated,
   View,
   Text,
@@ -32,6 +32,9 @@ export class LazyImage extends Component {
   render() {
     const { children, style = {}, ...props } = this.props;
 
+    console.log('====== PROPS ======');
+    console.log(props);
+
     return (
       <View style={{ flex: 1 }}>
         {!this.state.loaded &&
@@ -45,9 +48,9 @@ export class LazyImage extends Component {
             {...props}
             source={loadingImg}
           />}
-        <Animated.Image {...props} style={[style]} onLoad={this.onLoad}>
+        <ImageBackground {...props} style={[style]} onLoad={this.onLoad}>
           {children}
-        </Animated.Image>
+        </ImageBackground>
       </View>
     );
   }

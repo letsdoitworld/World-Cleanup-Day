@@ -32,9 +32,6 @@ export class LazyImage extends Component {
   render() {
     const { children, style = {}, ...props } = this.props;
 
-    console.log('====== PROPS ======');
-    console.log(props);
-
     return (
       <View style={{ flex: 1 }}>
         {!this.state.loaded &&

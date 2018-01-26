@@ -387,8 +387,6 @@ class EditTrashpoint extends Component {
   };
 
   handleAmountSelect = (amount) => {
-    console.log(`Amount from slider: ${amount}`);
-    console.log(`Amount saved in state: ${AMOUNT_STATUSES[amount]}`);
     this.setState({
       amount,
     });

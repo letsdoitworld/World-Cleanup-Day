@@ -108,7 +108,7 @@
   "label_error_modal_default_subtitle": "U identifikua një problem në server!",
   "label_location_permission_warning_ios": "Duhet të lejoni përcaktimin e vendndodhjes tuaj. Për ta bërë këtë, shkoni tek Settings > Privacy > Location services.",
   "label_location_permission_warning_android": "Duhet të lejoni përcaktimin e vendndodhjes tuaj. Për ta bërë këtë, shkoni tek Settings > Apps.",
-  "label_location_off_warning": "Location Services është e çaktivizuar. Ju lutem aktivizoni GPS-in tek Settings për të përdorur aplikacionin.",
+  "label_location_off_warning": "Location Services janë të çaktivizuara. Ju lutem, aktivizoni GPS-in tek Settings për të përdorur aplikacionin.",
   "label_location_modal_title": "Aktivizo vendndodhjen",
   "label_network_off_warning_title": "Nuk ka lidhje interneti",
   "label_network_off_warning": "Lidhja e internetit në celularin tuaj është e çaktivizuar. Ju lutem, aktivizoni internetin në celularit tuaj ose lidhuni me Wi-Fi për të përdorur aplikacionin.",

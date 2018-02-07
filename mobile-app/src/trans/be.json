@@ -52,7 +52,7 @@
   "label_text_select_country_hint": "Пошук",
   "label_button_tc": "Правілы ды Умовы",
   "label_button_logout": "Выйсці",
-  "label_text_congrats_image": "Trash captured",
+  "label_text_congrats_image": "Смецце сабрана",
   "label_text_congrats_subtitle": "Great job!",
   "label_text_congrats_text": "Now save the point by verifying the data.",
   "label_header_createTP": "Create a trashpoint",
@@ -121,10 +121,10 @@
   "label_delete_photo_title": "Выдаліць фота",
   "label_delete_photo_subtitle": "Вы упэўнены, што жадаеце выдаліць фота? Гэтае дзеянне нельга адмяніць.",
   "label_text_about_1": "Гэтая праграма створана па ініцыятыве Let's Do It World",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
-  "label_text_about_3": "This app is a joint cooperation with",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator."
+  "label_text_about_2": "Усе дадзеныя, сабраныя карыстальнікамі па ўсім свеце, будуць візуалізаваны ў глабальнай карце смецця. каб пачаць расчыстку па ўсім свеце з нагоды Сусветнага дня Прыбірання, 15 верасня 2018",
+  "label_text_about_3": "Гэта праграма створана супольна з",
+  "label_text_about_4": "Эстонскі прадукт, створаны пры падтрымцы краіны ды ураду",
+  "label_text_about_5": "Фундатары: Міністэрства аховы навакольнага асяроддзя Эстоніі, Міністэрства замежных спраў Эстонскай Рэспублікі, праграма \"Эстонскай Рэспубліцы 100\"",
+  "label_button_editTP_delete": "Выдаліць засмечаную кропку",
+  "label_locked_account_warning": "Ваш акаўнт заблакаваны. За падрабязнасцямі звярніцеся да адміністратара."
 }

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/support-compat/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-26.0.0-alpha1_fdb959525ce7a97f468d6fcd6027721265c81780.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-vector-icons/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f2cf527de8d0bd35d72088fafea02395ba4a9eec">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-vector-icons-unspecified_e6c2e6b21f75bb6471a3eaaf57f74e0eabbf0402.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_79c2f09d1bb6d10edd3b8c8b9d9486180197150b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_5018ed9ea76a62cf6c755d0791ad78599cff41ce.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_d17f1bb7f15e94f50cf8839f111531eed2880bdd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-26.0.0-alpha1_04d33d3014b3bc8ea4209169eba562e168b80e03.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_79c2f09d1bb6d10edd3b8c8b9d9486180197150b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_4660a820c9998318a71f23855b7ff3a17026fd67.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_d17f1bb7f15e94f50cf8839f111531eed2880bdd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-26.0.0-alpha1_693af289b57abf0ff90853ddb3374a5e213e888e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_874366b17702374d85dd62f176183dd1c2c7b7fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_9b8db226e2f9b03fc4ce94bcdc692b465bac4e6b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_025061ebd96b0f909a1b7f252efd73f441c194f0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/io.sentry/sentry/1.5.3/c909f50a947a0c8393700607b794c92b877d119a/sentry-1.5.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c909f50a947a0c8393700607b794c92b877d119a">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/sentry-1.5.3_cf256a196a8eab8d975f24972ba10e7d159c5fc8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-vector-icons/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f2cf527de8d0bd35d72088fafea02395ba4a9eec">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-vector-icons-unspecified_e6c2e6b21f75bb6471a3eaaf57f74e0eabbf0402.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-26.0.0-alpha1_a2786416aa32b2839a607f2638e85e36a96138c4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-sentry/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="b49ddc463a14ea4f94b9d6bf2fa20a27ee54e752">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-sentry-unspecified_da5a5a27f32593f83091caad3468526451822974.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fba0e27dcb8f9278b7027fa4b32a61877f812f82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fba0e27dcb8f9278b7027fa4b32a61877f812f82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_874366b17702374d85dd62f176183dd1c2c7b7fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9/slf4j-api-1.7.24.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.24_70affa13c5a38557b0a497f37283edb90cd46c53.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_568f4932729854104fa7a056afe1313f255cb444.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/io.sentry/sentry/1.5.3/c909f50a947a0c8393700607b794c92b877d119a/sentry-1.5.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c909f50a947a0c8393700607b794c92b877d119a">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/sentry-1.5.3_cf256a196a8eab8d975f24972ba10e7d159c5fc8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-26.0.0-alpha1_d69da027481c51426e3ba2f6c796d3ba03468cd2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_93c5c7260366e4aa907312f37a6fffe38579e27f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.8.7/8b46f39c78476fb848c81a49fa807a9e9506dddd/jackson-core-2.8.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8b46f39c78476fb848c81a49fa807a9e9506dddd">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.8.7_f7140d71f65d82841d1c20ee2f130b6010a501c5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_b1767ddaf3a3a90cc8824cec2bb93b1cba55240a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_5018ed9ea76a62cf6c755d0791ad78599cff41ce.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_b1767ddaf3a3a90cc8824cec2bb93b1cba55240a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_93c5c7260366e4aa907312f37a6fffe38579e27f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-26.0.0-alpha1_889e91bf979fdf1dac6824155d26bf3561e377ab.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_90bacdc13e3c1cf5b7beee77b02f8cc15561be93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_90bacdc13e3c1cf5b7beee77b02f8cc15561be93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-gesture-handler/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="070d9b463735e430cf992f3a90453a69e07f9326">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-gesture-handler-unspecified_b22be84352ff48cd8fe52a24786373abc828d95b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-26.0.0-alpha1_049615b7104d511bb6d03d26d377519c54dab030.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.8.7/8b46f39c78476fb848c81a49fa807a9e9506dddd/jackson-core-2.8.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8b46f39c78476fb848c81a49fa807a9e9506dddd">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.8.7_f7140d71f65d82841d1c20ee2f130b6010a501c5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_031d2b86a5cd7195d9ddaae7d99b205b0c2c1aa8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/io.sentry/sentry-android/1.5.3/6f3502e6d5b23bfaf97ea09af70b6cf2a1a79b87/sentry-android-1.5.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f3502e6d5b23bfaf97ea09af70b6cf2a1a79b87">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/sentry-android-1.5.3_ff57f9d56408b21c4282fde281be3d109f77b280.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_e75f99d75519565517c90b6190a68c5be1711159.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-gesture-handler/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="070d9b463735e430cf992f3a90453a69e07f9326">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-gesture-handler-unspecified_b22be84352ff48cd8fe52a24786373abc828d95b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_e75f99d75519565517c90b6190a68c5be1711159.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-26.0.0-alpha1_b30793669759f98b218bbd221babb6c61a00edd2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/io.sentry/sentry-android/1.5.3/6f3502e6d5b23bfaf97ea09af70b6cf2a1a79b87/sentry-android-1.5.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6f3502e6d5b23bfaf97ea09af70b6cf2a1a79b87">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/sentry-android-1.5.3_ff57f9d56408b21c4282fde281be3d109f77b280.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/26.0.0-alpha1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-26.0.0-alpha1_af61fb33147a8bbab621f9797d751a6b803e137d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.51.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3c3587806048411811c11299d7467aeaf21dbd98">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.51.1_914200db14d6bf0e4cb191099a849b3b614a2fd1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-sentry/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b49ddc463a14ea4f94b9d6bf2fa20a27ee54e752">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-sentry-unspecified_da5a5a27f32593f83091caad3468526451822974.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_9b8db226e2f9b03fc4ce94bcdc692b465bac4e6b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_025061ebd96b0f909a1b7f252efd73f441c194f0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_568f4932729854104fa7a056afe1313f255cb444.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_8624e7f48b3080a5ab2a533e57c2a8d6a6d93da8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9/slf4j-api-1.7.24.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.24_70affa13c5a38557b0a497f37283edb90cd46c53.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_8624e7f48b3080a5ab2a533e57c2a8d6a6d93da8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/26.0.0-alpha1/support-annotations-26.0.0-alpha1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/support-annotations-26.0.0-alpha1_140ff9a1689843046de585042ed071ee46fa87d7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.51.1/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_ea7268d8af3846cde8e92c50ae37c2b23e897fdd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_4660a820c9998318a71f23855b7ff3a17026fd67.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_031d2b86a5cd7195d9ddaae7d99b205b0c2c1aa8.jar" />
+    </item>
+
+</items>

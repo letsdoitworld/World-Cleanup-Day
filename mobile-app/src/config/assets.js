@@ -154,6 +154,6 @@ export const images = [
   require('../services/Loading/lazy.png'),
 ];
 export const fonts = {
-  'noto-sans-bold': require('../assets/fonts/NotoSans-Bold.ttf'),
-  'noto-sans-regular': require('../assets/fonts/NotoSans-Regular.ttf'),
+  'noto-sans-bold': 'NotoSans-Bold',
+  'noto-sans-regular': 'NotoSans-Regular'
 };

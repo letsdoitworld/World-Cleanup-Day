@@ -6,7 +6,7 @@
   "private": true,
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "enzyme": "^2.8.2",
+    "enzyme": "^2.9.1",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.0.1",
     "eslint-plugin-import": "2.3.0",
@@ -17,16 +17,13 @@
     "prettier": "^1.4.4",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "15.5.4",
-    "react-native-scripts": "1.0.0",
     "react-test-renderer": "16.0.0-alpha.6",
     "sinon": "^2.3.5"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "lint": "./node_modules/.bin/eslint ./src/"
   },
@@ -37,27 +34,29 @@
     "@expo/vector-icons": "5.0.0",
     "axios": "^0.16.2",
     "babel-plugin-module-resolver": "^2.7.1",
+    "babel-preset-expo": "^4.0.0",
     "color": "1.0.3",
-    "expo": "19.0.1",
+    "expo": "^25.0.0",
     "global": "^4.3.2",
     "i18next": "^8.4.3",
     "invariant": "^2.2.2",
     "json-server": "^0.10.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "moment": "^2.18.1",
     "prop-types": "15.5.10",
     "query-string": "^4.3.4",
-    "react": "16.0.0-alpha.12",
+    "react": "^16.0.0",
     "react-i18next": "^4.6.2",
-    "react-native": "~0.46",
+    "react-native": "^0.51.1",
     "react-native-animatable": "^1.2.2",
     "react-native-elements": "^0.14.0",
     "react-native-extended-stylesheet": "0.5.0",
+    "react-native-gesture-handler": "^1.0.0-alpha.41",
     "react-native-message-bar": "^1.6.0",
     "react-native-popover": "^0.2.0",
-    "react-native-sentry": "^0.24.0",
+    "react-native-sentry": "^0.24.2",
     "react-native-slider": "^0.11.0",
-    "react-native-vector-icons": "4.2.0",
+    "react-native-vector-icons": "^4.5.0",
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "5.0.5",
     "recompose": "^0.23.5",
@@ -68,5 +67,10 @@
     "remote-redux-devtools": "^0.5.12",
     "reselect": "^3.0.1",
     "sentry-expo": "^1.6.0"
+  },
+  "rnpm": {
+    "assets": [
+      "src/assets/fonts"
+    ]
   }
 }

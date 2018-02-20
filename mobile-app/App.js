@@ -1,4 +1,4 @@
-import App from './src';
+import App from './index';
 console.disableYellowBox = true;
 
 // this routes all requests to the debugger network tab, if it's present

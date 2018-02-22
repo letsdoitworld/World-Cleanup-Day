@@ -24,16 +24,16 @@
         "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/anim/abc_slide_out_bottom.xml"
     },
     {
-        "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
-        "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/anim/abc_slide_in_top.xml"
+        "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/anim/slide_out_right.xml",
+        "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/res/anim/slide_out_right.xml"
     },
     {
         "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/anim/catalyst_slide_down.xml",
         "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.52.3/res/anim/catalyst_slide_down.xml"
     },
     {
-        "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/anim/slide_out_right.xml",
-        "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/res/anim/slide_out_right.xml"
+        "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/anim/abc_slide_in_top.xml"
     },
     {
         "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/anim/design_snackbar_out.xml",

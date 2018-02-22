@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import Marker from './Marker';
 import styles from './styles';
 
-class Map extends Component {
+import MapView from 'react-native-maps';
+
+export class Map extends Component {
+
   displayMarkers = () => {
     const { markers = [], handleOnMarkerPress } = this.props;
     return markers.map((marker) => {
@@ -109,4 +112,4 @@ Map.propTypes = {
   getRef: PropTypes.func,
 };
 
-export default Map;
+//export default Map;

@@ -6,18 +6,18 @@
                 "to": {
                     "startLine": 2,
                     "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 108,
-                    "endOffset": 159
+                    "startOffset": 105,
+                    "endColumn": 105,
+                    "endOffset": 206
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endColumn": 108,
-                        "endOffset": 159
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 283,
+                        "endColumn": 101,
+                        "endOffset": 384
                     }
                 }
             },
@@ -25,18 +25,18 @@
                 "to": {
                     "startLine": 3,
                     "startColumn": 4,
-                    "startOffset": 164,
-                    "endColumn": 107,
-                    "endOffset": 267
+                    "startOffset": 211,
+                    "endColumn": 207,
+                    "endOffset": 414
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 164,
-                        "endColumn": 107,
-                        "endOffset": 267
+                        "startLine": 5,
+                        "startColumn": 0,
+                        "startOffset": 385,
+                        "endColumn": 207,
+                        "endOffset": 592
                     }
                 }
             },
@@ -44,18 +44,18 @@
                 "to": {
                     "startLine": 4,
                     "startColumn": 4,
-                    "startOffset": 272,
-                    "endColumn": 122,
-                    "endOffset": 390
+                    "startOffset": 419,
+                    "endColumn": 127,
+                    "endOffset": 542
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 272,
-                        "endColumn": 122,
-                        "endOffset": 390
+                        "startLine": 6,
+                        "startColumn": 0,
+                        "startOffset": 593,
+                        "endColumn": 123,
+                        "endOffset": 716
                     }
                 }
             },
@@ -63,18 +63,18 @@
                 "to": {
                     "startLine": 5,
                     "startColumn": 4,
-                    "startOffset": 395,
-                    "endColumn": 97,
-                    "endOffset": 488
+                    "startOffset": 547,
+                    "endColumn": 110,
+                    "endOffset": 653
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 395,
-                        "endColumn": 97,
-                        "endOffset": 488
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 717,
+                        "endColumn": 106,
+                        "endOffset": 823
                     }
                 }
             },
@@ -82,18 +82,18 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 493,
-                    "endColumn": 109,
-                    "endOffset": 598
+                    "startOffset": 658,
+                    "endColumn": 205,
+                    "endOffset": 859
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 6,
-                        "startColumn": 4,
-                        "startOffset": 493,
-                        "endColumn": 109,
-                        "endOffset": 598
+                        "startLine": 8,
+                        "startColumn": 0,
+                        "startOffset": 824,
+                        "endColumn": 205,
+                        "endOffset": 1029
                     }
                 }
             },
@@ -101,18 +101,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 603,
-                    "endColumn": 85,
-                    "endOffset": 684
+                    "startOffset": 864,
+                    "endColumn": 128,
+                    "endOffset": 988
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 7,
-                        "startColumn": 4,
-                        "startOffset": 603,
-                        "endColumn": 85,
-                        "endOffset": 684
+                        "startLine": 9,
+                        "startColumn": 0,
+                        "startOffset": 1030,
+                        "endColumn": 124,
+                        "endOffset": 1154
                     }
                 }
             },
@@ -120,18 +120,18 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 689,
-                    "endColumn": 105,
-                    "endOffset": 790
+                    "startOffset": 993,
+                    "endColumn": 135,
+                    "endOffset": 1124
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 8,
-                        "startColumn": 4,
-                        "startOffset": 689,
-                        "endColumn": 105,
-                        "endOffset": 790
+                        "startLine": 10,
+                        "startColumn": 0,
+                        "startOffset": 1155,
+                        "endColumn": 131,
+                        "endOffset": 1286
                     }
                 }
             },
@@ -139,18 +139,18 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 795,
-                    "endColumn": 123,
-                    "endOffset": 914
+                    "startOffset": 1129,
+                    "endColumn": 200,
+                    "endOffset": 1325
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 9,
-                        "startColumn": 4,
-                        "startOffset": 795,
-                        "endColumn": 123,
-                        "endOffset": 914
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 285,
+                        "endColumn": 200,
+                        "endOffset": 485
                     }
                 }
             },
@@ -158,18 +158,18 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 919,
-                    "endColumn": 86,
-                    "endOffset": 1001
+                    "startOffset": 1330,
+                    "endColumn": 242,
+                    "endOffset": 1568
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 10,
-                        "startColumn": 4,
-                        "startOffset": 919,
-                        "endColumn": 86,
-                        "endOffset": 1001
+                        "startLine": 11,
+                        "startColumn": 0,
+                        "startOffset": 1287,
+                        "endColumn": 242,
+                        "endOffset": 1529
                     }
                 }
             },
@@ -177,18 +177,18 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 1006,
-                    "endColumn": 83,
-                    "endOffset": 1085
+                    "startOffset": 1573,
+                    "endColumn": 109,
+                    "endOffset": 1678
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 11,
-                        "startColumn": 4,
-                        "startOffset": 1006,
-                        "endColumn": 83,
-                        "endOffset": 1085
+                        "startLine": 12,
+                        "startColumn": 0,
+                        "startOffset": 1530,
+                        "endColumn": 105,
+                        "endOffset": 1635
                     }
                 }
             },
@@ -196,18 +196,18 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1090,
-                    "endColumn": 81,
-                    "endOffset": 1167
+                    "startOffset": 1683,
+                    "endColumn": 197,
+                    "endOffset": 1876
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 12,
-                        "startColumn": 4,
-                        "startOffset": 1090,
-                        "endColumn": 81,
-                        "endOffset": 1167
+                        "startLine": 13,
+                        "startColumn": 0,
+                        "startOffset": 1636,
+                        "endColumn": 197,
+                        "endOffset": 1833
                     }
                 }
             },
@@ -215,18 +215,18 @@
                 "to": {
                     "startLine": 13,
                     "startColumn": 4,
-                    "startOffset": 1172,
-                    "endColumn": 108,
-                    "endOffset": 1276
+                    "startOffset": 1881,
+                    "endColumn": 131,
+                    "endOffset": 2008
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 1172,
-                        "endColumn": 108,
-                        "endOffset": 1276
+                        "startLine": 14,
+                        "startColumn": 0,
+                        "startOffset": 1834,
+                        "endColumn": 127,
+                        "endOffset": 1961
                     }
                 }
             },
@@ -234,18 +234,18 @@
                 "to": {
                     "startLine": 14,
                     "startColumn": 4,
-                    "startOffset": 1281,
-                    "endColumn": 109,
-                    "endOffset": 1386
+                    "startOffset": 2013,
+                    "endColumn": 226,
+                    "endOffset": 2235
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 14,
-                        "startColumn": 4,
-                        "startOffset": 1281,
-                        "endColumn": 109,
-                        "endOffset": 1386
+                        "startLine": 15,
+                        "startColumn": 0,
+                        "startOffset": 1962,
+                        "endColumn": 226,
+                        "endOffset": 2188
                     }
                 }
             },
@@ -253,18 +253,18 @@
                 "to": {
                     "startLine": 15,
                     "startColumn": 4,
-                    "startOffset": 1391,
-                    "endColumn": 98,
-                    "endOffset": 1485
+                    "startOffset": 2240,
+                    "endColumn": 188,
+                    "endOffset": 2424
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 15,
-                        "startColumn": 4,
-                        "startOffset": 1391,
-                        "endColumn": 98,
-                        "endOffset": 1485
+                        "startLine": 16,
+                        "startColumn": 0,
+                        "startOffset": 2189,
+                        "endColumn": 184,
+                        "endOffset": 2373
                     }
                 }
             },
@@ -272,18 +272,18 @@
                 "to": {
                     "startLine": 16,
                     "startColumn": 4,
-                    "startOffset": 1490,
-                    "endColumn": 108,
-                    "endOffset": 1594
+                    "startOffset": 2429,
+                    "endColumn": 95,
+                    "endOffset": 2520
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 16,
-                        "startColumn": 4,
-                        "startOffset": 1490,
-                        "endColumn": 108,
-                        "endOffset": 1594
+                        "startLine": 17,
+                        "startColumn": 0,
+                        "startOffset": 2374,
+                        "endColumn": 91,
+                        "endOffset": 2465
                     }
                 }
             },
@@ -291,18 +291,18 @@
                 "to": {
                     "startLine": 17,
                     "startColumn": 4,
-                    "startOffset": 1599,
-                    "endColumn": 112,
-                    "endOffset": 1707
+                    "startOffset": 2525,
+                    "endColumn": 94,
+                    "endOffset": 2615
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
-                        "startLine": 17,
-                        "startColumn": 4,
-                        "startOffset": 1599,
-                        "endColumn": 112,
-                        "endOffset": 1707
+                        "startLine": 18,
+                        "startColumn": 0,
+                        "startOffset": 2466,
+                        "endColumn": 90,
+                        "endOffset": 2556
                     }
                 }
             },
@@ -310,94 +310,18 @@
                 "to": {
                     "startLine": 18,
                     "startColumn": 4,
-                    "startOffset": 1712,
-                    "endColumn": 110,
-                    "endOffset": 1818
+                    "startOffset": 2620,
+                    "endColumn": 107,
+                    "endOffset": 2723
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
-                    "position": {
-                        "startLine": 18,
-                        "startColumn": 4,
-                        "startOffset": 1712,
-                        "endColumn": 110,
-                        "endOffset": 1818
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 19,
-                    "startColumn": 4,
-                    "startOffset": 1823,
-                    "endColumn": 136,
-                    "endOffset": 1955
-                },
-                "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/res/values-eu/values.xml",
                     "position": {
                         "startLine": 19,
-                        "startColumn": 4,
-                        "startOffset": 1823,
-                        "endColumn": 136,
-                        "endOffset": 1955
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 20,
-                    "startColumn": 4,
-                    "startOffset": 1960,
-                    "endColumn": 98,
-                    "endOffset": 2054
-                },
-                "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 4,
-                        "startOffset": 1960,
-                        "endColumn": 98,
-                        "endOffset": 2054
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 21,
-                    "startColumn": 4,
-                    "startOffset": 2059,
-                    "endColumn": 81,
-                    "endOffset": 2136
-                },
-                "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 2059,
-                        "endColumn": 81,
-                        "endOffset": 2136
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 22,
-                    "startColumn": 4,
-                    "startOffset": 2141,
-                    "endColumn": 100,
-                    "endOffset": 2237
-                },
-                "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/26.0.0-alpha1/res/values-eu/values-eu.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 4,
-                        "startOffset": 2141,
-                        "endColumn": 100,
-                        "endOffset": 2237
+                        "startColumn": 0,
+                        "startOffset": 2557,
+                        "endColumn": 103,
+                        "endOffset": 2660
                     }
                 }
             }

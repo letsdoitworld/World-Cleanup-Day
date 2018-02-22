@@ -3,7 +3,7 @@ import { StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-//import { Map } from '../components/Map';
+import { Map } from '../components/Map/Map';
 
 import {
   operations as trashpileOperations,
@@ -16,6 +16,17 @@ import { DELTA_HASH, GRID_HASH, MIN_ZOOM } from '../shared/constants';
 import _ from 'lodash';
 
 export default class Home extends Component {
+
+    static navigatorStyle = {
+        // navBarTextColor: '#000000',
+        // navBarTextFontSize: 18,
+        // orientation: 'portrait',
+        // navBarTitleTextCentered: true,
+        // //  navBarTextFontFamily: 'font-name',
+        navBarHidden: true,
+
+    };
+
   state = {
     updateRegion: true,
   };
@@ -111,12 +122,12 @@ export default class Home extends Component {
     return (
       <View style={{ flex: 1 }}>
         <StatusBar translucent={false} barStyle="default" />
-        {/*<Map*/}
-          {/*onRegionChangeComplete={this.handleOnRegionChangeComplete}*/}
-          {/*markers={markers}*/}
-          {/*initialRegion={initialRegion}*/}
-          {/*handleOnMarkerPress={this.onPressMarker}*/}
-          {/*getRef={this.getMapObject}/>*/}
+        <Map
+          onRegionChangeComplete={this.handleOnRegionChangeComplete}
+          markers={markers}
+          initialRegion={initialRegion}
+          handleOnMarkerPress={this.onPressMarker}
+          getRef={this.getMapObject}/>
       </View>
     );
   }

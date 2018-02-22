@@ -7,6 +7,15 @@ import {EmptyStateScreen} from '../../components/EmptyStateScreen/EmptyStateScre
 import styles from './styles';
 
 export default class Notifications extends Component {
+
+    static navigatorStyle = {
+        navBarTextColor: '#000000',
+        navBarTextFontSize: 18,
+        orientation: 'portrait',
+        navBarTitleTextCentered: true,
+        //  navBarTextFontFamily: 'font-name',
+    };
+
     render() {
         if (isUndefinedOtNullOrEmpty(this.props.notifications)) {
             return <EmptyStateScreen description={strings.label_text_notific_empty_text}/>

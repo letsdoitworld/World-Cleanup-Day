@@ -354,6 +354,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-10.0.1_ef0b1f310a0af90c23e56f3b0fb9f40df5c0de33.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -396,6 +405,15 @@
         revision="25.0.2"
         sha1="55d7bf547c88cb7c8c7c5cdbf3b06dd66c9750f8">
         <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.balysv.materialmenu-material-menu-toolbar-1.5.4_b335aa32ec6a2ee7eee05e68d3bc07edc53596eb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/10.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="27777b3cad3c20b1acab19f6e37fe3e03371bf6e">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-10.0.1_47b075f2ed8c3ad1b910cc354e7496a9e821663b.jar" />
     </item>
     <item
         is-multidex="false"
@@ -486,6 +504,15 @@
         revision="26.0.2"
         sha1="9809e90be788acdb479b2b44e2112f3295a03068">
         <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_356d103ebdb56c1cec302258c5e7e911f38614ef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-10.0.1_90380e261dd07055a84f79db70aaa25b4295dac8.jar" />
     </item>
     <item
         is-multidex="false"
@@ -606,6 +633,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-maps/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8b6f8eaafcb2a1b22d796bf21adc28565e7417d0">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-maps-unspecified_10d73735d9fb4643027ad2ce2906d5c082ed59ec.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -630,6 +666,15 @@
         revision="25.0.2"
         sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
         <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_90bacdc13e3c1cf5b7beee77b02f8cc15561be93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-10.0.1_aea5faab667708f5d3ae895368a9267a6e9a9f0e.jar" />
     </item>
     <item
         is-multidex="false"

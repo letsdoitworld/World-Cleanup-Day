@@ -3,6 +3,8 @@ import { View, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import MapView from 'react-native-maps';
+
 import styles from './styles';
 
 const MARKER_STATUS_IMAGES = {
@@ -24,7 +26,7 @@ const MARKER_OFFSET = {
   y: 0,
 };
 
-const Marker = ({ marker, onMarkerPress = _.noop }) => {
+export const Marker = ({ marker, onMarkerPress = _.noop }) => {
   if (!marker) {
     return null;
   }
@@ -73,4 +75,4 @@ Marker.propTypes = {
   onMarkerPress: PropTypes.func,
 };
 
-export default Marker;
+//export default Marker;

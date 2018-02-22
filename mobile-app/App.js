@@ -39,9 +39,8 @@ export default class App extends Component {
                 },
                 {
                     screen: HOME_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_updates.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_updates_active.png'),
-                    title: strings.label_header_notific
+                    icon: require('./src/assets/images/icon_menu_map.png'),
+                    selectedIcon: require('./src/assets/images/icon_menu_map_active.png'),
                 },
             ]
         });

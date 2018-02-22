@@ -32,6 +32,14 @@ const divider = () => <Divider hasTopLine={false} />;
 
 export default class MyActivity extends PureComponent {
 
+    static navigatorStyle = {
+        navBarTextColor: '#000000',
+        navBarTextFontSize: 18,
+        orientation: 'portrait',
+        navBarTitleTextCentered: true,
+        //  navBarTextFontFamily: 'font-name',
+    };
+
   goToDetails = _.debounce(
     ({ id, location }) => {
       this.props.navigation.navigate('Details', {

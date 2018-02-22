@@ -9,6 +9,14 @@ import styles from './styles';
 
 export default class Profile extends Component {
 
+    static navigatorStyle = {
+        navBarTextColor: '#000000',
+        navBarTextFontSize: 18,
+        orientation: 'portrait',
+        navBarTitleTextCentered: true,
+        //  navBarTextFontFamily: 'font-name',
+    };
+
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL ? { uri: profile.pictureURL } : require('./avatar.png');
     return <Image source={img} style={styles.usernameImage} />;

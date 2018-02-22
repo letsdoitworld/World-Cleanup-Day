@@ -43,6 +43,7 @@
     "react-native-extended-stylesheet": "0.5.0",
     "react-native-gesture-handler": "^1.0.0-alpha.41",
     "react-native-localization": "^0.2.3",
+    "react-native-maps": "^0.20.1",
     "react-native-message-bar": "^1.6.0",
     "react-native-navigation": "^1.1.385",
     "react-native-popover": "^0.2.0",

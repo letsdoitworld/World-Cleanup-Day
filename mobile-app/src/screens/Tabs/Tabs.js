@@ -3,7 +3,6 @@ import { View, Text, Image } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
-import IconIO from '@expo/vector-icons/Ionicons';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { compose } from 'recompose';

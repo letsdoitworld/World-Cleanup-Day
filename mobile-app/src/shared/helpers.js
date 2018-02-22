@@ -5,8 +5,6 @@ import {
   GRID_HASH,
   GRID_VALUES,
 } from './constants';
-import Sentry from 'sentry-expo';
-import { SentrySeverity } from 'react-native-sentry';
 
 const DESIGNS_HEIGHT = 568;
 const DESIGNS_WIDTH = 320;
@@ -172,22 +170,4 @@ export const destinationPoint = (fromPoint,
     latitude: toDegrees(φ2),
     longitude: (toDegrees(λ2) + 540) % 360 - 180,
   };
-};
-
-export const sendSentryMessage = (message) => {
-  Sentry.captureMessage(message, {
-    level: SentrySeverity.Error
-  });
-};
-
-export const handleSentryError = (error) => {
-  if (!error) {
-    return;
-  }
-  let errorText =  error.message ? error.message : 'Error';
-  if (error && error.response && error.response.status) {
-    errorText = `Error Code: ${error.response.status}, ${errorText}`;
-  }
-
-  sendSentryMessage(errorText);
 };

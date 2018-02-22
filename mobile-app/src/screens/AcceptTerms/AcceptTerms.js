@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { View, StatusBar, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 import { operations as userOps } from '../../reducers/user';
 import { Button } from '../../components/Buttons';
-import { withNavigationHelpers } from '../../services/Navigation';
 import { Terms } from '../../components/Terms';
 import styles from './styles';
 

@@ -10,9 +10,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
-import { translate } from 'react-i18next';
 import _ from 'lodash';
-import { LinearGradient } from 'expo';
 
 import { withNavigationHelpers } from '../../services/Navigation';
 import { withLoadingScreen } from '../../services/Loading';

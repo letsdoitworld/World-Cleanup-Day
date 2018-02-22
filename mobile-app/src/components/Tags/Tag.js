@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
-import { LinearGradient } from 'expo';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
 

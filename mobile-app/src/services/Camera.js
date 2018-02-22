@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import { ImagePicker, Constants, Permissions } from 'expo';
-import i18n from '../config/i18n';
+
+import strings from '../assets/strings'
 
 import { AlertModal } from '../components/AlertModal';
 const checkPermissions = async () => {
@@ -77,13 +77,13 @@ export const withCameraService = () => (Component) => {
 
     render() {
       const CAMERA_MSG = Platform.select({
-        android: i18n.t('label_camera_permission_warning_android'),
-        ios: i18n.t('label_camera_permission_warning_ios'),
+        android: strings.label_camera_permission_warning_android,
+        ios: strings.label_camera_permission_warning_ios,
       });
       return (
         <View style={{ flex: 1 }}>
           <AlertModal
-            title={i18n.t('Camera Access Denied')}
+            title={"dddd"}
             subtitle={CAMERA_MSG}
             visible={this.state.warning}
             buttons={this.buttons}

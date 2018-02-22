@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 import PropTypes from 'prop-types';
 

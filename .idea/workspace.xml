@@ -2,11 +2,415 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e65bda64-cdab-40c0-abe9-1d2142e95ceb" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/mobile-app/src/assets/strings.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/mobile-app/src/screens/index.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/crowdin.yml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/mobile-app/App.js" afterPath="$PROJECT_DIR$/mobile-app/App.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/package-lock.json" afterPath="$PROJECT_DIR$/mobile-app/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-sentry_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-sentry_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-sentry_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-sentry_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-sentry_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-sentry_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-vector-icons_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-vector-icons_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-vector-icons_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-vector-icons_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-vector-icons_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-vector-icons_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build.gradle" afterPath="$PROJECT_DIR$/mobile-app/android/app/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/drawee/R.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/drawee/R.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/drawee/backends/pipeline/R.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/drawee/backends/pipeline/R.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/fbui/textlayoutbuilder/R.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/fbui/textlayoutbuilder/R.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/react/R.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/facebook/react/R.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/mobileapp/R.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/mobileapp/R.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/oblador/vectoricons/R.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/oblador/vectoricons/R.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/io/sentry/R.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-af.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-af.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-am.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-am.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ar.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ar.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-az-rAZ.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-az-rAZ.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-b+sr+Latn.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-b+sr+Latn.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-bg.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-bg.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-bn-rBD.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-bn-rBD.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ca.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ca.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-cs.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-cs.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-da.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-da.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-de.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-de.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-el.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-el.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-en-rAU.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-en-rAU.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-en-rGB.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-en-rGB.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-en-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-en-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-es-rUS.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-es-rUS.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-es.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-es.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-et-rEE.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-et-rEE.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-eu-rES.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-eu-rES.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fa.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fa.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fi.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fi.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fr-rCA.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fr-rCA.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fr.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-fr.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-gl-rES.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-gl-rES.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-gu-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-gu-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-h720dp-v13.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-h720dp-v13.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hdpi-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hdpi-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hi.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hi.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hr.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hr.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hu.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hu.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hy-rAM.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-hy-rAM.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-in.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-in.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-is-rIS.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-is-rIS.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-it.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-it.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-iw.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-iw.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ja.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ja.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ka-rGE.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ka-rGE.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-kk-rKZ.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-kk-rKZ.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-km-rKH.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-km-rKH.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-kn-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-kn-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ko.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ko.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ky-rKG.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ky-rKG.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-land.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-land.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-large-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-large-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ldltr-v21.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ldltr-v21.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-lo-rLA.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-lo-rLA.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-lt.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-lt.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-lv.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-lv.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-mk-rMK.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-mk-rMK.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ml-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ml-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-mn-rMN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-mn-rMN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-mr-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-mr-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ms-rMY.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ms-rMY.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-my-rMM.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-my-rMM.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-nb.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-nb.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ne-rNP.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ne-rNP.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-night-v8.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-night-v8.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-nl.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-nl.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pa-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pa-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pl.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pl.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-port.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-port.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pt-rBR.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pt-rBR.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pt-rPT.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pt-rPT.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pt.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-pt.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ro.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ro.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ru.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ru.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-si-rLK.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-si-rLK.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sk.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sk.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sl.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sl.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sq-rAL.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sq-rAL.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sr.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sr.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sv.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sv.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sw.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sw.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sw600dp-v13.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-sw600dp-v13.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ta-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ta-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-te-rIN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-te-rIN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-th.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-th.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-tl.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-tl.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-tr.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-tr.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-uk.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-uk.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ur-rPK.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-ur-rPK.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-uz-rUZ.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-uz-rUZ.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v11.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v11.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v12.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v12.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v13.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v13.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v14.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v14.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v16.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v16.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v17.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v17.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v18.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v18.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v21.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v21.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v22.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v22.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v23.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v23.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v24.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v24.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v25.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-v25.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-vi.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-vi.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-xlarge-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-xlarge-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zh-rCN.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zh-rCN.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zh-rHK.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zh-rHK.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zh-rTW.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zh-rTW.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zu.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values-zu.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/multi/values.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/anim.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/anim.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/color-v11.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/color-v11.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/color-v23.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/color-v23.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/color.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/color.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-hdpi-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-hdpi-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-hdpi-v17.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-hdpi-v17.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-mdpi-v17.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-mdpi-v17.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-xhdpi-v17.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-xhdpi-v17.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-xxhdpi-v17.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-xxhdpi-v17.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-xxxhdpi-v17.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-ldrtl-xxxhdpi-v17.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-mdpi-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-mdpi-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-v21.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-v21.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-v23.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-v23.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-xhdpi-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-xhdpi-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-xxxhdpi-v4.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable-xxxhdpi-v4.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/drawable.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout-v11.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout-v11.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout-v16.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout-v16.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout-v21.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout-v21.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/layout.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/xml.json" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/blame/res/debug/single/xml.json" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$attr.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$attr.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$bool.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$bool.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$dimen.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$dimen.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$integer.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$integer.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$style.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$style.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$styleable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/R$attr.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/R$attr.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/R$id.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/R$styleable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/backends/pipeline/R$attr.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/backends/pipeline/R$attr.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/backends/pipeline/R$id.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/backends/pipeline/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/backends/pipeline/R$styleable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/drawee/backends/pipeline/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/fbui/textlayoutbuilder/R$styleable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/fbui/textlayoutbuilder/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$attr.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$attr.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$bool.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$bool.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$color.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$color.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$dimen.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$dimen.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$drawable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$drawable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$id.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$integer.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$integer.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$layout.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$layout.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$string.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$string.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$style.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$style.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$styleable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$xml.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/facebook/react/R$xml.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/MainActivity$1.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/MainActivity.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/MainActivity.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/MainApplication$1.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/MainApplication.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/MainApplication.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$anim.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$anim.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$attr.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$attr.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$bool.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$bool.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$color.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$color.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$dimen.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$dimen.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$drawable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$drawable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$id.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$integer.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$integer.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$layout.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$layout.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$mipmap.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$mipmap.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$string.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$string.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$style.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$style.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$styleable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$xml.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R$xml.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/mobileapp/R.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$attr.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$attr.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$bool.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$bool.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$color.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$color.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$dimen.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$dimen.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$drawable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$drawable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$id.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$integer.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$integer.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$layout.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$layout.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$string.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$string.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$style.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$style.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$styleable.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$xml.class" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$xml.class" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$anim.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$attr.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$bool.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$color.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$dimen.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$drawable.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$id.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$integer.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$layout.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$string.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$style.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$styleable.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R$xml.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/io/sentry/R.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-sentry/unspecified/R.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-sentry/unspecified/R.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-vector-icons/unspecified/R.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-vector-icons/unspecified/R.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-az/values-az.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-bn/values-bn.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-bs/values-bs.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-et/values-et.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-eu/values-eu.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-gl/values-gl.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-gu/values-gu.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hy/values-hy.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-is/values-is.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ka/values-ka.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-kk/values-kk.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-km/values-km.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-kn/values-kn.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ky/values-ky.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-lo/values-lo.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-mk/values-mk.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ml/values-ml.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-mn/values-mn.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-mr/values-mr.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ms/values-ms.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-my/values-my.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ne/values-ne.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pa/values-pa.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-si/values-si.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sq/values-sq.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ta/values-ta.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-te/values-te.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ur/values-ur.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-uz/values-uz.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v21/values-v21.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v21/values-v21.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugResources/merger.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/zip-cache/F1M9ukdTttVIdEcfNvT+_ZXHL08=" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/zip-cache/F1M9ukdTttVIdEcfNvT+_ZXHL08=" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/zip-cache/NBNkd81tCp8jCVlXhri_3hQ8PNM=" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_5018ed9ea76a62cf6c755d0791ad78599cff41ce.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_5018ed9ea76a62cf6c755d0791ad78599cff41ce.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-26.0.0-alpha1_a2786416aa32b2839a607f2638e85e36a96138c4.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-26.0.0-alpha1_04d33d3014b3bc8ea4209169eba562e168b80e03.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-26.0.0-alpha1_fdb959525ce7a97f468d6fcd6027721265c81780.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-26.0.0-alpha1_af61fb33147a8bbab621f9797d751a6b803e137d.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-26.0.0-alpha1_d69da027481c51426e3ba2f6c796d3ba03468cd2.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-26.0.0-alpha1_049615b7104d511bb6d03d26d377519c54dab030.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-26.0.0-alpha1_889e91bf979fdf1dac6824155d26bf3561e377ab.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-26.0.0-alpha1_693af289b57abf0ff90853ddb3374a5e213e888e.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-26.0.0-alpha1_b30793669759f98b218bbd221babb6c61a00edd2.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_b1767ddaf3a3a90cc8824cec2bb93b1cba55240a.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_b1767ddaf3a3a90cc8824cec2bb93b1cba55240a.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_79c2f09d1bb6d10edd3b8c8b9d9486180197150b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_79c2f09d1bb6d10edd3b8c8b9d9486180197150b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_90bacdc13e3c1cf5b7beee77b02f8cc15561be93.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_90bacdc13e3c1cf5b7beee77b02f8cc15561be93.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_025061ebd96b0f909a1b7f252efd73f441c194f0.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_025061ebd96b0f909a1b7f252efd73f441c194f0.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_d17f1bb7f15e94f50cf8839f111531eed2880bdd.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_d17f1bb7f15e94f50cf8839f111531eed2880bdd.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_8624e7f48b3080a5ab2a533e57c2a8d6a6d93da8.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_8624e7f48b3080a5ab2a533e57c2a8d6a6d93da8.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_568f4932729854104fa7a056afe1313f255cb444.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_568f4932729854104fa7a056afe1313f255cb444.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.51.1_914200db14d6bf0e4cb191099a849b3b614a2fd1.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_4660a820c9998318a71f23855b7ff3a17026fd67.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_4660a820c9998318a71f23855b7ff3a17026fd67.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/debug_0fc1319e83ef6ae9b1d0b48c3d3602594c5e9af8.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/debug_0fc1319e83ef6ae9b1d0b48c3d3602594c5e9af8.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_ea7268d8af3846cde8e92c50ae37c2b23e897fdd.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.8.7_f7140d71f65d82841d1c20ee2f130b6010a501c5.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fba0e27dcb8f9278b7027fa4b32a61877f812f82.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fba0e27dcb8f9278b7027fa4b32a61877f812f82.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_031d2b86a5cd7195d9ddaae7d99b205b0c2c1aa8.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_031d2b86a5cd7195d9ddaae7d99b205b0c2c1aa8.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-gesture-handler-unspecified_b22be84352ff48cd8fe52a24786373abc828d95b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-gesture-handler-unspecified_b22be84352ff48cd8fe52a24786373abc828d95b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-sentry-unspecified_da5a5a27f32593f83091caad3468526451822974.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-vector-icons-unspecified_e6c2e6b21f75bb6471a3eaaf57f74e0eabbf0402.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-vector-icons-unspecified_e6c2e6b21f75bb6471a3eaaf57f74e0eabbf0402.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_874366b17702374d85dd62f176183dd1c2c7b7fb.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_874366b17702374d85dd62f176183dd1c2c7b7fb.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_9b8db226e2f9b03fc4ce94bcdc692b465bac4e6b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_9b8db226e2f9b03fc4ce94bcdc692b465bac4e6b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_93c5c7260366e4aa907312f37a6fffe38579e27f.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_93c5c7260366e4aa907312f37a6fffe38579e27f.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/sentry-1.5.3_cf256a196a8eab8d975f24972ba10e7d159c5fc8.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/sentry-android-1.5.3_ff57f9d56408b21c4282fde281be3d109f77b280.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.24_70affa13c5a38557b0a497f37283edb90cd46c53.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_e75f99d75519565517c90b6190a68c5be1711159.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_e75f99d75519565517c90b6190a68c5be1711159.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/support-annotations-26.0.0-alpha1_140ff9a1689843046de585042ed071ee46fa87d7.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-az/values-az.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-be/values-be.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-bn/values-bn.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-bs/values-bs.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-es-rUS/values-es-rUS.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-es-rUS/values-es-rUS.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-et/values-et.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-eu/values-eu.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-gl/values-gl.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-gu/values-gu.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-hy/values-hy.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-is/values-is.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-ka/values-ka.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-kk/values-kk.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-km/values-km.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-kn/values-kn.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-ky/values-ky.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-land/values-land.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-land/values-land.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-lo/values-lo.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-mk/values-mk.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-ml/values-ml.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-mn/values-mn.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-mr/values-mr.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-ms/values-ms.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-my/values-my.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-ne/values-ne.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-pa/values-pa.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-si/values-si.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-sq/values-sq.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-sw600dp-v13/values-sw600dp-v13.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-sw600dp-v13/values-sw600dp-v13.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-ta/values-ta.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-te/values-te.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-ur/values-ur.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-uz/values-uz.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-v21/values-v21.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values-v21/values-v21.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values/values.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/values/values.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/xml/preferences.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/merged/debug/xml/preferences.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/res/resources-debug.ap_" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/symbols/debug/R.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJavaRes/debug/folders/2/1f/main/META-INF/services/com.fasterxml.jackson.core.JsonFactory" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJavaRes/debug/folders/2/1f/main/META-INF/services/javax.servlet.ServletContainerInitializer" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libreactnativejni.so" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libreactnativejni.so" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libyoga.so" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libyoga.so" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/x86/libreactnativejni.so" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/x86/libreactnativejni.so" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/x86/libyoga.so" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/x86/libyoga.so" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/apk/app-debug.apk" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/logs/manifest-merger-debug-report.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainApplication.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainApplication.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/mobile-app/android/build/intermediates/dex-cache/cache.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/settings.gradle" afterPath="$PROJECT_DIR$/mobile-app/android/settings.gradle" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/index.android.js" afterPath="$PROJECT_DIR$/mobile-app/index.android.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/index.js" afterPath="$PROJECT_DIR$/mobile-app/Appdd.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/ios/mobileapp.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/mobile-app/ios/mobileapp.xcodeproj/project.pbxproj" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/package-lock.json" afterPath="" />
       <change beforePath="$PROJECT_DIR$/mobile-app/package.json" afterPath="$PROJECT_DIR$/mobile-app/package.json" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/config/assets.js" afterPath="$PROJECT_DIR$/mobile-app/src/config/assets.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/index.js" afterPath="$PROJECT_DIR$/mobile-app/index.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/About/About.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/About/About.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/DropDownListModal/DropDownListModal.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/DropDownListModal/DropDownListModal.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/EmptyStateScreen/EmptyStateScreen.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/EmptyStateScreen/EmptyStateScreen.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/Header/Header.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/Header/Header.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/Map/Map.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/Map/Map.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/Map/Marker.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/Map/Marker.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/PhotoPicker/PhotoPicker.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/PhotoPicker/PhotoPicker.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/Popover/Popover.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/Popover/Popover.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/StatusText/StatusText.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/StatusText/StatusText.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/components/ButtonPopover.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/components/ButtonPopover.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/Tags/Tag.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/Tags/Tag.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/TrashpointDate/TrashpointDate.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/TrashpointDate/TrashpointDate.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/config/i18n.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/config/routes.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/i18n/ui-strings.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/AcceptTerms/AcceptTerms.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/AcceptTerms/AcceptTerms.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/CreateMarker.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/CreateMarker.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/CongratsModal/CongratsModal.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/CongratsModal/CongratsModal.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/LocationPicker/LocationPicker.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/LocationPicker/LocationPicker.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/StatusPicker/StatusPicker.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/StatusPicker/StatusPicker.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Details/Details.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Details/Details.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/EditLocation/EditLocation.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/EditLocation/EditLocation.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/EditTrashpoint/EditTrashpoint.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/EditTrashpoint/EditTrashpoint.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Login/components/SocialButton/SocialButton.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Login/components/SocialButton/SocialButton.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/MyActivity/MyActivity.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/MyActivity/MyActivity.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Notifications/Notifications.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Notifications/Notifications.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Profile/index.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Settings/Settings.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Settings/Settings.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Settings/components/CountryModal/CountryModal.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Settings/components/CountryModal/CountryModal.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Tabs/Tabs.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Tabs/Tabs.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Api.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Api.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Camera.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Camera.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Error/index.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Error/index.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Loading/LoadingModal.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Loading/LoadingModal.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Location.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Location.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Login.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Login.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Navigation.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Network.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Network.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/shared/helpers.js" afterPath="$PROJECT_DIR$/mobile-app/src/shared/helpers.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/yarn.lock" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web-app/README.md" afterPath="$PROJECT_DIR$/web-app/README.md" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,82 +422,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/android/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="49" column="26" lean-forward="false" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+            <state relative-caret-position="166">
+              <caret line="40" column="30" lean-forward="false" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.ios.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/index.ios.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/android/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="97" column="36" lean-forward="false" selection-start-line="97" selection-start-column="36" selection-end-line="97" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="42" lean-forward="false" selection-start-line="0" selection-start-column="42" selection-end-line="0" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mobile-app/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jsconfig.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/jsconfig.json">
+      <file leaf-file-name="env.example.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/env.example.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -102,27 +442,87 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.android.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/index.android.js">
+      <file leaf-file-name="LoadingModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Loading/LoadingModal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="52" lean-forward="false" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
+            <state relative-caret-position="-387">
+              <caret line="3" column="44" lean-forward="false" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Profile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-191">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="e#0#43#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java">
+      <file leaf-file-name="index.android.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/index.android.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/android/settings.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="35" column="39" lean-forward="false" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/assets/strings.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+              <caret line="49" column="28" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmptyStateScreen.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/components/EmptyStateScreen/EmptyStateScreen.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="44" lean-forward="false" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DropDownListModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/components/DropDownListModal/DropDownListModal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-5">
+              <caret line="8" column="44" lean-forward="false" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#490#491#0" expanded="true" />
-                <element signature="e#524#525#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,6 +534,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -143,10 +544,33 @@
       <find>se</find>
       <find>han</find>
       <find>andle</find>
-      <find>sentry</find>
       <find>sdk</find>
       <find>react-</find>
+      <find>vector-ico</find>
+      <find>project.ext</find>
+      <find>elem</find>
+      <find>Constan</find>
+      <find>Constants</find>
+      <find>expo</find>
+      <find>Profil</find>
+      <find>str</find>
+      <find>&quot;:</find>
+      <find>My pr</find>
+      <find>this._defaultLanguageFirstLevelKeys</find>
+      <find>sentry</find>
+      <find>i18</find>
+      <find>i18n</find>
+      <find>naviga</find>
+      <find>My Pro</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>:</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/mobile-app</dir>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -164,15 +588,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mobile-app/index.android.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/config/assets.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/Tags/Tag.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/Popover/Popover.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Login.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/config/i18n.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Tabs/Tabs.js" />
         <option value="$PROJECT_DIR$/mobile-app/android/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/mobile-app/app.json" />
-        <option value="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme/ldi/MainActivity.java" />
+        <option value="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainApplication.java" />
+        <option value="$PROJECT_DIR$/mobile-app/src/App.js" />
         <option value="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/index.js" />
+        <option value="$PROJECT_DIR$/mobile-app/Appdd.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Navigation.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Api.js" />
         <option value="$PROJECT_DIR$/mobile-app/android/app/build.gradle" />
+        <option value="$PROJECT_DIR$/mobile-app/src/shared/helpers.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/config/routes.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Details/Details.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Settings/Settings.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/components/ButtonPopover.js" />
+        <option value="$PROJECT_DIR$/crowdin.yml" />
+        <option value="$PROJECT_DIR$/mobile-app/index.android.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Camera.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/MyActivity/MyActivity.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Settings/components/CountryModal/CountryModal.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/AcceptTerms/AcceptTerms.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/CreateMarker.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/StatusPicker/StatusPicker.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/CongratsModal/CongratsModal.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/LocationPicker/LocationPicker.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/EditLocation/EditLocation.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Notifications/Notifications.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/EditTrashpoint/EditTrashpoint.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Location.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Network.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Error/index.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Loading/LoadingModal.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/TrashpointDate/TrashpointDate.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/About/About.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/Header/Header.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/PhotoPicker/PhotoPicker.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/StatusText/StatusText.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/EmptyStateScreen/EmptyStateScreen.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/components/DropDownListModal/DropDownListModal.js" />
         <option value="$PROJECT_DIR$/mobile-app/package.json" />
-        <option value="$PROJECT_DIR$/mobile-app/index.js" />
+        <option value="$PROJECT_DIR$/mobile-app/android/settings.gradle" />
+        <option value="$PROJECT_DIR$/mobile-app/src/assets/strings.js" />
+        <option value="$PROJECT_DIR$/mobile-app/App.js" />
       </list>
     </option>
   </component>
@@ -195,7 +661,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1680" />
-    <option name="height" value="944" />
+    <option name="height" value="951" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -212,8 +678,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -230,14 +697,20 @@
               <item name="World-Cleanup-Day" type="b2602c69:ProjectViewProjectNode" />
               <item name="World-Cleanup-Day" type="462c0819:PsiDirectoryNode" />
               <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="World-Cleanup-Day" type="b2602c69:ProjectViewProjectNode" />
+              <item name="World-Cleanup-Day" type="462c0819:PsiDirectoryNode" />
+              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+              <item name="react-native-localization" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -248,13 +721,13 @@
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mobile-app" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mobile-app" />
       <recent name="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme" />
       <recent name="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme/ldi" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/mobile-app" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -377,43 +850,82 @@
       <workItem from="1519035367172" duration="2859000" />
       <workItem from="1519051601517" duration="350000" />
       <workItem from="1519134222280" duration="5406000" />
+      <workItem from="1519140645761" duration="10647000" />
+      <workItem from="1519289124405" duration="14438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15427000" />
+    <option name="totallyTimeSpent" value="40512000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="951" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="944" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983682" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827103" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.52453274" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.52885747" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28386337" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26190478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26800978" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983682" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983682" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32867134" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.52885747" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28386337" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26800978" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983682" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -448,423 +960,40 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/Map/index.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/components/ButtonPopover.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="225">
+          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
           <folding>
-            <element signature="e#0#24#0" expanded="false" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/Map/Map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
+    <entry file="file://$PROJECT_DIR$/mobile-app/transparent.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="40" lean-forward="false" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <element signature="e#524#525#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="30" column="39" lean-forward="false" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="40" lean-forward="false" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <element signature="e#524#525#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="35" lean-forward="false" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="48" lean-forward="false" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <element signature="e#524#525#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/env.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
+    <entry file="file://$PROJECT_DIR$/mobile-app/splash.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="165">
-            <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="18" />
+          <first_editor relative-caret-position="-478">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="155">
-            <caret line="12" column="11" lean-forward="false" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/xmlbuilder/lib/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="11" lean-forward="false" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/env.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/config/assets.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="157" column="41" lean-forward="false" selection-start-line="157" selection-start-column="41" selection-end-line="157" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerButtonViewManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerEnabledRootView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerEventDataExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerInteractionManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerPackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerRegistry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNGestureHandlerStateChangeEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/react/RNViewConfigurationHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native-gesture-handler/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/shared/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/trashpile/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/Map/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#24#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/Map/Map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="30" column="39" lean-forward="false" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#54#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/sentry.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/gradlew.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="97" column="36" lean-forward="false" selection-start-line="97" selection-start-column="36" selection-end-line="97" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="42" lean-forward="false" selection-start-line="0" selection-start-column="42" selection-end-line="0" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="49" column="26" lean-forward="false" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/mobileapp/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <element signature="e#524#525#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/index.ios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/index.android.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="52" lean-forward="false" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -876,12 +1005,383 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/index.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/index.ios.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/icon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/env.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/Appdd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="82" column="7" lean-forward="false" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/be.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-959">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/en.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/et.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/eu.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/ga.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/af.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/zh.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/yo.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/trans/xh.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1435">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Camera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="4" column="38" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/MyActivity/MyActivity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Settings/components/CountryModal/CountryModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="68" column="29" lean-forward="false" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
+          <folding>
+            <element signature="e#75#116#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/AcceptTerms/AcceptTerms.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-286">
+          <caret line="5" column="44" lean-forward="true" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/CreateMarker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/StatusPicker/StatusPicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-572">
+          <caret line="2" column="75" lean-forward="false" selection-start-line="2" selection-start-column="75" selection-end-line="2" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/CongratsModal/CongratsModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="56" lean-forward="false" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/CreateMarker/components/LocationPicker/LocationPicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="67" lean-forward="false" selection-start-line="2" selection-start-column="67" selection-end-line="2" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/EditLocation/EditLocation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Notifications/Notifications.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/EditTrashpoint/EditTrashpoint.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="626" column="0" lean-forward="false" selection-start-line="626" selection-start-column="0" selection-end-line="635" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="18" column="36" lean-forward="false" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Location.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2650">
+          <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Network.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="44" lean-forward="false" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Error/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/TrashpointDate/TrashpointDate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="44" lean-forward="false" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/About/About.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/Header/Header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-820">
+          <caret line="17" column="44" lean-forward="false" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/PhotoPicker/PhotoPicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="44" lean-forward="false" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/StatusText/StatusText.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="44" lean-forward="false" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/EmptyStateScreen/EmptyStateScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="44" lean-forward="false" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/DropDownListModal/DropDownListModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5">
+          <caret line="8" column="44" lean-forward="false" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/views/scroll/ReactHorizontalScrollContainerView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/android/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="35" column="39" lean-forward="false" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="40" column="30" lean-forward="false" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/assets/strings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="49" column="28" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/env.example.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Loading/LoadingModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-387">
+          <caret line="3" column="44" lean-forward="false" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-191">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/index.android.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

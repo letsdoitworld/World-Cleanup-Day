@@ -1,8 +1,7 @@
 // TODO if the need arises, port this component to a more general variant
 
 import React, { Component } from 'react';
-import { FormInput } from 'react-native-elements';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 import {
   TouchableOpacity,

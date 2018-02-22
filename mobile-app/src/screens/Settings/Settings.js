@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
 import _ from 'lodash';
 
-import { List, ListItem } from 'react-native-elements';
-import { withNavigationHelpers } from '../../services/Navigation';
 import { CountryModal } from './components/CountryModal';
 
 import {
@@ -73,7 +70,7 @@ class Settings extends Component {
   handleLogoutPress = async () => {
     const { logout, navigation } = this.props;
     logout().then(() => {
-      navigation.resetTo('Login');
+     // navigation.resetTo('Login');
     }, () => null);
   };
 
@@ -111,46 +108,46 @@ class Settings extends Component {
     return (
       <View>
         <View style={styles.listContainer}>
-          <List containerStyle={[styles.separator, styles.list]}>
-            <ListItem
-              {...listItemProps}
-              title={this.props.t('label_text_country')}
-              subtitle={countrySubtitle}
-              onPress={this.handleCountryItemPress}
-            />
-          </List>
-          <List containerStyle={[styles.separator, styles.list]}>
-            <ListItem
-              {...listItemProps}
-              subtitleStyle={[styles.subtitle]}
-              onPress={this.handleTermsPress}
-              subtitle={this.props.t('label_button_tc')}
-            />
-            <ListItem
-              {...listItemProps}
-              subtitleStyle={[styles.subtitle]}
-              onPress={this.handlePrivacyPress}
-              subtitle={this.props.t('label_privacy_policy_header')}
-            />
-          </List>
-          <List containerStyle={[styles.separator, styles.list]}>
-            <ListItem
-            {...listItemProps}
-              subtitleStyle={[styles.subtitle]}
-              onPress={this.handleAboutPress}
-              subtitle={this.props.t('label_about_header')}
-            />
-          </List>
-          <List containerStyle={[styles.separator, styles.list]}>
-            <ListItem
-              subtitleStyle={[styles.subtitle, styles.logout]}
-              onPress={this.handleLogoutPress}
-              subtitle={this.props.t('label_button_logout')}
-              hideChevron
-            />
-          </List>
+          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
+            {/*<ListItem*/}
+              {/*{...listItemProps}*/}
+              {/*title={this.props.t('label_text_country')}*/}
+              {/*subtitle={countrySubtitle}*/}
+              {/*onPress={this.handleCountryItemPress}*/}
+            {/*/>*/}
+          {/*</List>*/}
+          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
+            {/*<ListItem*/}
+              {/*{...listItemProps}*/}
+              {/*subtitleStyle={[styles.subtitle]}*/}
+              {/*onPress={this.handleTermsPress}*/}
+              {/*subtitle={this.props.t('label_button_tc')}*/}
+            {/*/>*/}
+            {/*<ListItem*/}
+              {/*{...listItemProps}*/}
+              {/*subtitleStyle={[styles.subtitle]}*/}
+              {/*onPress={this.handlePrivacyPress}*/}
+              {/*subtitle={this.props.t('label_privacy_policy_header')}*/}
+            {/*/>*/}
+          {/*</List>*/}
+          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
+            {/*<ListItem*/}
+            {/*{...listItemProps}*/}
+              {/*subtitleStyle={[styles.subtitle]}*/}
+              {/*onPress={this.handleAboutPress}*/}
+              {/*subtitle={this.props.t('label_about_header')}*/}
+            {/*/>*/}
+          {/*</List>*/}
+          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
+            {/*<ListItem*/}
+              {/*subtitleStyle={[styles.subtitle, styles.logout]}*/}
+              {/*onPress={this.handleLogoutPress}*/}
+              {/*subtitle={this.props.t('label_button_logout')}*/}
+              {/*hideChevron*/}
+            {/*/>*/}
+          {/*</List>*/}
 
-          {this.renderModals()}
+          {/*{this.renderModals()}*/}
 
         </View>
       </View>

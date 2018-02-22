@@ -6,7 +6,7 @@ import DropDownItem from './DropDownItem';
 import { Button } from '../Buttons';
 import { Divider } from '../Divider';
 import styles from './styles';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 class DropDownListModal extends Component {
   static propTypes = {

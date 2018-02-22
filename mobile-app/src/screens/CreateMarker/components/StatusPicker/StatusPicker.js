@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
-import { translate } from 'react-i18next';
 
 import styles from './styles';
 

@@ -11,13 +11,13 @@
                     "endOffset": 153
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 4,
+                        "startLine": 2,
                         "startColumn": 4,
-                        "startOffset": 284,
+                        "startOffset": 55,
                         "endColumn": 102,
-                        "endOffset": 382
+                        "endOffset": 153
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 261
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 5,
+                        "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 387,
+                        "startOffset": 158,
                         "endColumn": 107,
-                        "endOffset": 490
+                        "endOffset": 261
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 384
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 6,
+                        "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 495,
+                        "startOffset": 266,
                         "endColumn": 122,
-                        "endOffset": 613
+                        "endOffset": 384
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 485
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 7,
+                        "startLine": 5,
                         "startColumn": 4,
-                        "startOffset": 618,
+                        "startOffset": 389,
                         "endColumn": 100,
-                        "endOffset": 714
+                        "endOffset": 485
                     }
                 }
             },
@@ -87,13 +87,13 @@
                     "endOffset": 595
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 8,
+                        "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 719,
+                        "startOffset": 490,
                         "endColumn": 109,
-                        "endOffset": 824
+                        "endOffset": 595
                     }
                 }
             },
@@ -102,17 +102,17 @@
                     "startLine": 7,
                     "startColumn": 4,
                     "startOffset": 600,
-                    "endColumn": 89,
-                    "endOffset": 685
+                    "endColumn": 88,
+                    "endOffset": 684
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 9,
+                        "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 829,
-                        "endColumn": 89,
-                        "endOffset": 914
+                        "startOffset": 600,
+                        "endColumn": 88,
+                        "endOffset": 684
                     }
                 }
             },
@@ -120,18 +120,18 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 690,
+                    "startOffset": 689,
                     "endColumn": 105,
-                    "endOffset": 791
+                    "endOffset": 790
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 10,
+                        "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 919,
+                        "startOffset": 689,
                         "endColumn": 105,
-                        "endOffset": 1020
+                        "endOffset": 790
                     }
                 }
             },
@@ -139,18 +139,18 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 796,
+                    "startOffset": 795,
                     "endColumn": 114,
-                    "endOffset": 906
+                    "endOffset": 905
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 11,
+                        "startLine": 9,
                         "startColumn": 4,
-                        "startOffset": 1025,
+                        "startOffset": 795,
                         "endColumn": 114,
-                        "endOffset": 1135
+                        "endOffset": 905
                     }
                 }
             },
@@ -158,18 +158,18 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 911,
-                    "endColumn": 84,
-                    "endOffset": 991
+                    "startOffset": 910,
+                    "endColumn": 81,
+                    "endOffset": 987
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 12,
+                        "startLine": 10,
                         "startColumn": 4,
-                        "startOffset": 1140,
-                        "endColumn": 84,
-                        "endOffset": 1220
+                        "startOffset": 910,
+                        "endColumn": 81,
+                        "endOffset": 987
                     }
                 }
             },
@@ -177,18 +177,18 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 996,
-                    "endColumn": 106,
-                    "endOffset": 1098
+                    "startOffset": 992,
+                    "endColumn": 80,
+                    "endOffset": 1068
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 13,
+                        "startLine": 11,
                         "startColumn": 4,
-                        "startOffset": 1225,
-                        "endColumn": 106,
-                        "endOffset": 1327
+                        "startOffset": 992,
+                        "endColumn": 80,
+                        "endOffset": 1068
                     }
                 }
             },
@@ -196,18 +196,18 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1103,
-                    "endColumn": 106,
-                    "endOffset": 1205
+                    "startOffset": 1073,
+                    "endColumn": 84,
+                    "endOffset": 1153
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 14,
+                        "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 1332,
-                        "endColumn": 106,
-                        "endOffset": 1434
+                        "startOffset": 1073,
+                        "endColumn": 84,
+                        "endOffset": 1153
                     }
                 }
             },
@@ -215,18 +215,18 @@
                 "to": {
                     "startLine": 13,
                     "startColumn": 4,
-                    "startOffset": 1210,
-                    "endColumn": 98,
-                    "endOffset": 1304
+                    "startOffset": 1158,
+                    "endColumn": 106,
+                    "endOffset": 1260
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 15,
+                        "startLine": 13,
                         "startColumn": 4,
-                        "startOffset": 1439,
-                        "endColumn": 98,
-                        "endOffset": 1533
+                        "startOffset": 1158,
+                        "endColumn": 106,
+                        "endOffset": 1260
                     }
                 }
             },
@@ -234,18 +234,18 @@
                 "to": {
                     "startLine": 14,
                     "startColumn": 4,
-                    "startOffset": 1309,
-                    "endColumn": 109,
-                    "endOffset": 1414
+                    "startOffset": 1265,
+                    "endColumn": 106,
+                    "endOffset": 1367
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 16,
+                        "startLine": 14,
                         "startColumn": 4,
-                        "startOffset": 1538,
-                        "endColumn": 109,
-                        "endOffset": 1643
+                        "startOffset": 1265,
+                        "endColumn": 106,
+                        "endOffset": 1367
                     }
                 }
             },
@@ -253,18 +253,18 @@
                 "to": {
                     "startLine": 15,
                     "startColumn": 4,
-                    "startOffset": 1419,
-                    "endColumn": 106,
-                    "endOffset": 1521
+                    "startOffset": 1372,
+                    "endColumn": 98,
+                    "endOffset": 1466
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 17,
+                        "startLine": 15,
                         "startColumn": 4,
-                        "startOffset": 1648,
-                        "endColumn": 106,
-                        "endOffset": 1750
+                        "startOffset": 1372,
+                        "endColumn": 98,
+                        "endOffset": 1466
                     }
                 }
             },
@@ -272,18 +272,18 @@
                 "to": {
                     "startLine": 16,
                     "startColumn": 4,
-                    "startOffset": 1526,
-                    "endColumn": 100,
-                    "endOffset": 1622
+                    "startOffset": 1471,
+                    "endColumn": 109,
+                    "endOffset": 1576
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 18,
+                        "startLine": 16,
                         "startColumn": 4,
-                        "startOffset": 1755,
-                        "endColumn": 100,
-                        "endOffset": 1851
+                        "startOffset": 1471,
+                        "endColumn": 109,
+                        "endOffset": 1576
                     }
                 }
             },
@@ -291,18 +291,18 @@
                 "to": {
                     "startLine": 17,
                     "startColumn": 4,
-                    "startOffset": 1627,
-                    "endColumn": 119,
-                    "endOffset": 1742
+                    "startOffset": 1581,
+                    "endColumn": 106,
+                    "endOffset": 1683
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 19,
+                        "startLine": 17,
                         "startColumn": 4,
-                        "startOffset": 1856,
-                        "endColumn": 119,
-                        "endOffset": 1971
+                        "startOffset": 1581,
+                        "endColumn": 106,
+                        "endOffset": 1683
                     }
                 }
             },
@@ -310,18 +310,18 @@
                 "to": {
                     "startLine": 18,
                     "startColumn": 4,
-                    "startOffset": 1747,
-                    "endColumn": 98,
-                    "endOffset": 1841
+                    "startOffset": 1688,
+                    "endColumn": 99,
+                    "endOffset": 1783
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
-                        "startLine": 20,
+                        "startLine": 18,
                         "startColumn": 4,
-                        "startOffset": 1976,
-                        "endColumn": 98,
-                        "endOffset": 2070
+                        "startOffset": 1688,
+                        "endColumn": 99,
+                        "endOffset": 1783
                     }
                 }
             },
@@ -329,18 +329,75 @@
                 "to": {
                     "startLine": 19,
                     "startColumn": 4,
-                    "startOffset": 1846,
-                    "endColumn": 100,
-                    "endOffset": 1942
+                    "startOffset": 1788,
+                    "endColumn": 124,
+                    "endOffset": 1908
                 },
                 "from": {
-                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1788,
+                        "endColumn": 124,
+                        "endOffset": 1908
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1913,
+                    "endColumn": 98,
+                    "endOffset": 2007
+                },
+                "from": {
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1913,
+                        "endColumn": 98,
+                        "endOffset": 2007
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 2012,
+                    "endColumn": 81,
+                    "endOffset": 2089
+                },
+                "from": {
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
-                        "startOffset": 2075,
+                        "startOffset": 2012,
+                        "endColumn": 81,
+                        "endOffset": 2089
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2094,
+                    "endColumn": 100,
+                    "endOffset": 2190
+                },
+                "from": {
+                    "file": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/values-hy-rAM/values-hy-rAM.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 2094,
                         "endColumn": 100,
-                        "endOffset": 2171
+                        "endOffset": 2190
                     }
                 }
             }

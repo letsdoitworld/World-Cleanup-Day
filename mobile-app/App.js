@@ -1,10 +1,33 @@
-import App from './index';
-console.disableYellowBox = true;
+import React, {Component} from "react";
 
-// this routes all requests to the debugger network tab, if it's present
-window.XMLHttpRequest = window.originalXMLHttpRequest
-  ? window.originalXMLHttpRequest
-  : window.XMLHttpRequest;
+import { Navigation } from 'react-native-navigation';
 
-// export default from './storybook';
-export default App;
+import {PROFILE_SCREEN, registerScreens} from './src/screens';
+
+import strings from './src/assets/strings'
+
+registerScreens();
+
+export default class App extends Component {
+
+    constructor() {
+        super();
+        this.startApp()
+    }
+
+    startApp() {
+
+        Navigation.startTabBasedApp({
+            tabs: [
+                {
+                    screen: PROFILE_SCREEN,
+                    icon: require('./src/assets/images/icon_menu_profile.png'),
+                    selectedIcon: require('./src/assets/images/icon_menu_profile_active.png'),
+                    title: strings.label_header_profile
+                },
+            ]
+        });
+
+    }
+
+}

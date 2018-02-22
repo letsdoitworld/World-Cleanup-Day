@@ -17,11 +17,9 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { LinearGradient } from 'expo';
 import { compose } from 'recompose';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
-import { withNavigationHelpers } from '../../services/Navigation';
 
 import { withCameraActions } from '../../services/Camera';
 import { operations as locationOperations } from '../../reducers/location';
@@ -626,12 +624,12 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withNavigationHelpers(),
-  withLoadingScreen(props => props.loading || props.markerDeleting, {
-    compact: false,
-  }),
-  withCameraActions(),
-  translate(),
-)(EditTrashpoint);
+// export default compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   withNavigationHelpers(),
+//   withLoadingScreen(props => props.loading || props.markerDeleting, {
+//     compact: false,
+//   }),
+//   withCameraActions(),
+//   translate(),
+// )(EditTrashpoint);

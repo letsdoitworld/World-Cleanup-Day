@@ -5,7 +5,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { SimpleButton } from '../../Buttons';
 import { getHeightPercentage, getWidthPercentage, isIOS } from '../../../shared/helpers';
 import { SCREEN_WIDTH } from '../../../shared/constants';
-import { translate } from 'react-i18next';
 
 const styles = EStyleSheet.create({
   $widthSize20: getWidthPercentage(20),

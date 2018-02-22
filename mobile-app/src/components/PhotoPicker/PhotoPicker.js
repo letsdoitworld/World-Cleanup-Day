@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import _ from 'lodash';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 import { AlertModal } from '../AlertModal';
 import { LazyImage } from './components/LazyImage';

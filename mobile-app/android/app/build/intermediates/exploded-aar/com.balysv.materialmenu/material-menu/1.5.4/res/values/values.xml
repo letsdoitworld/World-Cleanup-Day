@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialMenuView"><attr format="color" name="mm_color"/><attr format="boolean" name="mm_visible"/><attr format="integer" name="mm_scale"/><attr format="integer" name="mm_transformDuration"/><attr format="integer" name="mm_strokeWidth"/><attr format="boolean" name="mm_rtlEnabled"/></declare-styleable>
+    <!-- From: file:/Users/balysv/AndroidStudioProjects/Material-menu/library/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="mm_up_arrow_margin">-16dp</dimen>
+</resources>

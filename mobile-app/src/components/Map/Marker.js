@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { MapView } from 'expo';
 import { View, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';

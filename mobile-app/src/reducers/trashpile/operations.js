@@ -1,5 +1,4 @@
 import { ImageStore, PixelRatio } from 'react-native';
-import { FileSystem } from 'expo';
 import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES, DIAGONALE_IN_PX, MARKER_DIAGONALE_IN_PX, MIN_ZOOM,
 DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';

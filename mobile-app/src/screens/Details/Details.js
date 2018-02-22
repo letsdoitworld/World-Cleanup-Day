@@ -13,8 +13,6 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import _ from 'lodash';
 
-import { translate } from 'react-i18next';
-
 import { Map } from '../../components/Map';
 import { SimpleButton } from '../../components/Buttons';
 import {

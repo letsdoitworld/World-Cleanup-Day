@@ -3,8 +3,6 @@ import store from '../config/store';
 import { operations as appOperations } from '../reducers/app';
 import { operations as userOps } from '../reducers/user';
 import { GENERIC_SERVER_ERROR, ERRORS } from '../shared/constants';
-import { resetTo, rootNav } from '../services/Navigation';
-import i18n from '../config/i18n';
 import { handleSentryError } from '../shared/helpers';
 
 const createAxiosInstance = ({ authToken, baseURL }) => {
@@ -20,13 +18,13 @@ const createAxiosInstance = ({ authToken, baseURL }) => {
 
 export const handleApiError = (error) => {
   if (error && error.response && error.response.status === 403) {
-    resetTo(rootNav, 'Login');
+   //resetTo(rootNav, 'Login');
     store.dispatch(userOps.logout());
   } else if (error.response && error.response.status) {
-    const message = `${i18n.t(
-      'label_error_modal_default_subtitle',
-    )} [${error.response.status}]`;
-    store.dispatch(appOperations.setErrorMessage(message));
+    // const message = `${i18n.t(
+    //   'label_error_modal_default_subtitle',
+    // )} [${error.response.status}]`;
+    // store.dispatch(appOperations.setErrorMessage(message));
   } else {
     store.dispatch(appOperations.setErrorMessage(error.message));
   }

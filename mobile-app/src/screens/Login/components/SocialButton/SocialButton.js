@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import PropTypes from 'prop-types';
 

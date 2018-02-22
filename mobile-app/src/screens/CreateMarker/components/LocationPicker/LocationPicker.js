@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { translate } from 'react-i18next';
 
 import { Map } from '../../../../components/Map';
 import { SCREEN_WIDTH, DEFAULT_ZOOM } from '../../../../shared/constants';

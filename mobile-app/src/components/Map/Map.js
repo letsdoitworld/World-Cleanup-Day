@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { MapView } from 'expo';
 import PropTypes from 'prop-types';
 
 import Marker from './Marker';

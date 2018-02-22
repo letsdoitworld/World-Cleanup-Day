@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 import { getHeightPercentage, getWidthPercentage } from '../../shared/helpers';
 
 const image = require('./lazy.png');

@@ -7,7 +7,7 @@ import {
   Linking,
 } from 'react-native';
 import styles from './styles';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 const openQURL = () => {
   Linking.openURL('https://www.qualitance.com/');

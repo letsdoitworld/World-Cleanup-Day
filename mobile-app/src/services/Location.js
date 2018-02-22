@@ -5,9 +5,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { translate } from 'react-i18next';
-
-import { Location, Permissions } from 'expo';
+import strings  from '../../assets/strings';
 
 import { AlertModal } from '../components/AlertModal';
 

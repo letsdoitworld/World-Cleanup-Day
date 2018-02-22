@@ -2,6 +2,10 @@ apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
+project.ext.react = [
+        entryFile: "index.android.js"
+]
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -73,7 +77,6 @@ import com.android.build.OutputFile
  */
 
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-sentry/sentry.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -91,13 +94,13 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.mobileapp"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         ndk {
@@ -134,11 +137,12 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-gesture-handler')
+    compile project(':react-native-navigation')
     compile project(':react-native-vector-icons')
-    compile project(':react-native-sentry')
+    compile project(':react-native-gesture-handler')
+    compile project(':react-native-localization')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:26.+"
+    compile "com.android.support:appcompat-v7:25.0.3"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 

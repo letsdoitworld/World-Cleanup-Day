@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 import styles from './styles';
 
 const EmptyStateScreen = ({ description, title, t }) => {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Modal, Animated, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import IconIO from '@expo/vector-icons/Ionicons';
 
 import styles from './styles';
 import { SCREEN_WIDTH } from '../../shared/constants';

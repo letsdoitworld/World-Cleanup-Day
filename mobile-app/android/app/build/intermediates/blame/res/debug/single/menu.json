@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/menu/stub.xml",
+        "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/res/menu/stub.xml"
+    },
+    {
+        "merged": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/res/merged/debug/menu/search_item.xml",
+        "source": "/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/res/menu/search_item.xml"
+    }
+]

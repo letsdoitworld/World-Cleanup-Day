@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NetInfo, View, ActivityIndicator, Platform } from 'react-native';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 import { compose } from 'recompose';
 import { connect } from 'react-redux';

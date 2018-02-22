@@ -13,11 +13,10 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 import { operations as appOps, selectors as appSels } from '../../reducers/app';
 
-import { withNavigationHelpers } from '../../services/Navigation';
 
 import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';

@@ -2,8 +2,7 @@ import { fetchNetworkTokenAsync, SOCIAL_NETWORKS } from '../../services/Login';
 import Api from '../../services/Api';
 import actions from './actions';
 import { operations as appOps } from '../app';
-import i18n from '../../config/i18n';
-import {handleSentryError} from '../../shared/helpers';
+
 
 const googleLogin = () => async (dispatch) => {
   try {
@@ -14,18 +13,18 @@ const googleLogin = () => async (dispatch) => {
     try {
       token = await fetchNetworkTokenAsync(SOCIAL_NETWORKS.GOOGLE);
     } catch (ex) {
-      handleSentryError(ex);
+     // handleSentryError(ex);
       if (ex.code && ex.code === 'AUTH_ACCOUNT_IS_LOCKED') {
-        dispatch(
-          appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
-        );
+        // dispatch(
+        //   appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
+        // );
       }
       return;
     }
     dispatch(actions.setToken(token));
     return token;
   } catch (ex) {
-    handleSentryError(ex);
+    //handleSentryError(ex);
     dispatch(actions.setAuthError(ex));
     throw ex;
   }
@@ -41,9 +40,9 @@ const facebookLogin = () => async (dispatch) => {
     } catch (ex) {
       handleSentryError(ex);
       if (ex.code && ex.code === 'AUTH_ACCOUNT_IS_LOCKED') {
-        dispatch(
-          appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
-        );
+        // dispatch(
+        //   appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
+        // );
       }
       return;
     }
@@ -51,7 +50,7 @@ const facebookLogin = () => async (dispatch) => {
     dispatch(actions.setToken(token));
     return token;
   } catch (ex) {
-    handleSentryError(ex);
+    //handleSentryError(ex);
     dispatch(actions.setAuthError(ex));
     throw ex;
   }
@@ -65,7 +64,7 @@ const getProfile = () => async (dispatch) => {
     dispatch(actions.fetchProfileDone(response.data));
     return response.data;
   } catch (ex) {
-    handleSentryError(ex);
+    //handleSentryError(ex);
     dispatch(actions.fetchProfileError(ex));
     throw ex;
   }
@@ -82,7 +81,7 @@ const updateProfile = profile => async (dispatch) => {
     dispatch(actions.updateProfileDone(response.data));
     return response.data;
   } catch (ex) {
-    handleSentryError(ex);
+  //  handleSentryError(ex);
     dispatch(actions.updateProfileError(ex));
   }
 };
@@ -91,7 +90,7 @@ const logout = () => async (dispatch) => {
   try {
     await Api.delete('/auth', { skipError: true });
   } catch (ex) {
-    handleSentryError(ex);
+    //handleSentryError(ex);
     console.log(ex);
   }
   dispatch(actions.removeToken());

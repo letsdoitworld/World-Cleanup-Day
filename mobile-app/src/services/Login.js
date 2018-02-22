@@ -1,4 +1,4 @@
-import { Facebook, Google, Constants } from 'expo';
+
 import _ from 'lodash';
 import axios from 'axios';
 import { handleSentryError } from '../shared/helpers';
@@ -13,7 +13,7 @@ import {
   GOOGLE_IOS_EXPO_ID,
 } from '../../env';
 
-const isStandaloneApp = Constants.appOwnership === 'standalone';
+const isStandaloneApp = true//Constants.appOwnership === 'standalone';
 
 const SOCIAL_NETWORKS = {
   FACEBOOK: 'FACEBOOK',

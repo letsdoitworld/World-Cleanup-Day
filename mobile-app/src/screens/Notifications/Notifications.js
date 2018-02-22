@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
-import { withNavigationHelpers } from '../../services/Navigation';
 import { EmptyStateScreen } from '../../components/EmptyStateScreen';
 import styles from './styles';
 
@@ -14,15 +13,15 @@ class Notifications extends Component {
       : null;
   }
 }
-
-const mapStateToProps = () => ({
-  notifications: [],
-});
-
-const mapDispatchToProps = {};
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withNavigationHelpers(),
-  translate(),
-)(Notifications);
+//
+// const mapStateToProps = () => ({
+//   notifications: [],
+// });
+//
+// const mapDispatchToProps = {};
+//
+// export default compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   withNavigationHelpers(),
+//   translate(),
+// )(Notifications);

@@ -15,7 +15,7 @@ export const HEADER_BUTTONS_IMAGES = {
     styles: { width: 18, height: 18, alignSelf: 'flex-end' },
   },
 };
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 class Header extends React.Component {
   constructor(props) {

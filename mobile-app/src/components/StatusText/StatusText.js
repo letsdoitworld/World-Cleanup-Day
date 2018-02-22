@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
 import { getHeightPercentage } from '../../shared/helpers';
 import styles from './styles';

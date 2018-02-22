@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { View, Image, Text, Modal } from 'react-native';
 
 import { compose } from 'recompose';
-import { translate } from 'react-i18next';
+import strings  from '../../assets/strings';
 
-import { withNavigationHelpers } from '../../services/Navigation';
 import { AlertModal } from '../../components/AlertModal';
 import { Map } from '../../components/Map';
 import { Button } from '../../components/Buttons';

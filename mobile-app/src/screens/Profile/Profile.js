@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
-import { Divider } from '../../components/Divider';
+import { Divider } from '../../components/Divider/Divider';
 import { selectors as userSelectors } from '../../reducers/user';
 import styles from './styles';
 

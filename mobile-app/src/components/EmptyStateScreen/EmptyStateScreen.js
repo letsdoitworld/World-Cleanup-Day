@@ -3,7 +3,7 @@ import { Image, View, Text } from 'react-native';
 import strings  from '../../assets/strings';
 import styles from './styles';
 
-const EmptyStateScreen = ({ description, title, t }) => {
+export const EmptyStateScreen = ({ description, title}) => {
   return (
     <View style={styles.emptyStateContainer}>
       <Image
@@ -12,7 +12,7 @@ const EmptyStateScreen = ({ description, title, t }) => {
         style={styles.emptyStateImage}
       />
       <Text style={styles.emptyStateTitle}>
-        {title || t('label_text_activity_empty_subtitle')}
+        {title || strings.label_text_activity_empty_subtitle}
       </Text>
       <Text style={styles.emptyStateDescription}>
         {description}
@@ -20,5 +20,3 @@ const EmptyStateScreen = ({ description, title, t }) => {
     </View>
   );
 };
-
-export default translate()(EmptyStateScreen);

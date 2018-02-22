@@ -57,8 +57,7 @@ const ActivityListItem = ({
   return (
     <TouchableHighlight
       onPress={() => onPressItem({ id, location })}
-      activeOpacity={0.9}
-    >
+      activeOpacity={0.9}>
       <View style={styles.container}>
         <View style={styles.marginContainer}>
           <View style={[styles.status, statusStyle]} />
@@ -79,8 +78,7 @@ const ActivityListItem = ({
           <Image
             style={styles.image}
             source={require('../../../assets/images/icon_menu_arrowforward.png')}
-            resizeMode="contain"
-          />
+            resizeMode="contain"/>
         </View>
       </View>
     </TouchableHighlight>

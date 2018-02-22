@@ -3,13 +3,12 @@ import { TouchableHighlight, Text } from 'react-native';
 
 import styles from './styles';
 
-const SimpleButton = ({onPress, text, textStyles = {}}) => {
+export const SimpleButton = ({onPress, text, textStyles = {}}) => {
   return (
     <TouchableHighlight
       style={styles.container}
       onPress={onPress}
-      underlayColor='transparent'
-    >
+      underlayColor='transparent'>
       <Text style={[styles.text, textStyles]}>
         {text}
       </Text>
@@ -21,5 +20,3 @@ SimpleButton.defaultProps = {
   onPress: () => {
   }
 };
-
-export default SimpleButton;

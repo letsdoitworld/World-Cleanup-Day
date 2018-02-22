@@ -3,8 +3,8 @@ import { StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import { Map } from '../components/Map';
-import { withNavigationHelpers } from '../services/Navigation';
+//import { Map } from '../components/Map';
+
 import {
   operations as trashpileOperations,
   selectors as trashpileSelectors,
@@ -15,7 +15,7 @@ import { SCREENS } from '../shared/constants';
 import { DELTA_HASH, GRID_HASH, MIN_ZOOM } from '../shared/constants';
 import _ from 'lodash';
 
-class Home extends Component {
+export default class Home extends Component {
   state = {
     updateRegion: true,
   };
@@ -111,13 +111,12 @@ class Home extends Component {
     return (
       <View style={{ flex: 1 }}>
         <StatusBar translucent={false} barStyle="default" />
-        <Map
-          onRegionChangeComplete={this.handleOnRegionChangeComplete}
-          markers={markers}
-          initialRegion={initialRegion}
-          handleOnMarkerPress={this.onPressMarker}
-          getRef={this.getMapObject}
-        />
+        {/*<Map*/}
+          {/*onRegionChangeComplete={this.handleOnRegionChangeComplete}*/}
+          {/*markers={markers}*/}
+          {/*initialRegion={initialRegion}*/}
+          {/*handleOnMarkerPress={this.onPressMarker}*/}
+          {/*getRef={this.getMapObject}/>*/}
       </View>
     );
   }
@@ -138,30 +137,30 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
-      dispatch(
-        trashpileOperations.fetchAllMarkers(
-          northWestViewPort,
-          southEastViewPort,
-          delta,
-        ),
-      );
-    },
-    fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
-      dispatch(
-        trashpileOperations.fetchClusterTrashpoints({
-          cellSize,
-          coordinates,
-          clusterId,
-        }),
-      );
-    },
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
+//       dispatch(
+//         trashpileOperations.fetchAllMarkers(
+//           northWestViewPort,
+//           southEastViewPort,
+//           delta,
+//         ),
+//       );
+//     },
+//     fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
+//       dispatch(
+//         trashpileOperations.fetchClusterTrashpoints({
+//           cellSize,
+//           coordinates,
+//           clusterId,
+//         }),
+//       );
+//     },
+//   };
+// };
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withNavigationHelpers(),
-)(Home);
+// export default compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   withNavigationHelpers(),
+// )(Home);

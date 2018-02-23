@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
-import { compose } from 'recompose';
-import { connect } from 'react-redux';
+// import { compose } from 'recompose';
+// import { connect } from 'react-redux';
 
 import { Divider } from '../../components/Divider/Divider';
-import { selectors as userSelectors } from '../../reducers/user';
+//import { selectors as userSelectors } from '../../reducers/user';
 import styles from './styles';
 
 export default class Profile extends Component {
@@ -53,12 +53,12 @@ export default class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    profile: userSelectors.getProfile(state),
-    country: userSelectors.getProfileCountry(state),
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     profile: userSelectors.getProfile(state),
+//     country: userSelectors.getProfileCountry(state),
+//   };
+// };
 //
 // const mapDispatchToProps = {};
 //

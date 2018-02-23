@@ -5,16 +5,15 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import strings  from '../../assets/strings';
+import strings  from '../assets/strings';
 
 import { AlertModal } from '../components/AlertModal';
 
 import { GOOGLE_GEOCODE_API_URL, API_KEY } from '../shared/constants';
 
-import {
-  operations as locationOps,
-  selectors as locationSels,
-} from '../reducers/location';
+// import {operations as locationOps} from '../reducers/location/operations';
+//
+// selectors as locationSels,
 
 const checkLocationPermission = async () => {
   const answer = await Permissions.askAsync(Permissions.LOCATION);
@@ -193,9 +192,9 @@ const mapState = state => ({
   hasPermissionActive: locationSels.hasLocationPermission(state),
   showModal: locationSels.shouldShowModal(state),
 });
-const mapDispatch = {
-  ...locationOps,
-};
+// const mapDispatch = {
+//   ...locationOps,
+// };
 export const withLocationGuard = () =>
   compose(connect(mapState, mapDispatch), composeLocationGuard());
 

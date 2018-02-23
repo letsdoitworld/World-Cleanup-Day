@@ -9,36 +9,21 @@
 
 #import "AppDelegate.h"
 
-#import <React/RCTBundleURLProvider.h>
+//#import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#if __has_include(<React/RNSentry.h>)
-#import <React/RNSentry.h> // This is used for versions of react >= 0.40
-#else
-#import "RNSentry.h" // This is used for versions of react < 0.40
-#endif
+#import "RCCManager.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSURL *jsCodeLocation;
-
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"mobileapp"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
-
-  [RNSentry installWithRootView:rootView];
-
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
+ // NSURL *jsCodeLocation;
+  
+  
+ // jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
-  [self.window makeKeyAndVisible];
+  self.window.backgroundColor = [UIColor whiteColor];
+  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
   return YES;
 }
 

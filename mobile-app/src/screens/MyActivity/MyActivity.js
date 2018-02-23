@@ -15,10 +15,10 @@ import strings  from '../../assets/strings';
 
 import PropTypes from 'prop-types';
 
-import {
-  selectors as trashSels,
-  operations as trashOps,
-} from '../../reducers/trashpile';
+// import {
+//   selectors as trashSels,
+//   operations as trashOps,
+// } from '../../reducers/trashpile';
 
  import ActivityListItem from './components/ActivityListItem';
  import { Divider } from '../../components/Divider/Divider';

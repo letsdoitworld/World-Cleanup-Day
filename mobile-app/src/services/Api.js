@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../config/store';
-import { operations as appOperations } from '../reducers/app';
-import { operations as userOps } from '../reducers/user';
+import { operations as appOperations } from '../reducers/app/operations';
+import { operations as userOps } from '../reducers/user/operations';
 import { GENERIC_SERVER_ERROR, ERRORS } from '../shared/constants';
 import { handleSentryError } from '../shared/helpers';
 

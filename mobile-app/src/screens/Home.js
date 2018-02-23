@@ -5,12 +5,12 @@ import { compose } from 'recompose';
 
 import { Map } from '../components/Map/Map';
 
-import {
-  operations as trashpileOperations,
-  selectors as trashpileSelectors,
-} from '../reducers/trashpile';
-import { selectors as locationSelectors } from '../reducers/location';
-import { selectors as appSelectors } from '../reducers/app';
+// import {
+//   operations as trashpileOperations,
+//   selectors as trashpileSelectors,
+// } from '../reducers/trashpile';
+// import { selectors as locationSelectors } from '../reducers/location';
+// import { selectors as appSelectors } from '../reducers/app';
 import { SCREENS } from '../shared/constants';
 import { DELTA_HASH, GRID_HASH, MIN_ZOOM } from '../shared/constants';
 import _ from 'lodash';
@@ -132,21 +132,21 @@ export default class Home extends Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  const mapMarkers = trashpileSelectors.markersSelector(state);
-  const userMarker = locationSelectors.userMarkerSelector(state);
-  const locationActive = locationSelectors.hasLocationActive(state);
-
-  const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
-  return {
-    markers,
-    initialRegion: locationSelectors.initialRegionSelector(state),
-    activeScreen: appSelectors.getActiveScreen(state),
-    userLocation: locationSelectors.userLocationSelector(state),
-    delta: trashpileSelectors.getLastDeltaValue(state),
-  };
-};
+//
+// const mapStateToProps = state => {
+//   const mapMarkers = trashpileSelectors.markersSelector(state);
+//   const userMarker = locationSelectors.userMarkerSelector(state);
+//   const locationActive = locationSelectors.hasLocationActive(state);
+//
+//   const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
+//   return {
+//     markers,
+//     initialRegion: locationSelectors.initialRegionSelector(state),
+//     activeScreen: appSelectors.getActiveScreen(state),
+//     userLocation: locationSelectors.userLocationSelector(state),
+//     delta: trashpileSelectors.getLastDeltaValue(state),
+//   };
+// };
 
 // const mapDispatchToProps = dispatch => {
 //   return {

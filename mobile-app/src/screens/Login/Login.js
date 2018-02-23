@@ -3,6 +3,7 @@ import {
   View,
   StatusBar,
   Image,
+    ImageBackground,
   Text,
   TouchableOpacity,
   ActivityIndicator,
@@ -12,17 +13,18 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import _ from 'lodash';
 
-import { withNavigationHelpers } from '../../services/Navigation';
-import { withLoadingScreen } from '../../services/Loading';
+import strings from '../../assets/strings'
+
+//import { withLoadingScreen } from '../../services/Loading';
 import { fetchAddress } from '../../services/Location';
 import { PRIVACY_URL, TERMS_URL } from '../../../env';
 
-import {
-  operations as userOperations,
-  selectors as userSelectors,
-} from '../../reducers/user';
-
-import { selectors as locSels } from '../../reducers/location';
+// import {
+//   operations as userOperations,
+//   selectors as userSelectors,
+// } from '../../reducers/user';
+//
+// import { selectors as locSels } from '../../reducers/location';
 
 import { SocialButton } from './components/SocialButton';
 import { Logo } from '../../components/Logo';
@@ -30,7 +32,8 @@ import Api from '../../services/Api';
 import { COUNTRY_LIST } from '../../shared/constants';
 import styles from './styles';
 
-class Login extends Component {
+export default class Login extends Component {
+
   static propTypes = {
     agreedToTerms: PropTypes.bool.isRequired,
     facebookLogin: PropTypes.func.isRequired,
@@ -147,9 +150,7 @@ class Login extends Component {
     const { loading } = this.state;
     if (isProfileLoading || loading) {
       return (
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />
         </View>
       );
@@ -158,80 +159,75 @@ class Login extends Component {
       <Image
         resizeMode="stretch"
         style={styles.image}
-        source={require('./images/background.png')}
-      >
-        <StatusBar translucent barStyle="light-content" />
-
-        <Logo style={styles.logo} />
-        <Text style={styles.heading}>
-          {t('label_text_app_subtitle')}
-        </Text>
-        <View style={styles.buttonContainer}>
-          <SocialButton
-            style={styles.button}
-            text={t('label_button_facebook')}
-            icon="facebook"
-            color={styles.$fbButtonColor}
-            onPress={this.handleFBPress}
-          />
-          <View style={styles.buttonSeparator} />
-          <SocialButton
-            style={styles.button}
-            text={t('label_button_google')}
-            icon="google"
-            color={styles.$googleButtonColor}
-            onPress={this.handleGooglePress}
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.skipLogoutContainer}
-          onPress={this.handleSkipPress}
-        >
-          <Text style={styles.skipLogout}>
-            {t('label_button_try_app')}
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.linksContainer}>
-          <TouchableOpacity onPress={this.handleLinkPress(TERMS_URL)}>
-            <Text style={styles.skipLogout}>
-              {t('label_header_tc')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.handleLinkPress(PRIVACY_URL)}>
-            <Text style={styles.skipLogout}>
-              {t('label_privacy_policy_header')}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        source={require('./images/background.png')}>
+        {/*<StatusBar translucent barStyle="light-content" />*/}
+        {/*<Logo style={styles.logo} />*/}
+        {/*<Text style={styles.heading}>*/}
+          {/*{strings.label_text_app_subtitle}*/}
+        {/*</Text>*/}
+        {/*<View style={styles.buttonContainer}>*/}
+          {/*<SocialButton*/}
+            {/*style={styles.button}*/}
+            {/*text={strings.label_button_facebook}*/}
+            {/*icon="facebook"*/}
+            {/*color={styles.$fbButtonColor}*/}
+            {/*onPress={this.handleFBPress}/>*/}
+          {/*<View style={styles.buttonSeparator} />*/}
+          {/*<SocialButton*/}
+            {/*style={styles.button}*/}
+            {/*text={strings.label_button_google}*/}
+            {/*icon="google"*/}
+            {/*color={styles.$googleButtonColor}*/}
+            {/*onPress={this.handleGooglePress}/>*/}
+        {/*</View>*/}
+        {/*<TouchableOpacity*/}
+          {/*style={styles.skipLogoutContainer}*/}
+          {/*onPress={this.handleSkipPress}>*/}
+          {/*<Text style={styles.skipLogout}>*/}
+            {/*{strings.label_button_try_app}*/}
+          {/*</Text>*/}
+        {/*</TouchableOpacity>*/}
+        {/*<View style={styles.linksContainer}>*/}
+          {/*<TouchableOpacity onPress={this.handleLinkPress(TERMS_URL)}>*/}
+            {/*<Text style={styles.skipLogout}>*/}
+              {/*{strings.label_header_tc}*/}
+            {/*</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity onPress={this.handleLinkPress(PRIVACY_URL)}>*/}
+            {/*<Text style={styles.skipLogout}>*/}
+              {/*{strings.label_privacy_policy_header}*/}
+            {/*</Text>*/}
+          {/*</TouchableOpacity>*/}
+        {/*</View>*/}
       </Image>
     );
   }
 }
-
-const mapState = state => {
-  return {
-    agreedToTerms: userSelectors.didAgreeToTerms(state),
-    isAuthenticated: userSelectors.isAuthenticated(state),
-    token: userSelectors.getToken(state),
-    isProfileLoading: userSelectors.isProfileLoading(state),
-    profile: userSelectors.getProfile(state),
-    profileError: userSelectors.getProfileError(state),
-    locationActive:
-      locSels.hasLocationActive(state) && locSels.wasUserLocationSet(state),
-    location: locSels.userLocationSelector(state),
-  };
-};
-
-const mapDispatch = {
-  facebookLogin: userOperations.facebookLogin,
-  googleLogin: userOperations.googleLogin,
-  getProfile: userOperations.getProfile,
-  updateProfile: userOperations.updateProfile,
-};
-
-export default compose(
-  connect(mapState, mapDispatch),
-  withNavigationHelpers(),
-  translate(),
-  // withLoadingScreen(() => true),
-)(Login);
+//
+// const mapState = state => {
+//   return {
+//     agreedToTerms: userSelectors.didAgreeToTerms(state),
+//     isAuthenticated: userSelectors.isAuthenticated(state),
+//     token: userSelectors.getToken(state),
+//     isProfileLoading: userSelectors.isProfileLoading(state),
+//     profile: userSelectors.getProfile(state),
+//     profileError: userSelectors.getProfileError(state),
+//     locationActive:
+//       locSels.hasLocationActive(state) && locSels.wasUserLocationSet(state),
+//     location: locSels.userLocationSelector(state),
+//   };
+// };
+//
+// const mapDispatch = {
+//   facebookLogin: userOperations.facebookLogin,
+//   googleLogin: userOperations.googleLogin,
+//   getProfile: userOperations.getProfile,
+//   updateProfile: userOperations.updateProfile,
+// };
+//
+// export default compose(
+//   connect(mapState, mapDispatch),
+//   withNavigationHelpers(),
+//   translate(),
+//   // withLoadingScreen(() => true),
+// )(Login);

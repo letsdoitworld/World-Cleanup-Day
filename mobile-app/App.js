@@ -2,11 +2,21 @@ import React, {Component} from "react";
 
 import { Navigation } from 'react-native-navigation';
 
-import {HOME_SCREEN, MY_ACTIVITY_SCREEN, NOTIFICATIONS_SCREEN, PROFILE_SCREEN, registerScreens} from './src/screens';
+import {
+    HOME_SCREEN, LOGIN_SCREEN,
+    MY_ACTIVITY_SCREEN,
+    NOTIFICATIONS_SCREEN,
+    PROFILE_SCREEN,
+    registerScreens
+} from './src/screens';
 
 import strings from './src/assets/strings'
+import configureStore from "./src/store/configureStore";
+import {Provider} from "react-redux";
 
-registerScreens();
+const store = configureStore();
+
+registerScreens(store, Provider);
 
 export default class App extends Component {
 
@@ -17,33 +27,51 @@ export default class App extends Component {
 
     startApp() {
 
-        Navigation.startTabBasedApp({
-            tabs: [
-                {
-                    screen: PROFILE_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_profile.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_profile_active.png'),
-                    title: strings.label_header_profile
+        const token = store.getState().get('auth').get('token');
+
+        if (token === undefined) {
+
+            Navigation.startSingleScreenApp({
+                screen: {
+                    screen: LOGIN_SCREEN,
+                    //title: 'Welcome',
+                  //  navigatorStyle: styles.navigatorStyleAuth,
+                    navigatorButtons: {},
+                    appStyle: {
+                        keepStyleAcrossPush: false
+                    }
                 },
-                {
-                    screen: MY_ACTIVITY_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_activity.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_activity_active.png'),
-                    title: strings.label_header_activity
-                },
-                {
-                    screen: NOTIFICATIONS_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_updates.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_updates_active.png'),
-                    title: strings.label_header_notific
-                },
-                {
-                    screen: HOME_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_map.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_map_active.png'),
-                },
-            ]
-        });
+            });
+        } else {
+
+            Navigation.startTabBasedApp({
+                tabs: [
+                    {
+                        screen: PROFILE_SCREEN,
+                        icon: require('./src/assets/images/icon_menu_profile.png'),
+                        selectedIcon: require('./src/assets/images/icon_menu_profile_active.png'),
+                        title: strings.label_header_profile
+                    },
+                    {
+                        screen: MY_ACTIVITY_SCREEN,
+                        icon: require('./src/assets/images/icon_menu_activity.png'),
+                        selectedIcon: require('./src/assets/images/icon_menu_activity_active.png'),
+                        title: strings.label_header_activity
+                    },
+                    {
+                        screen: NOTIFICATIONS_SCREEN,
+                        icon: require('./src/assets/images/icon_menu_updates.png'),
+                        selectedIcon: require('./src/assets/images/icon_menu_updates_active.png'),
+                        title: strings.label_header_notific
+                    },
+                    {
+                        screen: HOME_SCREEN,
+                        icon: require('./src/assets/images/icon_menu_map.png'),
+                        selectedIcon: require('./src/assets/images/icon_menu_map_active.png'),
+                    },
+                ]
+            });
+        }
 
     }
 

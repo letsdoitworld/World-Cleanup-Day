@@ -35,8 +35,9 @@ const setActiveScreen = activeScreen => ({
 });
 
 const setConnectionChecked = () => ({ type: types.SET_CONNECTION_CHECKED });
-const updateNetworkStatus = isConnected =>
-  ({ type: types.UPDATE_NETWORK_STATUS, payload: { isConnected } });
+
+const updateNetworkStatus = isConnected => ({ type: types.UPDATE_NETWORK_STATUS, payload: { isConnected } });
+
 export default {
   setPopoverShown,
   setPopoverMessage,

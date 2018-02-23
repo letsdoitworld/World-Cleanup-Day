@@ -169,7 +169,7 @@ const userTrashpointsReducer = (state = USER_TRASHPOINTS_INITAL_STATE,
   }
 };
 
-export default combineReducers({
-  trashpoints: markersReducer,
-  userTrashpoints: userTrashpointsReducer,
-});
+// export default combineReducers({
+//   trashpoints: markersReducer,
+//   userTrashpoints: userTrashpointsReducer,
+// });

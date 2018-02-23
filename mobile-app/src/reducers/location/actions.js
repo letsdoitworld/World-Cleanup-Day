@@ -17,9 +17,9 @@ const setErrorModalVisible = (showModal = true) => ({
   payload: showModal,
 });
 
-export default {
-  updateUserLocation,
-  setLocationActive,
-  setLocationPermission,
-  setErrorModalVisible,
-};
+// export default {
+//   updateUserLocation,
+//   setLocationActive,
+//   setLocationPermission,
+//   setErrorModalVisible,
+// };

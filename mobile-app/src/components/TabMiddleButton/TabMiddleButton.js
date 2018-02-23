@@ -7,20 +7,20 @@ import { compose } from 'recompose';
 import { handleSentryError } from '../../shared/helpers';
 import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';
-import {
-  selectors as locationSels,
-  operations as locationOps,
-} from '../../reducers/location';
+// import {
+//   selectors as locationSels,
+//   operations as locationOps,
+// } from '../../reducers/location';
 
 import ButtonPopover from './components/ButtonPopover';
 
 import { Popover } from '../Popover';
 
 import styles from './styles';
-import {
-  operations as appOperations,
-  selectors as appSelectors,
-} from '../../reducers/app';
+// import {
+//   operations as appOperations,
+//   selectors as appSelectors,
+// } from '../../reducers/app';
 
 class TabMiddleButton extends Component {
   static defaultProps = {
@@ -114,19 +114,19 @@ class TabMiddleButton extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  wasPopoverShown: appSelectors.wasPopoverShown(state),
-  popoverMessage: appSelectors.getPopoverMessage(state),
-  userLocation: locationSels.userLocationSelector(state),
-  locationActive: locationSels.hasLocationActive(state),
-});
-
-const mapDispatchToProps = {
-  onPopoverShow: appOperations.setPopoverShown,
-  showLocationErrorModal: locationOps.setErrorModalVisible,
-};
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withCameraActions(),
-)(TabMiddleButton);
+//
+// const mapStateToProps = state => ({
+//   wasPopoverShown: appSelectors.wasPopoverShown(state),
+//   popoverMessage: appSelectors.getPopoverMessage(state),
+//   userLocation: locationSels.userLocationSelector(state),
+//   locationActive: locationSels.hasLocationActive(state),
+// });
+//
+// const mapDispatchToProps = {
+//   onPopoverShow: appOperations.setPopoverShown,
+//   showLocationErrorModal: locationOps.setErrorModalVisible,
+// };
+// export default compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   withCameraActions(),
+// )(TabMiddleButton);

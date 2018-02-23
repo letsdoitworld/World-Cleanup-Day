@@ -6,6 +6,7 @@ const popoverInitialState = {
   shown: false,
   message: 'Join other people who are mapping trash!',
 };
+
 const errorInitialState = {
   visible: false,
   title: undefined,
@@ -73,9 +74,9 @@ const configReducer = (
   }
 };
 
-export default combineReducers({
-  popover: popoverReducer,
-  error: errorReducer,
-  config: configReducer,
-  network: networkReducer,
-});
+// export default combineReducers({
+//   popover: popoverReducer,
+//   error: errorReducer,
+//   config: configReducer,
+//   network: networkReducer,
+// });

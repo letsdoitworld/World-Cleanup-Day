@@ -4,13 +4,12 @@ DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
 import { Api } from '../../services';
 import axios from 'axios';
-import { selectors as appSelectors, operations as appOps } from '../app';
-import { selectors as trashpileSelectors } from '../trashpile';
+//import { selectors as appSelectors, operations as appOps } from '../app';
+//import { selectors as trashpileSelectors } from '../trashpile';
 import {
   convertToByteArray,
   guid,
-  destinationPoint,
-  handleSentryError
+  destinationPoint
 } from '../../shared/helpers';
 
 import actions from './actions';

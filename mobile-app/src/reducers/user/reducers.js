@@ -1,20 +1,22 @@
-import { combineReducers } from 'redux';
+//import { combineReducers } from 'redux';
 
 import types from './types';
 
-const authInitialState = {
+export const authInitialState = {
   token: undefined,
   tokenError: undefined,
   termsAgreed: false,
 };
-const profileInitialState = {
+
+export const profileInitialState = {
   entity: undefined,
   loading: false,
   updating: false,
   updatingError: undefined,
   error: undefined,
 };
-const authReducer = (state = authInitialState, action) => {
+
+export const authReducer = (state = authInitialState, action) => {
   switch (action.type) {
     case types.SET_AUTH_TOKEN:
       return { ...state, token: action.payload };
@@ -26,7 +28,8 @@ const authReducer = (state = authInitialState, action) => {
       return state;
   }
 };
-const profileReducer = (state = profileInitialState, action) => {
+
+export const profileReducer = (state = profileInitialState, action) => {
   switch (action.type) {
     case types.TERMS_AGREE:
       return {
@@ -80,7 +83,14 @@ const profileReducer = (state = profileInitialState, action) => {
   }
 };
 
-export default combineReducers({
-  auth: authReducer,
-  profile: profileReducer,
-});
+// export default {
+//     authInitialState,
+//     profileInitialState,
+//     authReducer,
+//     profileReducer
+// }
+//
+// export default combineReducers({
+//   auth: authReducer,
+//   profile: profileReducer,
+// });

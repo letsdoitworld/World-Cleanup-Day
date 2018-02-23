@@ -37,14 +37,14 @@ const deleteMarkerError = () => ({
   type: types.DELETE_MARKER_ERROR,
 });
 
-export default {
-  resetMarkerDetails,
-  fetchUserTrashpoints,
-  fetchUserTrashpointsSuccess,
-  fetchUserTrashpointsError,
-  setLastDelta,
-
-  deleteMarker,
-  deleteMarkerSuccess,
-  deleteMarkerError,
-};
+// export default {
+//   resetMarkerDetails,
+//   fetchUserTrashpoints,
+//   fetchUserTrashpointsSuccess,
+//   fetchUserTrashpointsError,
+//   setLastDelta,
+//
+//   deleteMarker,
+//   deleteMarkerSuccess,
+//   deleteMarkerError,
+// };

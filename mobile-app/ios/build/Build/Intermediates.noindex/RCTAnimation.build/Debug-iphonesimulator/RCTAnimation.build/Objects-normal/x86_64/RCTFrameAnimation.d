@@ -1,20 +1,12 @@
 dependencies: \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTFrameAnimation.m \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTFrameAnimation.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTAnimationDriver.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/NativeAnimation/RCTAnimationUtils.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTValueAnimatedNode.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTAnimatedNode.h
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTFrameAnimation.m \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTFrameAnimation.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTAnimationDriver.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h

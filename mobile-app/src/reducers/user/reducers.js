@@ -3,7 +3,7 @@
 import types from './types';
 
 export const authInitialState = {
-  token: undefined,
+  token: 'Ihor kakaha',
   tokenError: undefined,
   termsAgreed: false,
 };

@@ -42,6 +42,11 @@ public class MainApplication extends NavigationApplication {
 //    protected List<ReactPackage> getPackages() {
 //      return Arrays.<ReactPackage>asList(
 //            new MainReactPackage(),
+            new VectorIconsPackage(),
+            new NavigationReactPackage(),
+            new MapsPackage(),
+            new ReactNativeLocalizationPackage(),
+            new RNGestureHandlerPackage(),
 //            new VectorIconsPackage(),
 //            new RNSentryPackage(MainApplication.this),
 //            new RNGestureHandlerPackage()

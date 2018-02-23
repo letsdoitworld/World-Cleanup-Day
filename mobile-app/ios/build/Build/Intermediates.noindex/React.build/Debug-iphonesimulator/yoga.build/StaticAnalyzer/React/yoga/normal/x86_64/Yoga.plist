@@ -6,7 +6,7 @@
 <string>Apple LLVM version 9.0.0 (clang-900.0.39.2)</string>
  <key>files</key>
  <array>
-  <string>/Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.cpp</string>
+  <string>/Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.cpp</string>
  </array>
  <key>diagnostics</key>
  <array>

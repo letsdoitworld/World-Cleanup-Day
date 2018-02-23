@@ -2,97 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e65bda64-cdab-40c0-abe9-1d2142e95ceb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCacheStorage.momd/StorageWithTileProto.mom" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCacheStorage.momd/VersionInfo.plist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/GMSNavNightModeSprites-0-1x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/GMSNavNightModeSprites-0-2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/GMSNavSprites-0-1x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/GMSNavSprites-0-2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/button_my_location@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/de.lproj/GMSCore.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/en_AU.lproj/GMSCore.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/fr.lproj/GMSCore.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/hi.lproj/GMSCore.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/ic_compass_needle_large.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/ic_location_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/ic_location_off@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/ic_qu_direction_mylocation.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/nl.lproj/GMSCore.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/polyline_colors_texture.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/road_16-4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/traffic_fast.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/traffic_slow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Resources/GoogleMaps.bundle/GMSCoreResources.bundle/traffic_stopped.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMapsCore.framework/GoogleMapsCore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSCALayer.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSCameraUpdate.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSGroundOverlay.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSIndoorBuilding.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSIndoorLevel.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSMarkerLayer.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaCamera.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaLink.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSProjection.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Headers/GMSUISettings.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/ios/GoogleMaps.framework/Modules/module.modulemap" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/.babelrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTActionSheet.build/Debug-iphonesimulator/RCTActionSheet.build/StaticAnalyzer/RCTActionSheet/RCTActionSheet/normal/x86_64/RCTActionSheetManager.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTImage.build/Debug-iphonesimulator/RCTImage.build/Objects-normal/x86_64/RCTImageViewManager.dia" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTVibration.build/Debug-iphonesimulator/RCTVibration.build/Objects-normal/x86_64/RCTVibration.dia" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RNGestureHandler.build/Debug-iphonesimulator/RNGestureHandler.build/Objects-normal/x86_64/RNGestureHandler.dia" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/ReactNativeNavigation.build/Debug-iphonesimulator/ReactNativeNavigation.build/Objects-normal/x86_64/RCCManagerModule.dia" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/ReactNativeNavigation.build/Debug-iphonesimulator/ReactNativeNavigation.build/Objects-normal/x86_64/RNNSwizzles.dia" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mobile-app/yarn.lock" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTAnimation.build/Debug-iphonesimulator/RCTAnimation.build/Objects-normal/x86_64/RCTFrameAnimation.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTAnimation.build/Debug-iphonesimulator/RCTAnimation.build/Objects-normal/x86_64/RCTFrameAnimation.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTGeolocation.build/Debug-iphonesimulator/RCTGeolocation.build/RCTGeolocation.hmap" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTGeolocation.build/Debug-iphonesimulator/RCTGeolocation.build/RCTGeolocation.hmap" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTImage.build/Debug-iphonesimulator/RCTImage.build/Objects-normal/x86_64/RCTImageStoreManager.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTImage.build/Debug-iphonesimulator/RCTImage.build/Objects-normal/x86_64/RCTImageStoreManager.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTNetwork.build/Debug-iphonesimulator/RCTNetwork.build/dgph" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTNetwork.build/Debug-iphonesimulator/RCTNetwork.build/dgph" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTSettings.build/Debug-iphonesimulator/RCTSettings.build/Objects-normal/x86_64/RCTSettingsManager.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTSettings.build/Debug-iphonesimulator/RCTSettings.build/Objects-normal/x86_64/RCTSettingsManager.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTText.build/Debug-iphonesimulator/RCTText.build/Objects-normal/x86_64/RCTTextView.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTText.build/Debug-iphonesimulator/RCTText.build/Objects-normal/x86_64/RCTTextView.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTWebSocket.build/Debug-iphonesimulator/fishhook.build/Objects-normal/x86_64/fishhook.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTWebSocket.build/Debug-iphonesimulator/fishhook.build/Objects-normal/x86_64/fishhook.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTDatePicker.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTDatePicker.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/React-project-headers.hmap" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/React-project-headers.hmap" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/Instance.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/Instance.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/JSCLegacyTracing.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/JSCLegacyTracing.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/ModuleRegistry.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/ModuleRegistry.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/RAMBundleRegistry.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/RAMBundleRegistry.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/double-conversion.build/Objects-normal/x86_64/fixed-dtoa.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/double-conversion.build/Objects-normal/x86_64/fixed-dtoa.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/JSCHelpers.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/JSCHelpers.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/JSCWrapper.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/JSCWrapper.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/Value.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/Value.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jsinspector.build/jsinspector-project-headers.hmap" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jsinspector.build/jsinspector-project-headers.hmap" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/Demangle-A25D07C72C2EFF53.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/Demangle-A25D07C72C2EFF53.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/StringBase.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/StringBase.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/Unicode.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/Unicode.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/demangle-7B942820D95A2665.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/demangle-7B942820D95A2665.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/dynamic.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/dynamic.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/json.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/json.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/logging.o" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/logging.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/utilities.dia" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/utilities.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/dgph" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/dgph" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/libthird-party.a" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/libthird-party.a" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-app/android/app/src/main/assets/strings.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/android/app/build.gradle" afterPath="$PROJECT_DIR$/mobile-app/android/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/android/settings.gradle" afterPath="$PROJECT_DIR$/mobile-app/android/settings.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTActionSheet.build/Debug-iphonesimulator/RCTActionSheet.build/Objects-normal/x86_64/RCTActionSheet.LinkFileList" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTActionSheet.build/Debug-iphonesimulator/RCTActionSheet.build/Objects-normal/x86_64/RCTActionSheet.LinkFileList" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTLinking.build/Debug-iphonesimulator/RCTLinking.build/Objects-normal/x86_64/RCTLinking.LinkFileList" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTLinking.build/Debug-iphonesimulator/RCTLinking.build/Objects-normal/x86_64/RCTLinking.LinkFileList" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTText.build/Debug-iphonesimulator/RCTText.build/Objects-normal/x86_64/RCTTextManager.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTText.build/Debug-iphonesimulator/RCTText.build/Objects-normal/x86_64/RCTTextManager.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTVibration.build/Debug-iphonesimulator/RCTVibration.build/Objects-normal/x86_64/RCTVibration.LinkFileList" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/RCTVibration.build/Debug-iphonesimulator/RCTVibration.build/Objects-normal/x86_64/RCTVibration.LinkFileList" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTFrameUpdate.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/RCTFrameUpdate.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/React.LinkFileList" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/React.build/Objects-normal/x86_64/React.LinkFileList" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/JSCSamplingProfiler.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/JSCSamplingProfiler.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/JSIndexedRAMBundle.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/JSIndexedRAMBundle.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/SampleCxxModule.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/Objects-normal/x86_64/SampleCxxModule.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/StaticAnalyzer/React/cxxreact/normal/x86_64/JSBigString.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/StaticAnalyzer/React/cxxreact/normal/x86_64/JSBigString.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/StaticAnalyzer/React/cxxreact/normal/x86_64/MethodCall.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/cxxreact.build/StaticAnalyzer/React/cxxreact/normal/x86_64/MethodCall.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/JSCHelpers.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/jschelpers.build/Objects-normal/x86_64/JSCHelpers.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/privatedata.build/Objects-normal/x86_64/privatedata.LinkFileList" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/privatedata.build/Objects-normal/x86_64/privatedata.LinkFileList" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/privatedata.build/StaticAnalyzer/React/privatedata/normal/x86_64/PrivateDataBase.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/privatedata.build/StaticAnalyzer/React/privatedata/normal/x86_64/PrivateDataBase.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/Conv.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/Conv.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/MallocImpl.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/MallocImpl.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/signalhandler.d" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/third-party.build/Objects-normal/x86_64/signalhandler.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/yoga.build/StaticAnalyzer/React/yoga/normal/x86_64/Yoga.plist" afterPath="$PROJECT_DIR$/mobile-app/ios/build/Build/Intermediates.noindex/React.build/Debug-iphonesimulator/yoga.build/StaticAnalyzer/React/yoga/normal/x86_64/Yoga.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-app/package.json" afterPath="$PROJECT_DIR$/mobile-app/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -104,40 +15,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TabMiddleButton.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js">
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="90" column="27" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#504#559#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#713#770#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="configureStore.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="38" column="32" lean-forward="false" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
-              <folding>
-                <element signature="e#45#113#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1020">
+              <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -145,29 +28,54 @@
       <file leaf-file-name="reducers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+            <state relative-caret-position="200">
+              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="reducers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+            <state relative-caret-position="920">
+              <caret line="46" column="45" lean-forward="false" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/shared/constants.js">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="40">
+              <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2600">
+              <caret line="145" column="43" lean-forward="false" selection-start-line="145" selection-start-column="43" selection-end-line="145" selection-end-column="43" />
+              <folding>
+                <element signature="e#417#472#0" expanded="true" />
+                <element signature="e#713#770#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="saga.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="45" lean-forward="false" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -175,39 +83,43 @@
       <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+            <state relative-caret-position="1880">
+              <caret line="106" column="16" lean-forward="false" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="env.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/env.js">
+      <file leaf-file-name="Api.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="153">
+              <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/assets/strings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-157103">
+              <caret line="449" column="0" lean-forward="false" selection-start-line="449" selection-start-column="0" selection-end-line="449" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
+      <file leaf-file-name="configureStore.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/styles.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" column="3" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="8" selection-end-column="3" />
-              <folding />
+            <state relative-caret-position="560">
+              <caret line="58" column="9" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="9" />
+              <folding>
+                <element signature="e#45#113#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -301,14 +213,11 @@
         <option value="$PROJECT_DIR$/mobile-app/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/Map/Map.js" />
         <option value="$PROJECT_DIR$/mobile-app/index.ios.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/types.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/index.js" />
+        <option value="$PROJECT_DIR$/mobile-app/package.json" />
         <option value="$PROJECT_DIR$/mobile-app/src/config/store.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/config/persist.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/location/selectors.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/selectors.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/location/actions.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/actions.js" />
@@ -319,18 +228,21 @@
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/store/configureStore.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/screens/index.js" />
         <option value="$PROJECT_DIR$/mobile-app/App.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/services/Api.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/AlertModal/AlertModal.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/services/Location.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js" />
-        <option value="$PROJECT_DIR$/mobile-app/package.json" />
-        <option value="$PROJECT_DIR$/mobile-app/src/shared/constants.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/types.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/store/configureStore.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Login.js" />
       </list>
     </option>
   </component>
@@ -339,7 +251,6 @@
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
     <exe-path />
-    <annotation-enable>false</annotation-enable>
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
@@ -351,9 +262,8 @@
     <handled-path value="$PROJECT_DIR$/mobile-app/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1680" />
-    <option name="height" value="943" />
+    <option name="width" value="1280" />
+    <option name="height" value="686" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -370,6 +280,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -380,77 +292,54 @@
             <path>
               <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
               <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
-              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
               <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
               <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
               <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
+              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
+              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
               <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
               <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
               <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
               <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
-              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
-              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="screens" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
-              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
-              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="screens" type="462c0819:PsiDirectoryNode" />
-              <item name="Login" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
-              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
-              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
-              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
-              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="shared" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
-              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
-              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -459,13 +348,13 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs.protractor.protractor_package" value="" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
-    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/mobile-app" />
+      <recent name="$PROJECT_DIR$/mobile-app/android/app/src/main/assets" />
       <recent name="$PROJECT_DIR$/mobile-app/src/store" />
+      <recent name="$PROJECT_DIR$/mobile-app" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mobile-app" />
@@ -485,7 +374,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="React Native.iOS">
+  <component name="RunManager" selected="React Native.Android">
     <configuration name="Android" type="ReactNative" factoryName="React Native">
       <working-dir value="$PROJECT_DIR$/mobile-app" />
       <node-interpreter value="project" />
@@ -607,15 +496,13 @@
       <workItem from="1519134222280" duration="5406000" />
       <workItem from="1519140645761" duration="10647000" />
       <workItem from="1519289124405" duration="24879000" />
-      <workItem from="1519369245362" duration="9551000" />
-      <workItem from="1519384594527" duration="635000" />
-      <workItem from="1519386520897" duration="3213000" />
-      <workItem from="1519403058007" duration="9000" />
+      <workItem from="1519369245362" duration="15033000" />
+      <workItem from="1519392082272" duration="76000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64361000" />
+    <option name="totallyTimeSpent" value="66062000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -627,34 +514,35 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1680" height="943" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="686" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983682" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="ReactNative" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="ReactNative" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32753327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.254717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4247059" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282353" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28235295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2802198" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2706645" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42784032" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -718,10 +606,6 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed ios" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed ios" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="2" />
@@ -729,6 +613,15 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/web-app/src/reducers/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/index.js" />
     <entry file="file://$PROJECT_DIR$/mobile-app/src/config/persist.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -809,20 +702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/location/reducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -862,6 +741,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
           <caret line="33" column="36" lean-forward="false" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+            <element signature="e#476#522#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -869,52 +752,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
           <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/selectors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="77" column="10" lean-forward="false" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="2" lean-forward="false" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/index.js" />
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/types.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/tests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-115">
@@ -930,37 +774,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/assets/strings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="98" column="32" lean-forward="false" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="39" column="31" lean-forward="false" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="67" lean-forward="false" selection-start-line="2" selection-start-column="67" selection-end-line="2" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/operations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
+        <state relative-caret-position="269">
           <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/location/operations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-206">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
@@ -974,15 +798,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/components/AlertModal/AlertModal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
+        <state relative-caret-position="-840">
           <caret line="10" column="53" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Location.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
+        <state relative-caret-position="300">
           <caret line="24" column="46" lean-forward="false" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="90" column="27" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -990,86 +824,146 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="8" column="3" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="8" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/env.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/tests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/assets/strings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="131" column="8" lean-forward="false" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/selectors.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        <state relative-caret-position="-791">
+          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/types.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="23" column="10" lean-forward="false" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1265">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/shared/constants.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#713#770#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="40">
+          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="38" column="32" lean-forward="false" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+        <state relative-caret-position="560">
+          <caret line="58" column="9" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="9" />
           <folding>
             <element signature="e#45#113#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+        <state relative-caret-position="920">
+          <caret line="46" column="45" lean-forward="false" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js">
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="90" column="27" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
+        <state relative-caret-position="200">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2600">
+          <caret line="145" column="43" lean-forward="false" selection-start-line="145" selection-start-column="43" selection-end-line="145" selection-end-column="43" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#504#559#0" expanded="true" />
+            <element signature="e#417#472#0" expanded="true" />
+            <element signature="e#713#770#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+        <state relative-caret-position="1020">
+          <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="45" lean-forward="false" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1880">
+          <caret line="106" column="16" lean-forward="false" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/assets/strings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-157103">
+          <caret line="449" column="0" lean-forward="false" selection-start-line="449" selection-start-column="0" selection-end-line="449" selection-end-column="0" />
           <folding />
         </state>
       </provider>

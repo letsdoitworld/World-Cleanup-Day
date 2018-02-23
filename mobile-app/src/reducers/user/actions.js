@@ -1,20 +1,20 @@
 import types from './types';
 
 const setToken = token => ({
-  type: types.SET_AUTH_TOKEN,
-  payload: token,
+    type: types.SET_AUTH_TOKEN,
+    payload: token,
 });
 
 const setAuthError = error => ({
-  type: types.SET_AUTH_ERROR,
-  payload: error,
+    type: types.SET_AUTH_ERROR,
+    payload: error,
 });
 
 const removeToken = () => ({
-  type: types.REMOVE_AUTH_TOKEN,
-  meta: {
-    logout: true,
-  },
+    type: types.REMOVE_AUTH_TOKEN,
+    meta: {
+        logout: true,
+    },
 });
 
 const fetchProfile = () => ({
@@ -22,13 +22,13 @@ const fetchProfile = () => ({
 });
 
 const fetchProfileDone = profile => ({
-  type: types.FETCH_PROFILE_SUCCESS,
-  payload: profile,
+    type: types.FETCH_PROFILE_SUCCESS,
+    payload: profile,
 });
 
 const fetchProfileError = error => ({
-  type: types.FETCH_PROFILE_ERROR,
-  payload: error,
+    type: types.FETCH_PROFILE_ERROR,
+    payload: error,
 });
 
 const updateProfile = () => ({
@@ -36,28 +36,33 @@ const updateProfile = () => ({
 });
 
 const updateProfileDone = profile => ({
-  type: types.UPDATE_PROFILE_DONE,
-  payload: profile,
+    type: types.UPDATE_PROFILE_DONE,
+    payload: profile,
 });
 
 const updateProfileError = error => ({
-  type: types.UPDATE_PROFILE_ERROR,
-  payload: error,
+    type: types.UPDATE_PROFILE_ERROR,
+    payload: error,
 });
 
 const agreeToTerms = () => ({
-  type: types.TERMS_AGREE,
+    type: types.TERMS_AGREE,
+});
+
+const loginGoogle = () => ({
+    type: types.GOOGLE_LOGIN_ACTION,
 });
 
 export default {
-  setToken,
-  setAuthError,
-  removeToken,
-  agreeToTerms,
-  fetchProfile,
-  fetchProfileDone,
-  fetchProfileError,
-  updateProfile,
-  updateProfileDone,
-  updateProfileError,
+    setToken,
+    setAuthError,
+    removeToken,
+    agreeToTerms,
+    fetchProfile,
+    fetchProfileDone,
+    fetchProfileError,
+    updateProfile,
+    updateProfileDone,
+    updateProfileError,
+    loginGoogle
 };

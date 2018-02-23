@@ -31,21 +31,26 @@ import { Logo } from '../../components/Logo';
 import Api from '../../services/Api';
 import { COUNTRY_LIST } from '../../shared/constants';
 import styles from './styles';
+import {authReducer} from "../../reducers/user/reducers";
 
-export default class Login extends Component {
+import userActions from '../../reducers/user/actions'
 
-  static propTypes = {
-    agreedToTerms: PropTypes.bool.isRequired,
-    facebookLogin: PropTypes.func.isRequired,
-    googleLogin: PropTypes.func.isRequired,
-    navigation: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
-    isProfileLoading: PropTypes.bool.isRequired,
-    profile: PropTypes.object,
-    profileError: PropTypes.object,
-    getProfile: PropTypes.func.isRequired,
-  };
+//import actions from './actions';
+
+export class Login extends Component {
+
+  // static propTypes = {
+  //   agreedToTerms: PropTypes.bool.isRequired,
+  //   facebookLogin: PropTypes.func.isRequired,
+  //   googleLogin: PropTypes.func.isRequired,
+  //   navigation: PropTypes.object.isRequired,
+  //   t: PropTypes.func.isRequired,
+  //   isAuthenticated: PropTypes.bool.isRequired,
+  //   isProfileLoading: PropTypes.bool.isRequired,
+  //   profile: PropTypes.object,
+  //   profileError: PropTypes.object,
+  //   getProfile: PropTypes.func.isRequired,
+  // };
 
   constructor(props) {
     super(props);
@@ -136,7 +141,13 @@ export default class Login extends Component {
       () => {},
     );
   };
-  handleSkipPress = () => {
+
+  componentDidMount() {
+    this.props.dispatch(userActions.loginGoogle())
+  }
+
+
+    handleSkipPress = () => {
     this.props.navigation.navigate('PublicHome');
   };
 
@@ -146,6 +157,16 @@ export default class Login extends Component {
     });
 
   render() {
+
+    const {error} = this.props.error;
+    if (error !== undefined) {
+        const payload = error.get('payload');
+        if (payload !== undefined) {
+            console.log(payload);
+            console.log("payload");
+        }
+    }
+
     const { t, isProfileLoading } = this.props;
     const { loading } = this.state;
     if (isProfileLoading || loading) {
@@ -203,6 +224,14 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+    auth: state.get('auth'),
+    profile: state.get('profile'),
+    error: state.get('error')
+});
+
+export default connect(mapStateToProps)(Login)
 //
 // const mapState = state => {
 //   return {

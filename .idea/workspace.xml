@@ -2,47 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e65bda64-cdab-40c0-abe9-1d2142e95ceb" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/mobile-app/src/store/configureStore.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/App.js" afterPath="$PROJECT_DIR$/mobile-app/App.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/Appdd.js" afterPath="" />
       <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
       <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
       <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
       <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/index.ios.js" afterPath="$PROJECT_DIR$/mobile-app/index.ios.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/ios/mobileapp.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/mobile-app/ios/mobileapp.xcodeproj/project.pbxproj" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/ios/mobileapp/AppDelegate.m" afterPath="$PROJECT_DIR$/mobile-app/ios/mobileapp/AppDelegate.m" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/package-lock.json" afterPath="$PROJECT_DIR$/mobile-app/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/package.json" afterPath="$PROJECT_DIR$/mobile-app/package.json" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/AlertModal/AlertModal.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/AlertModal/AlertModal.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js" afterPath="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/config/persist.js" afterPath="$PROJECT_DIR$/mobile-app/src/config/persist.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/config/store.js" afterPath="$PROJECT_DIR$/mobile-app/src/config/store.js" />
       <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/app/index.js" afterPath="" />
       <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/app/selectors.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/app/selectors.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/location/actions.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/location/actions.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/location/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/actions.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/actions.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/reducer.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/reducer.js" />
       <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/user/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js" />
       <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/user/selectors.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/user/selectors.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Home.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Home.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/reducers/user/types.js" afterPath="$PROJECT_DIR$/mobile-app/src/reducers/user/types.js" />
       <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Login/index.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/MyActivity/MyActivity.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/MyActivity/MyActivity.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/screens/index.js" afterPath="$PROJECT_DIR$/mobile-app/src/screens/index.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Api.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Api.js" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Location.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Location.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/services/Login.js" afterPath="$PROJECT_DIR$/mobile-app/src/services/Login.js" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/src/store/configureStore.js" afterPath="$PROJECT_DIR$/mobile-app/src/store/configureStore.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,82 +27,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="operations.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/operations.js">
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+            <state relative-caret-position="146">
+              <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Location.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Location.js">
+      <file leaf-file-name="reducers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="24" column="46" lean-forward="false" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TabMiddleButton.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="90" column="27" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#504#559#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="897">
-              <caret line="200" column="18" lean-forward="true" selection-start-line="162" selection-start-column="7" selection-end-line="200" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#417#472#0" expanded="true" />
-                <element signature="e#713#770#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/styles.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" column="3" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="8" selection-end-column="3" />
+            <state relative-caret-position="133">
+              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AlertModal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/src/components/AlertModal/AlertModal.js">
+      <file leaf-file-name="reducers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AlertModal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/components/AlertModal/AlertModal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-840">
-              <caret line="10" column="53" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
+            <state relative-caret-position="204">
+              <caret line="46" column="45" lean-forward="false" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -138,29 +60,79 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="39" column="31" lean-forward="false" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+            <state relative-caret-position="30">
+              <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Api.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="145" column="43" lean-forward="true" selection-start-line="145" selection-start-column="43" selection-end-line="145" selection-end-column="43" />
+              <folding>
+                <element signature="e#417#472#0" expanded="true" />
+                <element signature="e#713#770#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="265">
+              <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="saga.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="106" column="16" lean-forward="true" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Api.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="67" lean-forward="false" selection-start-line="2" selection-start-column="67" selection-end-line="2" selection-end-column="67" />
-              <folding />
+            <state relative-caret-position="153">
+              <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="operations.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/location/operations.js">
+      <file leaf-file-name="configureStore.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-206">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="424">
+              <caret line="58" column="9" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="9" />
+              <folding>
+                <element signature="e#45#113#0" expanded="true" />
+                <marker date="1519388281472" expanded="true" signature="1049:1422" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -233,8 +205,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mobile-app/src/services/Network.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/services/Error/index.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/services/Loading/LoadingModal.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/TrashpointDate/TrashpointDate.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/About/About.js" />
@@ -256,34 +226,36 @@
         <option value="$PROJECT_DIR$/mobile-app/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/Map/Map.js" />
         <option value="$PROJECT_DIR$/mobile-app/index.ios.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/types.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/index.js" />
         <option value="$PROJECT_DIR$/mobile-app/package.json" />
         <option value="$PROJECT_DIR$/mobile-app/src/config/store.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/config/persist.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/location/selectors.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/selectors.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/location/actions.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/actions.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/reducer.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/selectors.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/screens/MyActivity/MyActivity.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/screens/Home.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/trashpile/operations.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/screens/Profile/Profile.js" />
-        <option value="$PROJECT_DIR$/mobile-app/src/store/configureStore.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/screens/index.js" />
         <option value="$PROJECT_DIR$/mobile-app/App.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/services/Api.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/AlertModal/AlertModal.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/services/Location.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/types.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/store/configureStore.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js" />
+        <option value="$PROJECT_DIR$/mobile-app/src/services/Login.js" />
       </list>
     </option>
   </component>
@@ -378,7 +350,15 @@
               <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="reducers" type="462c0819:PsiDirectoryNode" />
-              <item name="location" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="World-Cleanup-Day" type="b2602c69:ProjectViewProjectNode" />
+              <item name="World-Cleanup-Day" type="462c0819:PsiDirectoryNode" />
+              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="reducers" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="World-Cleanup-Day" type="b2602c69:ProjectViewProjectNode" />
@@ -562,12 +542,12 @@
       <workItem from="1519134222280" duration="5406000" />
       <workItem from="1519140645761" duration="10647000" />
       <workItem from="1519289124405" duration="24879000" />
-      <workItem from="1519369245362" duration="9551000" />
+      <workItem from="1519369245362" duration="15033000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60504000" />
+    <option name="totallyTimeSpent" value="65986000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -590,7 +570,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282353" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4282353" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4247059" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28235295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -677,22 +657,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mobile-app/Appdd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-900">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1225">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
@@ -833,22 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/location/reducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -916,57 +864,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/selectors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="77" column="10" lean-forward="false" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="2" lean-forward="false" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#79#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/types.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/tests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -981,14 +879,6 @@
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="7" lean-forward="false" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1007,40 +897,6 @@
           <folding>
             <element signature="e#0#53#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/assets/strings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="98" column="32" lean-forward="false" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="10" column="42" lean-forward="false" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
-          <folding>
-            <marker date="1519380450959" expanded="true" signature="686:1059" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="39" column="31" lean-forward="false" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="67" lean-forward="false" selection-start-line="2" selection-start-column="67" selection-end-line="2" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,7 +921,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1083,7 +939,7 @@
         <state relative-caret-position="300">
           <caret line="24" column="46" lean-forward="false" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1093,8 +949,8 @@
         <state relative-caret-position="176">
           <caret line="90" column="27" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#504#559#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="false" />
+            <element signature="e#504#559#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1107,14 +963,140 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/tests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/assets/strings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="131" column="8" lean-forward="false" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/selectors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-791">
+          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/types.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="23" column="10" lean-forward="false" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/operations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1265">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="58" column="9" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="9" />
+          <folding>
+            <element signature="e#45#113#0" expanded="true" />
+            <marker date="1519388281472" expanded="true" signature="1049:1422" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/app/reducers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="46" column="45" lean-forward="false" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="897">
-          <caret line="200" column="18" lean-forward="true" selection-start-line="162" selection-start-column="7" selection-end-line="200" selection-end-column="18" />
+        <state relative-caret-position="228">
+          <caret line="145" column="43" lean-forward="true" selection-start-line="145" selection-start-column="43" selection-end-line="145" selection-end-column="43" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
             <element signature="e#417#472#0" expanded="true" />
             <element signature="e#713#770#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="106" column="16" lean-forward="true" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>

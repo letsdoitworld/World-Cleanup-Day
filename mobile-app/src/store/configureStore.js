@@ -11,6 +11,8 @@ import {applyMiddleware, compose, createStore} from "redux";
 import {AsyncStorage} from "react-native";
 import createSagaMiddleware from "redux-saga";
 
+import * as userSaga from "../reducers/user/saga";
+
 import {
     authReducer,
     authInitialState,
@@ -18,9 +20,25 @@ import {
     profileInitialState
 } from '../reducers/user/reducers'
 
+
+import {
+    popoverInitialState,
+    errorInitialState,
+    networkStatusState,
+    popoverReducer,
+    errorReducer,
+    configReducer,
+    networkReducer,
+
+} from '../reducers/app/reducers'
+
 const combinedReducers = combineReducers({
     auth: authReducer,
     profile: profileReducer,
+    //network: networkReducer,
+   // config: configReducer,
+    error: errorReducer,
+  //  popover: popoverReducer,
 
     // root: rootReducer,
     // login: loginReducer,
@@ -38,6 +56,7 @@ const combinedReducers = combineReducers({
 export const initialState = new Immutable.Map({
     auth: Immutable.Map(authInitialState),
     profile: Immutable.Map(profileInitialState),
+    error: Immutable.Map(errorInitialState)
 
     // root: Immutable.Map({
     //     progress: undefined,
@@ -116,7 +135,7 @@ export default function configureStore() {
     return {
         ...store,
         runSaga: [
-            // sagaMiddleware.run(loginSaga.loginFlow),
+             sagaMiddleware.run(userSaga.loginGoogleFlow),
             // sagaMiddleware.run(listSaga.listFlow),
             // sagaMiddleware.run(listSaga.sellersListFlow),
             // sagaMiddleware.run(listSaga.itemsListFlow),

@@ -7,6 +7,7 @@ const setPopoverMessage = message => ({
   type: types.SET_POPOVER_MESSAGE,
   payload: message,
 });
+
 const setErrorMessage = (message) => {
   let payload = {};
   if (typeof message === 'object') {
@@ -17,12 +18,12 @@ const setErrorMessage = (message) => {
       title: undefined,
     };
   }
-
   return {
     type: types.SET_ERROR_MESSAGE,
     payload,
   };
 };
+
 const hideErrorMessage = () => {
   return {
     type: types.HIDE_ERROR_MESSAGE,

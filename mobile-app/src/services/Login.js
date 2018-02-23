@@ -97,7 +97,6 @@ const fetchNetworkTokenAsync = async (network) => {
       token,
     });
   } catch (ex) {
-    handleSentryError(ex);
     response = ex.response;
     if (response.data && _.isArray(response.data) && response.data.length > 0) {
       const error = response.data[0];

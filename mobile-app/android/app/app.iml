@@ -133,7 +133,6 @@
     <orderEntry type="module" module-name="react-native-navigation" exported="" />
     <orderEntry type="module" module-name="react-native-localization" exported="" />
     <orderEntry type="module" module-name="react-native-maps" exported="" />
-    <orderEntry type="module" module-name="react-native-vector-icons" exported="" />
     <orderEntry type="module" module-name="react-native-gesture-handler" exported="" />
   </component>
 </module>

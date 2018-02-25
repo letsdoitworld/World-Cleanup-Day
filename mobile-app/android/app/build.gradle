@@ -137,15 +137,15 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-vector-icons')
+    //compile project(':react-native-vector-icons')
     compile project(':react-native-navigation')
-    compile project(':react-native-maps')
+  //  compile project(':react-native-maps')
     compile project(':react-native-localization')
     compile project(':react-native-gesture-handler')
-    compile project(':react-native-navigation')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-localization')
+//    compile project(':react-native-navigation')
+//    compile project(':react-native-vector-icons')
+//    compile project(':react-native-gesture-handler')
+//    compile project(':react-native-localization')
     compile(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'

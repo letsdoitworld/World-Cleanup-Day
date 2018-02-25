@@ -1,8 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e65bda64-cdab-40c0-abe9-1d2142e95ceb" name="Default" comment="fixed ios">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="b4caf763-2566-4003-8f23-62d9946fd47d" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-navigation_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-navigation_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-navigation_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/mobile-app/android/.gradle/2.14.1/tasks/_react-native-navigation_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/app.iml" afterPath="$PROJECT_DIR$/mobile-app/android/app/app.iml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build.gradle" afterPath="$PROJECT_DIR$/mobile-app/android/app/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/generated/source/r/debug/com/oblador/vectoricons/R.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$anim.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$attr.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$bool.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$color.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$dimen.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$drawable.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$id.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$integer.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$layout.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$string.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$style.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$styleable.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R$xml.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/classes/debug/com/oblador/vectoricons/R.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/annotations.zip" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/annotations.zip" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/jars/classes.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/exploded-aar/mobileapp/react-native-navigation/unspecified/jars/classes.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_5018ed9ea76a62cf6c755d0791ad78599cff41ce.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_5018ed9ea76a62cf6c755d0791ad78599cff41ce.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.3.1_66a225809a2e3a9a8ce1d7d03c358ea650c836f1.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.3.1_66a225809a2e3a9a8ce1d7d03c358ea650c836f1.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.3.1_3aa71b085386c6dcf59a79b54085bbbaeae4e53b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.3.1_3aa71b085386c6dcf59a79b54085bbbaeae4e53b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.3.1_3de7766c5ee32ea2a23d79c5d5fd067086480f98.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.3.1_3de7766c5ee32ea2a23d79c5d5fd067086480f98.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.3.1_2e942fc9b26bbfe9c112e97664787de4d5e470c7.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.3.1_2e942fc9b26bbfe9c112e97664787de4d5e470c7.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.3.1_aa0fc2cf83dccd078dc41e5b93f5cfc3f63c343e.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.3.1_aa0fc2cf83dccd078dc41e5b93f5cfc3f63c343e.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.3.1_42e3f866a87ed61922556ad6b5c6424e61e911de.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.3.1_42e3f866a87ed61922556ad6b5c6424e61e911de.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.3.1_441a93b0f495efd21eddc590e8ef7b4048b45b72.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.3.1_441a93b0f495efd21eddc590e8ef7b4048b45b72.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.3.1_63c2a354a69a34f6f51ef53466c296cc7bd5ee06.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.3.1_63c2a354a69a34f6f51ef53466c296cc7bd5ee06.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.3.1_37da0bb083ade404b72e5f80298b03671ba4ca77.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.3.1_37da0bb083ade404b72e5f80298b03671ba4ca77.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.3.1_556a824c8ed2b659485bd0df5c82d3348c87ff19.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.3.1_556a824c8ed2b659485bd0df5c82d3348c87ff19.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.3.1_4d7106e2089f600bb7c85fb82f90a6886d986630.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.3.1_4d7106e2089f600bb7c85fb82f90a6886d986630.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.3.1_807c6eba2ebf59b9b0360f676538cf79c4af1199.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.3.1_807c6eba2ebf59b9b0360f676538cf79c4af1199.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.aurelhubert-ahbottomnavigation-2.0.6_031b8414fc68443ff3ffbb4dca2aeda2de20cb2b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.aurelhubert-ahbottomnavigation-2.0.6_031b8414fc68443ff3ffbb4dca2aeda2de20cb2b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.balysv.materialmenu-material-menu-1.5.4_9d234825ba91bf47d8eed0a24d585739817ed918.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.balysv.materialmenu-material-menu-1.5.4_9d234825ba91bf47d8eed0a24d585739817ed918.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.balysv.materialmenu-material-menu-toolbar-1.5.4_b335aa32ec6a2ee7eee05e68d3bc07edc53596eb.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.balysv.materialmenu-material-menu-toolbar-1.5.4_b335aa32ec6a2ee7eee05e68d3bc07edc53596eb.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_b1767ddaf3a3a90cc8824cec2bb93b1cba55240a.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_b1767ddaf3a3a90cc8824cec2bb93b1cba55240a.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_79c2f09d1bb6d10edd3b8c8b9d9486180197150b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_79c2f09d1bb6d10edd3b8c8b9d9486180197150b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_90bacdc13e3c1cf5b7beee77b02f8cc15561be93.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_90bacdc13e3c1cf5b7beee77b02f8cc15561be93.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_025061ebd96b0f909a1b7f252efd73f441c194f0.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_025061ebd96b0f909a1b7f252efd73f441c194f0.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_d17f1bb7f15e94f50cf8839f111531eed2880bdd.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_d17f1bb7f15e94f50cf8839f111531eed2880bdd.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_8624e7f48b3080a5ab2a533e57c2a8d6a6d93da8.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_8624e7f48b3080a5ab2a533e57c2a8d6a6d93da8.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_568f4932729854104fa7a056afe1313f255cb444.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_568f4932729854104fa7a056afe1313f255cb444.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.52.3_44a97af74d6976816500630721891938f2ffa534.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.52.3_44a97af74d6976816500630721891938f2ffa534.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_4660a820c9998318a71f23855b7ff3a17026fd67.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_4660a820c9998318a71f23855b7ff3a17026fd67.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-10.0.1_90380e261dd07055a84f79db70aaa25b4295dac8.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-10.0.1_90380e261dd07055a84f79db70aaa25b4295dac8.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-10.0.1_aea5faab667708f5d3ae895368a9267a6e9a9f0e.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-10.0.1_aea5faab667708f5d3ae895368a9267a6e9a9f0e.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-10.0.1_47b075f2ed8c3ad1b910cc354e7496a9e821663b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-10.0.1_47b075f2ed8c3ad1b910cc354e7496a9e821663b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-10.0.1_ef0b1f310a0af90c23e56f3b0fb9f40df5c0de33.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-10.0.1_ef0b1f310a0af90c23e56f3b0fb9f40df5c0de33.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/debug_0fc1319e83ef6ae9b1d0b48c3d3602594c5e9af8.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/debug_0fc1319e83ef6ae9b1d0b48c3d3602594c5e9af8.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_356d103ebdb56c1cec302258c5e7e911f38614ef.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_356d103ebdb56c1cec302258c5e7e911f38614ef.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fba0e27dcb8f9278b7027fa4b32a61877f812f82.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_fba0e27dcb8f9278b7027fa4b32a61877f812f82.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_031d2b86a5cd7195d9ddaae7d99b205b0c2c1aa8.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_031d2b86a5cd7195d9ddaae7d99b205b0c2c1aa8.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/library-2.4.0_49d201044e40bbeae7c27ec808d6634ddfab1e55.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/library-2.4.0_49d201044e40bbeae7c27ec808d6634ddfab1e55.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-gesture-handler-unspecified_b22be84352ff48cd8fe52a24786373abc828d95b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-gesture-handler-unspecified_b22be84352ff48cd8fe52a24786373abc828d95b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-localization-unspecified_08fc38da1d86226cc3e2a99bafd800fa05a5054b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-localization-unspecified_08fc38da1d86226cc3e2a99bafd800fa05a5054b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-maps-unspecified_10d73735d9fb4643027ad2ce2906d5c082ed59ec.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-maps-unspecified_10d73735d9fb4643027ad2ce2906d5c082ed59ec.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-navigation-unspecified_faf6f0ec9147936ac5ef40ea42b3bb63441d3ae9.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-navigation-unspecified_faf6f0ec9147936ac5ef40ea42b3bb63441d3ae9.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/mobileapp-react-native-vector-icons-unspecified_e6c2e6b21f75bb6471a3eaaf57f74e0eabbf0402.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_874366b17702374d85dd62f176183dd1c2c7b7fb.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_874366b17702374d85dd62f176183dd1c2c7b7fb.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_9b8db226e2f9b03fc4ce94bcdc692b465bac4e6b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_9b8db226e2f9b03fc4ce94bcdc692b465bac4e6b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_93c5c7260366e4aa907312f37a6fffe38579e27f.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_93c5c7260366e4aa907312f37a6fffe38579e27f.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_e75f99d75519565517c90b6190a68c5be1711159.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_e75f99d75519565517c90b6190a68c5be1711159.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_55d14e70d17bbc901782f3134fbb5149525c114b.jar" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_55d14e70d17bbc901782f3134fbb5149525c114b.jar" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/apk/app-debug.apk" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/mobile-app/android/app/build/outputs/logs/manifest-merger-debug-report.txt" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme/ldi/MainApplication.java" afterPath="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme/ldi/MainApplication.java" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/android/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/mobile-app/android/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,39 +96,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TabMiddleButton.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/components/TabMiddleButton/TabMiddleButton.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="90" column="27" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#504#559#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#713#770#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="configureStore.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+            <state relative-caret-position="420">
+              <caret line="56" column="36" lean-forward="false" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
               <folding>
-                <element signature="e#45#113#0" expanded="true" />
+                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,7 +112,17 @@
         <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+              <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme/ldi/MainApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,61 +131,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/shared/constants.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/services/Login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="env.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/env.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-              <folding>
-                <marker date="1519403371617" expanded="true" signature="138:145" ph="{&quot;enzyme&quot;: &quot;^2.9.1&quot;...}" />
-                <marker date="1519403371617" expanded="true" signature="1585:1897" ph="{&quot;axios&quot;: &quot;^0.16.2&quot;...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile-app/src/screens/Login/styles.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" column="3" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="8" selection-end-column="3" />
+            <state relative-caret-position="45">
+              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -193,7 +206,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mobile-app/src/components/TrashpointDate/TrashpointDate.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/About/About.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/Header/Header.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/components/PhotoPicker/PhotoPicker.js" />
@@ -243,6 +255,7 @@
         <option value="$PROJECT_DIR$/mobile-app/src/screens/Login/Login.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/reducers/user/saga.js" />
         <option value="$PROJECT_DIR$/mobile-app/src/services/Login.js" />
+        <option value="$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme/ldi/MainApplication.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
@@ -261,12 +274,14 @@
   </component>
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/mobile-app/node_modules" />
+    <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1280" />
-    <option name="height" value="686" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="23" />
+    <option name="width" value="1680" />
+    <option name="height" value="945" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -282,21 +297,32 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="clean-app-world" type="b2602c69:ProjectViewProjectNode" />
-              <item name="clean-app-world" type="462c0819:PsiDirectoryNode" />
+              <item name="World-Cleanup-Day" type="b2602c69:ProjectViewProjectNode" />
+              <item name="World-Cleanup-Day" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="World-Cleanup-Day" type="b2602c69:ProjectViewProjectNode" />
+              <item name="World-Cleanup-Day" type="462c0819:PsiDirectoryNode" />
+              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="World-Cleanup-Day" type="b2602c69:ProjectViewProjectNode" />
+              <item name="World-Cleanup-Day" type="462c0819:PsiDirectoryNode" />
+              <item name="mobile-app" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -305,7 +331,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs.protractor.protractor_package" value="" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
-    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
+    <property name="nodejs_interpreter_path" value="node" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -332,14 +358,6 @@
     </option>
   </component>
   <component name="RunManager" selected="React Native.Android">
-    <configuration name="Android" type="ReactNative" factoryName="React Native">
-      <working-dir value="$PROJECT_DIR$/mobile-app" />
-      <node-interpreter value="project" />
-      <react-native value="/usr/local/lib/node_modules/react-native-cli" />
-      <platform value="ANDROID" />
-      <envs />
-      <browser value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -380,11 +398,21 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
+    <configuration name="Android" type="ReactNative" factoryName="React Native">
+      <working-dir value="$PROJECT_DIR$/mobile-app" />
+      <node-interpreter value="project" />
+      <react-native value="/usr/local/lib/node_modules/react-native-cli" />
+      <platform value="ANDROID" />
+      <envs />
+      <browser value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+    </configuration>
+    <configuration name="iOS" type="ReactNative" factoryName="React Native">
+      <working-dir value="$PROJECT_DIR$/mobile-app" />
+      <node-interpreter value="project" />
+      <react-native value="/usr/local/lib/node_modules/react-native-cli" />
+      <platform value="IOS" />
+      <envs />
+      <browser value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -420,13 +448,11 @@
       <properties />
       <listeners />
     </configuration>
-    <configuration name="iOS" type="ReactNative" factoryName="React Native">
-      <working-dir value="$PROJECT_DIR$/mobile-app" />
-      <node-interpreter value="project" />
-      <react-native value="/usr/local/lib/node_modules/react-native-cli" />
-      <platform value="IOS" />
-      <envs />
-      <browser value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="React Native.Android" />
@@ -441,7 +467,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e65bda64-cdab-40c0-abe9-1d2142e95ceb" name="Default" comment="" />
+      <changelist id="b4caf763-2566-4003-8f23-62d9946fd47d" name="Default" comment="" />
       <created>1518770597220</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -456,11 +482,12 @@
       <workItem from="1519369245362" duration="15033000" />
       <workItem from="1519392082272" duration="76000" />
       <workItem from="1519403441281" duration="1000" />
+      <workItem from="1519580996875" duration="367000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66104000" />
+    <option name="totallyTimeSpent" value="66505000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -472,35 +499,35 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="686" extended-state="0" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983682" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="ReactNative" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32656515" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.254717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42784032" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1975435" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25383827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="-21" y="379" width="1652" height="577" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28432956" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21794872" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="ReactNative" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42784032" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -571,14 +598,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web-app/src/reducers/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/index.js" />
     <entry file="file://$PROJECT_DIR$/mobile-app/src/config/persist.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -763,10 +782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1350">
           <caret line="90" column="27" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#504#559#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -774,7 +789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="8" column="3" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="8" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -836,10 +850,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile-app/src/store/configureStore.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+        <state relative-caret-position="420">
+          <caret line="56" column="36" lean-forward="false" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
           <folding>
-            <element signature="e#45#113#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -854,7 +868,7 @@
     <entry file="file://$PROJECT_DIR$/mobile-app/src/reducers/user/reducers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -863,10 +877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#713#770#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -888,7 +898,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -903,6 +912,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-157103">
           <caret line="449" column="0" lean-forward="false" selection-start-line="449" selection-start-column="0" selection-end-line="449" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-app/android/app/src/main/java/com/teeme/ldi/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

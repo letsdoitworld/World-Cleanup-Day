@@ -4,6 +4,8 @@ import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import styles from './styles';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../../../config/colors';
 
 const SocialButton = ({ icon, color, style = {}, text, onPress }) => {
   const textStyles = [styles.text];
@@ -20,7 +22,7 @@ const SocialButton = ({ icon, color, style = {}, text, onPress }) => {
           <MaterialCommunityIcons
             name={icon}
             size={styles.$iconSize}
-            color="white"
+            color={colors.$white}
             style={styles.icon}
           />
         </View>

@@ -21,4 +21,6 @@ dependencies: \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTErrorInfo.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTJSStackFrame.h
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTJSStackFrame.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Modules/RCTRedBoxExtraDataViewController.h

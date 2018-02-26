@@ -16,7 +16,7 @@ public class MainApplication extends NavigationApplication {
     @Override
     public boolean isDebug() {
         // Make sure you are using BuildConfig from your own application
-        return false;
+        return BuildConfig.DEBUG;
     }
 
     protected List<ReactPackage> getPackages() {

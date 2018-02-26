@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTTextViewManager.m \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTTextViewManager.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextViewManager.m \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextViewManager.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTViewManager.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
@@ -23,15 +23,16 @@ dependencies: \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFont.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAccessibilityManager.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTShadowView+Layout.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTShadowView.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTConvert+Text.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTShadowTextView.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTTextView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTRawTextShadowView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextShadowView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/TextInput/Multiline/RCTMultilineTextInputView.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTView.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTTextInput.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTBackedTextInputViewProtocol.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/TextInput/RCTBaseTextInputView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/TextInput/RCTBackedTextInputViewProtocol.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTFontAttributes.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/RCTFontAttributesDelegate.h

@@ -155,7 +155,7 @@ export class Login extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(userActions.loginGoogle())
+      //  this.props.dispatch(userActions.loginGoogle())
     }
 
 

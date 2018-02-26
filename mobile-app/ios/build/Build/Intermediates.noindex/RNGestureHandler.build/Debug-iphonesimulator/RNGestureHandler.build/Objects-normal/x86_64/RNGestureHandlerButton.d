@@ -1,20 +1,25 @@
 dependencies: \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerButton.m \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerButton.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandler.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerState.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerEvents.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
-  /Users/saionara1/IdeaProjects/clean-app-world/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerButton.m \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerButton.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandler.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerState.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native-gesture-handler/ios/RNGestureHandlerEvents.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h

@@ -7,12 +7,12 @@ import com.android.build.OutputFile
 project.ext.react = [
         entryFile: "index.android.js",
 
-        bundleInDebug: false,
+      //  bundleInDebug: false,
         // whether to bundle JS and assets in release mode
-        bundleInRelease: true,
+      //  bundleInRelease: true,
 
         // the root of your RN project, i.e. where "package.json" lives
-        root: "../../",
+      //  root: "../../",
 ]
 
 
@@ -169,8 +169,11 @@ dependencies {
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
-    compile 'com.google.android.gms:play-services-base:10.0.1'
-    compile 'com.google.android.gms:play-services-maps:10.0.1'
+//    compile 'com.google.android.gms:play-services-base:10.0.1'
+//    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile "com.google.android.gms:play-services-base:+"
+    compile 'com.google.android.gms:play-services-location:+'
+    compile 'com.google.android.gms:play-services-maps:+'
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:25.0.3"
     compile "com.facebook.react:react-native:+"  // From node_modules

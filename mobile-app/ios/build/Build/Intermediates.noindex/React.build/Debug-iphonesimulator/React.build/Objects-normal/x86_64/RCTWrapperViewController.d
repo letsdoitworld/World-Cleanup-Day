@@ -1,7 +1,6 @@
 dependencies: \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Views/RCTWrapperViewController.m \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Views/RCTWrapperViewController.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Views/RCTViewControllerProtocol.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTEventDispatcher.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTBridge.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTBridgeDelegate.h \

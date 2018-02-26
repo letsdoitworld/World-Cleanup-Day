@@ -22,6 +22,7 @@ export default class App extends Component {
 
     constructor() {
         super();
+        this.startApp();
         store.subscribe(this.onStoreUpdate.bind(this));
     }
 
@@ -52,7 +53,7 @@ export default class App extends Component {
                     }
                 },
             });
-        } else {
+         } else {
 
             Navigation.startTabBasedApp({
                 tabs: [

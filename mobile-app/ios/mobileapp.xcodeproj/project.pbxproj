@@ -1701,7 +1701,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.worldcleanup;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
 				PROVISIONING_PROFILE = "83013865-51c7-4124-8f9c-7e675822eab8";
 				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
@@ -1737,7 +1737,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.worldcleanup;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
 				PROVISIONING_PROFILE = "83013865-51c7-4124-8f9c-7e675822eab8";
 				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";

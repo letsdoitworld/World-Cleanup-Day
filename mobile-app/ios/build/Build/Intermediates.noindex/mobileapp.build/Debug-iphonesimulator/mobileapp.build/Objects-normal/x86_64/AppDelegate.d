@@ -10,4 +10,60 @@ dependencies: \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
-  ../node_modules/react-native-navigation/ios/RCCManager.h
+  ../node_modules/react-native-navigation/ios/RCCManager.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Modules/module.modulemap \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMapsBase.framework/Modules/module.modulemap \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMapsBase.framework/Headers/GMSDeprecationMacros.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMapsBase.framework/Headers/GMSCoordinateBounds.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMapsBase.framework/Headers/GMSCompatabilityMacros.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMapsBase.framework/Headers/GoogleMapsBase.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaSource.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaService.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaLink.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaLayer.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaCameraUpdate.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanoramaCamera.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPanorama.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSOrientation.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSURLTileLayer.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSTileLayer.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSSyncTileLayer.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPolyline.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPolygon.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSMarkerLayer.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSMarker.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSGroundOverlay.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSOverlay.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSCircle.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSServices.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSMutablePath.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSUISettings.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSMapView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSMapView+Animation.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSMapStyle.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSMapLayer.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSIndoorDisplay.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSPath.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSGeometryUtils.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSGeocoder.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSProjection.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSCoordinateBounds+GoogleMaps.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSCameraUpdate.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSCameraPosition.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSCALayer.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSAddress.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSIndoorLevel.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GMSIndoorBuilding.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/GoogleMaps.framework/Headers/GoogleMaps.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Fabric.framework/Modules/module.modulemap \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Fabric.framework/Headers/FABAttributes.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Fabric.framework/Headers/Fabric.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Modules/module.modulemap \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/ANSCompatibility.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/Answers.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/CLSStackFrame.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/CLSReport.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/CLSLogging.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/CLSAttributes.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/Crashlytics.h

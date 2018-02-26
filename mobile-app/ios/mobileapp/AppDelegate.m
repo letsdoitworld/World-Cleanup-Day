@@ -13,6 +13,9 @@
 #import <React/RCTRootView.h>
 #import "RCCManager.h"
 @import GoogleMaps;
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 @implementation AppDelegate
 
@@ -21,7 +24,8 @@
   
   NSURL *jsCodeLocation;
   [GMSServices provideAPIKey:@"AIzaSyAeHIC4IG7XKT2Ls5Ti_YZV-6DHQk6dVHE"];
-  
+  [Fabric with:@[[Crashlytics class]]];
+
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   self.window.backgroundColor = [UIColor whiteColor];

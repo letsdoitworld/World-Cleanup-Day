@@ -57,6 +57,8 @@
 		944FCD1A718944378EBAD0ED /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D45E10157CB430E8041C161 /* Roboto-Italic.ttf */; };
 		98A82D1B0FA441F19C7AB3C5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7E99D8C64240D793C9247E /* libRNVectorIcons.a */; };
 		9F38AACE96424A5AAF8EE780 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC65F903ED6545AF8F7E8898 /* Octicons.ttf */; };
+		BA15A42420441A9400B1253C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA15A3FA20441A9300B1253C /* Crashlytics.framework */; };
+		BA15A42520441A9400B1253C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA15A42320441A9300B1253C /* Fabric.framework */; };
 		BA257C73204033FF00A5766B /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EACEF89203FF52C0035A33E /* libReactNativeNavigation.a */; };
 		BA8F1ED52040451C00672998 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA257C602040308600A5766B /* libAirMaps.a */; };
 		BA8F1EFE204045FD00672998 /* AIRGoogleMapUrlTile.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8F1ED9204045FD00672998 /* AIRGoogleMapUrlTile.m */; };
@@ -446,6 +448,8 @@
 		A6CF77967371481DAD48860C /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BlackItalic.ttf"; path = "../src/assets/fonts/Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		B7338DB9C253450395EA3D25 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		BA15102C84EC42DCB101307F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		BA15A3FA20441A9300B1253C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		BA15A42320441A9300B1253C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		BA8F1ED8204045FD00672998 /* AIRGoogleMapPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapPolyline.h; sourceTree = "<group>"; };
 		BA8F1ED9204045FD00672998 /* AIRGoogleMapUrlTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapUrlTile.m; sourceTree = "<group>"; };
 		BA8F1EDA204045FD00672998 /* AIRGoogleMapMarkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapMarkerManager.h; sourceTree = "<group>"; };
@@ -524,6 +528,7 @@
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				BA15A42420441A9400B1253C /* Crashlytics.framework in Frameworks */,
 				BA8F1F142040471400672998 /* GoogleMaps.framework in Frameworks */,
 				BA8F1F122040470200672998 /* GoogleMapsBase.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -531,6 +536,7 @@
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				BA8F1F162040472700672998 /* GoogleMapsCore.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
+				BA15A42520441A9400B1253C /* Fabric.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
@@ -852,6 +858,8 @@
 		BA257C69204033FF00A5766B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA15A3FA20441A9300B1253C /* Crashlytics.framework */,
+				BA15A42320441A9300B1253C /* Fabric.framework */,
 				BA8F1F152040472700672998 /* GoogleMapsCore.framework */,
 				BA8F1F132040471300672998 /* GoogleMaps.framework */,
 				BA8F1F112040470200672998 /* GoogleMapsBase.framework */,
@@ -935,6 +943,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				07E4200493284CCCB696459B /* Upload Debug Symbols to Sentry */,
+				BA15A42620441AEB00B1253C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1489,6 +1498,19 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		BA15A42620441AEB00B1253C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run cc9f6bf2eb7bea9c558343478586b25c62c12afb 6ebcd3057d44fe70fed2410a8b99d6cb191273fa117a16f76c0ee704df5ca4ed";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1679,7 +1701,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.clean;
+				PRODUCT_BUNDLE_IDENTIFIER = com.worldcleanup;
 				PRODUCT_NAME = mobileapp;
 				PROVISIONING_PROFILE = "83013865-51c7-4124-8f9c-7e675822eab8";
 				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
@@ -1715,7 +1737,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.clean;
+				PRODUCT_BUNDLE_IDENTIFIER = com.worldcleanup;
 				PRODUCT_NAME = mobileapp;
 				PROVISIONING_PROFILE = "83013865-51c7-4124-8f9c-7e675822eab8";
 				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";

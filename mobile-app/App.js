@@ -22,14 +22,24 @@ export default class App extends Component {
 
     constructor() {
         super();
-        this.startApp()
+        store.subscribe(this.onStoreUpdate.bind(this));
+    }
+
+    onStoreUpdate() {
+        const token = store.getState().get('auth').get('token');
+        if (this.currentToken !== token) {
+            this.currentToken = token;
+            this.startApp();
+        }
     }
 
     startApp() {
 
         const token = store.getState().get('auth').get('token');
 
-        if (token === undefined) {
+        console.warn(token);
+
+        if (token === undefined || token === null) {
 
             Navigation.startSingleScreenApp({
                 screen: {

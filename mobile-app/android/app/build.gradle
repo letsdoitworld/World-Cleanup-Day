@@ -5,8 +5,16 @@ apply plugin: 'io.fabric'
 import com.android.build.OutputFile
 
 project.ext.react = [
-        entryFile: "index.android.js"
+        entryFile: "index.android.js",
+
+        bundleInDebug: false,
+        // whether to bundle JS and assets in release mode
+        bundleInRelease: true,
+
+        // the root of your RN project, i.e. where "package.json" lives
+        root: "../../",
 ]
+
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets

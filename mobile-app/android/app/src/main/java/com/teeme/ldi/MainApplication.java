@@ -49,7 +49,7 @@ public class MainApplication extends NavigationApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-      //  FacebookSdk.sdkInitialize(getApplicationContext());
+       FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         ///AppEventsLogger.activateApp(this);
     }

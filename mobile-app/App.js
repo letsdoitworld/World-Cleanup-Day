@@ -30,6 +30,7 @@ export default class App extends Component {
 
     onStoreUpdate() {
         const token = store.getState().get('auth').get('token');
+        console.warn('Token',token);
         if (this.currentToken !== token) {
             this.currentToken = token;
             this.startApp();
@@ -39,6 +40,7 @@ export default class App extends Component {
     startApp() {
         const token = store.getState().get('auth').get('token');
         App.mainScreen();
+
         if (token === undefined || token === null) {
             App.loginScreen()
          } else {

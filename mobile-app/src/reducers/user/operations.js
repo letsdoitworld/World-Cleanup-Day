@@ -35,17 +35,21 @@ const googleLogin = () => async (dispatch) => {
 
 
 export function facebookLogin() {
+    console.warn('result');
     return LoginManager.logInWithReadPermissions(['public_profile'])
         .then((result) => {
+        console.warn('result',result);
             if (result.isCancelled) {
                 throw 'Login cancelled';
             } else {
                 return AccessToken.getCurrentAccessToken()
             }
         }).then((token) => {
+            console.warn('error',token);
             return token;
         }).catch((error) => {
-            console.log(error)
+            console.warn('error',error);
+            return error
         })
 }
 

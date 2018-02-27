@@ -8,5 +8,7 @@ export default {
     $red: '#FC515E',
     $iconColor: ICON_COLOR,
     $white: WHITE_COLOR,
-    $textColor:'#2B2B2B'
+    $textColor:'#2B2B2B',
+    $textColorSettings: 'rgb(126, 124, 132)',
+    $mainBackground: 'rgb(240, 240, 240)'
 }

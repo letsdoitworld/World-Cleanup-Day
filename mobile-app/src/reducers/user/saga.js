@@ -58,8 +58,10 @@ export function* loginGoogleFlow() {
 
 function* loginFacebook() {
     try {
+        console.warn("TOKEN ");
         const token = yield call(facebookLogin);
         const accessToken = token.accessToken;
+        console.warn("Token ", accessToken);
         yield Api.setAuthToken(accessToken);
         yield put(actions.setToken(accessToken));
     } catch (error) {
@@ -74,7 +76,7 @@ function* loginFacebook() {
 
 export function* loginFacebookFlow() {
     while (true) {
-
+        console.warn("loginFacebookFlow ", call);
         yield take(types.FB_LOGIN_ACTION);
         yield call(loginFacebook); //look at operations.js
 

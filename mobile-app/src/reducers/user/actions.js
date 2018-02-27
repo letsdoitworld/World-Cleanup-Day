@@ -53,6 +53,10 @@ const loginGoogle = () => ({
     type: types.GOOGLE_LOGIN_ACTION,
 });
 
+const loginFacebook = () => ({
+    type: types.FB_LOGIN_ACTION,
+});
+
 export default {
     setToken,
     setAuthError,
@@ -64,5 +68,6 @@ export default {
     updateProfile,
     updateProfileDone,
     updateProfileError,
-    loginGoogle
+    loginGoogle,
+    loginFacebook
 };

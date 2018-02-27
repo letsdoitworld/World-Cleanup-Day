@@ -7,6 +7,7 @@ import {
     Text,
     TouchableOpacity,
     ActivityIndicator,
+    Linking
 } from 'react-native';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -34,8 +35,11 @@ import styles from './styles';
 import {authReducer} from "../../reducers/user/reducers";
 
 import userActions from '../../reducers/user/actions'
+import {HOME_SCREEN} from "../index";
+import App from "../../../App";
 
 //import actions from './actions';
+
 
 
 export class Login extends Component {
@@ -59,7 +63,6 @@ export class Login extends Component {
         navBarHidden: true
     };
 
-
     constructor(props) {
         super(props);
 
@@ -75,75 +78,68 @@ export class Login extends Component {
         this.state = {loading: false};
     }
 
-    componentWillMount() {
-        const {token, isAuthenticated} = this.props;
-        if (isAuthenticated) {
-            Api.setAuthToken(token);
-            this.gotoTabs();
-        }
-    }
+    // componentWillMount() {
+    //     const {token, isAuthenticated} = this.props;
+    //     if (isAuthenticated) {
+    //         Api.setAuthToken(token);
+    //         this.gotoTabs();
+    //     }
+    // }
 
-    gotoTabs = () => {
-        // TODO move the get profile from here to a better place
-        const {
-            profile,
-            getProfile,
-            locationActive,
-            location,
-            updateProfile,
-        } = this.props;
-        const tabsGo = userProfile => {
-            if (userProfile && userProfile.termsAcceptedAt) {
-                this.props.navigation.resetTo('Tabs', {});
-            } else {
-                this.props.navigation.navigate('AcceptTerms');
-            }
-        };
+    // gotoTabs = () => {
+    //     // TODO move the get profile from here to a better place
+    //     const {
+    //         profile,
+    //         getProfile,
+    //         locationActive,
+    //         location,
+    //         updateProfile,
+    //     } = this.props;
+    //     const tabsGo = userProfile => {
+    //         if (userProfile && userProfile.termsAcceptedAt) {
+    //             this.props.navigation.resetTo('Tabs', {});
+    //         } else {
+    //             this.props.navigation.navigate('AcceptTerms');
+    //         }
+    //     };
+    //
+    //     if (!profile) {
+    //         getProfile().then(
+    //             userProfile => {
+    //                 this.setState({loading: false});
+    //                 if (!userProfile.country && locationActive) {
+    //                     this.setState({loading: true});
+    //                     fetchAddress(location).then(
+    //                         ({countryAlpha2Code}) => {
+    //                             const userCountry = COUNTRY_LIST.find(c => c.code === countryAlpha2Code);
+    //                             if (userCountry) {
+    //                                 updateProfile({country: userCountry.code}).then(() => {
+    //                                     this.setState({loading: false});
+    //                                     tabsGo(userProfile);
+    //                                 });
+    //                             } else {
+    //                                 this.setState({loading: false});
+    //                                 tabsGo(userProfile);
+    //                             }
+    //                         },
+    //                         () => {
+    //                             tabsGo(userProfile);
+    //                         },
+    //                     );
+    //                 } else {
+    //                     tabsGo(userProfile);
+    //                 }
+    //             },
+    //             () => {
+    //             },
+    //         );
+    //     } else {
+    //         tabsGo(profile);
+    //     }
+    // };
 
-        if (!profile) {
-            getProfile().then(
-                userProfile => {
-                    this.setState({loading: false});
-                    if (!userProfile.country && locationActive) {
-                        this.setState({loading: true});
-                        fetchAddress(location).then(
-                            ({countryAlpha2Code}) => {
-                                const userCountry = COUNTRY_LIST.find(c => c.code === countryAlpha2Code);
-                                if (userCountry) {
-                                    updateProfile({country: userCountry.code}).then(() => {
-                                        this.setState({loading: false});
-                                        tabsGo(userProfile);
-                                    });
-                                } else {
-                                    this.setState({loading: false});
-                                    tabsGo(userProfile);
-                                }
-                            },
-                            () => {
-                                tabsGo(userProfile);
-                            },
-                        );
-                    } else {
-                        tabsGo(userProfile);
-                    }
-                },
-                () => {
-                },
-            );
-        } else {
-            tabsGo(profile);
-        }
-    };
+    handleFBPress = () => this.props.dispatch(userActions.loginFacebook());
 
-    handleFBPress = () => {
-        this.props.facebookLogin().then(
-            () => {
-                this.gotoTabs();
-            },
-            () => {
-            },
-        );
-    };
     handleGooglePress = () => {
         this.props.googleLogin().then(
             () => {
@@ -154,19 +150,12 @@ export class Login extends Component {
         );
     };
 
-    componentDidMount() {
-      //  this.props.dispatch(userActions.loginGoogle())
-    }
-
-
     handleSkipPress = () => {
-        this.props.navigation.navigate('PublicHome');
+        App.dismissLogin()
     };
 
     handleLinkPress = link => () =>
-        this.props.navigation.navigate('PrivacyAndTerms', {
-            uri: link,
-        });
+        Linking.openURL(link).catch(err => console.error('An error occurred', err));
 
     render() {
 

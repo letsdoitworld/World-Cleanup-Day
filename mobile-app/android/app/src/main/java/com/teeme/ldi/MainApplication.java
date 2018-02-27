@@ -3,7 +3,11 @@ package com.teeme.ldi;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.reactnativenavigation.NavigationApplication;
 
 import java.util.Arrays;
@@ -12,6 +16,12 @@ import java.util.List;
 import io.fabric.sdk.android.Fabric;
 
 public class MainApplication extends NavigationApplication {
+
+    private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+    protected static CallbackManager getCallbackManager() {
+        return mCallbackManager;
+    }
 
     @Override
     public boolean isDebug() {
@@ -24,7 +34,8 @@ public class MainApplication extends NavigationApplication {
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
                 new ReactNativeLocalizationPackage(),
-                new MapsPackage()
+                new MapsPackage(),
+                new FBSDKPackage(mCallbackManager)
                 // eg. new VectorIconsPackage()
         );
     }
@@ -38,34 +49,9 @@ public class MainApplication extends NavigationApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
+      //  FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        ///AppEventsLogger.activateApp(this);
     }
 
-    //  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-//    @Override
-//    public boolean getUseDeveloperSupport() {
-//      return BuildConfig.DEBUG;
-//    }
-//
-//    @Override
-//    protected List<ReactPackage> getPackages() {
-//      return Arrays.<ReactPackage>asList(
-//            new MainReactPackage(),
-
-//            new VectorIconsPackage(),
-//            new RNSentryPackage(MainApplication.this),
-//            new RNGestureHandlerPackage()
-//      );
-//    }
-//  };
-//
-//  @Override
-//  public ReactNativeHost getReactNativeHost() {
-//    return mReactNativeHost;
-//  }
-//
-//  @Override
-//  public void onCreate() {
-//    super.onCreate();
-//    SoLoader.init(this, /* native exopackage */ false);
-//  }
 }

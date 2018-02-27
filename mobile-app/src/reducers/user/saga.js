@@ -6,6 +6,8 @@ import appActions from '../app/actions'
 
 import strings from "../../assets/strings"
 import actions from "./actions";
+import {facebookLogin} from "./operations";
+import Api from "../../services/Api";
 
 //
 // function* createProfile(name, secondName, role) {
@@ -44,6 +46,37 @@ export function* loginGoogleFlow() {
 
         yield take(types.GOOGLE_LOGIN_ACTION);
         yield call(loginGoogle); //look at operations.js
+
+
+
+        // const {name, secondName, role} = yield take(types.CREATE_PROFILE_ACTION);
+        // yield put(rootActions.controlProgress(true));
+        // yield call(createProfile, name, secondName, role);
+        // yield put(rootActions.controlProgress(false));
+    }
+}
+
+function* loginFacebook() {
+    try {
+        const token = yield call(facebookLogin);
+        const accessToken = token.accessToken;
+        yield Api.setAuthToken(accessToken);
+        yield put(actions.setToken(accessToken));
+    } catch (error) {
+         if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
+             yield put(appActions.setErrorMessage(strings.label_locked_account_warning));
+         } else {
+             yield put(appActions.setErrorMessage(String(error)));
+        }
+    }
+}
+
+
+export function* loginFacebookFlow() {
+    while (true) {
+
+        yield take(types.FB_LOGIN_ACTION);
+        yield call(loginFacebook); //look at operations.js
 
 
 

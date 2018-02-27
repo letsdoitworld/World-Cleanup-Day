@@ -66,4 +66,43 @@ dependencies: \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/CLSReport.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/CLSLogging.h \
   /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/CLSAttributes.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/Crashlytics.h
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Crashlytics.framework/Headers/Crashlytics.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Modules/module.modulemap \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Modules/module.modulemap \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFWebViewAppLinkResolver.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFURL.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFMeasurementEvent.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFAppLinkTarget.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFAppLinkReturnToRefererView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFAppLinkReturnToRefererController.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFAppLinkResolving.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFAppLinkNavigation.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFAppLink.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFTaskCompletionSource.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFTask+Exceptions.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFTask.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFExecutor.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFCancellationTokenSource.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFCancellationTokenRegistration.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/BFCancellationToken.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/Bolts.framework/Headers/Bolts.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKProfilePictureView.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKProfile.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKMutableCopying.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphErrorRecoveryProcessor.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKAppLinkUtility.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKAppLinkResolver.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKUtility.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKTestUsersManager.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKSettings.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphRequestDataAttachment.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphRequest.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKConstants.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKButton.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKApplicationDelegate.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKAppEvents.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKMacros.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphRequestConnection.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKCopying.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKAccessToken.h \
+  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/FBSDKCoreKit.framework/Headers/FBSDKCoreKit.h

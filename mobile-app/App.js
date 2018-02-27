@@ -10,6 +10,8 @@ import {
     registerScreens
 } from './src/screens';
 
+import actions from "./src/reducers/user/actions";
+
 import strings from './src/assets/strings'
 import configureStore from "./src/store/configureStore";
 import {Provider} from "react-redux";
@@ -22,8 +24,8 @@ export default class App extends Component {
 
     constructor() {
         super();
-        this.startApp();
         store.subscribe(this.onStoreUpdate.bind(this));
+        store.dispatch(actions.setToken(null));
     }
 
     onStoreUpdate() {
@@ -35,55 +37,55 @@ export default class App extends Component {
     }
 
     startApp() {
-
         const token = store.getState().get('auth').get('token');
-
-        console.warn(token);
+        App.mainScreen();
 
         if (token === undefined || token === null) {
-
-            Navigation.startSingleScreenApp({
-                screen: {
-                    screen: LOGIN_SCREEN,
-                    //title: 'Welcome',
-                  //  navigatorStyle: styles.navigatorStyleAuth,
-                    navigatorButtons: {},
-                    appStyle: {
-                        keepStyleAcrossPush: false
-                    }
-                },
-            });
+            App.loginScreen()
          } else {
-
-            Navigation.startTabBasedApp({
-                tabs: [
-                    {
-                        screen: PROFILE_SCREEN,
-                        icon: require('./src/assets/images/icon_menu_profile.png'),
-                        selectedIcon: require('./src/assets/images/icon_menu_profile_active.png'),
-                        title: strings.label_header_profile
-                    },
-                    {
-                        screen: MY_ACTIVITY_SCREEN,
-                        icon: require('./src/assets/images/icon_menu_activity.png'),
-                        selectedIcon: require('./src/assets/images/icon_menu_activity_active.png'),
-                        title: strings.label_header_activity
-                    },
-                    {
-                        screen: NOTIFICATIONS_SCREEN,
-                        icon: require('./src/assets/images/icon_menu_updates.png'),
-                        selectedIcon: require('./src/assets/images/icon_menu_updates_active.png'),
-                        title: strings.label_header_notific
-                    },
-                    {
-                        screen: HOME_SCREEN,
-                        icon: require('./src/assets/images/icon_menu_map.png'),
-                        selectedIcon: require('./src/assets/images/icon_menu_map_active.png'),
-                    },
-                ]
-            });
+            App.dismissLogin()
         }
+    }
 
+    static dismissLogin() {
+        Navigation.dismissModal()
+    }
+
+    static loginScreen() {
+        Navigation.showModal({
+            screen: LOGIN_SCREEN,
+            animationType: 'fade'
+        });
+    }
+
+    static mainScreen() {
+        Navigation.startTabBasedApp({
+            tabs: [
+                {
+                    screen: PROFILE_SCREEN,
+                    icon: require('./src/assets/images/icon_menu_profile.png'),
+                    selectedIcon: require('./src/assets/images/icon_menu_profile_active.png'),
+                    title: strings.label_header_profile
+                },
+                {
+                    screen: MY_ACTIVITY_SCREEN,
+                    icon: require('./src/assets/images/icon_menu_activity.png'),
+                    selectedIcon: require('./src/assets/images/icon_menu_activity_active.png'),
+                    title: strings.label_header_activity
+                },
+                {
+                    screen: NOTIFICATIONS_SCREEN,
+                    icon: require('./src/assets/images/icon_menu_updates.png'),
+                    selectedIcon: require('./src/assets/images/icon_menu_updates_active.png'),
+                    title: strings.label_header_notific
+                },
+                {
+                    screen: HOME_SCREEN,
+                    icon: require('./src/assets/images/icon_menu_map.png'),
+                    selectedIcon: require('./src/assets/images/icon_menu_map_active.png'),
+                },
+            ],
+        }, this.animationType = 'fade').done();
     }
 
 }

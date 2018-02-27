@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import { operations as appOps, selectors as appSels } from '../reducers/app';
 import { AlertModal } from '../components/AlertModal';
+import OfflineService from './Offline';
 
 const CONNECTION_CHECK_INTERVAL = 10; // seconds
 
@@ -47,6 +48,10 @@ export const withNetworkGuard = () => (WrappedComponent) => {
 
         if (isConnected !== this.props.isConnected) {
           this.handleConnectionStatusChanged(isConnected);
+        }
+
+        if (isConnected) {
+          OfflineService.syncToServer();
         }
       }, 1000 * CONNECTION_CHECK_INTERVAL);
     }
@@ -93,14 +98,18 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       }
       return (
         <View style={{ flex: 1 }}>
-          <AlertModal
+          <WrappedComponent {...this.props} />
+        </View>
+      );
+      // TODO add button in this alert and on this only once before close by this button
+      /*
+      *           <AlertModal
             visible={showUserWarning}
             title={this.props.t('label_network_off_warning_title')}
             subtitle={this.props.t('label_network_off_warning')}
           />
-          <WrappedComponent {...this.props} />
-        </View>
-      );
+
+      * */
     }
   };
   return compose(

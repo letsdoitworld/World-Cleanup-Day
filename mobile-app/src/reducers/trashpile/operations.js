@@ -4,6 +4,7 @@ import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES, DIAGONALE_IN_PX, MARKER_DIAGONAL
 DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
 import { Api } from '../../services';
+import OfflineService from '../../services/Offline';
 import axios from 'axios';
 import { selectors as appSelectors, operations as appOps } from '../app';
 import { selectors as trashpileSelectors } from '../trashpile';
@@ -305,11 +306,19 @@ export const createMarker = ({
           p => p.id !== undefined && p.delete === true && !!p.parentId,
         );
       }
+      const isConnected = appSelectors.isConnected(getState());
+
       const url = isEdit
         ? API_ENDPOINTS.UPDATE_TRASHPOINT(id)
         : API_ENDPOINTS.CREATE_TRASHPOINT;
 
-      const createMarkerResponse = await Api.put(url, newMarker);
+      let createMarkerResponse = false;
+
+      if (isConnected) {
+        createMarkerResponse = await Api.put(url, newMarker);
+      } else {
+        createMarkerResponse = OfflineService.saveTrashpoint(url, newMarker, newPhotos, toDeletePhotos);
+      }
 
       if (!createMarkerResponse) {
         dispatch({ type: types.CREATE_MARKER_FAILED });
@@ -318,13 +327,13 @@ export const createMarker = ({
 
       let uploadStatus;
 
-      if (isEdit && newPhotos.length > 0) {
+      if (isEdit && newPhotos.length > 0 && isConnected) {
         uploadStatus = await handleUpload({
           photos: newPhotos,
           markerId: createMarkerResponse.data.id,
         });
       }
-      if (isEdit && toDeletePhotos.length > 0) {
+      if (isEdit && toDeletePhotos.length > 0 && isConnected) {
         try {
           await Promise.all(
             toDeletePhotos.map(p => deleteImage(id, p.parentId)),
@@ -335,7 +344,7 @@ export const createMarker = ({
         }
       }
 
-      if (!isEdit) {
+      if (!isEdit && isConnected) {
         uploadStatus = await handleUpload({
           photos,
           markerId: createMarkerResponse.data.id,

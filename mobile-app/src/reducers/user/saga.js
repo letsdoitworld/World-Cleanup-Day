@@ -65,11 +65,13 @@ function* loginFacebook() {
         yield Api.setAuthToken(accessToken);
         yield put(actions.setToken(accessToken));
     } catch (error) {
-         if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
-             yield put(appActions.setErrorMessage(strings.label_locked_account_warning));
-         } else {
-             yield put(appActions.setErrorMessage(String(error)));
-        }
+        console.log(error);
+        appActions.setErrorMessage(String(error));
+        //  if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
+        //      yield put(appActions.setErrorMessage(strings.label_locked_account_warning));
+        //  } else {
+        //      yield put(appActions.setErrorMessage(String(error)));
+        // }
     }
 }
 

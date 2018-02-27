@@ -4,7 +4,6 @@ import com.airbnb.android.react.maps.MapsPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -13,6 +12,7 @@ import com.reactnativenavigation.NavigationApplication;
 import java.util.Arrays;
 import java.util.List;
 
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import io.fabric.sdk.android.Fabric;
 
 public class MainApplication extends NavigationApplication {
@@ -35,7 +35,8 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
                 new ReactNativeLocalizationPackage(),
                 new MapsPackage(),
-                new FBSDKPackage(mCallbackManager)
+                new FBSDKPackage(mCallbackManager),
+                new RNGoogleSigninPackage()
                 // eg. new VectorIconsPackage()
         );
     }

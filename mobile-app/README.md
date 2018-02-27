@@ -49,12 +49,17 @@ FOR MORE DETAILS SEE [this](https://expo.canny.io/feature-requests/p/support-isr
  
 ## Known issues
 
-# https://github.com/oblador/react-native-vector-icons/issues/626
+* https://github.com/oblador/react-native-vector-icons/issues/626
 
 To fix it use the command:
 `rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json`
 
-# java.lang.RuntimeException: Unable to load script from assets 'index.android.bundle'. Make sure your bundle is packaged correctly or you're running a packager server.
 
+
+* java.lang.RuntimeException: Unable to load script from assets 'index.android.bundle'. Make sure your bundle is packaged correctly or you're running a packager server.
+
+
+
+* https://github.com/wix/react-native-navigation/issues/410
 
 

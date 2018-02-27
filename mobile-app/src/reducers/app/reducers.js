@@ -15,6 +15,7 @@ const errorInitialState = {
 const networkStatusState = {
   isConnected: false,
   connectionChecked: false,
+  inSync: false
 };
 
 const networkReducer = (state = networkStatusState, action) => {
@@ -23,6 +24,8 @@ const networkReducer = (state = networkStatusState, action) => {
       return { ...state, connectionChecked: true };
     case types.UPDATE_NETWORK_STATUS:
       return { ...state, isConnected: action.payload.isConnected };
+    case types.UPDATE_SYNC_STATUS:
+      return { ...state, inSync: action.payload.inSync };
     default:
       return state;
   }

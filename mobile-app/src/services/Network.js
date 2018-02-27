@@ -21,6 +21,7 @@ const mapState = (state) => {
 const mapDispatch = {
   setConnectionChecked: appOps.setConnectionChecked,
   updateNetworkStatus: appOps.updateNetworkStatus,
+  updateSyncStatus: appOps.updateSyncStatus
 };
 
 export const withNetworkGuard = () => (WrappedComponent) => {
@@ -29,9 +30,12 @@ export const withNetworkGuard = () => (WrappedComponent) => {
     static propTypes = {
       updateNetworkStatus: PropTypes.func.isRequired,
       setConnectionChecked: PropTypes.func.isRequired,
+      updateSyncStatus: PropTypes.func.isRequired,
       isConnected: PropTypes.bool.isRequired,
       connectionChecked: PropTypes.bool.isRequired,
+      inSync: PropTypes.bool.isRequired,
     }
+
     constructor(props) {
       super(props);
 
@@ -50,8 +54,10 @@ export const withNetworkGuard = () => (WrappedComponent) => {
           this.handleConnectionStatusChanged(isConnected);
         }
 
-        if (isConnected) {
-          OfflineService.syncToServer();
+        if (isConnected && !this.props.inSync) {
+          this.handleSyncStatusChanged(true);
+          await OfflineService.syncToServer();
+          this.handleSyncStatusChanged(false);
         }
       }, 1000 * CONNECTION_CHECK_INTERVAL);
     }
@@ -63,6 +69,9 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       if (this.connectionCheckInterval) {
         clearInterval(this.connectionCheckInterval);
       }
+    }
+    handleSyncStatusChanged(inSync) {
+      this.props.updateSyncStatus(inSync);
     }
     handleConnectionStatusChanged(isConnected) {
       this.props.updateNetworkStatus(isConnected);

@@ -1,5 +1,7 @@
 import { SQLite } from 'expo';
 import { Api } from "./index";
+import { trashpileReducer } from '../reducers';
+import { handleUpload, deleteImage } from "../reducers/trashpile/operations";
 
 const offlineDB = SQLite.openDatabase('db.offline');
 
@@ -8,7 +10,8 @@ class OfflineService {
   constructor() {
     offlineDB.transaction(tx => {
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS trashpoints (id integer primary key not null, url text, marker text, photos blob, dphotos blob);'
+        'CREATE TABLE IF NOT EXISTS trashpoints' +
+        '(id integer primary key not null, url text, marker text, photos blob, dphotos blob);'
       );
     });
   }
@@ -46,10 +49,26 @@ class OfflineService {
             const createMarkerResponse = await Api.put(trashpoint.url, trashpoint.marker);
             if (createMarkerResponse) {
               offlineDB.transaction(tx => {
-                tx.executeSql(`DELETE FROM trashpoints WHERE id = ?;`, [trashpoint.id]);
+                tx.executeSql('DELETE FROM trashpoints WHERE id = ?;', [trashpoint.id]);
               });
 
-              //TODO! Add work with photos to this place
+              if (trashpoint.photos.length > 0) {
+                await handleUpload({
+                  photos: trashpoint.photos,
+                  markerId: createMarkerResponse.data.id
+                });
+              }
+
+              if (trashpoint.dphotos.length > 0) {
+                try {
+                  await Promise.all(
+                    trashpoint.dphotos.map(p => deleteImage(id, p.parentId)),
+                  );
+                } catch (ex) {
+                  console.log(ex);
+                }
+              }
+
             }
           }
         }

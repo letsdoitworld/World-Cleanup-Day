@@ -8,27 +8,25 @@ const offlineDB = SQLite.openDatabase('db.offline');
 class OfflineService {
 
   constructor() {
-    offlineDB.transaction(tx => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS trashpoints' +
-        '(id integer primary key not null, url text, marker text, photos blob, dphotos blob);'
-      );
-    });
+    this.executeSql('CREATE TABLE IF NOT EXISTS trashpoints (id integer primary key not null, url text, marker text, photos blob, dphotos blob);');
   }
 
-  async saveTrashpoint(url, newMarker, photos, deletedPhotos) {
-    let result = false;
-    await offlineDB.transaction(tx => {
-      tx.executeSql(
-        'INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
-          url,
-          JSON.stringify(newMarker),
-          JSON.stringify(photos),
-          JSON.stringify(deletedPhotos)
-        ], (result) => { result = true; }
-      );
-    });
-    return result === false ? result : newMarker;
+  executeSql = async (sql, params = []) => {
+    return new Promise((resolve, reject) => offlineDB.transaction(tx => {
+      tx.executeSql(sql, params, (_, { rows }) => resolve(rows._array), reject)
+    }))
+  }
+
+  saveTrashpoint = async (url, newMarker, photos, deletedPhotos) => {
+    await this.executeSql('INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
+      url,
+      JSON.stringify(newMarker),
+      JSON.stringify(photos),
+      JSON.stringify(deletedPhotos)
+    ]);
+    const dummyReturn = {data: newMarker};
+
+    return dummyReturn;
   }
 
   async syncToServer() {

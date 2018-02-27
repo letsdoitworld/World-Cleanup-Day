@@ -1,7 +1,6 @@
 package com.teeme.ldi;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.airbnb.android.react.maps.MapsPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
@@ -23,10 +22,6 @@ public class MainApplication extends NavigationApplication {
 
     private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
-    protected static CallbackManager getCallbackManager() {
-        return mCallbackManager;
-    }
-
     @Override
     public boolean isDebug() {
         // Make sure you are using BuildConfig from your own application
@@ -41,7 +36,6 @@ public class MainApplication extends NavigationApplication {
                 new MapsPackage(),
                 new FBSDKPackage(mCallbackManager),
                 new RNGoogleSigninPackage()
-                // eg. new VectorIconsPackage()
         );
     }
 
@@ -55,13 +49,10 @@ public class MainApplication extends NavigationApplication {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
 
-
         setActivityCallbacks(new ActivityCallbacks() {
 
             @Override
             public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-                Log.d("TAGGG", "onActivityResult: " + resultCode);
                 mCallbackManager.onActivityResult(requestCode, resultCode, data);
             }
         });

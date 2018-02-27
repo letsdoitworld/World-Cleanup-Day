@@ -39,7 +39,6 @@ export default class App extends Component {
     startApp() {
         const token = store.getState().get('auth').get('token');
         App.mainScreen();
-
         if (token === undefined || token === null) {
             App.loginScreen()
          } else {
@@ -48,14 +47,18 @@ export default class App extends Component {
     }
 
     static dismissLogin() {
-        Navigation.dismissModal()
+        Navigation.dismissModal({
+            animationType: 'slide-out'
+        })
     }
 
     static loginScreen() {
-        Navigation.showModal({
-            screen: LOGIN_SCREEN,
-            animationType: 'fade'
-        });
+        setTimeout(() => {
+            Navigation.showModal({
+                screen: LOGIN_SCREEN,
+                animationType: 'slide-in'
+            });
+        }, 1)
     }
 
     static mainScreen() {

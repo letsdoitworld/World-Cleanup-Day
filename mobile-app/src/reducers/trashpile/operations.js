@@ -317,7 +317,7 @@ export const createMarker = ({
       if (isConnected) {
         createMarkerResponse = await Api.put(url, newMarker);
       } else {
-        createMarkerResponse = OfflineService.saveTrashpoint(url, newMarker, newPhotos, toDeletePhotos);
+        createMarkerResponse = await OfflineService.saveTrashpoint(url, newMarker, newPhotos, toDeletePhotos);
       }
 
       if (!createMarkerResponse) {

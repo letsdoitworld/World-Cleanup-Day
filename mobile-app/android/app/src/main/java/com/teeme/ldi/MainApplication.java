@@ -1,5 +1,8 @@
 package com.teeme.ldi;
 
+import android.content.Intent;
+import android.util.Log;
+
 import com.airbnb.android.react.maps.MapsPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.crashlytics.android.Crashlytics;
@@ -8,6 +11,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.reactnativenavigation.NavigationApplication;
+import com.reactnativenavigation.controllers.ActivityCallbacks;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,9 +54,19 @@ public class MainApplication extends NavigationApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-      //  FacebookSdk.sdkInitialize(getApplicationContext());
+
+
+        setActivityCallbacks(new ActivityCallbacks() {
+
+            @Override
+            public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+                Log.d("TAGGG", "onActivityResult: " + resultCode);
+                mCallbackManager.onActivityResult(requestCode, resultCode, data);
+            }
+        });
+
         AppEventsLogger.activateApp(this);
-        ///AppEventsLogger.activateApp(this);
     }
 
 }

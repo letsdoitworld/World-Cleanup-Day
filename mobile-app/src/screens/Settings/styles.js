@@ -92,7 +92,6 @@ export default {
     },
     switchStyle: {
         width: 51,
-        height: 31,
         marginRight: getWidthPercentage(15),
         alignSelf: 'center'
     }

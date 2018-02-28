@@ -30,7 +30,6 @@ export default class App extends Component {
 
     onStoreUpdate() {
         const token = store.getState().get('auth').get('token');
-        console.warn('Token',token);
         if (this.currentToken !== token) {
             this.currentToken = token;
             this.startApp();

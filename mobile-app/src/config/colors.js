@@ -9,6 +9,8 @@ export default {
     $iconColor: ICON_COLOR,
     $white: WHITE_COLOR,
     $textColor:'#2B2B2B',
-    $textColorSettings: 'rgb(126, 124, 132)',
-    $mainBackground: 'rgb(240, 240, 240)'
+    $textColorDivider: 'rgb(126, 124, 132)',
+    $mainBackground: 'rgb(240, 240, 240)',
+    $textColorSettings: 'rgb(40, 38, 51)',
+    $accentPink: 'rgb(225, 18,131)'
 }

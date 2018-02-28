@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Linking, TouchableHighlight} from 'react-native';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import _ from 'lodash';
@@ -18,12 +18,16 @@ import styles, {
     downRightIcon,
     defaultRightIcon,
 } from './styles';
+import {PRIVACY_URL, TERMS_URL} from "../../../env";
+import colors from "../../config/colors";
+import {ABOUT_SCREEN} from "../index";
 
 export default class Settings extends Component {
 
     static navigatorStyle = {
         tabBarHidden: true,
-    }
+        navBarTitleTextCentered: true,
+    };
 
     constructor(props) {
         super(props);
@@ -82,14 +86,22 @@ export default class Settings extends Component {
     };
 
     handleTermsPress = () => {
-        this.props.navigation.navigate('Terms');
+        this.props.navigator.push({
+            screen: TER
+        });
     };
     handlePrivacyPress = () => {
         this.props.navigation.navigate('Privacy');
     };
     handleAboutPress = () => {
-        this.props.navigation.navigate('About');
+        this.props.navigator.push({
+            screen: ABOUT_SCREEN,
+            title: strings.label_about_header
+        })
     };
+
+    handleLinkPress = link => () =>
+        Linking.openURL(link).catch(err => console.error('An error occurred', err));
 
     renderModals = () => {
         const {showCountryModal, countryFilter} = this.state;
@@ -115,73 +127,72 @@ export default class Settings extends Component {
         return (
             <View>
                 <View style={styles.listContainer}>
-                    <View style={styles.dividerStyle}>
-                        <Text style={styles.dividerTextStyle}>{strings.label_profile_settings.toUpperCase()}</Text>
+                    <View style={styles.titleStyle}>
+                        <Text style={styles.titleTextStyle}>{strings.label_profile_settings.toUpperCase()}</Text>
                     </View>
                     <View style={styles.itemStyle}>
-                        <Image source={require('./images/icon_ui_arrowdown.png')}></Image>
-                        <Text>{}</Text>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/icon_ui_arrowdown.png')}/>
+                        <Text style={styles.textItemStyle}>{'Yuliya Yonder'}</Text>
                     </View>
-                    {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-                    {/*<ListItem*/}
-                    {/*{...listItemProps}*/}
-                    {/*title={this.props.t('label_text_country')}*/}
-                    {/*subtitle={countrySubtitle}*/}
-                    {/*onPress={this.handleCountryItemPress}*/}
-                    {/*/>*/}
-                    {/*</List>*/}
-                    {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-                    {/*<ListItem*/}
-                    {/*{...listItemProps}*/}
-                    {/*subtitleStyle={[styles.subtitle]}*/}
-                    {/*onPress={this.handleTermsPress}*/}
-                    {/*subtitle={this.props.t('label_button_tc')}*/}
-                    {/*/>*/}
-                    {/*<ListItem*/}
-                    {/*{...listItemProps}*/}
-                    {/*subtitleStyle={[styles.subtitle]}*/}
-                    {/*onPress={this.handlePrivacyPress}*/}
-                    {/*subtitle={this.props.t('label_privacy_policy_header')}*/}
-                    {/*/>*/}
-                    {/*</List>*/}
-                    {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-                    {/*<ListItem*/}
-                    {/*{...listItemProps}*/}
-                    {/*subtitleStyle={[styles.subtitle]}*/}
-                    {/*onPress={this.handleAboutPress}*/}
-                    {/*subtitle={this.props.t('label_about_header')}*/}
-                    {/*/>*/}
-                    {/*</List>*/}
-                    {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-                    {/*<ListItem*/}
-                    {/*subtitleStyle={[styles.subtitle, styles.logout]}*/}
-                    {/*onPress={this.handleLogoutPress}*/}
-                    {/*subtitle={this.props.t('label_button_logout')}*/}
-                    {/*hideChevron*/}
-                    {/*/>*/}
-                    {/*</List>*/}
+                    <View style={styles.itemStyle}>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/icon_ui_arrowdown.png')}/>
+                        <Text style={styles.textItemStyle}>{'Kiev, Ukraine'}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/icon_ui_arrowdown.png')}/>
+                        <Text style={styles.textItemStyle}>{'+3809500000000'}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/icon_ui_arrowdown.png')}/>
+                        <Text style={styles.textItemStyle}>{'yonder@gmail.com'}</Text>
+                    </View>
+                    <View style={styles.titleStyle}>
+                        <Text style={styles.titleTextStyle}>{strings.label_privacy_settings.toUpperCase()}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Text style={styles.textItemStyle}>{'Private profile'}</Text>
+                    </View>
+                    <View style={styles.titleStyle}>
+                        <Text style={styles.titleTextStyle}>{strings.label_general_information.toUpperCase()}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.itemStyle}
+                                      onPress={this.handleLinkPress(TERMS_URL).bind(this)}>
+                        <Text style={styles.textItemStyle}>{'Terms and Conditions'}</Text>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/icon_ui_arrowdown.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemStyle}
+                                      onPress={this.handleLinkPress(PRIVACY_URL)}>
+                        <Text style={styles.textItemStyle}>{'Privacy Policy'}</Text>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/icon_ui_arrowdown.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemStyle}
+                                      onPress={this.handleAboutPress}>
+                        <Text style={styles.textItemStyle}>{'About World Cleanup Day'}</Text>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/icon_ui_arrowdown.png')}/>
+                    </TouchableOpacity>
+                    <TouchableHighlight style={styles.logoutButtonStyle}
+                                        onPress={this.handleLinkPress(TERMS_URL).bind(this)}>
+                        <Text style={styles.logOutTextStyle}>{strings.label_button_logout}</Text>
+                    </TouchableHighlight>
 
-                    {this.renderModals()}
+                    {/*{this.renderModals()}*/}
 
                 </View>
             </View>
         );
     }
 }
-// const mapState = (state) => {
-//   return {
-//     profile: userSels.getProfile(state),
-//     country: userSels.getProfileCountry(state),
-//     isProfileUpdating: userSels.isProfileUpdating(state),
-//   };
-// };
-// const mapDispatch = {
-//   logout: userOps.logout,
-//   updateProfile: userOps.updateProfile,
-// };
-//
-// export default compose(
-//   connect(mapState, mapDispatch),
-//   withNavigationHelpers(),
-//   translate(),
-// )(Settings);

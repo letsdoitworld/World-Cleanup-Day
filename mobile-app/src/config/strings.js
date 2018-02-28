@@ -130,7 +130,10 @@ module.exports = new LocalizedStrings({
         label_text_about_5: "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
         label_button_editTP_delete: "Delete trashpoint",
         label_locked_account_warning: "Your account is locked. For details contact an administrator.",
-        label_profile_settings: "Profile settings"
+        label_profile_settings: "Profile settings",
+        label_privacy_settings: "Privacy settings",
+        label_general_information: "General information",
+        label_settings_header: "Settings"
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

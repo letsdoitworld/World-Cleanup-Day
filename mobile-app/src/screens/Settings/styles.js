@@ -4,7 +4,12 @@ import {getWidthPercentage, getHeightPercentage} from '../../shared/helpers';
 import colors from "../../config/colors";
 
 export default {
-    listContainer: {},
+    listContainer: {
+        height: '100%',
+        width: '100%',
+        flexDirection: 'column',
+        backgroundColor: colors.$mainBackground
+    },
     separator: {
         marginTop: getHeightPercentage(20),
     },
@@ -35,22 +40,63 @@ export default {
         marginBottom: 0,
         fontSize: 20,
     },
-    dividerStyle: {
-        height: getHeightPercentage(30),
+
+    titleStyle: {
+        height: getHeightPercentage(35),
         width: '100%',
-        backgroundColor: colors.$mainBackground,
         justifyContent: 'center'
     },
-    dividerTextStyle: {
+    titleTextStyle: {
         marginStart: getWidthPercentage(10),
         fontSize: 13,
-        color: colors.$textColorSettings
+        color: colors.$textColorDivider
     },
     itemStyle: {
-        height: getHeightPercentage(30),
+        marginTop: 1,
+        height: getHeightPercentage(35),
         width: '100%',
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor: colors.$white,
+
+    },
+    lastItemStyle: {
+        marginTop: 1,
+        height: getHeightPercentage(35),
+        width: '100%',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: colors.$white,
+        flexGrow: 1,
+    },
+    imageItemStyle: {
+        flex: 1,
+        height: 24,
+        width: 24,
+        marginLeft: getWidthPercentage(10),
+        alignSelf: 'center'
+    },
+    textItemStyle: {
+        flex: 9,
+        marginLeft: getWidthPercentage(10),
+        fontSize: 17,
+        color: colors.$textColorSettings,
+        alignSelf: 'center'
+    },
+    logoutButtonStyle: {
+        position: 'absolute',
+        borderRadius: 10,
+        bottom: '3%',
+        height: getHeightPercentage(35),
+        width: '90%',
+        backgroundColor: colors.$accentPink,
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+    logOutTextStyle: {
+        fontSize: 17,
+        color: colors.$white,
+        alignSelf: 'center'
     }
 }
 export const rightIcon = {

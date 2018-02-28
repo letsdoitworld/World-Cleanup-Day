@@ -7,6 +7,7 @@ import { Divider } from '../../components/Divider/Divider';
 //import { selectors as userSelectors } from '../../reducers/user';
 import styles from './styles';
 import {SETTINGS_SCREEN} from "../index";
+import strings from '../../config/strings';
 
 export default class Profile extends Component {
 
@@ -42,7 +43,8 @@ export default class Profile extends Component {
         if (event.type == 'NavBarButtonPress') {
             if (event.id == 'settings') {
                 this.props.navigator.push({
-                    screen: SETTINGS_SCREEN
+                    screen: SETTINGS_SCREEN,
+                    title: strings.label_settings_header
                 })
             }
         }

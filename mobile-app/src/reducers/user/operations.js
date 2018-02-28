@@ -1,6 +1,7 @@
 import {fetchNetworkTokenAsync, SOCIAL_NETWORKS} from '../../services/Login';
 import Api from '../../services/Api';
 import actions from './actions';
+import {GoogleSignin} from "react-native-google-signin";
 //import { operations as appOps } from '../app';
 
 const FBSDK = require('react-native-fbsdk');
@@ -9,30 +10,20 @@ const {
     AccessToken
 } = FBSDK;
 
-const googleLogin = () => async (dispatch) => {
-    try {
-        let token;
-        // const token = 'ex_token';
-        // dispatch(actions.setToken(token));
-        // return token;
-        try {
-            token = await fetchNetworkTokenAsync(SOCIAL_NETWORKS.GOOGLE);
-        } catch (ex) {
-            if (ex.code && ex.code === 'AUTH_ACCOUNT_IS_LOCKED') {
-                // dispatch(
-                //   appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
-                // );
-            }
-            return;
-        }
-        dispatch(actions.setToken(token));
-        return token;
-    } catch (ex) {
-        dispatch(actions.setAuthError(ex));
-        throw ex;
-    }
-};
-
+export function googleLogin() {
+    return GoogleSignin.configure({
+        scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+        //  iosClientId: <FROM DEVELOPER CONSOLE>, // only for iOS
+        webClientId: '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
+        offlineAccess: false
+    })
+        .then(() => {
+            return GoogleSignin.signIn()
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
 
 export function facebookLogin() {
     return LoginManager.logInWithReadPermissions(['public_profile'])
@@ -48,52 +39,6 @@ export function facebookLogin() {
             console.log(error)
         })
 }
-
-//const facebookLogin = () => async (dispatch) => {
-// try {
-//   let token;
-//   // const token = 'ex_token';
-//   // dispatch(actions.setToken(token));
-//   // return token;
-//   try {
-//     token = await fetchNetworkTokenAsync(SOCIAL_NETWORKS.FACEBOOK);
-//   } catch (ex) {
-//     if (ex.code && ex.code === 'AUTH_ACCOUNT_IS_LOCKED') {
-//       // dispatch(
-//       //   appOps.setErrorMessage(i18n.t('label_locked_account_warning')),
-//       // );
-//     }
-//     return;
-//   }
-//
-//   dispatch(actions.setToken(token));
-//   return token;
-// } catch (ex) {
-//   dispatch(actions.setAuthError(ex));
-//   throw ex;
-// }
-
-
-// LoginManager.logInWithReadPermissions(['public_profile']).then(
-//     function(result) {
-//         if (result.isCancelled) {
-//             alert('Login cancelled');
-//         } else {
-//             AccessToken.getCurrentAccessToken().then(
-//                 (data) => {
-//                     alert(data.accessToken.toString())
-//                 }
-//             );
-//         }
-//     },
-//     function(error) {
-//         console.warn(error);
-//         console.warn('error');
-//         alert('Login fail with error: ' + error);
-//     }
-// )
-
-//};
 
 const getProfile = () => async (dispatch) => {
     dispatch(actions.fetchProfile());

@@ -63,3 +63,6 @@ To fix it use the command:
 * https://github.com/wix/react-native-navigation/issues/410
 
 
+keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -list -v
+
+

@@ -142,47 +142,9 @@ export class Login extends Component {
 
     handleFBPress = () => this.props.dispatch(userActions.loginFacebook());
 
-    handleGooglePress = () => {
-        // this.props.googleLogin().then(
-        //     () => {
-        //         this.gotoTabs();
-        //     },
-        //     () => {
-        //     },
-        // );
+    handleGooglePress = () => this.props.dispatch(userActions.loginGoogle());
 
-        GoogleSignin.configure({
-            scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
-          //  iosClientId: <FROM DEVELOPER CONSOLE>, // only for iOS
-               // webClientId: '701152837929-37n09tj239aaggo0ttpqpgegpl6heo2r.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-          //          offlineAccess: true // if you want to access Google API on behalf of the user FROM YOUR SERVER
-         //           hostedDomain: '' // specifies a hosted domain restriction
-         //           forceConsentPrompt: true // [Android] if you want to show the authorization prompt at each login
-         //           accountName: '' // [Android] specifies an account name on the device that should be used
-            webClientId: '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
-            offlineAccess: false
-                    })
-                    .then(() => {
-                        // you can now call currentUserAsync()
-
-                        GoogleSignin.signIn()
-                            .then((user) => {
-                               // console.log(user);
-                               // this.setState({user: user});
-                                this.props.dispatch(userActions.setToken(user.accessToken))
-
-                              //  user.accessToken
-                            })
-                            .catch((err) => {
-                               // console.log('WRONG SIGNIN', err);
-                            })
-                            .done();
-                    });
-    };
-
-    handleSkipPress = () => {
-        App.dismissLogin()
-    };
+    handleSkipPress = () => App.dismissLogin();
 
     handleLinkPress = link => () =>
         Linking.openURL(link).catch(err => console.error('An error occurred', err));

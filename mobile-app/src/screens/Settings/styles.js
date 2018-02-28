@@ -67,6 +67,14 @@ export default {
         alignSelf: 'center',
         fontFamily: 'Lato-Regular'
     },
+    textPrivateStyle: {
+        flex: 1,
+        fontSize: 17,
+        marginLeft: getWidthPercentage(10),
+        color: colors.$textColorSettings,
+        alignSelf: 'center',
+        fontFamily: 'Lato-Regular'
+    },
     logoutButtonStyle: {
         position: 'absolute',
         borderRadius: 10,
@@ -80,6 +88,12 @@ export default {
     logOutTextStyle: {
         fontSize: 17,
         color: colors.$white,
+        alignSelf: 'center'
+    },
+    switchStyle: {
+        width: 51,
+        height: 31,
+        marginRight: getWidthPercentage(15),
         alignSelf: 'center'
     }
 }

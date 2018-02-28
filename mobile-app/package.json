@@ -59,7 +59,8 @@
     "redux-persist-transform-filter": "^0.0.15",
     "redux-saga": "^0.16.0",
     "remote-redux-devtools": "^0.5.12",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "toggle-switch-react-native": "^0.2.0"
   },
   "rnpm": {
     "assets": [

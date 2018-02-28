@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import {CountryModal} from './components/CountryModal';
 import strings from '../../config/strings';
+import ToggleSwitch from 'toggle-switch-react-native'
 
 // import {
 //   operations as userOps,
@@ -160,6 +161,12 @@ export default class Settings extends Component {
                     </View>
                     <View style={styles.itemStyle}>
                         <Text style={styles.textItemStyle}>{strings.label_private_profile}</Text>
+                        <View style={styles.switchStyle}>
+                        <ToggleSwitch isOn={true}
+                                      onColor={colors.$blue}
+                                      offColor={colors.$toggleOffColor}
+                                      onToggle={(isOn) => console.log('changed to : ', isOn)}/>
+                        </View>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_general_information.toUpperCase()}</Text>

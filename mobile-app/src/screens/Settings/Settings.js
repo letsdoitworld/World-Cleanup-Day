@@ -133,56 +133,57 @@ export default class Settings extends Component {
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/icon_ui_arrowdown.png')}/>
+
+                            source={require('./images/ic_name.png')}/>
                         <Text style={styles.textItemStyle}>{'Yuliya Yonder'}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/icon_ui_arrowdown.png')}/>
+                            source={require('./images/ic_location.png')}/>
                         <Text style={styles.textItemStyle}>{'Kiev, Ukraine'}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/icon_ui_arrowdown.png')}/>
+                            source={require('./images/ic_phone_number.png')}/>
                         <Text style={styles.textItemStyle}>{'+3809500000000'}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/icon_ui_arrowdown.png')}/>
+                            source={require('./images/ic_email.png')}/>
                         <Text style={styles.textItemStyle}>{'yonder@gmail.com'}</Text>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_privacy_settings.toUpperCase()}</Text>
                     </View>
                     <View style={styles.itemStyle}>
-                        <Text style={styles.textItemStyle}>{'Private profile'}</Text>
+                        <Text style={styles.textItemStyle}>{strings.label_private_profile}</Text>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_general_information.toUpperCase()}</Text>
                     </View>
                     <TouchableOpacity style={styles.itemStyle}
                                       onPress={this.handleLinkPress(TERMS_URL).bind(this)}>
-                        <Text style={styles.textItemStyle}>{'Terms and Conditions'}</Text>
+                        <Text style={styles.textItemStyle}>{strings.label_header_tc}</Text>
                         <Image
-                            style={styles.imageItemStyle}
-                            source={require('./images/icon_ui_arrowdown.png')}/>
+                            style={styles.arrowItemStyle}
+                            source={require('../../assets/images/icon_menu_arrowforward.png')}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.itemStyle}
                                       onPress={this.handleLinkPress(PRIVACY_URL)}>
-                        <Text style={styles.textItemStyle}>{'Privacy Policy'}</Text>
+                        <Text style={styles.textItemStyle}>{strings.label_privacy_policy_header}</Text>
                         <Image
-                            style={styles.imageItemStyle}
-                            source={require('./images/icon_ui_arrowdown.png')}/>
+                            style={styles.arrowItemStyle}
+                            source={require('../../assets/images/icon_menu_arrowforward.png')}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.itemStyle}
                                       onPress={this.handleAboutPress}>
-                        <Text style={styles.textItemStyle}>{'About World Cleanup Day'}</Text>
+                        <Text style={styles.textItemStyle}>{strings.label_about_world_cleanup_day}</Text>
                         <Image
-                            style={styles.imageItemStyle}
-                            source={require('./images/icon_ui_arrowdown.png')}/>
+                            style={styles.arrowItemStyle}
+                            source={require('../../assets/images/icon_menu_arrowforward.png')}/>
                     </TouchableOpacity>
                     <TouchableHighlight style={styles.logoutButtonStyle}
                                         onPress={this.handleLinkPress(TERMS_URL).bind(this)}>

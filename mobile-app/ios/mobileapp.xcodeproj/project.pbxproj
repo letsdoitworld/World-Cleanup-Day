@@ -102,6 +102,8 @@
 		FABDE363082D402AABF2D9F2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC7A703F92BF4134937767E9 /* MaterialIcons.ttf */; };
 		FC7E0ABA6FF643418AF110FB /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA15102C84EC42DCB101307F /* Foundation.ttf */; };
 		FDE3E6812FFD4614BBE00294 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 598230A1B3224679A5E7114F /* Roboto-Light.ttf */; };
+		646CFD4A8A364946838C687F /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADE69D6874A743C3B5F4893E /* Lato-Bold.ttf */; };
+		7E99309E19864E58B5422AB0 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DC9675AA9847A98873B22C /* Lato-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -524,6 +526,8 @@
 		FB9F01B33CAA40C8A9B6D2DF /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-ThinItalic.ttf"; path = "../src/assets/fonts/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		FC7E99D8C64240D793C9247E /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		FE47027F779C4375A5440B84 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-MediumItalic.ttf"; path = "../src/assets/fonts/Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
+		ADE69D6874A743C3B5F4893E /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		55DC9675AA9847A98873B22C /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -790,6 +794,8 @@
 				399C50BC0AA044C597C3B432 /* Roboto-Thin.ttf */,
 				FB9F01B33CAA40C8A9B6D2DF /* Roboto-ThinItalic.ttf */,
 				BDB7F4B6A14A46BF8F9C7BFA /* Feather.ttf */,
+				ADE69D6874A743C3B5F4893E /* Lato-Bold.ttf */,
+				55DC9675AA9847A98873B22C /* Lato-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1482,6 +1488,8 @@
 				76603AAB5EB240C595C5AD70 /* Roboto-Thin.ttf in Resources */,
 				72E198F022E145D0B87EF106 /* Roboto-ThinItalic.ttf in Resources */,
 				17D77BED771448C7A4A722E1 /* Feather.ttf in Resources */,
+				646CFD4A8A364946838C687F /* Lato-Bold.ttf in Resources */,
+				7E99309E19864E58B5422AB0 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

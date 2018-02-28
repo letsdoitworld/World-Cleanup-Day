@@ -10,43 +10,18 @@ export default {
         flexDirection: 'column',
         backgroundColor: colors.$mainBackground
     },
-    separator: {
-        marginTop: getHeightPercentage(20),
-    },
-    list: {
-        backgroundColor: 'white',
-        // paddingLeft: getWidthPercentage(20),
-    },
-    listItem: {
-        paddingTop: 13,
-        paddingBottom: 13,
-        borderWidth: 0,
-    },
-    title: {
-        fontFamily: '$font',
-        fontSize: 15,
-        color: 'black',
-    },
-    subtitle: {
-        fontFamily: '$boldFont',
-        fontSize: 15,
-        color: 'black',
-    },
-    logout: {
-        color: '#3E8EDE',
-    },
-    chevron: {
-        marginTop: 20,
-        marginBottom: 0,
-        fontSize: 20,
-    },
-
     titleStyle: {
         height: getHeightPercentage(35),
         width: '100%',
         justifyContent: 'center'
     },
     titleTextStyle: {
+        marginStart: getWidthPercentage(10),
+        fontSize: 13,
+        color: colors.$textColorDivider,
+        fontFamily: 'Lato-Bold'
+    },
+    testTextStyle: {
         marginStart: getWidthPercentage(10),
         fontSize: 13,
         color: colors.$textColorDivider
@@ -70,18 +45,27 @@ export default {
         flexGrow: 1,
     },
     imageItemStyle: {
-        flex: 1,
-        height: 24,
         width: 24,
+        height: 24,
         marginLeft: getWidthPercentage(10),
-        alignSelf: 'center'
+        alignSelf: 'center',
+        left: 0,
+        resizeMode: 'contain'
+    },
+    arrowItemStyle: {
+        height: 13,
+        width: 8,
+        marginRight: getWidthPercentage(10),
+        alignSelf: 'center',
+        resizeMode: 'contain'
     },
     textItemStyle: {
-        flex: 9,
-        marginLeft: getWidthPercentage(10),
+        flex: 1,
         fontSize: 17,
+        marginLeft: getWidthPercentage(10),
         color: colors.$textColorSettings,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'Lato-Regular'
     },
     logoutButtonStyle: {
         position: 'absolute',

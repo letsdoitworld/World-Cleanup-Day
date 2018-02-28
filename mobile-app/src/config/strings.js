@@ -132,8 +132,10 @@ module.exports = new LocalizedStrings({
         label_locked_account_warning: "Your account is locked. For details contact an administrator.",
         label_profile_settings: "Profile settings",
         label_privacy_settings: "Privacy settings",
+        label_private_profile: "Private profile",
         label_general_information: "General information",
-        label_settings_header: "Settings"
+        label_settings_header: "Settings",
+        label_about_world_cleanup_day: "About World Cleanup Day"
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

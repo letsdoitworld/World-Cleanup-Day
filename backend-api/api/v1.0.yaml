@@ -481,6 +481,23 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
 
+
+  #-----------------------------------------------------------------------------
+  /events:
+    x-swagger-router-controller: events
+      post:
+        description: Create new event, needed to organize people to clean garbage
+        operationId: createEvent
+        x-security: [bearer]
+        parameters:
+          - $ref: "#/parameters/CreateEvent"
+        responses:
+          "200":
+            description: New event has been created
+          "default":
+            $ref: "#/responses/ErrorSet"
+
+
 ################################################################################
 parameters:
 ################################################################################

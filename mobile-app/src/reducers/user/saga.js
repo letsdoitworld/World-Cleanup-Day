@@ -6,7 +6,7 @@ import appActions from '../app/actions'
 
 import strings from "../../assets/strings"
 import actions from "./actions";
-import {facebookLogin, googleLogin, updateProfileStatus} from "./operations";
+import {facebookLogin, getProfile, googleLogin, updateProfileStatus} from "./operations";
 import Api from "../../services/Api";
 import {login, BACKEND_LOGIN_SOURCES} from "../../services/Login";
 
@@ -29,7 +29,6 @@ export function* loginGoogleFlow() {
 
         yield take(types.GOOGLE_LOGIN_ACTION);
         yield call(loginGoogle);
-
 
 
         // const {name, secondName, role} = yield take(types.CREATE_PROFILE_ACTION);
@@ -62,7 +61,6 @@ export function* loginFacebookFlow() {
         yield call(loginFacebook);
 
 
-
         // const {name, secondName, role} = yield take(types.CREATE_PROFILE_ACTION);
         // yield put(rootActions.controlProgress(true));
         // yield call(createProfile, name, secondName, role);
@@ -70,12 +68,30 @@ export function* loginFacebookFlow() {
     }
 }
 
+function* loadProfile() {
+    try {
+        const response = yield call(getProfile);
+
+        yield put(actions.fetchProfileDone(response))
+    } catch (error) {
+        console.log(error);
+        appActions.setErrorMessage(String(error));
+    }
+}
+
+export function* loadProfileFlow() {
+    while (true) {
+        yield  take(types.FETCH_PROFILE);
+        yield call(loadProfile)
+    }
+}
+
 function* updateStatus(profileStatus) {
     try {
         const status = yield call(updateProfileStatus, profileStatus);
-
     } catch (error) {
-        yield put(appActions.setErrorMessage(error))
+        console.warn(error);
+        appActions.setErrorMessage(error)
     }
 }
 

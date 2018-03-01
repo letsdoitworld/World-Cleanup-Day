@@ -40,61 +40,49 @@ export const authReducer = (state, action = {}) => {
     }
 };
 
-export const profileReducer = (state = profileInitialState, action) => {
+export const profileReducer = (state, action = {}) => {
     switch (action.type) {
-        case types.TERMS_AGREE:
-            //TODO: change to immutable
-            return {
-                ...state,
-                entity: {
-                    ...state.entity,
-                    termsAcceptedAt: true,
-                },
-            };
+        // case types.TERMS_AGREE:
+        //     //TODO: change to immutable
+        //     return {
+        //         ...state,
+        //         entity: {
+        //             ...state.entity,
+        //             termsAcceptedAt: true,
+        //         },
+        //     };
         case types.FETCH_PROFILE:
-            //TODO: change to immutable
-            return {
-                ...state,
-                loading: true,
-            };
+            return state.withMutations(state => state
+                .set('loading', true));
         case types.FETCH_PROFILE_SUCCESS:
-            //TODO: change to immutable
-            return {
-                ...state,
-                loading: false,
-                error: undefined,
-                entity: action.payload,
-            };
+            return state.withMutations(state => state
+                .set('entity', action.payload));
         case types.FETCH_PROFILE_ERROR:
-            //TODO: change to immutable
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
+            return state.withMutations(state => state
+                .set('error', action.payload));
 
-        case types.UPDATE_PROFILE:
-            //TODO: change to immutable
-            return {
-                ...state,
-                updating: true,
-                updatingError: undefined,
-            };
-        case types.UPDATE_PROFILE_DONE:
-            //TODO: change to immutable
-            return {
-                ...state,
-                updating: false,
-                updatingError: undefined,
-                entity: action.payload,
-            };
-        case types.UPDATE_PROFILE_ERROR:
-            //TODO: change to immutable
-            return {
-                ...state,
-                updating: false,
-                updatingError: action.payload,
-            };
+        // case types.UPDATE_PROFILE:
+        //     //TODO: change to immutable
+        //     return {
+        //         ...state,
+        //         updating: true,
+        //         updatingError: undefined,
+        //     };
+        // case types.UPDATE_PROFILE_DONE:
+        //     //TODO: change to immutable
+        //     return {
+        //         ...state,
+        //         updating: false,
+        //         updatingError: undefined,
+        //         entity: action.payload,
+        //     };
+        // case types.UPDATE_PROFILE_ERROR:
+        //     //TODO: change to immutable
+        //     return {
+        //         ...state,
+        //         updating: false,
+        //         updatingError: action.payload,
+        //     };
 
         default:
             return state;

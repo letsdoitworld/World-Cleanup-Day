@@ -48,13 +48,22 @@ export function facebookLogin() {
         })
 }
 
-export function updateProfileStatus(profileStatus) {
-    return fetch(Api.put('me/privacy', profileStatus)).then((status) => {
-        return status
-    })
-        .catch((error) => {
-            console.log(error);
-        });
+export async function updateProfileStatus(profileStatus) {
+    try {
+        const response = await Api.get('me/privacy');
+        return response;
+    } catch (ex) {
+        throw ex;
+    }
+}
+
+export async function getProfile() {
+    try {
+        const response = await Api.get('/me');
+        return response.data;
+    } catch (ex) {
+        throw ex;
+    }
 }
 
 const getProfile = () => async (dispatch) => {

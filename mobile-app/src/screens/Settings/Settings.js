@@ -64,6 +64,10 @@ export class Settings extends Component {
         });
     };
 
+    componentDidMount() {
+        this.props.dispatch(userActions.fetchProfile());
+    }
+
     handleCountryItemPress = () => {
         this.setState(prevState => ({
             showCountryModal: !prevState.showCountryModal,
@@ -119,6 +123,7 @@ export class Settings extends Component {
 
     render() {
         const {country} = this.props;
+        const profile = this.props.profile.get('entity');
         // const countrySubtitle = country
         //   ? country.name
         //   : this.props.t('label_country_picker_placeholder');
@@ -133,7 +138,7 @@ export class Settings extends Component {
                             style={styles.imageItemStyle}
 
                             source={require('./images/ic_name.png')}/>
-                        <Text style={styles.textItemStyle}>{'Yuliya Yonder'}</Text>
+                        <Text style={styles.textItemStyle}>{profile.name}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
@@ -160,7 +165,7 @@ export class Settings extends Component {
                         <Text style={styles.textItemStyle}>{strings.label_private_profile}</Text>
                         <View style={styles.switchStyle}>
                         <ToggleSwitch isOn={true}
-                                      onColor={colors.$blue}
+                                      onColor={colors.$toggleOnColor}
                                       offColor={colors.$toggleOffColor}
                                       onToggle={(isOn) => this.handlePrivacyPress(isOn)}/>
                         </View>

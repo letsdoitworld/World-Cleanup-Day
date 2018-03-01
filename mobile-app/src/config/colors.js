@@ -13,5 +13,6 @@ export default {
     $mainBackground: 'rgb(240, 240, 240)',
     $textColorSettings: 'rgb(40, 38, 51)',
     $accentPink: 'rgb(225, 18,131)',
-    $toggleOffColor: 'rgb(228, 241, 253)'
+    $toggleOffColor: 'rgb(228, 241, 253)',
+    $toggleOnColor: '#ffd800'
 }

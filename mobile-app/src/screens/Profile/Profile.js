@@ -8,6 +8,7 @@ import { Divider } from '../../components/Divider/Divider';
 import styles from './styles';
 import {SETTINGS_SCREEN} from "../index";
 import strings from '../../config/strings';
+import userActions from '../../reducers/user/actions';
 
 export default class Profile extends Component {
 
@@ -33,6 +34,10 @@ export default class Profile extends Component {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
+    //
+    // componentDidMount() {
+    //     this.props.dispatch(userActions.fetchProfile())
+    // }
 
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL ? { uri: profile.pictureURL } : require('./avatar.png');
@@ -80,6 +85,7 @@ export default class Profile extends Component {
     );
   }
 }
+
 
 // const mapStateToProps = (state) => {
 //   return {

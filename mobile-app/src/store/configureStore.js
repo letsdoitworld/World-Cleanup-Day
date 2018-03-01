@@ -141,7 +141,8 @@ export default function configureStore() {
         runSaga: [
             sagaMiddleware.run(userSaga.loginGoogleFlow),
             sagaMiddleware.run(userSaga.loginFacebookFlow),
-            sagaMiddleware.run(userSaga.updateProfileStatusFlow)
+            sagaMiddleware.run(userSaga.updateProfileStatusFlow),
+            sagaMiddleware.run(userSaga.loadProfileFlow)
             // sagaMiddleware.run(listSaga.listFlow),
             // sagaMiddleware.run(listSaga.sellersListFlow),
             // sagaMiddleware.run(listSaga.itemsListFlow),

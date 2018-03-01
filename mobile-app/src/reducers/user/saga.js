@@ -6,7 +6,7 @@ import appActions from '../app/actions'
 
 import strings from "../../assets/strings"
 import actions from "./actions";
-import {facebookLogin, googleLogin} from "./operations";
+import {facebookLogin, googleLogin, updateProfileStatus} from "./operations";
 import Api from "../../services/Api";
 import {login, BACKEND_LOGIN_SOURCES} from "../../services/Login";
 
@@ -68,5 +68,21 @@ export function* loginFacebookFlow() {
         // yield put(rootActions.controlProgress(true));
         // yield call(createProfile, name, secondName, role);
         // yield put(rootActions.controlProgress(false));
+    }
+}
+
+function* updateStatus(profileStatus) {
+    try {
+        const status = yield call(updateProfileStatus, profileStatus);
+
+    } catch (error) {
+        yield put(appActions.setErrorMessage(error))
+    }
+}
+
+export function* updateProfileStatusFlow() {
+    while (true) {
+        const {profileStatus} = yield take(types.UPDATE_PROFILE_STATUS_ACTION);
+        yield call(updateStatus, profileStatus)
     }
 }

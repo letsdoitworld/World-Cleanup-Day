@@ -16,6 +16,11 @@ export const profileInitialState = {
     error: undefined,
 };
 
+export const profileStatusInitialState = {
+    status: false,
+    error: undefined,
+};
+
 export const authReducer = (state, action = {}) => {
     switch (action.type) {
         case types.SET_AUTH_TOKEN:
@@ -91,6 +96,21 @@ export const profileReducer = (state = profileInitialState, action) => {
                 updatingError: action.payload,
             };
 
+        default:
+            return state;
+    }
+};
+
+export const profileStatusReducer = (state, action = {}) => {
+    switch (action.type) {
+        case types.UPDATE_PROFILE_STATUS_ACTION:
+            return state.withMutations(state => state
+                .set('status', action.payload)
+            );
+        case types.UPDATE_PROFILE_STATUS_ERROR:
+            return state.withMutations(state => state
+                .set('error', String(action.payload))
+            );
         default:
             return state;
     }

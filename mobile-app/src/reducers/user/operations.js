@@ -2,6 +2,7 @@ import {fetchNetworkTokenAsync, SOCIAL_NETWORKS} from '../../services/Login';
 import Api from '../../services/Api';
 import actions from './actions';
 import {GoogleSignin} from "react-native-google-signin";
+import constants from "../../shared/constants";
 //import { operations as appOps } from '../app';
 
 const FBSDK = require('react-native-fbsdk');
@@ -9,6 +10,13 @@ const {
     LoginManager,
     AccessToken
 } = FBSDK;
+
+function getAuthHeader(authToken) {
+    return {
+        ...constants.BASE_HEADER,
+        "Authorization": `Bearer ${authToken}`
+    }
+}
 
 export function googleLogin() {
     return GoogleSignin.configure({
@@ -38,6 +46,15 @@ export function facebookLogin() {
         }).catch((error) => {
             return error
         })
+}
+
+export function updateProfileStatus(profileStatus) {
+    return fetch(Api.put('me/privacy', profileStatus)).then((status) => {
+        return status
+    })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 const getProfile = () => async (dispatch) => {

@@ -22,8 +22,9 @@ import styles, {
 import {PRIVACY_URL, TERMS_URL} from "../../../env";
 import colors from "../../config/colors";
 import {ABOUT_SCREEN} from "../index";
+import userActions from '../../reducers/user/actions';
 
-export default class Settings extends Component {
+export class Settings extends Component {
 
     static navigatorStyle = {
         tabBarHidden: true,
@@ -86,19 +87,15 @@ export default class Settings extends Component {
         }, () => null);
     };
 
-    handleTermsPress = () => {
-        this.props.navigator.push({
-            screen: TER
-        });
-    };
-    handlePrivacyPress = () => {
-        this.props.navigation.navigate('Privacy');
-    };
     handleAboutPress = () => {
         this.props.navigator.push({
             screen: ABOUT_SCREEN,
             title: strings.label_about_header
-        })
+        });
+    };
+
+    handlePrivacyPress = status => {
+        this.props.dispatch(userActions.updateProfileStatus(status));
     };
 
     handleLinkPress = link => () =>
@@ -165,7 +162,7 @@ export default class Settings extends Component {
                         <ToggleSwitch isOn={true}
                                       onColor={colors.$blue}
                                       offColor={colors.$toggleOffColor}
-                                      onToggle={(isOn) => console.log('changed to : ', isOn)}/>
+                                      onToggle={(isOn) => this.handlePrivacyPress(isOn)}/>
                         </View>
                     </View>
                     <View style={styles.titleStyle}>
@@ -204,3 +201,12 @@ export default class Settings extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    auth: state.get('auth'),
+    profile: state.get('profile'),
+    profileState: state.get('profileState'),
+    error: state.get('error')
+});
+
+export default connect(mapStateToProps)(Settings)

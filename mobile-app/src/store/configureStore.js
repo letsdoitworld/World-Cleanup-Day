@@ -17,7 +17,9 @@ import {
     authReducer,
     authInitialState,
     profileReducer,
-    profileInitialState
+    profileInitialState,
+    profileStatusReducer,
+    profileStatusInitialState
 } from '../reducers/user/reducers'
 
 
@@ -35,10 +37,11 @@ import {
 const combinedReducers = combineReducers({
     auth: authReducer,
     profile: profileReducer,
+    profileState: profileStatusReducer,
     //network: networkReducer,
-   // config: configReducer,
+    // config: configReducer,
     error: errorReducer,
-  //  popover: popoverReducer,
+    //  popover: popoverReducer,
 
     // root: rootReducer,
     // login: loginReducer,
@@ -56,6 +59,7 @@ const combinedReducers = combineReducers({
 export const initialState = new Immutable.Map({
     auth: Immutable.Map(authInitialState),
     profile: Immutable.Map(profileInitialState),
+    profileState: Immutable.Map(profileStatusInitialState),
     error: Immutable.Map(errorInitialState)
 
     // root: Immutable.Map({
@@ -129,14 +133,15 @@ export default function configureStore() {
         store,
         {
             storage: AsyncStorage,
-           // blacklist:['editGroups', 'school', 'events']
+            // blacklist:['editGroups', 'school', 'events']
         }
     );
     return {
         ...store,
         runSaga: [
-             sagaMiddleware.run(userSaga.loginGoogleFlow),
-             sagaMiddleware.run(userSaga.loginFacebookFlow),
+            sagaMiddleware.run(userSaga.loginGoogleFlow),
+            sagaMiddleware.run(userSaga.loginFacebookFlow),
+            sagaMiddleware.run(userSaga.updateProfileStatusFlow)
             // sagaMiddleware.run(listSaga.listFlow),
             // sagaMiddleware.run(listSaga.sellersListFlow),
             // sagaMiddleware.run(listSaga.itemsListFlow),

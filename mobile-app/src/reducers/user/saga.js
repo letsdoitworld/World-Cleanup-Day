@@ -56,7 +56,6 @@ function* loginFacebook() {
     }
 }
 
-
 export function* loginFacebookFlow() {
     while (true) {
         yield take(types.FB_LOGIN_ACTION);

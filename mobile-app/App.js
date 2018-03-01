@@ -15,6 +15,7 @@ import actions from "./src/reducers/user/actions";
 import strings from './src/assets/strings'
 import configureStore from "./src/store/configureStore";
 import {Provider} from "react-redux";
+import {EVENTS} from "./src/screens/index";
 
 const store = configureStore();
 
@@ -78,10 +79,10 @@ export default class App extends Component {
                     title: strings.label_header_activity
                 },
                 {
-                    screen: NOTIFICATIONS_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_updates.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_updates_active.png'),
-                    title: strings.label_header_notific
+                    screen: EVENTS,
+                    icon: require('./src/assets/images/ic_event.png'),
+                    selectedIcon: require('./src/assets/images/ic_event_active.png'),
+                    title: strings.label_events
                 },
                 {
                     screen: HOME_SCREEN,

@@ -772,6 +772,8 @@ definitions:
         $ref: "#/definitions/ISOTimestamp"
       locked:
         type: boolean
+      private:
+        type: boolean
   AccountPlusAreas:
     allOf:
     - "$ref": "#/definitions/Account"

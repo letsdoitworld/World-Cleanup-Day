@@ -66,20 +66,6 @@ export async function getProfile() {
     }
 }
 
-const getProfile = () => async (dispatch) => {
-    dispatch(actions.fetchProfile());
-
-    try {
-        const response = await Api.get('/me');
-
-        dispatch(actions.fetchProfileDone(response.data));
-        return response.data;
-    } catch (ex) {
-        dispatch(actions.fetchProfileError(ex));
-        throw ex;
-    }
-};
-
 const updateProfile = profile => async (dispatch) => {
     dispatch(actions.updateProfile());
 

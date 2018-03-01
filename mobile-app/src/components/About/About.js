@@ -29,14 +29,12 @@ export default class About extends Component {
             <Image
                 style={styles.imgLdiLogo}
                 resizeMode="contain"
-                source={require('./images/ldilogo.png')}
-            />
+                source={require('./images/ldilogo.png')}/>
             <Text style={styles.aboutText}>{strings.label_text_about_2}</Text>
             <Image
                 style={styles.imgWcdLogo}
                 resizeMode="contain"
-                source={require('./images/wcdlogo.png')}
-            />
+                source={require('./images/wcdlogo.png')}/>
             <Text style={styles.aboutText}>{strings.label_text_about_3}</Text>
 
             <View style={styles.flexContainer}>
@@ -44,15 +42,13 @@ export default class About extends Component {
                     <Image
                         style={styles.imgQualitanceLogo}
                         resizeMode="contain"
-                        source={require('./images/qualitancelogo.png')}
-                    />
+                        source={require('./images/qualitancelogo.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={openDUXURL}>
                     <Image
                         style={styles.imgDuxLogo}
                         resizeMode="contain"
-                        source={require('./images/duxlogo.png')}
-                    />
+                        source={require('./images/duxlogo.png')}/>
                 </TouchableOpacity>
             </View>
             <Text style={styles.aboutText}>{strings.label_text_about_4}</Text>

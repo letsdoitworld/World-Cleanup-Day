@@ -14,12 +14,10 @@ function* loginGoogle() {
     try {
         const user = yield call(googleLogin);
         const accessToken = user.accessToken;
-        console.warn(accessToken);
         const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.GOOGLE, accessToken);
-        console.warn(cleanUpToken);
         yield put(actions.setToken(cleanUpToken));
     } catch (error) {
-        console.warn(error);
+        console.log(error);
         appActions.setErrorMessage(String(error));
     }
 }
@@ -71,7 +69,6 @@ export function* loginFacebookFlow() {
 function* loadProfile() {
     try {
         const response = yield call(getProfile);
-
         yield put(actions.fetchProfileDone(response))
     } catch (error) {
         console.log(error);

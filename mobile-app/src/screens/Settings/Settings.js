@@ -1,173 +1,221 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { compose } from 'recompose';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {View, Text, Image, TouchableOpacity, Linking, TouchableHighlight} from 'react-native';
+import {compose} from 'recompose';
+import {connect} from 'react-redux';
 import _ from 'lodash';
 
-import { CountryModal } from './components/CountryModal';
+import {CountryModal} from './components/CountryModal';
+import strings from '../../config/strings';
+import ToggleSwitch from 'toggle-switch-react-native'
 
-import {
-  operations as userOps,
-  selectors as userSels,
-} from '../../reducers/user';
-import { COUNTRY_LIST } from '../../shared/constants';
+// import {
+//   operations as userOps,
+//   selectors as userSels,
+// } from '../../reducers/user';
+import {COUNTRY_LIST} from '../../shared/constants';
 
 import styles, {
-  listItemProps,
-  downRightIcon,
-  defaultRightIcon,
+    listItemProps,
+    downRightIcon,
+    defaultRightIcon,
 } from './styles';
+import {PRIVACY_URL, TERMS_URL} from "../../../env";
+import colors from "../../config/colors";
+import {ABOUT_SCREEN} from "../index";
+import userActions from '../../reducers/user/actions';
 
-class Settings extends Component {
-  constructor(props) {
-    super(props);
+export class Settings extends Component {
 
-    this.state = {
-      showCountryModal: false,
-      countryFilter: undefined,
+    static navigatorStyle = {
+        tabBarHidden: true,
+        navBarTitleTextCentered: true,
     };
-    this.handleCountryItemPress = _.debounce(
-      this.handleCountryItemPress,
-      2000,
-      {
-        trailing: false,
-        leading: true,
-      },
-    );
-  }
 
-  getFilteredCountries() {
-    const { countryFilter } = this.state;
-    if (!countryFilter) {
-      return COUNTRY_LIST;
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showCountryModal: false,
+            countryFilter: undefined,
+        };
+        this.handleCountryItemPress = _.debounce(
+            this.handleCountryItemPress,
+            2000,
+            {
+                trailing: false,
+                leading: true,
+            },
+        );
     }
-    return COUNTRY_LIST.filter(
-      c => c.name.toLowerCase().indexOf(countryFilter.toLowerCase()) !== -1,
-    );
-  }
-  closeModal = () => {
-    this.setState({
-      showCountryModal: false,
-    });
-  };
 
-  handleCountryItemPress = () => {
-    this.setState(prevState => ({
-      showCountryModal: !prevState.showCountryModal,
-    }));
-  };
+    getFilteredCountries() {
+        // const { countryFilter } = this.state;
+        // if (!countryFilter) {
+        //   return COUNTRY_LIST;
+        // }
+        // return COUNTRY_LIST.filter(
+        //   c => c.name.toLowerCase().indexOf(countryFilter.toLowerCase()) !== -1,
+        // );
+    }
 
-  handleCountryChanged = (country) => {
-    this.setState({
-      showCountryModal: false,
-      countryFilter: undefined,
-    });
-    this.props.updateProfile({ country: country.code });
-  };
-  handleCountryFilterChanged = (countryFilter) => {
-    this.setState({ countryFilter });
-  };
-  handleLogoutPress = async () => {
-    const { logout, navigation } = this.props;
-    logout().then(() => {
-     // navigation.resetTo('Login');
-    }, () => null);
-  };
+    closeModal = () => {
+        this.setState({
+            showCountryModal: false,
+        });
+    };
 
-  handleTermsPress = () => {
-    this.props.navigation.navigate('Terms');
-  };
-  handlePrivacyPress = () => {
-    this.props.navigation.navigate('Privacy');
-  };
-  handleAboutPress = () => {
-    this.props.navigation.navigate('About');
-  };
+    componentDidMount() {
+        this.props.dispatch(userActions.fetchProfile());
+    }
 
-  renderModals = () => {
-    const { showCountryModal, countryFilter } = this.state;
-    return (
-      <View>
-        <CountryModal
-          visible={showCountryModal}
-          onPress={this.handleCountryChanged}
-          countries={this.getFilteredCountries()}
-          onSearchChange={this.handleCountryFilterChanged}
-          search={countryFilter}
-          onClose={this.closeModal}
-        />
-      </View>
-    );
-  };
+    handleCountryItemPress = () => {
+        this.setState(prevState => ({
+            showCountryModal: !prevState.showCountryModal,
+        }));
+    };
 
-  render() {
-    const { country } = this.props;
-    const countrySubtitle = country
-      ? country.name
-      : this.props.t('label_country_picker_placeholder');
-    return (
-      <View>
-        <View style={styles.listContainer}>
-          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-            {/*<ListItem*/}
-              {/*{...listItemProps}*/}
-              {/*title={this.props.t('label_text_country')}*/}
-              {/*subtitle={countrySubtitle}*/}
-              {/*onPress={this.handleCountryItemPress}*/}
-            {/*/>*/}
-          {/*</List>*/}
-          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-            {/*<ListItem*/}
-              {/*{...listItemProps}*/}
-              {/*subtitleStyle={[styles.subtitle]}*/}
-              {/*onPress={this.handleTermsPress}*/}
-              {/*subtitle={this.props.t('label_button_tc')}*/}
-            {/*/>*/}
-            {/*<ListItem*/}
-              {/*{...listItemProps}*/}
-              {/*subtitleStyle={[styles.subtitle]}*/}
-              {/*onPress={this.handlePrivacyPress}*/}
-              {/*subtitle={this.props.t('label_privacy_policy_header')}*/}
-            {/*/>*/}
-          {/*</List>*/}
-          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-            {/*<ListItem*/}
-            {/*{...listItemProps}*/}
-              {/*subtitleStyle={[styles.subtitle]}*/}
-              {/*onPress={this.handleAboutPress}*/}
-              {/*subtitle={this.props.t('label_about_header')}*/}
-            {/*/>*/}
-          {/*</List>*/}
-          {/*<List containerStyle={[styles.separator, styles.list]}>*/}
-            {/*<ListItem*/}
-              {/*subtitleStyle={[styles.subtitle, styles.logout]}*/}
-              {/*onPress={this.handleLogoutPress}*/}
-              {/*subtitle={this.props.t('label_button_logout')}*/}
-              {/*hideChevron*/}
-            {/*/>*/}
-          {/*</List>*/}
+    handleCountryChanged = (country) => {
+        this.setState({
+            showCountryModal: false,
+            countryFilter: undefined,
+        });
+        this.props.updateProfile({country: country.code});
+    };
+    handleCountryFilterChanged = (countryFilter) => {
+        this.setState({countryFilter});
+    };
+    handleLogoutPress = async () => {
+        const {logout, navigation} = this.props;
+        logout().then(() => {
+            // navigation.resetTo('Login');
+        }, () => null);
+    };
 
-          {/*{this.renderModals()}*/}
+    handleAboutPress = () => {
+        this.props.navigator.push({
+            screen: ABOUT_SCREEN,
+            title: strings.label_about_header
+        });
+    };
 
-        </View>
-      </View>
-    );
-  }
+    handlePrivacyPress = status => {
+        this.props.dispatch(userActions.updateProfileStatus(status));
+    };
+
+    handleLinkPress = link => () =>
+        Linking.openURL(link).catch(err => console.error('An error occurred', err));
+
+    renderModals = () => {
+        const {showCountryModal, countryFilter} = this.state;
+        return (
+            <View>
+                <CountryModal
+                    visible={showCountryModal}
+                    onPress={this.handleCountryChanged}
+                    countries={this.getFilteredCountries()}
+                    onSearchChange={this.handleCountryFilterChanged}
+                    search={countryFilter}
+                    onClose={this.closeModal}
+                />
+            </View>
+        );
+    };
+
+    render() {
+        const {country} = this.props;
+        const profile = this.props.profile.get('entity');
+
+        if (profile === null) {
+            return null
+        }
+        // const countrySubtitle = country
+        //   ? country.name
+        //   : this.props.t('label_country_picker_placeholder');
+        return (
+            <View>
+                <View style={styles.listContainer}>
+                    <View style={styles.titleStyle}>
+                        <Text style={styles.titleTextStyle}>{strings.label_profile_settings.toUpperCase()}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Image
+                            style={styles.imageItemStyle}
+
+                            source={require('./images/ic_name.png')}/>
+                        <Text style={styles.textItemStyle}>{profile.name}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/ic_location.png')}/>
+                        <Text style={styles.textItemStyle}>{'Kiev, Ukraine'}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/ic_phone_number.png')}/>
+                        <Text style={styles.textItemStyle}>{'+3809500000000'}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Image
+                            style={styles.imageItemStyle}
+                            source={require('./images/ic_email.png')}/>
+                        <Text style={styles.textItemStyle}>{'yonder@gmail.com'}</Text>
+                    </View>
+                    <View style={styles.titleStyle}>
+                        <Text style={styles.titleTextStyle}>{strings.label_privacy_settings.toUpperCase()}</Text>
+                    </View>
+                    <View style={styles.itemStyle}>
+                        <Text style={styles.textItemStyle}>{strings.label_private_profile}</Text>
+                        <View style={styles.switchStyle}>
+                        <ToggleSwitch isOn={true}
+                                      onColor={colors.$toggleOnColor}
+                                      offColor={colors.$toggleOffColor}
+                                      onToggle={(isOn) => this.handlePrivacyPress(isOn)}/>
+                        </View>
+                    </View>
+                    <View style={styles.titleStyle}>
+                        <Text style={styles.titleTextStyle}>{strings.label_general_information.toUpperCase()}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.itemStyle}
+                                      onPress={this.handleLinkPress(TERMS_URL).bind(this)}>
+                        <Text style={styles.textItemStyle}>{strings.label_header_tc}</Text>
+                        <Image
+                            style={styles.arrowItemStyle}
+                            source={require('../../assets/images/icon_menu_arrowforward.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemStyle}
+                                      onPress={this.handleLinkPress(PRIVACY_URL)}>
+                        <Text style={styles.textItemStyle}>{strings.label_privacy_policy_header}</Text>
+                        <Image
+                            style={styles.arrowItemStyle}
+                            source={require('../../assets/images/icon_menu_arrowforward.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemStyle}
+                                      onPress={this.handleAboutPress}>
+                        <Text style={styles.textItemStyle}>{strings.label_about_world_cleanup_day}</Text>
+                        <Image
+                            style={styles.arrowItemStyle}
+                            source={require('../../assets/images/icon_menu_arrowforward.png')}/>
+                    </TouchableOpacity>
+                    <TouchableHighlight style={styles.logoutButtonStyle}
+                                        onPress={this.handleLinkPress(TERMS_URL).bind(this)}>
+                        <Text style={styles.logOutTextStyle}>{strings.label_button_logout}</Text>
+                    </TouchableHighlight>
+
+                    {/*{this.renderModals()}*/}
+
+                </View>
+            </View>
+        );
+    }
 }
-const mapState = (state) => {
-  return {
-    profile: userSels.getProfile(state),
-    country: userSels.getProfileCountry(state),
-    isProfileUpdating: userSels.isProfileUpdating(state),
-  };
-};
-const mapDispatch = {
-  logout: userOps.logout,
-  updateProfile: userOps.updateProfile,
-};
 
-export default compose(
-  connect(mapState, mapDispatch),
-  withNavigationHelpers(),
-  translate(),
-)(Settings);
+const mapStateToProps = (state) => ({
+    auth: state.get('auth'),
+    profile: state.get('profile'),
+    profileState: state.get('profileState'),
+    error: state.get('error')
+});
+
+export default connect(mapStateToProps)(Settings)

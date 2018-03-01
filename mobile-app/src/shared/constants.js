@@ -119,6 +119,12 @@ export const SCREENS = {
   DETAILS: 'Details',
 };
 
+export default {
+    BASE_HEADER: {
+        'Content-Type': 'application/json',
+    },
+}
+
 export const GRID_HASH = {
   50: '1m',
   100: '5m',

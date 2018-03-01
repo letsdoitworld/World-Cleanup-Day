@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, Alert } from 'react-native';
 // import { compose } from 'recompose';
 // import { connect } from 'react-redux';
 
 import { Divider } from '../../components/Divider/Divider';
 //import { selectors as userSelectors } from '../../reducers/user';
 import styles from './styles';
+import {SETTINGS_SCREEN} from "../index";
+import strings from '../../config/strings';
+import userActions from '../../reducers/user/actions';
 
 export default class Profile extends Component {
 
@@ -17,10 +20,40 @@ export default class Profile extends Component {
         //  navBarTextFontFamily: 'font-name',
     };
 
+    static navigatorButtons = {
+        rightButtons: [
+            {
+                icon: require('../../screens/Profile/images/settings.png'),
+                id: 'settings'
+            }
+        ]
+
+    };
+
+    constructor(props) {
+        super(props);
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+    //
+    // componentDidMount() {
+    //     this.props.dispatch(userActions.fetchProfile())
+    // }
+
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL ? { uri: profile.pictureURL } : require('./avatar.png');
     return <Image source={img} style={styles.usernameImage} />;
   };
+
+    onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+        if (event.type == 'NavBarButtonPress') {
+            if (event.id == 'settings') {
+                this.props.navigator.push({
+                    screen: SETTINGS_SCREEN,
+                    title: strings.label_settings_header
+                })
+            }
+        }
+    }
 
   render() {
     const { profile, country } = this.props;
@@ -52,6 +85,7 @@ export default class Profile extends Component {
     );
   }
 }
+
 
 // const mapStateToProps = (state) => {
 //   return {

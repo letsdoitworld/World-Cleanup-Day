@@ -57,6 +57,11 @@ const loginFacebook = () => ({
     type: types.FB_LOGIN_ACTION,
 });
 
+const updateProfileStatus = status => ({
+    type: types.UPDATE_PROFILE_STATUS_ACTION,
+    status: status,
+});
+
 export default {
     setToken,
     setAuthError,
@@ -69,5 +74,6 @@ export default {
     updateProfileDone,
     updateProfileError,
     loginGoogle,
-    loginFacebook
+    loginFacebook,
+    updateProfileStatus,
 };

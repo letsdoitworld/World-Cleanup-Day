@@ -38,6 +38,8 @@ import userActions from '../../reducers/user/actions'
 import {HOME_SCREEN} from "../index";
 import App from "../../../App";
 
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+
 //import actions from './actions';
 
 
@@ -140,19 +142,9 @@ export class Login extends Component {
 
     handleFBPress = () => this.props.dispatch(userActions.loginFacebook());
 
-    handleGooglePress = () => {
-        this.props.googleLogin().then(
-            () => {
-                this.gotoTabs();
-            },
-            () => {
-            },
-        );
-    };
+    handleGooglePress = () => this.props.dispatch(userActions.loginGoogle());
 
-    handleSkipPress = () => {
-        App.dismissLogin()
-    };
+    handleSkipPress = () => App.dismissLogin();
 
     handleLinkPress = link => () =>
         Linking.openURL(link).catch(err => console.error('An error occurred', err));

@@ -1,7 +1,7 @@
 // TODO if the need arises, port this component to a more general variant
 
 import React, { Component } from 'react';
-import strings  from '../../assets/strings';
+// import strings  from '../../assets/strings';
 
 import {
   TouchableOpacity,
@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 
 import PropTypes from 'prop-types';
-
-import { Header } from '../../../../components/Header';
+//
+// import { Header } from '../../../../components/Header';
 
 import styles from './styles';
 
@@ -28,7 +28,7 @@ const Item = ({ key, label, onPress }) => {
   );
 };
 
-class CountryModal extends Component {
+export default class CountryModal extends Component {
   constructor(props) {
     super(props);
     this.state = { loading: true };
@@ -46,33 +46,33 @@ class CountryModal extends Component {
 
     return (
       <Modal animationType="slide" visible={visible}>
-        <View style={{ flex: 1 }}>
-          <Header
-            onPressLeftButton={onClose}
-            title={this.props.t('label_header_select_country')}
-            titleLeftButton="Cancel"
-          />
-          <FormInput
-            containerStyle={styles.inputContainer}
-            placeholder="Search"
-            value={search}
-            onChangeText={onSearchChange}
-          />
-          {loading
-            ? <View style={styles.loadingContainer}>
-              <ActivityIndicator />
-            </View>
-            : <ScrollView>
-              <View style={styles.listContainer}>
-                {countries.map((c) => {
-                  return Item({
-                    key: c.code,
-                    label: c.name,
-                    onPress: () => onPress(c),
-                  });
-                })}
-              </View>
-            </ScrollView>}
+        <View style={styles.viewStyle}>
+          {/*<Header*/}
+            {/*onPressLeftButton={onClose}*/}
+            {/*title={this.props.t('label_header_select_country')}*/}
+            {/*titleLeftButton="Cancel"*/}
+          {/*/>*/}
+          {/*<FormInput*/}
+            {/*containerStyle={styles.inputContainer}*/}
+            {/*placeholder="Search"*/}
+            {/*value={search}*/}
+            {/*onChangeText={onSearchChange}*/}
+          {/*/>*/}
+          {/*{loading*/}
+            {/*? <View style={styles.loadingContainer}>*/}
+              {/*<ActivityIndicator />*/}
+            {/*</View>*/}
+            {/*: <ScrollView>*/}
+              {/*<View style={styles.listContainer}>*/}
+                {/*{countries.map((c) => {*/}
+                  {/*return Item({*/}
+                    {/*key: c.code,*/}
+                    {/*label: c.name,*/}
+                    {/*onPress: () => onPress(c),*/}
+                  {/*});*/}
+                {/*})}*/}
+              {/*</View>*/}
+            {/*</ScrollView>}*/}
         </View>
       </Modal>
     );
@@ -93,4 +93,4 @@ CountryModal.propTypes = {
   onClose: PropTypes.func,
 };
 
-export default translate()(CountryModal);
+// export default translate()(CountryModal);

@@ -139,7 +139,7 @@ const getRole = state => getProfile(state).role;
 const isSuperAdmin = state => getRole(state) === USER_ROLES.SUPERADMIN;
 const isAllowedRole = state => {
   const role = getRole(state);
-  return role === USER_ROLES.SUPERADMIN || role === USER_ROLES.LEADER;
+  return role === USER_ROLES.SUPERADMIN || role === USER_ROLES.LEADER || role === USER_ROLES.VOLUNTEER;
 };
 const isAreaLeader = state => getRole(state) === USER_ROLES.LEADER;
 

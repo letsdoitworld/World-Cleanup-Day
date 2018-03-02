@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 import { Sidebar } from '../../components/Sidebar';
+import { BinIcon, EventsIcon } from '../../components/common/Icons';
 
 import {
   actions as userActions,
@@ -17,6 +19,7 @@ import { CreateTrashpoint } from '../../components/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
+import { EventsList } from '../../pages/EventsList';
 import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
@@ -40,7 +43,9 @@ class Home extends React.Component {
 
   renderTerms = () =>
     (<div className="Home">
-      <Sidebar logoutText="Back" onLogout={this.handleLogout} />
+      <Header
+        onLogout={this.handleLogout}
+      />
       <Terms onAccept={this.handleTermsAccept} />
     </div>);
 
@@ -61,6 +66,7 @@ class Home extends React.Component {
         <Route path="/users" exact component={UserList} />
         {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
+        <Route path="/events" exact component={EventsList} />
         <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
         <Route path="/trashpoints/:id" exact component={TrashpointDetails} />
@@ -68,46 +74,35 @@ class Home extends React.Component {
       <div className="Home-map-container">
         <AdminMap />
       </div>
-      <div
-        onClick={() => { history.push('/trashpoints/create'); }}
-        className="Home-create-marker-button"
-      >
-        <span>Place trashpoint</span>
-      </div>
     </div>);
 
   render() {
     const { userProfile } = this.props;
-    if (!userProfile.termsAcceptedAt) {
-      return this.renderTerms();
-    }
-    const SIDEBAR_LINKS = [
-      { image: trashpointIcon, title: 'Trashpoints', url: '/areas' },
+
+    const HEADER_LINKS = [
+      { title: 'Events', url: '/events', image: <EventsIcon /> },
+      { title: 'Trashpoints', url: '/areas', image: <BinIcon /> }
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
-      SIDEBAR_LINKS.push({
-        image: userIcon,
+      HEADER_LINKS.push({
         title: 'Users',
         url: userProfile.role === USER_ROLES.LEADER ? '/user-areas' : '/users'
       });
     }
-
-    SIDEBAR_LINKS.forEach(link => link.onClick = () => this.props.resetUsers());
+    HEADER_LINKS.forEach(link => link.onClick = () => this.props.resetUsers());
     return (
       <div className="Home">
-        <Sidebar
-          onPrivacyClick={this.handlePrivacyClick}
-          onTermsClick={this.handleTermsClick}
+        <Header
           onLogout={this.handleLogout}
-          links={SIDEBAR_LINKS}
-          bottomLinks={BOTTOM_LINKS}
-          authUser={userProfile}
+          links={HEADER_LINKS}
+          authUser={userProfile.role ? userProfile: null}
         />
         <Switch>
           <Route path="/terms" render={this.renderTermsRoute} />
           <Route path="/privacy" render={this.renderPrivacyRoute} />
           <Route path="/" render={this.renderNormalRoute} />
         </Switch>
+        <Footer />
       </div>
     );
   }
@@ -123,3 +118,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);
+
+/*
+  <div
+    onClick={() => { history.push('/trashpoints/create'); }}
+    className="Home-create-marker-button"
+  >
+    <span>Place trashpoint</span>
+  </div>
+*/

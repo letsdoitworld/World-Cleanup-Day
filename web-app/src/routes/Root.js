@@ -6,10 +6,7 @@ import { selectors as userSelectors } from '../reducers/user';
 import Landing from '../pages/Landing';
 import { Home } from './Home';
 
-const Root = ({ isAuthenticated, isAllowedRole, ...props }) => {
-  if (!isAuthenticated || (isAuthenticated && !isAllowedRole)) {
-    return <Landing {...props} />;
-  }
+const Root = ({ ...props }) => {
   return <Home {...props} />;
 };
 Root.propTypes = {
@@ -22,3 +19,9 @@ const mapStateToProps = state => ({
   isAllowedRole: userSelectors.isAllowedRole(state),
 });
 export default connect(mapStateToProps)(Root);
+
+/*
+if (!isAuthenticated || (isAuthenticated && !isAllowedRole)) {
+  return <Landing {...props} />;
+}
+*/

@@ -1,7 +1,7 @@
 .Home {
     display: flex;
     flex: 1;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 }
 

@@ -1,0 +1,86 @@
+.Event-item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 30px;
+}
+
+.Event-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.Event-info {
+  margin-bottom: 8px;
+}
+
+.Event-title {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+}
+
+.Event-creator {
+  font-size: 12px;
+  color: #3e8ede;
+}
+
+.Event-status {
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  border-radius: 8px;
+  background-color: #3e8ede;
+  padding: 2px 8px;
+  align-self: flex-start;
+}
+
+.Event-location {
+  font-size: 10px;
+  color: rgba(0,0,0,0.4);
+}
+
+.Event-details-part1 {
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Event-details-part2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
+.Event-fill {
+  font-size: 10px;
+  border-radius: 8px;
+  color: #282633;
+  background-color: #ffc20e;
+  padding: 4px 8px;
+  font-weight: bold;
+  margin-left: auto;
+  align-self: flex-start;
+}
+
+.Event-date {
+  font-size: 10px;
+  font-weight: bold;
+  align-self: flex-end;
+  margin-top: auto;
+}
+
+.Event-avatar img {
+  width: 70px;
+  height: 70px;
+}
+
+.Event-divider {
+  height: 1px;
+  width: 320px;
+  margin: 0 auto;
+  background-color: #7f7f7f;
+  opacity: 0.2;
+}

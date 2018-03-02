@@ -1,10 +1,32 @@
-import React, { Component } from 'react';
-import { View} from 'react-native';
+import React, {Component} from 'react';
+import {View, TouchableOpacity, Text, TouchableHighlight, Button} from 'react-native';
+import styles from './styles'
+import {CREATE_EVENT} from "../index";
+import strings from '../../assets/strings'
 
 export default class Events extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
+    handleFabPress = () => {
+        this.props.navigator.push({
+            screen: CREATE_EVENT,
+            title: strings.label_create_events_step_one
+        });
+    };
+
     render() {
-        return(<View/>)
+        return (
+            <View>
+                <View style={styles.container}>
+                    <Button onPress={() => this.handleFabPress()}
+                            title={"Create new event"}
+                            style={styles.fabStyle}>
+                    </Button>
+                </View>
+            </View>);
     }
 
 }

@@ -136,7 +136,9 @@ module.exports = new LocalizedStrings({
         label_general_information: "General information",
         label_settings_header: "Settings",
         label_about_world_cleanup_day: "About World Cleanup Day",
-        label_events: 'Events'
+        label_events: 'Events',
+        label_create_events_step_one: 'Step 1 of 3',
+        label_title: "Title",
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

@@ -1,0 +1,29 @@
+.FooterItem {
+  padding: 15px 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.FooterItem-img-container {
+  width: 29px;
+  margin-bottom: 5px;
+}
+
+.FooterItem-img-container img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.FooterItem-title {
+  font-weight: 400;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  max-width: 120px;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.FooterItem.active{
+  background-color:#2672BD;
+}

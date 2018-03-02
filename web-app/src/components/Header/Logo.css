@@ -1,11 +1,11 @@
 .Logo {
   width: 152px;
   position: absolute;
-  left: 20px;
-  top: -5px; 
+  left: 50px;
+  top: 15px;
 }
 .Logo img{
-  width:150px;
-  height: 150px;
+  width:130px;
+  height: 90px;
   object-fit: contain;
 }

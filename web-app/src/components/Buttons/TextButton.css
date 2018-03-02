@@ -1,0 +1,15 @@
+.TextButton {
+  padding: 10px 50px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.TextButton:hover {
+  opacity: 0.8;
+}
+
+.TextButton-span {
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0;
+}

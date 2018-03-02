@@ -43,7 +43,7 @@ const getUserProfileId = createSelector(
 
 const isOwnTrashpoint = createSelector(
   getUserProfileId,
-  trashpileSelector.getMarkerCreatorId,
+  // trashpileSelector.getMarkerCreatorId,
   (userProfileId, markerCreatorId) => userProfileId === markerCreatorId,
 );
 

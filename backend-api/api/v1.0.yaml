@@ -93,6 +93,19 @@ paths:
           description: User was logged out.
         "default":
           $ref: "#/responses/ErrorSet"
+
+  #-----------------------------------------------------------------------------
+  /event:
+    x-swagger-router-controller: events
+    post:
+      description: Create new event, needed to organize people to clean garbage.
+      operationId: createEvent
+      responses:
+          "200":
+            description: New event has been created
+          "default":
+            $ref: "#/responses/ErrorSet"
+
   #-----------------------------------------------------------------------------
   /datasets:
     x-swagger-router-controller: datasets
@@ -606,6 +619,19 @@ parameters:
         hashtags:
           $ref: "#/definitions/TrashHashtags"
   #-----------------------------------------------------------------------------
+  CreateEvent:
+    name: event
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [datasetId, name]
+      properties:
+        datasetId:
+          $ref: "#/definitions/UUID"
+        name:
+          $ref: "#/definitions/EventName"
+  #-----------------------------------------------------------------------------
   MapQuery:
     name: query
     in: body
@@ -962,6 +988,13 @@ definitions:
   TrashImageType:
     type: string
     enum: [medium, thumbnail]
+  #-----------------------------------------------------------------------------
+  # Event characteristics.
+  #-----------------------------------------------------------------------------
+  EventName:
+    type: string
+    minLength: 1
+    maxLength: 100  
   #-----------------------------------------------------------------------------
   # Dataset characteristics.
   #-----------------------------------------------------------------------------

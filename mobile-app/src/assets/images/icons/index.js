@@ -4,5 +4,7 @@ module.exports = {
     Profile: require('./icProfileInactive.png'),
     ProfileActive: require('./icProfileActive.png'),
     TrashpointsActive: require('./icProfileInactive.png'),
-    Trashpoints: require('./icTrashpointsInActive.png')
+    Trashpoints: require('./icTrashpointsInActive.png'),
+    Settings: require('./icSettings.png'),
+    Notification: require('./icNotifications.png')
 };

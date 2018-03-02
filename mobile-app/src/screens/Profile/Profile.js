@@ -10,39 +10,26 @@ import {SETTINGS_SCREEN} from "../index";
 import strings from '../../config/strings';
 import userActions from '../../reducers/user/actions';
 
+import { navigatorStyle, navigatorButtons } from './config';
+
 class Profile extends Component {
 
-    static navigatorStyle = {
-        navBarTextColor: '#000000',
-        navBarTextFontSize: 18,
-        orientation: 'portrait',
-        navBarTitleTextCentered: true,
-        //  navBarTextFontFamily: 'font-name',
-    };
+  static navigatorStyle = navigatorStyle;
+  static navigatorButtons = navigatorButtons;
 
-    static navigatorButtons = {
-        rightButtons: [
-            {
-                icon: require('../../screens/Profile/images/settings.png'),
-                id: 'settings'
-            }
-        ]
-
-    };
-
-    constructor(props) {
-        super(props);
-        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    }
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
     
     componentDidMount() {
         this.props.dispatch(userActions.fetchProfile())
     }
 
-  renderProfilePicture = (profile) => {
-    const img = profile && profile.pictureURL ? { uri: profile.pictureURL } : require('./avatar.png');
-    return <Image source={img} style={styles.usernameImage} />;
-  };
+  // renderProfilePicture = (profile) => {
+  //   const img = profile && profile.pictureURL ? { uri: profile.pictureURL } : require('./avatar.png');
+  //   return <Image source={img} style={styles.usernameImage} />;
+  // };
 
     onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
         if (event.type == 'NavBarButtonPress') {
@@ -62,7 +49,7 @@ class Profile extends Component {
       <View style={styles.container}>
         <View style={styles.infoContainer}>
           <View style={styles.pictureContainer}>
-            {this.renderProfilePicture(profile)}
+            {/* {this.renderProfilePicture(profile)} */}
           </View>
           {/*<View style={styles.nameContainer}>*/}
             {/*<Text style={styles.username}>*/}

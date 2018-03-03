@@ -23,6 +23,8 @@ export default class CreateEvent extends Component {
                     </View>
                     {/*<TextInput*/}
                         {/*onChangeText={}/>*/}
+
+
                 </ScrollView>
             </View>)
     }

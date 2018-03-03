@@ -7,6 +7,7 @@ import LoginScreen from './Login/Login'
 import SettingsScreen from './Settings/Settings'
 import AboutScreen from '../components/About/About'
 import EventsScreen from './Events/Events'
+import AddLocationScreen from './AddLocation/AddLocation'
 import CreateEventScreen from './Events/CreateEvent/CreateEvent'
 
 import HomeScreen from './Home'
@@ -20,6 +21,7 @@ export const SETTINGS_SCREEN = "SETTINGS_SCREEN";
 export const ABOUT_SCREEN = "ABOUT_SCREEN";
 export const EVENTS = "EVENTS";
 export const CREATE_EVENT = "CREATE_EVENT";
+export const ADD_LOCATION = "ADD_LOCATION";
 
 // register all screens of the app (including internal ones)
 export function registerScreens(store, Provider) {
@@ -32,4 +34,5 @@ export function registerScreens(store, Provider) {
      Navigation.registerComponent(ABOUT_SCREEN, () => AboutScreen, store, Provider);
      Navigation.registerComponent(EVENTS, () => EventsScreen, store, Provider);
      Navigation.registerComponent(CREATE_EVENT, () => CreateEventScreen, store, Provider);
+     Navigation.registerComponent(ADD_LOCATION, () => AddLocationScreen, store, Provider);
 }

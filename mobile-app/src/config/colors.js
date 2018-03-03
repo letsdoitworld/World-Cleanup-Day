@@ -8,11 +8,11 @@ export default {
     $red: '#FC515E',
     $iconColor: ICON_COLOR,
     $white: WHITE_COLOR,
-    $textColor:'#2B2B2B',
+    $textColor:'rgb(40, 38, 51)',
     $textColorDivider: 'rgb(126, 124, 132)',
     $mainBackground: 'rgb(240, 240, 240)',
     $textColorSettings: 'rgb(40, 38, 51)',
     $accentPink: 'rgb(225, 18,131)',
     $toggleOffColor: 'rgb(228, 241, 253)',
-    $toggleOnColor: '#ffd800'
+    $toggleOnColor: '#ffd800',
 }

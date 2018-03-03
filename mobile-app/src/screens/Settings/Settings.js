@@ -143,7 +143,7 @@ export class Settings extends Component {
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/ic_location.png')}/>
+                            source={require('../../../src/assets/images/ic_location.png')}/>
                         <Text style={styles.textItemStyle}>{'Kiev, Ukraine'}</Text>
                     </View>
                     <View style={styles.itemStyle}>

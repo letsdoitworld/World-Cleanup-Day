@@ -1,5 +1,6 @@
 import {getWidthPercentage, getHeightPercentage} from '../../../shared/helpers';
 import colors from "../../../config/colors";
+import dimens from "../../../config/dimens"
 
 export default {
     container: {
@@ -34,8 +35,6 @@ export default {
         width: '100%',
         marginStart: getWidthPercentage(10),
         alignSelf: 'center',
-        fontSize: 17,
-        fontFamily: 'Lato-Regular'
     },
     dateAndTimeContainerStyle: {
         width: '90%',
@@ -120,16 +119,37 @@ export default {
         flexDirection: 'row',
     },
     descriptionContainerStyle: {
-        height: getHeightPercentage(65),
+        height: 154,
+        width: '100%',
+        backgroundColor: colors.$white,
+    },
+    whatBringContainerStyle: {
+        height: 72,
         width: '100%',
         backgroundColor: colors.$white,
     },
     eventPhotoContainerStyle: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
         height: 235,
         width: '100%',
+        justifyContent: 'center',
         backgroundColor: colors.$transparentBlueColor
-    }
+    },
+    addPhotoIconStyle: {
+        height: 21,
+        width: 21,
+        alignSelf: 'center'
+    },
+    addPhotoTextStyle: {
+        color: colors.$mainBlue,
+        fontFamily: 'Lato-Regular',
+        fontSize: 14,
+        alignSelf: 'center',
+        marginTop: getWidthPercentage(5)
+    },
+    nextButtonStyle: {
+        width: '90%',
+        marginTop: 38,
+        marginBottom: dimens.margin_medium,
+        alignSelf: 'center',
+    },
 }

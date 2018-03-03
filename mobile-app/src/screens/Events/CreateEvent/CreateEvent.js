@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity, Text, ScrollView,
-    TextInput, Image, ImageBackground} from 'react-native';
+import {
+    View, TouchableOpacity, Text, ScrollView,
+    TextInput, Image, TouchableHighlight
+} from 'react-native';
 import styles from './styles'
 import strings from '../../../assets/strings'
+import MainButton from '../../../components/Buttons/MainButton'
+import InputField from '../../../components/InputFields/InputField'
+import constants from "../../../shared/constants";
+import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
 
 export default class CreateEvent extends Component {
 
@@ -11,12 +17,37 @@ export default class CreateEvent extends Component {
         navBarTitleTextCentered: true,
     };
 
+    title: string;
+    description: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    whatToBring: string;
+
     constructor(props) {
         super(props);
-        this.state = {text: ""}
+        this.title = "";
+        this.description = "";
+        this.whatToBring = "";
+        this.state = {
+            text: "",
+            data: Immutable.Map({
+                isTitleValid: false,
+                isDescriptionValid: false,
+                isWhatToBringValid: false,
+                isStartDateValid: false,
+                isEndDateValid: false
+            })
+        }
     }
 
     render() {
+        const isTitleValid = this.state.data.get('isTitleValid');
+        const isDescriptionValid = this.state.data.get('isDescriptionValid');
+        const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
+
+        const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid;
+
         return (
             <View>
                 <ScrollView style={styles.container}>
@@ -24,11 +55,12 @@ export default class CreateEvent extends Component {
                         <Text style={styles.titleTextStyle}>{strings.label_title.toUpperCase()}</Text>
                     </View>
                     <View style={styles.inputContainerStyle}>
-                        <TextInput style={styles.inputTextStyle}
+                        <InputField style={styles.inputTextStyle}
                                    placeholder={strings.label_title_hint}
                                    underlineColorAndroid={'transparent'}
                                    autoCorrect={false}
-                                   onChangeText={(text) => this.setState({text})}/>
+                                   validate={this.validateTitle}
+                                   onChangeText={(text) => this.onTitleTextChanged(text)}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_date_and_time.toUpperCase()}</Text>
@@ -75,28 +107,68 @@ export default class CreateEvent extends Component {
                                    underlineColorAndroid={'transparent'}
                                    autoCorrect={false}
                                    multiline={true}
-                                   onChangeText={(text) => this.setState({text})}/>
+                                   validate={this.validateDescription}
+                                   onChangeText={(text) => this.onDescriptionTextChanged({text})}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_what_to_bring_with_you.toUpperCase()}</Text>
                     </View>
-                    <View style={styles.descriptionContainerStyle}>
+                    <View style={styles.whatBringContainerStyle}>
                         <TextInput style={styles.inputTextStyle}
                                    placeholder={strings.label_specify_tools_for_work}
                                    underlineColorAndroid={'transparent'}
                                    autoCorrect={false}
                                    multiline={true}
-                                   onChangeText={(text) => this.setState({text})}/>
+                                   validate={this.validateWhatToBring}
+                                   onChangeText={(text) => this.onWhatToBringTextChanged({text})}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <ImageBackground/>
-
+                        <Image/>
+                        <Image style={styles.addPhotoIconStyle}
+                               source={require('../images/ic_add_photo.png')}/>
+                        <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
+
+                    <MainButton
+                        disabled={!isValid}
+                        text={strings.label_next}
+                        style={styles.nextButtonStyle}
+                        onPress={() => console.log("Press")}/>
                 </ScrollView>
             </View>)
+    }
+
+    onTitleTextChanged = (text: String) => {
+        this.title = text;
+    };
+
+    onDescriptionTextChanged = (text: String) => {
+        this.description = text;
+    };
+
+    onWhatToBringTextChanged = (text: String) => {
+        this.whatToBring = text;
+    };
+
+    validateTitle = (text: String): boolean => {
+        let isValid = constants.TITLE_REGEX.test(text);
+        this.setData(d => d.set('isTitleValid', isValid));
+        return isValid
+    };
+
+    validateDescription = (text: String): boolean => {
+        let isValid = constants.TITLE_REGEX.test(text);
+        this.setData(d => d.set('isDescriptionValid', isValid));
+        return isValid
+    };
+
+    validateWhatToBring = (text: String): boolean => {
+        let isValid = constants.TITLE_REGEX.test(text);
+        this.setData(d => d.set('isWhatToBringValid', isValid));
+        return isValid
     }
 
 }

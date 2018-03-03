@@ -153,7 +153,8 @@ module.exports = new LocalizedStrings({
         label_what_to_bring_with_you: "What to bring with you",
         label_specify_tools_for_work: "Specify tools for work",
         label_cover_photo: "Cover photo",
-        label_add_photo: "Add photo"
+        label_add_photo: "Add photo",
+        label_next: "Next"
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

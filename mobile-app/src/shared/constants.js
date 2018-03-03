@@ -123,6 +123,7 @@ export default {
     BASE_HEADER: {
         'Content-Type': 'application/json',
     },
+    TITLE_REGEX: /.{2,50}/,
 }
 
 export const GRID_HASH = {
@@ -292,3 +293,4 @@ export const USER_ROLES = {
   LEADER: 'leader',
   SUPERADMIN: 'superadmin',
 };
+

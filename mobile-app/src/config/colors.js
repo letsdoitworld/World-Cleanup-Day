@@ -22,4 +22,5 @@ export default {
     $deepGreyTransparent: 'rgba(200, 199, 204, 0.5)',
     $mainBlue: 'rgb(0, 143, 223)',
     $transparentBlueColor: 'rgb(228, 241, 253)',
+    $buttonDisableColor: 'rgb(126, 124, 132)'
 }

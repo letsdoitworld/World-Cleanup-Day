@@ -15,4 +15,12 @@ export default {
     $accentPink: 'rgb(225, 18,131)',
     $toggleOffColor: 'rgb(228, 241, 253)',
     $toggleOnColor: '#ffd800',
+    $transparentColor: 'rgba(0, 0, 0, 0)',
+    $black: 'rgb(40, 38, 51)',
+    $blackTransparent: 'rgba(40, 38, 51, 0.5)',
+    $dividerColor: 'rgba(229, 229, 233, 0.5)',
+    $deepGreyTransparent: 'rgba(200, 199, 204, 0.5)',
+    $mainBlue: 'rgb(0, 143, 223)',
+    $transparentBlueColor: 'rgb(228, 241, 253)',
+    $buttonDisableColor: 'rgb(126, 124, 132)'
 }

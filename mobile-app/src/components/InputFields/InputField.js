@@ -84,12 +84,12 @@ export default class InputField extends ImmutableComponent {
 
         this.text = text;
 
-        this.setData(d => d
-            .set('cursorPosition', undefined)
-        );
+         this.setData(d => d
+             .set('cursorPosition', undefined)
+         );
 
         if (!this.props.validate(text)) {
-            // this.setData(d => d.set('error', this.props.errorString))
+            this.setData(d => d.set('error', this.props.errorString))
         } else {
             this.setData(d => d.set('error', ''))
         }

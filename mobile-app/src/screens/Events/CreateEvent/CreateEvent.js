@@ -9,8 +9,10 @@ import MainButton from '../../../components/Buttons/MainButton'
 import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
+import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 
-export default class CreateEvent extends Component {
+
+export default class CreateEvent extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
@@ -60,7 +62,7 @@ export default class CreateEvent extends Component {
                                    underlineColorAndroid={'transparent'}
                                    autoCorrect={false}
                                    validate={this.validateTitle}
-                                   onChangeText={(text) => this.onTitleTextChanged(text)}/>
+                                   onChangeText={this.onTitleTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_date_and_time.toUpperCase()}</Text>
@@ -102,25 +104,25 @@ export default class CreateEvent extends Component {
                         <Text style={styles.titleTextStyle}>{strings.label_description.toUpperCase()}</Text>
                     </View>
                     <View style={styles.descriptionContainerStyle}>
-                        <TextInput style={styles.inputTextStyle}
+                        <InputField style={styles.inputTextStyle}
                                    placeholder={strings.label_ignite_people_to_participate}
                                    underlineColorAndroid={'transparent'}
                                    autoCorrect={false}
                                    multiline={true}
                                    validate={this.validateDescription}
-                                   onChangeText={(text) => this.onDescriptionTextChanged({text})}/>
+                                   onChangeText={this.onDescriptionTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_what_to_bring_with_you.toUpperCase()}</Text>
                     </View>
                     <View style={styles.whatBringContainerStyle}>
-                        <TextInput style={styles.inputTextStyle}
+                        <InputField style={styles.inputTextStyle}
                                    placeholder={strings.label_specify_tools_for_work}
                                    underlineColorAndroid={'transparent'}
                                    autoCorrect={false}
                                    multiline={true}
                                    validate={this.validateWhatToBring}
-                                   onChangeText={(text) => this.onWhatToBringTextChanged({text})}/>
+                                   onChangeText={this.onWhatToBringTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>

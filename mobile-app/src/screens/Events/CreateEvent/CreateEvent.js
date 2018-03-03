@@ -58,11 +58,10 @@ export default class CreateEvent extends ImmutableComponent {
                     </View>
                     <View style={styles.inputContainerStyle}>
                         <InputField style={styles.inputTextStyle}
-                                   placeholder={strings.label_title_hint}
-                                   underlineColorAndroid={'transparent'}
-                                   autoCorrect={false}
-                                   validate={this.validateTitle}
-                                   onChangeText={this.onTitleTextChanged}/>
+                                    placeholder={strings.label_title_hint}
+                                    autoCorrect={false}
+                                    validate={this.validateTitle}
+                                    onChangeText={this.onTitleTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_date_and_time.toUpperCase()}</Text>
@@ -73,15 +72,31 @@ export default class CreateEvent extends ImmutableComponent {
                                    style={styles.imageItemStyle}/>
                         </View>
                         <View style={styles.dateAndTimeContainerStyle}>
-                            <TouchableOpacity style={styles.dateAndTimeRowStyle}>
+                            <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_start}</Text>
-                                <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                            </TouchableOpacity>
+                                <TouchableOpacity style={{
+                                    flex: 1,
+                                    alignSelf: 'center'
+                                }}>
+                                    <Text style={styles.dateTextStyle}>{strings.label_date}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{
+                                    flex: 1,
+                                    alignSelf: 'center'
+                                }}>
+                                    <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
+                                </TouchableOpacity>
+                            </View>
                             <View style={styles.dividerStyle}/>
-                            <TouchableOpacity style={styles.dateAndTimeRowStyle}>
+                            <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_end}</Text>
+                                <TouchableOpacity style={{
+                                    flex: 2,
+                                    alignSelf: 'center'
+                                }}>
                                 <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                            </TouchableOpacity>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.titleStyle}>
@@ -105,24 +120,24 @@ export default class CreateEvent extends ImmutableComponent {
                     </View>
                     <View style={styles.descriptionContainerStyle}>
                         <InputField style={styles.inputTextStyle}
-                                   placeholder={strings.label_ignite_people_to_participate}
-                                   underlineColorAndroid={'transparent'}
-                                   autoCorrect={false}
-                                   multiline={true}
-                                   validate={this.validateDescription}
-                                   onChangeText={this.onDescriptionTextChanged}/>
+                                    placeholder={strings.label_ignite_people_to_participate}
+                                    underlineColorAndroid={'transparent'}
+                                    autoCorrect={false}
+                                    multiline={true}
+                                    validate={this.validateDescription}
+                                    onChangeText={this.onDescriptionTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_what_to_bring_with_you.toUpperCase()}</Text>
                     </View>
                     <View style={styles.whatBringContainerStyle}>
                         <InputField style={styles.inputTextStyle}
-                                   placeholder={strings.label_specify_tools_for_work}
-                                   underlineColorAndroid={'transparent'}
-                                   autoCorrect={false}
-                                   multiline={true}
-                                   validate={this.validateWhatToBring}
-                                   onChangeText={this.onWhatToBringTextChanged}/>
+                                    placeholder={strings.label_specify_tools_for_work}
+                                    underlineColorAndroid={'transparent'}
+                                    autoCorrect={false}
+                                    multiline={true}
+                                    validate={this.validateWhatToBring}
+                                    onChangeText={this.onWhatToBringTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
@@ -140,7 +155,8 @@ export default class CreateEvent extends ImmutableComponent {
                         style={styles.nextButtonStyle}
                         onPress={() => console.log("Press")}/>
                 </ScrollView>
-            </View>)
+            </View>
+        )
     }
 
     onTitleTextChanged = (text: String) => {

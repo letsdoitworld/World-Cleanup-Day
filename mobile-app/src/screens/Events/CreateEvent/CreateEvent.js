@@ -9,6 +9,7 @@ import MainButton from '../../../components/Buttons/MainButton'
 import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
+import {ADD_LOCATION} from "../../index";
 
 export default class CreateEvent extends Component {
 
@@ -85,11 +86,13 @@ export default class CreateEvent extends Component {
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_location.toUpperCase()}</Text>
                     </View>
-                    <View style={styles.locationContainerStyle}>
-                        <Image source={require('../../../../src/assets/images/ic_location.png')}
-                               style={styles.imageTrashStyle}/>
-                        <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
-                    </View>
+                    <TouchableOpacity onPress={this.onAddLocationClick.bind(this)}>
+                        <View style={styles.locationContainerStyle}>
+                            <Image source={require('../../../../src/assets/images/ic_location.png')}
+                                   style={styles.imageTrashStyle}/>
+                            <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_trashpoints.toUpperCase()}</Text>
                     </View>
@@ -140,6 +143,13 @@ export default class CreateEvent extends Component {
                 </ScrollView>
             </View>)
     }
+
+    onAddLocationClick = () => {
+        this.props.navigator.push({
+            screen: ADD_LOCATION,
+            title: strings.label_add_location
+        });
+    };
 
     onTitleTextChanged = (text: String) => {
         this.title = text;

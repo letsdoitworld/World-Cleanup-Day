@@ -70,9 +70,12 @@ export class Map extends Component {
             <MapView
                 rotateEnabled={false}
                 {...this.props}
-                ref={this.props.getRef}
+                // ref={this.props.getRef}
                 style={styles.container}
                 onRegionChangeComplete={this.onRegionChangeComplete}
+                showsUserLocation={true}
+                showsMyLocationButton={true}
+                showsCompass={true}
                 provider="google">
                 {this.displayMarkers()}
                 {this.displayCircle()}

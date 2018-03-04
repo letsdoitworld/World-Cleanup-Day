@@ -50,6 +50,7 @@ export default class AddLocation extends Component {
 
         this.state = {
             marker: undefined,
+            //region: null,
         };
 
 
@@ -73,19 +74,6 @@ export default class AddLocation extends Component {
         const longitude = coordinate.longitude;
         const latitude = coordinate.latitude;
 
-        // this.setState(previousState => {
-        //     return {
-        //         marker: {
-        //             latlng: {
-        //                 latitude,
-        //                 longitude
-        //             },
-        //             status: MARKER_STATUS_IMAGES.cleaned,
-        //             id: 1,
-        //         },
-        //     };
-        // });
-
         this.updateMarkerInState({
             latitude,
             longitude
@@ -102,6 +90,20 @@ export default class AddLocation extends Component {
                 },
             };
         });
+        this.setRegion({
+            latitude: latlng.latitude,
+                longitude: latlng.longitude,
+                latitudeDelta: DEFAULT_ZOOM,
+                longitudeDelta: DEFAULT_ZOOM,
+        })
+    }
+
+    setRegion(region) {
+       // if(this.state.ready) {
+        console.log(this.map)
+         //   setTimeout(() => this.map.mapview.animateToRegion(region), 10);
+       // }
+        //this.setState({ region });
     }
 
     render() {
@@ -111,12 +113,7 @@ export default class AddLocation extends Component {
                 flex: 1,
             }}>
                 <Map
-                    region={{
-                        latitude: this.state.marker.latlng.latitude,
-                        longitude: this.state.marker.latlng.longitude,
-                        latitudeDelta: DEFAULT_ZOOM,
-                        longitudeDelta: DEFAULT_ZOOM,
-                    }}
+                    region={this.state.region}
                     onPress={this.onMapPress.bind(this)}
                     markers={[this.state.marker]}
                   //  initialRegion={this.state.initialRegion}
@@ -125,7 +122,8 @@ export default class AddLocation extends Component {
                     }}
                     //  onRegionChangeComplete={this.handleOnRegionChangeComplete}
                     // circleProps={this.getCircleProps(initialRegion)}
-                    getRef={map => (this.map = map)}
+                    ref={ map => { this.map = map }}
+                   // getRef={map => (this.map = map)}
                     // onRegionChange={this.handleOnRegionChange}
                 />
 

@@ -156,6 +156,6 @@ export const images = [
 export const fonts = {
     'noto-sans-bold': 'NotoSans-Bold',
     'noto-sans-regular': 'NotoSans-Regular',
-    'lato-bold': 'Lato-Bold',
-    'lato-regular': 'Lato-Regular'
+    'lato-bold': 'Lato Bold',
+    'lato-regular': 'Lato Regular'
 };

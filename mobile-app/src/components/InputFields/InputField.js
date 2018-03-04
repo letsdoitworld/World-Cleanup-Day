@@ -48,6 +48,7 @@ export default class InputField extends ImmutableComponent {
         const {
             style,
             label,
+            placeholder,
             error,
             value,
             onSubmitEditing,
@@ -65,9 +66,9 @@ export default class InputField extends ImmutableComponent {
                     ref={reference}
                     onSubmitEditing={onSubmitEditing}
                     returnKeyType={returnKeyType}
+                    placeholder={placeholder}
                     value={this.text}
                     selection={this.state.data.get('cursorPosition')}
-                    secureTextEntry={!this.state.data.get('isPasswordVisible') && secureTextEntry}
                     underlineColorAndroid={'transparent'}
                     error={this.dataValue('error')}
                     errorColor={this.dataValue('errorColor')}
@@ -84,12 +85,12 @@ export default class InputField extends ImmutableComponent {
 
         this.text = text;
 
-        this.setData(d => d
-            .set('cursorPosition', undefined)
-        );
+         this.setData(d => d
+             .set('cursorPosition', undefined)
+         );
 
         if (!this.props.validate(text)) {
-            // this.setData(d => d.set('error', this.props.errorString))
+            this.setData(d => d.set('error', this.props.errorString))
         } else {
             this.setData(d => d.set('error', ''))
         }

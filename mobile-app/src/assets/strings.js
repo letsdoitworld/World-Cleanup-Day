@@ -143,6 +143,7 @@ module.exports = new LocalizedStrings({
         label_title_hint: "Type here to translate!",
         label_date_and_time: "Date and time",
         label_start: "Starts",
+        label_date: "Date",
         label_no_selected: "Not selected",
         label_end: "Ends",
         label_location: "Location",

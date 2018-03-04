@@ -46,7 +46,7 @@ export default class CountryModal extends Component {
 
     return (
       <Modal animationType="slide" visible={visible}>
-        <View style={{ flex: 1 }}>
+        <View style={styles.viewStyle}>
           {/*<Header*/}
             {/*onPressLeftButton={onClose}*/}
             {/*title={this.props.t('label_header_select_country')}*/}

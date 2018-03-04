@@ -3,6 +3,11 @@ import colors from "../../../config/colors";
 import dimens from "../../../config/dimens"
 
 export default {
+    view: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     container: {
         width: '100%',
         flexDirection: "column",
@@ -61,7 +66,6 @@ export default {
         alignSelf: 'flex-end',
     },
     dateTextStyle: {
-        flex: 1,
         fontSize: 17,
         marginRight: getWidthPercentage(10),
         fontFamily: 'Lato-Regular',
@@ -70,7 +74,6 @@ export default {
     },
     dateTitleTextStyle: {
         marginLeft: getWidthPercentage(10),
-        flex: 2,
         color: colors.$black,
         alignSelf: 'center',
         fontSize: 17,
@@ -129,10 +132,14 @@ export default {
         backgroundColor: colors.$white,
     },
     eventPhotoContainerStyle: {
+        borderRadius: 1,
         height: 235,
         width: '100%',
         justifyContent: 'center',
-        backgroundColor: colors.$transparentBlueColor
+        backgroundColor: colors.$transparentBlueColor,
+        borderWidth: 1,
+        borderColor: colors.$mainBlue,
+        borderStyle: 'dashed'
     },
     addPhotoIconStyle: {
         height: 21,

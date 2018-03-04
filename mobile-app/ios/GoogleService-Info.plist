@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>544878604136-p23hd99c43c7b9bpkl0mkd214f4a0008.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.544878604136-p23hd99c43c7b9bpkl0mkd214f4a0008</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBkcPP4x_QU8zsqHtB97Y8hZvCgS9YOzfs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>544878604136</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.teeme.ldi</string>
+	<key>PROJECT_ID</key>
+	<string>shopping-list-training</string>
+	<key>STORAGE_BUCKET</key>
+	<string>shopping-list-training.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:544878604136:ios:3952b8b17b12cb4c</string>
+	<key>DATABASE_URL</key>
+	<string>https://shopping-list-training.firebaseio.com</string>
+</dict>
+</plist>

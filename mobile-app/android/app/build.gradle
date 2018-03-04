@@ -117,6 +117,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     splits {
         abi {
@@ -161,6 +162,7 @@ dependencies {
     compile project(':react-native-navigation')
     compile project(':react-native-maps')
     compile project(':react-native-localization')
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-google-signin')
     compile project(':react-native-gesture-handler')
     compile project(':react-native-fbsdk')
@@ -168,40 +170,16 @@ dependencies {
     compile project(':react-native-navigation')
     compile project(':react-native-maps')
     compile project(':react-native-localization')
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-google-signin')
     compile project(':react-native-gesture-handler')
     compile project(':react-native-fbsdk')
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-vector-icons')
     compile project(':react-native-navigation')
-    compile project(':react-native-maps')
     compile project(':react-native-localization')
     compile project(':react-native-gesture-handler')
     compile project(':react-native-fbsdk')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-navigation')
-    compile project(':react-native-maps')
-    compile project(':react-native-localization')
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-fbsdk')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-navigation')
-    compile project(':react-native-maps')
-    compile project(':react-native-localization')
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-fbsdk')
-    compile project(':react-native-fbsdk')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-navigation')
-    compile project(':react-native-maps')
-    compile project(':react-native-localization')
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-fbsdk')
-    compile project(':react-native-fbsdk')
-
-    compile project(':react-native-navigation')
-
-    compile project(':react-native-localization')
-    compile project(':react-native-gesture-handler')
 
     compile(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'

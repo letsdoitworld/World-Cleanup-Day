@@ -10,8 +10,12 @@ import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
 import {ADD_LOCATION} from "../../index";
+import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
-export default class CreateEvent extends Component {
+
+export default class CreateEvent extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
@@ -31,13 +35,14 @@ export default class CreateEvent extends Component {
         this.description = "";
         this.whatToBring = "";
         this.state = {
-            text: "",
             data: Immutable.Map({
                 isTitleValid: false,
                 isDescriptionValid: false,
                 isWhatToBringValid: false,
                 isStartDateValid: false,
-                isEndDateValid: false
+                isEndDateValid: false,
+                isDateTimePickerVisible: false,
+                imageUrl: '',
             })
         }
     }
@@ -46,22 +51,23 @@ export default class CreateEvent extends Component {
         const isTitleValid = this.state.data.get('isTitleValid');
         const isDescriptionValid = this.state.data.get('isDescriptionValid');
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
+        const imagePath = this.state.data.get('imageUrl');
 
         const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid;
 
         return (
             <View>
                 <ScrollView style={styles.container}>
+
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_title.toUpperCase()}</Text>
                     </View>
                     <View style={styles.inputContainerStyle}>
                         <InputField style={styles.inputTextStyle}
-                                   placeholder={strings.label_title_hint}
-                                   underlineColorAndroid={'transparent'}
-                                   autoCorrect={false}
-                                   validate={this.validateTitle}
-                                   onChangeText={(text) => this.onTitleTextChanged(text)}/>
+                                    placeholder={strings.label_title_hint}
+                                    autoCorrect={false}
+                                    validate={this.validateTitle}
+                                    onChangeText={this.onTitleTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_date_and_time.toUpperCase()}</Text>
@@ -72,15 +78,32 @@ export default class CreateEvent extends Component {
                                    style={styles.imageItemStyle}/>
                         </View>
                         <View style={styles.dateAndTimeContainerStyle}>
-                            <TouchableOpacity style={styles.dateAndTimeRowStyle}>
+                            <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_start}</Text>
-                                <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                            </TouchableOpacity>
+                                <TouchableOpacity style={{
+                                    flex: 1,
+                                    alignSelf: 'center'
+                                }}
+                                onPress={this.showDateTimePicker}>
+                                    <Text style={styles.dateTextStyle}>{strings.label_date}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{
+                                    flex: 1,
+                                    alignSelf: 'center'
+                                }}>
+                                    <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
+                                </TouchableOpacity>
+                            </View>
                             <View style={styles.dividerStyle}/>
-                            <TouchableOpacity style={styles.dateAndTimeRowStyle}>
+                            <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_end}</Text>
+                                <TouchableOpacity style={{
+                                    flex: 2,
+                                    alignSelf: 'center'
+                                }}>
                                 <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                            </TouchableOpacity>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.titleStyle}>
@@ -105,33 +128,35 @@ export default class CreateEvent extends Component {
                         <Text style={styles.titleTextStyle}>{strings.label_description.toUpperCase()}</Text>
                     </View>
                     <View style={styles.descriptionContainerStyle}>
-                        <TextInput style={styles.inputTextStyle}
-                                   placeholder={strings.label_ignite_people_to_participate}
-                                   underlineColorAndroid={'transparent'}
-                                   autoCorrect={false}
-                                   multiline={true}
-                                   validate={this.validateDescription}
-                                   onChangeText={(text) => this.onDescriptionTextChanged({text})}/>
+                        <InputField style={styles.inputTextStyle}
+                                    placeholder={strings.label_ignite_people_to_participate}
+                                    underlineColorAndroid={'transparent'}
+                                    autoCorrect={false}
+                                    multiline={true}
+                                    validate={this.validateDescription}
+                                    onChangeText={this.onDescriptionTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_what_to_bring_with_you.toUpperCase()}</Text>
                     </View>
                     <View style={styles.whatBringContainerStyle}>
-                        <TextInput style={styles.inputTextStyle}
-                                   placeholder={strings.label_specify_tools_for_work}
-                                   underlineColorAndroid={'transparent'}
-                                   autoCorrect={false}
-                                   multiline={true}
-                                   validate={this.validateWhatToBring}
-                                   onChangeText={(text) => this.onWhatToBringTextChanged({text})}/>
+                        <InputField style={styles.inputTextStyle}
+                                    placeholder={strings.label_specify_tools_for_work}
+                                    underlineColorAndroid={'transparent'}
+                                    autoCorrect={false}
+                                    multiline={true}
+                                    validate={this.validateWhatToBring}
+                                    onChangeText={this.onWhatToBringTextChanged}/>
                     </View>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image/>
+                        <Image source={{uri: imagePath}}/>
+                        <TouchableOpacity onPress={() => this.openCamera()}>
                         <Image style={styles.addPhotoIconStyle}
                                source={require('../images/ic_add_photo.png')}/>
+                        </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
 
@@ -141,7 +166,31 @@ export default class CreateEvent extends Component {
                         style={styles.nextButtonStyle}
                         onPress={() => console.log("Press")}/>
                 </ScrollView>
-            </View>)
+            </View>
+        )
+    }
+    //TODO ask Yulia about dialog!!
+
+    openGallery() {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.warn("Image: ", image.path);
+            this.setData(d => d.set('imageUrl', image.path))
+        });
+    };
+
+    openCamera() {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.warn("Image: ", image.path);
+            this.setData(d => d.set('imageUrl', image.path))
+        });
     }
 
     onAddLocationClick = () => {
@@ -191,6 +240,15 @@ export default class CreateEvent extends Component {
         let isValid = constants.TITLE_REGEX.test(text);
         this.setData(d => d.set('isWhatToBringValid', isValid));
         return isValid
-    }
+    };
+
+    showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+    hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+    handleDatePicked = (date) => {
+        console.log('A date has been picked: ', date);
+        this.hideDateTimePicker();
+    };
 
 }

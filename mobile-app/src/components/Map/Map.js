@@ -61,21 +61,21 @@ export class Map extends Component {
         }
     };
 
-// { action: 'press',
-//     position: { y: 982, x: 993 },
-//     coordinate: { longitude: 13.692690767347813, latitude: 11.652354944431115 } }
-
     render() {
+
+        const outerStyle = this.props.style;
+        const containerStyle = {
+            flex: 1,
+            ...outerStyle
+        };
+
         return (
             <MapView
                 rotateEnabled={false}
                 {...this.props}
-                // ref={this.props.getRef}
-                style={styles.container}
+                ref={this.props.getRef}
+                style={containerStyle}
                 onRegionChangeComplete={this.onRegionChangeComplete}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                showsCompass={true}
                 provider="google">
                 {this.displayMarkers()}
                 {this.displayCircle()}

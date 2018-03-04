@@ -147,9 +147,21 @@ export default class CreateEvent extends Component {
     onAddLocationClick = () => {
         this.props.navigator.push({
             screen: ADD_LOCATION,
-            title: strings.label_add_location
+            title: strings.label_add_location,
+            passProps: {
+                //todo: pass some location. By default map will be positioned to current user's location
+                // initialLocation: {
+                //     latitude: 48.8152937,
+                //     longitude: 2.4597668,
+                // },
+                onLocationSelected: this.onLocationSelected.bind(this),
+            }
         });
     };
+
+    onLocationSelected(location) {
+        console.log(location)
+    }
 
     onTitleTextChanged = (text: String) => {
         this.title = text;

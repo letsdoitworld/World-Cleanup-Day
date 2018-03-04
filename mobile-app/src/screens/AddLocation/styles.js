@@ -1,13 +1,13 @@
 import dimens from "../../config/dimens";
+import {Dimensions} from "react-native";
 
 export default {
+
     container: {
-        width: '100%',
-        height: '100%'
+        flex: 1,
     },
-    fabStyle: {
-        width: '100%',
-        height: '60%'
+    map: {
+        marginTop: 44
     },
     navigatorStyle: {
         tabBarHidden: true,
@@ -18,6 +18,24 @@ export default {
         navBarTextFontFamily: 'Lato-Bold',
         statusBarColor: 'white',
         statusBarTextColorScheme: 'dark',
+
+    },
+    confirmButton: {
+        position: 'absolute',
+        bottom: 0,
+        width: Dimensions.get('window').width - dimens.margin_medium * 2,
+        marginHorizontal: dimens.margin_medium,
+        marginBottom: dimens.margin_medium,
+        backgroundColor: 'rgb(0, 143, 223)',
+        height: 44,
+        justifyContent: 'center',
+    },
+    confirmButtonText: {
+        alignSelf: 'center',
+        color: 'white',
+        fontFamily: 'Lato-Bold',
+        fontSize: 17,
+        lineHeight: 21,
     },
     searchTextInput: {
         width: '100%',

@@ -6,11 +6,6 @@ import { I18nextProvider, translate } from 'react-i18next';
 import { compose } from 'recompose';
 import Sentry from 'sentry-expo';
 
-// Remove this once Sentry is correctly setup.
-// Sentry.enableInExpoDevelopment = true;
-
-Sentry.config('https://01dc6c7400df4dc9a62eb620893bbe58@sentry.io/219694').install()
-
 import { MessageBar, MessageBarManager } from 'react-native-message-bar';
 import { persistStoreAsync } from './config/persist';
 import { withLocationGuard } from './services/Location';
@@ -21,13 +16,19 @@ import store from './config/store';
 import Navigator from './config/routes';
 import { images, fonts } from './config/assets';
 import { operations as appOperations } from './reducers/app';
+import { operations as teamsOperations } from './reducers/teams';
 import { handleSentryError } from './shared/helpers';
 import './config/styles';
 
 import i18n from './config/i18n';
 
 import { Api } from './services';
-import { API_URL } from '../env';
+import { API_URL, SENTRY_URL } from '../env';
+
+// Remove this once Sentry is correctly setup.
+// Sentry.enableInExpoDevelopment = true;
+
+Sentry.config(SENTRY_URL).install();
 
 const WrappedNavigator = () => {
   return <Navigator screenProps={{ t: i18n.getFixedT() }} />;
@@ -70,6 +71,7 @@ class App extends Component {
         store,
         storage: AsyncStorage,
       }),
+      store.dispatch(teamsOperations.fetchTeams()),
       store.dispatch(appOperations.fetchDatasets()),
     ]).then(
       () => {

@@ -16,6 +16,7 @@ import { UserDetails } from '../../pages/UserDetails';
 import { CreateTrashpoint } from '../../components/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
+import { TeamsList } from '../../pages/TeamsList';
 import { AdminMap } from '../../pages/AdminMap';
 import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
@@ -23,6 +24,7 @@ import { Terms } from '../../components/Terms';
 import { Privacy } from '../../components/Privacy';
 import trashpointIcon from '../../assets/trashpoint_menu.png';
 import userIcon from '../../assets/user_menu.png';
+import teamsIcon from '../../assets/teams_menu.png';
 
 const BOTTOM_LINKS = [
   { title: 'Terms & conditions', url: '/terms' },
@@ -59,6 +61,7 @@ class Home extends React.Component {
       <Switch>
         <Route path="/users/:id" exact component={UserDetails} />
         <Route path="/users" exact component={UserList} />
+        <Route path="/teams" exact component={TeamsList} />
         {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
         <Route path="/user-areas" exact component={AreaList} />
@@ -83,6 +86,7 @@ class Home extends React.Component {
     }
     const SIDEBAR_LINKS = [
       { image: trashpointIcon, title: 'Trashpoints', url: '/areas' },
+      { image: teamsIcon, title: 'Teams', url: '/teams' },
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       SIDEBAR_LINKS.push({

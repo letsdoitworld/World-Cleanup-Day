@@ -60,6 +60,10 @@ class Settings extends Component {
     }));
   };
 
+  handleTeamPress = () => {
+    this.props.navigation.navigate('Teams');
+  };
+
   handleCountryChanged = (country) => {
     this.setState({
       showCountryModal: false,
@@ -104,19 +108,26 @@ class Settings extends Component {
   };
 
   render() {
-    const { country } = this.props;
+    const { country, team } = this.props;
     const countrySubtitle = country
       ? country.name
       : this.props.t('label_country_picker_placeholder');
+    const teamName = team && team.name ? team.name : null;
     return (
       <View>
         <View style={styles.listContainer}>
           <List containerStyle={[styles.separator, styles.list]}>
             <ListItem
               {...listItemProps}
-              title="Country"
+              title={this.props.t('label_text_country')}
               subtitle={countrySubtitle}
               onPress={this.handleCountryItemPress}
+            />
+            <ListItem
+              {...listItemProps}
+              title="Team"
+              subtitle={teamName}
+              onPress={this.handleTeamPress}
             />
           </List>
           <List containerStyle={[styles.separator, styles.list]}>
@@ -124,13 +135,13 @@ class Settings extends Component {
               {...listItemProps}
               subtitleStyle={[styles.subtitle]}
               onPress={this.handleTermsPress}
-              subtitle="Terms and Conditions"
+              subtitle={this.props.t('label_button_tc')}
             />
             <ListItem
               {...listItemProps}
               subtitleStyle={[styles.subtitle]}
               onPress={this.handlePrivacyPress}
-              subtitle="Privacy Policy"
+              subtitle={this.props.t('label_privacy_policy_header')}
             />
           </List>
           <List containerStyle={[styles.separator, styles.list]}>
@@ -138,14 +149,14 @@ class Settings extends Component {
             {...listItemProps}
               subtitleStyle={[styles.subtitle]}
               onPress={this.handleAboutPress}
-              subtitle="About"
+              subtitle={this.props.t('label_about_header')}
             />
           </List>
           <List containerStyle={[styles.separator, styles.list]}>
             <ListItem
               subtitleStyle={[styles.subtitle, styles.logout]}
               onPress={this.handleLogoutPress}
-              subtitle="Log out"
+              subtitle={this.props.t('label_button_logout')}
               hideChevron
             />
           </List>
@@ -161,6 +172,7 @@ const mapState = (state) => {
   return {
     profile: userSels.getProfile(state),
     country: userSels.getProfileCountry(state),
+    team: userSels.getProfileTeam(state),
     isProfileUpdating: userSels.isProfileUpdating(state),
   };
 };

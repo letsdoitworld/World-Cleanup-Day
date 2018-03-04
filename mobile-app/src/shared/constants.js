@@ -74,10 +74,10 @@ export const TRASH_COMPOSITION_TYPE_LIST = [
 ];
 
 export const AMOUNT_HASH = {
-  handful: 'HANDFUL',
-  bagful: 'BAGFUL',
-  cartload: 'CARTLOAD',
-  truckload: 'TRUCKLOAD',
+  handful: 'label_trash_amount_handful',
+  bagful: 'label_trash_amount_bagful',
+  cartload: 'label_trash_amount_cartloadl',
+  truckload: 'label_trash_amount_truckload',
 };
 
 export const ERRORS = {
@@ -93,6 +93,7 @@ export const DATASETS_TYPES = {
 export const API_ENDPOINTS = {
   FETCH_DATASETS: '/datasets',
   USER_ME: '/me',
+  USER_TEAM: '/me/team',
   USER_AUTH: '/auth/external',
   FETCH_OVERVIEW_CLUSTERS: '/overview/clusters',
   FETCH_OVERVIEW_TRASHPOINTS: '/overview/trashpoints',
@@ -105,6 +106,10 @@ export const API_ENDPOINTS = {
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
+  FETCH_TEAMS: '/teams',
+  FETCH_TEAMS_TRASHPOINTS: '/teams/trashpoints',
+  FETCH_TEAM: teamId =>
+    `/teams/${teamId}`,
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {

@@ -13,6 +13,8 @@ const adapter = require('./adapter');
 const types =  require('../types');
 const grid =  require('../../geo/grid');
 
+const RETRY_CONFLICTS = 3;
+
 const layer = {
     //========================================================
     // COMMON
@@ -96,6 +98,18 @@ const layer = {
         }
         return parseInt(ret.pop());
     },
+    countAccountsForTeam: async teamId => {
+        const ret = await adapter.getRawDocs(
+            'Account',
+            '_design/countByTeam/_view/view', {
+              key: teamId,
+              group: true,
+            });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
     countAccountsForNameSearch: async (nameSearch, country = null) => {
         const ret = await adapter.getRawDocs('Account', '_design/byNamePieces/_view/view', {
             startkey: country  ? [nameSearch, country] : [nameSearch],
@@ -125,12 +139,13 @@ const layer = {
             }
         );
     },
-    createAccount: async (id, name, email, role, pictureURL) => {
+    createAccount: async (id, name, email, role, pictureURL, team) => {
         await adapter.createDocument('Account', id, {
             name,
             email,
             role,
             pictureURL,
+            team
         }, {
             locked: false,
             createdAt: util.time.getNowUTC(),
@@ -188,28 +203,33 @@ const layer = {
     getSession: async id => {
         return await adapter.getOneEntityById('Session', '_design/all/_view/view', id);
     },
-    createSession: async (accountId, expirationUTC) => {
-        const id = types.Session.makeSessionIdFromAccountId(accountId);
-        await adapter.createDocument('Session', id, {
-            accountId,
-        }, {
-            createdAt: util.time.getNowUTC(),
-            expiresAt: expirationUTC,
-        });
-        return await layer.getSession(id);
+    touchSession: async (id, expirationDays) => {
+        // XXX: This function is particularly susceptible to race conditions.
+        // There are updates coming in sometimes as fast as 10ms behind each other.
+        // We retry the timestamp update several times, since it's the only method
+        // that works with Couch's optimistic locking. A successful update breaks
+        // the cycle. A conflict error retries. Any other error throws.
+        for (let i = 0; i < RETRY_CONFLICTS; i++) {
+            try {
+                return await adapter.modifyDocument(
+                    'Session',
+                    await adapter.getOneRawDocById('Session', '_design/all/_view/view', id),
+                    {
+                        expiresAt: util.time.getNowUTCShifted(expirationDays, 'd'),
+                        updatedAt: util.time.getNowUTC(),
+                    }
+                );
+            } catch (e) {
+                if (e.code !== 'EDOCCONFLICT') {
+                    throw e;
+                }
+            }
+        }
     },
     createOrTouchSession: async (accountId, expirationDays) => {
         const id = types.Session.makeSessionIdFromAccountId(accountId);
-        const expirationUTC = util.time.getNowUTCShifted(expirationDays, 'd');
         // assume session exists, attempt to update it
-        const session = await adapter.modifyDocument(
-            'Session',
-            await adapter.getOneRawDocById('Session', '_design/all/_view/view', id),
-            {
-                expiresAt: expirationUTC,
-                updatedAt: util.time.getNowUTC(),
-            }
-        );
+        const session = await layer.touchSession(id, expirationDays);
         // if it was there, all done, return it
         if (session) {
             return session;
@@ -217,35 +237,26 @@ const layer = {
         // we didn't find it, so create it and return it
         await adapter.createDocument('Session', id, {
             accountId,
-            expiresAt: expirationUTC,
         }, {
+            expiresAt: util.time.getNowUTCShifted(expirationDays, 'd'),
             createdAt: util.time.getNowUTC(),
             updatedAt: util.time.getNowUTC(),
         });
         return await layer.getSession(id);
     },
     verifyAndTouchSession: async (id, expirationDays) => {
-        const rawSession = await adapter.getOneRawDocById('Session', '_design/all/_view/view', id)
-        if (!rawSession) {
+        const session = await layer.getSession(id);
+        if (!session) {
             return false;
         }
         // check expiration time
         const now = util.time.getNowUTC();
-        if (now >= rawSession.expiresAt) {
-            await cdb.deleteDoc(rawSession._id, rawSession._rev);
+        if (now >= session.expiresAt) {
+            await layer.removeSession(id);
             return false;
         }
         // session is ok, extend the expiration time
-        const expirationUTC = util.time.getNowUTCShifted(expirationDays, 'd');
-        return await adapter.modifyDocument(
-            'Session',
-            rawSession,
-            {
-                expiresAt: expirationUTC,
-            }, {
-                updatedAt: now,
-            }
-        );
+        return await layer.touchSession(id, expirationDays);
     },
     removeSession: async id => {
         return await adapter.removeDocument('Session', '_design/all/_view/view', id);
@@ -363,6 +374,17 @@ const layer = {
             'Trashpoint',
             '_design/countByCreatingUser/_view/view', {
                 key: userId,
+            });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
+    countTeamTrashpoints: async teamId => {
+        const ret = await adapter.getRawDocs(
+            'Trashpoint',
+            '_design/countByTeam/_view/view', {
+                key: teamId,
             });
         if (!ret.length) {
             return 0;
@@ -612,6 +634,66 @@ const layer = {
         }
         return false;
     },
+
+    //========================================================
+    // TEAMS
+    //========================================================
+    getTeam: id => adapter.getOneEntityById('Team', '_design/all/_view/view', id),
+    getAllTeams: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
+    getCountTeamsTrashpoints: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
+    getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/all/_view/view', id),
+    createTeam: async (id, who, create) => {
+        await adapter.createDocument('Team', id, create, {
+            createdAt: util.time.getNowUTC(),
+            createdBy: who || undefined,
+        });
+        return await layer.getTeam(id);
+    },
+    modifyTeam: async (id, who, update, rawTeamDoc = null) => {
+        return await adapter.modifyDocument(
+            'Team',
+            rawTeamDoc || await layer.getRawTeamDoc(id),
+            update,
+            {
+                updatedAt: util.time.getNowUTC(),
+                updatedBy: who || undefined,
+            }
+        );
+    },
+    seedTeams: async (metadata) => {
+        const ret = await layer.getAllTeams();
+        if (!Array.isArray(ret)) {
+            return false;
+        }
+        const existingTeams = ret.reduce((prev, team) => {
+            prev[team.id] = team;
+            return prev;
+        }, {});
+        for (let team of metadata) {
+            if (!existingTeams[team.id]) {
+                await layer.createTeam(
+                    team.id,
+                    null,
+                    {
+                        name: team.name,
+                        teamDescription: team.teamDescription,
+                    }
+                );
+            }
+            else {
+                if (existingTeams[team.id].name !== team.name
+                    || existingTeams[team.id].teamDescription !== team.teamDescription
+                ) {
+                    await layer.modifyTeam(team.id, null, {
+                        name: team.name,
+                        teamDescription: team.teamDescription || undefined,
+                    });
+                }
+            }
+        }
+        return true;
+    },
+
 };
 
 module.exports = layer;

@@ -15,6 +15,7 @@ const filterBriefAccountData = account => util.object.filter(account, {
     country: true,
     pictureURL: true,
     termsAcceptedAt: true,
+    team: true,
 });
 
 const countriesForLeader = areasForLeader => {
@@ -172,7 +173,8 @@ module.exports = function () {
                     socialAccount.name,
                     socialAccount.email,
                     Account.ROLE_VOLUNTEER,
-                    socialAccount.pictureURL
+                    socialAccount.pictureURL,
+                    Account.DEFAULT_TEAM
                 );
             }
             return responder.success(account);

@@ -4,8 +4,9 @@ import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES, DIAGONALE_IN_PX, MARKER_DIAGONAL
 DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
 import { Api } from '../../services';
+import OfflineService from '../../services/Offline';
 import axios from 'axios';
-import { selectors as appSelectors } from '../app';
+import { selectors as appSelectors, operations as appOps } from '../app';
 import { selectors as trashpileSelectors } from '../trashpile';
 import {
   convertToByteArray,
@@ -25,7 +26,15 @@ const fetchAllMarkers = (viewPortLeftTopCoordinate,
 ) => {
   return async (dispatch, getState) => {
     dispatch({ type: types.FETCH_ALL_MARKERS_REQUEST });
-    const datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+    let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+    if (!datasetId) {
+      try {
+        await dispatch(appOps.fetchDatasets());
+        datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+      } catch (ex) {
+        return dispatch({ type: types.FETCH_ALL_MARKERS_FAILED });
+      }
+    }
 
     let cellSize = 0;
     if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
@@ -97,7 +106,15 @@ const fetchAllMarkers = (viewPortLeftTopCoordinate,
 const fetchClusterTrashpoints = ({ cellSize, coordinates, clusterId }) => {
   return async (dispatch, getState) => {
     try {
-      const datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+      let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+      if (!datasetId) {
+        try {
+          await dispatch(appOps.fetchDatasets());
+          datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+        } catch (ex) {
+          return dispatch({ type: types.FETCH_ALL_MARKERS_FAILED });
+        }
+      }
       const markers = trashpileSelectors.markersSelector(getState());
 
       const body = {
@@ -185,7 +202,6 @@ export const handleUpload = async ({ photos, markerId }) => {
     failed: [],
     backendConfirmed: false,
   };
-
   if (photosResponse) {
     const thumbnailsPhotos = photosResponse.data
       .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
@@ -210,7 +226,6 @@ export const handleUpload = async ({ photos, markerId }) => {
       });
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
-
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
 
     if (uploadedPhotosResponses) {
@@ -273,9 +288,16 @@ export const createMarker = ({
       let newPhotos = [];
       let toDeletePhotos = [];
       if (!isEdit) {
-        newMarker.datasetId = appSelectors.trashpointsDatasetUUIDSelector(
-          getState(),
-        );
+        let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+        if (!datasetId) {
+          try {
+            await dispatch(appOps.fetchDatasets());
+            datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+          } catch (ex) {
+            return dispatch({ type: types.FETCH_ALL_MARKERS_FAILED });
+          }
+        }
+        newMarker.datasetId = datasetId;
       } else {
         newPhotos = photos.filter(({ id }) => {
           return id === undefined;
@@ -284,11 +306,23 @@ export const createMarker = ({
           p => p.id !== undefined && p.delete === true && !!p.parentId,
         );
       }
+      const isConnected = appSelectors.isConnected(getState());
+
       const url = isEdit
         ? API_ENDPOINTS.UPDATE_TRASHPOINT(id)
         : API_ENDPOINTS.CREATE_TRASHPOINT;
 
-      const createMarkerResponse = await Api.put(url, newMarker);
+      let createMarkerResponse = false;
+
+      if (isConnected) {
+        createMarkerResponse = await Api.put(url, newMarker);
+      } else {
+        if (!isEdit) {
+          createMarkerResponse = await OfflineService.saveTrashpoint(url, newMarker, photos, []);
+        } else {
+          createMarkerResponse = await OfflineService.saveTrashpoint(url, newMarker, newPhotos, toDeletePhotos);
+        }
+      }
 
       if (!createMarkerResponse) {
         dispatch({ type: types.CREATE_MARKER_FAILED });
@@ -297,13 +331,13 @@ export const createMarker = ({
 
       let uploadStatus;
 
-      if (isEdit && newPhotos.length > 0) {
+      if (isEdit && newPhotos.length > 0 && isConnected) {
         uploadStatus = await handleUpload({
           photos: newPhotos,
           markerId: createMarkerResponse.data.id,
         });
       }
-      if (isEdit && toDeletePhotos.length > 0) {
+      if (isEdit && toDeletePhotos.length > 0 && isConnected) {
         try {
           await Promise.all(
             toDeletePhotos.map(p => deleteImage(id, p.parentId)),
@@ -314,7 +348,7 @@ export const createMarker = ({
         }
       }
 
-      if (!isEdit) {
+      if (!isEdit && isConnected) {
         uploadStatus = await handleUpload({
           photos,
           markerId: createMarkerResponse.data.id,
@@ -334,6 +368,7 @@ export const createMarker = ({
           },
         },
       });
+
       return {
         ...createMarkerResponse.data,
         photoStatus: uploadStatus,
@@ -366,9 +401,23 @@ export const uploadPhotosOnAzure = (photos) => {
           'x-ms-blob-type': 'BlockBlob',
         },
       })
-      .catch(res => {
-        handleSentryError(res);
-        return res;
+      .catch(() => {
+        return axios
+        .put(url, blob, {
+          headers: {
+            'x-ms-blob-type': 'BlockBlob',
+          },
+        }).catch(() => {
+          return axios
+          .put(url, blob, {
+            headers: {
+              'x-ms-blob-type': 'BlockBlob',
+            },
+          }).catch((res) => {
+            handleSentryError(res);
+            return res;
+          });
+        });
       });
     }),
   );

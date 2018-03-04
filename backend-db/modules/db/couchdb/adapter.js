@@ -21,7 +21,8 @@ const TYPE_TO_DB_MAP = {
     'Account': 'accounts',
     'Session': 'sessions',
     'Area': 'areas',
-}
+    'Team': 'teams'
+};
 
 const cdb = require('./driver');
 const types =  require('../types');

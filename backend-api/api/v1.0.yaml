@@ -68,6 +68,22 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /me/team:
+    x-swagger-router-controller: users
+    put:
+      description: Join user to team.
+      operationId: modifyUserTeam
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/ModifyTeam"
+      responses:
+        "200":
+          description: Account information.
+          schema:
+            $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /auth/external:
     x-swagger-router-controller: users
     post:
@@ -190,6 +206,41 @@ paths:
       responses:
         "200":
           description: The user account was locked or unlocked successfully.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  /teams:
+    x-swagger-router-controller: teams
+    get:
+      description: List all teams.
+      operationId: getAllTeams
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/trashpoints:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch information about trashpoints for all teams.
+      operationId: getCountTeamsTrashpoints
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/{id}:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch complete info about a specific team.
+      operationId: getTeam
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: Full team information.
+          schema:
+            $ref: "#/definitions/Team"
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
@@ -559,6 +610,17 @@ parameters:
         country:
           $ref: "#/definitions/CountryCode"
   #-----------------------------------------------------------------------------
+  ModifyTeam:
+    name: update
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [team]
+      properties:
+        team:
+          $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
   ModifyTrashpoint:
     name: trashpoint
     in: body
@@ -677,6 +739,12 @@ responses:
     description: List of trashpoints for area leader consumption.
     schema:
       $ref: "#/definitions/PaginatedAreaTrashpoints"
+  Teams:
+    description: List of teams.
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Team"
   StorageAuth:
     description: A short-term authorization allowing access to storage operations.
     schema:
@@ -720,6 +788,28 @@ definitions:
         description: Area can be optionally be assigned to a user.
         $ref: "#/definitions/UUID"
   #-----------------------------------------------------------------------------
+  # Team properties.
+  #-----------------------------------------------------------------------------
+  Team:
+    type: object
+    required: [id, name]
+    properties:
+      id:
+        description: A unique code of team
+        type: string
+      name:
+        description: A name of team
+        type: string
+      teamDescription:
+        description: Desctiption of team
+        type: string
+      trashpoints:
+        description: How many trashpoints have this team
+        type: integer
+      users:
+        description: How many users have this team
+        type: integer
+  #-----------------------------------------------------------------------------
   # Account properties.
   #-----------------------------------------------------------------------------
   Account:
@@ -743,6 +833,10 @@ definitions:
         $ref: "#/definitions/ISOTimestamp"
       locked:
         type: boolean
+      team:
+        type:
+          - string
+          - 'null'
   AccountPlusAreas:
     allOf:
     - "$ref": "#/definitions/Account"

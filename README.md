@@ -1,6 +1,8 @@
 ![World Cleanup Day](https://www.letsdoitworld.org/wp-content/uploads/2017/04/header.png)
 # World's Largest Civic Action: World Cleanup Day
 
+[![Join the chat at https://gitter.im/letsdoitworld/World-Cleanup-Day](https://badges.gitter.im/letsdoitworld/World-Cleanup-Day.svg)](https://gitter.im/letsdoitworld/World-Cleanup-Day?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Over 17 million trash heroes have already cleaned up more than 500 000 tonnes of trash in over 100 countries! The movement against pollution is growing fast and we're now building the World Cleanup App and Platform for the hundreds of millions of people people joining the World Cleanup Day on **15th of September 2018**. 
 
 Together we will get rid of trash once and for all, save lives, improve health & reduce costs. Read below on how you can participate! Let's do it! 😃 
@@ -37,6 +39,12 @@ Join the movement and let's clean up the World together!
 * Flickr: https://www.flickr.com/letsdoitworld/
 * Wikipedia: https://en.wikipedia.org/wiki/Let%27s_Do_It!_World
 * Homepage: https://www.letsdoitworld.org/
+
+## API
+See the [API docs](http://ldiw-api.s3-website.eu-central-1.amazonaws.com/)
+
+## Roadmap
+See [Roadmap.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/ROADMAP.md)
 
 ## License
 

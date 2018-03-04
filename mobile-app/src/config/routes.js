@@ -10,6 +10,7 @@ import Details from '../screens/Details';
 import Profile from '../screens/Profile';
 import Settings from '../screens/Settings';
 import MyActivity from '../screens/MyActivity';
+import Teams from '../screens/Teams';
 import { Header, HEADER_BUTTONS_IMAGES } from '../components/Header';
 import { CreateMarkerButton } from '../screens/CreateMarkerButton';
 import {
@@ -333,7 +334,18 @@ const AppNavigator = StackNavigator(
         header: () =>
           <Header
             onPressLeftButton={() => navigation.goBack(null)}
-            title="Account settings"
+            title={i18n.t('label_header_settings')}
+            leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
+          />,
+      }),
+    },
+    Teams: {
+      screen: Teams,
+      navigationOptions: ({ navigation }) => ({
+        header: () =>
+          <Header
+            onPressLeftButton={() => navigation.goBack(null)}
+            title={i18n.t('label_teams_header')}
             leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
           />,
       }),

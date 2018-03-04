@@ -33,10 +33,23 @@ const setActiveScreen = activeScreen => ({
   type: types.SET_ACTIVE_SCREEN,
   activeScreen,
 });
+
+const setConnectionChecked = () => ({ type: types.SET_CONNECTION_CHECKED });
+const updateNetworkStatus = isConnected =>
+  ({ type: types.UPDATE_NETWORK_STATUS, payload: { isConnected } });
+const updateSyncStatus = inSync =>
+  ({ type: types.UPDATE_SYNC_STATUS, payload: { inSync } });
+const updateLackConnMessStatus = noLackConnectionAlert =>
+  ({ type: types.UPDATE_LACK_CONNECTION_MESSAGE_STATUS, payload: { noLackConnectionAlert } });
+
 export default {
   setPopoverShown,
   setPopoverMessage,
   setErrorMessage,
   setActiveScreen,
   hideErrorMessage,
+  setConnectionChecked,
+  updateNetworkStatus,
+  updateSyncStatus,
+  updateLackConnMessStatus
 };

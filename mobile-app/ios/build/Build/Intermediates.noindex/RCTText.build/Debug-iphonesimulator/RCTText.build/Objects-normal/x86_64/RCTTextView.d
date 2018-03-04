@@ -1,21 +1,21 @@
 dependencies: \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextView.m \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextView.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextShadowView.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTShadowView.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextView.m \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextView.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/Libraries/Text/Text/RCTTextShadowView.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTShadowView.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h

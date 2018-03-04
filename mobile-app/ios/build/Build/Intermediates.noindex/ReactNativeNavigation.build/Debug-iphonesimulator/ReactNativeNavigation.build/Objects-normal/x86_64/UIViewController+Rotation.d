@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native-navigation/ios/UIViewController+Rotation.m \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native-navigation/ios/UIViewController+Rotation.h
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native-navigation/ios/UIViewController+Rotation.m \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native-navigation/ios/UIViewController+Rotation.h

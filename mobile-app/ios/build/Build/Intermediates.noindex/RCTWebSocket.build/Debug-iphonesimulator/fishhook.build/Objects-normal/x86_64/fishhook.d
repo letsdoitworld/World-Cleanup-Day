@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/fishhook/fishhook.c \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/Libraries/fishhook/fishhook.h
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/Libraries/fishhook/fishhook.c \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/Libraries/fishhook/fishhook.h

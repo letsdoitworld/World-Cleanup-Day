@@ -1,10 +1,10 @@
 dependencies: \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTDisplayLink.m \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTDisplayLink.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTAssert.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTDefines.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTBridgeModule.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTFrameUpdate.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTModuleData.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Base/RCTInvalidating.h \
-  /Users/ihorkucherenko/IdeaProjects/World-Cleanup-Day/mobile-app/node_modules/react-native/React/Profiler/RCTProfile.h
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTDisplayLink.m \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTDisplayLink.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTModuleData.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/annaseverinovskaya/Documents/work/CleanUpWorld/mobile-app/node_modules/react-native/React/Profiler/RCTProfile.h

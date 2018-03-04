@@ -18,6 +18,12 @@ class OfflineService {
   }
 
   saveTrashpoint = async (url, newMarker, photos, deletedPhotos) => {
+    if (!newMarker.address || newMarker.address.length < 1) {
+      newMarker.address = ' ';
+    }
+    if (!newMarker.name || newMarker.name.length < 1) {
+      newMarker.name = ' ';
+    }
     await this.executeSql('INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
       url,
       JSON.stringify(newMarker),
@@ -32,6 +38,7 @@ class OfflineService {
   async syncToServer() {
     const transaction = await offlineDB.transaction(tx => {
       tx.executeSql('SELECT * FROM trashpoints', [], async (_, { rows: { _array } }) => {
+
         for (let i = 0; i < _array.length; i++) {
           let dataOk = true;
           let trashpoint = {};

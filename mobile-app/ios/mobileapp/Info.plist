@@ -32,10 +32,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.544878604136-p23hd99c43c7b9bpkl0mkd214f4a0008</string>
+			<string>com.googleusercontent.apps.343042629555-j76u4488sqenudbkmetmbcd0jftid7tp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.544878604136-p23hd99c43c7b9bpkl0mkd214f4a0008</string>
+				<string>com.googleusercontent.apps.343042629555-j76u4488sqenudbkmetmbcd0jftid7tp</string>
 			</array>
 		</dict>
 		<dict>
@@ -92,9 +92,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Bold.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>FontAwesome.ttf</string>
@@ -126,8 +128,6 @@
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-ThinItalic.ttf</string>
 		<string>Feather.ttf</string>
-		<string>Lato Bold.ttf</string>
-		<string>Lato Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

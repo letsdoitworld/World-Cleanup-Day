@@ -9,6 +9,7 @@ import MainButton from '../../../components/Buttons/MainButton'
 import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
+import {ADD_LOCATION} from "../../index";
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -108,11 +109,13 @@ export default class CreateEvent extends ImmutableComponent {
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_location.toUpperCase()}</Text>
                     </View>
-                    <View style={styles.locationContainerStyle}>
-                        <Image source={require('../../../../src/assets/images/ic_location.png')}
-                               style={styles.imageTrashStyle}/>
-                        <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
-                    </View>
+                    <TouchableOpacity onPress={this.onAddLocationClick.bind(this)}>
+                        <View style={styles.locationContainerStyle}>
+                            <Image source={require('../../../../src/assets/images/ic_location.png')}
+                                   style={styles.imageTrashStyle}/>
+                            <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_trashpoints.toUpperCase()}</Text>
                     </View>
@@ -162,9 +165,7 @@ export default class CreateEvent extends ImmutableComponent {
                         text={strings.label_next}
                         style={styles.nextButtonStyle}
                         onPress={() => console.log("Press")}/>
-
                 </ScrollView>
-
             </View>
         )
     }
@@ -190,6 +191,25 @@ export default class CreateEvent extends ImmutableComponent {
             console.warn("Image: ", image.path);
             this.setData(d => d.set('imageUrl', image.path))
         });
+    }
+
+    onAddLocationClick = () => {
+        this.props.navigator.push({
+            screen: ADD_LOCATION,
+            title: strings.label_add_location,
+            passProps: {
+                //todo: pass some location. By default map will be positioned to current user's location
+                // initialLocation: {
+                //     latitude: 48.8152937,
+                //     longitude: 2.4597668,
+                // },
+                onLocationSelected: this.onLocationSelected.bind(this),
+            }
+        });
+    };
+
+    onLocationSelected(location) {
+        console.log(location)
     }
 
     onTitleTextChanged = (text: String) => {

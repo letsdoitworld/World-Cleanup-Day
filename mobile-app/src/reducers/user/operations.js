@@ -19,9 +19,12 @@ function getAuthHeader(authToken) {
 }
 
 export function googleLogin() {
+
+    //343042629555-j76u4488sqenudbkmetmbcd0jftid7tp.apps.googleusercontent.com
+    //com.googleusercontent.apps.343042629555-j76u4488sqenudbkmetmbcd0jftid7tp
     return GoogleSignin.configure({
         scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-         iosClientId: '544878604136-p23hd99c43c7b9bpkl0mkd214f4a0008.apps.googleusercontent.com', // only for iOS
+        iosClientId: '343042629555-j76u4488sqenudbkmetmbcd0jftid7tp.apps.googleusercontent.com', // only for iOS
         webClientId: '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
         offlineAccess: false
     })

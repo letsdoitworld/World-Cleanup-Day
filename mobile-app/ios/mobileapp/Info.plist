@@ -95,6 +95,8 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Bold.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>FontAwesome.ttf</string>

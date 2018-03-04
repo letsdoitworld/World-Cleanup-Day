@@ -77,19 +77,6 @@ class ApiService {
                 axiosOptions,
             );
         } catch (e) {
-            handleSentryError(e);
-            handleApiError(e);
-        }
-    }
-
-    async get(url, options = {withToken: true}, axiosOptions) {
-        try {
-            return await this.getApiInstance(options.withToken).get(
-                url,
-                axiosOptions,
-            );
-        } catch (e) {
-            handleSentryError(e);
             handleApiError(e);
         }
     }
@@ -102,7 +89,6 @@ class ApiService {
                 headers,
             );
         } catch (e) {
-            handleSentryError(e);
             handleApiError(e);
         }
     }
@@ -115,7 +101,6 @@ class ApiService {
                 headers,
             );
         } catch (e) {
-            handleSentryError(e);
             handleApiError(e);
         }
     }

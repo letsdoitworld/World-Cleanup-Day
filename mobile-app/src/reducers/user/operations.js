@@ -21,7 +21,7 @@ function getAuthHeader(authToken) {
 export function googleLogin() {
     return GoogleSignin.configure({
         scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-        //  iosClientId: <FROM DEVELOPER CONSOLE>, // only for iOS
+         iosClientId: '544878604136-p23hd99c43c7b9bpkl0mkd214f4a0008.apps.googleusercontent.com', // only for iOS
         webClientId: '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
         offlineAccess: false
     })
@@ -65,20 +65,6 @@ export async function getProfile() {
         throw ex;
     }
 }
-
-const getProfile = () => async (dispatch) => {
-    dispatch(actions.fetchProfile());
-
-    try {
-        const response = await Api.get('/me');
-
-        dispatch(actions.fetchProfileDone(response.data));
-        return response.data;
-    } catch (ex) {
-        dispatch(actions.fetchProfileError(ex));
-        throw ex;
-    }
-};
 
 const updateProfile = profile => async (dispatch) => {
     dispatch(actions.updateProfile());

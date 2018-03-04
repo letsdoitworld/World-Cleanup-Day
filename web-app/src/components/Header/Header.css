@@ -1,22 +1,25 @@
 .Header {
   display: flex;
-  height: 80px;
-  background: #FFFFFF;
+  align-self: stretch;
+  flex-direction: row;
+  height: 60px;
+  background: #3e8ede;
 }
 
 .Header-logo-container {
   position: relative;
+  z-index: 9;
+  width: 220px;
+}
+
+.Header-links-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   flex: 1;
 }
 
 .Header-button-container {
   display: flex;
-  align-items: center;
-  padding: 0 30px;
   position:relative;
-}
-
-.Header-separator {
-  height: 1px;
-  background: #D9D9D9;
 }

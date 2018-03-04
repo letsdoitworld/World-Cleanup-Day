@@ -18,3 +18,4 @@ project(':react-native-fbsdk').projectDir = new File(rootProject.projectDir, '..
 
 
 include ':app'
+

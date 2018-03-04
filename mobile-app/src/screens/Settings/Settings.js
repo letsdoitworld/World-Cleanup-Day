@@ -124,6 +124,10 @@ export class Settings extends Component {
     render() {
         const {country} = this.props;
         const profile = this.props.profile.get('entity');
+
+        if (profile === null) {
+            return null
+        }
         // const countrySubtitle = country
         //   ? country.name
         //   : this.props.t('label_country_picker_placeholder');

@@ -10,7 +10,7 @@ export default EStyleSheet.create({
   title: {
     marginTop: getHeightPercentage(20),
     marginLeft: getWidthPercentage(20),
-    fontFamily: 'noto-sans-bold',
+    // fontFamily: 'noto-sans-bold',
     fontSize: 16,
     color: '$textColor',
   },

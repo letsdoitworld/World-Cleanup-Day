@@ -11,7 +11,7 @@ export default StyleSheet.create({
     zIndex: 1,
   },
   labelText: {
-    fontFamily: 'noto-sans-bold',
+    // fontFamily: 'noto-sans-bold',
     fontSize: 10,
     backgroundColor: 'transparent',
   },

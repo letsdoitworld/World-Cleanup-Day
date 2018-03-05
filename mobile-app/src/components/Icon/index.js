@@ -1,18 +1,17 @@
-import React from 'react'
-import { Image } from 'react-native'
+import React from 'react';
+import { Image } from 'react-native';
 
 const Icon = ({
-    path
+    path,
 }) => {
-
-    return (
-        <Image source={path} />
-    )
-}
+  return (
+    <Image source={path} />
+  );
+};
 
 Icon.propTypes = {
   ...Image.propTypes,
-  path: Image.propTypes.source
-}
+  path: Image.propTypes.source,
+};
 
-export { Icon }
+export { Icon };

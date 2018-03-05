@@ -56,8 +56,8 @@ import { initialAuthState } from './reducers/auth';
 // });
 
 export const initialState = new Immutable.Map({
-//   auth: Immutable.Map(initialAuthState),
-  profile: Immutable.Map(initialProfileState),
+  auth: initialAuthState,
+  profile: initialProfileState,
     // profileState: Immutable.Map(profileStatusInitialState),
 //   error: Immutable.Map(errorInitialState),
 

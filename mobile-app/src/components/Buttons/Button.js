@@ -18,7 +18,7 @@ const styles = EStyleSheet.create({
   text: {
     textAlign: 'center',
     color: '$white',
-    fontFamily: 'noto-sans-bold',
+    // fontFamily: 'noto-sans-bold',
     fontSize: 13,
   },
     disabledText:{

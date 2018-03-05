@@ -20,6 +20,8 @@ import {Provider} from "react-redux";
 
 import { Icons } from './src/assets/images';
 
+import './src/config/styles';
+
 const store = configureStore();
 
 registerScreens(store, Provider);
@@ -71,14 +73,14 @@ export default class App extends Component {
             tabs: [
                 {
                     screen: NOTIFICATIONS_SCREEN,
-                    label: 'Trashpoints',
+                    label: 'Notifications',
                     icon: Icons.Trashpoints,
                     selectedIcon:  Icons.TrashpointsActive,
                     title: strings.label_header_notific
                 },
                 {
                     screen: MY_ACTIVITY_SCREEN,
-                    label: 'Events',
+                    label: 'Activity',
                     icon: Icons.Event,
                     selectedIcon: Icons.EventActive,
                     title: strings.label_header_activity

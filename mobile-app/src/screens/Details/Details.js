@@ -34,7 +34,7 @@ import {
 import { selectors as appSelectors } from '../../reducers/app';
 import styles from './styles';
 import { PhotoPicker } from '../../components/PhotoPicker';
-import { Divider } from '../../components/Divider';
+import { Divider } from '../../components';
 import { AmountPicker, AMOUNT_STATUSES } from '../../components/AmountPicker';
 import {
   operations as locationOperations,
@@ -271,7 +271,7 @@ class Details extends Component {
       titleStyle: {
         color: 'white',
         fontSize: 15,
-        fontFamily: 'noto-sans-bold',
+        // fontFamily: 'noto-sans-bold',
       },
     });
   };
@@ -394,7 +394,7 @@ class Details extends Component {
         </View>
         <Divider />
         <View style={{ padding: getWidthPercentage(20) }}>
-          <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
+          <Text style={{ fontSize: 16 }}>
             {this.props.t('label_text_detailsTP_amount')}
           </Text>
           <AmountPicker amount={AMOUNT_STATUSES[marker.amount]} disabled />
@@ -407,7 +407,7 @@ class Details extends Component {
             <Text
               style={{
                 color: '#7F7F7F',
-                fontFamily: 'noto-sans-bold',
+                // fontFamily: 'noto-sans-bold',
                 fontSize: 13,
               }}
             >

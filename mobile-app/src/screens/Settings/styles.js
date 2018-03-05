@@ -108,7 +108,7 @@ export const listItemProps = {
     chevronColor: '#3E8EDE',
     //titleStyle: styles.title,
     subtitleStyle: {
-        fontFamily: 'noto-sans-bold',
+        // fontFamily: 'noto-sans-bold',
         fontSize: 15,
         color: 'black',
     },

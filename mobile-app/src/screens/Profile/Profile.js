@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Alert } from 'react-native';
-// import { compose } from 'recompose';
-import { connect } from 'react-redux';
+import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
 
-import { Divider } from '../../components/Divider/Divider';
-import { selectors as userSelectors } from '../../reducers/user';
-import styles from './styles';
-import {SETTINGS_SCREEN} from "../index";
+import { SETTINGS_SCREEN } from '../index';
 import strings from '../../config/strings';
-import userActions from '../../reducers/user/actions';
+import { Icons } from '../../assets/images';
+import { Avatar, Icon, Divider } from '../../components';
+
+import styles from './styles';
 
 import { navigatorStyle, navigatorButtons } from './config';
 
@@ -19,77 +18,98 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    this.props.navigator.setOnNavigatorEvent(
+      this.onNavigatorEvent.bind(this),
+    );
   }
+
+  componentDidMount() {
+    const { onFetchProfile } = this.props;
     
-    componentDidMount() {
-        this.props.dispatch(userActions.fetchProfile());
+    onFetchProfile();
+    this.handleGetCurrentPosition();
+    console.log('componentDidMount', this.props);
+  }
 
-        console.log('componentDidMount', this.props);
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
+  }
+
+  onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'settings') {
+        this.props.navigator.push({
+          screen: SETTINGS_SCREEN,
+          title: strings.label_settings_header,
+        });
+      }
     }
+  }
 
-  // renderProfilePicture = (profile) => {
-  //   const img = profile && profile.pictureURL ? { uri: profile.pictureURL } : require('./avatar.png');
-  //   return <Image source={img} style={styles.usernameImage} />;
-  // };
+  handleGetCurrentPosition = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
+      },
+      error => console.log('Error', error),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  }
 
-    onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
-        if (event.type == 'NavBarButtonPress') {
-            if (event.id == 'settings') {
-                this.props.navigator.push({
-                    screen: SETTINGS_SCREEN,
-                    title: strings.label_settings_header
-                })
-            }
-        }
-    }
+  handleRenderLocation() {
+    return (
+      <View style={styles.locationContainer}>
+        <Icon path={Icons.Location} />
+        <Text style={styles.locationText}>Ukraine</Text>
+      </View>
+    );
+  }
+
+  handleRenderPhoneNumber() {
+    return (
+      <View style={styles.additionalInfoContainer}>
+        <Icon path={Icons.Phone} />
+        <Text style={styles.additionalInfoText}>+3809500000000</Text>
+      </View>
+    );
+  }
+
+  handleRenderEmail() {
+    return (
+      <View style={styles.additionalInfoContainer}>
+        <Icon path={Icons.Email} />
+        <Text style={styles.additionalInfoText}>yonder@gmail.com</Text>
+      </View>
+    );
+  }
 
   render() {
-    // const { profile, country } = this.props;
-    
+    const { profile } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.infoContainer}>
-          <View style={styles.pictureContainer}>
-            {/* {this.renderProfilePicture(profile)} */}
+          <View style={styles.avatarContainer}>
+            <Avatar path={profile && profile.pictureURL} />
+            <View style={styles.userNameContainer}>
+              <Text style={styles.userNameText}>{profile && profile.name}</Text>
+              {this.handleRenderLocation()}
+            </View>
           </View>
-          {/*<View style={styles.nameContainer}>*/}
-            {/*<Text style={styles.username}>*/}
-              {/*{profile && profile.name}*/}
-            {/*</Text>*/}
-            {/*{country &&*/}
-              {/*<View style={styles.locationContainer}>*/}
-
-                {/*<Image*/}
-                  {/*source={require('../../assets/images/icon_location.png')}*/}
-                {/*/>*/}
-                {/*<Text style={styles.countryText}>*/}
-                  {/*{country.name}*/}
-                {/*</Text>*/}
-              {/*</View>}*/}
-
-          {/*</View>*/}
         </View>
+        <Divider />
+        {this.handleRenderPhoneNumber()}
+        <Divider />
+        {this.handleRenderEmail()}
         <Divider />
       </View>
     );
   }
 }
 
-
-const mapStateToProps = (state) => {
-  return {
-    // profile: userSelectors.getProfile(state)
-    profile: state.get('profile')
-  };
+Profile.propTypes = {
+  profile: PropTypes.object,
+  onFetchProfile: PropTypes.func,
 };
 
-
-// const mapStateToProps = (state) => {
-//   return {
-//     profile: userSelectors.getProfile(state),
-//     country: userSelectors.getProfileCountry(state),
-//   };
-// };
-
-export default connect(mapStateToProps)(Profile);
+export default Profile;

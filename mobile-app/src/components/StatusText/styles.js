@@ -13,7 +13,7 @@ export default EStyleSheet.create({
   },
   text: {
     flex: 1,
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: '$fontDefaultSize',
     paddingLeft: getWidthPercentage(4),
   },

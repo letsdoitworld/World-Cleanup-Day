@@ -153,13 +153,13 @@ export class Settings extends Component {
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/ic_phone_number.png')}/>
+                            source={require('../../assets/images/ic_phone_number.png')}/>
                         <Text style={styles.textItemStyle}>{'+3809500000000'}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/ic_email.png')}/>
+                            source={require('../../assets/images/ic_email.png')}/>
                         <Text style={styles.textItemStyle}>{'yonder@gmail.com'}</Text>
                     </View>
                     <View style={styles.titleStyle}>

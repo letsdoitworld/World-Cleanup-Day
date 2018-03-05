@@ -19,7 +19,7 @@ export default {
         justifyContent: 'center'
     },
     titleTextStyle: {
-        marginStart: getWidthPercentage(10),
+        left: getWidthPercentage(10),
         fontSize: 13,
         color: colors.$textColorDivider,
         fontFamily: 'Lato-Bold'
@@ -38,7 +38,7 @@ export default {
     },
     inputTextStyle: {
         width: '100%',
-        marginStart: getWidthPercentage(10),
+        marginLeft: getWidthPercentage(10),
         alignSelf: 'center',
     },
     dateAndTimeContainerStyle: {
@@ -133,11 +133,11 @@ export default {
     },
     eventPhotoContainerStyle: {
         borderRadius: 1,
-        height: 235,
+        height: 236,
         width: '100%',
         justifyContent: 'center',
         backgroundColor: colors.$transparentBlueColor,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: colors.$mainBlue,
         borderStyle: 'dashed'
     },
@@ -159,4 +159,10 @@ export default {
         marginBottom: dimens.margin_medium,
         alignSelf: 'center',
     },
+    photoIconStyle: {
+        position: 'absolute',
+        left: 0,
+        height: 232,
+        width: '100%',
+    }
 }

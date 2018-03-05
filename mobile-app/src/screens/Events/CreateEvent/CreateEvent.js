@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     View, TouchableOpacity, Text, ScrollView,
-    TextInput, Image, TouchableHighlight
+    TextInput, Image, TouchableHighlight, Alert
 } from 'react-native';
 import styles from './styles'
 import strings from '../../../assets/strings'
@@ -152,8 +152,8 @@ export default class CreateEvent extends ImmutableComponent {
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image source={{uri: imagePath}}/>
-                        <TouchableOpacity onPress={() => this.openCamera()}>
+                        <Image style = {styles.photoIconStyle} source={{uri: imagePath}}/>
+                        <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                         <Image style={styles.addPhotoIconStyle}
                                source={require('../images/ic_add_photo.png')}/>
                         </TouchableOpacity>
@@ -169,7 +169,19 @@ export default class CreateEvent extends ImmutableComponent {
             </View>
         )
     }
-    //TODO ask Yulia about dialog!!
+
+    showChoosedDialog() {
+        Alert.alert(
+            'Add photo',
+            'Add photo to event!',
+            [
+                {text: 'Cancel', onPress: () => console.log('OK Pressed'), style: 'cancel'},
+                {text: 'Take photo', onPress: () => this.openCamera()},
+                {text: 'From Gallery', onPress: () => this.openGallery()},
+            ],
+            { cancelable: true }
+        )
+    };
 
     openGallery() {
         ImagePicker.openPicker({
@@ -177,7 +189,6 @@ export default class CreateEvent extends ImmutableComponent {
             height: 400,
             cropping: true
         }).then(image => {
-            console.warn("Image: ", image.path);
             this.setData(d => d.set('imageUrl', image.path))
         });
     };
@@ -188,7 +199,6 @@ export default class CreateEvent extends ImmutableComponent {
             height: 400,
             cropping: true
         }).then(image => {
-            console.warn("Image: ", image.path);
             this.setData(d => d.set('imageUrl', image.path))
         });
     }

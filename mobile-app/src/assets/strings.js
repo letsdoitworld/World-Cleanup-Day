@@ -156,7 +156,12 @@ module.exports = new LocalizedStrings({
         label_specify_tools_for_work: "Specify tools for work",
         label_cover_photo: "Cover photo",
         label_add_photo: "Add photo",
-        label_next: "Next"
+        label_next: "Next",
+        label_coordinator: "Coordinator",
+        label_coordinator_hint: "Enter coordinator name",
+        label_organization: "Organization",
+        label_organization_hint: "Enter organization",
+        label_contact_details: "Contact details"
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

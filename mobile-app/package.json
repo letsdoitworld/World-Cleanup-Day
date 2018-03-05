@@ -37,7 +37,7 @@
     "prop-types": "15.5.10",
     "query-string": "^4.3.4",
     "react": "^16.0.0",
-    "react-native": "^0.53.0",
+    "react-native": "0.50.0",
     "react-native-animatable": "^1.2.2",
     "react-native-extended-stylesheet": "0.5.0",
     "react-native-fbsdk": "^0.7.0",

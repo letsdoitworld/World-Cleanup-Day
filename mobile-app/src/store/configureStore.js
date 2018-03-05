@@ -12,6 +12,7 @@ import {AsyncStorage} from "react-native";
 import createSagaMiddleware from "redux-saga";
 
 import * as userSaga from "../reducers/user/saga";
+import * as trashPointsSaga from "../reducers/trashpoints/saga";
 
 import {
     authReducer,
@@ -34,6 +35,11 @@ import {
 
 } from '../reducers/app/reducers'
 
+import {
+    trashPointsInitialState,
+    trashPointsReducer
+} from '../reducers/trashpoints/reducer'
+
 const combinedReducers = combineReducers({
     auth: authReducer,
     profile: profileReducer,
@@ -41,6 +47,7 @@ const combinedReducers = combineReducers({
     //network: networkReducer,
     // config: configReducer,
     error: errorReducer,
+    trashPoints: trashPointsReducer,
     //  popover: popoverReducer,
 
     // root: rootReducer,
@@ -60,7 +67,8 @@ export const initialState = new Immutable.Map({
     auth: Immutable.Map(authInitialState),
     profile: Immutable.Map(profileInitialState),
     profileState: Immutable.Map(profileStatusInitialState),
-    error: Immutable.Map(errorInitialState)
+    error: Immutable.Map(errorInitialState),
+    trashPoints: Immutable.Map(trashPointsInitialState)
 
     // root: Immutable.Map({
     //     progress: undefined,
@@ -142,7 +150,8 @@ export default function configureStore() {
             sagaMiddleware.run(userSaga.loginGoogleFlow),
             sagaMiddleware.run(userSaga.loginFacebookFlow),
             sagaMiddleware.run(userSaga.updateProfileStatusFlow),
-            sagaMiddleware.run(userSaga.loadProfileFlow)
+            sagaMiddleware.run(userSaga.loadProfileFlow),
+            sagaMiddleware.run(trashPointsSaga.searchTrashPointsFlow)
             // sagaMiddleware.run(listSaga.listFlow),
             // sagaMiddleware.run(listSaga.sellersListFlow),
             // sagaMiddleware.run(listSaga.itemsListFlow),

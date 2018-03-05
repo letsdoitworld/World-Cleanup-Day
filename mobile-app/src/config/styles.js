@@ -11,7 +11,7 @@ const colors = {
   $red: '#FC515E',
   $iconColor: ICON_COLOR,
   $white: WHITE_COLOR,
-  $textColor:'#2B2B2B'
+  $textColor:'#2B2B2B',
 };
 const dimensions = {
   $radius10: 10,

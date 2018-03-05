@@ -2,6 +2,7 @@ import LocalizedStrings from 'react-native-localization';
 
 module.exports = new LocalizedStrings({
     en: {
+        label_save: "Save",
         label_confirm_location: "Confirm location",
         label_text_app_subtitle: "Let's clean up the world together!",
         label_button_facebook: "Continue with Facebook",

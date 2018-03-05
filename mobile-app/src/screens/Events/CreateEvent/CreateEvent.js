@@ -9,7 +9,7 @@ import MainButton from '../../../components/Buttons/MainButton'
 import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
-import {ADD_LOCATION} from "../../index";
+import {ADD_LOCATION, ADD_TRASH_POINTS} from "../../index";
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -84,7 +84,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     flex: 1,
                                     alignSelf: 'center'
                                 }}
-                                onPress={this.showDateTimePicker}>
+                                                  onPress={this.showDateTimePicker}>
                                     <Text style={styles.dateTextStyle}>{strings.label_date}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={{
@@ -101,7 +101,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     flex: 2,
                                     alignSelf: 'center'
                                 }}>
-                                <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
+                                    <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -119,11 +119,13 @@ export default class CreateEvent extends ImmutableComponent {
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_trashpoints.toUpperCase()}</Text>
                     </View>
-                    <View style={styles.trashpointTipStyle}>
-                        <Image source={require('../images/ic_trashpoints.png')}
-                               style={styles.imageTrashStyle}/>
-                        <Text style={styles.textTrashStyle}>{strings.label_tip_add_trashpoints}</Text>
-                    </View>
+                    <TouchableOpacity onPress={this.onAddTrashPointsClick.bind(this)}>
+                        <View style={styles.trashpointTipStyle}>
+                            <Image source={require('../images/ic_trashpoints.png')}
+                                   style={styles.imageTrashStyle}/>
+                            <Text style={styles.textTrashStyle}>{strings.label_tip_add_trashpoints}</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_description.toUpperCase()}</Text>
                     </View>
@@ -154,8 +156,8 @@ export default class CreateEvent extends ImmutableComponent {
                     <View style={styles.eventPhotoContainerStyle}>
                         <Image source={{uri: imagePath}}/>
                         <TouchableOpacity onPress={() => this.openCamera()}>
-                        <Image style={styles.addPhotoIconStyle}
-                               source={require('../images/ic_add_photo.png')}/>
+                            <Image style={styles.addPhotoIconStyle}
+                                   source={require('../images/ic_add_photo.png')}/>
                         </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
@@ -169,6 +171,7 @@ export default class CreateEvent extends ImmutableComponent {
             </View>
         )
     }
+
     //TODO ask Yulia about dialog!!
 
     openGallery() {
@@ -208,6 +211,25 @@ export default class CreateEvent extends ImmutableComponent {
         });
     };
 
+    onAddTrashPointsClick = () => {
+        this.props.navigator.push({
+            screen: ADD_TRASH_POINTS,
+            title: strings.label_add_location,
+            passProps: {
+                //todo: pass some location for search order
+                location: {
+                    latitude: 48.8152937,
+                    longitude: 2.4597668,
+                },
+                onTrashPointsSelected: this.onTrashPointsSelected.bind(this),
+            }
+        });
+    };
+
+    onTrashPointsSelected(trashPoints) {
+        console.log(trashPoints)
+    }
+
     onLocationSelected(location) {
         console.log(location)
     }
@@ -242,9 +264,9 @@ export default class CreateEvent extends ImmutableComponent {
         return isValid
     };
 
-    showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+    showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
 
-    hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+    hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
 
     handleDatePicked = (date) => {
         console.log('A date has been picked: ', date);

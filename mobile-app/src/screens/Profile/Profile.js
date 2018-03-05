@@ -23,7 +23,9 @@ class Profile extends Component {
   }
     
     componentDidMount() {
-        this.props.dispatch(userActions.fetchProfile())
+        this.props.dispatch(userActions.fetchProfile());
+
+        console.log('componentDidMount', this.props);
     }
 
   // renderProfilePicture = (profile) => {
@@ -43,7 +45,7 @@ class Profile extends Component {
     }
 
   render() {
-    const { profile, country } = this.props;
+    // const { profile, country } = this.props;
     
     return (
       <View style={styles.container}>
@@ -82,4 +84,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Profile)
+
+// const mapStateToProps = (state) => {
+//   return {
+//     profile: userSelectors.getProfile(state),
+//     country: userSelectors.getProfileCountry(state),
+//   };
+// };
+
+export default connect(mapStateToProps)(Profile);

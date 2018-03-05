@@ -1,4 +1,4 @@
-//import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 
 import types from './types';
 
@@ -55,7 +55,7 @@ export const profileReducer = (state, action = {}) => {
             return state.withMutations(state => state
                 .set('loading', true));
         case types.FETCH_PROFILE_SUCCESS:
-            console.log('Payload', action.payload);
+            console.log('Old---!!!Payload', action.payload);
             return state.withMutations(state => state
                 .set('entity', action.payload));
         case types.FETCH_PROFILE_ERROR:

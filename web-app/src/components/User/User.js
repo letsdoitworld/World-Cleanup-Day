@@ -14,7 +14,6 @@ class User extends Component {
 
   render() {
     const { authUser, onLogout } = this.props;
-    console.log('USR', authUser);
     return (
       <div className="User">
         <div className="User-top">

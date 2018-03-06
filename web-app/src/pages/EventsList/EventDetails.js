@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './EventDetails.css'
 import demo from '../../assets/demo.png'
-import { LocationIcon, MinimizeIcon, EventsIcon } from '../../components/common/Icons'
+import { LocationIcon, MinimizeIcon, EventsIcon, ShareIcon, ParticipantsIcon, ReportIcon } from '../../components/common/Icons'
 
 export class EventDetails extends Component {
 
@@ -18,16 +18,28 @@ export class EventDetails extends Component {
           </div>
           <div className="Event-divider"></div>
           <div className="EventDetails-timing EventDetails-infoblock">
-            <EventsIcon />
-            <p>27.07.2018 - 11.30 AM</p>
+            <div className="EventDetails-width-50">
+              <EventsIcon />
+              <span className="EventDetails-date">27.07.2018</span>
+            </div>
+            <div className="EventDetails-width-50">
+              <span className="EventDetails-period">11.30 AM - 3.00 PM</span>
+            </div>
           </div>
           <div className="Event-divider"></div>
           <div className="EventDetails-actions EventDetails-infoblock">
-            <button>Report event</button>
-            <button>Share</button>
+            <div className="EventDetails-width-50">
+              <ReportIcon />
+              <span className="EventDetails-report">Report event</span>
+            </div>
+            <div className="EventDetails-width-50">
+              <ShareIcon />
+              <span className="EventDetails-share">Share</span>
+            </div>
           </div>
           <div className="Event-divider"></div>
           <div className="EventDetails-people EventDetails-infoblock">
+            <ParticipantsIcon />
             max 20
           </div>
           <div className="Event-divider"></div>

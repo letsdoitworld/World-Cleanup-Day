@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
-
-import googleIcon from '../../assets/Google+@2x.png';
-import { actions as userActions } from '../../reducers/user';
-import { BACKEND_LOGIN_SOURCES } from '../../shared/constants';
+import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import { actions as userActions } from '../../reducers/user';
+import { actions as appActions } from '../../reducers/app';
+import { BACKEND_LOGIN_SOURCES } from '../../shared/constants';
+import { FbIcon, GoogleIcon, CloseIcon } from '../common/Icons'
+import demo from '../../assets/demo-login.png';
 import './Popover.css';
 
 class Popover extends Component {
@@ -57,47 +58,59 @@ class Popover extends Component {
   };
 
   render() {
-    const className = `Popover${this.state.isOpen ? ' is-open' : ''}`;
+    const { hidePopover } = this.props;
     return (
-      <div className={className} onClick={this.preventDefaultClick}>
-        <div className="Popover-triangle" />
-        <span className="Popover-title">Admin login</span>
-        <span className="Popover-subtitle">
-          You can only log in if you are a country manager or area leader
-        </span>
-        <div className="Popover-separator" />
-        <FacebookLogin
-          containerStyle={{ fontWeight: 'bold' }}
-          appId="340116156418708"
-          autoLoad={false}
-          fields="email"
-          callback={this.handleFacebookLoginSuccess}
-          cssClass="facebook-button-class"
-          textButton="Continue with Facebook"
-        />
-        <GoogleLogin
-          clientId="701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com"
-          onSuccess={this.handleGoogleLoginSuccess}
-          onFailure={this.handleGoogleLoginFailure}
-          style={{ background: 'white', padding: 0, width: '100%' }}
-        >
-          <div className="ImageButton">
-            <div className="ImageButton-img-container">
-              <img src={googleIcon} alt="some icon" />
+      <div className={`Popover-container${this.state.isOpen ? ' is-open' : ''}`} onClick={this.preventDefaultClick}>
+        <div className="Popover-cover"></div>
+        <div className='Popover'>
+          <div className="Popover-header">
+            <span className="Popover-title">Log in</span>
+            <button className="Popover-hide" onClick={()=> hidePopover()}><CloseIcon /></button>
+          </div>
+          <div className="Popover-img">
+            <img src={demo} />
+          </div>
+          <div className="Popover-body">
+            <div className="Popover-login-item-container Fb-login-container">
+              <div className="Fb-login-btn-head"></div>
+              <FacebookLogin
+                containerStyle={{ fontWeight: 'bold' }}
+                appId="340116156418708"
+                autoLoad={false}
+                fields="email"
+                callback={this.handleFacebookLoginSuccess}
+              >
+                <div className="Fb-login-btn Popover-login-item">
+                  <FbIcon />
+                  <span>Continue with Facebook</span>
+                </div>
+              </FacebookLogin>
             </div>
-            <div className="ImageButton-button">
-              <span className="ImageButton-title">Continue with Google</span>
+            <div className="Popover-login-item-container Google-login-container">
+              <div className="Google-login-btn-head"></div>
+              <GoogleLogin
+                clientId="701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com"
+                onSuccess={this.handleGoogleLoginSuccess}
+                onFailure={this.handleGoogleLoginFailure}
+                style={{ background: 'none', width: '100%' }}
+              >
+                <div className="Google-login-btn Popover-login-item">
+                  <GoogleIcon />
+                  <span>Continue with Google</span>
+                </div>
+              </GoogleLogin>
             </div>
           </div>
-        </GoogleLogin>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   authenticate: ({ network, token }) =>
     dispatch(userActions.authenticate({ network, token })),
+  hidePopover: ()=> dispatch(appActions.hideLoginPopover())
 });
 
-export default connect(undefined, mapStateToProps)(Popover);
+export default connect(undefined, mapDispatchToProps)(Popover);

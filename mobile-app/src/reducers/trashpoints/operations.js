@@ -19,7 +19,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                                 longitude: 49,
                                 lantitude: 35,
                             },
-                            title: "fdfdffd",
+                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
                             id: 1,

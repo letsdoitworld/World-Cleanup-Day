@@ -132,7 +132,7 @@ class AddTrashPoints extends ImmutableComponent {
         //     this.refreshing = false
         // }
 
-        console.log(nextProps.trashPoints.get('trashPoints').length);
+       // console.log(nextProps.trashPoints.get('trashPoints').length);
         this.setData(d => d.set('trashPoints', nextProps.trashPoints.get('trashPoints')));
     }
 
@@ -268,11 +268,13 @@ class AddTrashPoints extends ImmutableComponent {
             return (<View style={styles.listDivider}/>)
        // }
     };
-    //
-     keyExtractor = (item, index) => item.id;
+
+    keyExtractor = (item, index) => item.id.toString();
 
     renderItem = ({item}) => (
-        <ListItem/>
+        <ListItem
+            item={item}
+            id={item.id}/>
     );
 
     //

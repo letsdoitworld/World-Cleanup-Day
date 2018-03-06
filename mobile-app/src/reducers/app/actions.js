@@ -1,5 +1,6 @@
 import types from './types';
 
+
 const setPopoverShown = () => ({
   type: types.SET_POPOVER_SHOWN,
 });
@@ -38,6 +39,11 @@ const setActiveScreen = activeScreen => ({
 const setConnectionChecked = () => ({ type: types.SET_CONNECTION_CHECKED });
 
 const updateNetworkStatus = isConnected => ({ type: types.UPDATE_NETWORK_STATUS, payload: { isConnected } });
+
+export const controlProgress = (progress) => ({
+    type: types.PROGRESS_ACTION,
+    progress,
+});
 
 export default {
   setPopoverShown,

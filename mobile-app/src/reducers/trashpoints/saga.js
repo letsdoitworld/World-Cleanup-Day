@@ -1,6 +1,8 @@
 import {call, put, take} from "redux-saga/effects";
 import {SEARCH_TRASH_POINTS_ACTION} from './types';
-import appActions from "../app/actions";
+import {
+    controlProgress
+} from "../app/actions";
 import {
     searchTrashPointsAction,
     searchTrashPointsErrorAction,
@@ -29,16 +31,11 @@ function* searchTrashPoints(query, page, pageSize, location) {
 
 export function* searchTrashPointsFlow() {
     while (true) {
-
         const {query, page, pageSize, location} = yield take(SEARCH_TRASH_POINTS_ACTION);
         console.log("1");
+        yield put(controlProgress(true));
         yield call(searchTrashPoints, query, page, pageSize, location);
-
+        yield put(controlProgress(false));
         console.log("5");
-
-        // const {name, secondName, role} = yield take(types.CREATE_PROFILE_ACTION);
-        // yield put(rootActions.controlProgress(true));
-        // yield call(createProfile, name, secondName, role);
-        // yield put(rootActions.controlProgress(false));
     }
 }

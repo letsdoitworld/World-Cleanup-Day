@@ -28,11 +28,12 @@ import {
     popoverInitialState,
     errorInitialState,
     networkStatusState,
+    progressInitialState,
     popoverReducer,
     errorReducer,
     configReducer,
     networkReducer,
-
+    progressReducer
 } from '../reducers/app/reducers'
 
 import {
@@ -48,6 +49,7 @@ const combinedReducers = combineReducers({
     // config: configReducer,
     error: errorReducer,
     trashPoints: trashPointsReducer,
+    progress: progressReducer,
     //  popover: popoverReducer,
 
     // root: rootReducer,
@@ -68,7 +70,8 @@ export const initialState = new Immutable.Map({
     profile: Immutable.Map(profileInitialState),
     profileState: Immutable.Map(profileStatusInitialState),
     error: Immutable.Map(errorInitialState),
-    trashPoints: Immutable.Map(trashPointsInitialState)
+    trashPoints: Immutable.Map(trashPointsInitialState),
+    progress: Immutable.Map(progressInitialState)
 
     // root: Immutable.Map({
     //     progress: undefined,

@@ -184,7 +184,7 @@ class AddTrashPoints extends ImmutableComponent {
     };
 
     isProgressEnabled() {
-        return true;// this.props.root.get('progress');
+        return this.props.progress.get('progress');
     }
 
     //
@@ -323,7 +323,7 @@ function debounce(func, wait, immediate) {
 
 const mapStateToProps = (state) => ({
     trashPoints: state.get('trashPoints'),
-    //root: state.get('root'),
+    progress: state.get('progress'),
 });
 
 export default connect(mapStateToProps)(AddTrashPoints)

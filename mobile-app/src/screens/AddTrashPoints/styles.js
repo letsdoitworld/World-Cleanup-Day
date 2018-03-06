@@ -15,6 +15,12 @@ export default {
     searchContainerStyle: {
         backgroundColor: "rgb(228, 241, 253)"
     },
+    mainContentContainer: {
+        position: 'absolute',
+        top: 0,
+        width:'100%',
+        height: '100%'
+    },
     vertical: {
         flexDirection: 'column',
        // justifyContent: 'space-around',
@@ -41,5 +47,15 @@ export default {
         color: 'rgb(40, 38, 51)',
         fontSize: 15,
         lineHeight: 21,
-    }
+    },
+    listDivider: {
+        height: 1,
+        backgroundColor: 'rgb(229, 229, 233)',
+    },
+    paginationFooter: {
+        height: 86,
+    },
+    list: {
+        flex: 1,
+    },
 }

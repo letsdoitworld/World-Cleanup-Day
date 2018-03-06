@@ -10,6 +10,7 @@ import {
     Image,
     TouchableHighlight,
     ActivityIndicator,
+    FlatList
 } from 'react-native';
 import styles from './styles'
 import strings from '../../assets/strings'
@@ -21,6 +22,7 @@ const saveId = 'saveId';
 const PAGE_SIZE = 15;
 
 import {searchTrashPointsAction} from '../../reducers/trashpoints/actions'
+import ListItem from "./Item/ListItem";
 
 class AddTrashPoints extends ImmutableComponent {
 
@@ -44,7 +46,7 @@ class AddTrashPoints extends ImmutableComponent {
         super(props);
         this.state = {
             data: Immutable.Map({
-                isSearchEnabled: false,
+              //  isSearchEnabled: false,
                 trashPoints: [],
                 heightOfFlatList: undefined,
             })
@@ -55,7 +57,6 @@ class AddTrashPoints extends ImmutableComponent {
 
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
-
 
 
     componentDidMount() {
@@ -113,11 +114,8 @@ class AddTrashPoints extends ImmutableComponent {
 
         this.page++;
 
-        if (this.state.data.get('isSearchEnabled')) {
-         //   this.props.dispatch(schoolActions.searchSchools(this.query, this.page, PAGE_SIZE))
-        } else {
-          //  this.props.dispatch(schoolActions.getFollowedSchools(this.page, PAGE_SIZE));
-        }
+        this.props.dispatch(searchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location))
+
     };
 
     componentWillReceiveProps(nextProps) {
@@ -138,15 +136,30 @@ class AddTrashPoints extends ImmutableComponent {
         this.setData(d => d.set('trashPoints', nextProps.trashPoints.get('trashPoints')));
     }
 
+    getTrashPointsFromState() {
+        return this.state.data.get('trashPoints');
+    }
+
     //noinspection JSMethodCanBeStatic
     render() {
 
-       /// const schools = this.props.school.get('schools');
+        /// const schools = this.props.school.get('schools');
 
         return (
             <View style={[styles.containerContent]}>
-                <View style={[{position: 'absolute', top: 0, backgroundColor: 'red', width:'100%',height: '100%'}, styles.containerContent, styles.vertical]}>
+                <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
                     {this.renderSearchBox()}
+                    <FlatList
+                        // onLayout={this.onLayout.bind(this)}
+                        // ListEmptyComponent={this.renderEmptyState.bind(this)}
+                        ListFooterComponent={this.renderFooter.bind(this)}
+                        ListHeaderComponent={this.renderHeader.bind(this)}
+                        style={styles.list}
+                        ItemSeparatorComponent={this.renderSeparator.bind(this)}
+                        data={this.getTrashPointsFromState()}
+                        keyExtractor={this.keyExtractor.bind(this)}
+                        renderItem={this.renderItem.bind(this)}
+                        onEndReached={this.handleLoadMore.bind(this)}/>
                 </View>
                 <View style={[styles.containerProgress, styles.horizontal]}>
                     {this.renderProgress()}
@@ -154,70 +167,26 @@ class AddTrashPoints extends ImmutableComponent {
 
             </View>
         );
-            {/*<Container*/}
-                {/*style={searchAndAddSchoolStyle.containerStyle}*/}
-                {/*pointerEvents={this.isProgressEnabled() && this.page === 0 ? 'none' : 'auto'}>*/}
-                {/*<Toast ref="toast"/>*/}
-                {/*<View style={searchAndAddSchoolStyle.contentStyle}>*/}
-                    {/*{this.renderSearchBox()}*/}
-                    {/*<FlatList*/}
-                        {/*onLayout={this.onLayout.bind(this)}*/}
-                        {/*ListEmptyComponent={this.renderEmptyState.bind(this)}*/}
-                        {/*ListFooterComponent={this.renderFooter.bind(this)}*/}
-                        {/*ListHeaderComponent={this.renderHeader.bind(this)}*/}
-                        {/*style={searchAndAddSchoolStyle.flatListStyle}*/}
-                        {/*ItemSeparatorComponent={this.renderSeparator.bind(this)}*/}
-                        {/*data={schools}*/}
-                        {/*keyExtractor={this.keyExtractor.bind(this)}*/}
-                        {/*renderItem={this.renderItem.bind(this)}*/}
-                        {/*onEndReached={this.handleLoadMore.bind(this)}/>*/}
-                {/*</View>*/}
-                {/*{this.renderProgress()}*/}
-            {/*</Container>*/}
-        //);
     }
 
     renderSearchBox() {
-
-
         return (
             <View style={[styles.horizontal, styles.searchContainerStyle]}>
-
                 <TextInput
                     placeholderTextColor={'rgb(41, 127, 202)'}
                     style={styles.searchField}
                     ref="input"
+                    onChangeText={this.onQueryChange.bind(this)}
                     placeholder={strings.label_text_select_country_hint}
-                    underlineColorAndroid={'transparent'}
-
-                />
-
-             </View>
+                    underlineColorAndroid={'transparent'}/>
+            </View>
         );
-
-    //     return (
-    //         {/*<View style={searchAndAddSchoolStyle.searchContainerStyle}>*/}
-    //     {/*<Image*/}
-    //     {/*resizeMode={'center'}*/}
-    //     {/*source={require('../images/ic_search/ic_search.png')}*/}
-    //     {/*style={searchAndAddSchoolStyle.searchIconStyle}/>*/}
-    //     <TextInput
-    //         ref="input"
-    //         // onFocus={this.onSearchFieldFocused.bind(this)}
-    //         // selectionColor={colors.darkTextColor}
-    //         underlineColorAndroid={'transparent'}
-    //         // style={searchAndAddSchoolStyle.searchBarStyle}
-    //         // onChangeText={this.onQueryChange.bind(this)}
-    //         // placeholder={strings.search_school_hint}
-    //     />
-    //     // {this.renderCloseSearchIcon()}
-    //     // </View>
-    // );
     };
 
     isProgressEnabled() {
         return true;// this.props.root.get('progress');
     }
+
     //
     // renderCloseSearchIcon = () => {
     //     if (this.state.data.get('isSearchEnabled')) {
@@ -269,57 +238,54 @@ class AddTrashPoints extends ImmutableComponent {
     //     }
     // };
 
-    // renderSeparator = () => {
-    //     return (
-    //         <View style={separatorStyle}/>
-    //     )
-    // };
+
+    renderSeparator = () => {
+        return (
+            <View style={styles.listDivider}/>
+        )
+    };
     //
-    // renderFooter = () => {
-    //     if (this.isEmptyState()) {
-    //         return null
-    //     } else if (this.isProgressEnabled() && this.page > 0) {
-    //         return (
-    //             <View
-    //                 style={paginationFooter}>
-    //                 {this.spinner()}
-    //             </View>
-    //         )
-    //     } else {
-    //         return (<View style={footerStyle}/>)
-    //     }
-    // };
+    renderFooter = () => {
+       // if (this.isEmptyState()) {
+       //     return null
+       // } else
+            if (this.isProgressEnabled() && this.page > 0) {
+            return (
+                <View
+                    style={styles.paginationFooter}>
+                    {this.spinner()}
+                </View>
+            )
+        } else {
+            return (<View style={styles.listDivider}/>)
+        }
+    };
+
+    renderHeader = () => {
+        // if (this.isEmptyState()) {
+        //     return null
+        // } else {
+            return (<View style={styles.listDivider}/>)
+       // }
+    };
     //
-    // renderHeader = () => {
-    //     if (this.isEmptyState()) {
-    //         return null
-    //     } else {
-    //         return (<View style={headerStyle}/>)
-    //     }
-    // };
-    //
-    // keyExtractor = (item, index) => item.id;
-    //
-    // renderItem = ({item}) => (
-    //     <SchoolListItem
-    //         onCheckedChanged={(isChecked) => this.props.dispatch(schoolActions.setSubscriptionSchool(isChecked, item.id))}
-    //         id={item.id}
-    //         image={item.image}
-    //         title={item.title}
-    //         isFollowed={item.isFollowed}
-    //     />
-    // );
+     keyExtractor = (item, index) => item.id;
+
+    renderItem = ({item}) => (
+        <ListItem/>
+    );
+
     //
     // componentWillUnmount() {
     //     this.props.dispatch(schoolActions.clearSchools())
     // }
     //
-    // onQueryChange = debounce(function (text) {
-    //     this.query = text;
-    //     this.page = 0;
-    //     this.props.dispatch(schoolActions.searchSchools(text, this.page, PAGE_SIZE))
-    // }, 1000);
-    //
+    onQueryChange = debounce(function (text) {
+        this.query = text;
+        this.page = 0;
+        this.props.dispatch(searchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location))
+    }, 1000);
+
     renderProgress() {
         if (this.isProgressEnabled() && this.page === 0) {
             return this.spinner()
@@ -330,11 +296,11 @@ class AddTrashPoints extends ImmutableComponent {
 
     spinner() {
         return (
-            <ActivityIndicator size="large" color="rgb(0, 143, 223)" />
-                // color={colors.accentColor}
-                // animating={true}
-                // size={'large'}
-                // style={commonStyles.progressStyle}/>
+            <ActivityIndicator size="large" color="rgb(0, 143, 223)"/>
+            // color={colors.accentColor}
+            // animating={true}
+            // size={'large'}
+            // style={commonStyles.progressStyle}/>
         )
     }
 

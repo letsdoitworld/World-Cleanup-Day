@@ -58,8 +58,10 @@ export async function updateProfileStatus(profileStatus) {
 }
 
 export async function getProfile() {
+    console.log('getProfile API')
     try {
         const response = await Api.get('/me');
+        console.log('Responce', response);
         return response.data;
     } catch (ex) {
         throw ex;

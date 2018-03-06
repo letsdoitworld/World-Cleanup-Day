@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import styles from './styles';
 
-export const Divider = ({customStyles = {}, hasTopLine = true, hasBottomLine = true}) => {
+const Divider = ({customStyles = {}, hasTopLine = true, hasBottomLine = true}) => {
   return (
     <View>
       {hasTopLine && <View style={[styles.container1, customStyles]} />}
@@ -12,4 +12,5 @@ export const Divider = ({customStyles = {}, hasTopLine = true, hasBottomLine = t
   );
 };
 
+export { Divider };
 

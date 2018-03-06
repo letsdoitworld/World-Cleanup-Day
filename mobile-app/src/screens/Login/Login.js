@@ -151,14 +151,14 @@ export class Login extends Component {
 
     render() {
 
-        const {error} = this.props.error;
-        if (error !== undefined) {
-            const payload = error.get('payload');
-            if (payload !== undefined) {
-                console.log(payload);
-                console.log("payload");
-            }
-        }
+        // const {error} = this.props.error;
+        // if (error !== undefined) {
+        //     const payload = error.get('payload');
+        //     if (payload !== undefined) {
+        //         console.log(payload);
+        //         console.log("payload");
+        //     }
+        // }
 
         const {t, isProfileLoading} = this.props;
         const {loading} = this.state;
@@ -221,7 +221,7 @@ export class Login extends Component {
 const mapStateToProps = (state) => ({
     auth: state.get('auth'),
     profile: state.get('profile'),
-    error: state.get('error')
+    // error: state.get('error')
 });
 
 export default connect(mapStateToProps)(Login)

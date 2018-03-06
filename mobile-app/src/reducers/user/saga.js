@@ -67,8 +67,10 @@ export function* loginFacebookFlow() {
 }
 
 function* loadProfile() {
+    console.log('In loadProfile');
     try {
         const response = yield call(getProfile);
+        console.log('loadProfile - response', response);
         yield put(actions.fetchProfileDone(response))
     } catch (error) {
         console.log(error);
@@ -78,8 +80,8 @@ function* loadProfile() {
 
 export function* loadProfileFlow() {
     while (true) {
-        yield  take(types.FETCH_PROFILE);
-        yield call(loadProfile)
+        yield take(types.FETCH_PROFILE);
+        yield call(loadProfile);
     }
 }
 

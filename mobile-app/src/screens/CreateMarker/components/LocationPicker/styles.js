@@ -34,7 +34,7 @@ export default EStyleSheet.create({
     marginLeft: getWidthPercentage(10),
     marginRight: getWidthPercentage(35),
     color: '#7F7F7F',
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: 13,
   },
   editLocationContainer: {
@@ -48,7 +48,7 @@ export default EStyleSheet.create({
     textDecorationLine: 'underline',
   },
   streetContainer: {
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: 30,
     color: '#404040',
     paddingHorizontal: getWidthPercentage(15),

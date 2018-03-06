@@ -9,7 +9,9 @@
     "import/prefer-default-export": ["off"],
     "react/no-array-index-key": ["warn"],
     "react/jsx-wrap-multilines" : ["off"],
-    "max-len": ["error", 80]
+    "react/require-default-props": ["off"],
+    "class-methods-use-this": ["off"],
+    "max-len": ["error", 90]
   },
   "settings": {
     "import/core-modules": ["src/services"]

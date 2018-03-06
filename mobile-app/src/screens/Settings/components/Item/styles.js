@@ -8,7 +8,7 @@ export default EStyleSheet.create({
     paddingTop: getHeightPercentage(20),
   },
   title: {
-    fontFamily: '$font',
+    // fontFamily: '$font',
     fontSize: '$fontDefaultSize',
     color: '$textColor',
   },

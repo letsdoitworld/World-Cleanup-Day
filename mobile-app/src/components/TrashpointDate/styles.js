@@ -17,14 +17,14 @@ export default EStyleSheet.create({
         marginLeft: getWidthPercentage(3),
     },
     createdText: {
-        fontFamily: '$font',
+        // fontFamily: '$font',
         fontSize: '$fontDefaultSize',
         color: '$textColor',
         paddingLeft: getWidthPercentage(7),
         width: getWidthPercentage(60)
     },
     updatedText: {
-        fontFamily: '$font',
+        // fontFamily: '$font',
         fontSize: '$fontDefaultSize',
         color: '$textColor',
         paddingLeft: getWidthPercentage(6),
@@ -32,7 +32,7 @@ export default EStyleSheet.create({
     },
     dateText: {
         color: '$textColor',
-        fontFamily: '$font',
+        // fontFamily: '$font',
         fontSize: '$fontDefaultSize',
     },
 });

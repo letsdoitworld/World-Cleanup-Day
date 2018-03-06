@@ -14,7 +14,7 @@ export default EStyleSheet.create({
   },
   emptyStateScreenText: {
     fontSize: 15,
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     color: '#B3B3B3',
     marginBottom: getHeightPercentage(10),
   },

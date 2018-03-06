@@ -7,11 +7,15 @@ export default EStyleSheet.create({
   infoContainer: {
     paddingHorizontal: getWidthPercentage(20),
     paddingVertical: getHeightPercentage(20),
+    justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '$white',
+    backgroundColor: '$yellow',
   },
-  pictureContainer: {},
+  avatarContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   nameContainer: {
     paddingLeft: getWidthPercentage(20),
   },
@@ -21,25 +25,33 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(5),
   },
   countryText: {
-    fontFamily: '$font',
+    // fontFamily: '$font',
     fontSize: '$fontDefaultSize',
     color: '#7F7F7F',
     marginLeft: getWidthPercentage(5),
   },
-  username: {
-    fontFamily: '$boldFont',
-    fontSize: 20,
-    color: '$textColor',
-    paddingRight: 20,
-    width: getWidthPercentage(165),
+  userNameContainer: {
+    alignItems: 'center',
   },
-  usernameImage: {
-    width: getWidthPercentage(80),
-    height: getWidthPercentage(80),
-    borderRadius: getWidthPercentage(40),
+  userNameText: {
+    fontSize: 15,
+    paddingVertical: 8,
   },
   logoutContainer: {
     marginTop: getHeightPercentage(20),
     alignItems: 'center',
   },
+  locationText: {
+    fontSize: 15,
+    paddingHorizontal: 4,
+  },
+  additionalInfoContainer: {
+    flexDirection: 'row',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+  },
+  additionalInfoText: {
+    fontSize: 15,
+    paddingHorizontal: 12,
+  }
 });

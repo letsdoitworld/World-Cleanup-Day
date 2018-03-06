@@ -15,14 +15,14 @@ export default EStyleSheet.create({
     width: getWidthPercentage(240),
   },
   emptyStateTitle: {
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: 20,
     color: '$textColor',
     textAlign: 'center',
   },
   emptyStateDescription: {
     marginTop: getHeightPercentage(10),
-    fontFamily: '$font',
+    // fontFamily: '$font',
     fontSize: '$fontDefaultSize',
     color: '$textColor',
     textAlign: 'center',

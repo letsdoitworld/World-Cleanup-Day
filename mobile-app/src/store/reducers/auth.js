@@ -5,15 +5,8 @@ import {
   SET_AUTH_TOKEN,
   SET_AUTH_ERROR,
   REMOVE_AUTH_TOKEN,
-  // GOOGLE_LOGIN_ACTION,
-  // FB_LOGIN_ACTION
 } from '../actions/auth';
 
-// export const initialState = {
-//   token: null,
-//   tokenError: null,
-//   termsAgreed: false,
-// };
 
 export const initialState = Immutable.Map(
   {

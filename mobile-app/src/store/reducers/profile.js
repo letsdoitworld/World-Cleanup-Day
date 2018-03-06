@@ -12,13 +12,6 @@ import {
   UPDATE_PROFILE_ERROR,
 } from '../actions/profile';
 
-// export const initialState = {
-//   entity: null,
-//   loading: false,
-//   updating: false,
-//   updatingError: null,
-//   error: null,
-// };
 
 export const initialState = Immutable.Map(
   {

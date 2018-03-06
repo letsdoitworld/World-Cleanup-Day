@@ -106,6 +106,8 @@ paths:
       responses:
           "200":
             description: New event has been created
+            schema:
+              "type": "object"
           "default":
             $ref: "#/responses/ErrorSet"
 
@@ -635,12 +637,16 @@ parameters:
         name:
           $ref: "#/definitions/EventName"
         address:
+          description: Text field, representing the address of the event
           $ref: "#/definitions/EventAddress"
         location:
+          description: Event location.
           $ref: "#/definitions/GeoPoint"
         description:
+          description: Description of the event.
           $ref: "#/definitions/EventDescription"
         whatToBring:
+          description: Text field which says what to bring on the event.
           $ref: "#/definitions/EventWhatToBring"
         createDate:
           description: When the event was created.

@@ -97,6 +97,15 @@ class Event extends Type {
             id: true,
             datasetId: true,
             name: true,
+            address: true,
+            location: true,
+            description: true,
+            whatToBring: true,
+            createDate: true,
+            updateDate: true,
+            startTime: true,
+            endTime: true,
+            email: true
         });
     }
 }

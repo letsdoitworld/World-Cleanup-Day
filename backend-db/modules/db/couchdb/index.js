@@ -43,12 +43,9 @@ const layer = {
     //========================================================
     // Events
     //========================================================
-    createEvent: async (datasetId, who, create) => {
-        create.datasetId = datasetId;
-
+    createEvent: async (event) => {
         const id = util.uuid.random();
-        await adapter.createDocument('Event', id, create);
-
+        await adapter.createDocument('Event', id, event);
         return await layer.getEvent(id);
     },
 

@@ -5,7 +5,7 @@ module.exports = {
   createEvent: senecaRequestMw(
     'role:db,cmd:createEvent',
     req => ({
-      event: req.swagger.params.event
+      event: req.swagger.params.event.value
     })
   )
 }

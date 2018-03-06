@@ -97,6 +97,7 @@ paths:
   #-----------------------------------------------------------------------------
   /event:
     x-swagger-router-controller: events
+    x-security: [bearer]
     put:
       description: Create new event, needed to organize people to clean garbage.
       operationId: createEvent

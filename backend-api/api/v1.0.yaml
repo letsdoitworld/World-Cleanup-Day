@@ -100,6 +100,8 @@ paths:
     put:
       description: Create new event, needed to organize people to clean garbage.
       operationId: createEvent
+      parameters:
+        - $ref: "#/parameters/CreateEvent"
       responses:
           "200":
             description: New event has been created
@@ -625,7 +627,7 @@ parameters:
     required: true
     schema:
       type: object
-      required: [datasetId, location, name, address]
+      required: [datasetId, location, name, address, description, whatToBring]
       properties:
         datasetId:
           $ref: "#/definitions/UUID"
@@ -635,6 +637,25 @@ parameters:
           $ref: "#/definitions/EventAddress"
         location:
           $ref: "#/definitions/GeoPoint"
+        description:
+          $ref: "#/definitions/EventDescription"
+        whatToBring:
+          $ref: "#/definitions/EventWhatToBring"
+        createDate:
+          description: When the event was created.
+          $ref: "#/definitions/ISOTimestamp"
+        updateDate:
+          description: When the event was modified.
+          $ref: "#/definitions/ISOTimestamp"
+        startTime:
+          description: When event is planned to start.
+          $ref: "#/definitions/ISOTimestamp"
+        endTime:
+          description: When event is planned to start.
+          $ref: "#/definitions/ISOTimestamp"
+        email:
+          description: Email address of contact permission
+          type: string
 
   #-----------------------------------------------------------------------------
   MapQuery:
@@ -1001,6 +1022,14 @@ definitions:
     minLength: 1
     maxLength: 100
   EventAddress:
+    type: string
+    minLength: 1
+    maxLength: 100
+  EventDescription:
+    type: string
+    minLength: 1
+    maxLength: 250
+  EventWhatToBring:
     type: string
     minLength: 1
     maxLength: 250

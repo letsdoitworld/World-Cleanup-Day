@@ -97,7 +97,7 @@ paths:
   #-----------------------------------------------------------------------------
   /event:
     x-swagger-router-controller: events
-    post:
+    put:
       description: Create new event, needed to organize people to clean garbage.
       operationId: createEvent
       responses:
@@ -625,12 +625,17 @@ parameters:
     required: true
     schema:
       type: object
-      required: [datasetId, name]
+      required: [datasetId, location, name, address]
       properties:
         datasetId:
           $ref: "#/definitions/UUID"
         name:
           $ref: "#/definitions/EventName"
+        address:
+          $ref: "#/definitions/EventAddress"
+        location:
+          $ref: "#/definitions/GeoPoint"
+
   #-----------------------------------------------------------------------------
   MapQuery:
     name: query
@@ -994,7 +999,11 @@ definitions:
   EventName:
     type: string
     minLength: 1
-    maxLength: 100  
+    maxLength: 100
+  EventAddress:
+    type: string
+    minLength: 1
+    maxLength: 250
   #-----------------------------------------------------------------------------
   # Dataset characteristics.
   #-----------------------------------------------------------------------------

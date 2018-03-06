@@ -28,7 +28,7 @@ import { Button } from '../../components/Buttons';
 import { LocationPicker } from '../CreateMarker/components/LocationPicker';
 import { StatusPicker } from '../CreateMarker/components/StatusPicker';
 import { PhotoPicker } from '../../components/PhotoPicker';
-import { Divider } from '../../components/Divider';
+import { Divider } from '../../components';
 import { getWidthPercentage, getHeightPercentage, handleSentryError } from '../../shared/helpers';
 import { Tags } from '../../components/Tags';
 import { AmountPicker, AMOUNT_STATUSES } from '../../components/AmountPicker';
@@ -375,7 +375,7 @@ class EditTrashpoint extends Component {
       titleStyle: {
         color: 'white',
         fontSize: 15,
-        fontFamily: 'noto-sans-bold',
+        // fontFamily: 'noto-sans-bold',
       },
     });
   };
@@ -479,7 +479,7 @@ class EditTrashpoint extends Component {
           </View>
           <Divider />
           <View style={{ padding: getWidthPercentage(20) }}>
-            <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
+            <Text style={{ fontSize: 16 }}>
               {this.props.t('label_text_createTP_select_amount')}
             </Text>
             <View style={{ flexDirection: 'column', alignItems: 'center', }}>
@@ -515,7 +515,7 @@ class EditTrashpoint extends Component {
                 <Text
                   style={{
                     color: '#3E8EDE',
-                    fontFamily: 'noto-sans-bold',
+                    // fontFamily: 'noto-sans-bold',
                     fontSize: 13,
                   }}
                 >

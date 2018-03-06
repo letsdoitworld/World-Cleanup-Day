@@ -23,13 +23,13 @@ const styles = EStyleSheet.create({
   title: {
     fontSize: 16,
     marginBottom: getHeightPercentage(10),
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     textAlign: 'center',
     marginHorizontal: '$widthSize20',
   },
   description: {
     fontSize: 13,
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     textAlign: 'center',
     marginHorizontal: '$widthSize20',
   },

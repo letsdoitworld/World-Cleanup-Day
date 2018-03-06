@@ -29,7 +29,7 @@ export default EStyleSheet.create({
   },
   text: {
     color: '#3E8EDE',
-    fontFamily: '$font',
+    // fontFamily: '$font',
     fontSize: 13,
   },
   textSelected: {

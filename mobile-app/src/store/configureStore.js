@@ -1,7 +1,3 @@
-/**
- * Created by saionara1 on 6/21/17.
- */
-
 import {autoRehydrate, persistStore} from "redux-persist-immutable";
 import {combineReducers} from "redux-immutable";
 import createActionBuffer from "redux-action-buffer";
@@ -11,7 +7,14 @@ import {applyMiddleware, compose, createStore} from "redux";
 import {AsyncStorage} from "react-native";
 import createSagaMiddleware from "redux-saga";
 
-import * as userSaga from "../reducers/user/saga";
+import reducers from './reducers';
+
+import {
+    loginGoogleFlow,
+    loginFacebookFlow,
+    updateProfileStatusFlow,
+    loadProfileFlow,
+} from './sagas';
 
 import {
     authReducer,
@@ -19,48 +22,44 @@ import {
     profileReducer,
     profileInitialState,
     profileStatusReducer,
-    profileStatusInitialState
-} from '../reducers/user/reducers'
-
+    profileStatusInitialState,
+} from '../reducers/user/reducers';
 
 import {
-    popoverInitialState,
     errorInitialState,
-    networkStatusState,
-    popoverReducer,
-    errorReducer,
-    configReducer,
-    networkReducer,
+} from '../reducers/app/reducers';
 
-} from '../reducers/app/reducers'
+import { initialProfileState } from './reducers/profile';
+import { initialAuthState } from './reducers/auth';
 
-const combinedReducers = combineReducers({
-    auth: authReducer,
-    profile: profileReducer,
-    profileState: profileStatusReducer,
-    //network: networkReducer,
-    // config: configReducer,
-    error: errorReducer,
-    //  popover: popoverReducer,
 
-    // root: rootReducer,
-    // login: loginReducer,
-    // list: listReducer,
-    // profile: profileReducer,
-    // school: schoolReducer,
-    // categoryFeed: categoryFeedReducer,
-    // editGroups: editGroupsReducer,
-    // dashboard: dashboardReducer,
-    // notifications: notificationsReducer,
-    // events: eventsReducer,
-    // schoolCategories: schoolCategoriesReducer
-});
+// const combinedReducers = combineReducers({
+//     auth: authReducer,
+//     profile: profileReducer,
+//     profileState: profileStatusReducer,
+//     //network: networkReducer,
+//     // config: configReducer,
+//     error: errorReducer,
+//     //  popover: popoverReducer,
+
+//     // root: rootReducer,
+//     // login: loginReducer,
+//     // list: listReducer,
+//     // profile: profileReducer,
+//     // school: schoolReducer,
+//     // categoryFeed: categoryFeedReducer,
+//     // editGroups: editGroupsReducer,
+//     // dashboard: dashboardReducer,
+//     // notifications: notificationsReducer,
+//     // events: eventsReducer,
+//     // schoolCategories: schoolCategoriesReducer
+// });
 
 export const initialState = new Immutable.Map({
-    auth: Immutable.Map(authInitialState),
-    profile: Immutable.Map(profileInitialState),
-    profileState: Immutable.Map(profileStatusInitialState),
-    error: Immutable.Map(errorInitialState)
+  auth: initialAuthState,
+  profile: initialProfileState,
+    // profileState: Immutable.Map(profileStatusInitialState),
+//   error: Immutable.Map(errorInitialState),
 
     // root: Immutable.Map({
     //     progress: undefined,
@@ -124,9 +123,9 @@ export default function configureStore() {
     const sagaMiddleware = createSagaMiddleware();
 
     const store = createStore(
-        combinedReducers,
-        initialState,
-        compose(applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)), autoRehydrate({log: true})));
+        reducers,
+        // initialState,
+        compose(applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)), autoRehydrate({ log: true })));
 
 
     persistStore(
@@ -139,10 +138,10 @@ export default function configureStore() {
     return {
         ...store,
         runSaga: [
-            sagaMiddleware.run(userSaga.loginGoogleFlow),
-            sagaMiddleware.run(userSaga.loginFacebookFlow),
-            sagaMiddleware.run(userSaga.updateProfileStatusFlow),
-            sagaMiddleware.run(userSaga.loadProfileFlow)
+            sagaMiddleware.run(loginGoogleFlow),
+            sagaMiddleware.run(loginFacebookFlow),
+            sagaMiddleware.run(updateProfileStatusFlow),
+            sagaMiddleware.run(loadProfileFlow),
             // sagaMiddleware.run(listSaga.listFlow),
             // sagaMiddleware.run(listSaga.sellersListFlow),
             // sagaMiddleware.run(listSaga.itemsListFlow),

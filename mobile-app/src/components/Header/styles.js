@@ -33,14 +33,14 @@ export default EStyleSheet.create({
     justifyContent: 'flex-end',
   },
   titleText: {
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: '$fontDefaultSize',
     color: '$textColor',
   },
   buttonTextStyle: {
     textDecorationLine: 'none',
     fontSize: '$fontDefaultSize',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     color: '#3E8EDE'
   },
 });

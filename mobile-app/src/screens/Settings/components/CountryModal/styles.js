@@ -23,7 +23,7 @@ export default EStyleSheet.create({
     },
     itemText: {
         fontSize: 16,
-        fontFamily: '$font',
+        // fontFamily: '$font',
         margin: 10,
         // textAlign: 'center',
     },

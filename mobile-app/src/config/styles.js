@@ -9,6 +9,7 @@ const colors = {
     $grey: '#eeeeee',
     $blue: '#3683d9',
     $red: '#FC515E',
+    $yellow: 'rgb(255, 216, 0)',
     $iconColor: ICON_COLOR,
     $white: WHITE_COLOR,
     $textColor: 'rgb(40, 38, 51)',
@@ -34,8 +35,8 @@ const dimensions = {
 };
 
 const textVariables = {
-    $font: 'noto-sans-regular',
-    $boldFont: 'noto-sans-bold',
+  // $font: 'noto-sans-regular',
+  // $boldFont: 'noto-sans-bold',
 };
 
 EStyleSheet.build({

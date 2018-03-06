@@ -11,6 +11,6 @@ export default EStyleSheet.create({
     color: '$blue',
     fontSize: 13,
     textDecorationLine: 'underline',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
   },
 });

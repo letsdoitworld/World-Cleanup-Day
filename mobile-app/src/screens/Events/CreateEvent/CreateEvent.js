@@ -9,10 +9,11 @@ import MainButton from '../../../components/Buttons/MainButton'
 import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
-import {ADD_LOCATION} from "../../index";
+import {ADD_COORDINATOR, ADD_LOCATION, CREATE_EVENT} from "../../index";
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+import DatePicker from 'react-native-datepicker';
+import Moment from 'moment';
 
 
 export default class CreateEvent extends ImmutableComponent {
@@ -43,17 +44,65 @@ export default class CreateEvent extends ImmutableComponent {
                 isEndDateValid: false,
                 isDateTimePickerVisible: false,
                 imageUrl: '',
+                startDate: this.calculateMinDate(),
+                endDate: this.calculateMinDate(),
             })
         }
+    }
+
+    calculateMinDate() {
+         const date = new Date();
+        return Moment(date).format("DD-MM-YYYY");
+    };
+
+    renderStartPicker() {
+        const minDate = this.calculateMinDate();
+        const startDate = this.state.data.get('startDate');
+        return <DatePicker
+            style={{width: 200, flex: 2, }}
+            date={startDate}
+            mode="datetime"
+            format="DD-MM-YYYY HH:mm"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            minDate={minDate}
+            maxDate="01-01-2060"
+            showIcon={false}
+            customStyles={{dateInput: {borderWidth: 0}}}
+            onDateChange={(date) => {
+                this.validateStartTime(date);
+                this.setData(d => d.set('startDate', date))
+            }}/>
+    }
+
+    renderEndPicker() {
+        const minDate = this.calculateMinDate();
+        const endDate = this.state.data.get('endDate');
+        return <DatePicker
+            style={{width: 200, flex: 2}}
+            date={endDate}
+            mode="datetime"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            minDate={minDate}
+            maxDate="01-01-2060"
+            showIcon={false}
+            customStyles={{dateInput: {borderWidth: 0}}}
+            onDateChange={(date) => {
+                this.validateEndTime(date);
+                this.setData(d => d.set('endDate', date))
+            }}/>
     }
 
     render() {
         const isTitleValid = this.state.data.get('isTitleValid');
         const isDescriptionValid = this.state.data.get('isDescriptionValid');
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
+        const isStartDateValid = this.state.data.get('isStartDateValid');
+        const isEndDateValid = this.state.data.get('isEndDateValid');
         const imagePath = this.state.data.get('imageUrl');
 
-        const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid;
+        const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
 
         return (
             <View>
@@ -80,29 +129,19 @@ export default class CreateEvent extends ImmutableComponent {
                         <View style={styles.dateAndTimeContainerStyle}>
                             <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_start}</Text>
-                                <TouchableOpacity style={{
-                                    flex: 1,
-                                    alignSelf: 'center'
-                                }}
-                                onPress={this.showDateTimePicker}>
-                                    <Text style={styles.dateTextStyle}>{strings.label_date}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{
-                                    flex: 1,
-                                    alignSelf: 'center'
-                                }}>
-                                    <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                                </TouchableOpacity>
+                                {this.renderStartPicker()}
+
+                                {/*<TouchableOpacity style={{*/}
+                                    {/*flex: 1,*/}
+                                    {/*alignSelf: 'center'*/}
+                                {/*}}>*/}
+                                    {/*<Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>*/}
+                                {/*</TouchableOpacity>*/}
                             </View>
                             <View style={styles.dividerStyle}/>
                             <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_end}</Text>
-                                <TouchableOpacity style={{
-                                    flex: 2,
-                                    alignSelf: 'center'
-                                }}>
-                                <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                                </TouchableOpacity>
+                                {this.renderEndPicker()}
                             </View>
                         </View>
                     </View>
@@ -152,10 +191,10 @@ export default class CreateEvent extends ImmutableComponent {
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image style = {styles.photoIconStyle} source={{uri: imagePath}}/>
+                        <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
                         <TouchableOpacity onPress={() => this.showChoosedDialog()}>
-                        <Image style={styles.addPhotoIconStyle}
-                               source={require('../images/ic_add_photo.png')}/>
+                            <Image style={styles.addPhotoIconStyle}
+                                   source={require('../images/ic_add_photo.png')}/>
                         </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
@@ -164,8 +203,9 @@ export default class CreateEvent extends ImmutableComponent {
                         disabled={!isValid}
                         text={strings.label_next}
                         style={styles.nextButtonStyle}
-                        onPress={() => console.log("Press")}/>
+                        onPress={this.onNextClick.bind(this)}/>
                 </ScrollView>
+
             </View>
         )
     }
@@ -179,7 +219,7 @@ export default class CreateEvent extends ImmutableComponent {
                 {text: 'Take photo', onPress: () => this.openCamera()},
                 {text: 'From Gallery', onPress: () => this.openGallery()},
             ],
-            { cancelable: true }
+            {cancelable: true}
         )
     };
 
@@ -252,13 +292,19 @@ export default class CreateEvent extends ImmutableComponent {
         return isValid
     };
 
-    showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-
-    hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-    handleDatePicked = (date) => {
-        console.log('A date has been picked: ', date);
-        this.hideDateTimePicker();
+    validateStartTime = (startDate: String) => {
+        new Date(startDate);
+        this.setData(d => d.set('isStartDateValid', true))
     };
 
+    validateEndTime = (endTime: String) => {
+        this.setData(d => d.set('isEndDateValid', true))
+    };
+
+    onNextClick = () => {
+        this.props.navigator.push({
+            screen: ADD_COORDINATOR,
+            title: "2 of 3"
+        });
+    }
 }

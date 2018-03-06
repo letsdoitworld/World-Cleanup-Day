@@ -11,6 +11,11 @@ import MainButton from '../../../components/Buttons/MainButton'
 
 export default class AddCoordinator extends ImmutableComponent {
 
+    static navigatorStyle = {
+        tabBarHidden: true,
+        navBarTitleTextCentered: true,
+    };
+
     render() {
         return(<View>
             <View style={styles.titleStyle}>
@@ -51,7 +56,6 @@ export default class AddCoordinator extends ImmutableComponent {
                             onChangeText={() => console.log("Change")}/>
             </View>
             <MainButton
-                disabled={!isValid}
                 text={strings.label_next}
                 style={styles.nextButtonStyle}
                 onPress={() => console.log("Press")}/>

@@ -139,6 +139,8 @@ module.exports = new LocalizedStrings({
         label_about_world_cleanup_day: "About World Cleanup Day",
         label_events: 'Events',
         label_create_events_step_one: 'Step 1 of 3',
+        label_create_events_step_two: 'Step 2 of 3',
+        label_create_events_step_three: 'Step 3 of 3',
         label_title: "Title",
         label_title_hint: "Type here to translate!",
         label_date_and_time: "Date and time",
@@ -161,7 +163,11 @@ module.exports = new LocalizedStrings({
         label_coordinator_hint: "Enter coordinator name",
         label_organization: "Organization",
         label_organization_hint: "Enter organization",
-        label_contact_details: "Contact details"
+        label_contact_details: "Contact details",
+        label_phone_number: "Phone number",
+        label_email: "Email",
+        label_max_number_of_attendees: "Max number of attendees",
+        label_enter_digits_hint: "Enter digits",
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

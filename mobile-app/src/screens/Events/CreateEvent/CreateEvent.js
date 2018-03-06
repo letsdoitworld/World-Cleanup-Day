@@ -40,8 +40,8 @@ export default class CreateEvent extends ImmutableComponent {
                 isTitleValid: false,
                 isDescriptionValid: false,
                 isWhatToBringValid: false,
-                isStartDateValid: false,
-                isEndDateValid: false,
+                isStartDateValid: true,
+                isEndDateValid: true,
                 isDateTimePickerVisible: false,
                 imageUrl: '',
                 startDate: this.calculateMinDate(),
@@ -52,14 +52,14 @@ export default class CreateEvent extends ImmutableComponent {
 
     calculateMinDate() {
          const date = new Date();
-        return Moment(date).format("DD-MM-YYYY");
+        return Moment(date).format("DD-MM-YYYY HH:mm");
     };
 
     renderStartPicker() {
-        const minDate = this.calculateMinDate();
         const startDate = this.state.data.get('startDate');
+        const minDate = this.calculateMinDate();
         return <DatePicker
-            style={{width: 200, flex: 2, }}
+            style={styles.datePickerContainer}
             date={startDate}
             mode="datetime"
             format="DD-MM-YYYY HH:mm"
@@ -70,27 +70,34 @@ export default class CreateEvent extends ImmutableComponent {
             showIcon={false}
             customStyles={{dateInput: {borderWidth: 0}}}
             onDateChange={(date) => {
-                this.validateStartTime(date);
-                this.setData(d => d.set('startDate', date))
+                const endDate = this.state.data.get('endDate');
+                this.validateEndTime();
+                this.setData(d => d.set('startDate', date));
+                const changedEndDate = date.split(" ")[0] + " " + endDate.split(" ")[1];
+                this.setData(d => d.set('endDate', changedEndDate))
             }}/>
     }
 
     renderEndPicker() {
-        const minDate = this.calculateMinDate();
         const endDate = this.state.data.get('endDate');
+        const minDate = this.calculateMinDate();
         return <DatePicker
-            style={{width: 200, flex: 2}}
+            style={styles.datePickerContainer}
+            mode="time"
             date={endDate}
-            mode="datetime"
+            format="DD-MM-YYYY HH:mm"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
+            showIcon={false}
             minDate={minDate}
             maxDate="01-01-2060"
-            showIcon={false}
             customStyles={{dateInput: {borderWidth: 0}}}
             onDateChange={(date) => {
                 this.validateEndTime(date);
-                this.setData(d => d.set('endDate', date))
+                console.warn("Date ", date);
+                const startDate = this.state.data.get('startDate');
+                const endDate = startDate.split(" ")[0] + " " + date;
+                this.setData(d => d.set('endDate', endDate))
             }}/>
     }
 
@@ -102,7 +109,9 @@ export default class CreateEvent extends ImmutableComponent {
         const isEndDateValid = this.state.data.get('isEndDateValid');
         const imagePath = this.state.data.get('imageUrl');
 
-        const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
+        //const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
+        const isValid = isTitleValid;
+        //const isValid = isStartDateValid && isEndDateValid;
 
         return (
             <View>
@@ -130,13 +139,6 @@ export default class CreateEvent extends ImmutableComponent {
                             <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_start}</Text>
                                 {this.renderStartPicker()}
-
-                                {/*<TouchableOpacity style={{*/}
-                                    {/*flex: 1,*/}
-                                    {/*alignSelf: 'center'*/}
-                                {/*}}>*/}
-                                    {/*<Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>*/}
-                                {/*</TouchableOpacity>*/}
                             </View>
                             <View style={styles.dividerStyle}/>
                             <View style={styles.dateAndTimeRowStyle}>
@@ -281,30 +283,45 @@ export default class CreateEvent extends ImmutableComponent {
     };
 
     validateDescription = (text: String): boolean => {
-        let isValid = constants.TITLE_REGEX.test(text);
+        let isValid = constants.DESCRIPTION_REGEX.test(text);
         this.setData(d => d.set('isDescriptionValid', isValid));
         return isValid
     };
 
     validateWhatToBring = (text: String): boolean => {
-        let isValid = constants.TITLE_REGEX.test(text);
+        let isValid = constants.DESCRIPTION_REGEX.test(text);
         this.setData(d => d.set('isWhatToBringValid', isValid));
         return isValid
     };
 
-    validateStartTime = (startDate: String) => {
-        new Date(startDate);
-        this.setData(d => d.set('isStartDateValid', true))
-    };
-
     validateEndTime = (endTime: String) => {
-        this.setData(d => d.set('isEndDateValid', true))
+        const endDateTime = Moment(endTime, "HH:mm").toDate();
+        const startDateFormat = this.state.data.get('startDate');
+        const startDate = Moment(startDateFormat, "DD-MM-YYYY HH:mm").toDate();
+        let endDateAndTime = Moment(startDateFormat, "DD-MM-YYYY HH:mm").toDate();
+        endDateAndTime.setHours(endDateTime.getHours(), endDateAndTime.getMinutes());
+        let isValid = startDate < endDateAndTime;
+        this.setData(d => d.set('isEndDateValid', isValid))
     };
 
     onNextClick = () => {
         this.props.navigator.push({
             screen: ADD_COORDINATOR,
-            title: "2 of 3"
+            title: strings.label_create_events_step_two,
+            passProps: {
+                event: {
+                    name: this.title,
+                    startDate: this.state.data.get('startDate'),
+                    endDate: this.state.data.get('endDate'),
+                    // location: {
+                    //     latitude: 48.8152937,
+                    //     longitude: 2.4597668,
+                    // }
+                    description: this.description,
+                    whatToBring: this.whatToBring,
+                    imageUrl: this.state.data.get('imageUrl'),
+                },
+            }
         });
     }
 }

@@ -135,6 +135,7 @@ const layer = {
             pictureURL,
         }, {
             locked: false,
+            private: false,
             createdAt: util.time.getNowUTC(),
             createdBy: id,
         });

@@ -68,6 +68,18 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /me/privacy:
+    x-swagger-router-controller: users
+    put:
+      description: Toggle private/public user account.
+      operationId: modifyUserProfilePrivacy
+      x-security: [bearer, ignore-terms-lock]
+      responses:
+        "200":
+          description: The terms were marked accepted on this account.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /auth/external:
     x-swagger-router-controller: users
     post:
@@ -742,6 +754,8 @@ definitions:
       termsAcceptedAt:
         $ref: "#/definitions/ISOTimestamp"
       locked:
+        type: boolean
+      private:
         type: boolean
   AccountPlusAreas:
     allOf:

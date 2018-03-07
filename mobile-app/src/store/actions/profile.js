@@ -5,7 +5,7 @@ export const fetchProfile = () => ({
 
 export const FETCH_PROFILE_SUCCESS = 'profile/FETCH_PROFILE_SUCCESS';
 export const fetchProfileDone = profile => {
-  console.log('fetchProfileDone Action', profile)
+  console.log('fetchProfileDone Action', profile);
   return {
   type: FETCH_PROFILE_SUCCESS,
   payload: profile,

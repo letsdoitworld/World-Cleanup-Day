@@ -10,7 +10,7 @@ import InputField from '../../../components/InputFields/InputField';
 import MainButton from '../../../components/Buttons/MainButton';
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
-import {ADD_COORDINATOR} from "../../index";
+import {ADD_COORDINATOR, ADD_PEOPLE_TO_EVENT} from "../../index";
 
 export default class AddCoordinator extends ImmutableComponent {
 
@@ -31,7 +31,7 @@ export default class AddCoordinator extends ImmutableComponent {
                 isPhoneNumberValid: false,
                 isEmailValid: false,
             })
-        }
+        };
     }
 
     render() {
@@ -117,11 +117,11 @@ export default class AddCoordinator extends ImmutableComponent {
 
     onNextClick = () => {
         this.props.navigator.push({
-            screen: ADD_COORDINATOR,
-            title: strings.label_create_events_step_two,
+            screen: ADD_PEOPLE_TO_EVENT,
+            title: strings.label_create_events_step_three,
             passProps: {
                 event: {
-                    name: this.props.event.title,
+                    name: this.props.event.name,
                     startDate: this.props.event.startDate,
                     endDate: this.props.event.endDate,
                     // location: {

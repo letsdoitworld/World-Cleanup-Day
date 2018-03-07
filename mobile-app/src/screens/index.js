@@ -10,7 +10,7 @@ import EventsScreen from './Events/Events'
 import AddLocationScreen from './AddLocation/AddLocation'
 import CreateEventScreen from './Events/CreateEvent/CreateEvent'
 import AddCoordinatorScreen from './Events/CreateEvent/AddCoordinator'
-import AddPeopleToEventScreen from './Events/CreateEvent/AddPeopleToEvent'
+import AddPeopleToEventScreen from './Events/CreateEvent'
 
 import HomeScreen from './Home'
 

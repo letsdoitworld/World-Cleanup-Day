@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 import {
-    View, TouchableOpacity, Text, ScrollView,
-    TextInput, Image, TouchableHighlight
+    View, Text,
 } from 'react-native';
 import styles from "./styles";
 import strings from "../../../assets/strings";
 import InputField from '../../../components/InputFields/InputField';
 import MainButton from '../../../components/Buttons/MainButton';
 import * as Immutable from "immutable/dist/immutable";
-import constants from "../../../shared/constants";
-import {ADD_COORDINATOR} from "../../index";
+import PropTypes from 'prop-types';
 
-export default class AddPeopleToEvent extends ImmutableComponent {
+class AddPeopleToEvent extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
@@ -20,6 +18,7 @@ export default class AddPeopleToEvent extends ImmutableComponent {
     };
 
     numberAttendees: string;
+    event: Object;
 
     constructor(props) {
         super(props);
@@ -27,7 +26,8 @@ export default class AddPeopleToEvent extends ImmutableComponent {
             data: Immutable.Map({
                 isNumberAttendeesValid: false
             })
-        }
+        };
+        this.event = props.event
     }
 
     render() {
@@ -66,8 +66,16 @@ export default class AddPeopleToEvent extends ImmutableComponent {
     };
 
     onCreateEventClick = () => {
-        
+        const { requestCreateEvent } = this.props;
+        this.event['numberAttendees'] = this.numberAttendees;
+        requestCreateEvent(this.event)
     }
 
-
 }
+
+AddPeopleToEvent.propTypes = {
+    event: PropTypes.object,
+    requestCreateEvent: PropTypes.func
+};
+
+export default AddPeopleToEvent

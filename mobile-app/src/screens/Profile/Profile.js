@@ -21,11 +21,12 @@ class Profile extends Component {
     this.props.navigator.setOnNavigatorEvent(
       this.onNavigatorEvent.bind(this),
     );
+      console.warn('Profile',props.onFetchProfile)
   }
 
   componentDidMount() {
     const { onFetchProfile } = this.props;
-    
+
     onFetchProfile();
     this.handleGetCurrentPosition();
     console.log('componentDidMount', this.props);
@@ -54,7 +55,7 @@ class Profile extends Component {
       error => console.log('Error', error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-  }
+  };
 
   handleRenderLocation() {
     return (

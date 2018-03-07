@@ -14,6 +14,7 @@ import {
     loginFacebookFlow,
     updateProfileStatusFlow,
     loadProfileFlow,
+    createEventFlow,
 } from './sagas';
 
 import {
@@ -29,8 +30,9 @@ import {
     errorInitialState,
 } from '../reducers/app/reducers';
 
-import { initialProfileState } from './reducers/profile';
-import { initialAuthState } from './reducers/auth';
+import {initialProfileState} from './reducers/profile';
+import {initialAuthState} from './reducers/auth';
+import {initialCreateProfileState} from './reducers/create-event-reducer';
 
 
 // const combinedReducers = combineReducers({
@@ -56,8 +58,9 @@ import { initialAuthState } from './reducers/auth';
 // });
 
 export const initialState = new Immutable.Map({
-  auth: initialAuthState,
-  profile: initialProfileState,
+    auth: initialAuthState,
+    profile: initialProfileState,
+    createEvent: initialCreateProfileState,
     // profileState: Immutable.Map(profileStatusInitialState),
 //   error: Immutable.Map(errorInitialState),
 
@@ -125,7 +128,7 @@ export default function configureStore() {
     const store = createStore(
         reducers,
         // initialState,
-        compose(applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)), autoRehydrate({ log: true })));
+        compose(applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)), autoRehydrate({log: true})));
 
 
     persistStore(
@@ -142,6 +145,7 @@ export default function configureStore() {
             sagaMiddleware.run(loginFacebookFlow),
             sagaMiddleware.run(updateProfileStatusFlow),
             sagaMiddleware.run(loadProfileFlow),
+            sagaMiddleware.run(createEventFlow),
             // sagaMiddleware.run(listSaga.listFlow),
             // sagaMiddleware.run(listSaga.sellersListFlow),
             // sagaMiddleware.run(listSaga.itemsListFlow),

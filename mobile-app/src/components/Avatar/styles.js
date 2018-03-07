@@ -1,8 +1,8 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { StyleSheet } from 'react-native';
 
 import { getWidthPercentage } from '../../shared/helpers';
 
-export default EStyleSheet.create({
+export default StyleSheet.create({
   avatar: {
     width: getWidthPercentage(80),
     height: getWidthPercentage(80),

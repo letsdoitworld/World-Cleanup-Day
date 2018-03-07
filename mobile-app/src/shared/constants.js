@@ -20,10 +20,11 @@ export const SCREEN_HEIGHT = window.height;
 export const DIAGONALE_IN_PX = Math.sqrt(Math.pow(SCREEN_WIDTH, 2) + Math.pow(SCREEN_HEIGHT, 2));
 
 const original = PixelRatio.getPixelSizeForLayoutSize(Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2)));
-export const MARKER_DIAGONALE_IN_PX =  2*original;
+export const MARKER_DIAGONALE_IN_PX =  2 * original;
 export const PLATFORM_NAME = Platform.OS;
 export const ICON_COLOR = '#a1a1a1';
 export const WHITE_COLOR = '#fff';
+export const BLACK_COLOR = 'rgb(40, 38, 51)';
 export const SIZE_16 = 16;
 export const SIZE_20 = 20;
 export const SIZE_18 = 18;

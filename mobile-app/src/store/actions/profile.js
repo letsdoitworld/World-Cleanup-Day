@@ -3,13 +3,17 @@ export const fetchProfile = () => ({
   type: FETCH_PROFILE,
 });
 
+export const UPDATE_PROFILE_EMAIL = 'profile/UPDATE_PROFILE_EMAIL';
+export const updateEmailProfile = email => ({
+  type: UPDATE_PROFILE_EMAIL,
+  payload: email,
+});
+
 export const FETCH_PROFILE_SUCCESS = 'profile/FETCH_PROFILE_SUCCESS';
-export const fetchProfileDone = profile => {
-  console.log('fetchProfileDone Action', profile)
-  return {
+export const fetchProfileDone = profile => ({
   type: FETCH_PROFILE_SUCCESS,
   payload: profile,
-}};
+});
 
 export const FETCH_PROFILE_ERROR = 'profile/FETCH_PROFILE_ERROR';
 export const fetchProfileError = error => ({

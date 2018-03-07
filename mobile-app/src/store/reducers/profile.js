@@ -10,6 +10,7 @@ import {
   UPDATE_PROFILE,
   UPDATE_PROFILE_DONE,
   UPDATE_PROFILE_ERROR,
+  UPDATE_PROFILE_EMAIL,
 } from '../actions/profile';
 
 
@@ -20,28 +21,38 @@ export const initialState = Immutable.Map(
     updating: false,
     updatingError: null,
     error: null,
+    fbEmail: null,
   },
 );
 
-
 const handlers = {
   [TERMS_AGREE]: (state) => {
-    return state.withMutations(
-      state.set('entity', {
+    return state.withMutations(mState =>
+      mState.set('entity', {
         ...state.entity,
         termsAcceptedAt: true,
       }),
     );
   },
+  [UPDATE_PROFILE_EMAIL]: (state, { payload }) => {
+    return state.withMutations(mState =>
+      mState.set('entity', {
+        ...state.get('entity'),
+        email: payload,
+      }),
+    );
+  },
   [FETCH_PROFILE]: (state) => {
-    console.log('FETCH_PROFILE', state);
     return state.withMutations(mState =>
       mState.set('loading', true));
   },
   [FETCH_PROFILE_SUCCESS]: (state, { payload }) => {
-    console.log('FETCH_PROFILE_SUCCESS', payload);
     return state.withMutations(mState =>
-      mState.set('entity', payload));
+     mState.set('entity', {
+       ...state.get('entity'),
+       ...payload,
+     }),
+    );
   },
   [FETCH_PROFILE_ERROR]: (state, { payload }) => {
     return state.withMutations(mState =>

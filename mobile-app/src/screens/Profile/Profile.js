@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
+
+import toString from 'lodash/toString';
 
 import { SETTINGS_SCREEN } from '../index';
 import strings from '../../config/strings';
 import { Icons } from '../../assets/images';
-import { Avatar, Icon, Divider } from '../../components';
+import { Avatar, Icon, Divider, Tabs, Event, Trashpoint } from '../../components';
 
 import styles from './styles';
 
 import { navigatorStyle, navigatorButtons } from './config';
+
+import { EVENTS, TRASHPOINTS } from './data';
 
 class Profile extends Component {
 
@@ -25,14 +29,9 @@ class Profile extends Component {
 
   componentDidMount() {
     const { onFetchProfile } = this.props;
-    
+
     onFetchProfile();
     this.handleGetCurrentPosition();
-    console.log('componentDidMount', this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps);
   }
 
   onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
@@ -67,24 +66,106 @@ class Profile extends Component {
 
   handleRenderPhoneNumber() {
     return (
-      <View style={styles.additionalInfoContainer}>
-        <Icon path={Icons.Phone} />
-        <Text style={styles.additionalInfoText}>+3809500000000</Text>
+      <View>
+        <View style={styles.additionalInfoContainer}>
+          <Icon path={Icons.Phone} />
+          <Text style={styles.additionalInfoText}>+3809500000000</Text>
+        </View>
+        <Divider />
       </View>
     );
   }
 
   handleRenderEmail() {
+    const { profile } = this.props;
+
+    if (profile && profile.email) {
+      return (
+        <View>
+          <View style={styles.additionalInfoContainer}>
+            <Icon path={Icons.Email} />
+            <Text style={styles.additionalInfoText}>{profile.email}</Text>
+          </View>
+          <Divider />
+        </View>
+      );
+    }
+  }
+
+  handleEventPress = () => {
+    console.log('Event Press');
+  }
+
+  handleTrashpointPress = () => {
+    console.log('handleTrashpointPress');
+  }
+
+  handleRenderEvents(event) {
     return (
-      <View style={styles.additionalInfoContainer}>
-        <Icon path={Icons.Email} />
-        <Text style={styles.additionalInfoText}>yonder@gmail.com</Text>
-      </View>
+      <Event
+        img={event.photo}
+        title={event.description}
+        coordinator={event.coordinator}
+        location={event.location}
+        date={event.createDate}
+        maxParticipants={event.maxPeople}
+        participants={event.people}
+        onPress={this.handleEventPress}
+      />
     );
   }
 
+  handleRenderTrashpoint(trashpoint) {
+    return (
+      <Trashpoint
+        type={trashpoint.type}
+        location={trashpoint.location}
+        onPress={this.handleTrashpointPress}
+      />
+    );
+  }
+
+  handleKeyExtractor = event => toString(event.id);
+
+  onRenderEvents = () => {
+    return (
+      <FlatList
+        style={styles.tabContent}
+        data={EVENTS}
+        renderItem={({ item }) => this.handleRenderEvents(item)}
+        keyExtractor={this.handleKeyExtractor}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => console.log('List end reached')}
+      />
+    );
+  }
+  
+  onRenderTrashPoints = () => {
+    return (
+      <FlatList
+        style={styles.tabContent}
+        data={TRASHPOINTS}
+        renderItem={({ item }) => this.handleRenderTrashpoint(item)}
+        keyExtractor={this.handleKeyExtractor}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => console.log('List end reached')}
+      />
+    );
+  }
+
+
   render() {
     const { profile } = this.props;
+
+    const scenes = {
+      [strings.label_events]: this.onRenderEvents,
+      [strings.label_trashpoints]: this.onRenderTrashPoints,
+    };
+
+    const routes = [
+      { key: strings.label_events, title: strings.label_events },
+      { key: strings.label_trashpoints, title: strings.label_trashpoints },
+    ];
 
     return (
       <View style={styles.container}>
@@ -99,9 +180,11 @@ class Profile extends Component {
         </View>
         <Divider />
         {this.handleRenderPhoneNumber()}
-        <Divider />
         {this.handleRenderEmail()}
-        <Divider />
+        <Tabs
+          scenes={scenes}
+          routes={routes}
+        />
       </View>
     );
   }
@@ -109,6 +192,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   profile: PropTypes.object,
+  navigator: PropTypes.object,
   onFetchProfile: PropTypes.func,
 };
 

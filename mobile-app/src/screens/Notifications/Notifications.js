@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import strings from '../../assets/strings';
 
 import {EmptyStateScreen} from '../../components/EmptyStateScreen/EmptyStateScreen';
 import styles from './styles';
+
+import { logout } from '../../api';
 
 export default class Notifications extends Component {
 
@@ -18,7 +21,13 @@ export default class Notifications extends Component {
 
     render() {
         if (isUndefinedOtNullOrEmpty(this.props.notifications)) {
-            return <EmptyStateScreen description={strings.label_text_notific_empty_text}/>
+            return (
+                <View>
+                    <EmptyStateScreen description={strings.label_text_notific_empty_text}/>
+                    <TouchableOpacity onPress={() => logout()}>
+                        <Text>Logout!</Text>
+                    </TouchableOpacity>
+                </View>)
         } else {
             return null
         }
@@ -28,6 +37,8 @@ export default class Notifications extends Component {
 function isUndefinedOtNullOrEmpty(array) {
     return array === undefined || array === null || array.length === 0
 }
+
+// export default connect(null, {  })(Notifications)
 
 //
 // const mapStateToProps = () => ({

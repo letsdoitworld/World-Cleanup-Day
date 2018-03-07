@@ -1,6 +1,6 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { StyleSheet } from 'react-native';
 
-export default EStyleSheet.create({
+export default StyleSheet.create({
   container1: {
     height: 1,
     backgroundColor: '#F6F6F6',

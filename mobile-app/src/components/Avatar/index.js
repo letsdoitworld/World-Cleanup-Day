@@ -2,16 +2,18 @@ import React from 'react';
 import { Image } from 'react-native';
 import PropTypes from 'prop-types';
 
+import { Icons } from '../../assets/images';
+
 import styles from './styles';
 
 const Avatar = ({
     path,
 }) => {
-  const img = path ? { uri: path } : 'https://facebook.github.io/react-native/docs/assets/favicon.png';
+  const img = path ? path : Icons.PlaceHolderAvatar;
 
   return (
     <Image
-      source={img}
+      source={{ uri: img }}
       style={styles.avatar}
     />
   );

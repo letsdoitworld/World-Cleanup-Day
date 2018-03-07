@@ -10,4 +10,16 @@ module.exports = {
   Location: require('./icon_location.png'),
   Phone: require('./icPhoneNumber.png'),
   Email: require('./icEmail.png'),
+  GroupPeople: require('./icGroupBlack.png'),
+
+  CleanedTrashpoint: require('./icCleanedTrashpoint.png'),
+  OutdatedToxicTrashpoint: require('./icOutdatedToxicTrashpoint.png'),
+  OutdatedTrashpoint: require('./icOutdatedTrashpoint.png'),
+  RegularTrashpoint: require('./icRegularTrashpoint.png'),
+  RegularTrashpointInactive: require('./icRegularTrashpointInactive.png'),
+  ToxicTrashpoint: require('./icToxicTrashpoint.png'),
+  ToxicTrashpointInactive: require('./icToxicTrashpointInactive.png'),
+
+  PlaceHolderPhoto: require('./placeholderPhoto.png'),
+  PlaceHolderAvatar: require('./placeholderProfilePic.png'),
 };

@@ -20,8 +20,6 @@ import {Provider} from "react-redux";
 
 import { Icons } from './src/assets/images';
 
-import './src/config/styles';
-
 const store = configureStore();
 
 registerScreens(store, Provider);

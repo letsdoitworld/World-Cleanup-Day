@@ -17,13 +17,10 @@ import {
 } from '../../api';
 
 function* loadProfile() {
-  console.log('In loadProfile');
   try {
     const response = yield call(getProfile);
-    console.log('NewloadProfile - response', response);
     yield put(fetchProfileDone(response));
   } catch (error) {
-    console.log(error);
     setErrorMessage(String(error));
   }
 }
@@ -32,7 +29,6 @@ function* updateStatus(profileStatus) {
   try {
     const status = yield call(updateProfileStatus, profileStatus);
   } catch (error) {
-    console.warn(error);
     setErrorMessage(error);
   }
 }

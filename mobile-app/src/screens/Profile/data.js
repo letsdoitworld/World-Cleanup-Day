@@ -1,0 +1,113 @@
+import { Icons } from '../../assets/images';
+
+export const EVENTS = [
+  {
+    id: 0,
+    datasetId: 0,
+    description: 'Time to clean our city! Bring friends!',
+    createDate: '2018-06-09 09Z',
+    photo: Icons.PlaceHolderPhoto,
+    maxPeople: 40,
+    people: 10,
+    coordinator: 'AIESEC Ukraine',
+    location: 'Kharkiv, Ukraine',
+  },
+  {
+    id: 1,
+    datasetId: 1,
+    description: 'Time to clean our city! Bring friends!',
+    createDate: '2018-06-09 09Z',
+    photo: Icons.PlaceHolderPhoto,
+    maxPeople: 40,
+    people: 10,
+    coordinator: 'AIESEC Ukraine',
+    location: 'Kharkiv, Ukraine',
+  },
+  {
+    id: 2,
+    datasetId: 2,
+    description: 'Time to clean our city! Bring friends!',
+    createDate: '2018-06-09 09Z',
+    photo: Icons.PlaceHolderPhoto,
+    maxPeople: 40,
+    people: 10,
+    coordinator: 'AIESEC Ukraine',
+    location: 'Kharkiv, Ukraine',
+  },
+  {
+    id: 3,
+    datasetId: 3,
+    description: 'Time to clean our city! Bring friends!',
+    createDate: '2018-06-09 09Z',
+    photo: Icons.PlaceHolderPhoto,
+    maxPeople: 40,
+    people: 10,
+    coordinator: 'AIESEC Ukraine',
+    location: 'Kharkiv, Ukraine',
+  },
+  {
+    id: 4,
+    datasetId: 4,
+    description: 'Time to clean our city! Bring friends!',
+    createDate: '2018-06-09 09Z',
+    photo: Icons.PlaceHolderPhoto,
+    maxPeople: 40,
+    people: 10,
+    coordinator: 'AIESEC Ukraine',
+    location: 'Kharkiv, Ukraine',
+  },
+  {
+    id: 5,
+    datasetId: 5,
+    description: 'Time to clean our city! Bring friends!',
+    createDate: '2018-06-09 09Z',
+    photo: Icons.PlaceHolderPhoto,
+    maxPeople: 40,
+    people: 10,
+    coordinator: 'AIESEC Ukraine',
+    location: 'Kharkiv, Ukraine',
+  },
+];
+
+export const TRASHPOINTS = [
+  {
+    id: 0,
+    type: 'toxic',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road,  Sukhumvit Road,  Sukhumvit Road',
+  },
+  // {
+  //   id: 1,
+  //   type: 'regular',
+  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  // },
+  // {
+  //   id: 2,
+  //   type: 'toxic',
+  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  // },
+  // {
+  //   id: 3,
+  //   type: 'regular',
+  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  // },
+  // {
+  //   id: 4,
+  //   type: 'toxic',
+  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  // },
+  // {
+  //   id: 5,
+  //   type: 'regular',
+  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  // },
+  // {
+  //   id: 6,
+  //   type: 'regular',
+  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  // },
+  // {
+  //   id: 7,
+  //   type: 'toxic',
+  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  // },
+];

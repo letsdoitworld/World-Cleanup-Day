@@ -1,5 +1,13 @@
 # Contributing to World Cleanup Day App and Platform
 
+- [Contributing to World Cleanup Day App and Platform](#contributing-to-world-cleanup-day-app-and-platform)
+  * [Code of Conduct](#code-of-conduct)
+  * [How can you contribute?](#how-you-can-contribute)
+  * [Issue Contributions](#issue-contributions)
+  * [Code Contributions](#code-contributions)
+  * [Additional Notes](#additional-notes)
+  * [Developer's Certificate of Origin 1.1](#developers-certificate-of-origin-11)
+
 ## Code of Conduct
 
 * We are committed to providing a friendly, safe and welcoming environment for all, regardless of level of experience, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, nationality, or other similar characteristic.
@@ -13,7 +21,7 @@
 * Likewise any spamming, trolling, flaming, baiting or other attention-stealing behavior is not welcome.
 * Avoid the use of personal pronouns in code comments or documentation. There is no need to address persons when explaining code (e.g. "When the developer").
 
-## How you can contribute? 
+## How you can contribute?
 Do you like to design?
 
 * Create art for social media banners to promote the project

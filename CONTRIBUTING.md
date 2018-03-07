@@ -1,12 +1,13 @@
 # Contributing to World Cleanup Day App and Platform
 
-- [Contributing to World Cleanup Day App and Platform](#contributing-to-world-cleanup-day-app-and-platform)
-  * [Code of Conduct](#code-of-conduct)
-  * [How can you contribute?](#how-you-can-contribute)
-  * [Issue Contributions](#issue-contributions)
-  * [Code Contributions](#code-contributions)
-  * [Additional Notes](#additional-notes)
-  * [Developer's Certificate of Origin 1.1](#developers-certificate-of-origin-11)
+Not sure how to start? Read on for the general process or [jump right in](GETTING_STARTED.md).
+
+- [Code of Conduct](#code-of-conduct)
+- [How can you contribute?](#how-you-can-contribute)
+- [Issue Contributions](#issue-contributions)
+- [Code Contributions](#code-contributions)
+- [Additional Notes](#additional-notes)
+- [Developer's Certificate of Origin 1.1](#developers-certificate-of-origin-11)
 
 ## Code of Conduct
 

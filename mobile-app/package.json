@@ -16,6 +16,8 @@
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "15.5.4",
     "react-test-renderer": "16.0.0-alpha.6",
+    "reactotron-react-native": "^1.14.0",
+    "reactotron-redux": "^1.13.0",
     "sinon": "^2.3.5"
   },
   "scripts": {

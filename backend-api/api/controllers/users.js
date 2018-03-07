@@ -24,12 +24,6 @@ module.exports = {
             filterFields: true,
         })
     ),
-    modifyUserProfilePrivacy: senecaRequestMw(
-        'role:db,cmd:modifyOwnProfilePrivacy',
-        req => ({
-            update: req.swagger.params.update.value,
-        }),
-    ),
     acceptTerms: senecaRequestMw(
         'role:db,cmd:acceptTerms',
         () => ({}),

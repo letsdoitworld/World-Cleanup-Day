@@ -75,39 +75,39 @@ export const TRASHPOINTS = [
     type: 'toxic',
     location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road,  Sukhumvit Road,  Sukhumvit Road',
   },
-  // {
-  //   id: 1,
-  //   type: 'regular',
-  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
-  // },
-  // {
-  //   id: 2,
-  //   type: 'toxic',
-  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
-  // },
-  // {
-  //   id: 3,
-  //   type: 'regular',
-  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
-  // },
-  // {
-  //   id: 4,
-  //   type: 'toxic',
-  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
-  // },
-  // {
-  //   id: 5,
-  //   type: 'regular',
-  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
-  // },
-  // {
-  //   id: 6,
-  //   type: 'regular',
-  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
-  // },
-  // {
-  //   id: 7,
-  //   type: 'toxic',
-  //   location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
-  // },
+  {
+    id: 1,
+    type: 'regular',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  },
+  {
+    id: 2,
+    type: 'toxic',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  },
+  {
+    id: 3,
+    type: 'regular',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  },
+  {
+    id: 4,
+    type: 'toxic',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  },
+  {
+    id: 5,
+    type: 'regular',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  },
+  {
+    id: 6,
+    type: 'regular',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  },
+  {
+    id: 7,
+    type: 'toxic',
+    location: '6 Sukhumvit Road, Bangkok, 6 Sukhumvit Road',
+  },
 ];

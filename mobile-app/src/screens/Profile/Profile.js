@@ -79,7 +79,7 @@ class Profile extends Component {
   handleRenderEmail() {
     const { profile } = this.props;
 
-    if (profile.email) {
+    if (profile && profile.email) {
       return (
         <View>
           <View style={styles.additionalInfoContainer}>
@@ -134,6 +134,8 @@ class Profile extends Component {
         data={EVENTS}
         renderItem={({ item }) => this.handleRenderEvents(item)}
         keyExtractor={this.handleKeyExtractor}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => console.log('List end reached')}
       />
     );
   }
@@ -145,6 +147,8 @@ class Profile extends Component {
         data={TRASHPOINTS}
         renderItem={({ item }) => this.handleRenderTrashpoint(item)}
         keyExtractor={this.handleKeyExtractor}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => console.log('List end reached')}
       />
     );
   }

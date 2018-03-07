@@ -23,7 +23,6 @@ export default {
     },
     vertical: {
         flexDirection: 'column',
-       // justifyContent: 'space-around',
     },
     navigatorStyle: {
         tabBarHidden: true,
@@ -58,4 +57,10 @@ export default {
     list: {
         flex: 1,
     },
+    spinner: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 }

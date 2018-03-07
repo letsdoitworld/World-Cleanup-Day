@@ -190,10 +190,7 @@ class AddTrashPoints extends ImmutableComponent {
                         renderItem={this.renderItem.bind(this)}
                         onEndReached={this.handleLoadMore.bind(this)}/>
                 </View>
-                <View style={[styles.containerProgress, styles.horizontal]}>
-                    {this.renderProgress()}
-                </View>
-
+                {this.renderProgress()}
             </View>
         );
     }
@@ -329,7 +326,7 @@ class AddTrashPoints extends ImmutableComponent {
 
     spinner() {
         return (
-            <ActivityIndicator size="large" color="rgb(0, 143, 223)"/>
+            <ActivityIndicator style={styles.spinner} size="large" color="rgb(0, 143, 223)"/>
         );
     }
 

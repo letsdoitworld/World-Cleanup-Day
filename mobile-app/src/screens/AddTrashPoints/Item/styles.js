@@ -27,6 +27,13 @@ export default {
         lineHeight: 14,
         flex: 1,
     },
+    titleBlack: {
+        fontFamily: "Lato-Regular",
+        color: 'rgb(40, 38, 51)',
+        fontSize: 15,
+        lineHeight: 14,
+        flex: 1,
+    },
     checkbox: {
         width: 49,
         height: 29,

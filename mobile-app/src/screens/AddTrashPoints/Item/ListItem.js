@@ -11,6 +11,11 @@ import Checkbox from '../../../components/Checkbox/Checkbox'
 
 export default class ListItem extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {checked: props.checked};
+    }
+
     onPress = () => {
         // this.props.navigator.push({
         //     screen: consts.DISCOVER_SCREEN,
@@ -23,7 +28,9 @@ export default class ListItem extends Component {
     render() {
 
         const item = this.props.item;
-        const checked = this.props.checked;
+        const checked = this.state.checked;
+
+        const pin = checked ? require('../../../assets/images/icLocationSmall.png') : require('../../../assets/images/icLocationSmall.png');
 
         return (
             <TouchableHighlight
@@ -32,22 +39,25 @@ export default class ListItem extends Component {
                 style={styles.itemTouch}>
                 <View style={styles.itemContent}>
                     <Image
-                        resizeMode={'center'}
                         style={styles.status}
                         source={require('../../../assets/images/icCleanedTrashpoint.png')}/>
                     <Image
-                        resizeMode={'center'}
                         style={styles.pin}
-                        source={require('../../../assets/images/icLocationPinActive.png')}/>
+                        resizeMode={'center'}
+                        source={pin}/>
                     <Text
                         numberOfLines={1}
-                        style={styles.title}>
+                        style={checked ? styles.title : styles.titleBlack}>
                         {item.title}
                     </Text>
-
                     <Checkbox
                         checked={checked}
-                        onCheckedChanged={(checked) => this.props.onCheckedChanged(checked, item)}
+                        onCheckedChanged={(checked) => {
+                            this.setState(previousState => {
+                                return { checked: checked };
+                            });
+                            this.props.onCheckedChanged(checked, item)
+                        }}
                         style={styles.checkbox}/>
                 </View>
             </TouchableHighlight>

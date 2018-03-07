@@ -2,35 +2,42 @@ import React, { Component } from 'react'
 import { SearchBar } from './SearchBar'
 import { EventDetails } from './EventDetails'
 import { Event } from './Event'
+import { NavLink, Switch, Router } from 'react-router-dom'
 import { connect } from 'react-redux';
 import './EventsList.css'
-import events from '../../components/common/Data/events.json'
+import { actions, selectors } from '../../reducers/events';
 
 class EventsList extends Component {
-  state = {
-    listVisible: true
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
   }
 
   render() {
-
+    const { events, toggleEventWindow, eventId, history } = this.props;
     return (
       <div className="EventsList-container">
-        <SearchBar onMinimizeClick={()=> this.setState({ listVisible: !this.state.listVisible })} />
-        <div className={`EventsList-plot ${this.state.listVisible ? 'visible' : ''}`}>
+        <SearchBar onMinimizeClick={()=> toggleEventWindow()} history={history} event={eventId} />
+        <div className={`EventsList-plot ${this.props.isOpened ? 'visible' : ''}`}>
           {
+            !this.props.eventId ?
             events.map((ev)=> {
               return (
-                <Event
-                  avatar={ev.avatar}
-                  key={ev.id}
-                  title={ev.title}
-                  author={ev.author}
-                  date={ev.date}
-                  location={ev.location}
-                  numberOfPatricipants={ev.number_of_patricipants}
-                />
+                <NavLink key={ev.datasetId} to={`/events/${ev.datasetId}`}>
+                  <Event
+                    avatar={ev.avatar}
+                    title={ev.title}
+                    author={ev.coordinator_name}
+                    date={ev.createDate}
+                    location={ev.address}
+                    numberOfParticipants={ev.number_of_participants}
+                  />
+              </NavLink>
               )
-            })
+            }) :
+            <EventDetails eventId={eventId} />
           }
         </div>
       </div>
@@ -38,4 +45,13 @@ class EventsList extends Component {
   }
 }
 
-export default connect()(EventsList)
+const mapStateToProps = (state)=> ({
+  events: selectors.getAllEvents(state),
+  isOpened: selectors.getShowEventWindow(state)
+});
+
+const mapDispatchToProps = {
+    toggleEventWindow: actions.toggleEventWindow
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventsList)

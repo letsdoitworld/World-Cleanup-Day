@@ -20,6 +20,7 @@ import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
 import { EventsList } from '../../pages/EventsList';
+import { EventDetails } from '../../pages/EventsList/EventDetails';
 import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
@@ -52,7 +53,7 @@ class Home extends React.Component {
   renderTermsRoute = () => <Terms />;
   renderPrivacyRoute = () => <Privacy />;
   renderNormalRoute = ({ history }) =>
-    (<div
+    (<div className="Root-normal-route"
       style={{
         height: '100%',
         width: '100%',
@@ -66,7 +67,7 @@ class Home extends React.Component {
         <Route path="/users" exact component={UserList} />
         {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
-        <Route path="/events" exact component={EventsList} />
+        <Route path="/events/:id?" render={({match})=> <EventsList eventId={match.params.id} />} />
         <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
         <Route path="/trashpoints/:id" exact component={TrashpointDetails} />
@@ -81,7 +82,7 @@ class Home extends React.Component {
 
     const HEADER_LINKS = [
       { title: 'Events', url: '/events', image: <EventsIcon /> },
-      { title: 'Trashpoints', url: '/areas', image: <BinIcon /> }
+      { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> }
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       HEADER_LINKS.push({

@@ -72,7 +72,7 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width)
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    this.props.fetchAllTrashpoints(nw, se, mapSize);
+    //this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {

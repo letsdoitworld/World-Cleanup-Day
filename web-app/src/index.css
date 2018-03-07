@@ -11,6 +11,10 @@ body {
   display: flex;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
 [role="button"],
 input[type="submit"],

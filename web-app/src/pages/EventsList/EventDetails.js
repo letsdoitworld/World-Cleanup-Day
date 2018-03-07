@@ -6,6 +6,7 @@ import { LocationIcon, MinimizeIcon, EventsIcon, ShareIcon, ParticipantsIcon, Re
 export class EventDetails extends Component {
 
   render() {
+    
     return (
       <div className="EventDetails">
         <div className="EventDetails-cover">
@@ -74,3 +75,7 @@ export class EventDetails extends Component {
     )
   }
 }
+
+const mapStateToProps = {}
+
+const mapDispatchToProps = {}

@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import './Event.css'
 
 export class Event extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
-    const { avatar, title, author, location, numberOfPatricipants, date } = this.props;
+    const { avatar, title, author, location, numberOfParticipants, date } = this.props;
+
     return (
       <div>
         <div className='Event-item'>
@@ -20,7 +24,7 @@ export class Event extends Component {
               </div>
 
               <div className="Event-details-part2">
-                <p className="Event-fill Event-info">{`${numberOfPatricipants - 2}/${numberOfPatricipants}`}</p>
+                <p className="Event-fill Event-info">{`${numberOfParticipants - 2}/${numberOfParticipants}`}</p>
                 <p className="Event-date Event-info">{date}</p>
               </div>
             </div>

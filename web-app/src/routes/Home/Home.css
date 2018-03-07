@@ -5,6 +5,14 @@
     align-items: center;
 }
 
+.Root-normal-route {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .List-container {
     display: flex;
     flex-direction: column;

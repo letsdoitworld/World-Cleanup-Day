@@ -46,12 +46,19 @@ export default class Marker extends Component {
 
         let showLabel = marker.isTrashpile && marker.count > 0;
 
+        let markerImage;
+        if (marker.status === undefined || marker.status === null) {
+            markerImage = require('../../assets/images/icLocationPinActive.png')
+        } else {
+            markerImage = MARKER_STATUS_IMAGES[marker.status]
+        }
+
         return (
             <MapView.Marker
                 coordinate={marker.latlng}
                 onPress={onMarkerPress}
                 style={!marker.isTrashpile ? {zIndex: 2} : null}
-                image={MARKER_STATUS_IMAGES[marker.status]}
+                image={markerImage}
                 identifier={String(marker.id)}>
                 {showLabel &&
                     <View style={styles.labelContainer}>

@@ -152,6 +152,8 @@ class AddTrashPoints extends ImmutableComponent {
             const filteredReceivedTrashPoints = receivedTrashPointsList
                 .filter((trashPoint) => !this.marked.has(trashPoint.id));
 
+            if (filteredReceivedTrashPoints === undefined) return;
+
             const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
 
             this.setData(d => d.set('trashPoints', trashPoints));

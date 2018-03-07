@@ -214,7 +214,7 @@ export default class CreateEvent extends ImmutableComponent {
     onAddTrashPointsClick = () => {
         this.props.navigator.push({
             screen: ADD_TRASH_POINTS,
-            title: strings.label_add_location,
+            title: strings.label_add_trashPoints,
             passProps: {
                 //todo: pass some location for search order
                 location: {

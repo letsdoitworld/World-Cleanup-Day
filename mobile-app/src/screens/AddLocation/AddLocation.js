@@ -162,7 +162,6 @@ export default class AddLocation extends Component {
             return {
                 marker: {
                     latlng,
-                    status: MARKER_STATUS_IMAGES.cleaned,
                     id: 1,
                 },
                 region: {

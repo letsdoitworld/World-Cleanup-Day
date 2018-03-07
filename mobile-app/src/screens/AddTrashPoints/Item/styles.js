@@ -4,6 +4,10 @@ export default {
     itemTouch: {
         height: 79,
     },
+    itemTouchIncluded: {
+        height: 79,
+        backgroundColor: "rgb(232, 232, 232)"
+    },
     itemContent: {
         flexDirection: 'row',
         marginHorizontal: dimens.margin_medium,
@@ -25,14 +29,23 @@ export default {
         color: 'rgb(0, 143, 223)',
         fontSize: 15,
         lineHeight: 14,
+    },
+    titleContainer: {
         flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
     },
     titleBlack: {
         fontFamily: "Lato-Regular",
         color: 'rgb(40, 38, 51)',
         fontSize: 15,
         lineHeight: 14,
-        flex: 1,
+    },
+    includedText: {
+        fontFamily: "Lato-Regular",
+        color: 'rgb(123, 125, 128)',
+        fontSize: 12,
+        lineHeight: 14,
     },
     checkbox: {
         width: 49,

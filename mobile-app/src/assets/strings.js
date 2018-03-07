@@ -2,7 +2,9 @@ import LocalizedStrings from 'react-native-localization';
 
 module.exports = new LocalizedStrings({
     en: {
+        label_included_into_another_event: "Included into another event",
         label_save: "Save",
+        label_add_trashPoints: "Add trashpoints",
         label_confirm_location: "Confirm location",
         label_text_app_subtitle: "Let's clean up the world together!",
         label_button_facebook: "Continue with Facebook",

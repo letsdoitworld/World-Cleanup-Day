@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     View, TouchableOpacity, Text, ScrollView,
-    TextInput, Image, TouchableHighlight
+    TextInput, Image, TouchableHighlight, Alert
 } from 'react-native';
 import styles from './styles'
 import strings from '../../../assets/strings'
@@ -9,10 +9,12 @@ import MainButton from '../../../components/Buttons/MainButton'
 import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
-import {ADD_LOCATION, ADD_TRASH_POINTS} from "../../index";
+
+import {ADD_TRASH_POINTS, ADD_COORDINATOR, ADD_LOCATION, CREATE_EVENT} from "../../index";
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+import DatePicker from 'react-native-datepicker';
+import Moment from 'moment';
 
 
 export default class CreateEvent extends ImmutableComponent {
@@ -39,21 +41,78 @@ export default class CreateEvent extends ImmutableComponent {
                 isTitleValid: false,
                 isDescriptionValid: false,
                 isWhatToBringValid: false,
-                isStartDateValid: false,
-                isEndDateValid: false,
+                isStartDateValid: true,
+                isEndDateValid: true,
                 isDateTimePickerVisible: false,
                 imageUrl: '',
+                startDate: this.calculateMinDate(),
+                endDate: this.calculateMinDate(),
             })
         }
+    }
+
+    calculateMinDate() {
+         const date = new Date();
+        return Moment(date).format("DD-MM-YYYY HH:mm");
+    };
+
+    renderStartPicker() {
+        const startDate = this.state.data.get('startDate');
+        const minDate = this.calculateMinDate();
+        return <DatePicker
+            style={styles.datePickerContainer}
+            date={startDate}
+            mode="datetime"
+            format="DD-MM-YYYY HH:mm"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            minDate={minDate}
+            maxDate="01-01-2060"
+            showIcon={false}
+            customStyles={{dateInput: {borderWidth: 0}}}
+            onDateChange={(date) => {
+                const endDate = this.state.data.get('endDate');
+                this.validateEndTime();
+                this.setData(d => d.set('startDate', date));
+                const changedEndDate = date.split(" ")[0] + " " + endDate.split(" ")[1];
+                this.setData(d => d.set('endDate', changedEndDate))
+            }}/>
+    }
+
+    renderEndPicker() {
+        const endDate = this.state.data.get('endDate');
+        const minDate = this.calculateMinDate();
+        return <DatePicker
+            style={styles.datePickerContainer}
+            mode="time"
+            date={endDate}
+            format="DD-MM-YYYY HH:mm"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            showIcon={false}
+            minDate={minDate}
+            maxDate="01-01-2060"
+            customStyles={{dateInput: {borderWidth: 0}}}
+            onDateChange={(date) => {
+                this.validateEndTime(date);
+                console.warn("Date ", date);
+                const startDate = this.state.data.get('startDate');
+                const endDate = startDate.split(" ")[0] + " " + date;
+                this.setData(d => d.set('endDate', endDate))
+            }}/>
     }
 
     render() {
         const isTitleValid = this.state.data.get('isTitleValid');
         const isDescriptionValid = this.state.data.get('isDescriptionValid');
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
+        const isStartDateValid = this.state.data.get('isStartDateValid');
+        const isEndDateValid = this.state.data.get('isEndDateValid');
         const imagePath = this.state.data.get('imageUrl');
 
-        const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid;
+        //const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
+        const isValid = isTitleValid;
+        //const isValid = isStartDateValid && isEndDateValid;
 
         return (
             <View>
@@ -80,29 +139,12 @@ export default class CreateEvent extends ImmutableComponent {
                         <View style={styles.dateAndTimeContainerStyle}>
                             <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_start}</Text>
-                                <TouchableOpacity style={{
-                                    flex: 1,
-                                    alignSelf: 'center'
-                                }}
-                                                  onPress={this.showDateTimePicker}>
-                                    <Text style={styles.dateTextStyle}>{strings.label_date}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{
-                                    flex: 1,
-                                    alignSelf: 'center'
-                                }}>
-                                    <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                                </TouchableOpacity>
+                                {this.renderStartPicker()}
                             </View>
                             <View style={styles.dividerStyle}/>
                             <View style={styles.dateAndTimeRowStyle}>
                                 <Text style={styles.dateTitleTextStyle}>{strings.label_end}</Text>
-                                <TouchableOpacity style={{
-                                    flex: 2,
-                                    alignSelf: 'center'
-                                }}>
-                                    <Text style={styles.dateTextStyle}>{strings.label_no_selected}</Text>
-                                </TouchableOpacity>
+                                {this.renderEndPicker()}
                             </View>
                         </View>
                     </View>
@@ -154,8 +196,8 @@ export default class CreateEvent extends ImmutableComponent {
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image source={{uri: imagePath}}/>
-                        <TouchableOpacity onPress={() => this.openCamera()}>
+                        <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
+                        <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                             <Image style={styles.addPhotoIconStyle}
                                    source={require('../images/ic_add_photo.png')}/>
                         </TouchableOpacity>
@@ -166,13 +208,24 @@ export default class CreateEvent extends ImmutableComponent {
                         disabled={!isValid}
                         text={strings.label_next}
                         style={styles.nextButtonStyle}
-                        onPress={() => console.log("Press")}/>
+                        onPress={this.onNextClick.bind(this)}/>
                 </ScrollView>
             </View>
         )
     }
 
-    //TODO ask Yulia about dialog!!
+    showChoosedDialog() {
+        Alert.alert(
+            'Add photo',
+            'Add photo to event!',
+            [
+                {text: 'Cancel', onPress: () => console.log('OK Pressed'), style: 'cancel'},
+                {text: 'Take photo', onPress: () => this.openCamera()},
+                {text: 'From Gallery', onPress: () => this.openGallery()},
+            ],
+            {cancelable: true}
+        )
+    };
 
     openGallery() {
         ImagePicker.openPicker({
@@ -180,7 +233,6 @@ export default class CreateEvent extends ImmutableComponent {
             height: 400,
             cropping: true
         }).then(image => {
-            console.warn("Image: ", image.path);
             this.setData(d => d.set('imageUrl', image.path))
         });
     };
@@ -191,7 +243,6 @@ export default class CreateEvent extends ImmutableComponent {
             height: 400,
             cropping: true
         }).then(image => {
-            console.warn("Image: ", image.path);
             this.setData(d => d.set('imageUrl', image.path))
         });
     }
@@ -258,24 +309,45 @@ export default class CreateEvent extends ImmutableComponent {
     };
 
     validateDescription = (text: String): boolean => {
-        let isValid = constants.TITLE_REGEX.test(text);
+        let isValid = constants.DESCRIPTION_REGEX.test(text);
         this.setData(d => d.set('isDescriptionValid', isValid));
         return isValid
     };
 
     validateWhatToBring = (text: String): boolean => {
-        let isValid = constants.TITLE_REGEX.test(text);
+        let isValid = constants.DESCRIPTION_REGEX.test(text);
         this.setData(d => d.set('isWhatToBringValid', isValid));
         return isValid
     };
 
-    showDateTimePicker = () => this.setState({isDateTimePickerVisible: true});
-
-    hideDateTimePicker = () => this.setState({isDateTimePickerVisible: false});
-
-    handleDatePicked = (date) => {
-        console.log('A date has been picked: ', date);
-        this.hideDateTimePicker();
+    validateEndTime = (endTime: String) => {
+        const endDateTime = Moment(endTime, "HH:mm").toDate();
+        const startDateFormat = this.state.data.get('startDate');
+        const startDate = Moment(startDateFormat, "DD-MM-YYYY HH:mm").toDate();
+        let endDateAndTime = Moment(startDateFormat, "DD-MM-YYYY HH:mm").toDate();
+        endDateAndTime.setHours(endDateTime.getHours(), endDateAndTime.getMinutes());
+        let isValid = startDate < endDateAndTime;
+        this.setData(d => d.set('isEndDateValid', isValid))
     };
 
+    onNextClick = () => {
+        this.props.navigator.push({
+            screen: ADD_COORDINATOR,
+            title: strings.label_create_events_step_two,
+            passProps: {
+                event: {
+                    name: this.title,
+                    startDate: this.state.data.get('startDate'),
+                    endDate: this.state.data.get('endDate'),
+                    // location: {
+                    //     latitude: 48.8152937,
+                    //     longitude: 2.4597668,
+                    // }
+                    description: this.description,
+                    whatToBring: this.whatToBring,
+                    imageUrl: this.state.data.get('imageUrl'),
+                },
+            }
+        });
+    }
 }

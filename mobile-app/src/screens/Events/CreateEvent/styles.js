@@ -1,8 +1,10 @@
 import {getWidthPercentage, getHeightPercentage} from '../../../shared/helpers';
 import colors from "../../../config/colors";
 import dimens from "../../../config/dimens"
+import {StyleSheet} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export default {
+export default EStyleSheet.create({
     view: {
         flex: 1,
         justifyContent: "center",
@@ -19,7 +21,7 @@ export default {
         justifyContent: 'center'
     },
     titleTextStyle: {
-        marginStart: getWidthPercentage(10),
+        left: getWidthPercentage(10),
         fontSize: 13,
         color: colors.$textColorDivider,
         fontFamily: 'Lato-Bold'
@@ -38,7 +40,7 @@ export default {
     },
     inputTextStyle: {
         width: '100%',
-        marginStart: getWidthPercentage(10),
+        marginLeft: getWidthPercentage(10),
         alignSelf: 'center',
     },
     dateAndTimeContainerStyle: {
@@ -65,14 +67,8 @@ export default {
         alignItems: 'center',
         alignSelf: 'flex-end',
     },
-    dateTextStyle: {
-        fontSize: 17,
-        marginRight: getWidthPercentage(10),
-        fontFamily: 'Lato-Regular',
-        color: colors.$blackTransparent,
-        alignSelf: 'center',
-    },
     dateTitleTextStyle: {
+        flex: 1,
         marginLeft: getWidthPercentage(10),
         color: colors.$black,
         alignSelf: 'center',
@@ -84,6 +80,10 @@ export default {
         width: '100%',
         flexDirection: 'row',
         backgroundColor: colors.$white,
+    },
+    datePickerContainer: {
+        width: 100,
+        flex: 1
     },
     dividerStyle: {
         width: '100%',
@@ -133,15 +133,15 @@ export default {
     },
     eventPhotoContainerStyle: {
         borderRadius: 1,
-        height: 235,
+        height: 236,
         width: '100%',
         justifyContent: 'center',
         backgroundColor: colors.$transparentBlueColor,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: colors.$mainBlue,
         borderStyle: 'dashed'
     },
-    addPhotoIconStyle: {
+        addPhotoIconStyle: {
         height: 21,
         width: 21,
         alignSelf: 'center'
@@ -159,4 +159,29 @@ export default {
         marginBottom: dimens.margin_medium,
         alignSelf: 'center',
     },
-}
+    photoIconStyle: {
+        position: 'absolute',
+        left: 0,
+        height: 232,
+        width: '100%',
+    },
+    addCoordinatorContainer: {
+        height: '100%',
+        width: '100%',
+        flexDirection: "column",
+        backgroundColor: colors.$mainBackground
+    },
+    coordinatorNext: {
+        position: 'absolute',
+        bottom: 0,
+        width: '90%',
+        marginTop: 38,
+        marginBottom: dimens.margin_medium,
+        alignSelf: 'center',
+    },
+    inputUserDataStyle: {
+        width: '90%',
+            marginLeft: getWidthPercentage(10),
+            alignSelf: 'center',
+    }
+});

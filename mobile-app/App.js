@@ -16,6 +16,7 @@ import strings from './src/assets/strings'
 import configureStore from "./src/store/configureStore";
 import {Provider} from "react-redux";
 import {EVENTS} from "./src/screens/index";
+import './src/config/styles';
 
 const store = configureStore();
 

@@ -11,7 +11,7 @@ class Footer extends Component {
       <div className="Footer">
         <div className="Footer-button-container">
           <FooterItem title="Terms and conditions" url="/terms" />
-          <div className="Footer-separator"></div>
+          <div className="Footer-separator" />
           <FooterItem title="Privacy policy" url="/privacy" />
         </div>
       </div>

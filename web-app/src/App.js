@@ -63,7 +63,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App" onClick={this.props.hidePopover}>
+      <div className="App" onClick={modalIsOpen && this.props.hidePopover}>
         <Router />
         <AuthModal isOpen={modalIsOpen} onClick={this.closeModal} />
         <LockedModal isOpen={lockedModalIsOpen} onClick={this.handleLockedModalClose} />

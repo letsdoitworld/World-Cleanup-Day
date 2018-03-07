@@ -144,7 +144,7 @@ export default function configureStore() {
         store,
         {
             storage: AsyncStorage,
-            // blacklist:['editGroups', 'school', 'events']
+             blacklist:['trashPoints',]
         }
     );
     return {

@@ -9,7 +9,7 @@ const setPopoverMessage = message => ({
   payload: message,
 });
 
-const setErrorMessage = (message) => {
+export const setErrorMessage = (message) => {
   let payload = {};
   if (typeof message === 'object') {
     payload = message;
@@ -48,7 +48,7 @@ export const controlProgress = (progress) => ({
 export default {
   setPopoverShown,
   setPopoverMessage,
-  setErrorMessage,
+ // setErrorMessage,
   setActiveScreen,
   hideErrorMessage,
   setConnectionChecked,

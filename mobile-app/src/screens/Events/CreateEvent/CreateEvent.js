@@ -221,13 +221,18 @@ export default class CreateEvent extends ImmutableComponent {
                     latitude: 48.8152937,
                     longitude: 2.4597668,
                 },
+                selectedTrashPoints: this.trashPoints,
                 onTrashPointsSelected: this.onTrashPointsSelected.bind(this),
             }
         });
     };
 
+    trashPoints = new Map();
+
     onTrashPointsSelected(trashPoints) {
-        console.log(trashPoints)
+        console.log(trashPoints);
+        console.log("onTrashPointsSelected");
+        this.trashPoints = trashPoints;
     }
 
     onLocationSelected(location) {

@@ -21,11 +21,15 @@ const saveId = 'saveId';
 
 const PAGE_SIZE = 15;
 
-import {searchTrashPointsAction} from '../../reducers/trashpoints/actions'
+import {
+    searchTrashPointsAction,
+    clearTrashPointsAction
+} from '../../reducers/trashpoints/actions'
 import ListItem from "./Item/ListItem";
 
 class AddTrashPoints extends ImmutableComponent {
 
+    marked = new Map();
 
     static navigatorStyle = styles.navigatorStyle;
 
@@ -46,14 +50,20 @@ class AddTrashPoints extends ImmutableComponent {
         super(props);
         this.state = {
             data: Immutable.Map({
-              //  isSearchEnabled: false,
+                //  isSearchEnabled: false,
                 trashPoints: [],
-                heightOfFlatList: undefined,
+                // heightOfFlatList: undefined,
             })
         };
 
-        const onTrashPointsSelected = props.onTrashPointsSelected;
-        const location = props.location;
+        // const onTrashPointsSelected = props.onTrashPointsSelected;
+
+        props.selectedTrashPoints.forEach((trashPoint) => {
+            this.marked.set(trashPoint.id, trashPoint)
+        });
+
+
+        // const location = props.location;
 
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
@@ -90,7 +100,8 @@ class AddTrashPoints extends ImmutableComponent {
                     break;
                 }
                 case saveId: {
-
+                    this.props.onTrashPointsSelected(this.marked);
+                    this.props.navigator.pop();
                     break;
                 }
 
@@ -106,16 +117,13 @@ class AddTrashPoints extends ImmutableComponent {
     // };
 
     handleLoadMore = () => {
-        const trashPoints = this.props.trashPoints.get('trashPoints');
-
-        if (trashPoints.length < PAGE_SIZE * (this.page + 1)) {
+        if (this.getTrashPointsFromState().length < PAGE_SIZE * (this.page + 1)) {
             return
         }
 
         this.page++;
 
         this.props.dispatch(searchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location))
-
     };
 
     componentWillReceiveProps(nextProps) {
@@ -132,18 +140,39 @@ class AddTrashPoints extends ImmutableComponent {
         //     this.refreshing = false
         // }
 
-       // console.log(nextProps.trashPoints.get('trashPoints').length);
-        this.setData(d => d.set('trashPoints', nextProps.trashPoints.get('trashPoints')));
+
+        const receivedTrashPointsList = nextProps.trashPoints.get('trashPoints');
+
+        if (receivedTrashPointsList === undefined) return;
+
+        if (this.marked.size === 0) {
+            this.setData(d => d.set('trashPoints', receivedTrashPointsList));
+        } else {
+
+            const filteredReceivedTrashPoints = receivedTrashPointsList
+                .filter((trashPoint) => !this.marked.has(trashPoint.id));
+
+            const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
+
+            this.setData(d => d.set('trashPoints', trashPoints));
+        }
+
     }
 
     getTrashPointsFromState() {
         return this.state.data.get('trashPoints');
     }
 
+    onCheckedChanged(checked, item) {
+        if (checked) {
+            this.marked.set(item.id, item)
+        } else {
+            this.marked.delete(item.id)
+        }
+    };
+
     //noinspection JSMethodCanBeStatic
     render() {
-
-        /// const schools = this.props.school.get('schools');
 
         return (
             <View style={[styles.containerContent]}>
@@ -182,6 +211,10 @@ class AddTrashPoints extends ImmutableComponent {
             </View>
         );
     };
+
+    componentWillUnmount() {
+        this.props.dispatch(clearTrashPointsAction());
+    }
 
     isProgressEnabled() {
         return this.props.progress.get('progress');
@@ -246,10 +279,9 @@ class AddTrashPoints extends ImmutableComponent {
     };
     //
     renderFooter = () => {
-       // if (this.isEmptyState()) {
-       //     return null
-       // } else
-            if (this.isProgressEnabled() && this.page > 0) {
+        if (this.isProgressEnabled() && this.page === 0) {
+            return null
+        } else if (this.isProgressEnabled() && this.page > 0) {
             return (
                 <View
                     style={styles.paginationFooter}>
@@ -262,26 +294,25 @@ class AddTrashPoints extends ImmutableComponent {
     };
 
     renderHeader = () => {
-        // if (this.isEmptyState()) {
-        //     return null
-        // } else {
+        if (this.isProgressEnabled() && this.page === 0) {
+            return null
+        } else {
             return (<View style={styles.listDivider}/>)
-       // }
+        }
     };
 
     keyExtractor = (item, index) => item.id.toString();
 
     renderItem = ({item}) => (
         <ListItem
+            onCheckedChanged={this.onCheckedChanged.bind(this)}
+            checked={this.marked.has(item.id)}
+            navigator={this.props.navigator}
             item={item}
             id={item.id}/>
     );
 
-    //
-    // componentWillUnmount() {
-    //     this.props.dispatch(schoolActions.clearSchools())
-    // }
-    //
+
     onQueryChange = debounce(function (text) {
         this.query = text;
         this.page = 0;
@@ -299,11 +330,7 @@ class AddTrashPoints extends ImmutableComponent {
     spinner() {
         return (
             <ActivityIndicator size="large" color="rgb(0, 143, 223)"/>
-            // color={colors.accentColor}
-            // animating={true}
-            // size={'large'}
-            // style={commonStyles.progressStyle}/>
-        )
+        );
     }
 
 }

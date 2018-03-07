@@ -1,7 +1,8 @@
 import {call, put, take} from "redux-saga/effects";
 import {SEARCH_TRASH_POINTS_ACTION} from './types';
 import {
-    controlProgress
+    controlProgress,
+    setErrorMessage
 } from "../app/actions";
 import {
     searchTrashPointsAction,
@@ -18,14 +19,14 @@ function* searchTrashPoints(query, page, pageSize, location) {
         const response = yield call(searchTrashPointsRequest, query, page, pageSize, location);
         console.log("3");
         if (response.status) {
-            yield put(searchTrashPointsSuccessAction(response.trashPoints));
+            yield put(searchTrashPointsSuccessAction(response.trashPoints, page, pageSize));
             console.log("4 " + response.trashPoints.length);
         } else {
-            appActions.setErrorMessage(String(response.error));
+            setErrorMessage(String(response.error));
         }
     } catch (error) {
         console.log(error);
-        appActions.setErrorMessage(String(error));
+        setErrorMessage(String(error));
     }
 }
 

@@ -1,7 +1,8 @@
 import {
     SEARCH_TRASH_POINTS_ACTION,
     SEARCH_TRASH_POINTS_ERROR_ACTION,
-    SEARCH_TRASH_POINTS_SUCCESS_ACTION
+    SEARCH_TRASH_POINTS_SUCCESS_ACTION,
+    CLEAR_TRASH_POINTS_ACTION
 } from './types';
 
 export const searchTrashPointsAction = (query, page, pageSize, location) => ({
@@ -12,12 +13,18 @@ export const searchTrashPointsAction = (query, page, pageSize, location) => ({
     location
 });
 
-export const searchTrashPointsSuccessAction = (trashPoints) => ({
+export const searchTrashPointsSuccessAction = (trashPoints, page, pageSize) => ({
     type: SEARCH_TRASH_POINTS_SUCCESS_ACTION,
-    trashPoints
+    trashPoints,
+    page,
+    pageSize
 });
 
 export const searchTrashPointsErrorAction = (error) => ({
     type: SEARCH_TRASH_POINTS_ERROR_ACTION,
     error
+});
+
+export const clearTrashPointsAction = () => ({
+    type: CLEAR_TRASH_POINTS_ACTION
 });

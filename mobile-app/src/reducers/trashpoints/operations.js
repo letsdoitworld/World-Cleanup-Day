@@ -80,8 +80,150 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                                 lantitude: 35,
                             },
                             title: "fdfdffd",
+                        },
+                        {
+                            id: 7,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
+                        },
+                        {
+                            id: 8,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 9,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 10,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 11,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 12,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 13,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 14,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
+                        },
+                        {
+                            id: 15,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 16,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 17,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 18,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 19,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
+                        },
+                        {
+                            id: 20,
+                            isIncluded: false,
+                            status: 'threat',
+                            location: {
+                                longitude: 49,
+                                lantitude: 35,
+                            },
+                            title: "fdfdffd",
                         }
                     ]
+                        .filter((trashPoint) => query === undefined || query === null || trashPoint.title.startsWith(query))
+                        .slice(page * pageSize, page * pageSize + pageSize)
                 }
             );
         }, 3000)

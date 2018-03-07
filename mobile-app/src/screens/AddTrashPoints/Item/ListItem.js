@@ -23,23 +23,22 @@ export default class ListItem extends Component {
     render() {
 
         const item = this.props.item;
+        const checked = this.props.checked;
+
         return (
             <TouchableHighlight
                 underlayColor="rgb(232, 232, 232)"
                 onPress={this.onPress.bind(this)}
                 style={styles.itemTouch}>
                 <View style={styles.itemContent}>
-
                     <Image
                         resizeMode={'center'}
                         style={styles.status}
                         source={require('../../../assets/images/icCleanedTrashpoint.png')}/>
-
                     <Image
                         resizeMode={'center'}
                         style={styles.pin}
                         source={require('../../../assets/images/icLocationPinActive.png')}/>
-
                     <Text
                         numberOfLines={1}
                         style={styles.title}>
@@ -47,18 +46,10 @@ export default class ListItem extends Component {
                     </Text>
 
                     <Checkbox
-                        style={styles.checkbox}>
-
-                    </Checkbox>
-
-
+                        checked={checked}
+                        onCheckedChanged={(checked) => this.props.onCheckedChanged(checked, item)}
+                        style={styles.checkbox}/>
                 </View>
-
-
-                {/*<View style={styles.imageContainer}>*/}
-                    {/*<Thumbnail large style={styles.image} source={{uri: icon}}/>*/}
-                {/*</View>*/}
-                {/*<Text numberOfLines={1} style={styles.titleStyle}>{this.props.item.school_name}</Text>*/}
             </TouchableHighlight>
         )
     }

@@ -1,0 +1,37 @@
+version: '3.1'
+
+services:
+  letsencrypt-companion:
+    image: hamburml/docker-flow-letsencrypt:latest
+    networks:
+      - ${NETWORK}
+    environment:
+#      - DOMAIN_1=('jenkins.ops.worldcleanupday.com')
+#      - DOMAIN_2=('registry.ops.worldcleanupday.com')
+#      - DOMAIN_3=('logging.ops.worldcleanupday.com')
+      - CERTBOT_EMAIL=daniel.jirca@qualitance.com
+      - PROXY_ADDRESS=proxy
+      - CERTBOT_CRON_RENEW=('0 3 * * *' '0 15 * * *')
+    volumes:
+          - /volatile/certbot:/etc/letsencrypt
+    deploy:
+      labels:
+        - com.df.servicePath=/.well-known/acme-challenge
+        - com.df.notify=true
+#        - com.df.distribute=true
+        - com.df.port=80
+        - "com.ldiw.description=${DEPLOYMENT_LABEL}"
+      placement:
+        constraints: [node.role == manager]
+      replicas: 1
+
+networks:
+  ${NETWORK}:
+    driver: overlay
+    external: true
+
+volumes:
+  certbot:
+    driver: "azurefile"
+    driver_opts:
+      share: "certificates"

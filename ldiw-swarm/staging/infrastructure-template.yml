@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  logspout:
+    image: bekt/logspout-logstash
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - "LOGSPOUT=ignore"
+      - "ROUTE_URIS=logstash+tcp://dock1-eu-infra:5100"
+    extra_hosts:
+      - "dock1-eu-infra:10.150.1.100"
+    networks:
+      - infra
+      - ldiw-qa
+      - ldiw-staging
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+      labels:
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+
+networks:
+  infra:
+    driver: overlay
+    external: true
+  ldiw-qa:
+    driver: overlay
+    external: true
+  ldiw-staging:
+    driver: overlay
+    external: true

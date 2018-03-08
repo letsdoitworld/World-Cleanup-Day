@@ -149,7 +149,6 @@ export const images = [
   require('../components/TabMiddleButton/components/download.png'),
   require('../screens/Login/images/background.png'),
   require('../screens/Profile/avatar.png'),
-  require('../screens/Profile/team.png'),
   require('../services/Error/sad.png'),
   require('../components/PhotoPicker/components/img_loading.png'),
   require('../services/Loading/lazy.png'),

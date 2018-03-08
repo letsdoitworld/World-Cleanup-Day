@@ -76,7 +76,7 @@ export const AREAS_STATE = {
 const areasReducer = (state = AREAS_STATE, action) => {
   switch (action.type) {
     case TYPES.GET_AREAS:
-      return { ...AREAS_STATE };
+      return { ...AREAS_STATE, loading: true };
     case TYPES.GET_AREAS_SUCCESS:
       return { loading: false, error: false, areas: action.payload.areas };
     case TYPES.GET_AREAS_ERROR:

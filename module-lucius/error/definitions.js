@@ -80,10 +80,4 @@ module.exports = {
     SESSION_NOT_FOUND: {
         message: ({id}) => `Session not found: '${id}'.`,
     },
-    TEAM_NOT_FOUND: {
-        message: ({id}) => `Team does not exist: '${id}'.`,
-    },
-    TEAM_TRASHPOINT_NOT_FOUND: {
-        message: ({id}) => `Team trashpoint does not exist: '${id}'.`,
-    },
 };

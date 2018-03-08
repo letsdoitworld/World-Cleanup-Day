@@ -2,8 +2,8 @@
 node_modules/
 .expo/
 npm-debug.*
-.idea/
-yarn-error.log
+.idea
+
 *.DS_STORE
 
 app.json

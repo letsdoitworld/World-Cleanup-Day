@@ -8,17 +8,12 @@ import {
   actions as trashpileActions,
 } from '../reducers/trashpile';
 import {
-    selectors as teamsSelectors,
-    actions as teamsActions,
-} from '../reducers/teams';
-import {
   selectors as adminSelectors,
   actions as adminActions,
 } from '../reducers/admin';
 import MapView from '../components/MapView';
 import trashpointIcon from '../assets/trashpoint_menu.png';
 import userIcon from '../assets/user_menu.png';
-import teamsIcon from '../assets/teams_menu.png';
 import { Details } from '../components/Details';
 import { EditTrashpoint } from '../components/EditTrashpoint';
 import './Home.css';
@@ -26,16 +21,13 @@ import './Home.css';
 const SIDEBAR_LINKS = [
   { image: trashpointIcon, title: 'Trashpoints', selected: true },
   { image: userIcon, title: 'Users', selected: false },
-  { image: teamsIcon, title: 'Teams', selected: false },
 ];
 
 const LINKS = {
   Trashpoints: 0,
   Users: 1,
-  Teams: 2,
   0: 'Trashpoints',
   1: 'Users',
-  2: 'Teams',
 };
 
 const TRASHPOINTS_TABS = ['All trashpoints', 'My trashpoints'];
@@ -75,8 +67,6 @@ class Home extends Component {
           this.props.fetchAdminTrashpoints(50, 1);
         } else if (index === LINKS.Users ) {
           this.props.fetchUsers({page: 1, pageSize: 20 });
-        } else if (index === LINKS.Teams ) {
-          this.props.fetchAllTeams();
         }
       },
     );
@@ -133,7 +123,6 @@ class Home extends Component {
     const { selectedIndexLink } = this.state;
     const isTrashpoints = selectedIndexLink === LINKS.Trashpoints;
     const isUsers = selectedIndexLink === LINKS.Users;
-    const isTeams = selectedIndexLink === LINKS.Teams;
     let headerContent = null;
     if (isUsers) {
       headerContent = (
@@ -219,7 +208,6 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   trashpoints: trashpileSelectors.getAllMarkers(state),
-  teams: trashpileSelectors.getAllTeams(state),
   getUsersLoading: adminSelectors.getUsersLoading(state),
   users: adminSelectors.getUsers(state),
   markerDetails: trashpileSelectors.getMarkerDetails(state),
@@ -230,7 +218,6 @@ const mapDispatchToProps = {
   fetchAdminTrashpoints: trashpileActions.fetchAdminTrashpoints,
   fetchMarkerDetails: trashpileActions.fetchMarkerDetails,
   fetchUsers: adminActions.fetchUsers,
-  fetchAllTeams: adminActions.fetchAllTeams,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

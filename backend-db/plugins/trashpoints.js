@@ -218,7 +218,6 @@ module.exports = function () {
         .get(['dataset', 'areas'])
         .use(async function ({areas, dataset}, responder) {
             args.trashpoint.areas = areas;
-            args.trashpoint.team = __.user.team;
             return responder.success(await db.createTrashpoint(dataset.id, __.user.id, args.trashpoint));
         });
     });

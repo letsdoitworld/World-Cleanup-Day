@@ -1,7 +1,7 @@
 .vscode/
 node_modules/
-.idea/
+.idea
 build
 src/env.js
-yarn-error.log
+
 .DS_STORE

@@ -8,7 +8,6 @@ import {
   userReducer,
   adminReducer,
   areaReducer,
-  teamsReducer,
 } from '../reducers';
 
 const rootReducer = combineReducers({
@@ -17,7 +16,6 @@ const rootReducer = combineReducers({
   user: userReducer,
   admin: adminReducer,
   areas: areaReducer,
-  teams: teamsReducer,
 });
 
 const resetStateOnSignOutReducer = reducer => (state, action) => {
@@ -32,7 +30,6 @@ const resetStateOnSignOutReducer = reducer => (state, action) => {
     trashpile: undefined,
     admin: undefined,
     area: undefined,
-    teams: undefined,
   };
   return reducer(stateWithoutSensitiveData, action);
 };

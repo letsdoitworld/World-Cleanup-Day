@@ -15,6 +15,7 @@ import {
     loginFacebookFlow,
     updateProfileStatusFlow,
     loadProfileFlow,
+    logoutFlow,
 } from './sagas';
 
 
@@ -63,6 +64,7 @@ export default function configureStore() {
       sagaMiddleware.run(loginFacebookFlow),
       sagaMiddleware.run(updateProfileStatusFlow),
       sagaMiddleware.run(loadProfileFlow),
+      sagaMiddleware.run(logoutFlow),
     ],
   };
 }

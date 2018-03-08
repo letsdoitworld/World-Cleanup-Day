@@ -7,7 +7,15 @@ import toString from 'lodash/toString';
 import { SETTINGS_SCREEN } from '../index';
 import strings from '../../config/strings';
 import { Icons } from '../../assets/images';
-import { Avatar, Icon, Divider, Tabs, Event, Trashpoint } from '../../components';
+import {
+  Avatar,
+  Icon,
+  Divider,
+  Tabs,
+  Event,
+  Trashpoint,
+  Button,
+} from '../../components';
 
 import styles from './styles';
 
@@ -28,9 +36,12 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { onFetchProfile } = this.props;
+    const { isAuthenticated, onFetchProfile } = this.props;
 
-    onFetchProfile();
+    if (isAuthenticated) {
+      onFetchProfile();
+    }
+
     this.handleGetCurrentPosition();
   }
 
@@ -154,8 +165,21 @@ class Profile extends Component {
   }
 
 
+  handleRenderGuestProfile = () => {
+    return (
+      <View style={styles.guestContainer}>
+        <View style={styles.imgPlaceholder} />
+        <Button
+          onPress={this.props.onGuestLogIn}
+          text="Log In"
+        />
+      </View>
+    );
+  }
+
+
   render() {
-    const { profile } = this.props;
+    const { isAuthenticated, isGuestSession, profile } = this.props;
 
     const scenes = {
       [strings.label_events]: this.onRenderEvents,
@@ -166,6 +190,8 @@ class Profile extends Component {
       { key: strings.label_events, title: strings.label_events },
       { key: strings.label_trashpoints, title: strings.label_trashpoints },
     ];
+
+    if (!isAuthenticated && isGuestSession) return this.handleRenderGuestProfile();
 
     return (
       <View style={styles.container}>
@@ -191,9 +217,12 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  isGuestSession: PropTypes.bool,
   profile: PropTypes.object,
   navigator: PropTypes.object,
   onFetchProfile: PropTypes.func,
+  onGuestLogIn: PropTypes.func,
 };
 
 export default Profile;

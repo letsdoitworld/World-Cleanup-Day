@@ -14,7 +14,7 @@ import { compose } from 'recompose';
 import _ from 'lodash';
 
 import { Map } from '../../components/Map';
-import { SimpleButton } from '../../components/Buttons';
+import { SimpleButton } from '../../components/Button';
 import {
   getHeightPercentage,
   getWidthPercentage,
@@ -43,7 +43,7 @@ import {
 import { selectors as userSelectors } from '../../reducers/user';
 import { StatusText } from '../../components/StatusText';
 import { TrashpointDate } from '../../components/TrashpointDate';
-import { Button } from '../../components/Buttons';
+import { Button } from '../../components/Button';
 import { AlertModal } from '../../components/AlertModal';
 import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';

@@ -7,9 +7,9 @@ import strings from '../../assets/strings';
 import {EmptyStateScreen} from '../../components/EmptyStateScreen/EmptyStateScreen';
 import styles from './styles';
 
-import { logout } from '../../api';
+import { logout } from '../../store/actions/auth';
 
-export default class Notifications extends Component {
+class Notifications extends Component {
 
     static navigatorStyle = {
         navBarTextColor: '#000000',
@@ -24,7 +24,7 @@ export default class Notifications extends Component {
             return (
                 <View>
                     <EmptyStateScreen description={strings.label_text_notific_empty_text}/>
-                    <TouchableOpacity onPress={() => logout()}>
+                    <TouchableOpacity onPress={this.props.logout}>
                         <Text>Logout!</Text>
                     </TouchableOpacity>
                 </View>)
@@ -47,8 +47,6 @@ function isUndefinedOtNullOrEmpty(array) {
 //
 // const mapDispatchToProps = {};
 //
-// export default compose(
-//   connect(mapStateToProps, mapDispatchToProps),
-//   withNavigationHelpers(),
-//   translate(),
-// )(Notifications);
+export default compose(
+  connect(null, { logout }),
+)(Notifications);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FlatList, View, Modal } from 'react-native';
 
 import DropDownItem from './DropDownItem';
-import { Button } from '../Buttons';
+import { Button } from '../Button';
 import { Divider } from '../Divider';
 import styles from './styles';
 import strings  from '../../assets/strings';

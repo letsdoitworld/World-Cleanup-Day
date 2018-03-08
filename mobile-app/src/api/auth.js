@@ -12,14 +12,14 @@ const {
   GraphRequestManager,
 } = FBSDK;
 
-export function getAuthHeader(authToken) {
+function getAuthHeader(authToken) {
   return {
     ...constants.BASE_HEADER,
     Authorization: `Bearer ${authToken}`,
   };
 }
 
-export function googleLogin() {
+function googleLogin() {
   return GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
@@ -36,7 +36,7 @@ export function googleLogin() {
     });
 }
 
-export function facebookLogin() {
+function facebookLogin() {
   return LoginManager.logInWithReadPermissions(['public_profile', 'email'])
         .then((result) => {
           if (result.isCancelled) {
@@ -68,7 +68,7 @@ export function facebookLogin() {
         .catch(error => error);
 }
 
-export async function logout() {
+async function logout() {
   try {
     await Api.delete('/auth', { skipError: true });
   } catch (ex) {
@@ -76,7 +76,7 @@ export async function logout() {
   }
 }
 
-export async function agreeToTerms() {
+async function agreeToTerms() {
   try {
     const response = await Api.put(
       '/me/accept-terms',
@@ -91,4 +91,12 @@ export async function agreeToTerms() {
     throw ex;
   }
 }
+
+export default {
+  getAuthHeader,
+  googleLogin,
+  facebookLogin,
+  logout,
+  agreeToTerms,
+};
 

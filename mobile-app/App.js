@@ -1,14 +1,16 @@
-import React, {Component} from "react";
+import React, { Component } from 'react';
+import { Image } from 'react-native'
 
 import { Navigation } from 'react-native-navigation';
 
 import {
-    HOME_SCREEN, LOGIN_SCREEN,
+    LOGIN_SCREEN,
     MY_ACTIVITY_SCREEN,
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
     registerScreens
 } from './src/screens';
+
 
 import actions from "./src/reducers/user/actions";
 
@@ -17,6 +19,9 @@ import configureStore from "./src/store/configureStore";
 import {Provider} from "react-redux";
 import {EVENTS} from "./src/screens/index";
 import './src/config/styles';
+
+import { Icons } from './src/assets/images';
+
 
 const store = configureStore();
 
@@ -68,28 +73,27 @@ export default class App extends Component {
         Navigation.startTabBasedApp({
             tabs: [
                 {
-                    screen: PROFILE_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_profile.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_profile_active.png'),
-                    title: strings.label_header_profile
-                },
-                {
-                    screen: MY_ACTIVITY_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_activity.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_activity_active.png'),
-                    title: strings.label_header_activity
+                    screen: NOTIFICATIONS_SCREEN,
+                    label: 'Notifications',
+                    icon: Icons.Trashpoints,
+                    selectedIcon:  Icons.TrashpointsActive,
+                    title: strings.label_header_notific
                 },
                 {
                     screen: EVENTS,
-                    icon: require('./src/assets/images/ic_event.png'),
-                    selectedIcon: require('./src/assets/images/ic_event_active.png'),
+                    label: 'Activity',
+                    icon: Icons.Event,
+                    selectedIcon: Icons.EventActive,
                     title: strings.label_events
                 },
                 {
-                    screen: HOME_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_map.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_map_active.png'),
-                },
+                    screen: PROFILE_SCREEN,
+                    //Todo add strings
+                    label: 'Profile',
+                    icon: Icons.Profile,
+                    selectedIcon: Icons.Profile,
+                    title: strings.label_header_profile
+                }
             ],
         }, this.animationType = 'fade').done();
     }

@@ -29,7 +29,7 @@ export default ESTyleSheet.create({
     padding: getWidthPercentage(10),
   },
   addressLabel: {
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: '$fontDefaultSize',
     color: '$textColor',
   },
@@ -64,7 +64,7 @@ export default ESTyleSheet.create({
   modalButtonTextStyle: {
     color: '#3E8EDE',
     fontSize: '$fontDefaultSize',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     textDecorationLine: 'underline',
   },
   content: {
@@ -73,13 +73,13 @@ export default ESTyleSheet.create({
     paddingBottom: '$heightSize20',
   },
   title: {
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: 16,
     color: '$textColor',
     marginVertical: '$heightSize10',
   },
   description: {
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: '$fontDefaultSize',
     color: '$textColor',
   },

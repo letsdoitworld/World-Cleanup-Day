@@ -9,6 +9,7 @@ const colors = {
     $grey: '#eeeeee',
     $blue: '#3683d9',
     $red: '#FC515E',
+    $yellow: 'rgb(255, 216, 0)',
     $iconColor: ICON_COLOR,
     $white: WHITE_COLOR,
     $textColor: 'rgb(40, 38, 51)',
@@ -25,7 +26,8 @@ const colors = {
     $deepGreyTransparent: 'rgba(200, 199, 204, 0.5)',
     $mainBlue: 'rgb(0, 143, 223)',
     $transparentBlueColor: 'rgb(228, 241, 253)',
-    $buttonDisableColor: 'rgb(126, 124, 132)'
+    $buttonDisableColor: 'rgb(126, 124, 132)',
+    $errorColor: 'rgb(225, 18, 131)',
 };
 const dimensions = {
     $radius10: 10,
@@ -34,8 +36,8 @@ const dimensions = {
 };
 
 const textVariables = {
-    $font: 'noto-sans-regular',
-    $boldFont: 'noto-sans-bold',
+  // $font: 'noto-sans-regular',
+  // $boldFont: 'noto-sans-bold',
 };
 
 EStyleSheet.build({

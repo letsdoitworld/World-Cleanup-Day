@@ -14,9 +14,15 @@ export default {
         justifyContent: 'center'
     },
     titleTextStyle: {
-        marginStart: getWidthPercentage(10),
+        marginLeft: getWidthPercentage(10),
         fontSize: 13,
         color: colors.$textColorDivider,
+        fontFamily: 'Lato-Bold'
+    },
+    titleErrorTextStyle: {
+        marginLeft: getWidthPercentage(10),
+        fontSize: 13,
+        color: colors.$errorColor,
         fontFamily: 'Lato-Bold'
     },
     itemStyle: {
@@ -101,7 +107,7 @@ export const listItemProps = {
     chevronColor: '#3E8EDE',
     //titleStyle: styles.title,
     subtitleStyle: {
-        fontFamily: 'noto-sans-bold',
+        // fontFamily: 'noto-sans-bold',
         fontSize: 15,
         color: 'black',
     },

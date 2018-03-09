@@ -1,6 +1,6 @@
 import { Navigation } from 'react-native-navigation';
 
-import ProfileScreen from './Profile/Profile';
+import ProfileScreen from './Profile';
 import MyActivityScreen from './MyActivity/MyActivity'
 import NotificationsScreen from './Notifications/Notifications'
 import LoginScreen from './Login/Login'
@@ -11,7 +11,7 @@ import AddLocationScreen from './AddLocation/AddLocation'
 import AddTrashPointsScreen from './AddTrashPoints/AddTrashPoints'
 import CreateEventScreen from './Events/CreateEvent/CreateEvent'
 import AddCoordinatorScreen from './Events/CreateEvent/AddCoordinator'
-import AddPeopleToEventScreen from './Events/CreateEvent/AddPeopleToEvent'
+import AddPeopleToEventScreen from './Events/CreateEvent'
 
 import HomeScreen from './Home'
 

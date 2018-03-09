@@ -23,13 +23,13 @@ export default EStyleSheet.create({
   header: {
     marginTop: getHeightPercentage(15),
     color: 'rgba(43,43,43,0.98)',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: 16,
   },
   subHeader: {
     marginTop: getHeightPercentage(5),
     paddingHorizontal: getWidthPercentage(20),
-    fontFamily: '$font',
+    // fontFamily: '$font',
     color: 'rgba(43,43,43,0.98)',
     fontSize: 13,
     textAlign: 'center',

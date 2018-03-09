@@ -1,4 +1,5 @@
 .Event-item {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -43,6 +44,7 @@
 
 .Event-details-part1 {
   margin: 0 10px;
+  width: 164px;
   display: flex;
   flex-direction: column;
 }
@@ -52,7 +54,6 @@
   flex-direction: column;
   justify-content: flex-end;
 }
-
 
 .Event-fill {
   font-size: 10px;

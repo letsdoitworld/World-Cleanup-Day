@@ -100,7 +100,7 @@ export default class InputField extends ImmutableComponent {
     };
 
     focusAcquired = () => {
-        this.setData(d => d.set('errorColor', colors.$dividerColor))
+        this.setData(d => d.set('errorColor', colors.$errorColor))
     };
 
     focusLost = () => {

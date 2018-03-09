@@ -25,11 +25,11 @@ export default EStyleSheet.create({
     },
     hashtagInputPlaceholder: {
         color: '#7D7D7D',
-        fontFamily: 'noto-sans-regular',
+        // fontFamily: 'noto-sans-regular',
         fontSize: 13,
     },
     trashtypesText: {
-        fontFamily: 'noto-sans-bold',
+        // fontFamily: 'noto-sans-bold',
         fontSize: 16,
     },
     inputContainer: {
@@ -59,7 +59,7 @@ export default EStyleSheet.create({
     },
     addTagText: {
         color: '#3E8EDE',
-        fontFamily: 'noto-sans-bold',
+        // fontFamily: 'noto-sans-bold',
         fontSize: 13,
         backgroundColor: 'transparent',
     },
@@ -92,7 +92,7 @@ export default EStyleSheet.create({
         paddingLeft: getWidthPercentage(5),
         paddingRight: getWidthPercentage(5),
     },
-    amountText: { color: '#3E8EDE', fontFamily: 'noto-sans-bold', fontSize: 13 },
+    amountText: { color: '#3E8EDE', fontSize: 13 },
     modalBackground: {
         backgroundColor: 'rgba(0,0,0,0.7)',
         flex: 1,
@@ -101,7 +101,7 @@ export default EStyleSheet.create({
         marginTop: getHeightPercentage(20),
         marginBottom: getHeightPercentage(20),
         color: '#EB5E63',
-        fontFamily: '$boldFont',
+        // fontFamily: '$boldFont',
         textAlign: 'center',
         fontSize: 13,
         textDecorationLine: 'underline',

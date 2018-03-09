@@ -28,7 +28,7 @@ const styles = EStyleSheet.create({
     zIndex: 100,
     position: 'absolute',
     top: getHeightPercentage(180),
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: 22,
     color: 'white',
   },
@@ -43,7 +43,7 @@ const styles = EStyleSheet.create({
   },
   text: {
     paddingHorizontal: getWidthPercentage(40),
-    fontFamily: '$font',
+    // fontFamily: '$font',
     fontSize: 16,
     textAlign: 'center',
   },
@@ -62,7 +62,7 @@ const styles = EStyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: '#3E8EDE',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     textAlign: 'center',
     textDecorationLine: 'underline',
   },

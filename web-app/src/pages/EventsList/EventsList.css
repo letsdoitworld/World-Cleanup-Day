@@ -3,7 +3,7 @@
   position: fixed;
   bottom: 45px;
   left: 50px;
-  z-index: 9999;
+  z-index: 9;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -23,7 +23,7 @@
 }
 
 .EventsList-plot {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 100%;
   transition: all 0.3s ease-in-out;
@@ -32,7 +32,7 @@
 }
 
 .visible {
-  display: none;
+  display: flex;
 }
 
 .EventsList-searchbar-query {

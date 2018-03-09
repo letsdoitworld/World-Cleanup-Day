@@ -13,13 +13,13 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(21),
     fontSize: 16,
     color: 'rgba(43, 43, 43, 0.98)',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
   },
   subHeader: {
     marginTop: getHeightPercentage(5),
     marginLeft: getWidthPercentage(20),
     marginRight: getWidthPercentage(30),
-    fontFamily: '$font',
+    // fontFamily: '$font',
     color: 'rgba(43, 43, 43, 0.98)',
   },
   optionsContainer: {
@@ -45,7 +45,7 @@ export default EStyleSheet.create({
   imageText: {
     marginTop: getHeightPercentage(15),
     fontSize: 10,
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     textAlign: 'center',
   },
 });

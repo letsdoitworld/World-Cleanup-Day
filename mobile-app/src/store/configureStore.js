@@ -1,7 +1,3 @@
-/**
- * Created by saionara1 on 6/21/17.
- */
-
 import {autoRehydrate, persistStore} from "redux-persist-immutable";
 import {combineReducers} from "redux-immutable";
 import createActionBuffer from "redux-action-buffer";
@@ -13,6 +9,15 @@ import createSagaMiddleware from "redux-saga";
 
 import * as userSaga from "../reducers/user/saga";
 import * as trashPointsSaga from "../reducers/trashpoints/saga";
+import reducers from './reducers';
+
+import {
+    loginGoogleFlow,
+    loginFacebookFlow,
+    updateProfileStatusFlow,
+    loadProfileFlow,
+    createEventFlow,
+} from './sagas';
 
 import {
     authReducer,
@@ -20,13 +25,16 @@ import {
     profileReducer,
     profileInitialState,
     profileStatusReducer,
-    profileStatusInitialState
-} from '../reducers/user/reducers'
-
+    profileStatusInitialState,
+} from '../reducers/user/reducers';
 
 import {
-    popoverInitialState,
     errorInitialState,
+} from '../reducers/app/reducers';
+
+import {initialProfileState} from './reducers/profile';
+import {initialAuthState} from './reducers/auth';
+import {initialCreateProfileState} from './reducers/create-event-reducer';
     networkStatusState,
     progressInitialState,
     popoverReducer,
@@ -52,24 +60,34 @@ const combinedReducers = combineReducers({
     progress: progressReducer,
     //  popover: popoverReducer,
 
-    // root: rootReducer,
-    // login: loginReducer,
-    // list: listReducer,
-    // profile: profileReducer,
-    // school: schoolReducer,
-    // categoryFeed: categoryFeedReducer,
-    // editGroups: editGroupsReducer,
-    // dashboard: dashboardReducer,
-    // notifications: notificationsReducer,
-    // events: eventsReducer,
-    // schoolCategories: schoolCategoriesReducer
-});
+// const combinedReducers = combineReducers({
+//     auth: authReducer,
+//     profile: profileReducer,
+//     profileState: profileStatusReducer,
+//     //network: networkReducer,
+//     // config: configReducer,
+//     error: errorReducer,
+//     //  popover: popoverReducer,
+
+//     // root: rootReducer,
+//     // login: loginReducer,
+//     // list: listReducer,
+//     // profile: profileReducer,
+//     // school: schoolReducer,
+//     // categoryFeed: categoryFeedReducer,
+//     // editGroups: editGroupsReducer,
+//     // dashboard: dashboardReducer,
+//     // notifications: notificationsReducer,
+//     // events: eventsReducer,
+//     // schoolCategories: schoolCategoriesReducer
+// });
 
 export const initialState = new Immutable.Map({
-    auth: Immutable.Map(authInitialState),
-    profile: Immutable.Map(profileInitialState),
-    profileState: Immutable.Map(profileStatusInitialState),
-    error: Immutable.Map(errorInitialState),
+    auth: initialAuthState,
+    profile: initialProfileState,
+    createEvent: initialCreateProfileState,
+    // profileState: Immutable.Map(profileStatusInitialState),
+//   error: Immutable.Map(errorInitialState),
     trashPoints: Immutable.Map(trashPointsInitialState),
     progress: Immutable.Map(progressInitialState)
 
@@ -135,8 +153,8 @@ export default function configureStore() {
     const sagaMiddleware = createSagaMiddleware();
 
     const store = createStore(
-        combinedReducers,
-        initialState,
+        reducers,
+        // initialState,
         compose(applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)), autoRehydrate({log: true})));
 
 
@@ -150,6 +168,11 @@ export default function configureStore() {
     return {
         ...store,
         runSaga: [
+            sagaMiddleware.run(loginGoogleFlow),
+            sagaMiddleware.run(loginFacebookFlow),
+            sagaMiddleware.run(updateProfileStatusFlow),
+            sagaMiddleware.run(loadProfileFlow),
+            sagaMiddleware.run(createEventFlow),
             sagaMiddleware.run(userSaga.loginGoogleFlow),
             sagaMiddleware.run(userSaga.loginFacebookFlow),
             sagaMiddleware.run(userSaga.updateProfileStatusFlow),

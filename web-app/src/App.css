@@ -2,31 +2,3 @@
   display: flex;
   flex: 1;
 }
-
-.facebook-button-class {
-  font-size: 13px;
-  color: #43619C;
-  letter-spacing: 0;
-  font-weight: 700;
-  background-image: linear-gradient(-179deg, #FFFFFF 0%, #F1F1F1 100%);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 100px;
-  align-items: center;
-  display: flex;
-  position: relative;
-  margin-top: 10px;
-  text-align: center;
-  flex: 1;
-  padding: 7px 80px;
-}
-
-.facebook-button-class::before {
-  background-image: url(./assets/Facebook@2x.png);
-  background-size: 25px 25px;
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  content: "";
-  position: absolute;
-  left: 10px
-}

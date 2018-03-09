@@ -4,7 +4,7 @@
   flex-direction: row;
   width: 100%;
   box-sizing: border-box;
-  padding: 16px 30px;
+  padding: 16px 30px 6px 30px;
 }
 
 .Event-details {

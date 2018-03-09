@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
-import { Sidebar } from '../../components/Sidebar';
 import { BinIcon, EventsIcon } from '../../components/common/Icons';
 
 import {
@@ -11,7 +10,7 @@ import {
   selectors as userSels,
 } from '../../reducers/user';
 import {
-  actions as adminActions
+  actions as adminActions,
 } from '../../reducers/admin';
 
 import { UserDetails } from '../../pages/UserDetails';
@@ -20,7 +19,6 @@ import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
 import { EventsList } from '../../pages/EventsList';
-import { EventDetails } from '../../pages/EventsList/EventDetails';
 import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
@@ -53,7 +51,8 @@ class Home extends React.Component {
   renderTermsRoute = () => <Terms />;
   renderPrivacyRoute = () => <Privacy />;
   renderNormalRoute = ({ history }) =>
-    (<div className="Root-normal-route"
+    (<div
+      className="Root-normal-route"
       style={{
         height: '100%',
         width: '100%',
@@ -67,7 +66,12 @@ class Home extends React.Component {
         <Route path="/users" exact component={UserList} />
         {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
-        <Route path="/events/:id?" render={({match})=> <EventsList eventId={match.params.id} />} />
+        <Route
+          path="/events/:id?"
+          render={
+            ({ match }) =>
+              <EventsList eventId={match.params.id} history={history} />}
+        />
         <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
         <Route path="/trashpoints/:id" exact component={TrashpointDetails} />

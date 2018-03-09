@@ -9,6 +9,10 @@ import {
   selectors as trashpileSelectors,
   actions as trashpileActions,
 } from '../../reducers/trashpile';
+import {
+  selectors as eventSelectors,
+  actions as eventActions
+} from '../../reducers/events'
 import { getViewportPoints } from '../../shared/helpers';
 import { GRID_HASH, DELTA_HASH, GRID_MIN_VALUE } from '../../shared/constants';
 
@@ -72,6 +76,7 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width)
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
+    this.props.fetchAllEventMarkers();
     //this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {
@@ -129,10 +134,10 @@ class MarkersMap extends React.Component {
   };
 
   render() {
-    const { markers } = this.props;
+    const { markers, eventMarkers } = this.props;
     return (
       <MapView
-        points={markers}
+        points={eventMarkers}
         setMapComponent={this.handleSetMapComponent}
         boundsChanged={this.handleBoundsChanged}
         onPointClick={this.handleMarkerClick}
@@ -142,11 +147,13 @@ class MarkersMap extends React.Component {
 }
 const mapState = state => ({
   markers: trashpileSelectors.getAllMarkers(state),
+  eventMarkers: eventSelectors.getAllEventMarkers(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
 });
 const mapDispatch = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,
+  fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
 };
 export default connect(mapState, mapDispatch)(MarkersMap);

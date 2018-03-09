@@ -62,8 +62,3 @@
   text-transform: uppercase;
   font-weight: bold;
 }
-
-.EventDetails-bring ul {
-  list-style-type: none;
-  -webkit-padding-start: 0px;
-}

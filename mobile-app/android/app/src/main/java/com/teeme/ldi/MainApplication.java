@@ -18,6 +18,7 @@ import java.util.List;
 
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import io.fabric.sdk.android.Fabric;
+import com.azendoo.reactnativesnackbar.SnackbarPackage;
 
 public class MainApplication extends NavigationApplication {
 
@@ -37,7 +38,8 @@ public class MainApplication extends NavigationApplication {
                 new MapsPackage(),
                 new FBSDKPackage(mCallbackManager),
                 new RNGoogleSigninPackage(),
-                new PickerPackage()
+                new PickerPackage(),
+                new SnackbarPackage()
         );
     }
 

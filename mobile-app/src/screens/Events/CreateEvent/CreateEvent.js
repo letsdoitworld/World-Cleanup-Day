@@ -14,6 +14,7 @@ import ImmutableComponent from "../../../components/InputFields/ImmutableCompone
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
+import Snackbar from 'react-native-snackbar';
 
 
 export default class CreateEvent extends ImmutableComponent {
@@ -51,7 +52,7 @@ export default class CreateEvent extends ImmutableComponent {
     }
 
     calculateMinDate() {
-         const date = new Date();
+        const date = new Date();
         return Moment(date).format("DD-MM-YYYY HH:mm");
     };
 
@@ -76,6 +77,14 @@ export default class CreateEvent extends ImmutableComponent {
                 const changedEndDate = date.split(" ")[0] + " " + endDate.split(" ")[1];
                 this.setData(d => d.set('endDate', changedEndDate))
             }}/>
+    }
+
+    renderTitle() {
+        const isTitleValid = this.state.data.get('isTitleValid');
+        const style = (isTitleValid) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        return <View style={styles.titleStyle}>
+            <Text style={styles.titleErrorTextStyle}>{strings.label_title.toUpperCase()}</Text>
+        </View>
     }
 
     renderEndPicker() {
@@ -118,7 +127,7 @@ export default class CreateEvent extends ImmutableComponent {
                 <ScrollView style={styles.container}>
 
                     <View style={styles.titleStyle}>
-                        <Text style={styles.titleTextStyle}>{strings.label_title.toUpperCase()}</Text>
+                        <Text style={styles.titleErrorTextStyle}>{strings.label_title.toUpperCase()}</Text>
                     </View>
                     <View style={styles.inputContainerStyle}>
                         <InputField style={styles.inputTextStyle}

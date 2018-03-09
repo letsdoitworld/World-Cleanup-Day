@@ -21,7 +21,6 @@ class Profile extends Component {
     this.props.navigator.setOnNavigatorEvent(
       this.onNavigatorEvent.bind(this),
     );
-      console.warn('Profile',props.onFetchProfile)
   }
 
   componentDidMount() {

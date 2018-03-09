@@ -144,6 +144,6 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>NSCameraUsageDescription</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 </dict>
 </plist>

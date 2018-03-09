@@ -24,6 +24,8 @@ target 'mobileapp' do
     # Pods for testing
  # end
 
+ pod 'RNSnackbar', :path => '../node_modules/react-native-snackbar'
+
  # target 'mobileappTests' do
  #   inherit! :search_paths
     # Pods for testing

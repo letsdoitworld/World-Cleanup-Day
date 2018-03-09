@@ -92,12 +92,7 @@
 
 .Popover-img {
   width: 100%;
-  display: inline-block;
-}
-
-.Popover-img img {
-  height: 320px;
-  width: 590px;
+  height: 320px !important;
 }
 
 .Popover-login-item-container {
@@ -154,7 +149,7 @@
   width: 40px;
   height: 40px;
   vertical-align: middle;
-  filter: grayscale(1);
+  filter: grayscale(1) sepia(0.3);
 }
 
 .Popover-login-item span {

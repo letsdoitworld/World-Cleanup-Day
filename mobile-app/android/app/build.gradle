@@ -158,7 +158,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-snackbar')
     compile project(':react-native-vector-icons')
     compile project(':react-native-navigation')
     compile project(':react-native-maps')

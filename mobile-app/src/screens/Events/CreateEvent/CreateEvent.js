@@ -14,8 +14,6 @@ import ImmutableComponent from "../../../components/InputFields/ImmutableCompone
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
-import Snackbar from 'react-native-snackbar';
-
 
 export default class CreateEvent extends ImmutableComponent {
 

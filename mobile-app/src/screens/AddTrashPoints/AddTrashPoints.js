@@ -26,7 +26,6 @@ const saveId = 'saveId';
 
 const PAGE_SIZE = 15;
 
-
 class AddTrashPoints extends ImmutableComponent {
 
     marked = new Map();

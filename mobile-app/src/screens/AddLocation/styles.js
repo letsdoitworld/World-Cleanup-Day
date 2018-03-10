@@ -29,6 +29,7 @@ export default {
         backgroundColor: 'rgb(0, 143, 223)',
         height: 44,
         justifyContent: 'center',
+        borderRadius: 4,
     },
     confirmButtonText: {
         alignSelf: 'center',

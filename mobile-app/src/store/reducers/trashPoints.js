@@ -17,8 +17,13 @@ export const initialState = Immutable.Map(
 const handlers = {
     [SEARCH_TRASH_POINTS_SUCCESS_ACTION]: (state, {trashPoints, page}) => {
         if (page > 0) {
-            return state.withMutations(state => state
-                .set('trashPoints', state.get('trashPoints').concat(trashPoints)));
+            const currentTrashPoints = state.get('trashPoints');
+            if (currentTrashPoints) {
+                return state.withMutations(state => state
+                    .set('trashPoints', currentTrashPoints.concat(trashPoints)));
+            } else {
+                return state
+            }
         } else {
             return state.withMutations(state => state
                 .set('trashPoints', trashPoints));

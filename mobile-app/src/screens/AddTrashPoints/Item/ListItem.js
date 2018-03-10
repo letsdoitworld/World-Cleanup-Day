@@ -31,7 +31,7 @@ export default class ListItem extends Component {
         const item = this.props.item;
         const checked = this.state.checked;
 
-        const pin = checked ? require('../../../assets/images/icLocationSmall.png') : require('../../../assets/images/icLocationSmall.png');
+        const pin = checked ? require('./images/icSmallLocationPinActive.png') : require('./images/icSmallLocationPinInactive.png');
 
         return (
             <TouchableHighlight

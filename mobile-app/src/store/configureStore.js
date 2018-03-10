@@ -7,8 +7,6 @@ import {applyMiddleware, compose, createStore} from "redux";
 import {AsyncStorage} from "react-native";
 import createSagaMiddleware from "redux-saga";
 
-import * as userSaga from "../reducers/user/saga";
-import * as trashPointsSaga from "../reducers/trashpoints/saga";
 import reducers from './reducers';
 
 import {
@@ -17,136 +15,8 @@ import {
     updateProfileStatusFlow,
     loadProfileFlow,
     createEventFlow,
+    searchTrashPointsFlow
 } from './sagas';
-
-import {
-    authReducer,
-    authInitialState,
-    profileReducer,
-    profileInitialState,
-    profileStatusReducer,
-    profileStatusInitialState,
-} from '../reducers/user/reducers';
-
-import {
-    errorInitialState,
-} from '../reducers/app/reducers';
-
-import {initialProfileState} from './reducers/profile';
-import {initialAuthState} from './reducers/auth';
-import {initialCreateProfileState} from './reducers/create-event-reducer';
-    networkStatusState,
-    progressInitialState,
-    popoverReducer,
-    errorReducer,
-    configReducer,
-    networkReducer,
-    progressReducer
-} from '../reducers/app/reducers'
-
-import {
-    trashPointsInitialState,
-    trashPointsReducer
-} from '../reducers/trashpoints/reducer'
-
-const combinedReducers = combineReducers({
-    auth: authReducer,
-    profile: profileReducer,
-    profileState: profileStatusReducer,
-    //network: networkReducer,
-    // config: configReducer,
-    error: errorReducer,
-    trashPoints: trashPointsReducer,
-    progress: progressReducer,
-    //  popover: popoverReducer,
-
-// const combinedReducers = combineReducers({
-//     auth: authReducer,
-//     profile: profileReducer,
-//     profileState: profileStatusReducer,
-//     //network: networkReducer,
-//     // config: configReducer,
-//     error: errorReducer,
-//     //  popover: popoverReducer,
-
-//     // root: rootReducer,
-//     // login: loginReducer,
-//     // list: listReducer,
-//     // profile: profileReducer,
-//     // school: schoolReducer,
-//     // categoryFeed: categoryFeedReducer,
-//     // editGroups: editGroupsReducer,
-//     // dashboard: dashboardReducer,
-//     // notifications: notificationsReducer,
-//     // events: eventsReducer,
-//     // schoolCategories: schoolCategoriesReducer
-// });
-
-export const initialState = new Immutable.Map({
-    auth: initialAuthState,
-    profile: initialProfileState,
-    createEvent: initialCreateProfileState,
-    // profileState: Immutable.Map(profileStatusInitialState),
-//   error: Immutable.Map(errorInitialState),
-    trashPoints: Immutable.Map(trashPointsInitialState),
-    progress: Immutable.Map(progressInitialState)
-
-    // root: Immutable.Map({
-    //     progress: undefined,
-    //     root_screen: 'welcome'
-    // }),
-    // login: Immutable.Map({
-    //     isLoggedIn: false,
-    //     token: '',
-    //     loginError: {},
-    //     username: '',
-    //     user: {},
-    //     password: '',
-    //     authorizationId: ''
-    // }),
-    // list: Immutable.Map({
-    //     data: [],
-    //     sellers: [],
-    //     items: []
-    // }),
-    // profile: Immutable.Map({
-    //     profile: undefined,
-    // }),
-    // school: Immutable.Map({
-    //     school: {},
-    //     error: '',
-    //     schools: []
-    // }),
-    // categoryFeed:Immutable.Map({
-    //     dataMap: {},
-    //     error: ''
-    // }),
-    // editGroups:Immutable.Map({
-    //     data: [],
-    //     groups: [],
-    //     error: ''
-    // }),
-    // dashboard:Immutable.Map({
-    //     recommendedFeed: [],
-    //     myFeed: [],
-    //     mySchools: [],
-    //     error: ''
-    // }),
-    // notifications:Immutable.Map({
-    //     notifications: [],
-    //     error: ''
-    // }),
-    // events:Immutable.Map({
-    //     data: {},
-    //     dates: [],
-    //     error: ''
-    // }),
-    // schoolCategories:Immutable.Map({
-    //     categories: [],
-    //     error: '',
-    // }),
-});
-
 
 export default function configureStore() {
 
@@ -154,7 +24,6 @@ export default function configureStore() {
 
     const store = createStore(
         reducers,
-        // initialState,
         compose(applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)), autoRehydrate({log: true})));
 
 
@@ -162,7 +31,7 @@ export default function configureStore() {
         store,
         {
             storage: AsyncStorage,
-             blacklist:['trashPoints',]
+            blacklist:['trashPoints',]
         }
     );
     return {
@@ -173,35 +42,7 @@ export default function configureStore() {
             sagaMiddleware.run(updateProfileStatusFlow),
             sagaMiddleware.run(loadProfileFlow),
             sagaMiddleware.run(createEventFlow),
-            sagaMiddleware.run(userSaga.loginGoogleFlow),
-            sagaMiddleware.run(userSaga.loginFacebookFlow),
-            sagaMiddleware.run(userSaga.updateProfileStatusFlow),
-            sagaMiddleware.run(userSaga.loadProfileFlow),
-            sagaMiddleware.run(trashPointsSaga.searchTrashPointsFlow)
-            // sagaMiddleware.run(listSaga.listFlow),
-            // sagaMiddleware.run(listSaga.sellersListFlow),
-            // sagaMiddleware.run(listSaga.itemsListFlow),
-            // sagaMiddleware.run(logoutSaga.logoutFlow),
-            // sagaMiddleware.run(profileSaga.createProfileFlow),
-            // sagaMiddleware.run(schoolSaga.schoolFlow),
-            // sagaMiddleware.run(profileSaga.loadProfileFlow),
-            // sagaMiddleware.run(profileSaga.editProfileFlow),
-            // sagaMiddleware.run(categoryFeedSaga.getCategoryFeedFlow),
-            // sagaMiddleware.run(logoutSaga.logoutFlow),
-            // sagaMiddleware.run(editGroupsSaga.editGroupsFlow),
-            // sagaMiddleware.run(editGroupsSaga.subscribeGroupsFlow),
-            // sagaMiddleware.run(editGroupsSaga.loadGroupsFlow),
-            // sagaMiddleware.run(dashboardSaga.recommendedFeedFlow),
-            // sagaMiddleware.run(dashboardSaga.myFeedFlow),
-            // sagaMiddleware.run(dashboardSaga.mySchoolsFlow),
-            // sagaMiddleware.run(schoolSaga.searchSchoolsFlow),
-            // sagaMiddleware.run(schoolSaga.followedSchoolsFlow),
-            // sagaMiddleware.run(schoolSaga.subscribeSchoolFlow),
-            // sagaMiddleware.run(schoolSaga.sortSchoolsFlow),
-            // sagaMiddleware.run(notificationsSaga.notificationsFlow),
-            // sagaMiddleware.run(notificationsSaga.notificationsMarkFlow),
-            // sagaMiddleware.run(eventsSaga.eventsFlow),
-            // sagaMiddleware.run(schoolCategoriesSaga.schoolCategoriesFlow)
+            sagaMiddleware.run(searchTrashPointsFlow)
         ]
     };
 }

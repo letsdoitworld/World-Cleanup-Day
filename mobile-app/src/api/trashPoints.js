@@ -1,8 +1,3 @@
-import Api from '../../services/Api';
-import actions from './actions';
-import constants from "../../shared/constants";
-
-
 
 export function searchTrashPointsRequest(query, page, pageSize, location) {
     return new Promise(function (resolve, reject) {

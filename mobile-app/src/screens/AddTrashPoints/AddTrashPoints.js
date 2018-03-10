@@ -15,17 +15,17 @@ import {
 import styles from './styles'
 import strings from '../../assets/strings'
 import {connect} from "react-redux";
+import {
+    searchTrashPointsAction,
+    clearTrashPointsAction
+} from '../../store/actions/trashPoints'
+import ListItem from "./Item/ListItem";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
 
 const PAGE_SIZE = 15;
 
-import {
-    searchTrashPointsAction,
-    clearTrashPointsAction
-} from '../../reducers/trashpoints/actions'
-import ListItem from "./Item/ListItem";
 
 class AddTrashPoints extends ImmutableComponent {
 
@@ -50,20 +50,13 @@ class AddTrashPoints extends ImmutableComponent {
         super(props);
         this.state = {
             data: Immutable.Map({
-                //  isSearchEnabled: false,
                 trashPoints: [],
-                // heightOfFlatList: undefined,
             })
         };
-
-        // const onTrashPointsSelected = props.onTrashPointsSelected;
 
         props.selectedTrashPoints.forEach((trashPoint) => {
             this.marked.set(trashPoint.id, trashPoint)
         });
-
-
-        // const location = props.location;
 
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
@@ -109,13 +102,6 @@ class AddTrashPoints extends ImmutableComponent {
         }
     }
 
-    // onLayout = ({nativeEvent: {layout: {height}},}) => {
-    //     const heightOfFlatList = this.state.data.get('heightOfFlatList');
-    //     if (heightOfFlatList === undefined || heightOfFlatList < height && this.isEmptyState()) {
-    //         this.setData(d => d.set('heightOfFlatList', height));
-    //     }
-    // };
-
     handleLoadMore = () => {
         if (this.getTrashPointsFromState().length < PAGE_SIZE * (this.page + 1)) {
             return
@@ -127,20 +113,6 @@ class AddTrashPoints extends ImmutableComponent {
     };
 
     componentWillReceiveProps(nextProps) {
-        // if (
-        //     this.getNotificationsFromState().length > 0
-        //     &&
-        //     this.refreshing
-        //     &&
-        //     this.page === 0
-        //     &&
-        //     nextProps.notifications.get('notifications').length > 0
-        //     &&
-        //     !nextProps.root.get('progress')) {
-        //     this.refreshing = false
-        // }
-
-
         const receivedTrashPointsList = nextProps.trashPoints.get('trashPoints');
 
         if (receivedTrashPointsList === undefined) return;
@@ -175,7 +147,6 @@ class AddTrashPoints extends ImmutableComponent {
 
     //noinspection JSMethodCanBeStatic
     render() {
-
         return (
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
@@ -216,67 +187,15 @@ class AddTrashPoints extends ImmutableComponent {
     }
 
     isProgressEnabled() {
-        return this.props.progress.get('progress');
+        return this.props.app.get('progress');
     }
-
-    //
-    // renderCloseSearchIcon = () => {
-    //     if (this.state.data.get('isSearchEnabled')) {
-    //         return (
-    //             <TouchableOpacity
-    //                 onPress={this.onSearchClosePress.bind(this)}
-    //                 style={searchAndAddSchoolStyle.closeContainerStyle}>
-    //                 <Image
-    //                     resizeMode={'center'}
-    //                     source={require('../images/ic_cross/ic_cross_blue.png')}
-    //                     style={searchAndAddSchoolStyle.closeSearchIconStyle}/>
-    //             </TouchableOpacity>
-    //         );
-    //     } else {
-    //         return null;
-    //     }
-    // };
-
-    // onSearchClosePress = () => {
-    //     this.refs.input.blur();
-    //     this.refs.input.clear();
-    //     this.query = undefined;
-    //     this.setData(d => d.set('isSearchEnabled', false));
-    //     this.page = 0;
-    //     this.props.dispatch(schoolActions.getFollowedSchools(this.page, PAGE_SIZE))
-    // };
-
-    // onSearchFieldFocused = () => {
-    //     this.page = 0;
-    //     this.setData(d => d.set('isSearchEnabled', true));
-    // };
-    //
-    // isEmptyState() {
-    //     const schools = this.props.school.get('schools');
-    //     return (schools === undefined || schools.length === 0) && (this.query === undefined || this.query.length === 0);
-    // }
-
-    // renderEmptyState = () => {
-    //     if (this.props.root.get('progress')) {
-    //         return null
-    //     } else {
-    //         return (
-    //             <View style={searchAndAddSchoolStyle.emptySchools}>
-    //                 <Image source={require('../images/ic_no_schools/iconSearchEmpty.png')}
-    //                        style={searchAndAddSchoolStyle.imageEmptyStyle}/>
-    //                 <Text style={searchAndAddSchoolStyle.emptyTextStyle}>{strings.no_schools}</Text>
-    //             </View>
-    //         )
-    //     }
-    // };
-
 
     renderSeparator = () => {
         return (
             <View style={styles.listDivider}/>
         )
     };
-    //
+
     renderFooter = () => {
         if (this.isProgressEnabled() && this.page === 0) {
             return null
@@ -328,7 +247,10 @@ class AddTrashPoints extends ImmutableComponent {
 
     spinner() {
         return (
-            <ActivityIndicator style={styles.spinner} size="large" color="rgb(0, 143, 223)"/>
+            <ActivityIndicator
+                style={styles.spinner}
+                size="large"
+                color="rgb(0, 143, 223)"/>
         );
     }
 
@@ -351,7 +273,7 @@ function debounce(func, wait, immediate) {
 
 const mapStateToProps = (state) => ({
     trashPoints: state.get('trashPoints'),
-    progress: state.get('progress'),
+    app: state.get('app'),
 });
 
 export default connect(mapStateToProps)(AddTrashPoints)

@@ -1,17 +1,17 @@
 import {call, put, take} from "redux-saga/effects";
-import {SEARCH_TRASH_POINTS_ACTION} from './types';
+import {SEARCH_TRASH_POINTS_ACTION} from '../types/trashPoints';
 import {
     controlProgress,
     setErrorMessage
-} from "../app/actions";
+} from "../actions/app";
 import {
     searchTrashPointsAction,
     searchTrashPointsErrorAction,
     searchTrashPointsSuccessAction
-} from "../trashpoints/actions";
+} from "../actions/trashPoints";
 import {
     searchTrashPointsRequest
-} from "./operations";
+} from "../../api";
 
 function* searchTrashPoints(query, page, pageSize, location) {
     console.log("2");

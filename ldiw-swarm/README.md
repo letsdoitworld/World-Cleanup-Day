@@ -175,7 +175,7 @@ Following are project URLs for all development environments:
 - [jenkins](https://jenkins.ops.worldcleanupday.com) 
 - [API-qa](https://api-qa.app.worldcleanupday.com/)
 - [API-staging](https://api-staging.app.worldcleanupday.com/)
-- [couchdb-qa](couch-qa.app.worldcleanupday.com)
+- [couchdb-qa](https://couch-qa.app.worldcleanupday.com)
 - [couchdb-staging](https://couch-staging.app.worldcleanupday.com/)
 - [webapp-qa](https://qa.app.worldcleanupday.com/)
 - [webapp-staging](https://staging.app.worldcleanupday.com/)

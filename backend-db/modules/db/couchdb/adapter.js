@@ -122,7 +122,7 @@ const adapter = {
         if (!id) {
             return false;
         }
-        const docs = await adapter.getRawDocs(datatype, view, {key: id, sorted: false, limit: 1});
+        const docs = await adapter.getRawDocs(datatype, view, { key: id, sorted: false, limit: 1, public: true });
         if (!docs.length) {
             return false;
         }

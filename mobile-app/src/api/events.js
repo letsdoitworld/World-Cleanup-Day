@@ -10,6 +10,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -19,6 +21,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: true,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -26,6 +29,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -35,6 +40,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -42,6 +48,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -51,6 +59,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -58,6 +67,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -67,6 +78,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -74,6 +86,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -83,6 +97,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -90,6 +105,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -99,6 +116,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -106,6 +124,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -115,6 +135,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -122,6 +143,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -131,6 +154,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -138,6 +162,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -147,6 +173,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -154,6 +181,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -163,6 +192,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -170,6 +200,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -179,6 +211,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -186,6 +219,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -195,6 +230,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -202,6 +238,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -211,6 +249,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -218,6 +257,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -227,6 +268,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -234,6 +276,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -243,6 +287,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -250,6 +295,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -259,6 +306,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -266,6 +314,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -275,6 +325,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -282,6 +333,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -291,6 +344,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -298,6 +352,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -307,6 +363,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -314,6 +371,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -323,6 +382,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
                         {
@@ -330,6 +390,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             organization_name: "dsdsdsd",
                             date: '11.02.2018',
                             cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
+                            available: 3,
+                            all: 20,
                             place: {
                                 location: {
                                     longitude: 49,
@@ -339,6 +401,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                                 city: 'Dnipro',
                                 country: 'Ukraine'
                             },
+                            participant: false,
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         }
                     ]

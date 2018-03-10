@@ -90,6 +90,7 @@ class Events extends Component {
         return (
             <View style={styles.container}>
                 <EventsList
+                    navigator={this.props.navigator}
                     dispatch={this.props.dispatch}
                     app={this.props.app}
                     events={this.props.events}
@@ -97,8 +98,7 @@ class Events extends Component {
                         width: '100%',
                         height: '100%',
                         flex: 1,
-                    }}
-                />
+                    }}/>
                     <FAB
                         buttonColor="rgb(225, 18, 131)"
                         iconTextColor="white"

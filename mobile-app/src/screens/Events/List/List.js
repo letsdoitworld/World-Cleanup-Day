@@ -14,12 +14,12 @@ import {
 } from 'react-native';
 import styles from './styles'
 import strings from '../../../assets/strings'
-//import {connect} from "react-redux";
+
 import {
     searchEventsAction,
     clearEventsAction
 } from '../../../store/actions/events'
- import ListItem from "./ListItem/ListItem";
+import ListItem from "./ListItem/ListItem";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -28,9 +28,9 @@ const PAGE_SIZE = 15;
 
 export default class EventsList extends ImmutableComponent {
 
-   // marked = new Map();
+    // marked = new Map();
 
-   // static navigatorStyle = styles.navigatorStyle;
+    // static navigatorStyle = styles.navigatorStyle;
 
     page = 0;
 
@@ -57,7 +57,7 @@ export default class EventsList extends ImmutableComponent {
         //     this.marked.set(trashPoint.id, trashPoint)
         // });
 
-       // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+        // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
 
@@ -83,11 +83,11 @@ export default class EventsList extends ImmutableComponent {
             console.log(events.length);
         }
 
-       // if (receivedTrashPointsList === undefined) return;
+        // if (receivedTrashPointsList === undefined) return;
 
-       // if (this.marked.size === 0) {
-            this.setData(d => d.set('events', events));
-       // } else {
+        // if (this.marked.size === 0) {
+        this.setData(d => d.set('events', events));
+        // } else {
         //
         //     const filteredReceivedTrashPoints = receivedTrashPointsList
         //         .filter((trashPoint) => !this.marked.has(trashPoint.id));
@@ -190,21 +190,12 @@ export default class EventsList extends ImmutableComponent {
     keyExtractor = (item, index) => item.id.toString();
 
     renderItem = ({item}) => (
-        <View style={{
-            width: '100%',
-            height: 100,
-            backgroundColor: 'red'
-        }}
-        />
+        <ListItem
+            navigator={this.props.navigator}
+            item={item}
+            id={item.id}/>
     );
 
-
-// <ListItem
-// onCheckedChanged={this.onCheckedChanged.bind(this)}
-// checked={this.marked.has(item.id)}
-// navigator={this.props.navigator}
-// item={item}
-// id={item.id}/>
 
     // onQueryChange = debounce(function (text) {
     //     this.query = text;

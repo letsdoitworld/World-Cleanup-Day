@@ -11,15 +11,17 @@ import styles from './styles'
 import {
     CREATE_EVENT,
 } from "../index";
+import {connect} from "react-redux";
 import strings from '../../assets/strings'
 import FAB from 'react-native-fab'
 import Icon from 'react-native-vector-icons/Feather';
 
+import EventsList from "./List/List"
+
 const filterId = 'filterId';
 const searchId = 'searchId';
 
-
-export default class Events extends Component {
+class Events extends Component {
 
     static navigatorStyle = {
         navBarCustomView: "EVENTS_NAV_BAR",
@@ -75,20 +77,43 @@ export default class Events extends Component {
             title: strings.label_create_events_step_one
         });
     };
+    componentWillReceiveProps(nextProps) {
+        const events = nextProps.events.get('events');
+
+        if (events) {
+            console.log("WIN");
+            console.log(events.length);
+        }
+    }
 
     render() {
         return (
-            <View>
-                <View style={styles.container}>
+            <View style={styles.container}>
+                <EventsList
+                    dispatch={this.props.dispatch}
+                    app={this.props.app}
+                    events={this.props.events}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        flex: 1,
+                    }}
+                />
                     <FAB
                         buttonColor="rgb(225, 18, 131)"
                         iconTextColor="white"
                         onClickAction={this.handleFabPress}
                         visible={true}
-                        iconTextComponent={<Icon name="plus"/>}
-                    />
-                </View>
-            </View>);
+                        iconTextComponent={<Icon name="plus"/>}/>
+            </View>
+        );
     }
 
 }
+
+const mapStateToProps = (state) => ({
+    events: state.get('events'),
+    app: state.get('app'),
+});
+
+export default connect(mapStateToProps)(Events)

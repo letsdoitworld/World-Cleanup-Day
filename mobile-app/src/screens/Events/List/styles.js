@@ -6,16 +6,15 @@ export default {
         justifyContent: 'center'
     },
     containerContent: {
-        width: '100%',
-        height: '100%',
         flex: 1,
+        justifyContent: 'center'
     },
     horizontal: {
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
     searchContainerStyle: {
-        backgroundColor: "rgb(228, 241, 253)"
+        backgroundColor: "rgb(228, 241, 253)",
     },
     mainContentContainer: {
         position: 'absolute',
@@ -25,29 +24,6 @@ export default {
     },
     vertical: {
         flexDirection: 'column',
-    },
-    navigatorStyle: {
-        tabBarHidden: true,
-        navBarTitleTextCentered: true,
-        navBarBackgroundColor: 'white',
-        navBarTextColor: '$textColor',
-        navBarTextFontSize: 17,
-        navBarTextFontFamily: 'Lato-Bold',
-        statusBarColor: 'white',
-        statusBarTextColorScheme: 'dark',
-    },
-    searchField: {
-        backgroundColor: 'white',
-        flex: 1,
-        height: 29,
-        paddingVertical: 0,
-        paddingHorizontal: dimens.margin_small,
-        margin: dimens.margin_small,
-        borderRadius: 5,
-        fontFamily: "Lato-Regular",
-        color: 'rgb(40, 38, 51)',
-        fontSize: 15,
-        lineHeight: 21,
     },
     listDivider: {
         height: 1,

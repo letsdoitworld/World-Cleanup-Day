@@ -84,7 +84,7 @@ export default class App extends Component {
                     label: 'Activity',
                     icon: Icons.Event,
                     selectedIcon: Icons.EventActive,
-                    title: strings.label_events,
+                   // title: strings.label_events,
                    // topTabs: [
 
                         // {

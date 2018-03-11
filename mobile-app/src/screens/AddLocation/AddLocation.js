@@ -16,6 +16,7 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 import {Map} from '../../components/Map/Map';
 import {DEFAULT_ZOOM} from "../../shared/constants";
 import {MARKER_STATUS_IMAGES} from "../../components/Map/Marker";
+import {connect} from "react-redux";
 
 const cancelId = 'cancelId';
 
@@ -27,7 +28,7 @@ const autocompleteStyle = {
     description: styles.searchDescription,
 };
 
-export default class AddLocation extends Component {
+class AddLocation extends Component {
 
     static navigatorStyle = styles.navigatorStyle;
 
@@ -67,8 +68,14 @@ export default class AddLocation extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    componentDidMount() {
-        if (this.state.initialRegion === undefined) {
+    // componentDidMount() {
+    //     if (this.state.initialRegion === undefined) {
+    //         this.getCurrentPosition();
+    //     }
+    // }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.initialRegion === undefined && nextProps.auth.get('token') !== undefined) {
             this.getCurrentPosition();
         }
     }
@@ -241,3 +248,9 @@ export default class AddLocation extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => ({
+    auth: state.get('auth'),
+});
+
+export default connect(mapStateToProps)(AddLocation)

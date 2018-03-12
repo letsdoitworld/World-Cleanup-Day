@@ -9,14 +9,13 @@ import {
     searchEventsErrorAction,
     searchEventsSuccessAction
 } from "../actions/events";
-import {
-    searchEventsRequest
-} from "../../api";
+
+import Api from '../../api';
 
 function* searchEvents(query, page, pageSize, location) {
     console.log("2");
     try {
-        const response = yield call(searchEventsRequest, query, page, pageSize, location);
+        const response = yield call(Api.events.searchEventsRequest, query, page, pageSize, location);
         console.log("3");
         if (response.status) {
             yield put(searchEventsSuccessAction(response.events, page, pageSize));

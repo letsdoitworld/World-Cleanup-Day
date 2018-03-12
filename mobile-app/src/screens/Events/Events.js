@@ -35,21 +35,25 @@ const MODE = {
     map: 1
 };
 
-class Events extends ImmutableComponent {
+class Events extends Component {
 
     location = undefined;
 
     onModeChanged(index) {
-        this.setData(d => d.set('mode', index));
+        this.setState(previousState => {
+            return { mode: index }
+        });
     }
 
     isSearchFieldVisible() {
-        return this.state.data.get('isSearchFieldVisible')
+        return this.state.isSearchFieldVisible
     }
 
     toggleSearchFieldVisibility() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setData(d => d.set('isSearchFieldVisible', !this.isSearchFieldVisible()));
+        this.setState(previousState => {
+            return { isSearchFieldVisible: !this.isSearchFieldVisible() }
+        });
         if (!this.isSearchFieldVisible() && (this.query ? this.query.length > 0 : false)) {
             this.query = undefined;
             if (this.list) {
@@ -116,10 +120,8 @@ class Events extends ImmutableComponent {
         });
 
         this.state = {
-            data: Immutable.Map({
-                mode: MODE.list,
-                isSearchFieldVisible: false
-            })
+            mode: MODE.list,
+            isSearchFieldVisible: false,
         };
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -166,7 +168,7 @@ class Events extends ImmutableComponent {
     }
 
     renderContent() {
-        switch(this.state.data.get('mode')) {
+        switch(this.state.mode) {
             case MODE.list: {
                 return (
                     <EventsList

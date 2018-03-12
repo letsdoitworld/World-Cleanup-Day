@@ -228,3 +228,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
         console.log(error)
     })
 }
+
+export default {
+    searchTrashPointsRequest
+}

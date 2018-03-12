@@ -9,3 +9,7 @@ export async function createEvent(event) {
         throw ex;
     }
 }
+
+export default {
+    createEvent
+}

@@ -15,22 +15,27 @@ import {
 import styles from './styles'
 import strings from '../../assets/strings'
 import {connect} from "react-redux";
-import {
-    searchTrashPointsAction,
-    clearTrashPointsAction
-} from '../../store/actions/trashPoints'
+// import {
+//     searchTrashPointsAction,
+//     clearTrashPointsAction
+// } from '../../store/actions/trashPoints'
 import ListItem from "./Item/ListItem";
+import PropTypes from "prop-types";
+import Profile from "../Profile/Profile";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
 
 const PAGE_SIZE = 15;
 
-class AddTrashPoints extends ImmutableComponent {
+class AddTrashPoints extends Component {
 
     marked = new Map();
 
-    static navigatorStyle = styles.navigatorStyle;
+    static navigatorStyle = {
+        tabBarHidden: true,
+        navBarTitleTextCentered: true,
+    };
 
     page = 0;
 
@@ -48,9 +53,7 @@ class AddTrashPoints extends ImmutableComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: Immutable.Map({
-                trashPoints: [],
-            })
+            trashPoints: [],
         };
 
         props.selectedTrashPoints.forEach((trashPoint) => {
@@ -62,7 +65,8 @@ class AddTrashPoints extends ImmutableComponent {
 
 
     componentDidMount() {
-        this.props.dispatch(searchTrashPointsAction(null, 0, PAGE_SIZE, this.props.location))
+        const {onSearchTrashPointsAction} = this.props;
+        onSearchTrashPointsAction(null, 0, PAGE_SIZE, this.props.location);
     }
 
     componentDidUpdate() {
@@ -108,16 +112,20 @@ class AddTrashPoints extends ImmutableComponent {
 
         this.page++;
 
-        this.props.dispatch(searchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location))
+        const {onSearchTrashPointsAction} = this.props;
+        onSearchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location);
     };
 
     componentWillReceiveProps(nextProps) {
-        const receivedTrashPointsList = nextProps.trashPoints.get('trashPoints');
+        const receivedTrashPointsList = nextProps.trashPoints;
 
         if (receivedTrashPointsList === undefined) return;
 
         if (this.marked.size === 0) {
-            this.setData(d => d.set('trashPoints', receivedTrashPointsList));
+            this.setState(previousState => {
+                return { trashPoints: receivedTrashPointsList }
+            });
+            //this.setData(d => d.set('trashPoints', receivedTrashPointsList));
         } else {
 
             const filteredReceivedTrashPoints = receivedTrashPointsList
@@ -127,13 +135,16 @@ class AddTrashPoints extends ImmutableComponent {
 
             const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
 
-            this.setData(d => d.set('trashPoints', trashPoints));
+            this.setState(previousState => {
+                return { trashPoints: trashPoints }
+            });
+            //this.setData(d => d.set('trashPoints', trashPoints));
         }
 
     }
 
     getTrashPointsFromState() {
-        return this.state.data.get('trashPoints');
+        return this.state.trashPoints;
     }
 
     onCheckedChanged(checked, item) {
@@ -182,11 +193,13 @@ class AddTrashPoints extends ImmutableComponent {
     };
 
     componentWillUnmount() {
-        this.props.dispatch(clearTrashPointsAction());
+        const {onClearTrashPointsAction} = this.props;
+        onClearTrashPointsAction();
     }
 
     isProgressEnabled() {
-        return this.props.app.get('progress');
+        return false;
+        //return this.props.app.get('progress');
     }
 
     renderSeparator = () => {
@@ -233,7 +246,9 @@ class AddTrashPoints extends ImmutableComponent {
     onQueryChange = debounce(function (text) {
         this.query = text;
         this.page = 0;
-        this.props.dispatch(searchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location))
+        const {onSearchTrashPointsAction} = this.props;
+
+        onSearchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location);
     }, 1000);
 
     renderProgress() {
@@ -270,9 +285,10 @@ function debounce(func, wait, immediate) {
     };
 }
 
-const mapStateToProps = (state) => ({
-    trashPoints: state.get('trashPoints'),
-    app: state.get('app'),
-});
+Profile.propTypes = {
+    trashPoints: PropTypes.object,
+    onSearchTrashPointsAction: PropTypes.func,
+    onClearTrashPointsAction: PropTypes.func,
+};
 
-export default connect(mapStateToProps)(AddTrashPoints)
+export default AddTrashPoints

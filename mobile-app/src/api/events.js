@@ -416,3 +416,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
         console.log(error)
     })
 }
+
+export default {
+    searchEventsRequest,
+}

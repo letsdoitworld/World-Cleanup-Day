@@ -9,13 +9,11 @@ import {
     searchTrashPointsErrorAction,
     searchTrashPointsSuccessAction
 } from "../actions/trashPoints";
-import {
-    searchTrashPointsRequest
-} from "../../api";
+import Api from '../../api';
 
 function* searchTrashPoints(query, page, pageSize, location) {
     try {
-        const response = yield call(searchTrashPointsRequest, query, page, pageSize, location);
+        const response = yield call(Api.trashPoints.searchTrashPointsRequest, query, page, pageSize, location);
         if (response.status) {
             yield put(searchTrashPointsSuccessAction(response.trashPoints, page, pageSize));
         } else {

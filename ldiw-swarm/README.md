@@ -26,7 +26,7 @@
 - [Diagrams](#diagrams)
 
 ## ABOUT
-This is the project holding swarm configuration files for the [LDIW PROJECT](https://gitlab.qualitance.com/groups/ldiw) services. The project holds configuration files for both the development environments (qa, staging) and also for the production environment.
+This is the project holding swarm configuration files for the [LDIW PROJECT](.) services. The project holds configuration files for both the development environments (qa, staging) and also for the production environment.
 The development environment configuration files are located under the [staging](./staging) directory.
 The production environment configuration files are located under the [prodution](./production) directory.
 
@@ -80,9 +80,9 @@ On clusters that host multiple logical environments (staging), separate docker n
 
 
 ### Clusters
-The **QA** ,**STAGING** and **PRODUCTION** environments run on top of docker swarm clusters. These environments are split between two physical clusters (the **staging** and the **production** clusters) as can be seen from the [cluster diagram staging](./support/cluster-staging.png) and [cluster diagram production](./support/cluster-production.png).
+The **QA** ,**STAGING** and **PRODUCTION** environments run on top of docker swarm clusters. These environments are split between two physical clusters (the **staging** and the **production** clusters) as can be seen from the [cluster diagram](./support/EU-clusters.png).
 
-To provide support for builds, logging and other needed infrastructure, the **INFRA** physical cluster is also deployed alongside the application clusters [cluster diagram infra](./support/cluster-infra.png).. 
+To provide support for builds, logging and other needed infrastructure, the **INFRA** physical cluster is also deployed alongside the application clusters [cluster diagram](./support/EU-clusters.png). 
 
 The following stacks have deployable templates in this repository: 
 
@@ -124,20 +124,9 @@ The name of the pipeline jobs starts with a number which represents the order in
 
 
 ### Development (workstation) deployment
-Services should be deployed using the scripts present in the [devops](https://gitlab.qualitance.com/ldiw/devops) repository.  
+Building and deploying services on the workstation should be done using the [devops](https://github.com/letsdoitworld/World-Cleanup-Day/tree/master/devops/dev) repository.  
 
-1. The script `get_subrepos.sh` pulls all repos for the application stack in the `./services/` directory;
-
-    The `subrepos.ini` contains the details needed for cloning the services repos:
-    ```bash
-    DEFAULT_BRANCH="develop"
-
-    REPOS_PATHS="
-    services/api:backend-api
-    services/db:backend-db"
-    ```
-    - `DEFAULT_BRANCH` is a variable that determines what branch will be used for building the docker images for **all** repos.
-    - `REPOS_PATHS` is a tuple that holds the value for the directory where the repo will be pulled (eg. `./services/api`) and the name for the microservice (eg. `backend-api`).
+1. Pull the code for the services in the locations documented in the [devops](https://github.com/letsdoitworld/World-Cleanup-Day/tree/master/devops/dev) repository.
     
 2. After pulling the code, the services are built according to the rules configured in the `docker-compose.yml` file and in the `Dockerfile` from each repo. The build command is `docker-compose 
 build` or you can go to step 3 to **build** and **deploy** services in one go;
@@ -145,7 +134,7 @@ build` or you can go to step 3 to **build** and **deploy** services in one go;
 
 ### Staging/Production deployment
 
-**Deployment** - as in starting of the application stacks - on cluster systems is done with the help of the current repository [ldiw-swarm](https://gitlab.qualitance.com/ldiw/ldiw-swarm), which contains deployment templates for docker swarm. The **building** of container images is handled using the rules and scripts in the [devops](https://gitlab.qualitance.com/ldiw/devops) repository. The orchestration is done using the [jenkins](https://jenkins.ops.worldcleanupday.com) instance deployed on the staging cluster. 
+**Deployment** - as in starting of the application stacks - on cluster systems is done with the help of the current repository [ldiw-swarm](.), which contains deployment templates for docker swarm. The **building** of container images is handled using the rules and scripts in the [devops](https://github.com/letsdoitworld/World-Cleanup-Day/tree/master/devops/dev) repository. The orchestration is done using the [jenkins](https://jenkins.ops.worldcleanupday.com) instance deployed on the staging cluster. 
 
 Services should be deployed using the deployment scripts present in all stack directories. These scripts will generate a configuration file from the existing templates by replacing environment variables defined in .env files. Next it will create a service stack and deploy all services present in the configuration file.
 
@@ -202,7 +191,7 @@ Following are project URLs for the production environment:
 
 ## Backup and monitoring
 ### Backup
-Backup is performed daily by cron service running on the manager node. Backup data is stored on an azure file storage mounted in the `/backup` directory.
+Backup is performed daily by a [cron script](./support/scripts/backup.sh) running on the manager node. Backup data is stored on an azure file storage mounted in the `/backup` directory.
 - couchdb 
 - service volumes
 

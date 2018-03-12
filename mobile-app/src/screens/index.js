@@ -8,6 +8,7 @@ import SettingsScreen from './Settings/Settings'
 import AboutScreen from '../components/About/About'
 import EventsScreen from './Events/Events'
 import AddLocationScreen from './AddLocation/AddLocation'
+import AddTrashPointsScreen from './AddTrashPoints/AddTrashPoints'
 import CreateEventScreen from './Events/CreateEvent/CreateEvent'
 import AddCoordinatorScreen from './Events/CreateEvent/AddCoordinator'
 import AddPeopleToEventScreen from './Events/CreateEvent'
@@ -24,6 +25,7 @@ export const ABOUT_SCREEN = "ABOUT_SCREEN";
 export const EVENTS = "EVENTS";
 export const CREATE_EVENT = "CREATE_EVENT";
 export const ADD_LOCATION = "ADD_LOCATION";
+export const ADD_TRASH_POINTS = "ADD_TRASH_POINTS";
 export const ADD_COORDINATOR = "ADD_COORDINATOR";
 export const ADD_PEOPLE_TO_EVENT = "ADD_PEOPLE_TO_EVENT";
 
@@ -41,4 +43,5 @@ export function registerScreens(store, Provider) {
      Navigation.registerComponent(ADD_LOCATION, () => AddLocationScreen, store, Provider);
      Navigation.registerComponent(ADD_COORDINATOR, () => AddCoordinatorScreen, store, Provider);
      Navigation.registerComponent(ADD_PEOPLE_TO_EVENT, () => AddPeopleToEventScreen, store, Provider);
+     Navigation.registerComponent(ADD_TRASH_POINTS, () => AddTrashPointsScreen, store, Provider);
 }

@@ -8,7 +8,8 @@ import MainButton from '../../../components/Buttons/MainButton'
 import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
-import {ADD_COORDINATOR, ADD_LOCATION} from "../../index";
+
+import {ADD_TRASH_POINTS, ADD_COORDINATOR, ADD_LOCATION, CREATE_EVENT} from "../../index";
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
@@ -231,11 +232,13 @@ export default class CreateEvent extends ImmutableComponent {
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_trashpoints.toUpperCase()}</Text>
                     </View>
-                    <View style={styles.trashpointTipStyle}>
-                        <Image source={require('../../../assets/images/ic_trashpoints.png')}
-                               style={styles.imageTrashStyle}/>
-                        <Text style={styles.textTrashStyle}>{strings.label_tip_add_trashpoints}</Text>
-                    </View>
+                    <TouchableOpacity onPress={this.onAddTrashPointsClick.bind(this)}>
+                        <View style={styles.trashpointTipStyle}>
+                            <Image source={require('../../../assets/images/ic_trashpoints.png')}
+                                   style={styles.imageTrashStyle}/>
+                            <Text style={styles.textTrashStyle}>{strings.label_tip_add_trashpoints}</Text>
+                        </View>
+                    </TouchableOpacity>
                     {this.renderDescriptionTitle()}
                     <View style={styles.descriptionContainerStyle}>
                         <InputField style={styles.inputTextStyle}
@@ -276,7 +279,6 @@ export default class CreateEvent extends ImmutableComponent {
                         style={styles.nextButtonStyle}
                         onPress={this.onNextClick.bind(this)}/>
                 </ScrollView>
-
             </View>
         )
     }
@@ -328,6 +330,30 @@ export default class CreateEvent extends ImmutableComponent {
             }
         });
     };
+
+    onAddTrashPointsClick = () => {
+        this.props.navigator.push({
+            screen: ADD_TRASH_POINTS,
+            title: strings.label_add_trashPoints,
+            passProps: {
+                //todo: pass some location for search order
+                location: {
+                    latitude: 48.8152937,
+                    longitude: 2.4597668,
+                },
+                selectedTrashPoints: this.trashPoints,
+                onTrashPointsSelected: this.onTrashPointsSelected.bind(this),
+            }
+        });
+    };
+
+    trashPoints = new Map();
+
+    onTrashPointsSelected(trashPoints) {
+        console.log(trashPoints);
+        console.log("onTrashPointsSelected");
+        this.trashPoints = trashPoints;
+    }
 
     onLocationSelected(location) {
         console.log(location)

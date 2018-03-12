@@ -39,7 +39,8 @@ export default class EventsList extends ImmutableComponent {
     }
 
     getEventsFromProps() {
-        return this.props.events.get('events');
+        const {events} = this.props;
+        return events;
     }
 
     //noinspection JSMethodCanBeStatic
@@ -58,7 +59,8 @@ export default class EventsList extends ImmutableComponent {
     }
 
     isProgressEnabled() {
-        return this.props.app.get('progress');
+        return false;
+        //return this.props.app.get('progress');
     }
 
     renderSeparator = () => {

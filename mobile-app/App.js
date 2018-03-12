@@ -84,34 +84,7 @@ export default class App extends Component {
                     label: 'Activity',
                     icon: Icons.Event,
                     selectedIcon: Icons.EventActive,
-                   // title: strings.label_events,
-                   // topTabs: [
-
-                        // {
-                        //     name: 'navigation.playground.TopTabOptionsScreen',
-                        //     passProps: {
-                        //         title: 'Tab 1',
-                        //         text: 'This is top tab 1'
-                        //     },
-                        //     navigationOptions: {
-                        //         topTab: {
-                        //             title: 'Tab 1'
-                        //         }
-                        //     }
-                        // },
-                        // {
-                        //    // name: 'navigation.playground.TopTabScreen',
-                        //     passProps: {
-                        //         title: 'Tab 2',
-                        //         text: 'This is top tab 2'
-                        //     },
-                        //     navigationOptions: {
-                        //         topTab: {
-                        //             title: 'Tab 2'
-                        //         }
-                        //     }
-                        // }
-                   // ]
+                    title: strings.label_events,
                 },
                 {
                     screen: PROFILE_SCREEN,

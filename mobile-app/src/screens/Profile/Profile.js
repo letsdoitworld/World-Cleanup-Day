@@ -17,7 +17,6 @@ class Profile extends Component {
     static navigatorButtons = navigatorButtons;
 
     goToSettings() {
-        console.warn('navigator',this.props.navigator.push)
         this.props.navigator.push({
             screen: 'SETTINGS_SCREEN',
             title: strings.label_settings_header,

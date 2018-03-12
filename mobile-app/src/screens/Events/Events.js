@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import {
     View,
-    TouchableOpacity,
-    Text,
-    TouchableHighlight,
-    Button,
-    Image,
     TextInput,
     UIManager,
     Animation,
@@ -24,13 +19,11 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import EventsList from "./List/List"
 import {debounce} from "../../shared/util";
-import {
-    searchEventsAction,
-    clearEventsAction
-} from '../../store/actions/events'
 import * as Immutable from "../../../node_modules/immutable/dist/immutable";
 import ImmutableComponent from "../../components/InputFields/ImmutableComponent";
 import {DEFAULT_ZOOM} from "../../shared/constants";
+import PropTypes from "prop-types";
+import Profile from "../Profile/Profile";
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -105,7 +98,8 @@ class Events extends ImmutableComponent {
     };
 
     loadEvents(page) {
-        this.props.dispatch(searchEventsAction(this.query, page, PAGE_SIZE, this.location))
+        const {onSearchEventsAction} = this.props;
+        onSearchEventsAction(this.query, page, PAGE_SIZE, this.location);
     }
 
     constructor(props) {
@@ -147,8 +141,7 @@ class Events extends ImmutableComponent {
     }
 
     handleFabPress = () => {
-        console.warn("Navigator", this.props.navigator);
-        this.props.navigator.push.bind({
+        this.props.navigator.showModal({
             screen: CREATE_EVENT,
             title: strings.label_create_events_step_one
         });
@@ -194,7 +187,8 @@ class Events extends ImmutableComponent {
     }
 
     isProgressEnabled() {
-        return this.props.app.get('progress');
+        return false
+        //return this.props.app.get('progress');
     }
 
     renderProgress() {
@@ -215,7 +209,8 @@ class Events extends ImmutableComponent {
     }
 
     componentWillUnmount() {
-        this.props.dispatch(clearEventsAction());
+        const {onClearEventsAction} = this.props;
+        onClearEventsAction();
     }
 
     renderSearchBox() {
@@ -246,9 +241,10 @@ class Events extends ImmutableComponent {
 
 }
 
-const mapStateToProps = (state) => ({
-    events: state.get('events'),
-    app: state.get('app'),
-});
+Profile.propTypes = {
+    events: PropTypes.object,
+    onSearchEventsAction: PropTypes.func,
+    onClearEventsAction: PropTypes.func,
+};
 
-export default connect(mapStateToProps)(Events)
+export default Events

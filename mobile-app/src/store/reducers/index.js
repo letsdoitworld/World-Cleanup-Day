@@ -14,5 +14,5 @@ export default combineReducers({
     createEvent,
     app,
     trashPoints,
-    events
+    events,
 });

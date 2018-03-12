@@ -15,7 +15,7 @@ export const searchEventsAction = (query, page, pageSize, location) => ({
 
 export const searchEventsSuccessAction = (events, page, pageSize) => ({
     type: SEARCH_EVENTS_SUCCESS_ACTION,
-    events,
+    events: events,
     page,
     pageSize
 });

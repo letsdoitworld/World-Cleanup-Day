@@ -11,7 +11,8 @@ export default class Events extends Component {
     }
 
     handleFabPress = () => {
-        this.props.navigator.push({
+        console.warn("Navigator", this.props.navigator);
+        this.props.navigator.push.bind({
             screen: CREATE_EVENT,
             title: strings.label_create_events_step_one
         });

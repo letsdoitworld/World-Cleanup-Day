@@ -22,9 +22,21 @@ export default EStyleSheet.create({
     },
     titleTextStyle: {
         left: getWidthPercentage(10),
-        fontSize: 13,
+        fontSize: 14,
         color: colors.$textColorDivider,
         fontFamily: 'Lato-Bold'
+    },
+    titleErrorTextStyle: {
+        marginLeft: getWidthPercentage(10),
+        fontSize: 14,
+        color: colors.$errorColor,
+        fontFamily: 'Lato-Bold'
+    },
+    textErrorStyle: {
+        marginLeft: getWidthPercentage(10),
+        fontSize: 12,
+        color: colors.$errorColor,
+        fontFamily: 'Lato-Regular'
     },
     itemStyle: {
         height: getHeightPercentage(35),

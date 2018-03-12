@@ -24,19 +24,38 @@ class AddPeopleToEvent extends ImmutableComponent {
         super(props);
         this.state = {
             data: Immutable.Map({
-                isNumberAttendeesValid: false
+                isNumberAttendeesValid: false,
+                isNumberAttendeesTextChanged: false,
             })
         };
         this.event = props.event
+    }
+
+    renderNumberAttendeesTitle() {
+        const isNumberAttendeesValid = this.state.data.get('isNumberAttendeesValid');
+        const isNumberAttendeesTextChanged = this.state.data.get('isNumberAttendeesTextChanged');
+        const style = (isNumberAttendeesValid && isNumberAttendeesTextChanged) || (!isNumberAttendeesValid && !isNumberAttendeesTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        return  <View style={styles.titleStyle}>
+            <Text style={style}>{strings.label_max_number_of_attendees.toUpperCase()}</Text>
+        </View>
+    }
+
+
+    renderNumberAttendeesError() {
+        const isNumberAttendeesValid = this.state.data.get('isNumberAttendeesValid');
+        const isNumberAttendeesTextChanged = this.state.data.get('isNumberAttendeesTextChanged');
+        if (!isNumberAttendeesValid && isNumberAttendeesTextChanged) {
+            return <Text style={styles.textErrorStyle}>{strings.label_invalid_attendees}</Text>
+        } else {
+            return null
+        }
     }
 
     render() {
         const isValid = this.state.data.get('isNumberAttendeesValid');
         return (
             <View style={styles.addCoordinatorContainer}>
-                <View style={styles.titleStyle}>
-                    <Text style={styles.titleTextStyle}>{strings.label_max_number_of_attendees.toUpperCase()}</Text>
-                </View>
+                {this.renderNumberAttendeesTitle()}
                 <View style={styles.inputContainerStyle}>
                     <InputField style={styles.inputTextStyle}
                                 placeholder={strings.label_enter_digits_hint}
@@ -46,7 +65,7 @@ class AddPeopleToEvent extends ImmutableComponent {
                                 errorString={'Invalid phone'}
                                 onChangeText={this.onNumberAttendeesTextChanged}/>
                 </View>
-
+                {this.renderNumberAttendeesError()}
                 <MainButton
                     disabled={!isValid}
                     text={strings.label_next}
@@ -57,6 +76,7 @@ class AddPeopleToEvent extends ImmutableComponent {
 
     onNumberAttendeesTextChanged = (text: String) => {
         this.numberAttendees = text;
+        this.setData(d => d.set('isNumberAttendeesTextChanged', true));
     };
 
     validateNumberAttendees = (text: String): boolean => {

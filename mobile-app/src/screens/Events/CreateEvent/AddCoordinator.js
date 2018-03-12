@@ -28,10 +28,64 @@ export default class AddCoordinator extends ImmutableComponent {
         this.state = {
             data: Immutable.Map({
                 isUserNameValid: false,
+                isUserNameTextChanged: false,
                 isPhoneNumberValid: false,
+                isPhoneNumberTextChanged: false,
                 isEmailValid: false,
+                isEmailTextChanged: false,
             })
         };
+    }
+
+    renderUserNameTitle() {
+        const isUserNameValid = this.state.data.get('isUserNameValid');
+        const isUserNameTextChanged = this.state.data.get('isUserNameTextChanged');
+        const style = (isUserNameValid && isUserNameTextChanged) || (!isUserNameValid && !isUserNameTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        return  <View style={styles.titleStyle}>
+            <Text style={style}>{strings.label_coordinator.toUpperCase()}</Text>
+        </View>
+    }
+
+    renderPhoneNumberTitle() {
+        const isPhoneNumberValid = this.state.data.get('isPhoneNumberValid');
+        const isPhoneNumberTextChanged = this.state.data.get('isPhoneNumberTextChanged');
+        const isEmailValid = this.state.data.get('isEmailValid');
+        const isEmailTextChanged = this.state.data.get('isEmailTextChanged');
+        const style = (isPhoneNumberValid && isPhoneNumberTextChanged && isEmailValid && isEmailTextChanged)
+        || (!isPhoneNumberValid && !isPhoneNumberTextChanged && !isEmailValid && !isEmailTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        return  <View style={styles.titleStyle}>
+            <Text style={style}>{strings.label_contact_details.toUpperCase()}</Text>
+        </View>
+    }
+
+    renderUserNameError() {
+        const isUserNameValid = this.state.data.get('isUserNameValid');
+        const isUserNameTextChanged = this.state.data.get('isUserNameTextChanged');
+        if (!isUserNameValid && isUserNameTextChanged) {
+            return <Text style={styles.textErrorStyle}>{strings.label_invalid_event_field}</Text>
+        } else {
+            return null
+        }
+    }
+
+    renderPhoneNumberError() {
+        const isPhoneNumberValid = this.state.data.get('isPhoneNumberValid');
+        const isPhoneNumberTextChanged = this.state.data.get('isPhoneNumberTextChanged');
+        if (!isPhoneNumberValid && isPhoneNumberTextChanged) {
+            return <Text style={styles.textErrorStyle}>{strings.label_invalid_phone_number}</Text>
+        } else {
+            return null
+        }
+    }
+
+    renderEmailError() {
+        const isEmailValid = this.state.data.get('isEmailValid');
+        const isEmailTextChanged = this.state.data.get('isEmailTextChanged');
+        if (!isEmailValid && isEmailTextChanged) {
+            return <Text style={styles.textErrorStyle}>{strings.label_invalid_email}</Text>
+        } else {
+            return null
+        }
     }
 
     render() {
@@ -43,9 +97,7 @@ export default class AddCoordinator extends ImmutableComponent {
 
         return (
             <View style={styles.addCoordinatorContainer}>
-                <View style={styles.titleStyle}>
-                    <Text style={styles.titleTextStyle}>{strings.label_coordinator.toUpperCase()}</Text>
-                </View>
+                {this.renderUserNameTitle()}
                 <View style={styles.inputContainerStyle}>
                     <InputField style={styles.inputTextStyle}
                                 placeholder={strings.label_coordinator_hint}
@@ -53,9 +105,8 @@ export default class AddCoordinator extends ImmutableComponent {
                                 validate={this.validateUserName}
                                 onChangeText={this.onUserNameTextChanged}/>
                 </View>
-                <View style={styles.titleStyle}>
-                    <Text style={styles.titleTextStyle}>{strings.label_contact_details.toUpperCase()}</Text>
-                </View>
+                {this.renderUserNameError()}
+                {this.renderPhoneNumberTitle()}
                 <View style={styles.locationContainerStyle}>
                     <Image source={require('../../../assets/images/ic_phone_number.png')}
                            style={styles.imageTrashStyle}/>
@@ -67,6 +118,7 @@ export default class AddCoordinator extends ImmutableComponent {
                                 errorString={'Invalid phone'}
                                 onChangeText={this.onPhoneNumberTextChanged}/>
                 </View>
+                {this.renderPhoneNumberError()}
                 <View style={styles.locationContainerStyle}>
                     <Image source={require('../../../assets/images/ic_email.png')}
                            style={styles.imageTrashStyle}/>
@@ -75,8 +127,10 @@ export default class AddCoordinator extends ImmutableComponent {
                                 autoCorrect={false}
                                 validate={this.validateEmail}
                                 errorString={'Invalid email'}
+                                autoCapitalize='none'
                                 onChangeText={this.onEmailTextChanged}/>
                 </View>
+                {this.renderEmailError()}
                 <MainButton
                     disabled={!isValid}
                     text={strings.label_next}
@@ -87,14 +141,17 @@ export default class AddCoordinator extends ImmutableComponent {
 
     onUserNameTextChanged = (text: String) => {
         this.userName = text;
+        this.setData(d => d.set('isUserNameTextChanged', true));
     };
 
     onPhoneNumberTextChanged = (text: String) => {
         this.phoneNumber = text;
+        this.setData(d => d.set('isPhoneNumberTextChanged', true));
     };
 
     onEmailTextChanged = (text: String) => {
         this.email = text;
+        this.setData(d => d.set('isEmailTextChanged', true));
     };
 
     validateUserName = (text: String): boolean => {

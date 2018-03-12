@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
-    View, TouchableOpacity, Text, ScrollView,
-    TextInput, Image, TouchableHighlight, Alert
+    View, TouchableOpacity, Text, ScrollView, Image, Alert
 } from 'react-native';
 import styles from './styles'
 import strings from '../../../assets/strings'
@@ -38,8 +37,11 @@ export default class CreateEvent extends ImmutableComponent {
         this.state = {
             data: Immutable.Map({
                 isTitleValid: false,
+                isTitleTextChanged: false,
                 isDescriptionValid: false,
+                isDescriptionTextChanged: false,
                 isWhatToBringValid: false,
+                isWhatToBringTextChanged: false,
                 isStartDateValid: true,
                 isEndDateValid: true,
                 isDateTimePickerVisible: false,
@@ -80,10 +82,76 @@ export default class CreateEvent extends ImmutableComponent {
 
     renderTitle() {
         const isTitleValid = this.state.data.get('isTitleValid');
-        const style = (isTitleValid) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        const isTitleTextChanged = this.state.data.get('isTitleTextChanged');
+        const style = (isTitleValid && isTitleTextChanged) || (!isTitleValid && !isTitleTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
         return <View style={styles.titleStyle}>
-            <Text style={styles.titleErrorTextStyle}>{strings.label_title.toUpperCase()}</Text>
+            <Text style={style}>{strings.label_title.toUpperCase()}</Text>
         </View>
+    }
+
+    renderDateTitle() {
+        const isEndDateValid = this.state.data.get('isEndDateValid');
+        const style = (isEndDateValid) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        return <View style={styles.titleStyle}>
+            <Text style={style}>{strings.label_date_and_time.toUpperCase()}</Text>
+        </View>
+    }
+
+    renderDescriptionTitle() {
+        const isDescriptionValid = this.state.data.get('isDescriptionValid');
+        const isDescriptionTextChanged = this.state.data.get('isDescriptionTextChanged');
+        const style = (isDescriptionValid && isDescriptionTextChanged) || (!isDescriptionValid && !isDescriptionTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        return <View style={styles.titleStyle}>
+            <Text style={style}>{strings.label_description.toUpperCase()}</Text>
+        </View>
+    }
+
+    renderWhatToBringTitle() {
+        const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
+        const isWhatToBringTextChanged = this.state.data.get('isWhatToBringTextChanged');
+        const style = (isWhatToBringValid && isWhatToBringTextChanged) || (!isWhatToBringValid && !isWhatToBringTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        return <View style={styles.titleStyle}>
+            <Text style={style}>{strings.label_what_to_bring_with_you.toUpperCase()}</Text>
+        </View>
+    }
+
+    renderTitleError() {
+        const isTitleValid = this.state.data.get('isTitleValid');
+        const isTitleTextChanged = this.state.data.get('isTitleTextChanged');
+        if (!isTitleValid && isTitleTextChanged) {
+            return <Text style={styles.textErrorStyle}>{strings.label_invalid_event_field}</Text>
+        } else {
+            return null
+        }
+    }
+
+    renderDateError() {
+        const isEndDateValid = this.state.data.get('isEndDateValid');
+        if (!isEndDateValid) {
+            return <Text style={styles.textErrorStyle}>{strings.label_invalid_event_date}</Text>
+        } else {
+            return null
+        }
+    }
+
+    renderDescriptionError() {
+        const isDescriptionValid = this.state.data.get('isDescriptionValid');
+        const isDescriptionTextChanged = this.state.data.get('isDescriptionTextChanged');
+        if (!isDescriptionValid && isDescriptionTextChanged) {
+            return <Text style={styles.textErrorStyle}>{strings.label_description}{strings.label_invalid_event_description}</Text>
+        } else {
+            return null
+        }
+    }
+
+    renderWhatToBringError() {
+        const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
+        const isWhatToBringTextChanged = this.state.data.get('isWhatToBringTextChanged');
+        if (!isWhatToBringValid && isWhatToBringTextChanged) {
+            return <Text style={styles.textErrorStyle}>{strings.label_what_to_bring_with_you}{strings.label_invalid_event_description}</Text>
+        } else {
+            return null
+        }
     }
 
     renderEndPicker() {
@@ -117,17 +185,13 @@ export default class CreateEvent extends ImmutableComponent {
         const isEndDateValid = this.state.data.get('isEndDateValid');
         const imagePath = this.state.data.get('imageUrl');
 
-        //const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
-        const isValid = isTitleValid;
-        //const isValid = isStartDateValid && isEndDateValid;
+        const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
 
         return (
             <View>
                 <ScrollView style={styles.container}>
 
-                    <View style={styles.titleStyle}>
-                        <Text style={styles.titleErrorTextStyle}>{strings.label_title.toUpperCase()}</Text>
-                    </View>
+                    {this.renderTitle()}
                     <View style={styles.inputContainerStyle}>
                         <InputField style={styles.inputTextStyle}
                                     placeholder={strings.label_title_hint}
@@ -135,12 +199,11 @@ export default class CreateEvent extends ImmutableComponent {
                                     validate={this.validateTitle}
                                     onChangeText={this.onTitleTextChanged}/>
                     </View>
-                    <View style={styles.titleStyle}>
-                        <Text style={styles.titleTextStyle}>{strings.label_date_and_time.toUpperCase()}</Text>
-                    </View>
+                    {this.renderTitleError()}
+                    {this.renderDateTitle()}
                     <View style={styles.dateContainer}>
                         <View style={styles.imageContainer}>
-                            <Image source={require('../images/ic_time.png')}
+                            <Image source={require('../../../assets/images/ic_time.png')}
                                    style={styles.imageItemStyle}/>
                         </View>
                         <View style={styles.dateAndTimeContainerStyle}>
@@ -155,6 +218,7 @@ export default class CreateEvent extends ImmutableComponent {
                             </View>
                         </View>
                     </View>
+                    {this.renderDateError()}
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_location.toUpperCase()}</Text>
                     </View>
@@ -170,14 +234,12 @@ export default class CreateEvent extends ImmutableComponent {
                     </View>
                     <TouchableOpacity onPress={this.onAddTrashPointsClick.bind(this)}>
                         <View style={styles.trashpointTipStyle}>
-                            <Image source={require('../images/ic_trashpoints.png')}
+                            <Image source={require('../../../assets/images/ic_trashpoints.png')}
                                    style={styles.imageTrashStyle}/>
                             <Text style={styles.textTrashStyle}>{strings.label_tip_add_trashpoints}</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={styles.titleStyle}>
-                        <Text style={styles.titleTextStyle}>{strings.label_description.toUpperCase()}</Text>
-                    </View>
+                    {this.renderDescriptionTitle()}
                     <View style={styles.descriptionContainerStyle}>
                         <InputField style={styles.inputTextStyle}
                                     placeholder={strings.label_ignite_people_to_participate}
@@ -187,9 +249,8 @@ export default class CreateEvent extends ImmutableComponent {
                                     validate={this.validateDescription}
                                     onChangeText={this.onDescriptionTextChanged}/>
                     </View>
-                    <View style={styles.titleStyle}>
-                        <Text style={styles.titleTextStyle}>{strings.label_what_to_bring_with_you.toUpperCase()}</Text>
-                    </View>
+                    {this.renderDescriptionError()}
+                    {this.renderWhatToBringTitle()}
                     <View style={styles.whatBringContainerStyle}>
                         <InputField style={styles.inputTextStyle}
                                     placeholder={strings.label_specify_tools_for_work}
@@ -199,6 +260,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     validate={this.validateWhatToBring}
                                     onChangeText={this.onWhatToBringTextChanged}/>
                     </View>
+                    {this.renderWhatToBringError()}
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
@@ -206,7 +268,7 @@ export default class CreateEvent extends ImmutableComponent {
                         <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
                         <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                             <Image style={styles.addPhotoIconStyle}
-                                   source={require('../images/ic_add_photo.png')}/>
+                                   source={require('../../../assets/images/ic_add_photo.png')}/>
                         </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
@@ -299,14 +361,17 @@ export default class CreateEvent extends ImmutableComponent {
 
     onTitleTextChanged = (text: String) => {
         this.title = text;
+        this.setData(d => d.set('isTitleTextChanged', true))
     };
 
     onDescriptionTextChanged = (text: String) => {
         this.description = text;
+        this.setData(d => d.set('isDescriptionTextChanged', true))
     };
 
     onWhatToBringTextChanged = (text: String) => {
         this.whatToBring = text;
+        this.setData(d => d.set('isWhatToBringTextChanged', true))
     };
 
     validateTitle = (text: String): boolean => {

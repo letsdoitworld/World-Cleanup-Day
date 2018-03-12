@@ -171,6 +171,12 @@ module.exports = new LocalizedStrings({
         label_email: "Email",
         label_max_number_of_attendees: "Max number of attendees",
         label_enter_digits_hint: "Enter digits",
+        label_invalid_event_field: "Title is required and should be less then 70 character.",
+        label_invalid_event_date: "Invalid end date",
+        label_invalid_event_description: " is required and should be less then 500 character.",
+        label_invalid_phone_number: "Invalid phone number",
+        label_invalid_email: "Invalid email",
+        label_invalid_attendees: "Invalid attendees",
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

@@ -19,12 +19,6 @@ export default {
         color: colors.$textColorDivider,
         fontFamily: 'Lato-Bold'
     },
-    titleErrorTextStyle: {
-        marginLeft: getWidthPercentage(10),
-        fontSize: 13,
-        color: colors.$errorColor,
-        fontFamily: 'Lato-Bold'
-    },
     itemStyle: {
         marginTop: 1,
         height: getHeightPercentage(35),

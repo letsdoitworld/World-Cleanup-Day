@@ -9,6 +9,7 @@ import {
 import colors from "../../config/colors";
 import * as Immutable from "../../../node_modules/immutable/dist/immutable";
 import ImmutableComponent from "./ImmutableComponent";
+import {getWidthPercentage} from "../../shared/helpers";
 
 const {UIManager} = NativeModules;
 
@@ -53,7 +54,8 @@ export default class InputField extends ImmutableComponent {
             onSubmitEditing,
             returnKeyType,
             reference,
-            keyboardType
+            keyboardType,
+            autoCapitalize
 
         } = this.props;
 
@@ -75,6 +77,7 @@ export default class InputField extends ImmutableComponent {
                     error={this.dataValue('error')}
                     errorColor={this.dataValue('errorColor')}
                     label={label}
+                    autoCapitalize = {autoCapitalize}
                     onChangeText={this.onChangeText}
                     style = {styles.textStyle}
                     onFocus={this.focusAcquired}
@@ -111,6 +114,7 @@ export default class InputField extends ImmutableComponent {
 
 const styles = {
     textStyle: {
+        left: getWidthPercentage(6),
         fontSize: 17,
         fontFamily: 'Lato-Regular'
     }

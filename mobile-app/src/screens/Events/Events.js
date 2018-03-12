@@ -6,6 +6,7 @@ import {
     Animation,
     LayoutAnimation,
     ActivityIndicator,
+    Alert
 } from 'react-native';
 import styles from './styles'
 import {
@@ -41,7 +42,7 @@ class Events extends Component {
 
     onModeChanged(index) {
         this.setState(previousState => {
-            return { mode: index }
+            return {mode: index}
         });
     }
 
@@ -52,7 +53,7 @@ class Events extends Component {
     toggleSearchFieldVisibility() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState(previousState => {
-            return { isSearchFieldVisible: !this.isSearchFieldVisible() }
+            return {isSearchFieldVisible: !this.isSearchFieldVisible()}
         });
         if (!this.isSearchFieldVisible() && (this.query ? this.query.length > 0 : false)) {
             this.query = undefined;
@@ -96,7 +97,7 @@ class Events extends Component {
                     this.loadEvents(0)
                 }
             );
-        } catch(e) {
+        } catch (e) {
             this.loadEvents(0)
         }
     };
@@ -142,12 +143,32 @@ class Events extends Component {
         }
     }
 
-    handleFabPress = () => {
-        this.props.navigator.showModal({
-            screen: CREATE_EVENT,
-            title: strings.label_create_events_step_one
-        });
+    handleLogInPress = () => {
+        const {onGuestLogIn} = this.props;
+        onGuestLogIn()
     };
+
+    handleFabPress = () => {
+        const {isAuthenticated} = this.props;
+        if (isAuthenticated) {
+            this.props.navigator.showModal({
+                screen: CREATE_EVENT,
+                title: strings.label_create_events_step_one
+            });
+        } else {
+            Alert.alert(
+                'Oh no!',
+                'You need to be a registrated user\n' +
+                'in order to create events.',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'Register', onPress: this.handleLogInPress},
+                ],
+            )
+        }
+
+    };
+
 
     render() {
         return (
@@ -168,7 +189,7 @@ class Events extends Component {
     }
 
     renderContent() {
-        switch(this.state.mode) {
+        switch (this.state.mode) {
             case MODE.list: {
                 return (
                     <EventsList
@@ -245,8 +266,10 @@ class Events extends Component {
 
 Profile.propTypes = {
     events: PropTypes.object,
+    isAuthenticated: PropTypes.bool,
     onSearchEventsAction: PropTypes.func,
     onClearEventsAction: PropTypes.func,
+    onGuestLogIn: PropTypes.func,
 };
 
-export default Events
+export default (Events)

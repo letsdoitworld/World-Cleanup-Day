@@ -37,6 +37,7 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		2E9833F020544A0C005ACEF9 /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E9833C2205449F2005ACEF9 /* Lato-Heavy.ttf */; };
 		2EAF44F8204FF07D00FFB686 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EAF44F7204FECD900FFB686 /* Lato-Bold.ttf */; };
 		2EAF44F9204FF07D00FFB686 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EAF44F6204FECD900FFB686 /* Lato-Regular.ttf */; };
 		2EB89672204523E5007A7EC9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB89671204523E5007A7EC9 /* Bolts.framework */; };
@@ -469,6 +470,7 @@
 		1E307AD1CD71469BB538C542 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* mobileapp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mobileapp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* mobileapp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mobileapp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E9833C2205449F2005ACEF9 /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
 		2EAF44F6204FECD900FFB686 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		2EAF44F7204FECD900FFB686 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		2EB89671204523E5007A7EC9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 				BA15102C84EC42DCB101307F /* Foundation.ttf */,
 				CA155CB495464438AF9468D8 /* Ionicons.ttf */,
 				F943A4740AD9455B82B9EA13 /* MaterialCommunityIcons.ttf */,
+				2E9833C2205449F2005ACEF9 /* Lato-Heavy.ttf */,
 				BC7A703F92BF4134937767E9 /* MaterialIcons.ttf */,
 				BC65F903ED6545AF8F7E8898 /* Octicons.ttf */,
 				6EE8BC9C0E9142CEABB23A8C /* SimpleLineIcons.ttf */,
@@ -1589,6 +1592,7 @@
 				BA8DD8D020496B0500D32834 /* GoogleSdk in Resources */,
 				FC7E0ABA6FF643418AF110FB /* Foundation.ttf in Resources */,
 				7F50E99DEFFA40318A10FE26 /* Ionicons.ttf in Resources */,
+				2E9833F020544A0C005ACEF9 /* Lato-Heavy.ttf in Resources */,
 				D1D6503E48254DF5BF6FD661 /* MaterialCommunityIcons.ttf in Resources */,
 				FABDE363082D402AABF2D9F2 /* MaterialIcons.ttf in Resources */,
 				9F38AACE96424A5AAF8EE780 /* Octicons.ttf in Resources */,

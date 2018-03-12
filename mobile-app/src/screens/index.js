@@ -12,6 +12,8 @@ import AddTrashPointsScreen from './AddTrashPoints/AddTrashPoints'
 import CreateEventScreen from './Events/CreateEvent/CreateEvent'
 import AddCoordinatorScreen from './Events/CreateEvent/AddCoordinator'
 import AddPeopleToEventScreen from './Events/CreateEvent'
+import EventsNavBar from './Events/NavBar/NavBar'
+import EventsList from './Events/List/List'
 
 import HomeScreen from './Home'
 
@@ -28,7 +30,7 @@ export const ADD_LOCATION = "ADD_LOCATION";
 export const ADD_TRASH_POINTS = "ADD_TRASH_POINTS";
 export const ADD_COORDINATOR = "ADD_COORDINATOR";
 export const ADD_PEOPLE_TO_EVENT = "ADD_PEOPLE_TO_EVENT";
-
+export const EVENTS_NAV_BAR = "EVENTS_NAV_BAR";
 // register all screens of the app (including internal ones)
 export function registerScreens(store, Provider) {
      Navigation.registerComponent(PROFILE_SCREEN, () => ProfileScreen, store, Provider);
@@ -44,4 +46,5 @@ export function registerScreens(store, Provider) {
      Navigation.registerComponent(ADD_COORDINATOR, () => AddCoordinatorScreen, store, Provider);
      Navigation.registerComponent(ADD_PEOPLE_TO_EVENT, () => AddPeopleToEventScreen, store, Provider);
      Navigation.registerComponent(ADD_TRASH_POINTS, () => AddTrashPointsScreen, store, Provider);
+     Navigation.registerComponent(EVENTS_NAV_BAR, () => EventsNavBar, store, Provider);
 }

@@ -2,6 +2,8 @@ import LocalizedStrings from 'react-native-localization';
 
 module.exports = new LocalizedStrings({
     en: {
+        label_nav_bar_list: "List",
+        label_nav_bar_map: "Map",
         label_included_into_another_event: "Included into another event",
         label_save: "Save",
         label_add_trashPoints: "Add trashpoints",

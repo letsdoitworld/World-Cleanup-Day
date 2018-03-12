@@ -5,6 +5,8 @@ import arrowDown from '../../../assets/arrow-drop-down-blue.png';
 import events from '../../../assets/events.png';
 import location from '../../../assets/ic-location.png';
 import locationBlack24px from '../../../assets/icLocationOnBlack24Px.png';
+import locationPinActive from '../../../assets/icLocationPinActive.png';
+import locationPinInactive from '../../../assets/icLocationPinInactive.png';
 import groupBlack24px from '../../../assets/icGroupBlack24Px.png';
 import hidePanel from '../../../assets/hide-panel.png';
 import fb from '../../../assets/ic-facebook-active.png';
@@ -18,6 +20,8 @@ export const BinIcon = () => <img src={bin} alt="bin-icon" />;
 export const ArrowDownIcon = () => <img src={arrowDown} alt="arrowdown-icon" />;
 export const EventsIcon = () => <img src={events} alt="events-icon" />;
 export const LocationIcon = () => <img src={location} alt="location-icon" />;
+export const LocationPinActive = () => <img src={locationPinActive} alt="location-pin-a" />;
+export const LocationPinInactive = () => <img src={locationPinActive} alt="location-pin-ina" />;
 export const LocationIcon24px = () => <img src={locationBlack24px} alt="location-icon-black" />;
 export const GroupIcon24px = () => <img src={groupBlack24px} alt="group-icon-black" />;
 export const MinimizeIcon = () => <img src={hidePanel} alt="minimize-icon" />;
@@ -27,3 +31,8 @@ export const ShareIcon = () => <img src={share} alt="share-icon" />;
 export const ParticipantsIcon = () => <img src={participants} alt="participants-icon" />;
 export const ReportIcon = () => <img src={report} alt="report-icon" />;
 export const CloseIcon = () => <img src={close} alt="close-icon" />;
+
+export {
+  locationPinActive,
+  locationPinInactive,
+};

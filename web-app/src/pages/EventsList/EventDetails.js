@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './EventDetails.css';
-import demo from '../../assets/demo.png';
 import { selectors } from '../../reducers/events';
 import {
   LocationIcon,
@@ -16,13 +15,18 @@ class EventDetails extends Component {
   componentWillMount() {
     this.props.fetchEventDetails(this.props.eventId);
   }
-  
+
+  componentWillReceiveProps(nextProps) {
+    this.props.fetchEventDetails(nextProps.eventId);
+  }
+
   render() {
-    const { event } = this.props;
+    const { event, eventId } = this.props;
+
     return (
       <div className="EventDetails">
         <div className="EventDetails-cover">
-          <img src={demo} alt="demo" />
+          <img src={event.avatar} alt="demo" />
         </div>
         <div className="EventDetails-plot">
           <div className="EventDetails-descr EventDetails-infoblock">

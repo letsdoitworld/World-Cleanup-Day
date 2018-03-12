@@ -17,11 +17,19 @@ const getShowEventWindow = createSelector(
 
 const getAllEventMarkers = createSelector(markersSel, state => state.markers);
 
-const getEventTitle = (state, id) => getAllEvents(state)[id].title;
-
 export const getEventDetails = createSelector(
   detailsSel,
   state => state.event,
+);
+
+export const getCurrentMarkerID = createSelector(
+  detailsSel,
+  state => state.event.datasetId,
+);
+
+export const getEventTitle = createSelector(
+  detailsSel,
+  state => state.event.title,
 );
 
 export default {
@@ -29,5 +37,6 @@ export default {
   getAllEventMarkers,
   getShowEventWindow,
   getEventTitle,
+  getCurrentMarkerID,
   getEventDetails,
 };

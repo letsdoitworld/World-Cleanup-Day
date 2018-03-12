@@ -11,21 +11,27 @@ import {
 } from '../../reducers/trashpile';
 import {
   selectors as eventSelectors,
-  actions as eventActions
-} from '../../reducers/events'
+  actions as eventActions,
+} from '../../reducers/events';
 import { getViewportPoints } from '../../shared/helpers';
 import { GRID_HASH, DELTA_HASH, GRID_MIN_VALUE } from '../../shared/constants';
 
 class MarkersMap extends React.Component {
   static defaultProps = {
     onMarkerClick: null,
+    fetchAllEventMarkers: null,
+    fetchClusterEvents: null,
   };
+
   static propTypes = {
     fetchAllTrashpoints: PropTypes.func.isRequired,
+    fetchAllEventMarkers: PropTypes.func,
     onMarkerClick: PropTypes.func,
     markers: PropTypes.array.isRequired,
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
+    fetchClusterEvents: PropTypes.func,
+    isUserLoggedIn: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -35,17 +41,6 @@ class MarkersMap extends React.Component {
     };
   }
 
-  handleSetMapComponent = map => {
-    this.map = map;
-    if (map) {
-      this.loadMarkers();
-    }
-  };
-  handleBoundsChanged = () => {
-    if (this.map) {
-      this.loadMarkers();
-    }
-  };
   componentWillReceiveProps = nextProps => {
     if (
       this.props.focusedLocation !== nextProps.focusedLocation &&
@@ -66,6 +61,19 @@ class MarkersMap extends React.Component {
     }
   };
 
+
+  handleSetMapComponent = map => {
+    this.map = map;
+    if (map) {
+      this.loadMarkers();
+    }
+  };
+  handleBoundsChanged = () => {
+    if (this.map) {
+      this.loadMarkers();
+    }
+  };
+
   loadMarkers = () => {
     if (!this.state.updateRegion) {
       return this.setState({ updateRegion: true });
@@ -73,10 +81,10 @@ class MarkersMap extends React.Component {
     const mapElContainer = this.map.getDiv();
     const mapSize = {
       height: parseInt(getComputedStyle(mapElContainer).height),
-      width: parseInt(getComputedStyle(mapElContainer).width)
+      width: parseInt(getComputedStyle(mapElContainer).width),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    this.props.fetchAllEventMarkers();
+    this.props.fetchAllEventMarkers(nw, se, mapSize);
     //this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {
@@ -126,7 +134,7 @@ class MarkersMap extends React.Component {
               cellSize,
               coordinates: marker.coordinates,
               clusterId: marker.id,
-            })
+            });
           },
         );
       }
@@ -134,9 +142,10 @@ class MarkersMap extends React.Component {
   };
 
   render() {
-    const { markers, eventMarkers } = this.props;
+    const { markers, eventMarkers, isUserLoggedIn } = this.props;
     return (
       <MapView
+        isUserLoggedIn={isUserLoggedIn}
         points={eventMarkers}
         setMapComponent={this.handleSetMapComponent}
         boundsChanged={this.handleBoundsChanged}
@@ -145,15 +154,17 @@ class MarkersMap extends React.Component {
     );
   }
 }
-const mapState = state => ({
+const mapStateToProps = state => ({
   markers: trashpileSelectors.getAllMarkers(state),
   eventMarkers: eventSelectors.getAllEventMarkers(state),
+  currentEventMarker: eventSelectors.getCurrentMarkerID(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
 });
-const mapDispatch = {
+const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
+  fetchClusterEvents: trashpileActions.fetchClusterEvents,
 };
-export default connect(mapState, mapDispatch)(MarkersMap);
+export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

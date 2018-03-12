@@ -17,7 +17,6 @@ function* loginGoogle() {
         const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.GOOGLE, accessToken);
         yield put(actions.setToken(cleanUpToken));
     } catch (error) {
-        console.log(error);
         appActions.setErrorMessage(String(error));
     }
 }
@@ -43,7 +42,6 @@ function* loginFacebook() {
         const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.FACEBOOK, accessToken);
         yield put(actions.setToken(cleanUpToken));
     } catch (error) {
-        console.log(error);
         appActions.setErrorMessage(String(error));
         //  if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
         //      yield put(appActions.setErrorMessage(strings.label_locked_account_warning));
@@ -67,13 +65,10 @@ export function* loginFacebookFlow() {
 }
 
 function* loadProfile() {
-    console.log('In loadProfile');
     try {
         const response = yield call(getProfile);
-        console.log('loadProfile - response', response);
         yield put(actions.fetchProfileDone(response))
     } catch (error) {
-        console.log(error);
         appActions.setErrorMessage(String(error));
     }
 }

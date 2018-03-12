@@ -5,17 +5,21 @@ import constants from '../shared/constants';
 
 const FBSDK = require('react-native-fbsdk');
 
-const { LoginManager, AccessToken } = FBSDK;
+const {
+  LoginManager,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} = FBSDK;
 
-
-export function getAuthHeader(authToken) {
+function getAuthHeader(authToken) {
   return {
     ...constants.BASE_HEADER,
     Authorization: `Bearer ${authToken}`,
   };
 }
 
-export function googleLogin() {
+function googleLogin() {
   return GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
@@ -32,22 +36,39 @@ export function googleLogin() {
     });
 }
 
-export function facebookLogin() {
-  return LoginManager.logInWithReadPermissions(['public_profile'])
+function facebookLogin() {
+  return LoginManager.logInWithReadPermissions(['public_profile', 'email'])
         .then((result) => {
           if (result.isCancelled) {
             throw 'Login cancelled';
           } else {
-            return AccessToken.getCurrentAccessToken();
+            return AccessToken.getCurrentAccessToken()
+              .then((data) => {
+                return new Promise((resolve, reject) => {
+                  new GraphRequestManager().addRequest(new GraphRequest(
+                    '/me?fields=email',
+                      null,
+                      (err, res) => {
+                        if (err) {
+                          reject(err);
+                        }
+
+                        const updatedData = {
+                          token: data,
+                          email: res.email,
+                        };
+
+                        resolve(updatedData);
+                      },
+                  )).start();
+                });
+              });
           }
-        }).then((token) => {
-          return token;
-        }).catch((error) => {
-          return error;
-        });
+        })
+        .catch(error => error);
 }
 
-export async function logout() {
+async function logout() {
   try {
     await Api.delete('/auth', { skipError: true });
   } catch (ex) {
@@ -55,7 +76,7 @@ export async function logout() {
   }
 }
 
-export async function agreeToTerms() {
+async function agreeToTerms() {
   try {
     const response = await Api.put(
       '/me/accept-terms',
@@ -70,4 +91,12 @@ export async function agreeToTerms() {
     throw ex;
   }
 }
+
+export default {
+  getAuthHeader,
+  googleLogin,
+  facebookLogin,
+  logout,
+  agreeToTerms,
+};
 

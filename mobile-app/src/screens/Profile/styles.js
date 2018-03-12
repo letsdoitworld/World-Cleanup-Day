@@ -1,16 +1,20 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { StyleSheet, Dimensions } from 'react-native';
+
+import { colors } from '../../themes';
 
 import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
 
-export default EStyleSheet.create({
-  container: {},
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   infoContainer: {
-    paddingHorizontal: getWidthPercentage(20),
-    paddingVertical: getHeightPercentage(20),
+    paddingHorizontal: getWidthPercentage(10),
+    paddingVertical: getHeightPercentage(10),
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '$yellow',
+    backgroundColor: colors.yellow,
   },
   avatarContainer: {
     justifyContent: 'center',
@@ -25,8 +29,7 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(5),
   },
   countryText: {
-    // fontFamily: '$font',
-    fontSize: '$fontDefaultSize',
+    fontSize: 15,
     color: '#7F7F7F',
     marginLeft: getWidthPercentage(5),
   },
@@ -35,7 +38,8 @@ export default EStyleSheet.create({
   },
   userNameText: {
     fontSize: 15,
-    paddingVertical: 8,
+    paddingVertical: 5,
+    fontWeight: 'bold',
   },
   logoutContainer: {
     marginTop: getHeightPercentage(20),
@@ -47,11 +51,27 @@ export default EStyleSheet.create({
   },
   additionalInfoContainer: {
     flexDirection: 'row',
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingVertical: getHeightPercentage(10),
+    paddingHorizontal: getHeightPercentage(10),
   },
   additionalInfoText: {
     fontSize: 15,
     paddingHorizontal: 12,
-  }
+  },
+  tabContent: {
+    flex: 1,
+    backgroundColor: colors.grey200,
+  },
+  guestContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.yellow,
+  },
+  imgPlaceholder: {
+    width: Dimensions.get('window').width * 0.9,
+    height: 300,
+    backgroundColor: colors.grey200,
+    marginHorizontal: getHeightPercentage(20),
+  },
 });

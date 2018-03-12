@@ -1,7 +1,7 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {Platform, StatusBar} from 'react-native';
 
-import {ICON_COLOR, WHITE_COLOR, STATUS_BAR_HEIGHT} from '../shared/constants';
+import { ICON_COLOR, WHITE_COLOR, BLACK_COLOR, STATUS_BAR_HEIGHT } from '../shared/constants';
 
 const colors = {
     $fbColor: '#43619c',
@@ -12,6 +12,7 @@ const colors = {
     $yellow: 'rgb(255, 216, 0)',
     $iconColor: ICON_COLOR,
     $white: WHITE_COLOR,
+    $black: BLACK_COLOR,
     $textColor: 'rgb(40, 38, 51)',
     $textColorDivider: 'rgb(126, 124, 132)',
     $mainBackground: 'rgb(240, 240, 240)',

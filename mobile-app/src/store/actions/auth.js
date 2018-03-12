@@ -10,20 +10,27 @@ export const setAuthError = error => ({
   payload: error,
 });
 
-export const REMOVE_AUTH_TOKEN = 'auth/REMOVE_TOKEN';
-export const removeToken = () => ({
-  type: REMOVE_AUTH_TOKEN,
-  meta: {
-    logout: true,
-  },
+export const LOGOUT = 'auth/LOGOUT';
+export const logout = () => ({
+  type: LOGOUT,
 });
 
-export const GOOGLE_LOGIN_ACTION = 'GOOGLE_LOGIN_ACTION';
+export const GOOGLE_LOGIN_ACTION = 'auth/GOOGLE_LOGIN_ACTION';
 export const loginGoogle = () => ({
   type: GOOGLE_LOGIN_ACTION,
 });
 
-export const FB_LOGIN_ACTION = 'FB_LOGIN_ACTION';
+export const FB_LOGIN_ACTION = 'auth/FB_LOGIN_ACTION';
 export const loginFacebook = () => ({
   type: FB_LOGIN_ACTION,
+});
+
+export const SET_GUEST_SESSION = 'auth/SET_GUEST_SESSION';
+export const setGuestSession = () => ({
+  type: SET_GUEST_SESSION,
+});
+
+export const GUEST_LOG_IN = 'auth/GUEST_LOG_IN';
+export const guestLogIn = () => ({
+  type: GUEST_LOG_IN,
 });

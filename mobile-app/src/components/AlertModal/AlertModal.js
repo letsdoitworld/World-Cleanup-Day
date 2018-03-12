@@ -8,7 +8,7 @@ import {
   Modal,
 } from 'react-native';
 
-import { SimpleButton } from '../Buttons/SimpleButton';
+import { SimpleButton } from '../Button/SimpleButton';
 
 import styles from './styles';
 

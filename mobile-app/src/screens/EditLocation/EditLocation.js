@@ -6,8 +6,8 @@ import { compose } from 'recompose';
 import strings  from '../../assets/strings';
 
 import { AlertModal } from '../../components/AlertModal';
-import { Map } from '../../components/Map/Map';
-import { Button } from '../../components/Buttons/Button';
+import { Map } from '../../components/Map';
+import { Button } from '../../components/Button';
 import {
   DEFAULT_ZOOM,
   USER_ROLES,

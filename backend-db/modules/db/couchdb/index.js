@@ -41,6 +41,19 @@ const layer = {
     },
 
     //========================================================
+    // Events
+    //========================================================
+    createEvent: async (event) => {
+        const id = util.uuid.random();
+        await adapter.createDocument('Event', id, event);
+        return await layer.getEvent(id);
+    },
+
+    getEvent: async id => {
+        return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
+    },
+
+    //========================================================
     // ACCOUNTS
     //========================================================
     getAccounts: async (pageSize = 10, pageNumber = 1) => {

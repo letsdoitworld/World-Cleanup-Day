@@ -1,11 +1,15 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 
 const Icon = ({
     path,
+    containerStyle,
+    iconStyle,
 }) => {
   return (
-    <Image source={path} />
+    <View style={containerStyle}>
+      <Image source={path} style={iconStyle} />
+    </View>
   );
 };
 

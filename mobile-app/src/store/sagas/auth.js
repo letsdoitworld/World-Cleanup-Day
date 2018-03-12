@@ -7,13 +7,16 @@ import {
 import {
   FB_LOGIN_ACTION,
   GOOGLE_LOGIN_ACTION,
+  LOGOUT,
   setToken,
+  logout,
 } from '../actions/auth';
 
 import {
-  facebookLogin,
-  googleLogin,
-} from '../../api';
+  updateEmailProfile,
+} from '../actions/profile';
+
+import Api from '../../api';
 
 import {
   login,
@@ -24,12 +27,11 @@ import {
 
 function* loginGoogle() {
   try {
-    const user = yield call(googleLogin);
+    const user = yield call(Api.auth.googleLogin);
     const accessToken = user.accessToken;
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.GOOGLE, accessToken);
     yield put(setToken(cleanUpToken));
   } catch (error) {
-    console.log(error);
     setErrorMessage(String(error));
   }
 }
@@ -48,12 +50,15 @@ export function* loginGoogleFlow() {
 
 function* loginFacebook() {
   try {
-    const token = yield call(facebookLogin);
-    const accessToken = token.accessToken;
+    const res = yield call(Api.auth.facebookLogin);
+
+    const accessToken = res.token.accessToken;
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.FACEBOOK, accessToken);
     yield put(setToken(cleanUpToken));
+    if (res.email) {
+      yield put(updateEmailProfile(res.email));
+    }
   } catch (error) {
-    console.log(error);
     setErrorMessage(String(error));
         //  if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
         //      yield put(setErrorMessage(strings.label_locked_account_warning));
@@ -64,7 +69,6 @@ function* loginFacebook() {
 }
 
 export function* loginFacebookFlow() {
-  console.log('loginFacebookFlow')
   while (true) {
     yield take(FB_LOGIN_ACTION);
     yield call(loginFacebook);
@@ -74,5 +78,29 @@ export function* loginFacebookFlow() {
         // yield put(rootActions.controlProgress(true));
         // yield call(createProfile, name, secondName, role);
         // yield put(rootActions.controlProgress(false));
+  }
+}
+
+
+function* logoutUser() {
+  try {
+    const res = yield call(Api.auth.logout);
+    console.log('Res!!!!', res);
+
+    yield put(logout());
+  } catch (error) {
+    setErrorMessage(String(error));
+        //  if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
+        //      yield put(setErrorMessage(strings.label_locked_account_warning));
+        //  } else {
+        //      yield put(setErrorMessage(String(error)));
+        // }
+  }
+}
+
+export function* logoutFlow() {
+  while (true) {
+    yield take(LOGOUT);
+    yield call(logoutUser);
   }
 }

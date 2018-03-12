@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import strings from '../../assets/strings';
@@ -6,7 +7,9 @@ import strings from '../../assets/strings';
 import {EmptyStateScreen} from '../../components/EmptyStateScreen/EmptyStateScreen';
 import styles from './styles';
 
-export default class Notifications extends Component {
+import { logout } from '../../store/actions/auth';
+
+class Notifications extends Component {
 
     static navigatorStyle = {
         navBarTextColor: '#000000',
@@ -18,7 +21,13 @@ export default class Notifications extends Component {
 
     render() {
         if (isUndefinedOtNullOrEmpty(this.props.notifications)) {
-            return <EmptyStateScreen description={strings.label_text_notific_empty_text}/>
+            return (
+                <View>
+                    <EmptyStateScreen description={strings.label_text_notific_empty_text}/>
+                    <TouchableOpacity onPress={this.props.logout}>
+                        <Text>Logout!</Text>
+                    </TouchableOpacity>
+                </View>)
         } else {
             return null
         }
@@ -29,6 +38,8 @@ function isUndefinedOtNullOrEmpty(array) {
     return array === undefined || array === null || array.length === 0
 }
 
+// export default connect(null, {  })(Notifications)
+
 //
 // const mapStateToProps = () => ({
 //   notifications: [],
@@ -36,8 +47,6 @@ function isUndefinedOtNullOrEmpty(array) {
 //
 // const mapDispatchToProps = {};
 //
-// export default compose(
-//   connect(mapStateToProps, mapDispatchToProps),
-//   withNavigationHelpers(),
-//   translate(),
-// )(Notifications);
+export default compose(
+  connect(null, { logout }),
+)(Notifications);

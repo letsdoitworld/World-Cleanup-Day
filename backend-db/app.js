@@ -6,3 +6,4 @@ service.use('./plugins/datasets');
 service.use('./plugins/trashpoints');
 service.use('./plugins/images');
 service.use('./plugins/areas');
+service.use('./plugins/events');

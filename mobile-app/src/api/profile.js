@@ -1,6 +1,6 @@
 import Api from '../services/Api';
 
-export async function updateProfileStatus(profileStatus) {
+async function updateProfileStatus(profileStatus) {
   try {
     const response = await Api.get('me/privacy', profileStatus);
     return response;
@@ -9,18 +9,16 @@ export async function updateProfileStatus(profileStatus) {
   }
 }
 
-export async function getProfile() {
-  console.log('getProfile API');
+async function getProfile() {
   try {
     const response = await Api.get('/me');
-    console.log('Responce', response);
     return response.data;
   } catch (ex) {
     throw ex;
   }
 }
 
-export async function updateProfile(profile) {
+async function updateProfile(profile) {
   try {
     const response = await Api.put('/me', profile);
     if (!response || !response.data) {
@@ -31,4 +29,10 @@ export async function updateProfile(profile) {
     throw ex;
   }
 }
+
+export default {
+  updateProfileStatus,
+  getProfile,
+  updateProfile,
+};
 

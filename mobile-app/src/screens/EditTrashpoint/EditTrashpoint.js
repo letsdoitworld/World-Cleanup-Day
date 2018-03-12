@@ -24,7 +24,7 @@ import strings  from '../../assets/strings';
 import { withCameraActions } from '../../services/Camera';
 import { operations as locationOperations } from '../../reducers/location';
 import { selectors as userSels } from '../../reducers/user';
-import { Button } from '../../components/Buttons';
+import { Button } from '../../components/Button';
 import { LocationPicker } from '../CreateMarker/components/LocationPicker';
 import { StatusPicker } from '../CreateMarker/components/StatusPicker';
 import { PhotoPicker } from '../../components/PhotoPicker';

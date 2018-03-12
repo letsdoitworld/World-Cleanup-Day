@@ -11,28 +11,21 @@ import {
   fetchProfileDone,
 } from '../actions/profile';
 
-import {
-  getProfile,
-  updateProfileStatus,
-} from '../../api';
+import Api from '../../api';
 
 function* loadProfile() {
-  console.log('In loadProfile');
   try {
-    const response = yield call(getProfile);
-    console.log('NewloadProfile - response', response);
+    const response = yield call(Api.profile.getProfile);
     yield put(fetchProfileDone(response));
   } catch (error) {
-    console.log(error);
     setErrorMessage(String(error));
   }
 }
 
 function* updateStatus(profileStatus) {
   try {
-    const status = yield call(updateProfileStatus, profileStatus);
+    const status = yield call(Api.profile.updateProfileStatus, profileStatus);
   } catch (error) {
-    console.warn(error);
     setErrorMessage(error);
   }
 }

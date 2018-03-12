@@ -272,6 +272,20 @@ const designDocs = {
             },
         },
     },
+    events: {
+      all: {
+          $version: 1,
+          views: {
+              view: {
+                  map: function (doc) {
+                      if (doc.$doctype === 'event') {
+                          emit(doc._id, doc);
+                      }
+                  },
+              },
+          },
+      }
+    },
     trashpoints: {
         all: {
             $version: 1,

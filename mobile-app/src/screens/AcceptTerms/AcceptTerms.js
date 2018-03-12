@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import strings  from '../../assets/strings';
 
 import { operations as userOps } from '../../reducers/user';
-import { Button } from '../../components/Buttons';
+import { Button } from '../../components/Button';
 import { Terms } from '../../components/Terms';
 import styles from './styles';
 

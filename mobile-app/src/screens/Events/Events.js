@@ -264,7 +264,7 @@ class Events extends Component {
 
 }
 
-Profile.propTypes = {
+Events.propTypes = {
     events: PropTypes.object,
     isAuthenticated: PropTypes.bool,
     onSearchEventsAction: PropTypes.func,

@@ -24,6 +24,7 @@ import colors from "../../config/colors";
 import {ABOUT_SCREEN} from "../index";
 import userActions from '../../reducers/user/actions';
 import {logout} from "../../store/actions/auth";
+import PropTypes from "prop-types";
 
 export class Settings extends Component {
 
@@ -98,7 +99,8 @@ export class Settings extends Component {
     };
 
     handlePrivacyPress = status => {
-        //this.props.dispatch(userActions.updateProfileStatus(status));
+        const {onUpdateProfileStatus} = this.props;
+        onUpdateProfileStatus(status);
     };
 
     handleLinkPress = link => () =>
@@ -239,12 +241,9 @@ export class Settings extends Component {
     }
 }
 
-// const mapStateToProps = (state) => ({
-//     auth: state.get('auth'),
-//     profile: state.get('profile'),
-//     profileState: state.get('profileState'),
-//     error: state.get('error')
-// });
+Settings.propTypes = {
+    onUpdateProfileStatus: PropTypes.func,
+};
 
 export default compose(
     connect(null, { logout }),

@@ -15,11 +15,22 @@ import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 
+const cancelId = 'cancelId';
+
 export default class CreateEvent extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
         navBarTitleTextCentered: true,
+    };
+
+    static navigatorButtons = {
+        leftButtons: [
+            {
+                icon: require('../../../../src/assets/images/close.png'),
+                id: cancelId,
+            }
+        ],
     };
 
     title: string;

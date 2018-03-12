@@ -10,11 +10,22 @@ import MainButton from '../../../components/Buttons/MainButton';
 import * as Immutable from "immutable/dist/immutable";
 import PropTypes from 'prop-types';
 
+const cancelId = 'cancelId';
+
 class AddPeopleToEvent extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
         navBarTitleTextCentered: true,
+    };
+
+    static navigatorButtons = {
+        leftButtons: [
+            {
+                icon: require('../../../../src/assets/images/ic_back.png'),
+                id: cancelId,
+            }
+        ],
     };
 
     numberAttendees: string;

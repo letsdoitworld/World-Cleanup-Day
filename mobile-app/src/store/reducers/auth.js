@@ -4,7 +4,9 @@ import { createReducer } from '../helpers/createReducer';
 import {
   SET_AUTH_TOKEN,
   SET_AUTH_ERROR,
-  REMOVE_AUTH_TOKEN,
+  SET_GUEST_SESSION,
+  GUEST_LOG_IN,
+  LOGOUT,
 } from '../actions/auth';
 
 
@@ -13,10 +15,13 @@ export const initialState = Immutable.Map(
     token: null,
     tokenError: null,
     termsAgreed: false,
+    isGuestSession: false,
   },
 );
 
 const handlers = {
+  [LOGOUT]: () => initialState,
+  [GUEST_LOG_IN]: () => initialState,
   [SET_AUTH_TOKEN]: (state, { payload }) => {
     return state.withMutations(mState =>
       mState.set('token', payload),
@@ -27,10 +32,10 @@ const handlers = {
       mState.set('tokenError', String(payload)),
      );
   },
-  [REMOVE_AUTH_TOKEN]: (state) => {
+  [SET_GUEST_SESSION]: (state) => {
     return state.withMutations(mState =>
-      mState.set('token', null),
-    );
+      mState.set('isGuestSession', true),
+     );
   },
 };
 

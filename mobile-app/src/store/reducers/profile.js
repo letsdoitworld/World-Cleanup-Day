@@ -2,6 +2,8 @@ import Immutable from 'immutable';
 
 import { createReducer } from '../helpers/createReducer';
 
+import { LOGOUT } from '../actions/auth';
+
 import {
   TERMS_AGREE,
   FETCH_PROFILE,
@@ -26,6 +28,8 @@ export const initialState = Immutable.Map(
 );
 
 const handlers = {
+  [LOGOUT]: () => initialState,
+
   [TERMS_AGREE]: (state) => {
     return state.withMutations(mState =>
       mState.set('entity', {

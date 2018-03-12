@@ -3,7 +3,7 @@ import { View, Text, TouchableHighlight } from 'react-native';
 import _ from 'lodash';
 
 import styles from './styles';
-import { SimpleButton, ImageButton } from '../Buttons';
+import { SimpleButton, ImageButton } from '../Button';
 
 export const HEADER_BUTTONS_IMAGES = {
   arrowBack: {

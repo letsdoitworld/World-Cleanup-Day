@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, View, Text, Image } from 'react-native';
-import { Button } from '../../../../components/Buttons';
+import { Button } from '../../../../components/Button';
 
 import styles from './styles';
 

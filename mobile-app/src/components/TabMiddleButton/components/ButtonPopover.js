@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { SimpleButton } from '../../Buttons';
+import { SimpleButton } from '../../Button';
 import { getHeightPercentage, getWidthPercentage, isIOS } from '../../../shared/helpers';
 import { SCREEN_WIDTH } from '../../../shared/constants';
 

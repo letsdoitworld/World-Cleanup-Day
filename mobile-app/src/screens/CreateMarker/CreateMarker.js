@@ -22,7 +22,7 @@ import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';
 import { withLoadingScreen } from '../../services/Loading';
 import { operations as locationOperations } from '../../reducers/location';
-import { Button } from '../../components/Buttons';
+import { Button } from '../../components/Button';
 import { LocationPicker } from './components/LocationPicker';
 import { StatusPicker } from './components/StatusPicker';
 import { PhotoPicker } from '../../components/PhotoPicker';

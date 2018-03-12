@@ -1,5 +1,7 @@
-import Icons from './icons'
+import Icons from './icons';
+import Backgrounds from './backgrounds';
 
 module.exports = {
-	Icons: Icons
+  Icons,
+  Backgrounds,
 };

@@ -11,8 +11,8 @@ import { AlertModal } from '../components/AlertModal';
 
 import { GOOGLE_GEOCODE_API_URL, API_KEY } from '../shared/constants';
 
-// import {operations as locationOps} from '../reducers/location/operations';
-//
+ import {operations as locationOps} from '../reducers/location/operations';
+
 // selectors as locationSels,
 
 const checkLocationPermission = async () => {

@@ -1,95 +1,115 @@
-import React, {Component} from "react";
-
+import React, { PureComponent } from 'react';
+import { Provider } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
+import isNil from 'lodash/isNil';
+
 import {
-    HOME_SCREEN, LOGIN_SCREEN,
+    LOGIN_SCREEN,
     MY_ACTIVITY_SCREEN,
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
-    registerScreens
+    EVENTS,
+    registerScreens,
 } from './src/screens';
 
-import actions from "./src/reducers/user/actions";
+import './src/config/styles';
 
-import strings from './src/assets/strings'
-import configureStore from "./src/store/configureStore";
-import {Provider} from "react-redux";
+import { Icons } from './src/assets/images';
+
+
+import strings from './src/assets/strings';
+import configureStore from './src/store/configureStore';
 
 const store = configureStore();
 
 registerScreens(store, Provider);
 
-export default class App extends Component {
+export default class App extends PureComponent {
 
-    constructor() {
-        super();
-        store.subscribe(this.onStoreUpdate.bind(this));
-        store.dispatch(actions.setToken(null));
+  constructor() {
+    super();
+    store.subscribe(this.onStoreUpdate.bind(this));
+    this.currentToken = null;
+  }
+
+  onStoreUpdate() {
+    const auth = store.getState().get('auth');
+    const token = auth.get('token');
+    const isGuestSession = auth.get('isGuestSession');
+
+    if (this.currentToken !== token) {
+      this.currentToken = token;
+      this.startApp(token, isGuestSession);
     }
 
-    onStoreUpdate() {
-        const token = store.getState().get('auth').get('token');
-        if (this.currentToken !== token) {
-            this.currentToken = token;
-            this.startApp();
-        }
+    if (this.isGuestSession !== isGuestSession) {
+      this.isGuestSession = isGuestSession;
+      this.startApp(token, isGuestSession);
+    }
+  }
+
+  startApp(token, isGuestSession) {
+    if (isGuestSession) {
+      App.dismissLogin();
+      App.mainScreen();
+      return;
     }
 
-    startApp() {
-        const token = store.getState().get('auth').get('token');
-        App.mainScreen();
-
-        if (token === undefined || token === null) {
-            App.loginScreen()
-         } else {
-            App.dismissLogin()
-        }
+    if (isNil(token)) {
+      App.loginScreen();
+      return;
     }
 
-    static dismissLogin() {
-        Navigation.dismissModal({
-            animationType: 'slide-out'
-        })
-    }
+    App.dismissLogin();
+    App.mainScreen();
+  }
 
-    static loginScreen() {
-        setTimeout(() => {
-            Navigation.showModal({
-                screen: LOGIN_SCREEN,
-                animationType: 'slide-in'
-            });
-        }, 1)
-    }
+  static dismissLogin() {
+    console.log('dismissLogin');
+    Navigation.dismissModal({
+      animationType: 'slide-out',
+    });
+  }
 
-    static mainScreen() {
-        Navigation.startTabBasedApp({
-            tabs: [
-                {
-                    screen: PROFILE_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_profile.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_profile_active.png'),
-                    title: strings.label_header_profile
-                },
-                {
-                    screen: MY_ACTIVITY_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_activity.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_activity_active.png'),
-                    title: strings.label_header_activity
-                },
-                {
-                    screen: NOTIFICATIONS_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_updates.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_updates_active.png'),
-                    title: strings.label_header_notific
-                },
-                {
-                    screen: HOME_SCREEN,
-                    icon: require('./src/assets/images/icon_menu_map.png'),
-                    selectedIcon: require('./src/assets/images/icon_menu_map_active.png'),
-                },
-            ],
-        }, this.animationType = 'fade').done();
-    }
+  static loginScreen() {
+    console.log('loginScreen');
+    setTimeout(() => {
+      Navigation.showModal({
+        screen: LOGIN_SCREEN,
+        animationType: 'slide-in',
+      });
+    }, 1);
+  }
+
+  static mainScreen() {
+    console.log('Main Screen');
+    Navigation.startTabBasedApp({
+      tabs: [
+        {
+          screen: NOTIFICATIONS_SCREEN,
+          label: 'Notifications',
+          icon: Icons.Trashpoints,
+          selectedIcon: Icons.TrashpointsActive,
+          title: strings.label_header_notific,
+        },
+        {
+          screen: EVENTS,
+          label: 'Activity',
+          icon: Icons.Event,
+          selectedIcon: Icons.EventActive,
+          title: '',
+        },
+        {
+          screen: PROFILE_SCREEN,
+                    // Todo add strings
+          label: 'Profile',
+          icon: Icons.Profile,
+          selectedIcon: Icons.Profile,
+          title: strings.label_header_profile,
+        },
+      ],
+    }, this.animationType = 'fade').done();
+  }
 
 }

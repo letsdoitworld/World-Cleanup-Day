@@ -22,7 +22,7 @@ const styles = EStyleSheet.create({
   },
   imageText: {
     position: 'absolute',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     fontSize: 16,
     zIndex: 100,
     top: getHeightPercentage(250),
@@ -40,7 +40,7 @@ const styles = EStyleSheet.create({
     borderColor: 'rgba(0,0,0,0.2)',
   },
   subtext: {
-    fontFamily: '$font',
+    // fontFamily: '$font',
     width: getWidthPercentage(150),
     textAlign: 'center',
   },

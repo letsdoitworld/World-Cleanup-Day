@@ -20,10 +20,11 @@ export const SCREEN_HEIGHT = window.height;
 export const DIAGONALE_IN_PX = Math.sqrt(Math.pow(SCREEN_WIDTH, 2) + Math.pow(SCREEN_HEIGHT, 2));
 
 const original = PixelRatio.getPixelSizeForLayoutSize(Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2)));
-export const MARKER_DIAGONALE_IN_PX =  2*original;
+export const MARKER_DIAGONALE_IN_PX =  2 * original;
 export const PLATFORM_NAME = Platform.OS;
 export const ICON_COLOR = '#a1a1a1';
 export const WHITE_COLOR = '#fff';
+export const BLACK_COLOR = 'rgb(40, 38, 51)';
 export const SIZE_16 = 16;
 export const SIZE_20 = 20;
 export const SIZE_18 = 18;
@@ -123,6 +124,12 @@ export default {
     BASE_HEADER: {
         'Content-Type': 'application/json',
     },
+    TITLE_REGEX: /[\S\s]{1,70}$/,
+    DESCRIPTION_REGEX: /[\S\s]{1,500}$/,
+    EMAIL_REGEX: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+
+    PHONE_NUMBER: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+
 }
 
 export const GRID_HASH = {
@@ -292,3 +299,4 @@ export const USER_ROLES = {
   LEADER: 'leader',
   SUPERADMIN: 'superadmin',
 };
+

@@ -90,6 +90,26 @@ class Session extends Type {
     }
 }
 
+class Event extends Type {
+    constructor(data) {
+        super();
+        this.value = util.object.filter(data, {
+            id: true,
+            datasetId: true,
+            name: true,
+            address: true,
+            location: true,
+            description: true,
+            whatToBring: true,
+            createDate: true,
+            updateDate: true,
+            startTime: true,
+            endTime: true,
+            email: true
+        });
+    }
+}
+
 class Trashpoint extends Type {
     constructor(data) {
         super();
@@ -212,6 +232,8 @@ const datatypeFactory = (datatype, data) => {
         return new Cluster(data);
     case 'Area':
         return new Area(data);
+    case 'Event':
+        return new Event(data)
     default:
         throw new TypeError(`Unknown data type '${datatype}'.`)
     }
@@ -222,5 +244,5 @@ const normalizeData = (datatype, data) => (datatypeFactory(datatype, data)).expo
 module.exports = {
     datatypeFactory,
     normalizeData,
-    Dataset, Account, Session, Trashpoint, Image, Cluster, Area,
+    Dataset, Account, Session, Trashpoint, Image, Cluster, Area, Event
 };

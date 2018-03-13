@@ -13,7 +13,7 @@ import Camera from '../../services/Camera';
 import { BottomTabs } from '../../components/Tabs';
 import { getHeightPercentage, handleSentryError } from '../../shared/helpers';
 import { Popover } from '../../components/Popover';
-import { SimpleButton } from '../../components/Buttons';
+import { SimpleButton } from '../../components/Button';
 import { actions as mapActions } from '../../reducers/map';
 import { actions as userActions } from '../../reducers/user';
 

@@ -81,8 +81,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/design/26.1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/multidex-instrumentation/1.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/26.1.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/transition/26.1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.13/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.2.5/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.17/jars" />
@@ -124,6 +127,7 @@
     <orderEntry type="library" exported="" name="com.android.support:animated-vector-drawable-27.0.2" level="project" />
     <orderEntry type="library" exported="" name="com.crashlytics.sdk.android:answers-1.3.13" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-auth-11.8.0" level="project" />
+    <orderEntry type="library" exported="" name="com.android.support:recyclerview-v7-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-base-license-11.8.0" level="project" />
     <orderEntry type="library" exported="" name="com.parse.bolts:bolts-tasks:1.4.0@jar" level="project" />
     <orderEntry type="library" exported="" name="io.fabric.sdk.android:fabric-1.3.17" level="project" />
@@ -139,9 +143,10 @@
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-tasks-11.8.0" level="project" />
     <orderEntry type="library" exported="" name="com.facebook.fbui.textlayoutbuilder:staticlayout-proxy:1.0@jar" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-location-license-11.8.0" level="project" />
-    <orderEntry type="library" exported="" name="com.facebook.react:react-native-0.53.3" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-fragment-27.0.2" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-auth-api-phone-license-11.8.0" level="project" />
+    <orderEntry type="library" exported="" name="com.android.support:transition-26.1.0" level="project" />
+    <orderEntry type="library" exported="" name="com.android.support:design-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-media-compat-27.0.2" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-base-11.8.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-v4-27.0.2" level="project" />
@@ -162,6 +167,7 @@
     <orderEntry type="library" exported="" name="com.facebook.fresco:fbcore-1.3.0" level="project" />
     <orderEntry type="library" exported="" name="com.facebook.fresco:drawee-1.3.0" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-auth-base-11.8.0" level="project" />
+    <orderEntry type="library" exported="" name="com.facebook.react:react-native-0.50.0" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-auth-base-license-11.8.0" level="project" />
     <orderEntry type="library" exported="" name="com.crashlytics.sdk.android:crashlytics-2.6.8" level="project" />
     <orderEntry type="library" exported="" name="com.google.android.gms:play-services-location-11.8.0" level="project" />
@@ -174,6 +180,7 @@
     <orderEntry type="module" module-name="react-native-navigation" exported="" />
     <orderEntry type="module" module-name="react-native-fbsdk" exported="" />
     <orderEntry type="module" module-name="react-native-localization" exported="" />
+    <orderEntry type="module" module-name="react-native-image-crop-picker" exported="" />
     <orderEntry type="module" module-name="react-native-maps" exported="" />
     <orderEntry type="module" module-name="react-native-vector-icons" exported="" />
     <orderEntry type="module" module-name="react-native-gesture-handler" exported="" />

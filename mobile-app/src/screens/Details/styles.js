@@ -21,13 +21,13 @@ export default EStyleSheet.create({
     padding: '$sizeWidth20',
   },
   streetContainer: {
-    fontFamily: 'noto-sans-bold',
+    // fontFamily: 'noto-sans-bold',
     fontSize: 30,
     color: '#404040',
     width: '$sizeWidth280',
   },
   addressContainer: {
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
     color: '#7F7F7F',
     width: '$sizeWidth280',
@@ -36,7 +36,7 @@ export default EStyleSheet.create({
   locationImage: { width: 11, height: 15 },
   threatImage: { width: 17, height: 15 },
   threatText: {
-    fontFamily: 'noto-sans-bold',
+    // fontFamily: 'noto-sans-bold',
     fontSize: '$font13',
     color: '#EB5757',
     paddingLeft: getWidthPercentage(4),
@@ -56,26 +56,26 @@ export default EStyleSheet.create({
     marginLeft: getWidthPercentage(3),
   },
   createdText: {
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
     color: '#7d7d7d',
     paddingLeft: getWidthPercentage(7),
   },
   dateCreatedText: {
     color: '$textColor',
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
     marginLeft: getWidthPercentage(3),
   },
   updatedText: {
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
     color: '#7d7d7d',
     paddingLeft: getWidthPercentage(6),
   },
   dateUpdatedText: {
     color: '$textColor',
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: '$font13',
   },
   containerTypes: {
@@ -83,7 +83,7 @@ export default EStyleSheet.create({
     paddingHorizontal: '$sizeHeight20',
   },
   typesTitle: {
-    fontFamily: 'noto-sans-bold',
+    // fontFamily: 'noto-sans-bold',
     fontSize: 16,
     color: '$textColor',
   },
@@ -103,7 +103,7 @@ export default EStyleSheet.create({
     borderRadius: 25,
   },
   tagText: {
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     fontSize: 13,
   },
   completeAddressContainer: {
@@ -118,7 +118,7 @@ export default EStyleSheet.create({
   footerText: {
     color: '$white',
     fontSize: '$fontDefaultSize',
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     textAlign: 'center',
   },
   footerButtons: {

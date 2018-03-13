@@ -1,5 +1,6 @@
 import types from './types';
 
+
 const setPopoverShown = () => ({
   type: types.SET_POPOVER_SHOWN,
 });
@@ -8,7 +9,7 @@ const setPopoverMessage = message => ({
   payload: message,
 });
 
-const setErrorMessage = (message) => {
+export const setErrorMessage = (message) => {
   let payload = {};
   if (typeof message === 'object') {
     payload = message;
@@ -39,10 +40,15 @@ const setConnectionChecked = () => ({ type: types.SET_CONNECTION_CHECKED });
 
 const updateNetworkStatus = isConnected => ({ type: types.UPDATE_NETWORK_STATUS, payload: { isConnected } });
 
+export const controlProgress = (progress) => ({
+    type: types.PROGRESS_ACTION,
+    progress,
+});
+
 export default {
   setPopoverShown,
   setPopoverMessage,
-  setErrorMessage,
+ // setErrorMessage,
   setActiveScreen,
   hideErrorMessage,
   setConnectionChecked,

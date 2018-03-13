@@ -21,10 +21,10 @@ import PropTypes from 'prop-types';
 // } from '../../reducers/trashpile';
 
  import ActivityListItem from './components/ActivityListItem';
- import { Divider } from '../../components/Divider/Divider';
+ import { Divider } from '../../components/Divider';
  import { EmptyStateScreen } from '../../components/EmptyStateScreen/EmptyStateScreen';
 
-import { SimpleButton } from '../../components/Buttons/SimpleButton';
+import { SimpleButton } from '../../components/Button/SimpleButton';
 
 import styles from './styles';
 

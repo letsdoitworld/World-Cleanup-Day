@@ -10,7 +10,6 @@ const getUserData = token => {
                 if (err) {
                     return reject(new Error(`${err.type}: ${err.message}`));
                 }
-
                 return resolve({
                     id: res.id,
                     email: res.email,

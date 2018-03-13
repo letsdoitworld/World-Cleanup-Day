@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import {CountryModal} from './components/CountryModal';
 import strings from '../../config/strings';
-import ToggleSwitch from 'toggle-switch-react-native'
+import ToggleSwitch from 'toggle-switch-react-native';
 
 // import {
 //   operations as userOps,
@@ -65,7 +65,7 @@ export class Settings extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(userActions.fetchProfile());
+        //this.props.dispatch(userActions.fetchProfile());
     }
 
     handleCountryItemPress = () => {
@@ -99,7 +99,7 @@ export class Settings extends Component {
     };
 
     handlePrivacyPress = status => {
-        this.props.dispatch(userActions.updateProfileStatus(status));
+        //this.props.dispatch(userActions.updateProfileStatus(status));
     };
 
     handleLinkPress = link => () =>
@@ -123,11 +123,11 @@ export class Settings extends Component {
 
     render() {
         const {country} = this.props;
-        const profile = this.props.profile.get('entity');
+        //const profile = this.props.profile.get('entity');
 
-        if (profile === null) {
-            return null
-        }
+        // if (profile === null) {
+        //     return null
+        // }
         // const countrySubtitle = country
         //   ? country.name
         //   : this.props.t('label_country_picker_placeholder');
@@ -142,24 +142,24 @@ export class Settings extends Component {
                             style={styles.imageItemStyle}
 
                             source={require('./images/ic_name.png')}/>
-                        <Text style={styles.textItemStyle}>{profile.name}</Text>
+                        <Text style={styles.textItemStyle}>{'Yulia'}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/ic_location.png')}/>
+                            source={require('../../../src/assets/images/ic_location.png')}/>
                         <Text style={styles.textItemStyle}>{'Kiev, Ukraine'}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/ic_phone_number.png')}/>
+                            source={require('../../assets/images/ic_phone_number.png')}/>
                         <Text style={styles.textItemStyle}>{'+3809500000000'}</Text>
                     </View>
                     <View style={styles.itemStyle}>
                         <Image
                             style={styles.imageItemStyle}
-                            source={require('./images/ic_email.png')}/>
+                            source={require('../../assets/images/ic_email.png')}/>
                         <Text style={styles.textItemStyle}>{'yonder@gmail.com'}</Text>
                     </View>
                     <View style={styles.titleStyle}>

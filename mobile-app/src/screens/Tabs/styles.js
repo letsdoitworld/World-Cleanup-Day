@@ -35,13 +35,13 @@ export default EStylesheet.create({
   titlePopover: {
     fontSize: 16,
     marginBottom: getHeightPercentage(10),
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     textAlign: 'center',
     marginHorizontal: '$widthSize20',
   },
   descriptionPopover: {
     fontSize: 13,
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     textAlign: 'center',
     marginHorizontal: '$widthSize20',
   },

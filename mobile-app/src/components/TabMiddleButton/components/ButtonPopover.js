@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { SimpleButton } from '../../Buttons';
+import { SimpleButton } from '../../Button';
 import { getHeightPercentage, getWidthPercentage, isIOS } from '../../../shared/helpers';
 import { SCREEN_WIDTH } from '../../../shared/constants';
 
@@ -23,13 +23,13 @@ const styles = EStyleSheet.create({
   title: {
     fontSize: 16,
     marginBottom: getHeightPercentage(10),
-    fontFamily: '$boldFont',
+    // fontFamily: '$boldFont',
     textAlign: 'center',
     marginHorizontal: '$widthSize20',
   },
   description: {
     fontSize: 13,
-    fontFamily: 'noto-sans-regular',
+    // fontFamily: 'noto-sans-regular',
     textAlign: 'center',
     marginHorizontal: '$widthSize20',
   },

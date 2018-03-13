@@ -1,5 +1,3 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
-
 import {getWidthPercentage, getHeightPercentage} from '../../shared/helpers';
 import colors from "../../config/colors";
 
@@ -16,15 +14,10 @@ export default {
         justifyContent: 'center'
     },
     titleTextStyle: {
-        marginStart: getWidthPercentage(10),
+        marginLeft: getWidthPercentage(10),
         fontSize: 13,
         color: colors.$textColorDivider,
         fontFamily: 'Lato-Bold'
-    },
-    testTextStyle: {
-        marginStart: getWidthPercentage(10),
-        fontSize: 13,
-        color: colors.$textColorDivider
     },
     itemStyle: {
         marginTop: 1,
@@ -108,7 +101,7 @@ export const listItemProps = {
     chevronColor: '#3E8EDE',
     //titleStyle: styles.title,
     subtitleStyle: {
-        fontFamily: 'noto-sans-bold',
+        // fontFamily: 'noto-sans-bold',
         fontSize: 15,
         color: 'black',
     },

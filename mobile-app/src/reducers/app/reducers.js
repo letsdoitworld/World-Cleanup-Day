@@ -16,6 +16,10 @@ export const networkStatusState = {
     connectionChecked: false,
 };
 
+export const progressInitialState = {
+    progress: undefined,
+};
+
 export const networkReducer = (state, action = {}) => {
     //todo: migrate to immutable
     switch (action.type) {
@@ -47,6 +51,17 @@ export const errorReducer = (state, action={}) => {
             return {...state, ...action.payload, visible: true};
         case types.HIDE_ERROR_MESSAGE:
             return {...state, visible: false};
+        default:
+            return state;
+    }
+};
+
+export const progressReducer = (state, action={}) => {
+    switch (action.type) {
+        case types.PROGRESS_ACTION:
+            return state.withMutations(state => state
+                .set('progress', action.progress)
+            );
         default:
             return state;
     }

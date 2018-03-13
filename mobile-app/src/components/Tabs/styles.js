@@ -1,25 +1,33 @@
-import EStylesheet from 'react-native-extended-stylesheet';
+import { StyleSheet, Dimensions } from 'react-native';
+
+import { colors } from '../../themes';
 
 import { getHeightPercentage } from '../../shared/helpers';
 
-export default EStylesheet.create({
+export const initialLayout = {
+  height: 0,
+  width: Dimensions.get('window').width,
+};
+
+export default StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: '#F5F4F5',
-    height: getHeightPercentage(40)
-  },
-  touchable: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
-  specialButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+  tabContainer: {
+    padding: getHeightPercentage(5),
   },
-  text: {
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+  labelFocused: {
+    color: colors.blue,
+    fontWeight: 'bold',
+  },
+  label: {
+    color: colors.black,
+  },
+  tabBarContainer: {
+    backgroundColor: 'white',
+  },
+  textIndicator: {
+    backgroundColor: colors.blue,
+    height: 5,
+  },
+});

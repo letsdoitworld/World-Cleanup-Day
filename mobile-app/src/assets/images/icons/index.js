@@ -1,0 +1,25 @@
+module.exports = {
+  Event: require('./icEventInactive.png'),
+  EventActive: require('./icEventActive.png'),
+  Profile: require('./icProfileInactive.png'),
+  ProfileActive: require('./icProfileActive.png'),
+  TrashpointsActive: require('./icTrashpointsActive.png'),
+  Trashpoints: require('./icTrashpointsInActive.png'),
+  Settings: require('./icSettings.png'),
+  Notification: require('./icNotifications.png'),
+  Location: require('./icon_location.png'),
+  Phone: require('./icPhoneNumber.png'),
+  Email: require('./icEmail.png'),
+  GroupPeople: require('./icGroupBlack.png'),
+
+  CleanedTrashpoint: require('./icCleanedTrashpoint.png'),
+  OutdatedToxicTrashpoint: require('./icOutdatedToxicTrashpoint.png'),
+  OutdatedTrashpoint: require('./icOutdatedTrashpoint.png'),
+  RegularTrashpoint: require('./icRegularTrashpoint.png'),
+  RegularTrashpointInactive: require('./icRegularTrashpointInactive.png'),
+  ToxicTrashpoint: require('./icToxicTrashpoint.png'),
+  ToxicTrashpointInactive: require('./icToxicTrashpointInactive.png'),
+
+  PlaceHolderPhoto: require('./placeholderPhoto.png'),
+  PlaceHolderAvatar: require('./placeholderProfilePic.png'),
+};

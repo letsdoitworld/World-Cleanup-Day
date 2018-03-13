@@ -19,9 +19,12 @@ function getAuthHeader(authToken) {
 }
 
 export function googleLogin() {
+
+    //343042629555-j76u4488sqenudbkmetmbcd0jftid7tp.apps.googleusercontent.com
+    //com.googleusercontent.apps.343042629555-j76u4488sqenudbkmetmbcd0jftid7tp
     return GoogleSignin.configure({
         scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-        //  iosClientId: <FROM DEVELOPER CONSOLE>, // only for iOS
+        iosClientId: '343042629555-j76u4488sqenudbkmetmbcd0jftid7tp.apps.googleusercontent.com', // only for iOS
         webClientId: '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
         offlineAccess: false
     })
@@ -58,8 +61,10 @@ export async function updateProfileStatus(profileStatus) {
 }
 
 export async function getProfile() {
+    console.log('getProfile API')
     try {
         const response = await Api.get('/me');
+        console.log('Responce', response);
         return response.data;
     } catch (ex) {
         throw ex;

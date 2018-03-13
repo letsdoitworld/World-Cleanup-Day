@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-
 import types from './types';
 
 const popoverInitialState = {
@@ -15,6 +14,8 @@ const errorInitialState = {
 const networkStatusState = {
   isConnected: false,
   connectionChecked: false,
+  noLackConnectionAlert: false,
+  inSync: false
 };
 
 const networkReducer = (state = networkStatusState, action) => {
@@ -23,6 +24,10 @@ const networkReducer = (state = networkStatusState, action) => {
       return { ...state, connectionChecked: true };
     case types.UPDATE_NETWORK_STATUS:
       return { ...state, isConnected: action.payload.isConnected };
+    case types.UPDATE_SYNC_STATUS:
+      return { ...state, inSync: action.payload.inSync };
+    case types.UPDATE_LACK_CONNECTION_MESSAGE_STATUS:
+      return { ...state, noLackConnectionAlert: action.payload.noLackConnectionAlert };
     default:
       return state;
   }

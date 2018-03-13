@@ -8,6 +8,24 @@ import { connect } from 'react-redux';
 
 import { operations as appOps, selectors as appSels } from '../reducers/app';
 import { AlertModal } from '../components/AlertModal';
+import OfflineService from './Offline';
+
+const CONNECTION_CHECK_INTERVAL = 10; // seconds
+
+const mapState = (state) => {
+  return {
+    isConnected: appSels.isConnected(state),
+    connectionChecked: appSels.wasConnectionChecked(state),
+    inSync: appSels.inSync(state),
+    isNoLackConnectionAlert: appSels.isNoLackConnectionAlert(state),
+  };
+};
+const mapDispatch = {
+  setConnectionChecked: appOps.setConnectionChecked,
+  updateNetworkStatus: appOps.updateNetworkStatus,
+  updateSyncStatus: appOps.updateSyncStatus,
+  updateLackConnMessStatus: appOps.updateLackConnMessStatus
+};
 
 const CONNECTION_CHECK_INTERVAL = 10; // seconds
 
@@ -28,9 +46,14 @@ export const withNetworkGuard = () => (WrappedComponent) => {
     static propTypes = {
       updateNetworkStatus: PropTypes.func.isRequired,
       setConnectionChecked: PropTypes.func.isRequired,
+      updateSyncStatus: PropTypes.func.isRequired,
+      updateLackConnMessStatus: PropTypes.func.isRequired,
       isConnected: PropTypes.bool.isRequired,
       connectionChecked: PropTypes.bool.isRequired,
+      inSync: PropTypes.bool.isRequired,
+      isNoLackConnectionAlert: PropTypes.bool.isRequired,
     }
+
     constructor(props) {
       super(props);
 
@@ -38,6 +61,14 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       // so it can be discarded safely from netinfo when the component unmounts
       this.handleConnectionStatusChanged =
         this.handleConnectionStatusChanged.bind(this);
+
+      this.handleCloseAlertModal =
+        this.handleCloseAlertModal.bind(this);
+
+      this.closeAlertModalButton = {
+        text: props.t('label_button_acknowledge'),
+        onPress: this.handleCloseAlertModal,
+      };
     }
     componentWillMount() {
       this.checkConnection();
@@ -48,6 +79,17 @@ export const withNetworkGuard = () => (WrappedComponent) => {
         if (isConnected !== this.props.isConnected) {
           this.handleConnectionStatusChanged(isConnected);
         }
+
+        if (isConnected && !this.props.inSync) {
+          this.handleSyncStatusChanged(true);
+          await OfflineService.syncToServer();
+          this.handleSyncStatusChanged(false);
+        }
+
+        if(this.props.isNoLackConnectionAlert && isConnected) {
+          this.props.updateLackConnMessStatus(false);
+        }
+
       }, 1000 * CONNECTION_CHECK_INTERVAL);
     }
     componentWillUnmount() {
@@ -59,8 +101,14 @@ export const withNetworkGuard = () => (WrappedComponent) => {
         clearInterval(this.connectionCheckInterval);
       }
     }
+    handleSyncStatusChanged(inSync) {
+      this.props.updateSyncStatus(inSync);
+    }
     handleConnectionStatusChanged(isConnected) {
       this.props.updateNetworkStatus(isConnected);
+    }
+    handleCloseAlertModal() {
+      this.props.updateLackConnMessStatus(true);
     }
     checkConnection = async () => {
       let isConnected = await NetInfo.isConnected.fetch();
@@ -79,8 +127,8 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       this.props.setConnectionChecked();
     };
     render() {
-      const { connectionChecked, isConnected } = this.props;
-      const showUserWarning = connectionChecked && !isConnected;
+      const { connectionChecked, isConnected, isNoLackConnectionAlert } = this.props;
+      const showUserWarning = connectionChecked && !isConnected && !isNoLackConnectionAlert;
 
       if (!connectionChecked) {
         return (
@@ -97,6 +145,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
             visible={showUserWarning}
             title={this.props.t('label_network_off_warning_title')}
             subtitle={this.props.t('label_network_off_warning')}
+            buttons={[this.closeAlertModalButton]}
           />
           <WrappedComponent {...this.props} />
         </View>

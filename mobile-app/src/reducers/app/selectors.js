@@ -31,6 +31,8 @@ const networkSelector = createSelector(stateSelector, state => state.network);
 const wasConnectionChecked =
   createSelector(networkSelector, state => state.connectionChecked);
 const isConnected = createSelector(networkSelector, state => state.isConnected);
+const inSync = createSelector(networkSelector, state => state.inSync);
+const isNoLackConnectionAlert = createSelector(networkSelector, state => state.noLackConnectionAlert);
 
 export default {
   wasPopoverShown,
@@ -46,4 +48,6 @@ export default {
 
   wasConnectionChecked,
   isConnected,
+  inSync,
+  isNoLackConnectionAlert
 };

@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import { Provider } from 'react-redux';
-import { Navigation } from 'react-native-navigation';
+import React, {PureComponent} from 'react';
+import {Provider} from 'react-redux';
+import {Navigation} from 'react-native-navigation';
 
 import isNil from 'lodash/isNil';
 
@@ -15,7 +15,7 @@ import {
 
 import './src/config/styles';
 
-import { Icons } from './src/assets/images';
+import {Icons} from './src/assets/images';
 
 
 import strings from './src/assets/strings';
@@ -27,89 +27,80 @@ registerScreens(store, Provider);
 
 export default class App extends PureComponent {
 
-  constructor() {
-    super();
-    store.subscribe(this.onStoreUpdate.bind(this));
-    this.currentToken = null;
-  }
-
-  onStoreUpdate() {
-    const auth = store.getState().get('auth');
-    const token = auth.get('token');
-    const isGuestSession = auth.get('isGuestSession');
-
-    if (this.currentToken !== token) {
-      this.currentToken = token;
-      this.startApp(token, isGuestSession);
+    constructor() {
+        super();
+        store.subscribe(this.onStoreUpdate.bind(this));
+        this.currentToken = null;
     }
 
-    if (this.isGuestSession !== isGuestSession) {
-      this.isGuestSession = isGuestSession;
-      this.startApp(token, isGuestSession);
-    }
-  }
+    onStoreUpdate() {
+        const auth = store.getState().get('auth');
+        const token = auth.get('token');
+        const isGuestSession = auth.get('isGuestSession');
 
-  startApp(token, isGuestSession) {
-    if (isGuestSession) {
-      App.dismissLogin();
-      App.mainScreen();
-      return;
-    }
+        if (this.currentToken !== token) {
+            this.currentToken = token;
+            this.startApp(token, isGuestSession);
+        }
 
-    if (isNil(token)) {
-      App.loginScreen();
-      return;
+        if (this.isGuestSession !== isGuestSession) {
+            this.isGuestSession = isGuestSession;
+            this.startApp(token, isGuestSession);
+        }
     }
 
-    App.dismissLogin();
-    App.mainScreen();
-  }
+    startApp(token, isGuestSession) {
+        if (isGuestSession) {
+            App.mainScreen();
+            return;
+        }
 
-  static dismissLogin() {
-    console.log('dismissLogin');
-    Navigation.dismissModal({
-      animationType: 'slide-out',
-    });
-  }
+        if (isNil(token)) {
+            App.loginScreen();
+            return;
+        }
 
-  static loginScreen() {
-    console.log('loginScreen');
-    setTimeout(() => {
-      Navigation.showModal({
-        screen: LOGIN_SCREEN,
-        animationType: 'slide-in',
-      });
-    }, 1);
-  }
+        App.mainScreen();
+    }
 
-  static mainScreen() {
-    console.log('Main Screen');
-    Navigation.startTabBasedApp({
-      tabs: [
-        {
-          screen: NOTIFICATIONS_SCREEN,
-          label: 'Notifications',
-          icon: Icons.Trashpoints,
-          selectedIcon: Icons.TrashpointsActive,
-          title: strings.label_header_notific,
-        },
-        {
-          screen: EVENTS,
-          label: 'Activity',
-          icon: Icons.Event,
-          selectedIcon: Icons.EventActive,
-          title: '',
-        },
-        {
-          screen: PROFILE_SCREEN,
+    static loginScreen() {
+        console.log('loginScreen');
+            Navigation.startSingleScreenApp({
+                screen: {
+                    screen: LOGIN_SCREEN,
+                    animationType: 'slide-in',
+                }
+            });
+    }
+
+    static mainScreen() {
+        console.log('Main Screen');
+        Navigation.startTabBasedApp({
+            tabs: [
+                {
+                    screen: NOTIFICATIONS_SCREEN,
+                    label: 'Notifications',
+                    icon: Icons.Trashpoints,
+                    selectedIcon: Icons.TrashpointsActive,
+                    title: strings.label_header_notific,
+                },
+                {
+                    screen: EVENTS,
+                    label: 'Activity',
+                    icon: Icons.Event,
+                    selectedIcon: Icons.EventActive,
+                    title: '',
+                },
+                {
+                    screen: PROFILE_SCREEN,
                     // Todo add strings
-          label: 'Profile',
-          icon: Icons.Profile,
-          selectedIcon: Icons.Profile,
-          title: strings.label_header_profile,
-        },
-      ],
-    }, this.animationType = 'fade').done();
-  }
+                    label: 'Profile',
+                    icon: Icons.Profile,
+                    selectedIcon: Icons.Profile,
+                    title: strings.label_header_profile,
+                },
+            ],
+        }).done();
+    }
 
 }

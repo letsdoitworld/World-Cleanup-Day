@@ -64,7 +64,7 @@ class Profile extends Component {
       error => console.log('Error', error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-  }
+  };
 
   handleRenderLocation() {
     const { profile } = this.props;
@@ -109,11 +109,11 @@ class Profile extends Component {
 
   handleEventPress = () => {
     console.log('Event Press');
-  }
+  };
 
   handleTrashpointPress = () => {
     console.log('handleTrashpointPress');
-  }
+  };
 
   handleRenderEvents(event) {
     return (
@@ -153,7 +153,7 @@ class Profile extends Component {
         onEndReached={() => console.log('List end reached')}
       />
     );
-  }
+  };
   
   onRenderTrashPoints = () => {
     return (
@@ -166,7 +166,7 @@ class Profile extends Component {
         onEndReached={() => console.log('List end reached')}
       />
     );
-  }
+  };
 
 
   handleRenderGuestProfile = () => {
@@ -179,7 +179,7 @@ class Profile extends Component {
         />
       </View>
     );
-  }
+  };
 
 
   render() {

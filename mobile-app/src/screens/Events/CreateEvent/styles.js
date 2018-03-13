@@ -184,8 +184,8 @@ export default EStyleSheet.create({
         backgroundColor: colors.$mainBackground
     },
     coordinatorNext: {
-        position: 'absolute',
-        bottom: 0,
+        // position: 'absolute',
+        // bottom: 0,
         width: '90%',
         marginTop: 38,
         marginBottom: dimens.margin_medium,

@@ -5,8 +5,8 @@ import { createReducer } from '../helpers/createReducer';
 import {
     CREATE_EVENT_ACTION,
     CREATE_EVENT_ERROR,
-    CREATE_EVENT_SUCCESS
-} from '../actions/create-event-action';
+    CREATE_EVENT_SUCCESS,
+} from '../actions/createEvent';
 
 
 export const initialState = Immutable.Map(

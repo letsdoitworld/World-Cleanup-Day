@@ -3,6 +3,12 @@ export const fetchProfile = () => ({
   type: FETCH_PROFILE,
 });
 
+export const UPDATE_PROFILE_LOCATION = 'profile/UPDATE_PROFILE_LOCATION';
+export const updateLocationProfile = location => ({
+  type: UPDATE_PROFILE_LOCATION,
+  payload: location,
+});
+
 export const UPDATE_PROFILE_EMAIL = 'profile/UPDATE_PROFILE_EMAIL';
 export const updateEmailProfile = email => ({
   type: UPDATE_PROFILE_EMAIL,

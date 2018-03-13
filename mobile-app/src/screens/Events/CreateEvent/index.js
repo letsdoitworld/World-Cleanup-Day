@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { createEvent } from '../../../store/actions/create-event-action';
+import { createEvent } from '../../../store/actions/createEvent';
 
 import { getCreateEventEntity } from '../../../store/selectors';
 

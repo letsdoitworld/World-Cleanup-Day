@@ -14,6 +14,7 @@ import {
 
 import {
   updateEmailProfile,
+  updateLocationProfile,
 } from '../actions/profile';
 
 import Api from '../../api';
@@ -55,8 +56,13 @@ function* loginFacebook() {
     const accessToken = res.token.accessToken;
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.FACEBOOK, accessToken);
     yield put(setToken(cleanUpToken));
+
     if (res.email) {
       yield put(updateEmailProfile(res.email));
+    }
+
+    if (res.location) {
+      yield put(updateLocationProfile(res.location));
     }
   } catch (error) {
     setErrorMessage(String(error));

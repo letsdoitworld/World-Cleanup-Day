@@ -7,7 +7,7 @@ import {
 import {
     CREATE_EVENT_ACTION,
     createEventDone,
-} from '../actions/create-event-action';
+} from '../actions/createEvent';
 
 import Api from '../../api';
 

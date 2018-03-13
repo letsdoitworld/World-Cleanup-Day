@@ -13,6 +13,7 @@ import {
   UPDATE_PROFILE_DONE,
   UPDATE_PROFILE_ERROR,
   UPDATE_PROFILE_EMAIL,
+  UPDATE_PROFILE_LOCATION,
 } from '../actions/profile';
 
 
@@ -23,7 +24,6 @@ export const initialState = Immutable.Map(
     updating: false,
     updatingError: null,
     error: null,
-    fbEmail: null,
   },
 );
 
@@ -43,6 +43,14 @@ const handlers = {
       mState.set('entity', {
         ...state.get('entity'),
         email: payload,
+      }),
+    );
+  },
+  [UPDATE_PROFILE_LOCATION]: (state, { payload }) => {
+    return state.withMutations(mState =>
+      mState.set('entity', {
+        ...state.get('entity'),
+        location: payload,
       }),
     );
   },

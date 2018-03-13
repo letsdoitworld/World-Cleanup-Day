@@ -1,5 +1,6 @@
 export * from './auth';
 export * from './profile';
-export * from './create-event-saga';
-export * from './trashPoints'
-export * from './events'
+export * from './createEvent';
+export * from './trashPoints';
+export * from './events';
+

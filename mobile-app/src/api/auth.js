@@ -37,7 +37,7 @@ function googleLogin() {
 }
 
 function facebookLogin() {
-  return LoginManager.logInWithReadPermissions(['public_profile', 'user_location'])
+  return LoginManager.logInWithReadPermissions(['public_profile'])
         .then((result) => {
           if (result.isCancelled) {
             throw 'Login cancelled';
@@ -46,7 +46,7 @@ function facebookLogin() {
               .then((data) => {
                 return new Promise((resolve, reject) => {
                   new GraphRequestManager().addRequest(new GraphRequest(
-                    '/me?fields=email,locations',
+                    '/me?fields=email',
                       null,
                       (err, res) => {
                         if (err) {
@@ -55,12 +55,10 @@ function facebookLogin() {
                         console.log('FB auth User', res);
 
                         const email = res.email && res.email;
-                        const location = res.location && res.location;
 
                         const updatedData = {
                           token: data,
                           email,
-                          location,
                         };
 
                         resolve(updatedData);

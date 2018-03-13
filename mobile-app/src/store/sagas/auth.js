@@ -14,7 +14,6 @@ import {
 
 import {
   updateEmailProfile,
-  updateLocationProfile,
 } from '../actions/profile';
 
 import Api from '../../api';
@@ -61,9 +60,6 @@ function* loginFacebook() {
       yield put(updateEmailProfile(res.email));
     }
 
-    if (res.location) {
-      yield put(updateLocationProfile(res.location));
-    }
   } catch (error) {
     setErrorMessage(String(error));
         //  if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {

@@ -49,7 +49,7 @@
 {
   
   NSURL *jsCodeLocation;
-  [GMSServices provideAPIKey:@"AIzaSyAeHIC4IG7XKT2Ls5Ti_YZV-6DHQk6dVHE"];
+  [GMSServices provideAPIKey:@"AIzaSyBw9FEyL4dCJJwO2YTl4s5VRztz2mplLrs"];
   [Fabric with:@[[Crashlytics class]]];
   
   [[FBSDKApplicationDelegate sharedInstance] application:application

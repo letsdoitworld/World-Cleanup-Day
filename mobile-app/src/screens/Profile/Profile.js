@@ -67,12 +67,16 @@ class Profile extends Component {
   }
 
   handleRenderLocation() {
-    return (
-      <View style={styles.locationContainer}>
-        <Icon path={Icons.Location} />
-        <Text style={styles.locationText}>Ukraine</Text>
-      </View>
-    );
+    const { profile } = this.props;
+
+    if (profile && profile.location) {
+      return (
+        <View style={styles.locationContainer}>
+          <Icon path={Icons.Location} />
+          <Text style={styles.locationText}>{profile.location.name}</Text>
+        </View>
+      );
+    }
   }
 
   handleRenderPhoneNumber() {

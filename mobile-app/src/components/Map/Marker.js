@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -7,72 +7,71 @@ import MapView from 'react-native-maps';
 
 import styles from './styles';
 
-const MARKER_STATUS_IMAGES = {
-  cleaned: require('./images/pointer_cleaned.png'),
-  outdated: require('./images/pointer_outdated.png'),
-  regular: require('./images/pointer_regular.png'),
-  threat: require('./images/pointer_threat.png'),
-  user: require('./images/location_pointer.png'),
-  changeLocation: require('./images/change_location_pin.png'),
+export const MARKER_STATUS_IMAGES = {
+    cleaned: require('./images/pointer_cleaned.png'),
+    outdated: require('./images/pointer_outdated.png'),
+    regular: require('./images/pointer_regular.png'),
+    threat: require('./images/pointer_threat.png'),
+    user: require('./images/location_pointer.png'),
+    changeLocation: require('./images/change_location_pin.png'),
 };
 
 const TRASHPILE_MARKER_OFFSET = {
-  x: 4,
-  y: -15,
+    x: 4,
+    y: -15,
 };
 
 const MARKER_OFFSET = {
-  x: 0,
-  y: 0,
+    x: 0,
+    y: 0,
 };
 
-export const Marker = ({ marker, onMarkerPress = _.noop }) => {
-  if (!marker) {
-    return null;
-  }
+export default class Marker extends Component {
 
-  let pointOffset = { ...MARKER_OFFSET };
+    render() {
 
-  if (marker.isTrashpile) {
-    pointOffset = { ...TRASHPILE_MARKER_OFFSET };
-  }
+        const {marker, onMarkerPress} = this.props;
 
-  let showLabel = marker.isTrashpile && marker.count > 0;
+        console.log(marker)
 
-  return (
-    <MapView.Marker
-      coordinate={marker.latlng}
-      onPress={onMarkerPress}
-      style={!marker.isTrashpile ? { zIndex: 2 } : null}
-      image={MARKER_STATUS_IMAGES[marker.status]}
-      identifier={String(marker.id)}
-    >
-      {showLabel &&
-        <View style={styles.labelContainer}>
-          <Text style={styles.labelText}>
-            {marker.count}
-          </Text>
-        </View>}
-      <MapView.Callout tooltip>
-        <View />
-      </MapView.Callout>
-    </MapView.Marker>
-  );
-};
+        if (!marker) {
+            return null;
+        }
 
-Marker.propTypes = {
-  // disabled becuase of too many warnings
-  // TODO fix this
-  // marker: PropTypes.shape({
-  //   latlng: 
-  //     PropTypes.objectOf({
-  //       latitude: PropTypes.number,
-  //       longitude: PropTypes.number,
-  //     }),
-  //   title: PropTypes.string,
-  //   description: PropTypes.string,
-  // }),
-  onMarkerPress: PropTypes.func,
-};
+        let pointOffset = {...MARKER_OFFSET};
 
-//export default Marker;
+        if (marker.isTrashpile) {
+            pointOffset = {...TRASHPILE_MARKER_OFFSET};
+        }
+
+        let showLabel = marker.isTrashpile && marker.count > 0;
+
+        let markerImage;
+        if (marker.status === undefined || marker.status === null) {
+            markerImage = require('../../assets/images/icLocationPinActive.png')
+        } else {
+            markerImage = MARKER_STATUS_IMAGES[marker.status]
+        }
+
+        return (
+            <MapView.Marker
+                coordinate={marker.latlng}
+                onPress={onMarkerPress}
+                style={!marker.isTrashpile ? {zIndex: 2} : null}
+                image={markerImage}
+                identifier={String(marker.id)}>
+                {showLabel &&
+                    <View style={styles.labelContainer}>
+                        <Text style={styles.labelText}>
+                            {marker.count}
+                        </Text>
+                    </View>
+                }
+                <MapView.Callout tooltip>
+                    <View/>
+                </MapView.Callout>
+            </MapView.Marker>
+        );
+    }
+
+}

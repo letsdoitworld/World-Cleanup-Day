@@ -9,14 +9,17 @@ import {
     MY_ACTIVITY_SCREEN,
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
+    EVENTS,
     registerScreens,
 } from './src/screens';
+
+import './src/config/styles';
+
+import { Icons } from './src/assets/images';
 
 
 import strings from './src/assets/strings';
 import configureStore from './src/store/configureStore';
-
-import { Icons } from './src/assets/images';
 
 const store = configureStore();
 
@@ -91,11 +94,11 @@ export default class App extends PureComponent {
           title: strings.label_header_notific,
         },
         {
-          screen: MY_ACTIVITY_SCREEN,
+          screen: EVENTS,
           label: 'Activity',
           icon: Icons.Event,
           selectedIcon: Icons.EventActive,
-          title: strings.label_header_activity,
+          title: '',
         },
         {
           screen: PROFILE_SCREEN,

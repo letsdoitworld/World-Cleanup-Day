@@ -23,7 +23,6 @@ export const initialState = Immutable.Map(
     updating: false,
     updatingError: null,
     error: null,
-    fbEmail: null,
   },
 );
 

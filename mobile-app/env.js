@@ -1,0 +1,9 @@
+export const API_URL = 'https://api.app.worldcleanupday.com/api/v1';
+export const FACEBOOK_APP_ID = '340116156418708';
+export const GOOGLE_ANDROID_EXPO_ID = '701152837929-5t14d58krlrck11mp65etu6l0e3ispbo.apps.googleusercontent.com';
+export const GOOGLE_IOS_EXPO_ID ='701152837929-7atn6fiphopet0cp9ucfo8qa17rq9ba6.apps.googleusercontent.com';
+export const GOOGLE_ANDROID_APP_ID ='701152837929-37n09tj239aaggo0ttpqpgegpl6heo2r.apps.googleusercontent.com';
+export const GOOGLE_IOS_APP_ID = '701152837929-grecrqed498k551gr70aqsfanspaum3v.apps.googleusercontent.com';
+export const PRIVACY_URL = 'https://storeldiweuprod.blob.core.windows.net/static-resources/privacy.html';
+export const TERMS_URL = 'https://storeldiweuprod.blob.core.windows.net/static-resources/term.html';
+export const SENTRY_URL = 'https://90b1311d6d344bc7a08d3cd8c001c2f0:7ac5b95d48d1407489d9feaac29cc42f@sentry.io/289014';

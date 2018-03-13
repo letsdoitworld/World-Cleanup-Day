@@ -55,9 +55,11 @@ function* loginFacebook() {
     const accessToken = res.token.accessToken;
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.FACEBOOK, accessToken);
     yield put(setToken(cleanUpToken));
+
     if (res.email) {
       yield put(updateEmailProfile(res.email));
     }
+
   } catch (error) {
     setErrorMessage(String(error));
         //  if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {

@@ -117,6 +117,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     splits {
         abi {
@@ -159,6 +160,23 @@ android {
 dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-navigation')
+    compile project(':react-native-maps')
+    compile project(':react-native-localization')
+    compile project(':react-native-image-crop-picker')
+    compile project(':react-native-google-signin')
+    compile project(':react-native-gesture-handler')
+    compile project(':react-native-fbsdk')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-navigation')
+    compile project(':react-native-maps')
+    compile project(':react-native-localization')
+    compile project(':react-native-image-crop-picker')
+    compile project(':react-native-google-signin')
+    compile project(':react-native-gesture-handler')
+    compile project(':react-native-fbsdk')
+    compile project(':react-native-image-crop-picker')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-navigation')
     compile project(':react-native-localization')
     compile project(':react-native-gesture-handler')
     compile project(':react-native-fbsdk')
@@ -172,7 +190,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:+'
     compile 'com.google.android.gms:play-services-maps:+'
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:26.+"
+    compile "com.android.support:design:26.+"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;

@@ -13,13 +13,10 @@ import {
 import Api from '../../api';
 
 function* searchEvents(query, page, pageSize, location) {
-    console.log("2");
     try {
         const response = yield call(Api.events.searchEventsRequest, query, page, pageSize, location);
-        console.log("3");
         if (response.status) {
             yield put(searchEventsSuccessAction(response.events, page, pageSize));
-            console.log("4 " + response.events.length);
         } else {
             setErrorMessage(String(response.error));
         }
@@ -32,10 +29,9 @@ function* searchEvents(query, page, pageSize, location) {
 export function* searchEventsFlow() {
     while (true) {
         const {query, page, pageSize, location} = yield take(SEARCH_EVENTS_ACTION);
-        console.log("1");
+
         yield put(controlProgress(true));
         yield call(searchEvents, query, page, pageSize, location);
         yield put(controlProgress(false));
-        console.log("5");
     }
 }

@@ -60,6 +60,11 @@ class Profile extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
+  
+        this.props.onFetchLocation({
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
       },
       error => console.log('Error', error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -67,13 +72,13 @@ class Profile extends Component {
   }
 
   handleRenderLocation() {
-    const { profile } = this.props;
-
-    if (profile && profile.location) {
+    const { country } = this.props;
+    console.log('COUNTRY', country);
+    if (country && country.name) {
       return (
         <View style={styles.locationContainer}>
           <Icon path={Icons.Location} />
-          <Text style={styles.locationText}>{profile.location.name}</Text>
+          <Text style={styles.locationText}>{country.name}</Text>
         </View>
       );
     }
@@ -227,6 +232,7 @@ Profile.propTypes = {
   navigator: PropTypes.object,
   onFetchProfile: PropTypes.func,
   onGuestLogIn: PropTypes.func,
+  onFetchLocation: PropTypes.func,
 };
 
 export default Profile;

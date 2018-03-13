@@ -66,14 +66,12 @@ export default class App extends PureComponent {
   }
 
   static dismissLogin() {
-    console.log('dismissLogin');
     Navigation.dismissModal({
       animationType: 'slide-out',
     });
   }
 
   static loginScreen() {
-    console.log('loginScreen');
     setTimeout(() => {
       Navigation.showModal({
         screen: LOGIN_SCREEN,
@@ -83,7 +81,6 @@ export default class App extends PureComponent {
   }
 
   static mainScreen() {
-    console.log('Main Screen');
     Navigation.startTabBasedApp({
       tabs: [
         {

@@ -86,8 +86,7 @@ export function* loginFacebookFlow() {
 
 function* logoutUser() {
   try {
-    const res = yield call(Api.auth.logout);
-    console.log('Res!!!!', res);
+    yield call(Api.auth.logout);
 
     yield put(logout());
   } catch (error) {

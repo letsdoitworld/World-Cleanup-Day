@@ -27,6 +27,19 @@ const mapDispatch = {
   updateLackConnMessStatus: appOps.updateLackConnMessStatus
 };
 
+const CONNECTION_CHECK_INTERVAL = 10; // seconds
+
+const mapState = (state) => {
+  return {
+    isConnected: appSels.isConnected(state),
+    connectionChecked: appSels.wasConnectionChecked(state),
+  };
+};
+const mapDispatch = {
+  setConnectionChecked: appOps.setConnectionChecked,
+  updateNetworkStatus: appOps.updateNetworkStatus,
+};
+
 export const withNetworkGuard = () => (WrappedComponent) => {
   const networkGuard = class extends Component {
 
@@ -38,7 +51,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       isConnected: PropTypes.bool.isRequired,
       connectionChecked: PropTypes.bool.isRequired,
       inSync: PropTypes.bool.isRequired,
-      isNoLackConnectionAlert: PropTypes.bool.isRequired
+      isNoLackConnectionAlert: PropTypes.bool.isRequired,
     }
 
     constructor(props) {
@@ -76,6 +89,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
         if(this.props.isNoLackConnectionAlert && isConnected) {
           this.props.updateLackConnMessStatus(false);
         }
+
       }, 1000 * CONNECTION_CHECK_INTERVAL);
     }
     componentWillUnmount() {

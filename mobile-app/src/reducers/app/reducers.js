@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-
 import types from './types';
 
 const popoverInitialState = {

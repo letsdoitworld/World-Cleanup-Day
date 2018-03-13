@@ -64,6 +64,7 @@ const layer = {
                 sorted: true,
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),
+                public: true
             }
         );
     },
@@ -77,6 +78,7 @@ const layer = {
                 skip: pageSize * (pageNumber - 1),
                 startkey: [country],
                 endkey: [country, {}],
+                public: true
             }
         );
     },
@@ -91,11 +93,14 @@ const layer = {
                 skip: pageSize * (pageNumber - 1),
                 startkey: country  ? [nameSearch, country] : [nameSearch],
                 endkey: country ? [nameSearch, country, {}] : [nameSearch, {}],
+                public: true
             }
         );
     },
     countAccounts: async () => {
-        const ret = await adapter.getRawDocs('Account', '_design/countAll/_view/view', {});
+        const ret = await adapter.getRawDocs('Account', '_design/countAll/_view/view', {
+          public: true
+        });
         if (!ret.length) {
             return 0;
         }
@@ -105,6 +110,7 @@ const layer = {
         const ret = await adapter.getRawDocs('Account', '_design/countByCountry/_view/view', {
             key: country,
             group: true,
+            public: true
         });
         if (!ret.length) {
             return 0;
@@ -117,6 +123,7 @@ const layer = {
             endkey: country ? [nameSearch, country, {}] : [nameSearch, {}],
             reduce: true,
             group: false,
+            public: true
         });
         if (!ret.length) {
             return 0;
@@ -140,6 +147,17 @@ const layer = {
             }
         );
     },
+    modifyOwnAccountPrivacy: async (id, who, update, rawAccountDoc = null) => {
+        return await adapter.modifyDocument(
+            'Account',
+            rawAccountDoc || await layer.getRawAccountDoc(id),
+            { public: update },
+            {
+                updatedAt: util.time.getNowUTC(),
+                updatedBy: who,
+            }
+        );
+    },
     createAccount: async (id, name, email, role, pictureURL) => {
         await adapter.createDocument('Account', id, {
             name,
@@ -150,6 +168,7 @@ const layer = {
             locked: false,
             createdAt: util.time.getNowUTC(),
             createdBy: id,
+            public: false
         });
         return await layer.getAccount(id);
     },

@@ -43,6 +43,9 @@ Join the movement and let's clean up the World together!
 ## API
 See the [API docs](http://ldiw-api.s3-website.eu-central-1.amazonaws.com/)
 
+## Translations
+See [translate.worldcleanupday.org](https://translate.worldcleanupday.org/ )
+
 ## Roadmap
 See [Roadmap.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/ROADMAP.md)
 

@@ -163,7 +163,7 @@ paths:
     get:
       description: Fetch all users.
       operationId: getAllUsers
-      x-security: [bearer]
+      x-security: [bearer, {roles:[superadmin, leader]}]
       parameters:
         - $ref: "#/parameters/PageSize"
         - $ref: "#/parameters/PageNumber"

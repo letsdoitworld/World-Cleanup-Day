@@ -9,7 +9,7 @@ const getState = state => state.toJS();
 const profileSelector = createSelector(getState, state => state.profile);
 
 export const getProfileEntity = createSelector(
-  profileSelector,
+    profileSelector,
   profile => profile.entity,
 );
 

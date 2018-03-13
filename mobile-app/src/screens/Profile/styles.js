@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import { colors } from '../../themes';
 
@@ -61,5 +61,17 @@ export default StyleSheet.create({
   tabContent: {
     flex: 1,
     backgroundColor: colors.grey200,
+  },
+  guestContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.yellow,
+  },
+  imgPlaceholder: {
+    width: Dimensions.get('window').width * 0.9,
+    height: 300,
+    backgroundColor: colors.grey200,
+    marginHorizontal: getHeightPercentage(20),
   },
 });

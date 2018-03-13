@@ -124,6 +124,12 @@ export default {
     BASE_HEADER: {
         'Content-Type': 'application/json',
     },
+    TITLE_REGEX: /[\S\s]{1,70}$/,
+    DESCRIPTION_REGEX: /[\S\s]{1,500}$/,
+    EMAIL_REGEX: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+
+    PHONE_NUMBER: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+
 }
 
 export const GRID_HASH = {
@@ -293,3 +299,4 @@ export const USER_ROLES = {
   LEADER: 'leader',
   SUPERADMIN: 'superadmin',
 };
+

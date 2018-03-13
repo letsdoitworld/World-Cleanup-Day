@@ -24,7 +24,7 @@ import PropTypes from 'prop-types';
  import { Divider } from '../../components/Divider';
  import { EmptyStateScreen } from '../../components/EmptyStateScreen/EmptyStateScreen';
 
-import { SimpleButton } from '../../components/Buttons/SimpleButton';
+import { SimpleButton } from '../../components/Button/SimpleButton';
 
 import styles from './styles';
 

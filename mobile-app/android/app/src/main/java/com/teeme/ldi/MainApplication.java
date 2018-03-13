@@ -11,6 +11,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.controllers.ActivityCallbacks;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +36,8 @@ public class MainApplication extends NavigationApplication {
                 new ReactNativeLocalizationPackage(),
                 new MapsPackage(),
                 new FBSDKPackage(mCallbackManager),
-                new RNGoogleSigninPackage()
+                new RNGoogleSigninPackage(),
+                new PickerPackage()
         );
     }
 

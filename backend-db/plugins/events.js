@@ -15,9 +15,7 @@ module.exports = function () {
   lucius.register('role:db,cmd:createEvent', async function (connector, args, __) {
     return connector.input(args.event)
     .use(async function (params, responder) {
-      const test = await db.createEvent(params)
-      console.log('response123',test)
-        return responder.success();
+        return responder.success(await db.createEvent(params));
     });
   })
 }

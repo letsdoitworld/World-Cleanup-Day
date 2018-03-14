@@ -33,6 +33,10 @@ class Profile extends Component {
     this.props.navigator.setOnNavigatorEvent(
       this.onNavigatorEvent.bind(this),
     );
+
+    this.state = {
+      visible: true,
+    };
   }
 
   componentDidMount() {
@@ -46,6 +50,18 @@ class Profile extends Component {
   }
 
   onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+
+    if (event.id === 'willAppear') {
+      this.setState({
+        visible: true,
+      });
+    }
+    if (event.id === 'willDisappear') {
+      this.setState({
+        visible: false,
+      });
+    }
+
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'settings') {
         this.props.navigator.push({
@@ -189,6 +205,7 @@ class Profile extends Component {
 
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
+    const { visible } = this.state;
 
     const scenes = {
       [strings.label_events]: this.onRenderEvents,
@@ -219,6 +236,7 @@ class Profile extends Component {
         <Tabs
           scenes={scenes}
           routes={routes}
+          isVisible={visible}
         />
       </View>
     );

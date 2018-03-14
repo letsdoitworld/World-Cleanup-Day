@@ -8,12 +8,13 @@ import toUpper from 'lodash/toUpper';
 import styles, { initialLayout } from './styles';
 
 class Tabs extends Component {
+
   state = {
     index: 0,
     routes: this.props.routes,
   };
 
-  handleIndexChange = index => this.setState({ index });
+  handleIndexChange = (index) => this.setState({ index });
 
   handleRenderTab = ({ route, focused }) => {
     const textStyle = focused ? styles.labelFocused : styles.label;
@@ -36,20 +37,22 @@ class Tabs extends Component {
   renderScene = SceneMap(this.props.scenes);
 
   render() {
+
     return (
-        <TabViewAnimated
-          style={styles.container}
-          navigationState={this.state}
-          renderScene={this.renderScene}
-          renderHeader={this.renderHeader}
-          onIndexChange={this.handleIndexChange}
-          initialLayout={initialLayout}
-        />
+      <TabViewAnimated
+        style={[styles.container, { flex: this.props.isVisible ? 1 : 0 }]}
+        navigationState={this.state}
+        renderScene={this.renderScene}
+        renderHeader={this.renderHeader}
+        onIndexChange={this.handleIndexChange}
+        initialLayout={initialLayout}
+      />
     );
   }
 }
 
 Tabs.propTypes = {
+  isVisible: PropTypes.bool,
   routes: PropTypes.array.isRequired,
   scenes: PropTypes.object.isRequired,
 };

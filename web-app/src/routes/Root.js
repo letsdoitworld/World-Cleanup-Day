@@ -2,13 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { selectors as userSelectors } from '../reducers/user';
-
-import Landing from '../pages/Landing';
 import { Home } from './Home';
 
-const Root = ({ ...props }) => {
-  return <Home {...props} />;
-};
+const Root = ({ ...props }) => <Home {...props} />;
+
 Root.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   isAllowedRole: PropTypes.bool.isRequired,

@@ -14,6 +14,8 @@
 
 .Event-details img {
   vertical-align: text-top;
+  width: 16px;
+  height: 16px;
 }
 
 .Event-details-part1 {
@@ -46,7 +48,6 @@
 
 .Event-creator span {
   position: relative;
-  top: 2px;
   left: 4px;
 }
 
@@ -71,7 +72,7 @@
 
 .Event-location span {
   position: relative;
-  top: 5px;
+  top: 3px;
   left: 2px;
 }
 

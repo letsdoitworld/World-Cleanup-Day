@@ -17,7 +17,7 @@ const EventListHeader = ({
           <LocationIcon /> :
           <button
             className="EventsList-header-back"
-            onClick={() => history.goBack()}
+            onClick={() => history.push('/events')}
           >
             { '<' }
           </button>
@@ -41,8 +41,8 @@ const EventListHeader = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  eventTitle: selectors.getEventTitle(state, Number(ownProps.eventId) - 1 || 0),
+const mapStateToProps = (state) => ({
+  eventTitle: selectors.getEventTitle(state),
 });
 
 export default connect(mapStateToProps)(EventListHeader);

@@ -23,13 +23,7 @@ import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
 import { Privacy } from '../../components/Privacy';
-import trashpointIcon from '../../assets/trashpoint_menu.png';
-import userIcon from '../../assets/user_menu.png';
 
-const BOTTOM_LINKS = [
-  { title: 'Terms & conditions', url: '/terms' },
-  { title: 'Privacy Policy', url: '/privacy' },
-];
 class Home extends React.Component {
   handleLogout = () => {
     this.props.history.push('/');
@@ -77,7 +71,7 @@ class Home extends React.Component {
         <Route path="/trashpoints/:id" exact component={TrashpointDetails} />
       </Switch>
       <div className="Home-map-container">
-        <AdminMap />
+        <AdminMap isUserLoggedIn={!!this.props.userProfile.role} />
       </div>
     </div>);
 

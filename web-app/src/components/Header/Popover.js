@@ -70,12 +70,12 @@ class Popover extends Component {
         <div className="Popover">
           <div className="Popover-header">
             <span className="Popover-title">Log in</span>
-            <button
+            <div
               className="Popover-hide"
               onClick={() => hidePopover()}
             >
               <CloseIcon />
-            </button>
+            </div>
           </div>
           <div className="Popover-img">
             <img src={demo} alt="popover-demo" />

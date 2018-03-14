@@ -17,6 +17,7 @@ export default class ListItem extends Component {
     }
 
     onPress = () => {
+        console.log("Item press")
         // this.props.navigator.push({
         //     screen: consts.DISCOVER_SCREEN,
         //     passProps: {

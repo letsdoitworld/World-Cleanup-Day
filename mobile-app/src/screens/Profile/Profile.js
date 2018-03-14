@@ -89,7 +89,7 @@ class Profile extends Component {
 
   handleRenderLocation() {
     const { country } = this.props;
-    console.log('COUNTRY', country);
+
     if (country && country.name) {
       return (
         <View style={styles.locationContainer}>
@@ -244,6 +244,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
+  country: PropTypes.string,
   isAuthenticated: PropTypes.bool,
   isGuestSession: PropTypes.bool,
   profile: PropTypes.object,

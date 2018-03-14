@@ -18,7 +18,12 @@ function* loadLocation() {
 
     const response = yield call(Api.locations.fetchAddress, payload);
 
-    yield put(fetchUserLocationDone(response));
+    const userLocation = {
+      ...response,
+      ...payload,
+    };
+
+    yield put(fetchUserLocationDone(userLocation));
   } catch (error) {
     yield put(fetchUserLocationError(error));
     setErrorMessage(String(error));

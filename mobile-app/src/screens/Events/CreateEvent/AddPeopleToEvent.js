@@ -9,6 +9,8 @@ import InputField from '../../../components/InputFields/InputField';
 import MainButton from '../../../components/Buttons/MainButton';
 import * as Immutable from "immutable/dist/immutable";
 import PropTypes from 'prop-types';
+import {EVENTS, HOME_SCREEN} from "../../index";
+import {Navigation} from "react-native-navigation";
 
 class AddPeopleToEvent extends ImmutableComponent {
 
@@ -29,6 +31,14 @@ class AddPeopleToEvent extends ImmutableComponent {
             })
         };
         this.event = props.event
+    }
+
+    componentDidUpdate() {
+        const { createEvent } = this.props;
+        //console.warn("componentDidUpdate", createEvent)
+        if (createEvent) {
+            Navigation.dismissModal()
+        }
     }
 
     renderNumberAttendeesTitle() {
@@ -87,14 +97,14 @@ class AddPeopleToEvent extends ImmutableComponent {
 
     onCreateEventClick = () => {
         const { requestCreateEvent } = this.props;
-        this.event['numberAttendees'] = this.numberAttendees;
+        //this.event['numberAttendees'] = this.numberAttendees;
         requestCreateEvent(this.event)
     }
 
 }
 
 AddPeopleToEvent.propTypes = {
-    event: PropTypes.object,
+    createEvent: PropTypes.object,
     requestCreateEvent: PropTypes.func
 };
 

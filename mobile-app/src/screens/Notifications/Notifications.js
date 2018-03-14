@@ -50,3 +50,4 @@ function isUndefinedOtNullOrEmpty(array) {
 export default compose(
   connect(null, { logout }),
 )(Notifications);
+// export default Notifications;

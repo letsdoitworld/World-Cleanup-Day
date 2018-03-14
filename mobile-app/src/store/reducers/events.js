@@ -19,18 +19,18 @@ const handlers = {
         if (page > 0) {
             const currentEvents = state.get('events');
             if (currentEvents) {
-                return state.withMutations(state => state
+                return state.withMutations(mState => mState
                     .set('events', currentEvents.concat(events)));
             } else {
                 return state
             }
         } else {
-            return state.withMutations(state => state
+            return state.withMutations(mState => mState
                 .set('events', events));
         }
     },
-    [CLEAR_EVENTS_ACTION]: (state, {}) => {
-        return state.withMutations(state => state
+    [CLEAR_EVENTS_ACTION]: (state) => {
+        return state.withMutations(mState => mState
             .set('events', undefined)
         );
     },

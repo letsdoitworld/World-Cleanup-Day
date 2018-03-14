@@ -408,16 +408,18 @@ export default class CreateEvent extends ImmutableComponent {
             title: strings.label_create_events_step_two,
             passProps: {
                 event: {
+                    datasetId: '26e7668a-fa3f-4ba6-bb0b-e8892ee306аа',
                     name: this.title,
-                    startDate: this.state.data.get('startDate'),
-                    endDate: this.state.data.get('endDate'),
-                    // location: {
-                    //     latitude: 48.8152937,
-                    //     longitude: 2.4597668,
-                    // }
+                    address: '456',
+                    startTime: this.state.data.get('startDate'),
+                    endTime: this.state.data.get('endDate'),
+                    location: {
+                        latitude: 48.8152937,
+                        longitude: 2.4597668,
+                    },
                     description: this.description,
                     whatToBring: this.whatToBring,
-                    imageUrl: this.state.data.get('imageUrl'),
+                    //imageUrl: this.state.data.get('imageUrl'),
                 },
             }
         });

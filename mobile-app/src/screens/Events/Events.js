@@ -12,16 +12,12 @@ import {
     CREATE_EVENT,
     EVENTS_NAV_BAR,
 } from "../index";
-import {connect} from "react-redux";
 import strings from '../../assets/strings'
 import FAB from 'react-native-fab'
 import Icon from 'react-native-vector-icons/Feather';
 
 import EventsList from "./List/List"
 import {debounce} from "../../shared/util";
-import * as Immutable from "../../../node_modules/immutable/dist/immutable";
-import ImmutableComponent from "../../components/InputFields/ImmutableComponent";
-import {DEFAULT_ZOOM} from "../../shared/constants";
 import PropTypes from "prop-types";
 import Profile from "../Profile/Profile";
 
@@ -41,18 +37,19 @@ class Events extends Component {
 
     onModeChanged(index) {
         this.setState(previousState => {
-            return { mode: index }
+            return {mode: index}
         });
     }
 
     isSearchFieldVisible() {
-        return this.state.isSearchFieldVisible
+        return false
+        // return this.state.isSearchFieldVisible
     }
 
     toggleSearchFieldVisibility() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState(previousState => {
-            return { isSearchFieldVisible: !this.isSearchFieldVisible() }
+            return {isSearchFieldVisible: !this.isSearchFieldVisible()}
         });
         if (!this.isSearchFieldVisible() && (this.query ? this.query.length > 0 : false)) {
             this.query = undefined;
@@ -96,7 +93,7 @@ class Events extends Component {
                     this.loadEvents(0)
                 }
             );
-        } catch(e) {
+        } catch (e) {
             this.loadEvents(0)
         }
     };
@@ -123,17 +120,13 @@ class Events extends Component {
             mode: MODE.list,
             isSearchFieldVisible: false,
         };
-        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        // UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
     onNavigatorEvent(event) {
         if (event.type === 'NavBarButtonPress') {
             switch (event.id) {
-                case filterId: {
-
-                    break;
-                }
                 case searchId: {
                     this.toggleSearchFieldVisibility();
                     break;
@@ -149,26 +142,9 @@ class Events extends Component {
         });
     };
 
-    render() {
-        return (
-            <View style={[styles.containerContent]}>
-                <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
-                    {this.renderSearchBox()}
-                    {this.renderContent()}
-                    <FAB
-                        buttonColor="rgb(225, 18, 131)"
-                        iconTextColor="white"
-                        onClickAction={this.handleFabPress.bind(this)}
-                        visible={true}
-                        iconTextComponent={<Icon name="plus"/>}/>
-                </View>
-                {this.renderProgress()}
-            </View>
-        );
-    }
 
     renderContent() {
-        switch(this.state.mode) {
+        switch (this.state.mode) {
             case MODE.list: {
                 return (
                     <EventsList
@@ -232,6 +208,24 @@ class Events extends Component {
             return null;
         }
     };
+
+    render() {
+        return (
+            <View style={[styles.containerContent]}>
+                <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
+                    {this.renderSearchBox()}
+                    {this.renderContent()}
+                    <FAB
+                        buttonColor="rgb(225, 18, 131)"
+                        iconTextColor="white"
+                        onClickAction={this.handleFabPress.bind(this)}
+                        visible={true}
+                        iconTextComponent={<Icon name="plus"/>}/>
+                </View>
+                {this.renderProgress()}
+            </View>
+        );
+    }
 
     onQueryChange = debounce(function (text) {
         this.query = text;

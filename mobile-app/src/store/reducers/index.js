@@ -6,13 +6,15 @@ import createEvent from './createEvent';
 import app from './app';
 import trashPoints from './trashPoints';
 import events from './events';
+import locations from './locations';
 
 
 export default combineReducers({
-    auth,
-    profile,
-    createEvent,
-    app,
-    trashPoints,
-    events,
+  auth,
+  profile,
+  createEvent,
+  app,
+  trashPoints,
+  locations,
+  events,
 });

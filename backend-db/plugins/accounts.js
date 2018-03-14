@@ -15,6 +15,7 @@ const filterBriefAccountData = account => util.object.filter(account, {
     country: true,
     pictureURL: true,
     termsAcceptedAt: true,
+    public: true
 });
 
 const countriesForLeader = areasForLeader => {
@@ -155,6 +156,18 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id}))
             }
             return responder.success(filterBriefAccountData(account));
+        })
+    });
+
+    lucius.register('role:db,cmd:modifyOwnProfilePrivacy', async function (connector, args, __) {
+        return connector.input(args)
+        .use(async function ({update}, responder) {
+            const id = __.user.id;
+            const account = await db.modifyOwnAccountPrivacy(id, id, update.value);
+            if (!account) {
+                return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id}))
+            }
+            return responder.success({ success: true });
         })
     });
 

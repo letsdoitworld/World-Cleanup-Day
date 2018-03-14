@@ -17,6 +17,12 @@ module.exports = {
             update: req.swagger.params.update.value,
         }),
     ),
+    modifyUserProfilePrivacy: senecaRequestMw(
+        'role:db,cmd:modifyOwnProfilePrivacy',
+        req => ({
+            update: req.swagger.params.update.value,
+        }),
+    ),
     getUserProfile: senecaRequestMw(
         'role:db,cmd:getAccountById',
         req => ({

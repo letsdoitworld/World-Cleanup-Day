@@ -57,6 +57,7 @@ class Account extends Type {
             createdBy: true,
             updatedAt: true,
             updatedBy: true,
+            public: false
         });
         //FIXME: validate field values
     }

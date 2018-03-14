@@ -5147,8 +5147,8 @@ react-native-message-bar@^1.6.0:
   resolved "https://registry.yarnpkg.com/react-native-message-bar/-/react-native-message-bar-1.6.0.tgz#79623e89655475216927090771b0238616b6f1c7"
 
 react-native-navigation@^1.1.386:
-  version "1.1.398"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.398.tgz#adc4d49ebbdabf35cae7ab1f2831076081644b0d"
+  version "1.1.402"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.402.tgz#22fdd590caf8d3f1c22162b2871e7381bf12cf5e"
   dependencies:
     lodash "4.x.x"
 

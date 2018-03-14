@@ -37,7 +37,7 @@ class Events extends Component {
 
     onModeChanged(index) {
         this.setState(previousState => {
-            return { mode: index }
+            return {mode: index}
         });
     }
 
@@ -49,7 +49,7 @@ class Events extends Component {
     toggleSearchFieldVisibility() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState(previousState => {
-            return { isSearchFieldVisible: !this.isSearchFieldVisible() }
+            return {isSearchFieldVisible: !this.isSearchFieldVisible()}
         });
         if (!this.isSearchFieldVisible() && (this.query ? this.query.length > 0 : false)) {
             this.query = undefined;
@@ -93,7 +93,7 @@ class Events extends Component {
                     this.loadEvents(0)
                 }
             );
-        } catch(e) {
+        } catch (e) {
             this.loadEvents(0)
         }
     };
@@ -143,9 +143,8 @@ class Events extends Component {
     };
 
 
-
     renderContent() {
-        switch(this.state.mode) {
+        switch (this.state.mode) {
             case MODE.list: {
                 return (
                     <EventsList
@@ -214,14 +213,14 @@ class Events extends Component {
         return (
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
-                {this.renderSearchBox()}
-                {this.renderContent()}
-                <FAB
-                buttonColor="rgb(225, 18, 131)"
-                iconTextColor="white"
-                onClickAction={this.handleFabPress.bind(this)}
-                visible={true}
-                iconTextComponent={<Icon name="plus"/>}/>
+                    {this.renderSearchBox()}
+                    {this.renderContent()}
+                    <FAB
+                        buttonColor="rgb(225, 18, 131)"
+                        iconTextColor="white"
+                        onClickAction={this.handleFabPress.bind(this)}
+                        visible={true}
+                        iconTextComponent={<Icon name="plus"/>}/>
                 </View>
                 {this.renderProgress()}
             </View>

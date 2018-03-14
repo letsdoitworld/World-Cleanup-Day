@@ -64,7 +64,6 @@ export default class App extends PureComponent {
     }
 
     static loginScreen() {
-        console.log('loginScreen');
             Navigation.startSingleScreenApp({
                 screen: {
                     screen: LOGIN_SCREEN,
@@ -74,7 +73,6 @@ export default class App extends PureComponent {
     }
 
     static mainScreen() {
-        console.log('Main Screen');
         Navigation.startTabBasedApp({
             tabs: [
                 {

@@ -47,7 +47,7 @@ function isUndefinedOtNullOrEmpty(array) {
 //
 // const mapDispatchToProps = {};
 //
-// export default compose(
-//   connect(null, { logout }),
-// )(Notifications);
-export default Notifications;
+export default compose(
+  connect(null, { logout }),
+)(Notifications);
+// export default Notifications;

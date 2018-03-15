@@ -21,9 +21,11 @@ class MarkersMap extends React.Component {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
     fetchClusterEvents: null,
+    tabOpened: ''
   };
 
   static propTypes = {
+    tabOpened: PropTypes.string,
     fetchAllTrashpoints: PropTypes.func.isRequired,
     fetchAllEventMarkers: PropTypes.func,
     onMarkerClick: PropTypes.func,
@@ -48,7 +50,6 @@ class MarkersMap extends React.Component {
     ) {
       const { focusedLocation } = nextProps;
       if (this.map) {
-
         const { latitude, longitude } = focusedLocation;
         const bounds = {
           north: latitude - 0.0001,
@@ -80,12 +81,12 @@ class MarkersMap extends React.Component {
     }
     const mapElContainer = this.map.getDiv();
     const mapSize = {
-      height: parseInt(getComputedStyle(mapElContainer).height),
-      width: parseInt(getComputedStyle(mapElContainer).width),
+      height: parseInt(getComputedStyle(mapElContainer).height, 10),
+      width: parseInt(getComputedStyle(mapElContainer).width, 10),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
     this.props.fetchAllEventMarkers(nw, se, mapSize);
-    //this.props.fetchAllTrashpoints(nw, se, mapSize);
+    this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {
@@ -104,15 +105,14 @@ class MarkersMap extends React.Component {
       if (diagonaleInMeters !== GRID_MIN_VALUE) {
         const { lat, lng, latitudeDelta, longitudeDelta } = region;
         const bounds = {
-          north: lat - latitudeDelta / 16,
-          south: lat + latitudeDelta / 16,
-          west: lng - longitudeDelta / 16,
-          east: lng + longitudeDelta / 16,
+          north: lat - (latitudeDelta / 16),
+          south: lat + (latitudeDelta / 16),
+          west: lng - (longitudeDelta / 16),
+          east: lng + (longitudeDelta / 16),
         };
 
         this.map.fitBounds(bounds);
       } else {
-
         this.setState(
           {
             updateRegion: false,
@@ -121,8 +121,8 @@ class MarkersMap extends React.Component {
             let cellSize = 0;
             const mapElContainer = this.map.getDiv();
             const mapSize = {
-              height: parseInt(getComputedStyle(mapElContainer).height),
-              width: parseInt(getComputedStyle(mapElContainer).width)
+              height: parseInt(getComputedStyle(mapElContainer).height, 10),
+              width: parseInt(getComputedStyle(mapElContainer).width, 10)
             };
             const { nw, se } = getViewportPoints(this.map.getBounds());
             if (se.longitude > nw.longitude) {
@@ -142,11 +142,12 @@ class MarkersMap extends React.Component {
   };
 
   render() {
-    const { markers, eventMarkers, isUserLoggedIn } = this.props;
+    const { markers, eventMarkers, isUserLoggedIn, tabOpened } = this.props;
+    const visiblePoints = tabOpened === '/trashpoints' ? markers : eventMarkers;
     return (
       <MapView
         isUserLoggedIn={isUserLoggedIn}
-        points={eventMarkers}
+        points={visiblePoints}
         setMapComponent={this.handleSetMapComponent}
         boundsChanged={this.handleBoundsChanged}
         onPointClick={this.handleMarkerClick}

@@ -6,6 +6,7 @@ target 'mobileapp' do
     rn_path = '../node_modules/react-native'
     pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
     pod 'Google/SignIn'
+    pod 'Firebase/Core'
     pod 'React', path: rn_path, subspecs: [
     'Core',
     'RCTActionSheet',

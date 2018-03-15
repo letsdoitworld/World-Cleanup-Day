@@ -18,6 +18,7 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RNGoogleSignin/RNGoogleSignin.h>
+@import Firebase;
 
 
 @implementation AppDelegate
@@ -34,6 +35,7 @@
   NSURL *jsCodeLocation;
   [GMSServices provideAPIKey:@"AIzaSyBw9FEyL4dCJJwO2YTl4s5VRztz2mplLrs"];
   
+  [FIRApp configure];
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];

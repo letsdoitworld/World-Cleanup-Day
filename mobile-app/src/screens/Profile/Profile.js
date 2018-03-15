@@ -33,6 +33,10 @@ class Profile extends Component {
     this.props.navigator.setOnNavigatorEvent(
       this.onNavigatorEvent.bind(this),
     );
+
+    this.state = {
+      visible: true,
+    };
   }
 
   componentDidMount() {
@@ -46,6 +50,18 @@ class Profile extends Component {
   }
 
   onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+
+    if (event.id === 'willAppear') {
+      this.setState({
+        visible: true,
+      });
+    }
+    if (event.id === 'willDisappear') {
+      this.setState({
+        visible: false,
+      });
+    }
+
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'settings') {
         this.props.navigator.push({
@@ -60,20 +76,25 @@ class Profile extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
+  
+        this.props.onFetchLocation({
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
       },
       error => console.log('Error', error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-  }
+  };
 
   handleRenderLocation() {
-    const { profile } = this.props;
+    const { country } = this.props;
 
-    if (profile && profile.location) {
+    if (country && country.name) {
       return (
         <View style={styles.locationContainer}>
           <Icon path={Icons.Location} />
-          <Text style={styles.locationText}>{profile.location.name}</Text>
+          <Text style={styles.locationText}>{country.name}</Text>
         </View>
       );
     }
@@ -109,11 +130,11 @@ class Profile extends Component {
 
   handleEventPress = () => {
     console.log('Event Press');
-  }
+  };
 
   handleTrashpointPress = () => {
     console.log('handleTrashpointPress');
-  }
+  };
 
   handleRenderEvents(event) {
     return (
@@ -153,7 +174,7 @@ class Profile extends Component {
         onEndReached={() => console.log('List end reached')}
       />
     );
-  }
+  };
   
   onRenderTrashPoints = () => {
     return (
@@ -166,7 +187,7 @@ class Profile extends Component {
         onEndReached={() => console.log('List end reached')}
       />
     );
-  }
+  };
 
 
   handleRenderGuestProfile = () => {
@@ -179,11 +200,12 @@ class Profile extends Component {
         />
       </View>
     );
-  }
+  };
 
 
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
+    const { visible } = this.state;
 
     const scenes = {
       [strings.label_events]: this.onRenderEvents,
@@ -214,6 +236,7 @@ class Profile extends Component {
         <Tabs
           scenes={scenes}
           routes={routes}
+          isVisible={visible}
         />
       </View>
     );
@@ -221,12 +244,14 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
+  country: PropTypes.string,
   isAuthenticated: PropTypes.bool,
   isGuestSession: PropTypes.bool,
   profile: PropTypes.object,
   navigator: PropTypes.object,
   onFetchProfile: PropTypes.func,
   onGuestLogIn: PropTypes.func,
+  onFetchLocation: PropTypes.func,
 };
 
 export default Profile;

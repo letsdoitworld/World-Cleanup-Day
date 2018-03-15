@@ -1,14 +1,15 @@
 import auth from './auth';
 import profile from './profile';
-
-import createEvent from './create-event';
+import locations from './locations';
+import createEvent from './createEvent';
 import trashPoints from './trashPoints';
 import events from './events';
 
 export default {
-    auth,
-    profile,
-    createEvent,
-    trashPoints,
-    events,
+  auth,
+  profile,
+  createEvent,
+  trashPoints,
+  locations,
+  events,
 };

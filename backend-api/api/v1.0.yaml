@@ -68,6 +68,22 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /me/privacy:
+    x-swagger-router-controller: users
+    put:
+      description: Toggle own user's profile as private/public.
+      operationId: modifyUserProfilePrivacy
+      x-security: [bearer, ignore-terms-lock]
+      parameters:
+        - $ref: "#/parameters/ModifyPrivacyProfile"
+      responses:
+        "200":
+          description: The terms were marked accepted on this account.
+          schema:
+            type: object
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /auth/external:
     x-swagger-router-controller: users
     post:
@@ -577,6 +593,17 @@ parameters:
         country:
           $ref: "#/definitions/CountryCode"
   #-----------------------------------------------------------------------------
+  ModifyPrivacyProfile:
+    name: update
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [value]
+      properties:
+        value:
+          type: boolean
+  #-----------------------------------------------------------------------------
   ModifyTrashpoint:
     name: trashpoint
     in: body
@@ -663,7 +690,10 @@ parameters:
         email:
           description: Email address of contact permission
           type: string
-
+        records:
+         type: array
+         items:
+           type: string
   #-----------------------------------------------------------------------------
   MapQuery:
     name: query
@@ -801,6 +831,8 @@ definitions:
       termsAcceptedAt:
         $ref: "#/definitions/ISOTimestamp"
       locked:
+        type: boolean
+      public:
         type: boolean
   AccountPlusAreas:
     allOf:

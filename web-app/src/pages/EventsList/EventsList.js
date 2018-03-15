@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import EventListHeader from './EventListHeader';
-import EventDetails from './EventDetails';
+import { EventDetails } from './EventDetails';
 import { Event } from './Event';
 import './EventsList.css';
 import { actions, selectors } from '../../reducers/events';
@@ -58,7 +58,7 @@ class EventsList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  events: selectors.getAllEvents(state),
+  events: selectors.getEventsList(state),
   isOpened: selectors.getShowEventWindow(state),
 });
 

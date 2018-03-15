@@ -47,10 +47,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
+  [Fabric with:@[[Crashlytics class]]];
   NSURL *jsCodeLocation;
   [GMSServices provideAPIKey:@"AIzaSyBw9FEyL4dCJJwO2YTl4s5VRztz2mplLrs"];
-  [Fabric with:@[[Crashlytics class]]];
+  
   
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];

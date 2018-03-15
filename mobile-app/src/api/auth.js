@@ -80,19 +80,19 @@ async function logout() {
 }
 
 async function agreeToTerms() {
-  try {
-    const response = await Api.put(
-      '/me/accept-terms',
-      {},
-      { withToken: true },
-      {
-        'Content-Type': 'application/json',
-      },
-    );
-    return response.data;
-  } catch (ex) {
-    throw ex;
-  }
+  // try {
+  //   const response = await Api.put(
+  //     '/me/accept-terms',
+  //     {},
+  //     { withToken: true },
+  //     {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+  //   return response.data;
+  // } catch (ex) {
+  //   throw ex;
+  // }
 }
 
 export default {

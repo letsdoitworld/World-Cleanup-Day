@@ -7,7 +7,9 @@ target 'mobileapp' do
     pod 'QBImagePickerController'
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
-
+  use_frameworks!
+  pod 'Fabric'
+  pod 'Crashlytics'
   # Pods for mobileapp
 
   # use_frameworks!
@@ -24,7 +26,6 @@ target 'mobileapp' do
     # Pods for testing
  # end
 
- pod 'RNSnackbar', :path => '../node_modules/react-native-snackbar'
 
  # target 'mobileappTests' do
  #   inherit! :search_paths

@@ -178,18 +178,20 @@ export default class AddCoordinator extends ImmutableComponent {
             title: strings.label_create_events_step_three,
             passProps: {
                 event: {
+                    datasetId: this.props.event.datasetId,
                     name: this.props.event.name,
-                    startDate: this.props.event.startDate,
-                    endDate: this.props.event.endDate,
-                    // location: {
-                    //     latitude: 48.8152937,
-                    //     longitude: 2.4597668,
-                    // }
+                    address: '456',
+                    startTime: this.props.event.startDate,
+                    endTime: this.props.event.endDate,
+                    location: {
+                        latitude: 48.8152937,
+                        longitude: 2.4597668,
+                    },
                     description: this.props.event.description,
                     whatToBring: this.props.event.whatToBring,
-                    imageUrl: this.props.event.imageUrl,
-                    coordinatorName: this.userName,
-                    phoneNumber: this.phoneNumber,
+                    // imageUrl: this.props.event.imageUrl,
+                    // coordinatorName: this.userName,
+                    // phoneNumber: this.phoneNumber,
                     email: this.email,
                 },
             }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import classnames from 'classnames';
 import { actions as userActions } from '../../reducers/user';
 import { actions as appActions } from '../../reducers/app';
 import { BACKEND_LOGIN_SOURCES } from '../../shared/constants';
@@ -63,19 +64,19 @@ class Popover extends Component {
     const { hidePopover } = this.props;
     return (
       <div
-        className={`Popover-container${this.state.isOpen ? ' is-open' : ''}`}
+        className={classnames('Popover-container', { 'is-open': this.state.isOpen })}
         onClick={this.preventDefaultClick}
       >
         <div className="Popover-cover" />
         <div className="Popover">
           <div className="Popover-header">
             <span className="Popover-title">Log in</span>
-            <button
+            <div
               className="Popover-hide"
-              onClick={() => hidePopover()}
+              onClick={hidePopover}
             >
               <CloseIcon />
-            </button>
+            </div>
           </div>
           <div className="Popover-img">
             <img src={demo} alt="popover-demo" />

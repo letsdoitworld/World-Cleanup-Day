@@ -32,7 +32,8 @@ export const handleApiError = (error) => {
 
 class ApiService {
     authToken = '';
-    baseURL = 'https://api.app.worldcleanupday.com/api/v1';
+    //baseURL = 'https://api.app.worldcleanupday.com/api/v1';
+    baseURL = 'http://34.244.222.175:50000/api/v1';
 
     constructor() {
         this.createNetworkInstances();

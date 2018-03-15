@@ -57,6 +57,7 @@ class Account extends Type {
             createdBy: true,
             updatedAt: true,
             updatedBy: true,
+            public: false
         });
         //FIXME: validate field values
     }
@@ -105,7 +106,8 @@ class Event extends Type {
             updateDate: true,
             startTime: true,
             endTime: true,
-            email: true
+            email: true,
+            trashpoints: true
         });
     }
 }
@@ -132,6 +134,7 @@ class Trashpoint extends Type {
             createdBy: true,
             updatedAt: true,
             updatedBy: true,
+            isIncluded: true
         });
         //FIXME: validate field values
     }

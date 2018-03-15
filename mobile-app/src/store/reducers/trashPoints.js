@@ -19,18 +19,18 @@ const handlers = {
         if (page > 0) {
             const currentTrashPoints = state.get('trashPoints');
             if (currentTrashPoints) {
-                return state.withMutations(state => state
+                return state.withMutations(mState => mState
                     .set('trashPoints', currentTrashPoints.concat(trashPoints)));
             } else {
                 return state
             }
         } else {
-            return state.withMutations(state => state
+            return state.withMutations(mState => mState
                 .set('trashPoints', trashPoints));
         }
     },
-    [CLEAR_TRASH_POINTS_ACTION]: (state, {}) => {
-        return state.withMutations(state => state
+    [CLEAR_TRASH_POINTS_ACTION]: (state) => {
+        return state.withMutations(mState => mState
             .set('trashPoints', undefined)
         );
     },

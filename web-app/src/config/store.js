@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 import {
   trashpileReducer,
+  eventsReducer,
   appReducer,
   userReducer,
   adminReducer,
@@ -12,6 +13,7 @@ import {
 
 const rootReducer = combineReducers({
   trashpile: trashpileReducer,
+  events: eventsReducer,
   app: appReducer,
   user: userReducer,
   admin: adminReducer,
@@ -28,6 +30,7 @@ const resetStateOnSignOutReducer = reducer => (state, action) => {
     app: undefined,
     user: undefined,
     trashpile: undefined,
+    events: undefined,
     admin: undefined,
     area: undefined,
   };

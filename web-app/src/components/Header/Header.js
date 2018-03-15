@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import HeaderItem from './HeaderItem'
+import HeaderItem from './HeaderItem';
 import Logo from './Logo';
 import { TextButton } from '../Buttons';
 import Popover from './Popover';
 import { User } from '../User';
-import { Link } from 'react-router-dom';
 
 import {
   actions as appActions,
@@ -20,29 +20,32 @@ class Header extends Component {
   };
 
   render() {
-    const {authUser, links, bottomLinks, onLogout, logoutText} = this.props;
+    const { authUser, links, bottomLinks, onLogout, logoutText } = this.props;
     return (
       <div className="Header">
-        <div className="Header-logo-container">
-          <Link to="/">
-            <Logo />
-          </Link>
-        </div>
-        {
-          links ?
-          <div className="Header-links-container">
-            {links.map((link, index) => <HeaderItem {...link} key={index} />)}
-          </div> :
-          null
-        }
-        {
-          authUser ?
-          <User authUser={authUser} onLogout={onLogout} /> :
-          <div className="Header-button-container">
-            <Popover isOpen={this.props.isOpen} />
-            <TextButton title="Log in" onClick={this.handleLoginClick} />
+        <div className="Header-main-nav">
+          <div className="Header-logo-container">
+            <Link to="/">
+              <Logo />
+            </Link>
           </div>
-        }
+          {
+            links ?
+              <div className="Header-links-container">
+                {links.map((link, index) => <HeaderItem {...link} key={index} />)}
+              </div> :
+              null
+          }
+          {
+            authUser ?
+              <User authUser={authUser} onLogout={onLogout} /> :
+              <div className="Header-button-container">
+                <Popover isOpen={this.props.isOpen} />
+                <TextButton title="Log in" onClick={this.handleLoginClick} />
+              </div>
+          }
+        </div>
+        <div className="Header-filters-placeholder" />
       </div>
     );
   }

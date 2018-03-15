@@ -4,12 +4,31 @@
   flex-direction: row;
   width: 100%;
   box-sizing: border-box;
-  padding: 16px 30px;
+  padding: 16px 30px 6px 30px;
 }
 
 .Event-details {
   display: flex;
   flex-direction: row;
+}
+
+.Event-details img {
+  vertical-align: text-top;
+  width: 16px;
+  height: 16px;
+}
+
+.Event-details-part1 {
+  margin: 0 10px;
+  width: 164px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Event-details-part2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .Event-info {
@@ -24,7 +43,12 @@
 
 .Event-creator {
   font-size: 12px;
-  color: #3e8ede;
+  text-transform: uppercase;
+}
+
+.Event-creator span {
+  position: relative;
+  left: 4px;
 }
 
 .Event-status {
@@ -40,19 +64,16 @@
 .Event-location {
   font-size: 10px;
   color: rgba(0,0,0,0.4);
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
 }
 
-.Event-details-part1 {
-  margin: 0 10px;
-  width: 164px;
-  display: flex;
-  flex-direction: column;
-}
-
-.Event-details-part2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.Event-location span {
+  position: relative;
+  top: 3px;
+  left: 2px;
 }
 
 .Event-fill {

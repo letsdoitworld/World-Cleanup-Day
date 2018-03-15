@@ -1,32 +1,51 @@
-import React, { Component } from 'react'
-import './EventDetails.css'
-import demo from '../../assets/demo.png'
-import { LocationIcon, MinimizeIcon, EventsIcon, ShareIcon, ParticipantsIcon, ReportIcon } from '../../components/common/Icons'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './EventDetails.css';
+import { selectors } from '../../reducers/events';
+import {
+  LocationIcon,
+  EventsIcon,
+  ShareIcon,
+  ParticipantsIcon,
+  ReportIcon,
+} from '../../components/common/Icons';
 
-export class EventDetails extends Component {
+class EventDetails extends Component {
+
+  componentWillMount() {
+    this.props.fetchEventDetails(this.props.eventId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.props.fetchEventDetails(nextProps.eventId);
+  }
 
   render() {
+    const { event, eventId } = this.props;
+
     return (
       <div className="EventDetails">
         <div className="EventDetails-cover">
-          <img src={demo} />
+          <img src={event.avatar} alt="demo" />
         </div>
         <div className="EventDetails-plot">
           <div className="EventDetails-descr EventDetails-infoblock">
             <h2 className="EventDetails-header">Description</h2>
-            <p>Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam</p>
+            <p>{event.description}</p>
           </div>
-          <div className="Event-divider"></div>
+          <div className="Event-divider" />
           <div className="EventDetails-timing EventDetails-infoblock">
             <div className="EventDetails-width-50">
               <EventsIcon />
-              <span className="EventDetails-date">27.07.2018</span>
+              <span className="EventDetails-date">{event.createDate}</span>
             </div>
             <div className="EventDetails-width-50">
-              <span className="EventDetails-period">11.30 AM - 3.00 PM</span>
+              <span className="EventDetails-period">
+                {`${event.event_start_time} - ${event.event_end_time}`}
+              </span>
             </div>
           </div>
-          <div className="Event-divider"></div>
+          <div className="Event-divider" />
           <div className="EventDetails-actions EventDetails-infoblock">
             <div className="EventDetails-width-50">
               <ReportIcon />
@@ -37,40 +56,41 @@ export class EventDetails extends Component {
               <span className="EventDetails-share">Share</span>
             </div>
           </div>
-          <div className="Event-divider"></div>
+          <div className="Event-divider" />
           <div className="EventDetails-people EventDetails-infoblock">
             <ParticipantsIcon />
-            max 20
+            max {event.number_of_participants}
           </div>
-          <div className="Event-divider"></div>
+          <div className="Event-divider" />
           <div className="EventDetails-bring EventDetails-infoblock">
             <h2 className="EventDetails-header">What to bring</h2>
-            <ul>
-              <li>- garbage bags</li>
-              <li>- gloves</li>
-              <li>- 5 shovels</li>
-              <li>- 3 brooms</li>
-            </ul>
+            {event.what_to_bring}
           </div>
-          <div className="Event-divider"></div>
+          <div className="Event-divider" />
           <div className="EventDetails-location EventDetails-infoblock">
             <LocationIcon />
             <p>
-              Žemaitės g. 1, Trakai 21142, Lithuania |54.649311, 24.939683
+              {`${event.address} | ${event.location_lat}, ${event.location_lon}`}
             </p>
           </div>
-          <div className="Event-divider"></div>
+          <div className="Event-divider" />
           <div className="EventDetails-creator EventDetails-infoblock">
             <h2 className="EventDetails-header">Event creator</h2>
-            <p>John Galt</p>
-            <p>+38010050000</p>
+            <p>{event.coordinator_name}</p>
+            <p>{event.email}</p>
           </div>
-          <div className="Event-divider"></div>
+          <div className="Event-divider" />
           <div className="EventDetails-traspoints EventDetails-infoblock">
             <h2 className="EventDetails-header">Trashpoints</h2>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
+
+const mapStateToProps = (state) => ({
+  event: selectors.getEventDetails(state),
+});
+
+export default connect(mapStateToProps)(EventDetails);

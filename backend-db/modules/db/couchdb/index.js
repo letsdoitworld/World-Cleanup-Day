@@ -430,6 +430,7 @@ const layer = {
         create.counter = 1, //FIXME: generate this number using a couchbase atomic counter
         create.datasetId = datasetId;
         create.hashtags = create.hashtags || [];
+        create.isIncluded = false;
 
         const id = util.uuid.random();
         await adapter.createDocument('Trashpoint', id, create, {

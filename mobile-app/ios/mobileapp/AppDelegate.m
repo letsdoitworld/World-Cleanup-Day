@@ -20,7 +20,6 @@
 #import <RNGoogleSignin/RNGoogleSignin.h>
 
 
-
 @implementation AppDelegate
 
 
@@ -28,22 +27,6 @@
   [FBSDKAppEvents activateApp];
 }
 
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-  return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                        openURL:url
-                                              sourceApplication:sourceApplication
-                                                     annotation:annotation
-          ]
-  || [RNGoogleSignin application:application
-                         openURL:url
-               sourceApplication:sourceApplication
-                      annotation:annotation
-      ];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -60,6 +43,21 @@
   self.window.backgroundColor = [UIColor whiteColor];
   [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  
+  return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                        openURL:url
+                                              sourceApplication:sourceApplication
+                                                     annotation:annotation
+          ]
+  || [RNGoogleSignin application:application
+                         openURL:url
+               sourceApplication:sourceApplication
+                      annotation:annotation
+      ];
 }
 
 @end

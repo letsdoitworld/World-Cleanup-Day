@@ -41,8 +41,8 @@ const fetchEventTitle = (id) => ({
 
 const fetchEventDetails = id => (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_EVENT_DETAILS_REQUEST });
-  const state = getState();
-  const event = state.events.events.events.find(ev => ev.datasetId === id);
+  const eventsArray = getAllEvents(getState());
+  const event = eventsArray.find(ev => ev.datasetId === id);
   dispatch({
     type: TYPES.FETCH_EVENT_DETAILS_SUCCESS,
     event,

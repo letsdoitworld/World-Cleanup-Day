@@ -16,6 +16,8 @@ import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 import {Navigation} from "react-native-navigation";
 
+import { Icons } from '../../../../src/assets/images';
+
 const cancelId = 'cancelId';
 
 export default class CreateEvent extends ImmutableComponent {
@@ -28,7 +30,7 @@ export default class CreateEvent extends ImmutableComponent {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../../src/assets/images/close.png'),
+                icon: Icons.Close,
                 id: cancelId,
             }
         ],

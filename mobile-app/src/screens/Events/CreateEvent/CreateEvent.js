@@ -14,6 +14,7 @@ import ImmutableComponent from "../../../components/InputFields/ImmutableCompone
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
+import {Navigation} from "react-native-navigation";
 
 const cancelId = 'cancelId';
 
@@ -60,7 +61,23 @@ export default class CreateEvent extends ImmutableComponent {
                 startDate: this.calculateMinDate(),
                 endDate: this.calculateMinDate(),
             })
+        };
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent(event) {
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.back();
+                    break;
+                }
+            }
         }
+    }
+
+    back() {
+        Navigation.dismissModal()
     }
 
     calculateMinDate() {
@@ -209,6 +226,8 @@ export default class CreateEvent extends ImmutableComponent {
                                     placeholder={strings.label_title_hint}
                                     autoCorrect={false}
                                     validate={this.validateTitle}
+                                    multiline={true}
+                                    maxLength={70}
                                     onChangeText={this.onTitleTextChanged}/>
                     </View>
                     {this.renderTitleError()}
@@ -259,6 +278,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     autoCorrect={false}
                                     multiline={true}
                                     validate={this.validateDescription}
+                                    maxLength={500}
                                     onChangeText={this.onDescriptionTextChanged}/>
                     </View>
                     {this.renderDescriptionError()}
@@ -270,6 +290,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     autoCorrect={false}
                                     multiline={true}
                                     validate={this.validateWhatToBring}
+                                    maxLength={500}
                                     onChangeText={this.onWhatToBringTextChanged}/>
                     </View>
                     {this.renderWhatToBringError()}

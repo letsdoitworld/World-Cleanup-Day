@@ -26,7 +26,6 @@ import { EVENTS, TRASHPOINTS } from './data';
 class Profile extends Component {
 
   static navigatorStyle = navigatorStyle;
-  static navigatorButtons = navigatorButtons;
 
   constructor(props) {
     super(props);
@@ -40,9 +39,19 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { isAuthenticated, onFetchProfile } = this.props;
+    const { isAuthenticated, isGuestSession, onFetchProfile } = this.props;
 
-        if (isAuthenticated) {
+        if (!isAuthenticated && isGuestSession) {
+            this.props.navigator.setButtons({
+                rightButtons: [],
+                leftButtons: [
+                    {
+                        icon: Icons.Notification,
+                        id: 'notification',
+                    },
+                ],
+            })
+        } else {
             onFetchProfile();
             this.props.navigator.setButtons({
                 rightButtons: [
@@ -51,10 +60,12 @@ class Profile extends Component {
                         id: 'settings',
                     },
                 ],
-            })
-        } else {
-            this.props.navigator.setButtons({
-                rightButtons: [],
+                leftButtons: [
+                    {
+                        icon: Icons.Notification,
+                        id: 'notification',
+                    },
+                ],
             })
         }
 

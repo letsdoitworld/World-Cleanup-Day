@@ -42,6 +42,25 @@ class AddPeopleToEvent extends ImmutableComponent {
             })
         };
         this.event = props.event
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent(event) {
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.back();
+                    break;
+                }
+            }
+        }
+    }
+
+    back() {
+        this.props.navigator.pop({
+            animated: true,
+            animationType: 'slide_out',
+        });
     }
 
     componentDidUpdate() {

@@ -182,6 +182,10 @@ class Events extends Component {
       );
   }
 
+    componentDidMount() {
+        this.loadEvents(0)
+    }
+
   componentWillUnmount() {
     const { onClearEventsAction } = this.props;
     onClearEventsAction();

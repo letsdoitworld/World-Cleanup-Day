@@ -34,7 +34,7 @@ class AddPeopleToEvent extends ImmutableComponent {
     }
 
     componentDidUpdate() {
-        const { createEvent } = this.props;
+        const {createEvent} = this.props;
         //console.warn("componentDidUpdate", createEvent)
         if (createEvent) {
             Navigation.dismissModal()
@@ -45,7 +45,7 @@ class AddPeopleToEvent extends ImmutableComponent {
         const isNumberAttendeesValid = this.state.data.get('isNumberAttendeesValid');
         const isNumberAttendeesTextChanged = this.state.data.get('isNumberAttendeesTextChanged');
         const style = (isNumberAttendeesValid && isNumberAttendeesTextChanged) || (!isNumberAttendeesValid && !isNumberAttendeesTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
-        return  <View style={styles.titleStyle}>
+        return <View style={styles.titleStyle}>
             <Text style={style}>{strings.label_max_number_of_attendees.toUpperCase()}</Text>
         </View>
     }
@@ -77,10 +77,10 @@ class AddPeopleToEvent extends ImmutableComponent {
                 </View>
                 {this.renderNumberAttendeesError()}
                 <MainButton
-                    disabled={!isValid}
+                    isValid={isValid}
                     text={strings.label_next}
                     style={styles.coordinatorNext}
-                    onPress={this.onCreateEventClick}/>
+                    onPress={() => this.onCreateEventClick(isValid)}/>
             </View>)
     }
 
@@ -95,10 +95,18 @@ class AddPeopleToEvent extends ImmutableComponent {
         return isValid
     };
 
-    onCreateEventClick = () => {
-        const { requestCreateEvent } = this.props;
-        //this.event['numberAttendees'] = this.numberAttendees;
-        requestCreateEvent(this.event)
+    onCreateEventClick = (isValid) => {
+        if (isValid) {
+            const {requestCreateEvent} = this.props;
+            //this.event['numberAttendees'] = this.numberAttendees;
+            requestCreateEvent(this.event)
+        } else {
+            this.showValidationErrors()
+        }
+    };
+
+    showValidationErrors() {
+        this.setData(d => d.set('isNumberAttendeesTextChanged', true));
     }
 
 }

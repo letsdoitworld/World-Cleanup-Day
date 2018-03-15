@@ -170,9 +170,8 @@ export default class CreateEvent extends ImmutableComponent {
             customStyles={{dateInput: {borderWidth: 0}}}
             onDateChange={(date) => {
                 this.validateEndTime(date);
-                console.warn("Date ", date);
                 const startDate = this.state.data.get('startDate');
-                const endDate = startDate.split(" ")[0] + " " + date;
+                const endDate = startDate.split(" ")[0] + " " + date.split(" ")[1];
                 this.setData(d => d.set('endDate', endDate))
             }}/>
     }
@@ -189,7 +188,9 @@ export default class CreateEvent extends ImmutableComponent {
 
         return (
             <View>
-                <ScrollView style={styles.container}>
+                <ScrollView
+                    ref='scrollView'
+                    style={styles.container}>
 
                     {this.renderTitle()}
                     <View style={styles.inputContainerStyle}>
@@ -274,10 +275,10 @@ export default class CreateEvent extends ImmutableComponent {
                     </View>
 
                     <MainButton
-                        disabled={!isValid}
+                        isValid={isValid}
                         text={strings.label_next}
                         style={styles.nextButtonStyle}
-                        onPress={this.onNextClick.bind(this)}/>
+                        onPress={() => this.onNextClick(isValid)}/>
                 </ScrollView>
             </View>
         )
@@ -393,35 +394,58 @@ export default class CreateEvent extends ImmutableComponent {
     };
 
     validateEndTime = (endTime: String) => {
-        const endDateTime = Moment(endTime, "HH:mm").toDate();
+        const endDateTime = Moment(endTime, "DD-MM-YYYY HH:mm").toDate();
         const startDateFormat = this.state.data.get('startDate');
         const startDate = Moment(startDateFormat, "DD-MM-YYYY HH:mm").toDate();
-        let endDateAndTime = Moment(startDateFormat, "DD-MM-YYYY HH:mm").toDate();
-        endDateAndTime.setHours(endDateTime.getHours(), endDateAndTime.getMinutes());
-        let isValid = startDate < endDateAndTime;
+        let isValid = startDate < endDateTime;
         this.setData(d => d.set('isEndDateValid', isValid))
     };
 
-    onNextClick = () => {
-        this.props.navigator.push({
-            screen: ADD_COORDINATOR,
-            title: strings.label_create_events_step_two,
-            passProps: {
-                event: {
-                    datasetId: '26e7668a-fa3f-4ba6-bb0b-e8892ee306аа',
-                    name: this.title,
-                    address: '456',
-                    startTime: this.state.data.get('startDate'),
-                    endTime: this.state.data.get('endDate'),
-                    location: {
-                        latitude: 48.8152937,
-                        longitude: 2.4597668,
+    onNextClick = (isValid) => {
+        if (isValid) {
+            this.props.navigator.push({
+                screen: ADD_COORDINATOR,
+                title: strings.label_create_events_step_two,
+                passProps: {
+                    event: {
+                        datasetId: '26e7668a-fa3f-4ba6-bb0b-e8892ee306аа',
+                        name: this.title,
+                        address: '456',
+                        startTime: this.state.data.get('startDate'),
+                        endTime: this.state.data.get('endDate'),
+                        location: {
+                            latitude: 48.8152937,
+                            longitude: 2.4597668,
+                        },
+                        description: this.description,
+                        whatToBring: this.whatToBring,
+                        //imageUrl: this.state.data.get('imageUrl'),
                     },
-                    description: this.description,
-                    whatToBring: this.whatToBring,
-                    //imageUrl: this.state.data.get('imageUrl'),
-                },
-            }
-        });
+                }
+            });
+        } else {
+            this.showValidationErrors()
+        }
+    };
+
+    showValidationErrors() {
+        const isTitleValid = this.state.data.get('isTitleValid');
+        if (!isTitleValid) {
+            this.setData(d => d.set('isTitleTextChanged', true))
+        }
+        const isDescriptionValid = this.state.data.get('isDescriptionValid');
+        if (!isDescriptionValid) {
+            this.setData(d => d.set('isDescriptionTextChanged', true))
+        }
+        const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
+        if (!isWhatToBringValid) {
+            this.setData(d => d.set('isWhatToBringTextChanged', true))
+        }
+        const isStartDateValid = this.state.data.get('isStartDateValid');
+        const isEndDateValid = this.state.data.get('isEndDateValid');
+        if (!isTitleValid || !isStartDateValid || !isEndDateValid) {
+            this.refs.scrollView.scrollTo({x: 0, y: 0, animated: true})
+        }
+
     }
 }

@@ -1,22 +1,69 @@
 PODS:
-  - Crashlytics (3.10.1):
-    - Fabric (~> 1.7.5)
-  - Fabric (1.7.5)
   - QBImagePickerController (3.4.0)
+  - React/Core (0.50.0):
+    - yoga (= 0.50.0.React)
+  - React/fishhook (0.50.0)
+  - React/RCTActionSheet (0.50.0):
+    - React/Core
+  - React/RCTAnimation (0.50.0):
+    - React/Core
+  - React/RCTBlob (0.50.0):
+    - React/Core
+  - React/RCTGeolocation (0.50.0):
+    - React/Core
+  - React/RCTImage (0.50.0):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTLinkingIOS (0.50.0):
+    - React/Core
+  - React/RCTNetwork (0.50.0):
+    - React/Core
+  - React/RCTSettings (0.50.0):
+    - React/Core
+  - React/RCTText (0.50.0):
+    - React/Core
+  - React/RCTVibration (0.50.0):
+    - React/Core
+  - React/RCTWebSocket (0.50.0):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - RNImageCropPicker (0.20.0):
+    - QBImagePickerController
+    - RSKImageCropper
   - RSKImageCropper (2.0.0)
+  - yoga (0.50.0.React)
 
 DEPENDENCIES:
-  - Crashlytics
-  - Fabric
-  - QBImagePickerController
-  - RSKImageCropper
+  - React/Core (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTLinkingIOS (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
+
+EXTERNAL SOURCES:
+  React:
+    :path: ../node_modules/react-native
+  RNImageCropPicker:
+    :path: ../node_modules/react-native-image-crop-picker
+  yoga:
+    :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
 
 SPEC CHECKSUMS:
-  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
-  Fabric: ae7146a5f505ea370a1e44820b4b1dc8890e2890
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  React: 9914d9682e3e7f052c6e9d3ada61378014dca2ac
+  RNImageCropPicker: a637beb8f4c76bf9fe8a89d404ad65a33c4215ac
   RSKImageCropper: d9a1acbc0600bf8decc8f0d21895872c99a9e4cf
+  yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: ae58d00c2c4aaab22d91c6ef5754f0280f68bfff
+PODFILE CHECKSUM: a7b4cc07d94270f423255c9c8d322d0a68956fce
 
 COCOAPODS: 1.4.0

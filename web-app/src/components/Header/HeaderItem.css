@@ -1,11 +1,10 @@
 .HeaderItem {
   cursor: pointer;
-  text-decoration: none;
   display: flex;
   align-items: center;
   align-self: stretch;
-  padding: 20px;
-  margin: 9px 0;
+  padding: 16px 20px;
+  margin: 10px 0;
 }
 
 .HeaderItem-img-container {
@@ -23,13 +22,13 @@
   color: rgba(255, 255, 255, 0.7);
   font-size: 16px;
   max-width: 120px;
-  font-family: Lato;
+  font-family: 'Lato';
   word-wrap: break-word;
   text-align: center;
 }
 
 .HeaderItem.active {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(255,255,255,0.2);
   border-radius: 20px;
 }
 

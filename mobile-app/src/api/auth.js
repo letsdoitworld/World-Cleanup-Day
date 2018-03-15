@@ -37,7 +37,7 @@ function googleLogin() {
 }
 
 function facebookLogin() {
-  return LoginManager.logInWithReadPermissions(['public_profile', 'email'])
+  return LoginManager.logInWithReadPermissions(['public_profile'])
         .then((result) => {
           if (result.isCancelled) {
             throw 'Login cancelled';
@@ -52,10 +52,13 @@ function facebookLogin() {
                         if (err) {
                           reject(err);
                         }
+                        console.log('FB auth User', res);
+
+                        const email = res.email && res.email;
 
                         const updatedData = {
                           token: data,
-                          email: res.email,
+                          email,
                         };
 
                         resolve(updatedData);
@@ -77,19 +80,19 @@ async function logout() {
 }
 
 async function agreeToTerms() {
-  try {
-    const response = await Api.put(
-      '/me/accept-terms',
-      {},
-      { withToken: true },
-      {
-        'Content-Type': 'application/json',
-      },
-    );
-    return response.data;
-  } catch (ex) {
-    throw ex;
-  }
+  // try {
+  //   const response = await Api.put(
+  //     '/me/accept-terms',
+  //     {},
+  //     { withToken: true },
+  //     {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+  //   return response.data;
+  // } catch (ex) {
+  //   throw ex;
+  // }
 }
 
 export default {

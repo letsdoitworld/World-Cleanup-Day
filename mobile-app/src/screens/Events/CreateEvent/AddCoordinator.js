@@ -143,10 +143,10 @@ export default class AddCoordinator extends ImmutableComponent {
                 </View>
                 {this.renderEmailError()}
                 <MainButton
-                    disabled={!isValid}
+                    isValid={isValid}
                     text={strings.label_next}
                     style={styles.coordinatorNext}
-                    onPress={this.onNextClick.bind(this)}/>
+                    onPress={() => this.onNextClick(isValid)}/>
             </View>)
     }
 
@@ -183,28 +183,49 @@ export default class AddCoordinator extends ImmutableComponent {
         return isValid
     };
 
-    onNextClick = () => {
-        this.props.navigator.push({
-            screen: ADD_PEOPLE_TO_EVENT,
-            title: strings.label_create_events_step_three,
-            passProps: {
-                event: {
-                    name: this.props.event.name,
-                    startDate: this.props.event.startDate,
-                    endDate: this.props.event.endDate,
-                    // location: {
-                    //     latitude: 48.8152937,
-                    //     longitude: 2.4597668,
-                    // }
-                    description: this.props.event.description,
-                    whatToBring: this.props.event.whatToBring,
-                    imageUrl: this.props.event.imageUrl,
-                    coordinatorName: this.userName,
-                    phoneNumber: this.phoneNumber,
-                    email: this.email,
-                },
-            }
-        });
+    onNextClick = (isValid) => {
+        if (!isValid) {
+            this.showValidationErrors()
+        } else {
+            this.props.navigator.push({
+                screen: ADD_PEOPLE_TO_EVENT,
+                title: strings.label_create_events_step_three,
+                passProps: {
+                    event: {
+                        datasetId: this.props.event.datasetId,
+                        name: this.props.event.name,
+                        address: '456',
+                        startTime: this.props.event.startDate,
+                        endTime: this.props.event.endDate,
+                        location: {
+                            latitude: 48.8152937,
+                            longitude: 2.4597668,
+                        },
+                        description: this.props.event.description,
+                        whatToBring: this.props.event.whatToBring,
+                        // imageUrl: this.props.event.imageUrl,
+                        // coordinatorName: this.userName,
+                        // phoneNumber: this.phoneNumber,
+                        email: this.email,
+                    },
+                }
+            });
+        }
+    };
+
+    showValidationErrors() {
+        const isUserNameValid = this.state.data.get('isUserNameValid');
+        if (!isUserNameValid) {
+            this.setData(d => d.set('isUserNameTextChanged', true));
+        }
+        const isPhoneNumberValid = this.state.data.get('isPhoneNumberValid');
+        if (!isPhoneNumberValid) {
+            this.setData(d => d.set('isPhoneNumberTextChanged', true));
+        }
+        const isEmailValid = this.state.data.get('isEmailValid');
+        if (!isEmailValid) {
+            this.setData(d => d.set('isEmailTextChanged', true));
+        }
     }
 
 }

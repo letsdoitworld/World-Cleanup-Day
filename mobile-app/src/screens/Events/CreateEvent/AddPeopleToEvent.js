@@ -12,11 +12,22 @@ import PropTypes from 'prop-types';
 import {EVENTS, HOME_SCREEN} from "../../index";
 import {Navigation} from "react-native-navigation";
 
+const cancelId = 'cancelId';
+
 class AddPeopleToEvent extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
         navBarTitleTextCentered: true,
+    };
+
+    static navigatorButtons = {
+        leftButtons: [
+            {
+                icon: require('../../../../src/assets/images/ic_back.png'),
+                id: cancelId,
+            }
+        ],
     };
 
     numberAttendees: string;
@@ -31,6 +42,25 @@ class AddPeopleToEvent extends ImmutableComponent {
             })
         };
         this.event = props.event
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent(event) {
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.back();
+                    break;
+                }
+            }
+        }
+    }
+
+    back() {
+        this.props.navigator.pop({
+            animated: true,
+            animationType: 'slide_out',
+        });
     }
 
     componentDidUpdate() {

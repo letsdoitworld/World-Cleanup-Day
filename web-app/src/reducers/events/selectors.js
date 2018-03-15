@@ -1,11 +1,12 @@
 import { createSelector } from 'reselect';
+import get from 'lodash.get';
 
 const stateSel = state => state.events;
 const markersSel = createSelector(stateSel, state => state.markers);
 const eventsSel = createSelector(stateSel, state => state.events);
 const detailsSel = createSelector(stateSel, state => state.details);
 
-export const getAllEvents = createSelector(
+export const getEventsList = createSelector(
   eventsSel,
   state => state.events,
 );
@@ -24,16 +25,16 @@ export const getEventDetails = createSelector(
 
 export const getCurrentMarkerID = createSelector(
   detailsSel,
-  state => state.event.datasetId,
+  state => get(state, 'event.datasetId', 'Unknown ID'),
 );
 
 export const getEventTitle = createSelector(
   detailsSel,
-  state => state.event.title,
+  state => get(state, 'event.title', 'Unknown title'),
 );
 
 export default {
-  getAllEvents,
+  getEventsList,
   getAllEventMarkers,
   getShowEventWindow,
   getEventTitle,

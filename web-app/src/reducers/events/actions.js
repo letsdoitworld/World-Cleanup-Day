@@ -1,6 +1,6 @@
 import TYPES from './types';
 import events from './events.json';
-import { getAllEvents } from './selectors';
+import { getEventsList } from './selectors';
 
 const toggleEventWindow = () => ({
   type: TYPES.TOGGLE_EVENT_WINDOW,
@@ -9,7 +9,7 @@ const toggleEventWindow = () => ({
 const fetchAllEventMarkers = () => (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_REQUEST });
   let markers = [];
-  const eventsArray = getAllEvents(getState());
+  const eventsArray = getEventsList(getState());
   markers = eventsArray.map((ev) => {
     return {
       position: { lat: ev.location_lat, lng: ev.location_lon },
@@ -41,7 +41,7 @@ const fetchEventTitle = (id) => ({
 
 const fetchEventDetails = id => (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_EVENT_DETAILS_REQUEST });
-  const eventsArray = getAllEvents(getState());
+  const eventsArray = getEventsList(getState());
   const event = eventsArray.find(ev => ev.datasetId === id);
   dispatch({
     type: TYPES.FETCH_EVENT_DETAILS_SUCCESS,

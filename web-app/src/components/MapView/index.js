@@ -17,7 +17,7 @@ class MapView extends Component {
     this.state = {
       mapLocation: undefined,
       zoom: DEFAULT_ZOOM_LEVEL,
-      mapLoaded: false
+      mapLoaded: false,
     };
   }
 
@@ -30,7 +30,7 @@ class MapView extends Component {
       return;
     }
     LocationService.getLocation().then(
-      location => this.setState({ mapLocation: location }),
+      location => this.setState({ mapLocation: location, zoom: DEFAULT_ZOOM_LEVEL }),
       () =>
         this.setState({
           mapLocation: ESTONIA_CENTER_COORDINATES,
@@ -64,9 +64,7 @@ class MapView extends Component {
       cursor,
     } = this.props;
     const { mapLocation, zoom, mapLoaded } = this.state;
-
     const isMapReady = !!mapLocation;
-
     if (!isMapReady) {
       return <Loader />;
     }

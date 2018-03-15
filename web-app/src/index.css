@@ -6,6 +6,11 @@ body {
   font-size: 15px;
 }
 
+h1, h2 {
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
 #root {
   height: 100vh;
   display: flex;

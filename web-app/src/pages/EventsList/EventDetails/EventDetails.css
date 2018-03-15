@@ -1,0 +1,112 @@
+.EventDetails {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.EventDetails-width-40 {
+  width: 41%;
+}
+
+.EventDetails-width-50 {
+  width: 50%;
+}
+
+.EventDetails-width-60 {
+  width: 59%;
+}
+
+.EventDetails-cover img {
+  width: 100%;
+  height: 160px;
+}
+
+.EventDetails-plot {
+  padding: 16px 0;
+}
+
+.EventDetails-plot img {
+  vertical-align: top;
+  margin-right: 14px;
+}
+
+.EventDetails-infoblock {
+  padding: 20px 30px;
+  border-bottom: 0.2px solid rgba(0,0,0,0.3);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.EventDetails-header {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #3e8ede;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.EventDetails-location,
+.EventDetails-actions,
+.EventDetails-timing,
+.EventDetails-coordinator-part,
+.EventDetails-attend-part,
+.EventDetails-creator-part,
+.EventDetails-trashpoints-plot {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.EventDetails-trashpoints {
+  padding: 20px 0 20px 30px !important;
+}
+
+.EventDetails-trashpoints-plot {
+  overflow-x: auto;
+}
+
+.EventDetails-trashpoints-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.EventDetails-trashpoints-item-img {
+  margin-right: 20px !important;
+  width: 120px;
+  height: 80px;
+  border-radius: 2px;
+}
+
+.EventDetails-trashpoints-item-title {
+  font-size: 12px;
+  margin: 10px 0;
+  color: #282633;
+}
+
+.EventDetails-coordinator-part {
+  margin: 18px auto;
+}
+
+.EventDetails-report {
+  color: #e11383;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.EventDetails-share {
+  color: #3e8ede;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.EventDetails-attend-part img {
+  position: relative;
+  top: 3px;
+}
+
+.EventDetails-location-address {
+  line-height: 1.43;
+}

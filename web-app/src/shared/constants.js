@@ -1,11 +1,12 @@
 export const GOOGLE_MAPS_API_KEY = 'AIzaSyD0AC9TcY3xdmRsc_atlSHRreEbnEbxPEA';
 export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.27&libraries=places,geometry&key=${GOOGLE_MAPS_API_KEY}`;
-export const DEFAULT_ZOOM_LEVEL = 14;
-export const NO_PERMISSION_ZOOM_LEVEL = 9;
+export const DEFAULT_ZOOM_LEVEL = 12;
+export const NO_PERMISSION_ZOOM_LEVEL = 1;
 export const ESTONIA_CENTER_COORDINATES = { lat: 58.5953, lng: 25.0136 };
 export const MARKER_DIAGONALE_IN_PX = 2 * Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2));
 const MAX_ZOOM_LEVEL = 22;
 export const DATASETS_TYPES = {
+  EVENTS: 'events',
   TRASHPOINTS: 'trashpoints',
 };
 export const API_ENDPOINTS = {

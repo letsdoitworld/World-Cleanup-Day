@@ -18,3 +18,11 @@ export const getUserCountry = createSelector(
   countryCode => find(COUNTRY_LIST, c => c.code === countryCode),
 );
 
+export const getCoordUser = createSelector(
+  locationsSelector,
+  locations =>
+    locations.userLocation
+    &&
+    { lat: locations.userLocation.lat, long: locations.userLocation.long },
+);
+

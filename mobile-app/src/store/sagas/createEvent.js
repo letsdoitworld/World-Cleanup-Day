@@ -17,7 +17,6 @@ function* createNewEvent(event) {
         const eventFromServer = yield call(Api.createEvent.createEvent, event);
         yield put(createEventDone(eventFromServer))
     } catch (error) {
-        console.warn('createNewEvent', error);
         yield put(createEventError(error))
     }
 }

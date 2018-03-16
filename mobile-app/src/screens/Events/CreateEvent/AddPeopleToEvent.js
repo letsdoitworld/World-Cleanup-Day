@@ -139,9 +139,7 @@ class AddPeopleToEvent extends ImmutableComponent {
     };
 
     onCreateEventClick = (isValid) => {
-        console.warn('onCreateEventClick');
         if (isValid) {
-            console.warn('onCreateEventClick valid');
             const {requestCreateEvent} = this.props;
             //this.event['numberAttendees'] = this.numberAttendees;
             requestCreateEvent(this.event)

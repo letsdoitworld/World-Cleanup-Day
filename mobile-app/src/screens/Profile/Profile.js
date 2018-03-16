@@ -90,9 +90,6 @@ class Profile extends Component {
         this.props.navigator.push({
           screen: SETTINGS_SCREEN,
           title: strings.label_settings_header,
-            passProps: {
-                userProfile: this.props.profile
-            }
         });
       }
     }
@@ -101,8 +98,6 @@ class Profile extends Component {
   handleGetCurrentPosition = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
-
         this.props.onFetchLocation({
           lat: position.coords.latitude,
           long: position.coords.longitude,

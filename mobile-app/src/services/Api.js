@@ -71,7 +71,7 @@ class ApiService {
         return withToken ? this.axios : this.publicAxios;
     }
 
-    async get(url, options = {withToken: true}, axiosOptions) {
+    async get(url, axiosOptions, options = {withToken: true}) {
         try {
             return await this.getApiInstance(options.withToken).get(
                 url,

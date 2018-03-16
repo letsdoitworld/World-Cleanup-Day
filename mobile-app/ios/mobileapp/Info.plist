@@ -60,7 +60,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -104,7 +104,9 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>NSCameraUsageDescription</string>
+	<string>$(PRODUCT_NAME) create event photo</string>
+  <key>NSCameraUsageDescription</key>
+  <string>$(PRODUCT_NAME) create event photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Heavy.ttf</string>

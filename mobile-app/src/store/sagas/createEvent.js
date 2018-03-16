@@ -7,6 +7,7 @@ import {
 import {
     CREATE_EVENT_ACTION,
     createEventDone,
+    createEventError,
 } from '../actions/createEvent';
 
 import Api from '../../api';
@@ -14,10 +15,9 @@ import Api from '../../api';
 function* createNewEvent(event) {
     try {
         const eventFromServer = yield call(Api.createEvent.createEvent, event);
-        //console.warn("CreateEvent", eventFromServer);
         yield put(createEventDone(eventFromServer))
     } catch (error) {
-        setErrorMessage(String(error))
+        yield put(createEventError(error))
     }
 }
 

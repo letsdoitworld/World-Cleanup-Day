@@ -16,7 +16,7 @@ import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 import {Navigation} from "react-native-navigation";
 
-import { Icons } from '../../../../src/assets/images';
+import { Icons } from '../../../assets/images';
 
 const cancelId = 'cancelId';
 

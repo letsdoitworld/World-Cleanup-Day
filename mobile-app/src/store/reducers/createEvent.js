@@ -19,11 +19,10 @@ export const initialState = Immutable.Map(
 
 
 const handlers = {
-    [CREATE_EVENT_ACTION]: (state, {event}) => {
+    [CREATE_EVENT_ACTION]: (state) => {
         return state.withMutations(mState =>
             mState
-                .set('loading', true)
-                .set('event', event));
+                .set('loading', true));
     },
     [CREATE_EVENT_SUCCESS]: (state, {event}) => {
         return state.withMutations(mState =>

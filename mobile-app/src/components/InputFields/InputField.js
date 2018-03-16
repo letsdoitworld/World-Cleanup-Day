@@ -85,7 +85,8 @@ export default class InputField extends ImmutableComponent {
                     onFocus={this.focusAcquired}
                     maxLength = {maxLength}
                     multiline = {multiline}
-                    onBlur={this.focusLost}/>
+                    onBlur={this.focusLost}
+                    blurOnSubmit={true}/>
             </View>
         );
     }
@@ -112,7 +113,7 @@ export default class InputField extends ImmutableComponent {
 
     focusLost = () => {
         this.setData(d => d.set('errorColor', 'red'))
-    }
+    };
 
 }
 

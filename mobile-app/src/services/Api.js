@@ -95,15 +95,15 @@ class ApiService {
     }
 
     async put(url, data, options = {withToken: true}, headers) {
-        try {
+        // try {
             return await this.getApiInstance(options.withToken).put(
                 url,
                 data,
                 headers,
             );
-        } catch (e) {
-            handleApiError(e);
-        }
+        // } catch (e) {
+        //     handleApiError(e);
+        // }
     }
 
     async delete(url, {skipError = false} = {}) {

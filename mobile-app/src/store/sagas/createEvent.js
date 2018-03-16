@@ -12,20 +12,20 @@ import {
 
 import Api from '../../api';
 
+
 function* createNewEvent(event) {
     try {
         const eventFromServer = yield call(Api.createEvent.createEvent, event);
+
         yield put(createEventDone(eventFromServer))
     } catch (error) {
-        yield put(createEventError(error))
+        yield put(createEventError(error.message))
     }
 }
 
 export function* createEventFlow() {
-    //console.warn("createEventFlow befor");
     while(true){
-        //console.warn("createEventFlow after");
-        const {event} = yield take(CREATE_EVENT_ACTION);
-        yield call(createNewEvent, event)
+        const { localEvent } = yield take(CREATE_EVENT_ACTION);
+        yield call(createNewEvent, localEvent)
     }
 }

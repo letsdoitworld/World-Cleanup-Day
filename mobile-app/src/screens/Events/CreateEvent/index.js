@@ -9,7 +9,7 @@ import Component from './AddPeopleToEvent';
 
 const selector = createStructuredSelector({
     createEvent: getCreateEventEntity,
-    errorEvent: getCreateEventError
+    errorEvent: getCreateEventError,
 });
 
 const actions = {

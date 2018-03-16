@@ -1,4 +1,4 @@
-import {FETCH_PROFILE_ERROR} from './profile';
+
 
 export const CREATE_EVENT_ACTION = 'CREATE_EVENT_ACTION';
 export const createEvent = event => ({

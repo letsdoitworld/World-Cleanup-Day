@@ -12,11 +12,22 @@ import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
 import {ADD_COORDINATOR, ADD_PEOPLE_TO_EVENT} from "../../index";
 
+const cancelId = 'cancelId';
+
 export default class AddCoordinator extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
         navBarTitleTextCentered: true,
+    };
+
+    static navigatorButtons = {
+        leftButtons: [
+            {
+                icon: require('../../../../src/assets/images/ic_back.png'),
+                id: cancelId,
+            }
+        ],
     };
 
     userName: string;
@@ -35,6 +46,25 @@ export default class AddCoordinator extends ImmutableComponent {
                 isEmailTextChanged: false,
             })
         };
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent(event) {
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.back();
+                    break;
+                }
+            }
+        }
+    }
+
+    back() {
+        this.props.navigator.pop({
+            animated: true,
+            animationType: 'slide_out',
+        });
     }
 
     renderUserNameTitle() {

@@ -26,7 +26,6 @@ import { EVENTS, TRASHPOINTS } from './data';
 class Profile extends Component {
 
   static navigatorStyle = navigatorStyle;
-  static navigatorButtons = navigatorButtons;
 
   constructor(props) {
     super(props);
@@ -40,11 +39,35 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { isAuthenticated, onFetchProfile } = this.props;
+    const { isAuthenticated, isGuestSession, onFetchProfile } = this.props;
 
-    if (isAuthenticated) {
-      onFetchProfile();
-    }
+        if (!isAuthenticated && isGuestSession) {
+            this.props.navigator.setButtons({
+                rightButtons: [],
+                leftButtons: [
+                    {
+                        icon: Icons.Notification,
+                        id: 'notification',
+                    },
+                ],
+            })
+        } else {
+            onFetchProfile();
+            this.props.navigator.setButtons({
+                rightButtons: [
+                    {
+                        icon: Icons.Settings,
+                        id: 'settings',
+                    },
+                ],
+                leftButtons: [
+                    {
+                        icon: Icons.Notification,
+                        id: 'notification',
+                    },
+                ],
+            })
+        }
 
     this.handleGetCurrentPosition();
   }
@@ -67,6 +90,9 @@ class Profile extends Component {
         this.props.navigator.push({
           screen: SETTINGS_SCREEN,
           title: strings.label_settings_header,
+            passProps: {
+                userProfile: this.props.profile
+            }
         });
       }
     }
@@ -76,7 +102,7 @@ class Profile extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
-  
+
         this.props.onFetchLocation({
           lat: position.coords.latitude,
           long: position.coords.longitude,
@@ -175,7 +201,7 @@ class Profile extends Component {
       />
     );
   };
-  
+
   onRenderTrashPoints = () => {
     return (
       <FlatList

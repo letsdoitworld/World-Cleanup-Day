@@ -23,6 +23,8 @@ import {PRIVACY_URL, TERMS_URL} from "../../../env";
 import colors from "../../config/colors";
 import {ABOUT_SCREEN} from "../index";
 import userActions from '../../reducers/user/actions';
+import {logout} from "../../store/actions/auth";
+import PropTypes from "prop-types";
 
 export class Settings extends Component {
 
@@ -84,11 +86,9 @@ export class Settings extends Component {
     handleCountryFilterChanged = (countryFilter) => {
         this.setState({countryFilter});
     };
+
     handleLogoutPress = async () => {
-        const {logout, navigation} = this.props;
-        logout().then(() => {
-            // navigation.resetTo('Login');
-        }, () => null);
+
     };
 
     handleAboutPress = () => {
@@ -99,7 +99,8 @@ export class Settings extends Component {
     };
 
     handlePrivacyPress = status => {
-        //this.props.dispatch(userActions.updateProfileStatus(status));
+        const {onUpdateProfileStatus} = this.props;
+        onUpdateProfileStatus(status);
     };
 
     handleLinkPress = link => () =>
@@ -121,9 +122,53 @@ export class Settings extends Component {
         );
     };
 
+    renderLocation() {
+        const {userProfile} = this.props;
+        if (userProfile && userProfile.location) {
+            return (<View style={styles.itemStyle}>
+                <Image
+                    style={styles.imageItemStyle}
+                    source={require('../../../src/assets/images/ic_location.png')}/>
+                <Text style={styles.textItemStyle}>{userProfile.location}</Text>
+            </View>)
+        } else {
+            return null;
+        }
+    }
+
+    renderPhoneNumber() {
+        const {userProfile} = this.props;
+        if (userProfile && userProfile.phoneNumber) {
+            return (<View style={styles.itemStyle}>
+                <Image
+                    style={styles.imageItemStyle}
+                    source={require('../../assets/images/ic_phone_number.png')}/>
+                <Text style={styles.textItemStyle}>{userProfile.phoneNumber}</Text>
+            </View>)
+        } else {
+            return null;
+        }
+    }
+
+    renderEmail() {
+        const {userProfile} = this.props;
+        if (userProfile && userProfile.email) {
+            return (
+                <View style={styles.itemStyle}>
+                    <Image
+                        style={styles.imageItemStyle}
+                        source={require('../../assets/images/ic_email.png')}/>
+                    <Text style={styles.textItemStyle}>{userProfile.email}</Text>
+                </View>
+            )
+        } else {
+            return null;
+        }
+    }
+
     render() {
         const {country} = this.props;
-        //const profile = this.props.profile.get('entity');
+        const {userProfile} = this.props;
 
         // if (profile === null) {
         //     return null
@@ -142,26 +187,11 @@ export class Settings extends Component {
                             style={styles.imageItemStyle}
 
                             source={require('./images/ic_name.png')}/>
-                        <Text style={styles.textItemStyle}>{'Yulia'}</Text>
+                        <Text style={styles.textItemStyle}>{userProfile.name}</Text>
                     </View>
-                    <View style={styles.itemStyle}>
-                        <Image
-                            style={styles.imageItemStyle}
-                            source={require('../../../src/assets/images/ic_location.png')}/>
-                        <Text style={styles.textItemStyle}>{'Kiev, Ukraine'}</Text>
-                    </View>
-                    <View style={styles.itemStyle}>
-                        <Image
-                            style={styles.imageItemStyle}
-                            source={require('../../assets/images/ic_phone_number.png')}/>
-                        <Text style={styles.textItemStyle}>{'+3809500000000'}</Text>
-                    </View>
-                    <View style={styles.itemStyle}>
-                        <Image
-                            style={styles.imageItemStyle}
-                            source={require('../../assets/images/ic_email.png')}/>
-                        <Text style={styles.textItemStyle}>{'yonder@gmail.com'}</Text>
-                    </View>
+                    {this.renderLocation()}
+                    {this.renderPhoneNumber()}
+                    {this.renderEmail()}
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_privacy_settings.toUpperCase()}</Text>
                     </View>
@@ -199,7 +229,7 @@ export class Settings extends Component {
                             source={require('../../assets/images/icon_menu_arrowforward.png')}/>
                     </TouchableOpacity>
                     <TouchableHighlight style={styles.logoutButtonStyle}
-                                        onPress={this.handleLinkPress(TERMS_URL).bind(this)}>
+                                        onPress={this.props.logout}>
                         <Text style={styles.logOutTextStyle}>{strings.label_button_logout}</Text>
                     </TouchableHighlight>
 
@@ -211,11 +241,10 @@ export class Settings extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    auth: state.get('auth'),
-    profile: state.get('profile'),
-    profileState: state.get('profileState'),
-    error: state.get('error')
-});
+Settings.propTypes = {
+    onUpdateProfileStatus: PropTypes.func,
+};
 
-export default connect(mapStateToProps)(Settings)
+export default compose(
+    connect(null, { logout }),
+)(Settings)

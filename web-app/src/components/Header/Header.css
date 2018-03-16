@@ -1,9 +1,19 @@
 .Header {
   display: flex;
+  flex-direction: column;
   align-self: stretch;
+}
+
+.Header-main-nav {
+  display: flex;
   flex-direction: row;
-  height: 60px;
+  height: 65px;
   background: #3e8ede;
+}
+
+.Header-filters-placeholder {
+  height: 56px;
+  color: #fff;
 }
 
 .Header-logo-container {
@@ -21,5 +31,5 @@
 
 .Header-button-container {
   display: flex;
-  position:relative;
+  position: relative;
 }

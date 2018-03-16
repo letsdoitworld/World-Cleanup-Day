@@ -92,7 +92,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>NSCameraUsageDescription</string>
 	<key>UIAppFonts</key>

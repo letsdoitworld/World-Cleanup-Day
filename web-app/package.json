@@ -8,9 +8,10 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-    "classnames": "2.2.5",
+    "classnames": "^2.2.5",
     "history": "4.6.3",
     "lodash": "^4.17.4",
+    "lodash.get": "^4.4.2",
     "moment": "2.18.1",
     "node-sass-chokidar": "^0.0.3",
     "prop-types": "^15.5.10",

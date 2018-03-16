@@ -12,13 +12,13 @@ export default class MainButton extends Component {
 
     render() {
 
-        const {style, disabled} = this.props;
+        const {style, disabled, isValid} = this.props;
 
         const normalColor = colors.$buttonDisableColor;
         const activeColor = colors.$mainBlue;
 
         const buttonBuiltStyle = {
-            backgroundColor: normalColor,
+            backgroundColor: isValid ? activeColor : normalColor,
         };
 
         return (

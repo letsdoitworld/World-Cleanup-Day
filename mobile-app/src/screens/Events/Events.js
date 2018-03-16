@@ -6,6 +6,7 @@ import {
     Animation,
     LayoutAnimation,
     ActivityIndicator,
+    Alert
 } from 'react-native';
 import styles from './styles';
 import {
@@ -115,12 +116,26 @@ class Events extends Component {
       }
   }
 
-  handleFabPress = () => {
-    this.props.navigator.showModal({
-        screen: CREATE_EVENT,
-        title: strings.label_create_events_step_one,
-      });
-  };
+    handleFabPress = () => {
+        const {isAuthenticated} = this.props;
+        if (isAuthenticated) {
+            this.props.navigator.showModal({
+                screen: CREATE_EVENT,
+                title: strings.label_create_events_step_one
+            });
+        } else {
+            Alert.alert(
+                'Oh no!',
+                'You need to be a registrated user\n' +
+                'in order to create events.',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'Register', onPress: this.handleLogInPress},
+                ],
+            )
+        }
+
+    };
 
 
   renderContent() {
@@ -167,6 +182,10 @@ class Events extends Component {
       );
   }
 
+    componentDidMount() {
+        this.loadEvents(0)
+    }
+
   componentWillUnmount() {
     const { onClearEventsAction } = this.props;
     onClearEventsAction();
@@ -182,7 +201,7 @@ class Events extends Component {
                       ref="input"
                       onChangeText={this.onQueryChange.bind(this)}
                       placeholder={strings.label_text_select_country_hint}
-                      underlineColorAndroid={'transparent'} 
+                      underlineColorAndroid={'transparent'}
                     />
                 </View>
             );
@@ -220,10 +239,12 @@ class Events extends Component {
 
 }
 
-Profile.propTypes = {
-  events: PropTypes.object,
-  onSearchEventsAction: PropTypes.func,
-  onClearEventsAction: PropTypes.func,
+Events.propTypes = {
+    events: PropTypes.object,
+    isAuthenticated: PropTypes.bool,
+    onSearchEventsAction: PropTypes.func,
+    onClearEventsAction: PropTypes.func,
+    onGuestLogIn: PropTypes.func,
 };
 
 export default Events;

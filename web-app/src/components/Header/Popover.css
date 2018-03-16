@@ -30,9 +30,6 @@
 .Popover {
   border-radius: 10px;
   background-color: #f6f8f9;
-  border-width: 0.5px;
-  border-image-source: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0));
-  border-image-slice: 1;
   width: 590px;
   display: flex;
   margin: auto;
@@ -48,9 +45,6 @@
   border-top-left-radius: 10px;
   width: 100%;
   background-color: #4a90e2;
-  border-width: 0.5px;
-  border-image-source: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0));
-  border-image-slice: 1;
   padding: 13px 24px 16px 24px;
   box-sizing: border-box;
 }
@@ -76,11 +70,8 @@
 }
 
 .Popover-hide {
-  width: 14px;
-  height: 14px;
   font-size: 24px;
-  font-weight: 100;
-  color: white;
+  cursor: pointer;
 }
 
 .Popover-divider {
@@ -92,12 +83,7 @@
 
 .Popover-img {
   width: 100%;
-  display: inline-block;
-}
-
-.Popover-img img {
-  height: 320px;
-  width: 590px;
+  height: 320px !important;
 }
 
 .Popover-login-item-container {
@@ -154,7 +140,7 @@
   width: 40px;
   height: 40px;
   vertical-align: middle;
-  filter: grayscale(1);
+  filter: grayscale(1) sepia(0.3);
 }
 
 .Popover-login-item span {

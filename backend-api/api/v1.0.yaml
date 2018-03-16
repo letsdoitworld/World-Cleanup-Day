@@ -690,7 +690,10 @@ parameters:
         email:
           description: Email address of contact permission
           type: string
-
+        records:
+         type: array
+         items:
+           type: string
   #-----------------------------------------------------------------------------
   MapQuery:
     name: query

@@ -64,7 +64,7 @@ class Landing extends Component {
       : ''}`;
     const HEADER_LINKS = [
       { title: 'Events', url: '/events', image: <EventsIcon /> },
-      { title: 'Trashpoints', url: '/areas', image: <BinIcon /> }
+      { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> }
     ];
     return (
       <div className="Landing">

@@ -55,7 +55,9 @@ export default class InputField extends ImmutableComponent {
             returnKeyType,
             reference,
             keyboardType,
-            autoCapitalize
+            autoCapitalize,
+            maxLength,
+            multiline
 
         } = this.props;
 
@@ -81,6 +83,8 @@ export default class InputField extends ImmutableComponent {
                     onChangeText={this.onChangeText}
                     style = {styles.textStyle}
                     onFocus={this.focusAcquired}
+                    maxLength = {maxLength}
+                    multiline = {multiline}
                     onBlur={this.focusLost}/>
             </View>
         );

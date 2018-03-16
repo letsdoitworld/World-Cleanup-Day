@@ -46,8 +46,17 @@ export const agreeToTerms = () => ({
 export const UPDATE_PROFILE_STATUS_ACTION = 'profile/UPDATE_PROFILE_PRIVACY_STATUS';
 export const updateProfileStatus = status => ({
   type: UPDATE_PROFILE_STATUS_ACTION,
-  status,
+  payload: status,
 });
 
 export const UPDATE_PROFILE_STATUS_SUCCESS = 'profile/UPDATE_PROFILE_STATUS_SUCCESS';
+export const updateProfileStatusDone = status => ({
+  type: UPDATE_PROFILE_STATUS_SUCCESS,
+  payload: status,
+});
+
 export const UPDATE_PROFILE_STATUS_ERROR = 'profile/UPDATE_PROFILE_STATUS_ERROR';
+export const updateProfileStatusError = err => ({
+  type: UPDATE_PROFILE_STATUS_ERROR,
+  payload: err,
+});

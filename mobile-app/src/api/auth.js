@@ -52,7 +52,6 @@ function facebookLogin() {
                         if (err) {
                           reject(err);
                         }
-                        console.log('FB auth User', res);
 
                         const email = res.email && res.email;
 

@@ -16,6 +16,7 @@ function* loginGoogle() {
         const accessToken = user.accessToken;
         const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.GOOGLE, accessToken);
         yield put(actions.setToken(cleanUpToken));
+        yield call(Api.setAuthToken, cleanUpToken);
     } catch (error) {
         appActions.setErrorMessage(String(error));
     }
@@ -41,6 +42,7 @@ function* loginFacebook() {
         const accessToken = token.accessToken;
         const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.FACEBOOK, accessToken);
         yield put(actions.setToken(cleanUpToken));
+        yield call(Api.setAuthToken, cleanUpToken);
     } catch (error) {
         appActions.setErrorMessage(String(error));
         //  if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {

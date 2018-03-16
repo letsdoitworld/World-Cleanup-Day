@@ -20,6 +20,7 @@ import {
     searchTrashPointsFlow,
     searchEventsFlow,
     loadLocationFlow,
+    autoRegidrateFlow,
 } from './sagas';
 
 
@@ -64,6 +65,7 @@ export default function configureStore() {
   return {
     ...store,
     runSaga: [
+      sagaMiddleware.run(autoRegidrateFlow),
       sagaMiddleware.run(loginGoogleFlow),
       sagaMiddleware.run(loginFacebookFlow),
       sagaMiddleware.run(updateProfileStatusFlow),

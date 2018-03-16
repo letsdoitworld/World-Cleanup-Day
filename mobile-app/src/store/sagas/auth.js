@@ -27,13 +27,9 @@ import {
 
 function* loginGoogle() {
   try {
-      console.warn("2")
     const user = yield call(Api.auth.googleLogin);
-      console.warn("3")
     const accessToken = user.accessToken;
-      console.warn("4 " + accessToken)
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.GOOGLE, accessToken);
-      console.warn("5 " + cleanUpToken)
     yield put(setToken(cleanUpToken));
   } catch (error) {
     setErrorMessage(String(error));
@@ -42,7 +38,6 @@ function* loginGoogle() {
 
 export function* loginGoogleFlow() {
   while (true) {
-      console.warn("1")
     yield take(GOOGLE_LOGIN_ACTION);
     yield call(loginGoogle);
 

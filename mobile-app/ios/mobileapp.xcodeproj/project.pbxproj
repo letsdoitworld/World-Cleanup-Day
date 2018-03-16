@@ -39,6 +39,8 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2E0E358B205AD3110055E393 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2E0E3559205AD3110055E393 /* GoogleService-Info.plist */; };
+		2E934F6F205BDD0F000AF295 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E934F3D205BDD0F000AF295 /* AdSupport.framework */; };
+		2E934F71205BDD1A000AF295 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E934F70205BDD1A000AF295 /* iAd.framework */; };
 		2E9833F020544A0C005ACEF9 /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E9833C2205449F2005ACEF9 /* Lato-Heavy.ttf */; };
 		2EAD16BC205ABC7900C9BEB9 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EAD16BA205AB51600C9BEB9 /* libRNGoogleSignin.a */; };
 		2EAD16C0205ABD4700C9BEB9 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2EAD16BD205ABD4600C9BEB9 /* GoogleSignIn.bundle */; };
@@ -510,6 +512,8 @@
 		2D02E47B1E0B4A5D006451C7 /* mobileapp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mobileapp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* mobileapp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mobileapp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E0E3559205AD3110055E393 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2E934F3D205BDD0F000AF295 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		2E934F70205BDD1A000AF295 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2E9833C2205449F2005ACEF9 /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
 		2EAD16BD205ABD4600C9BEB9 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = ../../../../Downloads/google_signin_sdk_4_1_2/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		2EAD16BE205ABD4600C9BEB9 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = ../../../../Downloads/google_signin_sdk_4_1_2/GoogleSignIn.framework; sourceTree = "<group>"; };
@@ -627,6 +631,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E934F71205BDD1A000AF295 /* iAd.framework in Frameworks */,
+				2E934F6F205BDD0F000AF295 /* AdSupport.framework in Frameworks */,
 				2EAD16C5205ABF8900C9BEB9 /* libz.tbd in Frameworks */,
 				77C0ED7868D142B5A7ACBBA4 /* SystemConfiguration.framework in Frameworks */,
 				7D7DFDF70DBA46F2A13C5667 /* AddressBook.framework in Frameworks */,
@@ -1001,6 +1007,8 @@
 		BA257C69204033FF00A5766B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E934F70205BDD1A000AF295 /* iAd.framework */,
+				2E934F3D205BDD0F000AF295 /* AdSupport.framework */,
 				2EAD16BD205ABD4600C9BEB9 /* GoogleSignIn.bundle */,
 				2EAD16BE205ABD4600C9BEB9 /* GoogleSignIn.framework */,
 				2EAD16BF205ABD4700C9BEB9 /* GoogleSignInDependencies.framework */,

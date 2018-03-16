@@ -49,6 +49,10 @@ FOR MORE DETAILS SEE [this](https://expo.canny.io/feature-requests/p/support-isr
  
 ## Known issues
 
+* CopyPlistFile build/Build/Products/Debug-iphonesimulator/mobileapp.app/GoogleService-Info.plist /Users/annaseverinovskaya/Documents/Downloads/GoogleService-Info.plist
+
+To fix put the GoogleService-Info.plist file from the mobile-app folder to Downloads.
+
 * https://github.com/oblador/react-native-vector-icons/issues/626
 
 To fix it use the command:

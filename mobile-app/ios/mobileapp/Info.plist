@@ -94,7 +94,9 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>NSCameraUsageDescription</string>
+	<string>$(PRODUCT_NAME) create event photo</string>
+  <key>NSCameraUsageDescription</key>
+  <string>$(PRODUCT_NAME) create event photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Heavy.ttf</string>

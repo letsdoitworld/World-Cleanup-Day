@@ -26,6 +26,7 @@
 		150C674A205A9D3100320E43 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C6718205A99E200320E43 /* Crashlytics.framework */; };
 		150C674B205A9F0200320E43 /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C6665205A937100320E43 /* libcxxreact.a */; };
 		150C674C205A9F0800320E43 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C665D205A937100320E43 /* libReact.a */; };
+		1548E1E1205BC60C0071FD4D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1548E1AF205BC60C0071FD4D /* AdSupport.framework */; };
 		17D77BED771448C7A4A722E1 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB7F4B6A14A46BF8F9C7BFA /* Feather.ttf */; };
 		19C1BE28F6D34835A88BA340 /* libReactNativeLocalization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AA01C92A9A4ADE8A23635A /* libReactNativeLocalization.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -504,6 +505,7 @@
 		150C664B205A937100320E43 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		150C6718205A99E200320E43 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "../../../../../Downloads/com.crashlytics.ios-manual/Crashlytics.framework"; sourceTree = "<group>"; };
 		150C6747205A99E200320E43 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = "../../../../../Downloads/com.crashlytics.ios-manual/Fabric.framework"; sourceTree = "<group>"; };
+		1548E1AF205BC60C0071FD4D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		1595D36A2059525F00F67A9B /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		17D11C876C2E464B9B8D4732 /* NotoSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Italic.ttf"; path = "../src/assets/fonts/NotoSans-Italic.ttf"; sourceTree = "<group>"; };
 		1E307AD1CD71469BB538C542 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1548E1E1205BC60C0071FD4D /* AdSupport.framework in Frameworks */,
 				2EAD16C5205ABF8900C9BEB9 /* libz.tbd in Frameworks */,
 				77C0ED7868D142B5A7ACBBA4 /* SystemConfiguration.framework in Frameworks */,
 				7D7DFDF70DBA46F2A13C5667 /* AddressBook.framework in Frameworks */,
@@ -1001,6 +1004,7 @@
 		BA257C69204033FF00A5766B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1548E1AF205BC60C0071FD4D /* AdSupport.framework */,
 				2EAD16BD205ABD4600C9BEB9 /* GoogleSignIn.bundle */,
 				2EAD16BE205ABD4600C9BEB9 /* GoogleSignIn.framework */,
 				2EAD16BF205ABD4700C9BEB9 /* GoogleSignInDependencies.framework */,

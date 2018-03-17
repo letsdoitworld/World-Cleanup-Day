@@ -68,8 +68,8 @@ class AddPeopleToEvent extends ImmutableComponent {
     }
 
     componentDidUpdate() {
-        const { createEvent, errorEvent } = this.props;
-        if (createEvent !== null && createEvent !== undefined) {
+        const { createdEvent, errorEvent } = this.props;
+        if (createdEvent !== null && createdEvent !== undefined) {
             Navigation.dismissModal()
         }
         if (errorEvent !== null && errorEvent !== undefined) {
@@ -160,7 +160,7 @@ class AddPeopleToEvent extends ImmutableComponent {
 }
 
 AddPeopleToEvent.propTypes = {
-    createEvent: PropTypes.object,
+    createdEvent: PropTypes.object,
     errorEvent: PropTypes.object,
     requestCreateEvent: PropTypes.func,
     requestCreateEventDone: PropTypes.func,

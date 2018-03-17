@@ -16,7 +16,6 @@ import Api from '../../api';
 function* createNewEvent(event) {
     try {
         const eventFromServer = yield call(Api.createEvent.createEvent, event);
-
         yield put(createEventDone(eventFromServer))
     } catch (error) {
         yield put(createEventError(error.message))

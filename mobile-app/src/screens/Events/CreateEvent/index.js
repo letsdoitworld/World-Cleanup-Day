@@ -8,7 +8,7 @@ import { getCreateEventEntity, getCreateEventError } from '../../../store/select
 import Component from './AddPeopleToEvent';
 
 const selector = createStructuredSelector({
-    createEvent: getCreateEventEntity,
+    createdEvent: getCreateEventEntity,
     errorEvent: getCreateEventError,
 });
 

@@ -1,15 +1,15 @@
 
 
 export const CREATE_EVENT_ACTION = 'CREATE_EVENT_ACTION';
-export const createEvent = event => ({
+export const createEvent = localEvent => ({
     type: CREATE_EVENT_ACTION,
-    event,
+    localEvent,
 });
 
 export const CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
 export const createEventDone = event => ({
     type: CREATE_EVENT_SUCCESS,
-    payload: event,
+    event,
 });
 
 export const CREATE_EVENT_ERROR = 'CREATE_EVENT_ERROR';

@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 const getState = state => state.toJS();
 
-export const createEventSelector = createSelector(getState, state => state.createEvent);
+const createEventSelector = createSelector(getState, state => state.createEvent);
 
 export const getCreateEventEntity = createSelector(
     createEventSelector,

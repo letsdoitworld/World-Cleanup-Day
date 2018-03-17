@@ -197,11 +197,8 @@ class AddTrashPoints extends Component {
     }
 
     isProgressEnabled() {
-        //return false;
         const { isLoading } = this.props;
-        console.warn("Progress", isLoading);
         return isLoading;
-        //return this.props.app.get('progress');
     }
 
     renderSeparator = () => {

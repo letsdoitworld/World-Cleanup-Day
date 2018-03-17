@@ -1,5 +1,5 @@
 export const GOOGLE_MAPS_API_KEY = 'AIzaSyD0AC9TcY3xdmRsc_atlSHRreEbnEbxPEA';
-export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.27&libraries=places,geometry&key=${GOOGLE_MAPS_API_KEY}`;
+export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.31&libraries=places,geometry&key=${GOOGLE_MAPS_API_KEY}`;
 export const DEFAULT_ZOOM_LEVEL = 18;
 export const NO_PERMISSION_ZOOM_LEVEL = 9;
 export const ESTONIA_CENTER_COORDINATES = { lat: 58.5953, lng: 25.0136 };

@@ -14,17 +14,17 @@ import {
 } from 'react-native';
 import styles from './styles'
 import strings from '../../assets/strings'
-import {connect} from "react-redux";
-// import {
-//     searchTrashPointsAction,
-//     clearTrashPointsAction
-// } from '../../store/actions/trashPoints'
 import ListItem from "./Item/ListItem";
 import PropTypes from "prop-types";
 import Profile from "../Profile/Profile";
+import {
+    ADD_COORDINATOR, ADD_LOCATION,
+    ADD_TRASH_POINTS_MAP
+} from "../index";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
+const mapId = 'mapId';
 
 const PAGE_SIZE = 15;
 
@@ -82,7 +82,12 @@ class AddTrashPoints extends Component {
                     buttonFontSize: 17,
                     buttonFontFamily: 'Lato-Bold',
                     disabled: isDisabled
+                },
+                {
+                    icon: require('../../../src/assets/images/ic_back.png'),
+                    id: mapId,
                 }
+
             ]
         })
 
@@ -100,7 +105,18 @@ class AddTrashPoints extends Component {
                     this.props.navigator.pop();
                     break;
                 }
-
+                case mapId: {
+                    this.props.navigator.push({
+                        screen: ADD_TRASH_POINTS_MAP,
+                        title: strings.label_add_trashPoints,
+                        passProps: {
+                            location: this.props.location,
+                            marked: this.marked,
+                            trashPoints: this.state.trashPoints,
+                        }
+                    });
+                    break;
+                }
             }
         }
     }

@@ -9,10 +9,10 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 0,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'outdated',
                             location: {
-                                longitude: 49,
-                                lantitude: 35,
+                                longitude: 35.0462,
+                                latitude: 48.4647,
                             },
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
@@ -21,8 +21,8 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             isIncluded: false,
                             status: 'threat',
                             location: {
-                                longitude: 49,
-                                lantitude: 35,
+                                longitude: 35.0460,
+                                latitude: 48.4647,
                             },
                             title: "fdfdffd",
                         },
@@ -32,7 +32,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -42,7 +42,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -52,7 +52,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -62,7 +62,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -72,7 +72,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -82,7 +82,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
@@ -92,7 +92,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -102,7 +102,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -112,7 +112,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -122,7 +122,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -132,7 +132,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -142,7 +142,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -152,7 +152,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
                         },
@@ -162,7 +162,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -172,7 +172,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -182,7 +182,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -192,7 +192,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -202,7 +202,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         },
@@ -212,7 +212,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                             status: 'threat',
                             location: {
                                 longitude: 49,
-                                lantitude: 35,
+                                latitude: 35,
                             },
                             title: "fdfdffd",
                         }

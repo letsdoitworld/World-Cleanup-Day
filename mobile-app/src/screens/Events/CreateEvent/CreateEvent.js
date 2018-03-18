@@ -62,6 +62,7 @@ export default class CreateEvent extends ImmutableComponent {
                 imageUrl: '',
                 startDate: this.calculateMinDate(),
                 endDate: this.calculateMinDate(),
+                selectedLocation: undefined
             })
         };
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -265,13 +266,22 @@ export default class CreateEvent extends ImmutableComponent {
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_trashpoints.toUpperCase()}</Text>
                     </View>
-                    <TouchableOpacity onPress={this.onAddTrashPointsClick.bind(this)}>
-                        <View style={styles.trashpointTipStyle}>
-                            <Image source={require('../../../assets/images/ic_trashpoints.png')}
-                                   style={styles.imageTrashStyle}/>
-                            <Text style={styles.textTrashStyle}>{strings.label_tip_add_trashpoints}</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        (this.state.data.get('selectedLocation') === undefined) ?
+                            <View style={styles.trashpointTipStyle}>
+                                <Image source={require('../../../assets/images/ic_trashpoints.png')}
+                                       style={styles.imageTrashStyle}/>
+                                <Text style={styles.textTrashStyle}>{strings.label_tip_add_trashpoints}</Text>
+                            </View>
+                            :
+                            <TouchableOpacity onPress={this.onAddTrashPointsClick.bind(this)}>
+                                <View style={styles.locationContainerStyle}>
+                                    <Image source={require('../../../assets/images/ic_trashpoints.png')}
+                                           style={styles.imageTrashStyle}/>
+                                    <Text style={styles.textTrashStyle}>{strings.label_add_trashPoints}</Text>
+                                </View>
+                            </TouchableOpacity>
+                    }
                     {this.renderDescriptionTitle()}
                     <View style={styles.descriptionContainerStyle}>
                         <InputField style={styles.inputTextStyle}
@@ -371,13 +381,9 @@ export default class CreateEvent extends ImmutableComponent {
             screen: ADD_TRASH_POINTS,
             title: strings.label_add_trashPoints,
             passProps: {
-                //todo: pass some location for search order
-                location: {
-                    latitude: 48.8152937,
-                    longitude: 2.4597668,
-                },
+                location: this.state.data.get('selectedLocation'),
                 selectedTrashPoints: this.trashPoints,
-                onTrashPointsSelected: this.onTrashPointsSelected.bind(this),
+                onTrashPointsSelected: this.onTrashPointsSelected.bind(this)
             }
         });
     };
@@ -391,7 +397,7 @@ export default class CreateEvent extends ImmutableComponent {
     }
 
     onLocationSelected(location) {
-        console.log(location)
+        this.setData(d => d.set('selectedLocation', location));
     }
 
     onTitleTextChanged = (text: String) => {

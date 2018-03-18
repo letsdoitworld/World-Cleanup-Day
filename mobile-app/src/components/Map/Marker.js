@@ -8,11 +8,11 @@ import MapView from 'react-native-maps';
 import styles from './styles';
 
 export const MARKER_STATUS_IMAGES = {
-    cleaned: require('./images/pointer_cleaned.png'),
-    outdated: require('./images/pointer_outdated.png'),
-    regular: require('./images/pointer_regular.png'),
-    threat: require('./images/pointer_threat.png'),
-    user: require('./images/location_pointer.png'),
+    cleaned: require('./images/status/icActiveCleanedTrashpointMap.png'),
+    outdated: require('./images/status/icActiveInactiveTrashpointMap.png'),
+    regular: require('./images/status/icActiveRegularTrashpointMap.png'),
+    threat: require('./images/status/icActiveToxicTrashpointMap.png'),
+    user: require('./images/status/icActiveInactiveToxicTrashpointMap.png'),
     changeLocation: require('./images/change_location_pin.png'),
 };
 

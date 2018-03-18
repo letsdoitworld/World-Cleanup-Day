@@ -11,19 +11,20 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import styles from './styles'
-import {Map} from '../../../components/Map/Map';
+import {Map as MapView} from '../../../components/Map/Map';
 import {DEFAULT_ZOOM} from "../../../shared/constants";
 import strings from "../../../assets/strings";
-import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
+import {renderItem} from '../Item/ListItem';
+import {ADD_TRASH_POINTS} from "../../index";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
 
 export default class AddTrashPointsMap extends Component {
 
-    marked = new Map();
-
     static navigatorStyle = styles.navigatorStyle;
+
+    marked = new Map();
 
     static navigatorButtons = {
         leftButtons: [
@@ -41,35 +42,44 @@ export default class AddTrashPointsMap extends Component {
                 buttonFontFamily: 'Lato-Bold',
             },
         ]
-
     };
 
     constructor(props) {
         super(props);
-        const {location, marked, trashPoints} = props;
+        const {location, selectedTrashPoints, trashPoints} = props;
 
-        const markers = trashPoints.map((trashPoint)=> {
+        selectedTrashPoints.forEach((trashPoint) => {
+            this.marked.set(trashPoint.id, trashPoint)
+        });
+
+        const markers = trashPoints.map((trashPoint) => {
             return {
                 id: trashPoint.id,
                 latlng: trashPoint.location,
-                status: trashPoint.status
+                status: trashPoint.status,
+                isMarked: this.marked.has(trashPoint.id),
+                item: trashPoint
             }
         });
 
         this.state = {
-            markers: markers,
-            //  region: null,
-            initialRegion: {
-                latitude: location.latitude,
-                longitude: location.longitude,
-                latitudeDelta: DEFAULT_ZOOM,
-                longitudeDelta: DEFAULT_ZOOM,
-            },
+            markers,
+            selectedItem: undefined
         };
 
+        this.initialRegion = {
+            latitude: this.props.location.latitude,
+            longitude: this.props.location.longitude,
+            latitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+        };
 
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    componentDidUpdate() {
+
     }
 
     onNavigatorEvent(event) {
@@ -80,36 +90,86 @@ export default class AddTrashPointsMap extends Component {
                     break;
                 }
                 case saveId: {
-
+                    this.props.onMapTrashPointsSaved(this.marked);
+                    this.props.navigator.pop();
                     break;
                 }
             }
         }
     }
 
-    onMapPress = (e) => {
-        const coordinate = e.nativeEvent.coordinate;
-        const longitude = coordinate.longitude;
-        const latitude = coordinate.latitude;
+    onCheckedChanged(checked, item) {
+        if (checked) {
+            this.marked.set(item.id, item)
+        } else {
+            this.marked.delete(item.id)
+        }
 
-        // this.updateMarkerInState({
-        //     latitude,
-        //     longitude
-        // })
+        const markers = this.props.trashPoints.map((trashPoint) => {
+            return {
+                id: trashPoint.id,
+                latlng: trashPoint.location,
+                status: trashPoint.status,
+                isMarked: this.marked.has(trashPoint.id),
+                item: trashPoint
+            }
+        });
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                markers
+            };
+        });
+
     };
 
     render() {
+
+        const {selectedItem} = this.state;
+
+        const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
+
         return (
             <View style={styles.container}>
-                <Map
-                    // region={this.state.region}
-                    // onPress={this.onMapPress.bind(this)}
+                <MapView
+                    handleOnMarkerPress={(marker) => {
+                        this.setState(previousState => {
+                            return {
+                                ...previousState,
+                                selectedItem: marker.item
+                            };
+                        });
+                    }}
                     markers={this.state.markers}
-                    initialRegion={this.state.initialRegion}
+                    initialRegion={this.initialRegion}
+                    region={this.initialRegion}
                     style={styles.map}
                     getRef={(map) => this.map = map}/>
+                {this.renderSelectedItem(selectedItem, checked)}
             </View>
         );
+    }
+
+    renderSelectedItem(selectedItem, checked) {
+
+        if (checked === undefined) return null;
+
+        if (selectedItem) {
+
+            const onPress = () => {
+
+            };
+
+            return renderItem(
+                selectedItem,
+                checked,
+                styles.trashPointItem,
+                onPress,
+                this.onCheckedChanged.bind(this)
+            )
+        } else {
+            return null
+        }
     }
 
 }

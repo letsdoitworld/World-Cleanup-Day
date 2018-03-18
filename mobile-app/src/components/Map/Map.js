@@ -17,8 +17,9 @@ export class Map extends Component {
                     <Marker
                         marker={marker}
                         key={marker.id}
-                        onMarkerPress={handleOnMarkerPress}
-                    />
+                        onMarkerPress={(obj) => {
+                            handleOnMarkerPress(marker)
+                        }}/>
                 );
             });
     };

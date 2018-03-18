@@ -7,13 +7,20 @@ import MapView from 'react-native-maps';
 
 import styles from './styles';
 
-export const MARKER_STATUS_IMAGES = {
+export const MARKER_MARKED_STATUS_IMAGES = {
     cleaned: require('./images/status/icActiveCleanedTrashpointMap.png'),
     outdated: require('./images/status/icActiveInactiveTrashpointMap.png'),
     regular: require('./images/status/icActiveRegularTrashpointMap.png'),
     threat: require('./images/status/icActiveToxicTrashpointMap.png'),
     user: require('./images/status/icActiveInactiveToxicTrashpointMap.png'),
-    changeLocation: require('./images/change_location_pin.png'),
+};
+
+export const MARKER_STATUS_IMAGES = {
+    cleaned: require('./images/status/icInactiveCleanedTrashpointMap.png'),
+    outdated: require('./images/status/icInactiveInactiveTrashpointMap.png'),
+    regular: require('./images/status/icInactiveRegularTrashpointMap.png'),
+    threat: require('./images/status/icInactiveToxicTrashpointMap.png'),
+    user: require('./images/status/icInactiveInactiveToxicTrashpointMap.png'),
 };
 
 const TRASHPILE_MARKER_OFFSET = {
@@ -46,9 +53,17 @@ export default class Marker extends Component {
 
         let markerImage;
         if (marker.status === undefined || marker.status === null) {
-            markerImage = require('../../assets/images/icLocationPinActive.png')
+            if (marker.isMarked === true || marker.isMarked === undefined) {
+                markerImage = require('../../assets/images/icLocationPinActive.png')
+            } else {
+                markerImage = require('../../assets/images/icLocationPinInactive.png')
+            }
         } else {
-            markerImage = MARKER_STATUS_IMAGES[marker.status]
+            if (marker.isMarked) {
+                markerImage = MARKER_MARKED_STATUS_IMAGES[marker.status]
+            } else {
+                markerImage = MARKER_STATUS_IMAGES[marker.status]
+            }
         }
 
         return (

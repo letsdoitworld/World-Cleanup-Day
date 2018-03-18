@@ -17,8 +17,8 @@ import strings from '../../assets/strings'
 import ListItem from "./Item/ListItem";
 import PropTypes from "prop-types";
 import Profile from "../Profile/Profile";
+import {isLoading} from "../../store/selectors";
 import {
-    ADD_COORDINATOR, ADD_LOCATION,
     ADD_TRASH_POINTS_MAP
 } from "../index";
 
@@ -87,7 +87,6 @@ class AddTrashPoints extends Component {
                     icon: require('../../../src/assets/images/ic_back.png'),
                     id: mapId,
                 }
-
             ]
         })
 
@@ -141,7 +140,6 @@ class AddTrashPoints extends Component {
             this.setState(previousState => {
                 return { trashPoints: receivedTrashPointsList }
             });
-            //this.setData(d => d.set('trashPoints', receivedTrashPointsList));
         } else {
 
             const filteredReceivedTrashPoints = receivedTrashPointsList
@@ -154,7 +152,6 @@ class AddTrashPoints extends Component {
             this.setState(previousState => {
                 return { trashPoints: trashPoints }
             });
-            //this.setData(d => d.set('trashPoints', trashPoints));
         }
 
     }
@@ -214,8 +211,7 @@ class AddTrashPoints extends Component {
     }
 
     isProgressEnabled() {
-        return false;
-        //return this.props.app.get('progress');
+        return this.props.isLoading;
     }
 
     renderSeparator = () => {
@@ -303,6 +299,7 @@ function debounce(func, wait, immediate) {
 
 Profile.propTypes = {
     trashPoints: PropTypes.object,
+    isLoading: PropTypes.object,
     onSearchTrashPointsAction: PropTypes.func,
     onClearTrashPointsAction: PropTypes.func,
 };

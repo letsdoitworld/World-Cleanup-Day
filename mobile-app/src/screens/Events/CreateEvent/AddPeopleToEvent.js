@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 import {
-    View, Text,
+    View, Text, Alert
 } from 'react-native';
 import styles from "./styles";
 import strings from "../../../assets/strings";
@@ -68,18 +68,25 @@ class AddPeopleToEvent extends ImmutableComponent {
     }
 
     componentDidUpdate() {
-        const { createEvent, errorEvent } = this.props;
-        if (createEvent !== null && createEvent !== undefined) {
+        const { createdEvent, errorEvent } = this.props;
+        if (createdEvent !== null && createdEvent !== undefined) {
             Navigation.dismissModal()
         }
         if (errorEvent !== null && errorEvent !== undefined) {
-            //TODO fix me!!
+            Alert.alert(
+                'Error',
+                errorEvent,
+                [
+                    {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}
+                ],
+            )
         }
     }
 
     componentWillUnmount() {
-        const { requestCreateEventDone } = this.props;
-        requestCreateEventDone(undefined)
+        const { requestCreateEventDone, requestCreateEventError } = this.props;
+        requestCreateEventDone(undefined);
+        requestCreateEventError(null)
     }
 
     renderNumberAttendeesTitle() {
@@ -153,7 +160,7 @@ class AddPeopleToEvent extends ImmutableComponent {
 }
 
 AddPeopleToEvent.propTypes = {
-    createEvent: PropTypes.object,
+    createdEvent: PropTypes.object,
     errorEvent: PropTypes.object,
     requestCreateEvent: PropTypes.func,
     requestCreateEventDone: PropTypes.func,

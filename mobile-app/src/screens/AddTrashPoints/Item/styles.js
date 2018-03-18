@@ -6,7 +6,7 @@ export default {
     },
     itemTouchIncluded: {
         height: 79,
-        backgroundColor: "rgb(232, 232, 232)"
+        backgroundColor: "rgb(255, 255, 255)"
     },
     itemContent: {
         flexDirection: 'row',

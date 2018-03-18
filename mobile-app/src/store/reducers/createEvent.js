@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import { createReducer } from '../helpers/createReducer';
+import {createReducer} from '../helpers/createReducer';
 
 import {
     CREATE_EVENT_ACTION,
@@ -12,6 +12,7 @@ import {
 export const initialState = Immutable.Map(
     {
         event: null,
+        localEvent: null,
         loading: false,
         error: null,
     },
@@ -19,10 +20,11 @@ export const initialState = Immutable.Map(
 
 
 const handlers = {
-    [CREATE_EVENT_ACTION]: (state) => {
+    [CREATE_EVENT_ACTION]: (state , {event}) => {
         return state.withMutations(mState =>
             mState
-                .set('loading', true));
+                .set('loading', true)
+                .set('localEvent', event));
     },
     [CREATE_EVENT_SUCCESS]: (state, {event}) => {
         return state.withMutations(mState =>
@@ -30,7 +32,7 @@ const handlers = {
                 .set('loading', false)
                 .set('event', event));
     },
-    [CREATE_EVENT_ERROR]: (state, { payload }) => {
+    [CREATE_EVENT_ERROR]: (state, {payload}) => {
         return state.withMutations(mState =>
             mState.set('error', payload));
     },

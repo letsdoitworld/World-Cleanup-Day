@@ -66,10 +66,6 @@ export class Settings extends Component {
       });
   };
 
-  componentDidMount() {
-        // this.props.dispatch(userActions.fetchProfile());
-  }
-
   handleCountryItemPress = () => {
     this.setState(prevState => ({
         showCountryModal: !prevState.showCountryModal,

@@ -286,7 +286,7 @@ function debounce(func, wait, immediate) {
 
 Profile.propTypes = {
     trashPoints: PropTypes.object,
-    isLoading: PropTypes.object,
+    isLoading: PropTypes.bool,
     onSearchTrashPointsAction: PropTypes.func,
     onClearTrashPointsAction: PropTypes.func,
 };

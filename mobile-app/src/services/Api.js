@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../config/store';
-import { operations as appOperations } from '../reducers/app';
+import { operations as appOperations, selectors as appSelectors } from '../reducers/app';
 import { operations as userOps } from '../reducers/user';
 import { GENERIC_SERVER_ERROR, ERRORS } from '../shared/constants';
 import { resetTo, rootNav } from '../services/Navigation';
@@ -28,7 +28,9 @@ export const handleApiError = (error) => {
     )} [${error.response.status}]`;
     store.dispatch(appOperations.setErrorMessage(message));
   } else {
-    store.dispatch(appOperations.setErrorMessage(error.message));
+    if (!appSelectors.isNoLackConnectionAlert) {
+      store.dispatch(appOperations.setErrorMessage(error.message));
+    }
   }
 };
 

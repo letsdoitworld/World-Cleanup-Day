@@ -24,20 +24,7 @@ const mapDispatch = {
   setConnectionChecked: appOps.setConnectionChecked,
   updateNetworkStatus: appOps.updateNetworkStatus,
   updateSyncStatus: appOps.updateSyncStatus,
-  updateLackConnMessStatus: appOps.updateLackConnMessStatus
-};
-
-const CONNECTION_CHECK_INTERVAL = 10; // seconds
-
-const mapState = (state) => {
-  return {
-    isConnected: appSels.isConnected(state),
-    connectionChecked: appSels.wasConnectionChecked(state),
-  };
-};
-const mapDispatch = {
-  setConnectionChecked: appOps.setConnectionChecked,
-  updateNetworkStatus: appOps.updateNetworkStatus,
+  updateLackConnMessStatus: appOps.updateLackConnMessStatus,
 };
 
 export const withNetworkGuard = () => (WrappedComponent) => {
@@ -86,8 +73,8 @@ export const withNetworkGuard = () => (WrappedComponent) => {
           this.handleSyncStatusChanged(false);
         }
 
-        if(this.props.isNoLackConnectionAlert && isConnected) {
-          this.props.updateLackConnMessStatus(false);
+        if (this.props.isNoLackConnectionAlert && isConnected) {
+          this.props.updateLackConnMessStatus(!1);
         }
 
       }, 1000 * CONNECTION_CHECK_INTERVAL);
@@ -108,7 +95,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       this.props.updateNetworkStatus(isConnected);
     }
     handleCloseAlertModal() {
-      this.props.updateLackConnMessStatus(true);
+      this.props.updateLackConnMessStatus(!0);
     }
     checkConnection = async () => {
       let isConnected = await NetInfo.isConnected.fetch();

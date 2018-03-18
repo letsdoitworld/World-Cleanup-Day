@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { CountryModal } from './components/CountryModal';
 import strings from '../../config/strings';
-import ToggleSwitch from 'toggle-switch-react-native';
+import Switch from '../../components/iosLikeSwitch/IosLikeSwitch'
 
 // import {
 //   operations as userOps,
@@ -65,10 +65,6 @@ export class Settings extends Component {
         showCountryModal: false,
       });
   };
-
-  componentDidMount() {
-        // this.props.dispatch(userActions.fetchProfile());
-  }
 
   handleCountryItemPress = () => {
     this.setState(prevState => ({
@@ -194,12 +190,11 @@ export class Settings extends Component {
                 <View style={styles.itemStyle}>
                     <Text style={styles.textItemStyle}>{strings.label_private_profile}</Text>
                     <View style={styles.switchStyle}>
-                        <ToggleSwitch
-                            isOn={isPrivateProfile}
-                            onColor={colors.$toggleOnColor}
-                            offColor={colors.$toggleOffColor}
-                            onToggle={isOn => this.handlePrivacyPress(isOn)}
-                        />
+                        <Switch
+                            width={50}
+                            height={30}
+                            defaultValue={isPrivateProfile}
+                            onSyncPress={isOn => this.handlePrivacyPress(isOn)}/>
                       </View>
                   </View>
                 <View style={styles.titleStyle}>
@@ -207,8 +202,7 @@ export class Settings extends Component {
                   </View>
                 <TouchableOpacity
                     style={styles.itemStyle}
-                    onPress={this.handleLinkPress(TERMS_URL).bind(this)}
-                  >
+                    onPress={this.handleLinkPress(TERMS_URL).bind(this)}>
                     <Text style={styles.textItemStyle}>{strings.label_header_tc}</Text>
                     <Image
                         style={styles.arrowItemStyle}
@@ -217,18 +211,15 @@ export class Settings extends Component {
                   </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.itemStyle}
-                    onPress={this.handleLinkPress(PRIVACY_URL)}
-                  >
+                    onPress={this.handleLinkPress(PRIVACY_URL)}>
                     <Text style={styles.textItemStyle}>{strings.label_privacy_policy_header}</Text>
                     <Image
                         style={styles.arrowItemStyle}
-                        source={require('../../assets/images/icon_menu_arrowforward.png')}
-                        />
+                        source={require('../../assets/images/icon_menu_arrowforward.png')}/>
                   </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.itemStyle}
-                    onPress={this.handleAboutPress}
-                  >
+                    onPress={this.handleAboutPress}>
                     <Text style={styles.textItemStyle}>{strings.label_about_world_cleanup_day}</Text>
                     <Image
                         style={styles.arrowItemStyle}

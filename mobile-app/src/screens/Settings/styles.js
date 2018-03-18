@@ -84,7 +84,7 @@ export default {
         alignSelf: 'center'
     },
     switchStyle: {
-        width: 51,
+        width: 52,
         marginRight: getWidthPercentage(15),
         alignSelf: 'center'
     }
@@ -101,7 +101,6 @@ export const listItemProps = {
     chevronColor: '#3E8EDE',
     //titleStyle: styles.title,
     subtitleStyle: {
-        // fontFamily: 'noto-sans-bold',
         fontSize: 15,
         color: 'black',
     },

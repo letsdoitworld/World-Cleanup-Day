@@ -63,8 +63,7 @@ class Events extends Component {
     }
 
     isSearchFieldVisible() {
-        return false;
-        // return this.state.isSearchFieldVisible
+        return this.state.isSearchFieldVisible
     }
 
     toggleSearchFieldVisibility() {
@@ -166,8 +165,8 @@ class Events extends Component {
     };
 
     isProgressEnabled() {
-        return false;
-        // return this.props.app.get('progress');
+        const { isLoading } = this.props;
+        return isLoading;
     }
 
     renderProgress() {
@@ -245,7 +244,8 @@ class Events extends Component {
 }
 
 Events.propTypes = {
-    events: PropTypes.object,
+    events: PropTypes.array,
+    isLoading: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
     onSearchEventsAction: PropTypes.func,
     onClearEventsAction: PropTypes.func,

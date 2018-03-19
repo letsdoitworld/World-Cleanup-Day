@@ -18,11 +18,12 @@ class OfflineService {
   }
 
   saveTrashpoint = async (url, newMarker, photos, deletedPhotos) => {
+    const { location: { longitude, latitude } } = newMarker;
     if (!newMarker.address || newMarker.address.length < 1) {
       newMarker.address = ' ';
     }
     if (!newMarker.name || newMarker.name.length < 1) {
-      newMarker.name = ' ';
+      newMarker.name = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
     }
     await this.executeSql('INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
       url,

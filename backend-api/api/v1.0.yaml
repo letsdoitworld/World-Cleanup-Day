@@ -113,10 +113,10 @@ paths:
   #-----------------------------------------------------------------------------
   /event:
     x-swagger-router-controller: events
-    x-security: [bearer]
     put:
       description: Create new event, needed to organize people to clean garbage.
       operationId: createEvent
+      x-security: [bearer]
       parameters:
         - $ref: "#/parameters/CreateEvent"
       responses:
@@ -126,6 +126,22 @@ paths:
               "type": "object"
           "default":
             $ref: "#/responses/ErrorSet"
+
+  #-----------------------------------------------------------------------------
+  /events/user:
+    x-swagger-router-controller: events
+    get:
+      description: Fetch full information about events associated to the authenticated user.
+      operationId: getUserOwnEvents
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/responses/UserEvents"
+        "default":
+          $ref: "#/responses/ErrorSet"
 
   #-----------------------------------------------------------------------------
   /datasets:
@@ -779,6 +795,12 @@ responses:
           type:
             description: The type of resource.
             $ref: "#/definitions/TrashImageType"
+
+  UserEvents:
+    description: List of events for user consumption.
+    schema:
+      $ref: "#/definitions/PaginatedEvents"
+
   ErrorSet:
     description: Contains errors.
     schema:
@@ -899,6 +921,22 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/BriefTrashpoint"
+
+  PaginatedEvents:
+    type: object
+    required: [total, pageSize, pageNumber, records]
+    properties:
+      total:
+        $ref: "#/definitions/PageTotal"
+      pageSize:
+        $ref: "#/definitions/PageSize"
+      pageNumber:
+        $ref: "#/definitions/PageNumber"
+      records:
+        type: array
+        items:
+          $ref: "#/definitions/Event"
+
   PaginatedAreaTrashpoints:
     allOf:
     - $ref: "#/definitions/PaginatedTrashpoints"
@@ -1086,6 +1124,22 @@ definitions:
         description: The type of objects contained in this dataset.
         type: string
         enum: [trashpoints]
+
+  #-----------------------------------------------------------------------------
+  # Event characteristics.
+  #-----------------------------------------------------------------------------
+  Event:
+    description: A collection of data objects with a common internal structure.
+    type: object
+    required: [id]
+    properties:
+      id:
+        $ref: "#/definitions/UUID"
+      type:
+        description: The type of objects contained in this event.
+        type: string
+        enum: [events]
+
   #-----------------------------------------------------------------------------
   # Grid data.
   #-----------------------------------------------------------------------------

@@ -43,14 +43,37 @@ const layer = {
     //========================================================
     // Events
     //========================================================
-    createEvent: async (event) => {
+    createEvent: async (userId, event) => {
         const id = util.uuid.random();
-        await adapter.createDocument('Event', id, event);
+        await adapter.createDocument('Event', id, event, {
+          createDate: util.time.getNowUTC(),
+          createdBy: userId
+        });
         return await layer.getEvent(id);
     },
 
     getEvent: async id => {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
+    },
+
+    getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byCreatingUser/_view/view',
+        {
+          sorted: true,
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          startkey: [userId, {}],
+          endkey: [userId],
+          limit: pageSize,
+          skip: pageSize * (pageNumber - 1),
+        });
+    },
+
+    countUserEvents: async userId => {
+      const ret = await adapter.getRawDocs('Event', '_design/countByCreatingUser/_view/view', { key: userId });
+      if (!ret.length) return 0;
+      return parseInt(ret.pop());
     },
 
     //========================================================

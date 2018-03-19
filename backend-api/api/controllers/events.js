@@ -7,5 +7,12 @@ module.exports = {
     req => ({
       event: req.swagger.params.event.value
     })
+  ),
+  getUserOwnEvents: senecaRequestMw(
+    'role:db,cmd:getUserOwnEvents',
+    req => ({
+      pageSize: req.swagger.params.pageSize.value,
+      pageNumber: req.swagger.params.pageNumber.value
+    })
   )
 }

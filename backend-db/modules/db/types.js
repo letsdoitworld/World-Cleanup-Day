@@ -107,7 +107,9 @@ class Event extends Type {
             startTime: true,
             endTime: true,
             email: true,
-            trashpoints: true
+            trashpoints: true,
+            createdBy: true,
+            updatedBy: true,
         });
     }
 }

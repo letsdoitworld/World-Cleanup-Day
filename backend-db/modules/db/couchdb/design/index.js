@@ -284,7 +284,32 @@ const designDocs = {
                   },
               },
           },
-      }
+      },
+      byCreatingUser: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.createdBy, doc.createdAt], doc);
+              }
+            },
+          },
+        },
+      },
+      countByCreatingUser: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit(doc.createdBy, null);
+              }
+            },
+            reduce: '_count',
+          },
+        },
+      },
     },
     trashpoints: {
         all: {

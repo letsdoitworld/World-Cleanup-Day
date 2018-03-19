@@ -62,7 +62,7 @@ module.exports = function () {
       .use(async function ({pageSize, pageNumber}, responder) {
         const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
         const records = events.map(mapEvent).map((e) =>
-          _.pick(e, ['id', 'name', 'address', 'location', 'description', 'startTime', 'endTime', 'email',
+          _.pick(e, ['id', 'name', 'address', 'location', 'description', 'startTime', 'endTime', 'email', 'phonenumber',
             'whatToBring', 'maxPeopleAmount', 'peopleAmount']));
         const total = await db.countUserEvents(__.user.id);
         return responder.success({ total, pageSize, pageNumber, records });

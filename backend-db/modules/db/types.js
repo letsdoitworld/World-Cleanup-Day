@@ -107,6 +107,7 @@ class Event extends Type {
             startTime: true,
             endTime: true,
             email: true,
+            phonenumber: true,
             trashpoints: true,
             maxPeopleAmount: true,
             peoples: true,

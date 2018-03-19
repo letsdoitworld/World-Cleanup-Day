@@ -673,7 +673,7 @@ parameters:
     required: true
     schema:
       type: object
-      required: [datasetId, location, name, address, description, whatToBring, maxPeopleAmount]
+      required: [datasetId, location, name, address, phonenumber, description, whatToBring, maxPeopleAmount]
       properties:
         datasetId:
           $ref: "#/definitions/UUID"
@@ -705,6 +705,9 @@ parameters:
           $ref: "#/definitions/ISOTimestamp"
         email:
           description: Email address of contact permission
+          type: string
+        phonenumber:
+          description: Phone number of contact permission
           type: string
         maxPeopleAmount:
           description: Max amount of people
@@ -1171,6 +1174,9 @@ definitions:
         $ref: "#/definitions/ISOTimestamp"
       email:
         description: Email address of contact permission
+        type: string
+      phonenumber:
+        description: Phone number of contact permission
         type: string
       maxPeopleAmount:
         description: Max amount of people

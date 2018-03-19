@@ -7,6 +7,9 @@ module.exports = {
     AUTH_UNKNOWN_REMOTE_AUTHORITY: {
         message: ({authority}) => `Unknown remote authority '${authority}'.`,
     },
+    AUTH_NO_PERMISSIONS: {
+        message: () => `You have no permissions for getting this data.`,
+    },
     AUTH_REMOTE_ERROR: {
         message: ({message}) => `An error has occured while querying a remote authority: ${message}`,
     },

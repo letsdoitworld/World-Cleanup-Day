@@ -105,7 +105,7 @@
   "label_camera_permission_warning_android": "E' necessario modificare i permessi dell'accesso alla fotocamera. Per fare questo, vai su Impostazioni>Applicazioni",
   "label_camera_error_title": "Accesso negato alla fotocamera",
   "label_error_modal_default_title": "Oh no!",
-  "label_error_modal_default_subtitle": "Abbiamo rilevato un errore del server!",
+  "label_error_modal_default_subtitle": "La balena ha rilevato un errore del server!",
   "label_location_permission_warning_ios": "È necessario modificare i permessi di localizzazione. Per fare questo, vai su Impostazioni > Privacy> Servizi di localizzazione.",
   "label_location_permission_warning_android": "È necessario modificare i permessi di localizzazione. Per fare questo, vai su Impostazioni > applicazioni.",
   "label_location_off_warning": "I servizi di localizzazione sono disattivati. Si prega di attivare il GPS nelle Impostazioni per usare l'applicazione.",

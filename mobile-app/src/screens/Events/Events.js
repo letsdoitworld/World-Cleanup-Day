@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import {
-    CREATE_EVENT,
+    CREATE_EVENT, EVENTS_MAP,
     EVENTS_NAV_BAR,
 } from '../index';
 import strings from '../../assets/strings';
@@ -21,6 +21,7 @@ import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
 import Profile from '../Profile/Profile';
+import EventsMap from "./Map/EventsMap";
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -152,7 +153,9 @@ class Events extends Component {
                 );
             }
             case MODE.map: {
-                return null;
+                return (<EventsMap
+                    events={this.props.events}
+                    location={this.props.userCoord}/>);
             }
             default:
                 return null;
@@ -245,6 +248,7 @@ class Events extends Component {
 
 Events.propTypes = {
     events: PropTypes.array,
+    userCoord: PropTypes.object,
     isLoading: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
     onSearchEventsAction: PropTypes.func,

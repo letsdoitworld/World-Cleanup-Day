@@ -15,7 +15,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             place: {
                                 location: {
                                     longitude: 49,
-                                    lantitude: 35,
+                                    latitude: 35,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -33,8 +33,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 40,
+                                    latitude: 38,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -52,8 +52,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 40,
+                                    latitude: 40,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -72,7 +72,7 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             place: {
                                 location: {
                                     longitude: 49,
-                                    lantitude: 35,
+                                    latitude: 49,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -90,8 +90,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 47,
+                                    latitude: 37,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -109,8 +109,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 47,
+                                    latitude: 39,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -128,8 +128,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 52,
+                                    latitude: 30,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -147,8 +147,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 49.505,
+                                    latitude: 34.002,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -166,8 +166,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 49.006,
+                                    latitude: 32,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -185,8 +185,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 43,
+                                    latitude: 33,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -204,8 +204,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 43,
+                                    latitude: 37,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -223,8 +223,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 50,
+                                    latitude: 30,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -242,8 +242,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 44,
+                                    latitude: 34,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -261,8 +261,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 45,
+                                    latitude: 35,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -280,8 +280,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 55,
+                                    latitude: 35,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -299,8 +299,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 58,
+                                    latitude: 38,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -318,8 +318,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 49.600,
+                                    latitude: 35.400,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -337,8 +337,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 39.90,
+                                    latitude: 34.44,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -356,8 +356,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 47.800,
+                                    latitude: 37.9,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -375,8 +375,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 45.009,
+                                    latitude: 39.02,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',
@@ -394,8 +394,8 @@ export function searchEventsRequest(query, page, pageSize, location) {
                             all: 20,
                             place: {
                                 location: {
-                                    longitude: 49,
-                                    lantitude: 35,
+                                    longitude: 42,
+                                    latitude: 32,
                                 },
                                 distance: 4,
                                 city: 'Dnipro',

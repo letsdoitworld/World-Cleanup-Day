@@ -13,6 +13,7 @@ const selector = createStructuredSelector({
     userCoord: getCoordUser,
     isAuthenticated,
     isLoading,
+
 });
 
 const actions = {

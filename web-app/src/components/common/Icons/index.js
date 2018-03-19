@@ -20,6 +20,18 @@ import report from '../../../assets/ic-report.png';
 import email from '../../../assets/ic-email.png';
 import phone from '../../../assets/ic-phone.png';
 import userpicHolder from '../../../assets/placeholder-userpic.png';
+import back from '../../../assets/ic-back.png';
+
+import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
+import activeInToxicTP from '../../../assets/trashpoints/icActiveInactiveToxicTrashpointMap.png';
+import activeInTrashpointTP from '../../../assets/trashpoints/icActiveInactiveTrashpointMap.png';
+import activeRegularTP from '../../../assets/trashpoints/icActiveRegularTrashpointMap.png';
+import activeToxicTP from '../../../assets/trashpoints/icActiveToxicTrashpointMap.png';
+import inactiveCleanedTP from '../../../assets/trashpoints/icInactiveCleanedTrashpointMap.png';
+import inactiveInToxicTP from '../../../assets/trashpoints/icInactiveInactiveToxicTrashpointMap.png';
+import inactiveInTrashpointTP from '../../../assets/trashpoints/icInactiveInactiveTrashpointMap.png';
+import inactiveRegularTP from '../../../assets/trashpoints/icInactiveRegularTrashpointMap.png';
+import inactiveToxicTP from '../../../assets/trashpoints/icInactiveToxicTrashpointMap.png';
 
 export const BinIcon = () => <img src={bin} alt="bin-icon" />;
 export const ArrowDownIcon = () => <img src={arrowDown} alt="arrowdown-icon" />;
@@ -41,6 +53,20 @@ export const DateIcon = () => <img src={date} alt="date-icon" />;
 export const Userpic = () => <img src={userpicHolder} alt="userpic" />;
 export const EmailIcon = () => <img src={email} alt="email" />;
 export const PhoneIcon = () => <img src={phone} alt="phone" />;
+export const BackIcon = () => <img src={back} alt="back" />;
+
+export const TrashpointIcons = {
+  activeRegularTp: activeRegularTP,
+  inactiveRegularTp: inactiveRegularTP,
+  activeInRegularTp: activeInTrashpointTP,
+  inactiveInRegularTp: inactiveInTrashpointTP,
+  activeToxicTp: activeToxicTP,
+  inactiveToxicTp: inactiveToxicTP,
+  activeCleanedTp: activeCleanedTP,
+  inactiveCleanedTp: inactiveCleanedTP,
+  activeInToxicTp: activeInToxicTP,
+  inactiveInToxicTp: inactiveInToxicTP,
+};
 
 export {
   locationPinActive,

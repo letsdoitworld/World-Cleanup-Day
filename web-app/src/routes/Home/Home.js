@@ -58,7 +58,6 @@ class Home extends React.Component {
       <Switch>
         <Route path="/users/:id" exact component={UserDetails} />
         <Route path="/users" exact component={UserList} />
-        {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
         <Route
           path="/events/:id?"
@@ -68,7 +67,12 @@ class Home extends React.Component {
         />
         <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
-        <Route path="/trashpoints/:id" exact component={TrashpointDetails} />
+        <Route
+          path="/trashpoints/:id?"
+          render={
+            ({ match }) =>
+              <TrashpointDetails trashpointId={match.params.id} history={history} />}
+        />
       </Switch>
       <div className="Home-map-container">
         <AdminMap isUserLoggedIn={!!this.props.userProfile.role} />

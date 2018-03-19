@@ -1,26 +1,34 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MarkersMap } from '../../components/MarkersMap';
+import { selectors as appSelectors } from '../../reducers/app';
 
 class AdminMap extends React.Component {
   static propTypes = {
     isUserLoggedIn: PropTypes.bool.isRequired,
-    history: PropTypes.shape.isRequired,
   };
 
   handleMarkerClick = marker => {
     if (marker && !marker.count) {
-      this.props.history.location.pathname === '/trashpoints' ?
-      this.props.history.push(`/trashpoints/${marker.id}`) :
-      this.props.history.push(`/events/${marker.id}`);
+      switch (this.props.currentActiveTab) {
+        case ('events'):
+          this.props.history.push(`/events/${marker.id}`);
+          break;
+        case ('trashpoints'):
+          this.props.history.push(`/trashpoints/${marker.id}`);
+          break;
+        default:
+          this.props.history.push(`/events/${marker.id}`);
+      }
     }
   };
   render() {
     const { isUserLoggedIn, history } = this.props;
     return (
       <MarkersMap
-        tabOpened={history.location.pathname}
+        tabActive={this.props.currentActiveTab}
         isUserLoggedIn={isUserLoggedIn}
         onMarkerClick={this.handleMarkerClick}
       />
@@ -28,4 +36,8 @@ class AdminMap extends React.Component {
   }
 }
 
-export default withRouter(AdminMap);
+const mapStateToProps = state => ({
+  currentActiveTab: appSelectors.getCurrentActiveTab(state),
+});
+
+export default withRouter(connect(mapStateToProps)(AdminMap));

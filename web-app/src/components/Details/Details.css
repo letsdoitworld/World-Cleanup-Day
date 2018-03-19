@@ -1,10 +1,14 @@
 .Details {
-  width: 325px;
-  align-self: stretch;
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 9;
   display: flex;
   flex-direction: column;
-  position: relative;
-  padding-top: 15px;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   overflow-y: auto;
 }
 

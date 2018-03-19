@@ -1,5 +1,3 @@
-import * as Immutable from "../../../node_modules/immutable/dist/immutable";
-import ImmutableComponent from "../../components/InputFields/ImmutableComponent";
 import React, {Component} from 'react';
 import {
     View,
@@ -14,31 +12,27 @@ import {
 } from 'react-native';
 import styles from './styles'
 import strings from '../../assets/strings'
-import {connect} from "react-redux";
-// import {
-//     searchTrashPointsAction,
-//     clearTrashPointsAction
-// } from '../../store/actions/trashPoints'
 import ListItem from "./Item/ListItem";
 import PropTypes from "prop-types";
 import Profile from "../Profile/Profile";
 import {isLoading} from "../../store/selectors";
+import {
+    ADD_TRASH_POINTS_MAP
+} from "../index";
+
+let _ = require('lodash');
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
+const mapId = 'mapId';
 
-const PAGE_SIZE = 15;
+const PAGE_SIZE = 20;
 
 class AddTrashPoints extends Component {
 
     marked = new Map();
 
-    static navigatorStyle = {
-        tabBarHidden: true,
-        navBarTitleTextCentered: true,
-    };
-
-    page = 0;
+    static navigatorStyle = styles.navigatorStyle;
 
     static navigatorButtons = {
         leftButtons: [
@@ -46,20 +40,23 @@ class AddTrashPoints extends Component {
                 icon: require('../../../src/assets/images/ic_back.png'),
                 id: cancelId,
             }
-        ],
+        ]
     };
+
+    page = 0;
 
     query = undefined;
 
     constructor(props) {
         super(props);
-        this.state = {
-            trashPoints: [],
-        };
 
         props.selectedTrashPoints.forEach((trashPoint) => {
             this.marked.set(trashPoint.id, trashPoint)
         });
+
+        this.state = {
+            trashPoints: []
+        };
 
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
@@ -68,25 +65,6 @@ class AddTrashPoints extends Component {
     componentDidMount() {
         const {onSearchTrashPointsAction} = this.props;
         onSearchTrashPointsAction(null, 0, PAGE_SIZE, this.props.location);
-    }
-
-    componentDidUpdate() {
-
-        const isDisabled = false;
-
-        this.props.navigator.setButtons({
-            rightButtons: [
-                {
-                    title: strings.label_save,
-                    id: saveId,
-                    buttonColor: 'rgb(0, 143, 223)',
-                    buttonFontSize: 17,
-                    buttonFontFamily: 'Lato-Bold',
-                    disabled: isDisabled
-                }
-            ]
-        })
-
     }
 
     onNavigatorEvent(event) {
@@ -101,9 +79,31 @@ class AddTrashPoints extends Component {
                     this.props.navigator.pop();
                     break;
                 }
-
+                case mapId: {
+                    this.props.navigator.push({
+                        screen: ADD_TRASH_POINTS_MAP,
+                        title: strings.label_add_trashPoints,
+                        passProps: {
+                            location: this.props.location,
+                            selectedTrashPoints: this.marked,
+                            trashPoints: this.state.trashPoints,
+                            onMapTrashPointsSaved: this.onMapTrashPointsSaved.bind(this)
+                        }
+                    });
+                    break;
+                }
             }
         }
+    }
+
+    onMapTrashPointsSaved(selectedTrashPoints) {
+        this.marked = new Map();
+        selectedTrashPoints.forEach((trashPoint) => {
+            this.marked.set(trashPoint.id, trashPoint)
+        });
+        this.setState(previousState => {
+            return {trashPoints: this.props.trashPoints}
+        });
     }
 
     handleLoadMore = () => {
@@ -124,7 +124,7 @@ class AddTrashPoints extends Component {
 
         if (this.marked.size === 0) {
             this.setState(previousState => {
-                return { trashPoints: receivedTrashPointsList }
+                return {trashPoints: receivedTrashPointsList}
             });
         } else {
 
@@ -136,9 +136,31 @@ class AddTrashPoints extends Component {
             const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
 
             this.setState(previousState => {
-                return { trashPoints: trashPoints }
+                return {trashPoints: trashPoints}
             });
         }
+
+        this.props.navigator.setButtons({
+            leftButtons: [
+                {
+                    icon: require('../../../src/assets/images/ic_back.png'),
+                    id: cancelId,
+                }
+            ],
+            rightButtons: [
+                {
+                    title: strings.label_save,
+                    id: saveId,
+                    buttonColor: 'rgb(0, 143, 223)',
+                    buttonFontSize: 17,
+                    buttonFontFamily: 'Lato-Bold',
+                },
+                {
+                    icon: require('../../../src/assets/images/icon_menu_map_active.png'),
+                    id: mapId,
+                }
+            ]
+        })
 
     }
 
@@ -161,8 +183,6 @@ class AddTrashPoints extends Component {
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
                     {this.renderSearchBox()}
                     <FlatList
-                        // onLayout={this.onLayout.bind(this)}
-                        // ListEmptyComponent={this.renderEmptyState.bind(this)}
                         ListFooterComponent={this.renderFooter.bind(this)}
                         ListHeaderComponent={this.renderHeader.bind(this)}
                         style={styles.list}
@@ -197,8 +217,7 @@ class AddTrashPoints extends Component {
     }
 
     isProgressEnabled() {
-        const { isLoading } = this.props;
-        return isLoading;
+        return this.props.isLoading;
     }
 
     renderSeparator = () => {
@@ -230,7 +249,7 @@ class AddTrashPoints extends Component {
         }
     };
 
-    keyExtractor = (item, index) => item.id.toString();
+    keyExtractor = (item, index) => item.id.toString() + this.marked.has(item.id);
 
     renderItem = ({item}) => (
         <ListItem
@@ -240,7 +259,6 @@ class AddTrashPoints extends Component {
             item={item}
             id={item.id}/>
     );
-
 
     onQueryChange = debounce(function (text) {
         this.query = text;

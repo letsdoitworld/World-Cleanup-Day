@@ -210,7 +210,7 @@ class AddLocation extends Component {
                     getDefaultValue={() => ''}
                     query={{
                         // available options: https://developers.google.com/places/web-service/autocomplete
-                        key: 'AIzaSyDawYuRZ7A9f3xlYXx50-88tvSKi5ouPm8',
+                        key: 'AIzaSyDsL-LeucaFuq26bdOQUmjOLGQ1Eu-ibdg',
                         language: 'en', // language of the results
                         types: '(cities)' // default: 'geocode'
                     }}

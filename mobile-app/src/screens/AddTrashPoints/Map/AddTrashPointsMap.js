@@ -132,14 +132,7 @@ export default class AddTrashPointsMap extends Component {
         return (
             <View style={styles.container}>
                 <MapView
-                    handleOnMarkerPress={(marker) => {
-                        this.setState(previousState => {
-                            return {
-                                ...previousState,
-                                selectedItem: marker.item
-                            };
-                        });
-                    }}
+                    handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
                     markers={this.state.markers}
                     initialRegion={this.initialRegion}
                     region={this.initialRegion}
@@ -148,6 +141,15 @@ export default class AddTrashPointsMap extends Component {
                 {this.renderSelectedItem(selectedItem, checked)}
             </View>
         );
+    }
+
+    handleOnMarkerPress(marker) {
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                selectedItem: marker.item
+            };
+        });
     }
 
     renderSelectedItem(selectedItem, checked) {

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {
     Image,
     Platform,
@@ -9,7 +9,7 @@ import {
 import styles from "./styles"
 import strings from '../../../../assets/strings'
 
-export default class ListItem extends Component {
+export default class ListItem extends  PureComponent {
 
     constructor(props) {
         super(props);

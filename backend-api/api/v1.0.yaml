@@ -673,7 +673,7 @@ parameters:
     required: true
     schema:
       type: object
-      required: [datasetId, location, name, address, description, whatToBring]
+      required: [datasetId, location, name, address, description, whatToBring, maxPeopleAmount]
       properties:
         datasetId:
           $ref: "#/definitions/UUID"
@@ -706,7 +706,10 @@ parameters:
         email:
           description: Email address of contact permission
           type: string
-        records:
+        maxPeopleAmount:
+          description: Max amount of people
+          type: number
+        trashpoints:
          type: array
          items:
            type: string
@@ -1134,11 +1137,54 @@ definitions:
     required: [id]
     properties:
       id:
+        description: UUID field, representing the identificator of the event
         $ref: "#/definitions/UUID"
-      type:
-        description: The type of objects contained in this event.
+      datasetId:
+        description: UUID field, representing the identificator of the dataset
+        $ref: "#/definitions/UUID"
+      name:
+        description: Text field, representing the name of the event
+        $ref: "#/definitions/EventName"
+      address:
+        description: Text field, representing the address of the event
+        $ref: "#/definitions/EventAddress"
+      location:
+        description: Event location.
+        $ref: "#/definitions/GeoPoint"
+      description:
+        description: Description of the event.
+        $ref: "#/definitions/EventDescription"
+      whatToBring:
+        description: Text field which says what to bring on the event.
+        $ref: "#/definitions/EventWhatToBring"
+      createDate:
+        description: When the event was created.
+        $ref: "#/definitions/ISOTimestamp"
+      updateDate:
+        description: When the event was modified.
+        $ref: "#/definitions/ISOTimestamp"
+      startTime:
+        description: When event is planned to start.
+        $ref: "#/definitions/ISOTimestamp"
+      endTime:
+        description: When event is planned to start.
+        $ref: "#/definitions/ISOTimestamp"
+      email:
+        description: Email address of contact permission
         type: string
-        enum: [events]
+      maxPeopleAmount:
+        description: Max amount of people
+        type: number
+      trashpoints:
+        description: Trashpoints list
+        type: array
+        items:
+          $ref: "#/definitions/Trashpoint"
+      peoples:
+        description: Peoples list
+        type: array
+        items:
+          $ref: "#/definitions/Account"
 
   #-----------------------------------------------------------------------------
   # Grid data.

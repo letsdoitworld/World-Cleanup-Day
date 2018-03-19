@@ -108,6 +108,8 @@ class Event extends Type {
             endTime: true,
             email: true,
             trashpoints: true,
+            maxPeopleAmount: true,
+            peoples: true,
             createdBy: true,
             updatedBy: true,
         });

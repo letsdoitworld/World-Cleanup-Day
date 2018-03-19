@@ -3,6 +3,7 @@ import dimens from "../../../config/dimens";
 export default {
     itemTouch: {
         height: 79,
+        backgroundColor: "white"
     },
     itemTouchIncluded: {
         height: 79,

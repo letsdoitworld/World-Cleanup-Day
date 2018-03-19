@@ -3,12 +3,13 @@ import { createStructuredSelector } from 'reselect';
 
 import { searchTrashPointsAction, clearTrashPointsAction } from '../../store/actions/trashPoints';
 
-import { getTrashPointsEntity } from '../../store/selectors';
+import { getTrashPointsEntity, isLoading } from '../../store/selectors';
 
 import Component from './AddTrashPoints';
 
 const selector = createStructuredSelector({
     trashPoints: getTrashPointsEntity,
+    isLoading,
 });
 
 const actions = {

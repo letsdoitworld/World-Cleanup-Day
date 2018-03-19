@@ -1,5 +1,4 @@
 import dimens from "../../config/dimens";
-import colors from "../../config/colors";
 
 export default {
     containerProgress: {
@@ -8,7 +7,7 @@ export default {
     },
     containerContent: {
         flex: 1,
-        backgroundColor: colors.$mainBackground
+        backgroundColor: "rgb(255, 255, 255)"
     },
     horizontal: {
         flexDirection: 'row',

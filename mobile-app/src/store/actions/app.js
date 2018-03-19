@@ -1,6 +1,3 @@
-import {
-  PROGRESS_ACTION
-} from "../types/app";
 
 export const SET_POPOVER_SHOWN = 'app/SET_POPOVER_SHOWN';
 export const setPopoverShown = () => ({
@@ -54,6 +51,7 @@ export const updateNetworkStatus = isConnected => ({
   payload: { isConnected },
 });
 
+const PROGRESS_ACTION = "PROGRESS_ACTION";
 export const controlProgress = (progress) => ({
     type: PROGRESS_ACTION,
     progress,

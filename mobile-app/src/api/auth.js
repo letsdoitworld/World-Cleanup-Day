@@ -23,7 +23,7 @@ function googleLogin() {
   return GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
-      '544878604136-p23hd99c43c7b9bpkl0mkd214f4a0008.apps.googleusercontent.com',
+      '343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl.apps.googleusercontent.com',
     webClientId:
       '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
     offlineAccess: false,
@@ -52,7 +52,6 @@ function facebookLogin() {
                         if (err) {
                           reject(err);
                         }
-                        console.log('FB auth User', res);
 
                         const email = res.email && res.email;
 

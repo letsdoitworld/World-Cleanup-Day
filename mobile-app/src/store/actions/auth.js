@@ -34,3 +34,5 @@ export const GUEST_LOG_IN = 'auth/GUEST_LOG_IN';
 export const guestLogIn = () => ({
   type: GUEST_LOG_IN,
 });
+
+export const REHYDRATE = 'persist/REHYDRATE';

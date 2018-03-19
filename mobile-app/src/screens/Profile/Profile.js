@@ -69,7 +69,7 @@ class Profile extends Component {
             })
         }
 
-    this.handleGetCurrentPosition();
+    //this.handleGetCurrentPosition();
   }
 
   onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
@@ -90,28 +90,23 @@ class Profile extends Component {
         this.props.navigator.push({
           screen: SETTINGS_SCREEN,
           title: strings.label_settings_header,
-            passProps: {
-                userProfile: this.props.profile
-            }
         });
       }
     }
   }
 
-  handleGetCurrentPosition = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
-
-        this.props.onFetchLocation({
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-        });
-      },
-      error => console.log('Error', error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-  };
+  // handleGetCurrentPosition = () => {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       this.props.onFetchLocation({
+  //         lat: position.coords.latitude,
+  //         long: position.coords.longitude,
+  //       });
+  //     },
+  //     error => console.log('Error', error),
+  //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+  //   );
+  // };
 
   handleRenderLocation() {
     const { country } = this.props;
@@ -277,7 +272,6 @@ Profile.propTypes = {
   navigator: PropTypes.object,
   onFetchProfile: PropTypes.func,
   onGuestLogIn: PropTypes.func,
-  onFetchLocation: PropTypes.func,
 };
 
 export default Profile;

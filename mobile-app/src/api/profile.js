@@ -2,8 +2,9 @@ import Api from '../services/Api';
 
 async function updateProfileStatus(profileStatus) {
   try {
-    const response = await Api.get('me/privacy', profileStatus);
-    return response;
+    const response = await Api.put('me/privacy', profileStatus);
+
+    return response.data;
   } catch (ex) {
     throw ex;
   }

@@ -164,6 +164,7 @@ module.exports = new LocalizedStrings({
         label_cover_photo: "Cover photo",
         label_add_photo: "Add photo",
         label_next: "Next",
+        label_create_event: "Create event",
         label_coordinator: "Coordinator",
         label_coordinator_hint: "Enter coordinator name",
         label_organization: "Organization",

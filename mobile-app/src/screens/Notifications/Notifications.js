@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, PermissionsAndroid } from 'react-native';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import strings from '../../assets/strings';
@@ -8,6 +8,8 @@ import {EmptyStateScreen} from '../../components/EmptyStateScreen/EmptyStateScre
 import styles from './styles';
 
 import { logout } from '../../store/actions/auth';
+import Profile from "../Profile/Profile";
+import PropTypes from 'prop-types';
 
 class Notifications extends Component {
 
@@ -17,6 +19,30 @@ class Notifications extends Component {
         orientation: 'portrait',
         navBarTitleTextCentered: true,
         //  navBarTextFontFamily: 'font-name',
+    };
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    this.getLocation(position);
+                },
+                error => console.log('Error', error),
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+            );
+        }, 1000)
+    }
+
+    getLocation = position => {
+        const { onFetchLocation } = this.props;
+        onFetchLocation({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+        });
     };
 
     render() {
@@ -38,15 +64,11 @@ function isUndefinedOtNullOrEmpty(array) {
     return array === undefined || array === null || array.length === 0
 }
 
-// export default connect(null, {  })(Notifications)
+Profile.propTypes = {
+    country: PropTypes.string,
+    onFetchLocation: PropTypes.func,
+};
 
-//
-// const mapStateToProps = () => ({
-//   notifications: [],
-// });
-//
-// const mapDispatchToProps = {};
-//
 export default compose(
   connect(null, { logout }),
 )(Notifications);

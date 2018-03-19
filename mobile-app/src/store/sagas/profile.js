@@ -9,6 +9,7 @@ import {
   FETCH_PROFILE,
   UPDATE_PROFILE_STATUS_ACTION,
   fetchProfileDone,
+  updateProfileStatusDone,
 } from '../actions/profile';
 
 import Api from '../../api';
@@ -24,7 +25,11 @@ function* loadProfile() {
 
 function* updateStatus(profileStatus) {
   try {
-    const status = yield call(Api.profile.updateProfileStatus, profileStatus);
+    const statusData = { value: profileStatus };
+    const status = yield call(Api.profile.updateProfileStatus, statusData);
+    if (status.success) {
+      yield put(updateProfileStatusDone(profileStatus));
+    }
   } catch (error) {
     setErrorMessage(error);
   }
@@ -39,7 +44,7 @@ export function* loadProfileFlow() {
 
 export function* updateProfileStatusFlow() {
   while (true) {
-    const { profileStatus } = yield take(UPDATE_PROFILE_STATUS_ACTION);
-    yield call(updateStatus, profileStatus);
+    const { payload } = yield take(UPDATE_PROFILE_STATUS_ACTION);
+    yield call(updateStatus, payload);
   }
 }

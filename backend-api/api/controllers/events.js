@@ -1,5 +1,5 @@
-'use strict'
-const senecaRequestMw = require('../../modules/swagger-setup/middleware/seneca')
+'use strict';
+const senecaRequestMw = require('../../modules/swagger-setup/middleware/seneca');
 
 module.exports = {
   createEvent: senecaRequestMw(

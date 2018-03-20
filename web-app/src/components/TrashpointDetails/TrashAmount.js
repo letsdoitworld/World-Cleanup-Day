@@ -266,7 +266,7 @@ class TrashAmount extends Component {
           />
         </div>
 
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', marginTop: '15px' }}>
           {this.state.steps.map(step =>
             (<GradationLine
               key={step.value}

@@ -1,4 +1,4 @@
-.Details {
+.Tpdetails {
   width: 380px;
   position: fixed;
   bottom: 45px;
@@ -9,16 +9,70 @@
   background-color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  overflow-y: auto;
+  overflow: visible;
 }
 
-.Details-name {
-  font-size: 24px;
-  color: #404040;
-  letter-spacing: 0;
-  line-height: 28px;
-  margin-bottom: 15px;
-  font-weight: 700;
+.Tpdetails-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 35px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Tpdetails-header-title {
+  width: 90%;
+  margin: 0 16px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
+}
+
+.Tpdetails-plot {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - 230px);
+}
+
+.visible {
+  display: flex;
+}
+
+.Tpdetails-header-minimize {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.Create-trashpoint {
+  position: fixed;
+  bottom: 75px;
+  right: 50px;
+  height: 40px;
+  width: 140px;
+  border-radius: 100px;
+  background: #3e8ede;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.Create-trashpoint span {
+  text-align: center;
+  height: 20px;
+  width: 123px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
 }
 
 .Details-close-button {

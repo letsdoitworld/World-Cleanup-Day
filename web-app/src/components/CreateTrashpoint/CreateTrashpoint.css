@@ -1,34 +1,45 @@
 .CreateTrashpoint {
-  width: 325px;
-  align-self: stretch;
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 9;
   display: flex;
   flex-direction: column;
-  position: relative;
-  padding-top: 15px;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.CreateTrashpoint-plot {
+  max-height: calc(100vh - 230px);
   overflow-y: auto;
 }
 
-.CreateTrashpoint-name {
-  font-size: 24px;
-  color: #404040;
-  letter-spacing: 0;
-  line-height: 28px;
-  margin-bottom: 15px;
-  font-weight: 700;
+.CreateTrashpoint-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 35px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.CreateTrashpoint-title {
+  width: 90%;
+  margin: 0 14px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
 }
 
 .CreateTrashpoint-close-button {
-  background-image: linear-gradient(-179deg, #4AA5FF 0%, #3E8EDE 100%);
-  position: absolute;
-  top: 0;
-  right: 10px;
-  padding: 7px 10px;
-  border-radius: 0 0 10px 10px;
-}
-
-.CreateTrashpoint-close-button img {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 .CreateTrashpoint-address-container {
@@ -66,10 +77,10 @@
   align-self: stretch;
   height: 1px;
   margin: 15px 0;
+  padding: 0 20px;
 }
 
 .CreateTrashpoint-default-container {
-  background: #eee;
   padding: 20px;
   border-top: 1px solid #D9D9D9;
 }
@@ -117,22 +128,25 @@
 .CreateTrashpoint-edit-button {
   cursor: pointer;
   height: 35px;
-  width: 280px;
-  border-radius: 100px;
-  background: linear-gradient(180deg, #4AA5FF 0%, #3E8EDE 100%);
+  width: 240px;
+  background: #3e8ede;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
-  flex:1;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
+
 .CreateTrashpoint-edit-button p {
   text-align: center;
-  color:white;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .CreateTrashpoint-delete-button{
-  flex:1;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,7 +154,7 @@
 .CreateTrashpoint-delete-button p {
   cursor: pointer;
   text-align: center;
-  color:#EB5E63;
+  color: #EB5E63;
   text-decoration: underline;
   font-weight: bold;
 }

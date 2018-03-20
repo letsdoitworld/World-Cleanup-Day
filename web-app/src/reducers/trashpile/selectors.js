@@ -37,6 +37,12 @@ export const getCurrentMarkerID = createSelector(
   state => get(state, 'marker.id', 'Unknown ID'),
 );
 
+const getShowDetailsWindow = createSelector(
+  detailsSel,
+  state => state.showTpdetailsWindow,
+);
+
+
 const getGridValue = createSelector(stateSel, state => state.grid);
 
 const mapSelector = createSelector(stateSel, state => state.map);
@@ -50,6 +56,7 @@ export default {
   getAdminMarkers,
   getMarkerDetails,
   getCurrentMarkerID,
+  getShowDetailsWindow,
   getAdminTrashpointsLoading,
   canLoadMoreAdminTrashpoints,
   getGridValue,

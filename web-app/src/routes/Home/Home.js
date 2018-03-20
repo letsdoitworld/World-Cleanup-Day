@@ -117,16 +117,25 @@ const mapState = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),
   agreeToTerms: () => dispatch(userActions.agreeToTerms()),
-  resetUsers: () => dispatch(adminActions.resetUsers())
+  resetUsers: () => dispatch(adminActions.resetUsers()),
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);
 
 /*
-  <div
-    onClick={() => { history.push('/trashpoints/create'); }}
-    className="Home-create-marker-button"
-  >
-    <span>Place trashpoint</span>
-  </div>
+<Route
+  path="/trashpoints"
+  render={
+    () => {
+      return (
+        <div
+          onClick={() => { history.push('/trashpoints/create'); }}
+          className="Home-create-marker-button"
+        >
+          <span>Place trashpoint</span>
+        </div>
+      );
+    }
+  }
+/>
 */

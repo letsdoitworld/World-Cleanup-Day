@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { TrashAmount, TrashPhotos, StatusText } from '../Details';
+import { TrashAmount, TrashPhotos, StatusText } from '../TrashpointDetails';
 
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';
@@ -11,7 +11,7 @@ import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from '../EditTrashpoint/components/Tags';
 import StatusPicker from '../EditTrashpoint/StatusPicker';
-import closeButton from '../../assets/closeButton.png';
+import { CloseIcon, LocationIcon } from '../common/Icons';
 import imageLocation from '../../assets/icon_location@2x.png';
 
 import './CreateTrashpoint.css';
@@ -181,7 +181,7 @@ class CreateTrashpoint extends Component {
     this.setState({ editLocation: true });
   };
   handleCloseClick = () => {
-    this.props.history.push('/');
+    this.props.history.push('/trashpoints');
   };
 
   handleModalClicked = () => {
@@ -239,79 +239,84 @@ class CreateTrashpoint extends Component {
           visible={this.state.editLocation}
           status={status}
         />
-        <div style={{ padding: '20px' }}>
-          <span className="CreateTrashpoint-name">{name}</span>
+        <div className="CreateTrashpoint-header">
+          <span className="CreateTrashpoint-title">
+            Add trashpoint
+          </span>
           <button
             className="CreateTrashpoint-close-button"
             onClick={this.handleCloseClick}
           >
-            <img src={closeButton} alt="" />
+            <CloseIcon />
           </button>
-          <div className="CreateTrashpoint-address-container">
-            <div>
-              {this.hasAddressLineSet() && <img src={imageLocation} alt="" />}
+        </div>
+        <div className="CreateTrashpoint-plot">
+          <div>
+            <div className="CreateTrashpoint-address-container">
+              <div>
+                {this.hasAddressLineSet() && <img src={imageLocation} alt="" />}
+              </div>
+              <span className="CreateTrashpoint-address">
+                {this.renderAddressLine()}
+              </span>
             </div>
-            <span className="CreateTrashpoint-address">
-              {this.renderAddressLine()}
-            </span>
+            <div className="CreateTrashpoint-edit-location-container">
+              <span
+                onClick={this.handleEditLocationOpen}
+                className="CreateTrashpoint-edit-location-button"
+              >
+                Edit location
+              </span>
+            </div>
+            <div className="CreateTrashpoint-edit-location-text">
+              <EditLocationInput onChange={this.handleLocationChanged} />
+            </div>
+            <div className="CreateTrashpoint-divider" />
           </div>
-          <div className="CreateTrashpoint-edit-location-container">
-            <span
-              onClick={this.handleEditLocationOpen}
-              className="CreateTrashpoint-edit-location-button"
+          <div>
+            <StatusPicker
+              status={status}
+              onStatusChange={this.handleStatusChange}
+            />
+          </div>
+          <div className="CreateTrashpoint-default-container">
+            <TrashPhotos
+              onAddClick={photos.length < 3 ? this.handlePhotoAdd : undefined}
+              photos={photos.map(p => {
+                if (p.url || p.uri) {
+                  return p.url || p.uri;
+                }
+                if (p.base64) {
+                  return `data:image/jpg;base64,${p.base64}`;
+                }
+              })}
+              onDeleteClick={this.handlePhotoDelete}
+              canEdit
+            />
+          </div>
+          <div className="CreateTrashpoint-default-container">
+            <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
+          </div>
+          <div className="CreateTrashpoint-default-container">
+            <Tags
+              composition={composition}
+              tags={hashtags}
+              onCompositionSelect={this.handleCompositionSelect}
+              onTagSelect={this.handleTagSelect}
+              onTagAdd={this.handleTagAdd}
+              onTagDelete={this.handleTagDelete}
+            />
+          </div>
+          <div className="CreateTrashpoint-default-container CreateTrashpoint-edit-button-container">
+            <div
+              className="CreateTrashpoint-edit-button"
+              onClick={this.handleTrashpointUpdate}
             >
-              Edit location
-            </span>
+              <p>Create trashpoint</p>
+            </div>
           </div>
-          <div className="CreateTrashpoint-edit-location-text">
-            <EditLocationInput onChange={this.handleLocationChanged} />
-          </div>
-          <div className="CreateTrashpoint-divider" />
-          <StatusText status={status} />
+          <div className="CreateTrashpoint-filler" />
         </div>
-        <div>
-          <StatusPicker
-            status={status}
-            onStatusChange={this.handleStatusChange}
-          />
-        </div>
-        <div className="CreateTrashpoint-default-container">
-          <TrashPhotos
-            onAddClick={photos.length < 3 ? this.handlePhotoAdd : undefined}
-            photos={photos.map(p => {
-              if (p.url || p.uri) {
-                return p.url || p.uri;
-              }
-              if (p.base64) {
-                return `data:image/jpg;base64,${p.base64}`;
-              }
-            })}
-            onDeleteClick={this.handlePhotoDelete}
-            canEdit
-          />
-        </div>
-        <div className="CreateTrashpoint-default-container">
-          <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
-        </div>
-        <div className="CreateTrashpoint-default-container">
-          <Tags
-            composition={composition}
-            tags={hashtags}
-            onCompositionSelect={this.handleCompositionSelect}
-            onTagSelect={this.handleTagSelect}
-            onTagAdd={this.handleTagAdd}
-            onTagDelete={this.handleTagDelete}
-          />
-        </div>
-        <div className="CreateTrashpoint-default-container CreateTrashpoint-edit-button-container">
-          <div
-            className="CreateTrashpoint-edit-button"
-            onClick={this.handleTrashpointUpdate}
-          >
-            <p>Create trashpoint</p>
-          </div>
-        </div>
-        <div className="CreateTrashpoint-filler" />
       </div>
     );
   }
@@ -324,3 +329,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(undefined, mapDispatchToProps)(CreateTrashpoint);
+
+
+/*
+<StatusText status={status} />
+
+*/

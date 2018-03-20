@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { actions, selectors } from '../../reducers/trashpile';
 import { EditTrashpoint } from '../../components/EditTrashpoint';
-import { Details } from '../../components/Details';
+import { Details } from '../../components/TrashpointDetails';
 import { actions as appActions } from '../../reducers/app';
 import { selectors as userSelectors } from '../../reducers/user';
 import { USER_ROLES } from '../../shared/constants';
@@ -51,10 +51,12 @@ class TrashDetails extends React.Component {
     });
   };
   handleOnCloseDetailsClick = () => {
-    let url = '/trashpoints/';
+    let url = '/trashpoints';
+    /*
     if(this.props.location.state && this.props.location.state.selectedArea) {
       url = `${url}areas`;
     }
+    */
     this.props.history.push(url, {
       selectedArea: this.props.authUser.role !== USER_ROLES.VOLUNTEER ?
         (this.props.location.state ? this.props.location.state.selectedArea : undefined) :
@@ -118,6 +120,10 @@ class TrashDetails extends React.Component {
     return (
       <Details
         marker={this.props.marker}
+        isOpened={this.props.isOpened}
+        toggleDetailsWindow={this.props.toggleDetailsWindow}
+        trashpointId={this.props.trashpointId}
+        history={this.props.history}
         actions={this.actions}
         canEdit={this.canUserEditTrashPoint()}
       />
@@ -128,11 +134,13 @@ class TrashDetails extends React.Component {
 const mapState = state => ({
   marker: selectors.getMarkerDetails(state),
   authUser: userSelectors.getProfile(state),
+  isOpened: selectors.getShowDetailsWindow(state),
 });
 const mapDispatch = {
   fetchMarkerDetails: actions.fetchMarkerDetails,
   focusMapLocation: actions.focusMapLocation,
   setActiveTab: appActions.setActiveTab,
+  toggleDetailsWindow: actions.toggleDetailsWindow,
 };
 
 export default connect(mapState, mapDispatch)(TrashDetails);

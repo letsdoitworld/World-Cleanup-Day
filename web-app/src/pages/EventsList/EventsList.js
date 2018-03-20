@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import classnames from 'classnames';
 import EventListHeader from './EventListHeader';
 import { EventDetails } from './EventDetails';
 import { Event } from './Event';
@@ -34,7 +35,7 @@ class EventsList extends Component {
           history={history}
           eventId={eventId}
         />
-        <div className={`EventsList-plot ${isOpened ? 'visible' : ''}`}>
+      <div className={classnames('EventsList-plot', { 'visible': isOpened }) }>
           {
             !eventId ?
             events.map((ev) => {

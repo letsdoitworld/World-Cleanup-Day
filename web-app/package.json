@@ -22,7 +22,7 @@
     "react-dropzone": "^4.0.0",
     "react-facebook-login": "^3.6.2",
     "react-google-login": "^2.9.2",
-    "react-google-maps": "8.4.2",
+    "react-google-maps": "^9.4.5",
     "react-id-swiper": "^1.6.1",
     "react-infinite": "^0.12.1",
     "react-modal": "^2.2.2",

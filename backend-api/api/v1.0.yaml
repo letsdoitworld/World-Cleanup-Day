@@ -126,7 +126,61 @@ paths:
               "type": "object"
           "default":
             $ref: "#/responses/ErrorSet"
-
+  #-----------------------------------------------------------------------------
+  /event/{id}/images:
+    x-swagger-router-controller: images
+    get:
+      description: Fetch the images associated with a specific event ID.
+      operationId: getEventImages
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: List of images.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventImage"
+        "default":
+          $ref: "#/responses/ErrorSet"
+    put:
+      description: Allocate a new image associated with a specific event ID.
+      operationId: allocateEventImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/ImageAllocate"
+      responses:
+        "200":
+          $ref: "#/responses/StorageAuth"
+        "default":
+          $ref: "#/responses/ErrorSet"
+    post:
+      description: Confirm the upload of an image.
+      operationId: confirmEventImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/ImageConfirm"
+      responses:
+        "200":
+          description: All indicated images were processed successfully.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /event/{id}/images/{id2}:
+    x-swagger-router-controller: images
+    delete:
+      description: Delete an image. The 1st ID indicates the event, the 2nd the image.
+      operationId: deleteEventImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/UUID2"
+      responses:
+        "200":
+          description: The indicated image and their dependent images were deleted.
+        "default":
+          $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /events/user:
     x-swagger-router-controller: events
@@ -530,6 +584,7 @@ paths:
           description: The indicated image and their dependent images were deleted.
         "default":
           $ref: "#/responses/ErrorSet"
+
 
 ################################################################################
 parameters:
@@ -1116,6 +1171,30 @@ definitions:
     type: string
     minLength: 1
     maxLength: 250
+  #-----------------------------------------------------------------------------
+  # Event image characteristics.
+  #-----------------------------------------------------------------------------
+  EventImage:
+    type: object
+    required: [id, eventId, type]
+    properties:
+      id:
+        description: The unique identifier for this image.
+        $ref: "#/definitions/UUID"
+      eventId:
+        description: The identifier of the event this image is associated with.
+        $ref: "#/definitions/UUID"
+      type:
+        $ref: "#/definitions/EventImageType"
+      url:
+        description: The URL at which the image is available. Not present when the status is not "ready".
+        type: string
+      parentId:
+        description: Depending on the type, some images are related to another.
+        $ref: "#/definitions/UUID"
+  EventImageType:
+    type: string
+    enum: [medium, thumbnail]
   #-----------------------------------------------------------------------------
   # Dataset characteristics.
   #-----------------------------------------------------------------------------

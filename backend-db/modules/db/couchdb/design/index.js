@@ -256,6 +256,22 @@ const designDocs = {
                 },
             },
         },
+        byEventAndStatusAndCreation: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'image') {
+                            emit([
+                                doc.eventId,
+                                doc.status,
+                                doc.createdAt,
+                            ], doc);
+                        }
+                    },
+                },
+            },
+        },
         byTrashpointAndParent: {
             $version: 1,
             views: {
@@ -264,6 +280,21 @@ const designDocs = {
                         if (doc.$doctype === 'image') {
                             emit([
                                 doc.trashpointId,
+                                doc.parentId,
+                            ], doc);
+                        }
+                    },
+                },
+            },
+        },
+        byEventAndParent: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'image') {
+                            emit([
+                                doc.eventId,
                                 doc.parentId,
                             ], doc);
                         }

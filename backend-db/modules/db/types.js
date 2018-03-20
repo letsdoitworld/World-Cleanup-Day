@@ -174,6 +174,7 @@ class Image extends Type {
             url: true,
             server: true,
             trashpointId: true,
+            eventId: true,
             parentId: true,
             createdAt: true,
             createdBy: true,

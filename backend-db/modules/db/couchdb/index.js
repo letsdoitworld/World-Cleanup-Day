@@ -77,6 +77,26 @@ const layer = {
       return parseInt(ret.pop());
     },
 
+    touchEvent: async (id, who) => {
+        return await layer.modifyEvent(id, who, {});
+    },
+
+    modifyEvent: async (id, who, update, rawEventDoc = null) => {
+        return await adapter.modifyDocument(
+            'Event',
+            rawEventDoc || await layer.getRawEventDoc(id),
+            update,
+            {
+                updatedAt: util.time.getNowUTC(),
+                updatedBy: who,
+            }
+        );
+    },
+
+    getRawEventDoc: async id => {
+        return await adapter.getOneRawDocById('Event', '_design/all/_view/view', id);
+    },
+
     //========================================================
     // ACCOUNTS
     //========================================================
@@ -519,17 +539,46 @@ const layer = {
         );
         return ret;
     },
-    getChildImages: async (parentId, trashpointId) => {
+    getEventImages: async (eventId, status = null) => {
         const ret = await adapter.getEntities(
             'Image',
-            '_design/byTrashpointAndParent/_view/view',
+            '_design/byEventAndStatusAndCreation/_view/view',
             {
-                keys: [
-                    [trashpointId, parentId],
-                ],
-                sorted: false,
+                descending: true, //XXX: when desc=true, startkey and endkey are reversed
+                startkey: status ? [eventId, status, {}] : [eventId, {}],
+                endkey: status ? [eventId, status] : [eventId],
+                sorted: true,
             }
         );
+        return ret;
+    },
+    getChildImages: async (parentId, trashpointId, eventId) => {
+        let ret = null;
+        if (trashpointId) {
+            ret = await adapter.getEntities(
+                'Image',
+                '_design/byTrashpointAndParent/_view/view',
+                {
+                    keys: [
+                        [trashpointId, parentId],
+                    ],
+                    sorted: false,
+                }
+            );
+        }
+        if (eventId) {
+            ret = await adapter.getEntities(
+                'Image',
+                '_design/byEventAndParent/_view/view',
+                {
+                    keys: [
+                        [eventId, parentId],
+                    ],
+                    sorted: false,
+                }
+            );
+        }
+
         return ret;
     },
 

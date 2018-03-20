@@ -9,9 +9,14 @@ const getState = state => state.toJS();
 const profileSelector = createSelector(getState, state => state.profile);
 
 export const getProfileEntity = createSelector(
-    profileSelector,
+  profileSelector,
   profile => profile.entity,
 );
+
+export const isPrivateProfile = createSelector(
+  getProfileEntity,
+  entity => !!entity.public)
+;
 
 // export const isProfileLoading = createSelector(
 //   profileSelector,

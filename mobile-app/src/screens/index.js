@@ -2,9 +2,9 @@ import { Navigation } from 'react-native-navigation';
 
 import ProfileScreen from './Profile';
 import MyActivityScreen from './MyActivity/MyActivity'
-import NotificationsScreen from './Notifications/Notifications'
+import NotificationsScreen from './Notifications'
 import LoginScreen from './Login';
-import SettingsScreen from './Settings/Settings'
+import SettingsScreen from './Settings'
 import AboutScreen from '../components/About/About'
 import EventsScreen from './Events'
 import AddLocationScreen from './AddLocation/AddLocation'

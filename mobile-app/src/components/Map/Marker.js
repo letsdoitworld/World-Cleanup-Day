@@ -32,8 +32,6 @@ export default class Marker extends Component {
 
         const {marker, onMarkerPress} = this.props;
 
-        console.log(marker)
-
         if (!marker) {
             return null;
         }

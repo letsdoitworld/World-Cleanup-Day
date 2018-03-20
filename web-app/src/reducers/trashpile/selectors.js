@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import get from 'lodash.get';
 
 const stateSel = state => state.trashpile;
 const markersSel = createSelector(stateSel, state => state.markers);
@@ -31,6 +32,11 @@ const canLoadMoreAdminTrashpoints = createSelector(
   state => state.canLoadMore,
 );
 
+export const getCurrentMarkerID = createSelector(
+  detailsSel,
+  state => get(state, 'marker.id', 'Unknown ID'),
+);
+
 const getGridValue = createSelector(stateSel, state => state.grid);
 
 const mapSelector = createSelector(stateSel, state => state.map);
@@ -43,6 +49,7 @@ export default {
   getAllMarkers,
   getAdminMarkers,
   getMarkerDetails,
+  getCurrentMarkerID,
   getAdminTrashpointsLoading,
   canLoadMoreAdminTrashpoints,
   getGridValue,

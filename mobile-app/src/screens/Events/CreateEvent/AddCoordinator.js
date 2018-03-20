@@ -12,11 +12,22 @@ import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
 import {ADD_COORDINATOR, ADD_PEOPLE_TO_EVENT} from "../../index";
 
+const cancelId = 'cancelId';
+
 export default class AddCoordinator extends ImmutableComponent {
 
     static navigatorStyle = {
         tabBarHidden: true,
         navBarTitleTextCentered: true,
+    };
+
+    static navigatorButtons = {
+        leftButtons: [
+            {
+                icon: require('../../../../src/assets/images/ic_back.png'),
+                id: cancelId,
+            }
+        ],
     };
 
     userName: string;
@@ -35,6 +46,25 @@ export default class AddCoordinator extends ImmutableComponent {
                 isEmailTextChanged: false,
             })
         };
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent(event) {
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.back();
+                    break;
+                }
+            }
+        }
+    }
+
+    back() {
+        this.props.navigator.pop({
+            animated: true,
+            animationType: 'slide_out',
+        });
     }
 
     renderUserNameTitle() {
@@ -132,10 +162,10 @@ export default class AddCoordinator extends ImmutableComponent {
                 </View>
                 {this.renderEmailError()}
                 <MainButton
-                    disabled={!isValid}
+                    isValid={isValid}
                     text={strings.label_next}
                     style={styles.coordinatorNext}
-                    onPress={this.onNextClick.bind(this)}/>
+                    onPress={() => this.onNextClick(isValid)}/>
             </View>)
     }
 
@@ -172,30 +202,49 @@ export default class AddCoordinator extends ImmutableComponent {
         return isValid
     };
 
-    onNextClick = () => {
-        this.props.navigator.push({
-            screen: ADD_PEOPLE_TO_EVENT,
-            title: strings.label_create_events_step_three,
-            passProps: {
-                event: {
-                    datasetId: this.props.event.datasetId,
-                    name: this.props.event.name,
-                    address: '456',
-                    startTime: this.props.event.startDate,
-                    endTime: this.props.event.endDate,
-                    location: {
-                        latitude: 48.8152937,
-                        longitude: 2.4597668,
+    onNextClick = (isValid) => {
+        if (!isValid) {
+            this.showValidationErrors()
+        } else {
+            this.props.navigator.push({
+                screen: ADD_PEOPLE_TO_EVENT,
+                title: strings.label_create_events_step_three,
+                passProps: {
+                    event: {
+                        datasetId: this.props.event.datasetId,
+                        name: this.props.event.name,
+                        address: '456',
+                        startTime: this.props.event.startDate,
+                        endTime: this.props.event.endDate,
+                        location: {
+                            latitude: 48.8152937,
+                            longitude: 2.4597668,
+                        },
+                        description: this.props.event.description,
+                        whatToBring: this.props.event.whatToBring,
+                        // imageUrl: this.props.event.imageUrl,
+                        // coordinatorName: this.userName,
+                        // phoneNumber: this.phoneNumber,
+                        email: this.email,
                     },
-                    description: this.props.event.description,
-                    whatToBring: this.props.event.whatToBring,
-                    // imageUrl: this.props.event.imageUrl,
-                    // coordinatorName: this.userName,
-                    // phoneNumber: this.phoneNumber,
-                    email: this.email,
-                },
-            }
-        });
+                }
+            });
+        }
+    };
+
+    showValidationErrors() {
+        const isUserNameValid = this.state.data.get('isUserNameValid');
+        if (!isUserNameValid) {
+            this.setData(d => d.set('isUserNameTextChanged', true));
+        }
+        const isPhoneNumberValid = this.state.data.get('isPhoneNumberValid');
+        if (!isPhoneNumberValid) {
+            this.setData(d => d.set('isPhoneNumberTextChanged', true));
+        }
+        const isEmailValid = this.state.data.get('isEmailValid');
+        if (!isEmailValid) {
+            this.setData(d => d.set('isEmailTextChanged', true));
+        }
     }
 
 }

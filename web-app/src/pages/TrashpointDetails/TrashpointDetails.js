@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { actions, selectors } from '../../reducers/trashpile';
 import { EditTrashpoint } from '../../components/EditTrashpoint';
 import { Details } from '../../components/Details';
+import { actions as appActions } from '../../reducers/app';
 import { selectors as userSelectors } from '../../reducers/user';
 import { USER_ROLES } from '../../shared/constants';
 
@@ -17,18 +18,24 @@ class TrashDetails extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.props.setActiveTab('trashpoints');
+  }
+
   componentDidMount() {
-    const { match, history } = this.props;
-    this.fetchMarkerDetails({
-      id: match.params.id,
-      focusMap: !!querystring.parse(history.location.search).focus,
-    });
+    const { trashpointId, history } = this.props;
+    if (trashpointId) {
+      this.fetchMarkerDetails({
+        id: trashpointId,
+        focusMap: !!querystring.parse(history.location.search).focus,
+      });
+    }
   }
 
   componentWillReceiveProps = nextProps => {
-    if (this.props.match.params !== nextProps.match.params) {
+    if (this.props.trashpointId !== nextProps.trashpointId) {
       this.fetchMarkerDetails({
-        id: nextProps.match.params.id,
+        id: nextProps.trashpointId,
         focusMap: !!querystring.parse(nextProps.history.location.search).focus,
       });
     }
@@ -44,7 +51,7 @@ class TrashDetails extends React.Component {
     });
   };
   handleOnCloseDetailsClick = () => {
-    let url =  '/';
+    let url = '/trashpoints/';
     if(this.props.location.state && this.props.location.state.selectedArea) {
       url = `${url}areas`;
     }
@@ -125,6 +132,7 @@ const mapState = state => ({
 const mapDispatch = {
   fetchMarkerDetails: actions.fetchMarkerDetails,
   focusMapLocation: actions.focusMapLocation,
+  setActiveTab: appActions.setActiveTab,
 };
 
 export default connect(mapState, mapDispatch)(TrashDetails);

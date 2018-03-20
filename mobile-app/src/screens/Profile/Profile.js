@@ -26,7 +26,6 @@ import { EVENTS, TRASHPOINTS } from './data';
 class Profile extends Component {
 
   static navigatorStyle = navigatorStyle;
-  static navigatorButtons = navigatorButtons;
 
   constructor(props) {
     super(props);
@@ -40,13 +39,37 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { isAuthenticated, onFetchProfile } = this.props;
+    const { isAuthenticated, isGuestSession, onFetchProfile } = this.props;
 
-    if (isAuthenticated) {
-      onFetchProfile();
-    }
+        if (!isAuthenticated && isGuestSession) {
+            this.props.navigator.setButtons({
+                rightButtons: [],
+                leftButtons: [
+                    {
+                        icon: Icons.Notification,
+                        id: 'notification',
+                    },
+                ],
+            })
+        } else {
+            onFetchProfile();
+            this.props.navigator.setButtons({
+                rightButtons: [
+                    {
+                        icon: Icons.Settings,
+                        id: 'settings',
+                    },
+                ],
+                leftButtons: [
+                    {
+                        icon: Icons.Notification,
+                        id: 'notification',
+                    },
+                ],
+            })
+        }
 
-    this.handleGetCurrentPosition();
+    //this.handleGetCurrentPosition();
   }
 
   onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
@@ -72,20 +95,18 @@ class Profile extends Component {
     }
   }
 
-  handleGetCurrentPosition = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
-  
-        this.props.onFetchLocation({
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-        });
-      },
-      error => console.log('Error', error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-  };
+  // handleGetCurrentPosition = () => {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       this.props.onFetchLocation({
+  //         lat: position.coords.latitude,
+  //         long: position.coords.longitude,
+  //       });
+  //     },
+  //     error => console.log('Error', error),
+  //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+  //   );
+  // };
 
   handleRenderLocation() {
     const { country } = this.props;
@@ -175,7 +196,7 @@ class Profile extends Component {
       />
     );
   };
-  
+
   onRenderTrashPoints = () => {
     return (
       <FlatList
@@ -251,7 +272,6 @@ Profile.propTypes = {
   navigator: PropTypes.object,
   onFetchProfile: PropTypes.func,
   onGuestLogIn: PropTypes.func,
-  onFetchLocation: PropTypes.func,
 };
 
 export default Profile;

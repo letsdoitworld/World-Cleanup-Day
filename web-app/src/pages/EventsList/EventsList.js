@@ -6,11 +6,15 @@ import { EventDetails } from './EventDetails';
 import { Event } from './Event';
 import './EventsList.css';
 import { actions, selectors } from '../../reducers/events';
+import {
+  actions as appActions,
+} from '../../reducers/app';
 
 class EventsList extends Component {
 
   componentWillMount() {
-    this.props.fetchAllEvents()
+    this.props.fetchAllEvents();
+    this.props.setActiveTab('events');
   }
 
   render() {
@@ -66,6 +70,7 @@ const mapDispatchToProps = {
   toggleEventWindow: actions.toggleEventWindow,
   fetchAllEvents: actions.fetchAllEvents,
   fetchEventDetails: actions.fetchEventDetails,
+  setActiveTab: appActions.setActiveTab,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsList);

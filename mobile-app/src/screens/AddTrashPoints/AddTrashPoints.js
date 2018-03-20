@@ -22,6 +22,7 @@ import {connect} from "react-redux";
 import ListItem from "./Item/ListItem";
 import PropTypes from "prop-types";
 import Profile from "../Profile/Profile";
+import {isLoading} from "../../store/selectors";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -125,7 +126,6 @@ class AddTrashPoints extends Component {
             this.setState(previousState => {
                 return { trashPoints: receivedTrashPointsList }
             });
-            //this.setData(d => d.set('trashPoints', receivedTrashPointsList));
         } else {
 
             const filteredReceivedTrashPoints = receivedTrashPointsList
@@ -138,7 +138,6 @@ class AddTrashPoints extends Component {
             this.setState(previousState => {
                 return { trashPoints: trashPoints }
             });
-            //this.setData(d => d.set('trashPoints', trashPoints));
         }
 
     }
@@ -198,8 +197,8 @@ class AddTrashPoints extends Component {
     }
 
     isProgressEnabled() {
-        return false;
-        //return this.props.app.get('progress');
+        const { isLoading } = this.props;
+        return isLoading;
     }
 
     renderSeparator = () => {
@@ -287,6 +286,7 @@ function debounce(func, wait, immediate) {
 
 Profile.propTypes = {
     trashPoints: PropTypes.object,
+    isLoading: PropTypes.bool,
     onSearchTrashPointsAction: PropTypes.func,
     onClearTrashPointsAction: PropTypes.func,
 };

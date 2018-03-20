@@ -13,6 +13,7 @@ import {
   UPDATE_PROFILE_DONE,
   UPDATE_PROFILE_ERROR,
   UPDATE_PROFILE_EMAIL,
+  UPDATE_PROFILE_STATUS_SUCCESS,
 } from '../actions/profile';
 
 
@@ -42,6 +43,15 @@ const handlers = {
       mState.set('entity', {
         ...state.get('entity'),
         email: payload,
+      }),
+    );
+  },
+  [UPDATE_PROFILE_STATUS_SUCCESS]: (state, { payload }) => {
+    console.log('UPDATE_PROFILE_STATUS_SUCCESS', payload);
+    return state.withMutations(mState =>
+      mState.set('entity', {
+        ...state.get('entity'),
+        public: payload,
       }),
     );
   },

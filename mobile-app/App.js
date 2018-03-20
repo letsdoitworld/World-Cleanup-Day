@@ -17,7 +17,6 @@ import './src/config/styles';
 
 import { Icons } from './src/assets/images';
 
-
 import strings from './src/assets/strings';
 import configureStore from './src/store/configureStore';
 

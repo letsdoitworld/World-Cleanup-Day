@@ -1,18 +1,21 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { createEvent } from '../../../store/actions/createEvent';
+import { createEvent, createEventDone, createEventError } from '../../../store/actions/createEvent';
 
-import { getCreateEventEntity } from '../../../store/selectors';
+import { getCreateEventEntity, getCreateEventError } from '../../../store/selectors';
 
 import Component from './AddPeopleToEvent';
 
 const selector = createStructuredSelector({
-    createEvent: getCreateEventEntity,
+    createdEvent: getCreateEventEntity,
+    errorEvent: getCreateEventError,
 });
 
 const actions = {
     requestCreateEvent: createEvent,
+    requestCreateEventDone: createEventDone,
+    requestCreateEventError: createEventError,
 };
 
 export default connect(selector, actions)(Component);

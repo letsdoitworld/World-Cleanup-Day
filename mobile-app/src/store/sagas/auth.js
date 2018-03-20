@@ -1,4 +1,8 @@
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, select } from 'redux-saga/effects';
+
+import {
+  getToken,
+} from '../selectors';
 
 import {
   setErrorMessage,
@@ -7,6 +11,7 @@ import {
 import {
   FB_LOGIN_ACTION,
   GOOGLE_LOGIN_ACTION,
+  REHYDRATE,
   LOGOUT,
   setToken,
   logout,
@@ -18,6 +23,8 @@ import {
 
 import Api from '../../api';
 
+import ApiConfig from '../../services/Api';
+
 import {
   login,
   BACKEND_LOGIN_SOURCES,
@@ -25,12 +32,33 @@ import {
 
 // import strings from '../../assets/strings';
 
+
+function* autoRegidrate() {
+  try {
+    const token = yield select(getToken);
+  
+    if (token) {
+      yield ApiConfig.setAuthToken(token);
+    }
+  } catch (error) {
+    setErrorMessage(String(error));
+  }
+}
+
+export function* autoRegidrateFlow() {
+  while (true) {
+    yield take(REHYDRATE);
+    yield call(autoRegidrate);
+  }
+}
+
 function* loginGoogle() {
   try {
     const user = yield call(Api.auth.googleLogin);
     const accessToken = user.accessToken;
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.GOOGLE, accessToken);
     yield put(setToken(cleanUpToken));
+    yield call(ApiConfig.setAuthToken, cleanUpToken);
   } catch (error) {
     setErrorMessage(String(error));
   }
@@ -55,6 +83,7 @@ function* loginFacebook() {
     const accessToken = res.token.accessToken;
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.FACEBOOK, accessToken);
     yield put(setToken(cleanUpToken));
+    yield call(ApiConfig.setAuthToken, cleanUpToken);
 
     if (res.email) {
       yield put(updateEmailProfile(res.email));

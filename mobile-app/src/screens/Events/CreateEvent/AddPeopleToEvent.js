@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 import {
-    View, Text,
+    View, Text, Alert
 } from 'react-native';
 import styles from "./styles";
 import strings from "../../../assets/strings";
@@ -11,6 +11,10 @@ import * as Immutable from "immutable/dist/immutable";
 import PropTypes from 'prop-types';
 import {EVENTS, HOME_SCREEN} from "../../index";
 import {Navigation} from "react-native-navigation";
+import {createEventError} from "../../../store/actions/createEvent";
+import { AlertModal } from '../../../components/AlertModal';
+
+const cancelId = 'cancelId';
 
 class AddPeopleToEvent extends ImmutableComponent {
 
@@ -19,8 +23,18 @@ class AddPeopleToEvent extends ImmutableComponent {
         navBarTitleTextCentered: true,
     };
 
+    static navigatorButtons = {
+        leftButtons: [
+            {
+                icon: require('../../../../src/assets/images/ic_back.png'),
+                id: cancelId,
+            }
+        ],
+    };
+
     numberAttendees: string;
     event: Object;
+    isAlertDialogVisible: boolean;
 
     constructor(props) {
         super(props);
@@ -30,22 +44,56 @@ class AddPeopleToEvent extends ImmutableComponent {
                 isNumberAttendeesTextChanged: false,
             })
         };
-        this.event = props.event
+        this.event = props.event;
+        this.isAlertDialogVisible = false;
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent(event) {
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.back();
+                    break;
+                }
+            }
+        }
+    }
+
+    back() {
+        this.props.navigator.pop({
+            animated: true,
+            animationType: 'slide_out',
+        });
     }
 
     componentDidUpdate() {
-        const { createEvent } = this.props;
-        //console.warn("componentDidUpdate", createEvent)
-        if (createEvent) {
+        const { createdEvent, errorEvent } = this.props;
+        if (createdEvent !== null && createdEvent !== undefined) {
             Navigation.dismissModal()
         }
+        if (errorEvent !== null && errorEvent !== undefined) {
+            Alert.alert(
+                'Error',
+                errorEvent,
+                [
+                    {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}
+                ],
+            )
+        }
+    }
+
+    componentWillUnmount() {
+        const { requestCreateEventDone, requestCreateEventError } = this.props;
+        requestCreateEventDone(undefined);
+        requestCreateEventError(null)
     }
 
     renderNumberAttendeesTitle() {
         const isNumberAttendeesValid = this.state.data.get('isNumberAttendeesValid');
         const isNumberAttendeesTextChanged = this.state.data.get('isNumberAttendeesTextChanged');
         const style = (isNumberAttendeesValid && isNumberAttendeesTextChanged) || (!isNumberAttendeesValid && !isNumberAttendeesTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
-        return  <View style={styles.titleStyle}>
+        return <View style={styles.titleStyle}>
             <Text style={style}>{strings.label_max_number_of_attendees.toUpperCase()}</Text>
         </View>
     }
@@ -71,16 +119,16 @@ class AddPeopleToEvent extends ImmutableComponent {
                                 placeholder={strings.label_enter_digits_hint}
                                 autoCorrect={false}
                                 keyboardType='numeric'
+                                returnKeyType={'done'}
                                 validate={this.validateNumberAttendees}
-                                errorString={'Invalid phone'}
                                 onChangeText={this.onNumberAttendeesTextChanged}/>
                 </View>
                 {this.renderNumberAttendeesError()}
                 <MainButton
-                    disabled={!isValid}
-                    text={strings.label_next}
+                    isValid={isValid}
+                    text={strings.label_create_event}
                     style={styles.coordinatorNext}
-                    onPress={this.onCreateEventClick}/>
+                    onPress={() => this.onCreateEventClick(isValid)}/>
             </View>)
     }
 
@@ -95,17 +143,28 @@ class AddPeopleToEvent extends ImmutableComponent {
         return isValid
     };
 
-    onCreateEventClick = () => {
-        const { requestCreateEvent } = this.props;
-        //this.event['numberAttendees'] = this.numberAttendees;
-        requestCreateEvent(this.event)
+    onCreateEventClick = (isValid) => {
+        if (isValid) {
+            const {requestCreateEvent} = this.props;
+            //this.event['numberAttendees'] = this.numberAttendees;
+            requestCreateEvent(this.event)
+        } else {
+            this.showValidationErrors()
+        }
+    };
+
+    showValidationErrors() {
+        this.setData(d => d.set('isNumberAttendeesTextChanged', true));
     }
 
 }
 
 AddPeopleToEvent.propTypes = {
-    createEvent: PropTypes.object,
-    requestCreateEvent: PropTypes.func
+    createdEvent: PropTypes.object,
+    errorEvent: PropTypes.object,
+    requestCreateEvent: PropTypes.func,
+    requestCreateEventDone: PropTypes.func,
+    requestCreateEventError: PropTypes.func,
 };
 
 export default AddPeopleToEvent

@@ -3,13 +3,9 @@ import { createStructuredSelector } from 'reselect';
 
 import { setGuestSession, loginFacebook, loginGoogle } from '../../store/actions/auth';
 
-import { isAuthenticated } from '../../store/selectors';
-
 import Component from './Login';
 
-const selector = createStructuredSelector({
-  isAuthenticated,
-});
+const selector = createStructuredSelector({});
 
 const actions = {
   onSetGuestSession: setGuestSession,

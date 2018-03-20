@@ -32,10 +32,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.343042629555-j76u4488sqenudbkmetmbcd0jftid7tp</string>
+			<string>com.googleusercontent.apps.343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.343042629555-j76u4488sqenudbkmetmbcd0jftid7tp</string>
+				<string>com.googleusercontent.apps.343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl</string>
 			</array>
 		</dict>
 		<dict>
@@ -48,9 +48,19 @@
 				<string>com.teeme.ldi</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl.apps.googleusercontent.com</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl.apps.googleusercontent.com</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>5</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -91,10 +101,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) create event photo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>NSCameraUsageDescription</string>
+	<string>$(PRODUCT_NAME) create event photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Heavy.ttf</string>

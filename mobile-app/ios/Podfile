@@ -1,49 +1,36 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '8.0'
+platform :ios, '8.0'
 
 target 'mobileapp' do
+
+    # this is very important to have!
+    rn_path = '../node_modules/react-native'
+    pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
+    pod 'Google/SignIn'
+    pod 'Firebase/Core'
+    pod 'React', path: rn_path, subspecs: [
+    'Core',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket'
+    ]
     
-    pod 'RSKImageCropper'
-    pod 'QBImagePickerController'
-  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
-  use_frameworks!
-  pod 'Fabric'
-  pod 'Crashlytics'
-  # Pods for mobileapp
+    pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
 
-  # use_frameworks!
+end
 
-
- # pod 'FBSDKCoreKit'
- # pod 'FBSDKLoginKit'
- # pod 'FBSDKShareKit'
- # pod 'FBSDKPlacesKit'
- # pod 'FBSDKMessengerShareKit'
-
- # target 'mobileapp-tvOSTests' do
- #   inherit! :search_paths
-    # Pods for testing
- # end
-
-
- # target 'mobileappTests' do
- #   inherit! :search_paths
-    # Pods for testing
- # end
-
-# end
-
-# target 'mobileapp-tvOS' do
-  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
-
-  # Pods for mobileapp-tvOS
-
- # target 'mobileapp-tvOSTests' do
-  #  inherit! :search_paths
-    # Pods for testing
- # end
-
- end
-
+# very important to have, unless you removed React dependencies for Libraries
+# and you rely on Cocoapods to manage it
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.name == "React"
+            target.remove_from_project
+        end
+    end
+end

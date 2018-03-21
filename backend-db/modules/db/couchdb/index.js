@@ -57,6 +57,20 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
+    getEvents: async (pageSize = 10, pageNumber = 1, minLocation, maxLocation) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byLocation/_view/view',
+        {
+          sorted: true,
+          startkey: maxLocation ? [maxLocation.latitude, maxLocation.longitude, {}] : [{}],
+          endkey: minLocation ? [minLocation.latitude, maxLocation.longitude] : [],
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          limit: pageSize,
+          skip: pageSize * (pageNumber - 1),
+        });
+    },
+
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
       return await adapter.getEntities(
         'Event',
@@ -69,6 +83,18 @@ const layer = {
           limit: pageSize,
           skip: pageSize * (pageNumber - 1),
         });
+    },
+
+    countEvents: async (minLocation, maxLocation) => {
+      const ret = await adapter.getRawDocs(
+        'Event',
+        '_design/countByLocation/_view/view',
+        {
+          startkey: minLocation ? [minLocation.latitude, maxLocation.longitude] : [],
+          endkey: maxLocation ? [maxLocation.latitude, maxLocation.longitude, {}] : [{}],
+        });
+      if (!ret.length) return 0;
+      return parseInt(ret.pop());
     },
 
     countUserEvents: async userId => {

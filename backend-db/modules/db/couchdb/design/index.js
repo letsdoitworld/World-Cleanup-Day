@@ -341,6 +341,31 @@ const designDocs = {
           },
         },
       },
+      byLocation: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.location.latitude, doc.location.longitude], doc);
+              }
+            },
+          },
+        },
+      },
+      countByLocation: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.location.latitude, doc.location.longitude], doc);
+              }
+            },
+            reduce: '_count',
+          },
+        },
+      },
     },
     trashpoints: {
         all: {

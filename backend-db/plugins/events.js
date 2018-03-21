@@ -12,6 +12,9 @@ const opts = {
 
 const PLUGIN_NAME = 'events';
 
+const filterFieldsEvents = event => _.pick(event, ['id', 'name', 'address', 'location', 'description', 'startTime',
+  'endTime', 'email', 'phonenumber', 'whatToBring', 'maxPeopleAmount', 'peopleAmount']);
+
 const mapEvent = event => {
     event.peopleAmount = event.peoples ? event.peoples.length : 0;
     return event;
@@ -56,14 +59,46 @@ module.exports = function () {
                 return responder.success(mappedEvent);
             });
     });
+    lucius.register('role:db,cmd:getEvents', async function (connector, args) {
+      return connector
+        .input(args)
+        .use(async function ({pageSize, pageNumber, location, radius}, responder) {
+          let minLocation, maxLocation;
+          if (location) {
+            try {
+              location = JSON.parse(location);
+            } catch (e) {
+              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
+            }
+
+            if (location.latitude && location.longitude) {
+              if (radius > 0) {
+                const minLatitude = location.latitude - radius / 111.12;
+                const minLongitude = location.longitude - radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
+                const maxLatitude = location.latitude + radius / 111.12;
+                const maxLongitude = location.longitude + radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
+                minLocation = {latitude: minLatitude, longitude: minLongitude};
+                maxLocation = {latitude: maxLatitude, longitude: maxLongitude};
+              } else {
+                minLocation = maxLocation = location;
+              }
+            } else {
+              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
+            }
+          }
+
+          const events = await db.getEvents(pageSize, pageNumber, minLocation, maxLocation);
+          const records = events.map(mapEvent).map(filterFieldsEvents);
+          const total = await db.countEvents(minLocation, maxLocation);
+          return responder.success({total, pageSize, pageNumber, records});
+        })
+    });
     lucius.register('role:db,cmd:getUserOwnEvents', async function (connector, args, __) {
         return connector
             .input(args)
             .use(async function ({pageSize, pageNumber}, responder) {
                 const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
-                const records = events.map(mapEvent).map((e) =>
-                    _.pick(e, ['id', 'name', 'address', 'location', 'description', 'startTime', 'endTime', 'email', 'phonenumber',
-                        'whatToBring', 'maxPeopleAmount', 'peopleAmount']));
+                const records = events.map(mapEvent).map(filterFieldsEvents);
                 const total = await db.countUserEvents(__.user.id);
                 return responder.success({total, pageSize, pageNumber, records});
             })

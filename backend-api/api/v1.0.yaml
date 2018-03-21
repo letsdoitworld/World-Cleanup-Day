@@ -181,6 +181,24 @@ paths:
           description: The indicated image and their dependent images were deleted.
         "default":
           $ref: "#/responses/ErrorSet"
+
+  #-----------------------------------------------------------------------------
+  /events:
+    x-swagger-router-controller: events
+    get:
+      description: Fetch full information about events.
+      operationId: getEvents
+      parameters:
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+        - $ref: "#/parameters/Radius"
+        - $ref: "#/parameters/Location"
+      responses:
+        "200":
+          $ref: "#/responses/UserEvents"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
   #-----------------------------------------------------------------------------
   /events/user:
     x-swagger-router-controller: events
@@ -604,6 +622,20 @@ parameters:
     required: true
     type: integer
     minimum: 1
+  Radius:
+    name: radius
+    in: query
+    description: number of items on a page.
+    required: false
+    type: number
+    format: float
+    minimum: 0
+  Location:
+    name: location
+    in: query
+    description: A geographical point coordinate, expressed as latitude and longitude.
+    required: false
+    type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:
     name: request

@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = {
+    INVALID_TYPE: {
+        message: ({parameter}) => `Parameter (${parameter}) is not a valid.`,
+    },
     API_UNEXPECTED_ERROR: {
         message: () => `An unexpected error has occured.`,
     },

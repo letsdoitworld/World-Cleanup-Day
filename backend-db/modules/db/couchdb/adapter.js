@@ -22,7 +22,7 @@ const TYPE_TO_DB_MAP = {
     'Session': 'sessions',
     'Area': 'areas',
     'Event': 'events'
-}
+};
 
 const cdb = require('./driver');
 const types =  require('../types');

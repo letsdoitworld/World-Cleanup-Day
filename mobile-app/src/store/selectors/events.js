@@ -12,3 +12,8 @@ export const getEventsEntity = createSelector(
     eventsSelector,
     events => events.events,
 );
+
+export const getMapEventsEntity = createSelector(
+    eventsSelector,
+    events => events.mapEvents,
+);

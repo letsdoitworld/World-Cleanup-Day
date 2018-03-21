@@ -138,7 +138,7 @@ class Events extends Component {
     };
 
 
-    renderContent() {
+    renderContent(mapEvents) {
         switch (this.state.mode) {
             case MODE.list: {
                 return (
@@ -154,8 +154,11 @@ class Events extends Component {
             }
             case MODE.map: {
                 return (<EventsMap
-                    events={this.props.events}
-                    location={this.props.userCoord}/>);
+                    //events={this.props.events}
+                    location={this.props.userCoord}
+                    mapEvents={mapEvents}
+                    onLoadMapEventsAction={this.props.onLoadMapEventsAction}
+                />);
             }
             default:
                 return null;
@@ -190,7 +193,9 @@ class Events extends Component {
     }
 
     componentDidMount() {
-        this.loadEvents(0)
+        this.loadEvents(0);
+        // const { onLoadMapEventsAction } = this.props;
+        // onLoadMapEventsAction()
     }
 
     componentWillUnmount() {
@@ -226,11 +231,12 @@ class Events extends Component {
 
 
     render() {
+        const events = this.props.mapEvents;
         return (
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
                     {this.renderSearchBox()}
-                    {this.renderContent()}
+                    {this.renderContent(events)}
                     <FAB
                         buttonColor="rgb(225, 18, 131)"
                         iconTextColor="white"
@@ -249,11 +255,13 @@ class Events extends Component {
 Events.propTypes = {
     events: PropTypes.array,
     userCoord: PropTypes.object,
+    mapEvents: PropTypes.array,
     isLoading: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
     onSearchEventsAction: PropTypes.func,
     onClearEventsAction: PropTypes.func,
     onGuestLogIn: PropTypes.func,
+    onLoadMapEventsAction: PropTypes.func,
 };
 
 export default Events;

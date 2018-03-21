@@ -1,3 +1,6 @@
+import Api from '../services/Api';
+import {API_ENDPOINTS} from "../shared/constants";
+
 export function searchEventsRequest(query, page, pageSize, location) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
@@ -417,6 +420,24 @@ export function searchEventsRequest(query, page, pageSize, location) {
     })
 }
 
+async function loadMapEvents(location, radius) {
+    try {
+        const response = await Api.get(API_ENDPOINTS.FETCH_MAP_EVENTS,
+            {
+                params: {
+                    location,
+                    radius,
+                },
+            },);
+        console.log("==> loadMapEvents ", response.data);
+        return response.data
+    } catch (ex) {
+        console.log("==> loadMapEvents ex ", ex);
+        throw ex;
+    }
+}
+
 export default {
     searchEventsRequest,
+    loadMapEvents,
 }

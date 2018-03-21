@@ -1,13 +1,13 @@
 import {call, put, take} from "redux-saga/effects";
-import {SEARCH_EVENTS_ACTION} from '../types/events';
+import {SEARCH_EVENTS_ACTION, LOAD_EVENTS_FOR_MAP_ACTION} from '../actions/events';
 import {
     controlProgress,
     setErrorMessage
 } from "../actions/app";
 import {
-    searchEventsAction,
-    searchEventsErrorAction,
-    searchEventsSuccessAction
+    searchEventsSuccessAction,
+    loadEventsForMapSuccess,
+    loadEventsForMapError,
 } from "../actions/events";
 
 import Api from '../../api';
@@ -21,7 +21,7 @@ function* searchEvents(query, page, pageSize, location) {
             setErrorMessage(String(response.error));
         }
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         setErrorMessage(String(error));
     }
 }
@@ -33,5 +33,20 @@ export function* searchEventsFlow() {
         yield put(controlProgress(true));
         yield call(searchEvents, query, page, pageSize, location);
         yield put(controlProgress(false));
+    }
+}
+
+export function* getMapEventsFlow() {
+    while (true) {
+        const { payload } = yield take(LOAD_EVENTS_FOR_MAP_ACTION);
+        try {
+            const response = yield call(Api.events.loadMapEvents, payload.location, payload.radius);
+            yield put(loadEventsForMapSuccess(response))
+        } catch (error) {
+            console.log("getMapEventsFlow error", error);
+            yield put(loadEventsForMapError(error));
+        }
+
+
     }
 }

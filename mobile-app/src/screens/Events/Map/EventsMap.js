@@ -16,9 +16,11 @@ import {DEFAULT_ZOOM} from "../../../shared/constants";
 import {renderItem} from '../List/ListItem/ListItem';
 import colors from '../../../config/colors';
 import {toRadians} from "../../../shared/helpers";
+import Button from "../../../components/Button/Button";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
+const DEFAULT_RADIUS_M = 10000;
 
 export default class EventsMap extends Component {
 
@@ -29,51 +31,43 @@ export default class EventsMap extends Component {
 
     constructor(props) {
         super(props);
-        const {location, events} = props;
-
-        const markers = events.map((event) => {
-            return {
-                id: event.id,
-                latlng: event.place.location,
-                status: event.status,
-                isMarked: this.marked.has(event.id),
-                item: event
+        const {location, onLoadMapEventsAction, mapEvents} = props;
+        let userLocation;
+        if (location === undefined || location === null) {
+            //TODO fix me!! Random location?
+            userLocation = {
+                latitude: 48.8152937,
+                longitude: 2.4597668
             }
-        });
+        } else {
+            userLocation = location
+        }
 
         this.state = {
-            markers,
+            markers: undefined,
+            mapEvents,
+            userLocation,
+            radius: DEFAULT_RADIUS_M,
             selectedItem: undefined
         };
 
         this.initialRegion = {
-            latitude: location != null ? location.latitude : 35,
-            longitude: location != null ? location.longitude : 49,
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
             latitudeDelta: DEFAULT_ZOOM,
-            longitudeDelta: this.calculateZoom(location != null ? location.latitude : 35),
-        };
-
-        this.circle = {
-            radius: 10000,
-            borderColor: colors.$mainBlue,
-            fillColor: 'rgba(0, 143, 223, 0.2)',
-            center: {
-                latitude: location != null ? location.latitude : 35,
-                longitude: location != null ? location.longitude : 49,
-            },
-            borderWidth: 1
+            longitudeDelta: this.calculateZoom(userLocation.latitude),
         };
 
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
     calculateZoom(latitude) {
-        const zoom = Math.abs((10000 / (2 * 3.14 * Math.cos(latitude) * 6371000)) * 360) * 2;
-        return  zoom;
+        const zoom = Math.abs((this.state.radius / (2 * 3.14 * Math.cos(latitude) * 63710000)) * 360) * 4;
+        return zoom;
     }
 
-    componentDidUpdate() {
-
+    componentDidMount() {
+            this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (this.state.radius/1000)})
     }
 
     onCheckedChanged(checked, item) {
@@ -83,13 +77,11 @@ export default class EventsMap extends Component {
             this.marked.delete(item.id)
         }
 
-        const markers = this.props.trashPoints.map((trashPoint) => {
+        const markers = this.props.mapEvents.map((mapEvents) => {
             return {
-                id: trashPoint.id,
-                latlng: trashPoint.location,
-                status: trashPoint.status,
-                isMarked: this.marked.has(trashPoint.id),
-                item: trashPoint
+                id: mapEvents.id,
+                latlng: mapEvents.location,
+                item: mapEvents
             }
         });
         this.setState(previousState => {
@@ -101,9 +93,45 @@ export default class EventsMap extends Component {
 
     };
 
+    loadMapEventsWithMoreRadius() {
+        const newRadius = this.state.radius + DEFAULT_RADIUS_M;
+        this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (newRadius/1000)});
+        this.setState(previousState => {
+            return {
+                radius: newRadius,
+            }
+        })
+    }
+
     render() {
 
-        const {selectedItem} = this.state;
+        const { selectedItem, radius } = this.state;
+        let markers;
+        if (this.props.mapEvents !== undefined) {
+            markers = this.props.mapEvents.map((event) => {
+                return {
+                    id: event.id,
+                    latlng: event.location,
+                    item: event
+                }
+            });
+        }
+
+        this.circle = {
+            radius: radius,
+            borderColor: colors.$mainBlue,
+            fillColor: 'rgba(0, 143, 223, 0.2)',
+            center: {
+                latitude: this.state.userLocation.latitude,
+                longitude: this.state.userLocation.longitude,
+            },
+            borderWidth: 1
+        };
+
+        this.regionWIthMarkers = {
+            ...this.initialRegion,
+            longitudeDelta: this.calculateZoom(this.state.userLocation.latitude),
+        };
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
 
@@ -111,13 +139,17 @@ export default class EventsMap extends Component {
             <View style={styles.container}>
                 <MapView
                     handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
-                    markers={this.state.markers}
+                    //markers={this.state.markers}
+                    markers={markers}
                     initialRegion={this.initialRegion}
-                    region={this.initialRegion}
+                    region={this.regionWIthMarkers}
                     style={styles.map}
                     getRef={(map) => this.map = map}
                     circleProps={this.circle}/>
                 {this.renderSelectedItem(selectedItem, checked)}
+                <Button style={styles.buttonStyle}
+                        text={"Load"}
+                        onPress={() => this.loadMapEventsWithMoreRadius()}/>
             </View>
         );
     }

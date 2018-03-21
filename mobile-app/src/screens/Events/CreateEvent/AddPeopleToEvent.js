@@ -161,7 +161,7 @@ class AddPeopleToEvent extends ImmutableComponent {
 
 AddPeopleToEvent.propTypes = {
     createdEvent: PropTypes.object,
-    errorEvent: PropTypes.object,
+    errorEvent: PropTypes.string,
     requestCreateEvent: PropTypes.func,
     requestCreateEventDone: PropTypes.func,
     requestCreateEventError: PropTypes.func,

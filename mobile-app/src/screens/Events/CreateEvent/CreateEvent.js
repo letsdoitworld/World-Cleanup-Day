@@ -455,7 +455,7 @@ export default class CreateEvent extends ImmutableComponent {
                         endTime: this.state.data.get('endDate'),
                         location: {
                             latitude: 48.8152937,
-                            longitude: 2.4597668,
+                            longitude: 2.4597600,
                         },
                         description: this.description,
                         whatToBring: this.whatToBring,

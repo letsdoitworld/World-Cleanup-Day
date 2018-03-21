@@ -224,7 +224,7 @@ export default class AddCoordinator extends ImmutableComponent {
                         whatToBring: this.props.event.whatToBring,
                         // imageUrl: this.props.event.imageUrl,
                         // coordinatorName: this.userName,
-                        // phoneNumber: this.phoneNumber,
+                        phonenumber: this.phoneNumber,
                         email: this.email,
                     },
                 }

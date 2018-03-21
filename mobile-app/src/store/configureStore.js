@@ -21,6 +21,7 @@ import {
     searchEventsFlow,
     loadLocationFlow,
     autoRegidrateFlow,
+    getMapEventsFlow,
 } from './sagas';
 
 
@@ -75,6 +76,7 @@ export default function configureStore() {
       sagaMiddleware.run(searchTrashPointsFlow),
       sagaMiddleware.run(searchEventsFlow),
       sagaMiddleware.run(loadLocationFlow),
+      sagaMiddleware.run(getMapEventsFlow),
     ],
   };
 }

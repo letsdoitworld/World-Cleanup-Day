@@ -62,35 +62,48 @@ module.exports = function () {
     lucius.register('role:db,cmd:getEvents', async function (connector, args) {
       return connector
         .input(args)
-        .use(async function ({pageSize, pageNumber, location, radius}, responder) {
+        .use(async function ({pageSize, pageNumber}, responder) {
+          const events = await db.getEvents(pageSize, pageNumber);
+          const records = events.map(mapEvent).map(filterFieldsEvents);
+          const total = await db.countEvents();
+          return responder.success({total, pageSize, pageNumber, records});
+        })
+    });
+    lucius.register('role:db,cmd:getEventsOverview', async function (connector, args) {
+      return connector
+        .input(args)
+        .use(async function ({location, radius}, responder) {
           let minLocation, maxLocation;
-          if (location) {
-            try {
-              location = JSON.parse(location);
-            } catch (e) {
-              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
-            }
 
-            if (location.latitude && location.longitude) {
-              if (radius > 0) {
-                const minLatitude = location.latitude - radius / 111.12;
-                const minLongitude = location.longitude - radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
-                const maxLatitude = location.latitude + radius / 111.12;
-                const maxLongitude = location.longitude + radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
-                minLocation = {latitude: minLatitude, longitude: minLongitude};
-                maxLocation = {latitude: maxLatitude, longitude: maxLongitude};
-              } else {
-                minLocation = maxLocation = location;
-              }
-            } else {
-              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
-            }
+          console.log('Location', location);
+
+          try {
+            location = JSON.parse(location);
+          } catch (e) {
+            return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
           }
 
-          const events = await db.getEvents(pageSize, pageNumber, minLocation, maxLocation);
+          if (location.latitude && location.longitude) {
+            if (radius > 0) {
+              const minLatitude = location.latitude - radius / 111.12;
+              const minLongitude = location.longitude - radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
+              const maxLatitude = location.latitude + radius / 111.12;
+              const maxLongitude = location.longitude + radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
+              minLocation = {latitude: minLatitude, longitude: minLongitude};
+              maxLocation = {latitude: maxLatitude, longitude: maxLongitude};
+            } else {
+              minLocation = maxLocation = location;
+            }
+          } else {
+            return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
+          }
+
+          console.log(minLocation, maxLocation);
+
+          const events = await db.getEventsByLocation(minLocation, maxLocation);
           const records = events.map(mapEvent).map(filterFieldsEvents);
-          const total = await db.countEvents(minLocation, maxLocation);
-          return responder.success({total, pageSize, pageNumber, records});
+          console.log(records);
+          return responder.success(records);
         })
     });
     lucius.register('role:db,cmd:getUserOwnEvents', async function (connector, args, __) {

@@ -191,11 +191,28 @@ paths:
       parameters:
         - $ref: "#/parameters/PageSize"
         - $ref: "#/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/responses/Events"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+  #-----------------------------------------------------------------------------
+  /events/overview:
+    x-swagger-router-controller: events
+    get:
+      description: Fetch full information about events by location and radius
+      operationId: getEventsOverview
+      parameters:
         - $ref: "#/parameters/Radius"
         - $ref: "#/parameters/Location"
       responses:
         "200":
-          $ref: "#/responses/UserEvents"
+          description: List of events.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Event"
         "default":
           $ref: "#/responses/ErrorSet"
 
@@ -626,7 +643,7 @@ parameters:
     name: radius
     in: query
     description: number of items on a page.
-    required: false
+    required: true
     type: number
     format: float
     minimum: 0
@@ -634,7 +651,7 @@ parameters:
     name: location
     in: query
     description: A geographical point coordinate, expressed as latitude and longitude.
-    required: false
+    required: true
     type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:
@@ -888,6 +905,11 @@ responses:
           type:
             description: The type of resource.
             $ref: "#/definitions/TrashImageType"
+
+  Events:
+    description: List of events.
+    schema:
+      $ref: "#/definitions/PaginatedEvents"
 
   UserEvents:
     description: List of events for user consumption.

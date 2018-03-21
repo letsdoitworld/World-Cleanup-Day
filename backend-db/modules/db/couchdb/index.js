@@ -57,17 +57,25 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
-    getEvents: async (pageSize = 10, pageNumber = 1, minLocation, maxLocation) => {
+    getEvents: async (pageSize = 10, pageNumber = 1) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/all/_view/view',
+        {
+          sorted: true,
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          limit: pageSize,
+          skip: pageSize * (pageNumber - 1),
+        });
+    },
+
+    getEventsByLocation: async (minLocation, maxLocation) => {
       return await adapter.getEntities(
         'Event',
         '_design/byLocation/_view/view',
         {
-          sorted: true,
-          startkey: maxLocation ? [maxLocation.latitude, maxLocation.longitude, {}] : [{}],
-          endkey: minLocation ? [minLocation.latitude, maxLocation.longitude] : [],
-          descending: true, //XXX: when desc=true, startkey and endkey are reversed
-          limit: pageSize,
-          skip: pageSize * (pageNumber - 1),
+          startkey: maxLocation ? [minLocation.latitude, minLocation.longitude] : [],
+          endkey: minLocation ? [maxLocation.latitude, maxLocation.longitude, {}] : [{}],
         });
     },
 
@@ -85,14 +93,8 @@ const layer = {
         });
     },
 
-    countEvents: async (minLocation, maxLocation) => {
-      const ret = await adapter.getRawDocs(
-        'Event',
-        '_design/countByLocation/_view/view',
-        {
-          startkey: minLocation ? [minLocation.latitude, maxLocation.longitude] : [],
-          endkey: maxLocation ? [maxLocation.latitude, maxLocation.longitude, {}] : [{}],
-        });
+    countEvents: async () => {
+      const ret = await adapter.getRawDocs('Event', '_design/countAll/_view/view');
       if (!ret.length) return 0;
       return parseInt(ret.pop());
     },

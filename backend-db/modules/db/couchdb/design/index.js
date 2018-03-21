@@ -316,6 +316,31 @@ const designDocs = {
               },
           },
       },
+      countAll: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit(doc._id, doc);
+              }
+            },
+            reduce: '_count',
+          },
+        },
+      },
+      byLocation: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.location.latitude, doc.location.longitude], doc);
+              }
+            },
+          },
+        },
+      },
       byCreatingUser: {
         $version: 1,
         views: {
@@ -335,31 +360,6 @@ const designDocs = {
             map: function (doc) {
               if (doc.$doctype === 'event') {
                 emit(doc.createdBy, null);
-              }
-            },
-            reduce: '_count',
-          },
-        },
-      },
-      byLocation: {
-        $version: 1,
-        views: {
-          view: {
-            map: function (doc) {
-              if (doc.$doctype === 'event') {
-                emit([doc.location.latitude, doc.location.longitude], doc);
-              }
-            },
-          },
-        },
-      },
-      countByLocation: {
-        $version: 1,
-        views: {
-          view: {
-            map: function (doc) {
-              if (doc.$doctype === 'event') {
-                emit([doc.location.latitude, doc.location.longitude], doc);
               }
             },
             reduce: '_count',

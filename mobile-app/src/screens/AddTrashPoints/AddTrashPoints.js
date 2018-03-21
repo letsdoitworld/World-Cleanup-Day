@@ -156,7 +156,7 @@ class AddTrashPoints extends Component {
                     buttonFontFamily: 'Lato-Bold',
                 },
                 {
-                    icon: require('../../../src/assets/images/icon_menu_map_active.png'),
+                    icon: require('../../../src/assets/images/icMapView.png'),
                     id: mapId,
                 }
             ]

@@ -104,7 +104,10 @@ class AddTrashPoints extends Component {
             this.marked.set(trashPoint.id, trashPoint)
         });
         this.setState(previousState => {
-            return {trashPoints: this.props.trashPoints}
+            return {
+                trashPoints: this.props.trashPoints,
+                count: this.marked.size
+            }
         });
     }
 
@@ -218,18 +221,8 @@ class AddTrashPoints extends Component {
         const count = this.state.count;
         if (count > 0) {
             return (
-                <View style={{
-                    width: '100%',
-                    height: 30,
-                    backgroundColor: 'rgb(0, 143, 223)',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text style={{
-                        fontFamily: 'Lato-Bold',
-                        fontSize: 15,
-                        color: 'white',
-                    }}>
+                <View style={styles.counterContainer}>
+                    <Text style={styles.counter}>
                         {strings.formatString(strings.trashPoints_counter, count)}
                     </Text>
                 </View>

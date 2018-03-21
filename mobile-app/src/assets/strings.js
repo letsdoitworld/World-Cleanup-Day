@@ -3,6 +3,7 @@ import LocalizedStrings from 'react-native-localization';
 module.exports = new LocalizedStrings({
     en: {
         trashPoints_counter: '{0} trashpoints selected',
+        label_no_trashpoints_selected: 'No trashpoints selected',
         label_nav_bar_list: "List",
         label_nav_bar_map: "Map",
         label_included_into_another_event: "Included into another event",

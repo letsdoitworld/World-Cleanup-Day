@@ -1,7 +1,10 @@
 import {
     SEARCH_EVENTS_SUCCESS_ACTION,
-    CLEAR_EVENTS_ACTION
-} from "../types/events";
+    CLEAR_EVENTS_ACTION,
+    LOAD_EVENTS_FOR_MAP_ACTION,
+    LOAD_EVENTS_FOR_MAP_SUCCESS,
+    LOAD_EVENTS_FOR_MAP_ERROR
+} from "../actions/events";
 
 import {createReducer} from '../helpers/createReducer';
 import Immutable from "immutable";
@@ -11,6 +14,7 @@ export const initialState = Immutable.Map(
         page: undefined,
         pageSize: undefined,
         events: undefined,
+        mapEvents: undefined,
         error: undefined,
     });
 
@@ -34,6 +38,14 @@ const handlers = {
             .set('events', undefined)
         );
     },
+    [LOAD_EVENTS_FOR_MAP_SUCCESS]: (state, { payload }) => {
+        return state.withMutations(mState => mState
+            .set('mapEvents', payload));
+    },
+    [LOAD_EVENTS_FOR_MAP_ERROR]: (state, { payload }) => {
+        return state.withMutations(mState => mState
+            .set('error', payload));
+    }
 };
 
 export default createReducer(initialState, handlers);

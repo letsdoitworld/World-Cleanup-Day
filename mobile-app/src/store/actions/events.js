@@ -1,10 +1,8 @@
-import {
-    SEARCH_EVENTS_ACTION,
-    SEARCH_EVENTS_ERROR_ACTION,
-    SEARCH_EVENTS_SUCCESS_ACTION,
-    CLEAR_EVENTS_ACTION
-} from '../types/events';
 
+export const SEARCH_EVENTS_ACTION = 'SEARCH_EVENTS_ACTION';
+export const SEARCH_EVENTS_SUCCESS_ACTION = 'SEARCH_EVENTS_SUCCESS_ACTION';
+export const SEARCH_EVENTS_ERROR_ACTION = 'SEARCH_EVENTS_ERROR_ACTION';
+export const CLEAR_EVENTS_ACTION = 'CLEAR_EVENTS_ACTION';
 export const searchEventsAction = (query, page, pageSize, location) => ({
     type: SEARCH_EVENTS_ACTION,
     query,
@@ -27,4 +25,22 @@ export const searchEventsErrorAction = (error) => ({
 
 export const clearEventsAction = () => ({
     type: CLEAR_EVENTS_ACTION
+});
+
+export const LOAD_EVENTS_FOR_MAP_ACTION = 'LOAD_EVENTS_FOR_MAP_ACTION';
+export const loadEventsForMapAction = parameters => ({
+    type: LOAD_EVENTS_FOR_MAP_ACTION,
+    payload: parameters
+});
+
+export const LOAD_EVENTS_FOR_MAP_SUCCESS = 'LOAD_EVENTS_FOR_MAP_SUCCESS';
+export const loadEventsForMapSuccess = mapEvents => ({
+    type: LOAD_EVENTS_FOR_MAP_SUCCESS,
+    payload: mapEvents
+});
+
+export const LOAD_EVENTS_FOR_MAP_ERROR = 'LOAD_EVENTS_FOR_MAP_ERROR';
+export const loadEventsForMapError = error => ({
+    type: LOAD_EVENTS_FOR_MAP_ERROR,
+    payload: error
 });

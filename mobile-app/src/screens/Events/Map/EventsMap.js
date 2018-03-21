@@ -14,6 +14,8 @@ import styles from './styles'
 import {Map as MapView} from '../../../components/Map/Map';
 import {DEFAULT_ZOOM} from "../../../shared/constants";
 import {renderItem} from '../List/ListItem/ListItem';
+import colors from '../../../config/colors';
+import {toRadians} from "../../../shared/helpers";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -47,11 +49,27 @@ export default class EventsMap extends Component {
         this.initialRegion = {
             latitude: location != null ? location.latitude : 35,
             longitude: location != null ? location.longitude : 49,
-            latitudeDelta: 10,
-            longitudeDelta: 10,
+            latitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: this.calculateZoom(location != null ? location.latitude : 35),
+        };
+
+        this.circle = {
+            radius: 10000,
+            borderColor: colors.$mainBlue,
+            fillColor: 'rgba(0, 143, 223, 0.2)',
+            center: {
+                latitude: location != null ? location.latitude : 35,
+                longitude: location != null ? location.longitude : 49,
+            },
+            borderWidth: 1
         };
 
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+
+    calculateZoom(latitude) {
+        const zoom = Math.abs((10000 / (2 * 3.14 * Math.cos(latitude) * 6371000)) * 360) * 2;
+        return  zoom;
     }
 
     componentDidUpdate() {
@@ -97,7 +115,8 @@ export default class EventsMap extends Component {
                     initialRegion={this.initialRegion}
                     region={this.initialRegion}
                     style={styles.map}
-                    getRef={(map) => this.map = map}/>
+                    getRef={(map) => this.map = map}
+                    circleProps={this.circle}/>
                 {this.renderSelectedItem(selectedItem, checked)}
             </View>
         );

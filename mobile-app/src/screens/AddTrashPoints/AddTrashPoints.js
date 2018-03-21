@@ -129,7 +129,10 @@ class AddTrashPoints extends Component {
 
         if (this.marked.size === 0) {
             this.setState(previousState => {
-                return {trashPoints: receivedTrashPointsList}
+                return {
+                    trashPoints: receivedTrashPointsList,
+                    count: this.marked.size
+                }
             });
         } else {
             if (this.page === 0) {
@@ -141,11 +144,17 @@ class AddTrashPoints extends Component {
                 const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
 
                 this.setState(previousState => {
-                    return {trashPoints: trashPoints}
+                    return {
+                        trashPoints: trashPoints,
+                        count: this.marked.size
+                    }
                 });
             } else {
                 this.setState(previousState => {
-                    return {trashPoints: receivedTrashPointsList}
+                    return {
+                        trashPoints: receivedTrashPointsList,
+                        count: this.marked.size
+                    }
                 });
             }
         }

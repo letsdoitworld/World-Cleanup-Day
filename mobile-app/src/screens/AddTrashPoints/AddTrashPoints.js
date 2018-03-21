@@ -127,17 +127,22 @@ class AddTrashPoints extends Component {
                 return {trashPoints: receivedTrashPointsList}
             });
         } else {
+            if (this.page === 0) {
+                const filteredReceivedTrashPoints = receivedTrashPointsList
+                    .filter((trashPoint) => !this.marked.has(trashPoint.id));
 
-            const filteredReceivedTrashPoints = receivedTrashPointsList
-                .filter((trashPoint) => !this.marked.has(trashPoint.id));
+                if (filteredReceivedTrashPoints === undefined) return;
 
-            if (filteredReceivedTrashPoints === undefined) return;
+                const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
 
-            const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
-
-            this.setState(previousState => {
-                return {trashPoints: trashPoints}
-            });
+                this.setState(previousState => {
+                    return {trashPoints: trashPoints}
+                });
+            } else {
+                this.setState(previousState => {
+                    return {trashPoints: receivedTrashPointsList}
+                });
+            }
         }
 
         this.props.navigator.setButtons({
@@ -190,7 +195,9 @@ class AddTrashPoints extends Component {
                         data={this.getTrashPointsFromState()}
                         keyExtractor={this.keyExtractor.bind(this)}
                         renderItem={this.renderItem.bind(this)}
-                        onEndReached={this.handleLoadMore.bind(this)}/>
+                        onEndReached={this.handleLoadMore.bind(this)}
+                        onEndReachedThreshold={0}
+                    />
                 </View>
                 {this.renderProgress()}
             </View>

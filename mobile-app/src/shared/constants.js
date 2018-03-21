@@ -106,6 +106,10 @@ export const API_ENDPOINTS = {
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
+    FETCH_EVENT_IMAGES: eventId =>
+        `/event/${eventId}/images`,
+    EVENT: '/event',
+
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {

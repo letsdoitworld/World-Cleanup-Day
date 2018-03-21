@@ -62,10 +62,18 @@ export default class AddTrashPointsMap extends Component {
             }
         });
 
-        this.state = {
-            markers,
-            selectedItem: undefined
-        };
+        if (markers.length > 0) {
+            markers[0].isSelected = true;
+            this.state = {
+                markers,
+                selectedItem: markers[0].item
+            };
+        } else {
+            this.state = {
+                markers,
+                selectedItem: undefined
+            };
+        }
 
         this.initialRegion = {
             latitude: this.props.location.latitude,
@@ -111,7 +119,8 @@ export default class AddTrashPointsMap extends Component {
                 latlng: trashPoint.location,
                 status: trashPoint.status,
                 isMarked: this.marked.has(trashPoint.id),
-                item: trashPoint
+                item: trashPoint,
+                isSelected: this.state.selectedItem.id === trashPoint.id
             }
         });
         this.setState(previousState => {
@@ -144,12 +153,27 @@ export default class AddTrashPointsMap extends Component {
     }
 
     handleOnMarkerPress(marker) {
+
+        const markers = this.props.trashPoints.map((trashPoint) => {
+            return {
+                id: trashPoint.id,
+                latlng: trashPoint.location,
+                status: trashPoint.status,
+                isMarked: this.marked.has(trashPoint.id),
+                item: trashPoint,
+                isSelected: trashPoint.id === marker.id
+            }
+        });
+
         this.setState(previousState => {
             return {
                 ...previousState,
-                selectedItem: marker.item
+                selectedItem: marker.item,
+                markers
             };
         });
+
+
     }
 
     renderSelectedItem(selectedItem, checked) {

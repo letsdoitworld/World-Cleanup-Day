@@ -51,6 +51,7 @@ export default class CreateEvent extends ImmutableComponent {
         this.whatToBring = "";
 
         this.state = {
+            photos: [],
             data: Immutable.Map({
                 isTitleValid: false,
                 isTitleTextChanged: false,
@@ -61,7 +62,6 @@ export default class CreateEvent extends ImmutableComponent {
                 isStartDateValid: true,
                 isEndDateValid: true,
                 isDateTimePickerVisible: false,
-                photos: [],
                 startDate: this.calculateMinDate(),
                 endDate: this.calculateMinDate(),
                 selectedLocation: undefined
@@ -215,7 +215,10 @@ export default class CreateEvent extends ImmutableComponent {
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
         const isStartDateValid = this.state.data.get('isStartDateValid');
         const isEndDateValid = this.state.data.get('isEndDateValid');
-        const imagePath = this.state.data.get('photos')[0].uri;
+        //const photos = this.state.data.get('photos');
+        const photos = this.state.photos;
+        //console.warn("Photo", photos[0]);
+        const imagePath = (photos.length > 0) ? photos[0].uri : '';
 
         const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
 
@@ -350,15 +353,20 @@ export default class CreateEvent extends ImmutableComponent {
             cropping: true,
             includeBase64: true,
         }).then(async image => {
-            console.warn("Base64", image.data);
+            //console.warn("Base64", image.data);
             const thumbnailBase64 = await ImageService.getResizedImageBase64({
                 uri: image.path,
-                width,
-                height,
+                width: image.width,
+                height: image.height,
             });
-            this.setData(d => d.set('photos', [
-                { uri: image.path, base64: image.data, thumbnail: { base64: thumbnailBase64 } },
-            ],))
+            this.setState({
+                photos: [
+                    { uri: image.path, base64: image.data, thumbnail: { base64: thumbnailBase64 } },
+                ],
+            });
+            // this.setData(d => d.set('photos', [
+            //     { uri: image.path, base64: image.data, thumbnail: { base64: thumbnailBase64 } },
+            // ],))
         });
     };
 
@@ -471,7 +479,7 @@ export default class CreateEvent extends ImmutableComponent {
                         },
                         description: this.description,
                         whatToBring: this.whatToBring,
-                        photos: this.state.data.get('photos'),
+                        photos: this.state.photos,
                     },
                 }
             });

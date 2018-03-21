@@ -147,7 +147,7 @@ class AddPeopleToEvent extends ImmutableComponent {
         if (isValid) {
             const {requestCreateEvent} = this.props;
             const event ={...this.event,...{maxPeopleAmount: parseInt(this.numberAttendees)}};
-            console.warn('event', event);
+            //console.warn('event', event);
             requestCreateEvent(event)
         } else {
             this.showValidationErrors()
@@ -162,7 +162,7 @@ class AddPeopleToEvent extends ImmutableComponent {
 
 AddPeopleToEvent.propTypes = {
     createdEvent: PropTypes.object,
-    errorEvent: PropTypes.object,
+    errorEvent: PropTypes.string,
     requestCreateEvent: PropTypes.func,
     requestCreateEventDone: PropTypes.func,
     requestCreateEventError: PropTypes.func,

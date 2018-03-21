@@ -7,14 +7,30 @@ import {API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES} from "../shared/constants";
 
 async function createEvent(event) {
     try {
-        let newPhotos = event.photos;
-        const createEventResponse = await Api.put(API_ENDPOINTS.EVENT, event);
+        let newEvent = {
+            datasetId: event.datasetId,
+            name: event.name,
+            address: event.address,
+            startTime: event.startTime,
+            endTime: event.endTime,
+            location: event.location,
+            description: event.description,
+            whatToBring: event.whatToBring,
+            email: event.email,
+            phonenumber: event.phonenumber,
+            maxPeopleAmount: event.maxPeopleAmount,
+        };
+        let photos = event.photos;
+        const createEventResponse = await Api.put(API_ENDPOINTS.EVENT, newEvent);
+        console.warn("createEventResponse", createEventResponse);
         let uploadStatus;
 
-        uploadStatus = await handleEventImageUpload({
-            newPhotos,
-            markerId: createEventResponse.data.id,
-        });
+        if (photos && photos !== []) {
+            uploadStatus = await handleEventImageUpload({
+                photos,
+                eventId: createEventResponse.data.id,
+            });
+        }
 
         return {
             ...createEventResponse.data,

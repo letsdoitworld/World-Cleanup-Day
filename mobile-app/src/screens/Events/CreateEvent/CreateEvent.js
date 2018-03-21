@@ -215,9 +215,7 @@ export default class CreateEvent extends ImmutableComponent {
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
         const isStartDateValid = this.state.data.get('isStartDateValid');
         const isEndDateValid = this.state.data.get('isEndDateValid');
-        //const photos = this.state.data.get('photos');
         const photos = this.state.photos;
-        //console.warn("Photo", photos[0]);
         const imagePath = (photos.length > 0) ? photos[0].uri : '';
 
         const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;

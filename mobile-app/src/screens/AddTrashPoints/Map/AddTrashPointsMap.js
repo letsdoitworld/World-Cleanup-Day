@@ -120,7 +120,7 @@ export default class AddTrashPointsMap extends Component {
                 status: trashPoint.status,
                 isMarked: this.marked.has(trashPoint.id),
                 item: trashPoint,
-                isSelected: this.state.selectedItem.id === trashPoint.id
+                isSelected: this.state.selectedItem.id === trashPoint
             }
         });
         this.setState(previousState => {

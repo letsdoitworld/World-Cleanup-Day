@@ -8,7 +8,7 @@ import {
     Image,
     TouchableHighlight,
     ActivityIndicator,
-    FlatList
+    FlatList, UIManager, LayoutAnimation
 } from 'react-native';
 import styles from './styles'
 import strings from '../../assets/strings'
@@ -55,9 +55,11 @@ class AddTrashPoints extends Component {
         });
 
         this.state = {
+            count: 0,
             trashPoints: []
         };
 
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
@@ -179,6 +181,13 @@ class AddTrashPoints extends Component {
         } else {
             this.marked.delete(item.id)
         }
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                count: this.marked.size
+            };
+        });
     };
 
     //noinspection JSMethodCanBeStatic
@@ -187,6 +196,7 @@ class AddTrashPoints extends Component {
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
                     {this.renderSearchBox()}
+                    {this.renderCounter()}
                     <FlatList
                         ListFooterComponent={this.renderFooter.bind(this)}
                         ListHeaderComponent={this.renderHeader.bind(this)}
@@ -202,6 +212,31 @@ class AddTrashPoints extends Component {
                 {this.renderProgress()}
             </View>
         );
+    }
+
+    renderCounter() {
+        const count = this.state.count;
+        if (count > 0) {
+            return (
+                <View style={{
+                    width: '100%',
+                    height: 30,
+                    backgroundColor: 'rgb(0, 143, 223)',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Text style={{
+                        fontFamily: 'Lato-Bold',
+                        fontSize: 15,
+                        color: 'white',
+                    }}>
+                        {strings.formatString(strings.trashPoints_counter, count)}
+                    </Text>
+                </View>
+            );
+        } else {
+            return null;
+        }
     }
 
     renderSearchBox() {

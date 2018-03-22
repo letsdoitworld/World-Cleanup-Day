@@ -353,16 +353,6 @@ export default class CreateEvent extends ImmutableComponent {
             cropping: true,
             includeBase64: true,
         }).then(async image => {
-            // const thumbnailBase64 = await ImageService.getResizedImageBase64({
-            //     uri: image.path,
-            //     width: image.width,
-            //     height: image.height,
-            // });
-            // this.setState({
-            //     photos: [
-            //         {uri: image.path, base64: image.data, thumbnail: {base64: thumbnailBase64}},
-            //     ],
-            // });
             this.setImageData(image)
         });
     };
@@ -374,16 +364,6 @@ export default class CreateEvent extends ImmutableComponent {
             cropping: true,
             includeBase64: true,
         }).then(async image => {
-            // const thumbnailBase64 = await ImageService.getResizedImageBase64({
-            //     uri: image.path,
-            //     width: image.width,
-            //     height: image.height,
-            // });
-            // this.setState({
-            //     photos: [
-            //         {uri: image.path, base64: image.data, thumbnail: {base64: thumbnailBase64}},
-            //     ],
-            // });
             this.setImageData(image)
         });
     }

@@ -6,7 +6,8 @@
 
 .TrashPhotos-title {
   font-size: 14px;
-  color: #3e8ede;
+  color: #4a90e2;
+  text-transform: uppercase;
   letter-spacing: 0;
   font-weight: 700;
 }
@@ -21,30 +22,29 @@
 
 .TrashPhotos-img-container {
   position: relative;
+  padding-bottom: 20px;
 }
 
 .TrashPhotos-img-container img {
   width: 125px;
   height: 90px;
   margin-top: 10px;
-  margin-left: 5px;
-}
-
-.TrashPhotos-img-container img:first{
-  margin-left: 0px;
+  margin-left: 10px;
 }
 
 .TrashPhotos-img-container button {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 20px;
   height: 20px;
-  background-image: linear-gradient(-180deg, #f66690 0%, #fc505e 100%);
-  border-radius: 2px;
-  left: 10px;
-  bottom: 10px;
-  color: #fff;
-  font-size: 13px;
+  background-color: #3e8ede;
+  right: 5px;
+  top: 15px;
+}
+
+.TrashPhotos-img-container button img {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
 }

@@ -11,7 +11,7 @@ import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from '../EditTrashpoint/components/Tags';
 import StatusPicker from '../EditTrashpoint/StatusPicker';
-import { CloseIcon, LocationIcon } from '../common/Icons';
+import { CloseIcon, LocationIconEvent } from '../common/Icons';
 import imageLocation from '../../assets/icon_location@2x.png';
 
 import './CreateTrashpoint.css';
@@ -251,7 +251,7 @@ class CreateTrashpoint extends Component {
           </button>
         </div>
         <div className="CreateTrashpoint-plot">
-          <div>
+          <div className="CreateTrashpoint-default-container">
             <div className="CreateTrashpoint-address-container">
               <div>
                 {this.hasAddressLineSet() && <img src={imageLocation} alt="" />}
@@ -261,22 +261,33 @@ class CreateTrashpoint extends Component {
               </span>
             </div>
             <div className="CreateTrashpoint-edit-location-container">
+              <LocationIconEvent />
               <span
                 onClick={this.handleEditLocationOpen}
                 className="CreateTrashpoint-edit-location-button"
               >
                 Edit location
               </span>
-            </div>
-            <div className="CreateTrashpoint-edit-location-text">
               <EditLocationInput onChange={this.handleLocationChanged} />
             </div>
-            <div className="CreateTrashpoint-divider" />
           </div>
-          <div>
+          <div className="CreateTrashpoint-default-container">
             <StatusPicker
               status={status}
               onStatusChange={this.handleStatusChange}
+            />
+          </div>
+          <div className="CreateTrashpoint-default-container">
+            <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
+          </div>
+          <div className="CreateTrashpoint-default-container">
+            <Tags
+              composition={composition}
+              tags={hashtags}
+              onCompositionSelect={this.handleCompositionSelect}
+              onTagSelect={this.handleTagSelect}
+              onTagAdd={this.handleTagAdd}
+              onTagDelete={this.handleTagDelete}
             />
           </div>
           <div className="CreateTrashpoint-default-container">
@@ -292,19 +303,6 @@ class CreateTrashpoint extends Component {
               })}
               onDeleteClick={this.handlePhotoDelete}
               canEdit
-            />
-          </div>
-          <div className="CreateTrashpoint-default-container">
-            <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
-          </div>
-          <div className="CreateTrashpoint-default-container">
-            <Tags
-              composition={composition}
-              tags={hashtags}
-              onCompositionSelect={this.handleCompositionSelect}
-              onTagSelect={this.handleTagSelect}
-              onTagAdd={this.handleTagAdd}
-              onTagDelete={this.handleTagDelete}
             />
           </div>
           <div className="CreateTrashpoint-default-container CreateTrashpoint-edit-button-container">

@@ -29,9 +29,7 @@ class EditLocation extends React.Component {
   };
   render() {
     const { visible, location, status } = this.props;
-
     const points = [];
-
     if (location && location.lat && location.lng) {
       const { lat, lng } = location;
       points.push({

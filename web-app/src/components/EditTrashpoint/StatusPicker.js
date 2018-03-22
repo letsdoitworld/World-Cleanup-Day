@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import classnames from 'classnames';
 import './StatusPicker.css';
 
 const options = {
@@ -54,7 +54,13 @@ const StatusPicker = ({ status, onStatusChange, showCleaned = false }) => (
             <div className="StatusPicker-img-container">
               <img src={imageUrl} alt="" />
             </div>
-            <span style={{ color: option.color }}>{option.label}</span>
+            <span
+              className={
+                classnames('StatusPicker-status-text',
+                { selected: key === status })}
+            >
+              {option.label}
+            </span>
           </div>
         );
       })}

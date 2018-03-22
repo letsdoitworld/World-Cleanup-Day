@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-
 import { noop } from '../../shared/helpers';
+import { CloseIcon } from '../common/Icons';
 import './TrashPhotos.css';
 
 const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
@@ -12,15 +12,14 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
         <div
           style={{
             cursor: 'pointer',
-            marginLeft: photos.length > 0 ? '5px' : '0px',
           }}
         >
           <Dropzone
             style={{
               width: '125px',
               height: '90px',
-              border: '1px dashed #3e8ede',
-              backgroundColor: '#fff',
+              border: '2px dashed #a4c7f0',
+              backgroundColor: '#f6f8f9',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -33,7 +32,7 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
             <div
               style={{
                 fontSize: '14px',
-                color: '#3e8ede',
+                color: '#a4c7f0',
                 margin: '5px',
                 display: 'flex',
                 alignItems: 'center',
@@ -49,7 +48,9 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
         (<div key={index} className="TrashPhotos-img-container">
           <img src={photo} alt="" key={index} />
           {canEdit &&
-            <button onClick={() => onDeleteClick(index)}>X</button>}
+            <button onClick={() => onDeleteClick(index)}>
+              <CloseIcon />
+            </button>}
         </div>),
       )}
     </div>

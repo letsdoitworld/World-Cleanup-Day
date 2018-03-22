@@ -9,6 +9,7 @@ import TrashpointDate from './TrashpointDate';
 import TrashPhotos from './TrashPhotos';
 import TpdetailsHeader from './Header'
 import TrashAmount from './TrashAmount';
+import { Loader } from '../Spinner';
 import { noop } from '../../shared/helpers';
 import './Details.css';
 
@@ -53,69 +54,75 @@ class Details extends Component {
         }
         {
           trashpointId &&
-          <div className={ classnames('Tpdetails-plot', { 'visible': isOpened }) }>
-            <div style={{ padding: '20px' }}>
-              <div className="Details-address-container">
-                <div>
-                  <img src={imageLocation} alt="" />
+          (
+            location ?
+            <div className={ classnames('Tpdetails-plot', { 'visible': isOpened }) }>
+              <div className="Details-default-container">
+                <div className="Details-address-container">
+                  <div>
+                    <img src={imageLocation} alt="" />
+                  </div>
+                  <span className="Details-address">
+                    {address} |
+                    {location
+                      ? `${location.latitude.toFixed(
+                          6,
+                        )}, ${location.longitude.toFixed(6)}`
+                      : ''}
+                  </span>
                 </div>
-                <span className="Details-address">
-                  {address} |
-                  {location
-                    ? `${location.latitude.toFixed(
-                        6,
-                      )}, ${location.longitude.toFixed(6)}`
-                    : ''}
-                </span>
+                <br />
+                <StatusText status={status} />
+                <TrashpointDate
+                  createdDate={createdAt}
+                  updatedDate={updatedAt}
+                  createdBy={createdByName}
+                  updatedBy={updatedByName}
+                />
               </div>
-              <div className="Details-divider" />
-              <StatusText status={status} />
-              <TrashpointDate
-                createdDate={createdAt}
-                updatedDate={updatedAt}
-                createdBy={createdByName}
-                updatedBy={updatedByName}
-              />
-            </div>
-            <div className="Details-default-container">
-              <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
-            </div>
-            <div className="Details-default-container">
-              <TrashAmount disabled amount={amount} />
-            </div>
-            <div className="Details-default-container">
-              <span className="Details-trash-type-title">Trash type</span>
-              <div className="Details-composition-tag">
-                {[...composition, ...hashtags].map((text, index) => {
-                  const isHashtag = text.indexOf('#') === 0;
-                  const label = isHashtag
-                    ? text
-                    : (TRASH_COMPOSITION_TYPE_LIST.find(t => t.type === text) || {})
-                        .label;
-                  if (!label) {
-                    return null;
-                  }
-                  return (
-                    <span key={index}>
-                      {label}
-                    </span>
-                  );
-                })}
+              <div className="Details-default-container">
+                <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
               </div>
-            </div>
-            <div className="Details-filler" />
-            {canEdit &&
-              <div className="Details-edit-container">
-                <span>
-                  Is this trashpoint information still correct and up to date?
-                </span>
-                <div className="buttons">
-                  <button onClick={actions.onEditTrashpointClick}>
-                    {"No, let's edit"}
-                  </button>
+              <div className="Details-default-container">
+                <TrashAmount disabled amount={amount} />
+              </div>
+              <div className="Details-default-container">
+                <span className="Details-trash-type-title">Trash type</span>
+                <div className="Details-composition-tag-container">
+                  {[...composition, ...hashtags].map((text, index) => {
+                    const isHashtag = text.indexOf('#') === 0;
+                    const label = isHashtag
+                      ? text
+                      : (TRASH_COMPOSITION_TYPE_LIST.find(t => t.type === text) || {})
+                          .label;
+                    if (!label) {
+                      return null;
+                    }
+                    return (
+                      <div className="Details-composition-tag" key={index}>
+                        <span className="Tag-label">{label}</span>
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>}
-          </div>
+              </div>
+              <div className="Details-filler" />
+              {canEdit &&
+                <div className="Details-edit-container">
+                  <span>
+                    Is this trashpoint information still correct and up to date?
+                  </span>
+                  <div className="buttons">
+                    <button onClick={actions.onEditTrashpointClick}>
+                      {"No, let's edit"}
+                    </button>
+                  </div>
+                </div>}
+            </div> :
+            <div className="Tpdetails-loader-container">
+              <Loader />
+            </div>
+          )
         }
       </div>
     );

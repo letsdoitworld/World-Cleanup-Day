@@ -60,12 +60,7 @@ class EditLocationInput extends React.Component {
         }}
       >
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
+          className="EditLocationInput"
         >
           <input
             className="EditLocationInput-text"
@@ -74,23 +69,19 @@ class EditLocationInput extends React.Component {
             onChange={this.handleInputChanged}
             value={this.state.value}
           />
-
-          <RoundButton
-            buttonStyle={{
-              position: 'relative',
-              left: '-30px',
-              height: '20px',
-              padding: '10px 30px',
-            }}
+          <div
             onClick={this.handleSetClicked}
-            title="Set"
-          />
+            className="EditLocation-btn"
+          >
+            <p className="EditLocation-btn-text">Set</p>
+          </div>
         </div>
         <div
           style={{
             marginTop: '20px',
             textAlign: 'center',
             color: 'red',
+            display: error ? 'block' : 'none',
           }}
         >
           {error}

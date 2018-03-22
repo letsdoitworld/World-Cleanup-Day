@@ -15,7 +15,8 @@
 
 .Tags-title {
   font-size: 14px;
-  color: #3e8ede;
+  text-transform: uppercase;
+  color: #4a90e2;
   letter-spacing: 0;
   font-weight: 700;
 }
@@ -23,9 +24,11 @@
 .Tag-container {
   flex: 1;
   max-width: 110px;
-  border-radius: 3px;
+  height: 36px;
+  box-sizing: border-box;
+  border-radius: 18px;
   background-color: white;
-  color: #4AA5FF;
+  color: #282633;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,19 +40,19 @@
   flex-wrap: wrap;
   overflow-wrap: break-word;
   flex-direction: row;
-  border-style:solid;
-  border-width:1px;
+  border: solid 1px #7b7d80;
 }
 
 .Tag-container.selected {
   color: white;
-  background-color: #3e8ede;
+  border: solid 1px #3e8ede;
+  background-color: #4a90e2;
 }
 
 .Tag-label {
   max-width: 90px;
-  padding:5px;
-  flex:1;
+  padding: 5px;
+  flex: 1;
   cursor: inherit;
   text-align: center;
   overflow: hidden;
@@ -63,27 +66,30 @@
 }
 
 .Tags-add-input {
-  height: 35px;
-  border: 1px solid #D9D9D9;
-  background-color: #FFFFFF;
+  height: 30px;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
   border-radius: 3px;
   flex: 1;
   outline: none;
-  padding-left: 20px;
+  padding-left: 10px;
   padding-right: 25px;
+  box-sizing: border-box;
 }
 
 .Tags-add-button {
   cursor: pointer;
   position: relative;
-  background-color: #eee;
-  width: 80px;
+  background-color: #3e8ede;
+  border: 1px solid #dcdcdc;
+  width: 114px;
   left: -5px;
-  border-radius: 3px;
-  height: 19px;
+  border-radius: 2px;
+  height: 30px;
   flex: -1;
   padding: 10px;
-  color: #000;
+  box-sizing: border-box;
+  color: #fff;
   font-size: 14px;
   line-height: 18px;
   text-align: center;
@@ -93,7 +99,7 @@
 }
 
 .Tags-add-button-text {
-  flex:1;
+  flex: 1;
   text-align: center;
   overflow: hidden;
   white-space: nowrap;

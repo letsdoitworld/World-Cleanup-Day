@@ -32,16 +32,22 @@ export const AMOUNT_STATUSES = {
   3: 'truckload',
 };
 
-const GradationLine = ({ onClick, flexValue, disabled = false }) => {
+const GradationBall = ({ flexValue, disabled = false }) => {
   const styles = {
-    height: '12px',
-    flex: flexValue,
-    borderRightColor: disabled ? '#7f7f7f' : '#4aa5ff',
-    borderRightStyle: 'solid',
-    borderRightWidth: 2,
+    backgroundColor: disabled ? '#d9d9d9' : '#3e8ede',
+    width: '8px',
+    height: '8px',
+    borderRadius: '6px',
+    float: 'right',
+    position: 'relative',
+    left: '3px',
   };
-  return <div onClick={onClick} style={styles} />;
-};
+  return (
+    <div style={{ flex: flexValue }}>
+      <div style={styles} />
+    </div>
+  );
+}
 
 const ImageToggleContainer = ({
   onClick,
@@ -245,77 +251,85 @@ class TrashAmount extends Component {
         <span className="TrashAmount-title">
           {disabled ? 'Trash amount' : 'Select trash amount'}
         </span>
-        <div className="TrashAmount-container-images">
-          {this.state.steps.map(step =>
-            (<ImageToggleContainer
-              onClick={() => this.handlePress(step.value)}
-              translationValue={step.imgTranslate}
-              key={step.value}
-              flexValue={step.flexValue}
-            >
-              <ImageToggle
-                selected={step.selected}
-                type={step.type}
-                disabled={disabled}
-              />
-            </ImageToggleContainer>),
-          )}
-          <div
-            className="completer"
-            onClick={() => this.handlePress(fourth.value)}
-          />
-        </div>
+        <div className="TrashAmount-plot">
+          <div className="TrashAmount-container-images">
+            {this.state.steps.map(step =>
+              (<ImageToggleContainer
+                onClick={() => this.handlePress(step.value)}
+                translationValue={step.imgTranslate}
+                key={step.value}
+                flexValue={step.flexValue}
+              >
+                <ImageToggle
+                  selected={step.selected}
+                  type={step.type}
+                  disabled={disabled}
+                />
+              </ImageToggleContainer>),
+            )}
+            <div
+              className="completer"
+              onClick={() => this.handlePress(fourth.value)}
+            />
+          </div>
+          <div style={{ display: 'flex', marginTop: '15px' }}>
+            <div
+              className="completer"
+              onClick={() => this.handlePress(fourth.value)}
+            />
+          </div>
 
-        <div style={{ display: 'flex', marginTop: '15px' }}>
-          {this.state.steps.map(step =>
-            (<GradationLine
-              key={step.value}
-              onClick={() => this.handlePress(step.value)}
-              flexValue={step.flexValue}
-              disabled={disabled}
-            />),
-          )}
-          <div
-            className="completer"
-            onClick={() => this.handlePress(fourth.value)}
-          />
-        </div>
-
-        <div className="TouchableChildContainer">
-          {steps.map((step, index) =>
-            (<div
-              key={step.value}
-              onClick={() => this.handlePress(step.value)}
-              style={{ flex: step.flexValue }}
-              className={classnames({
-                'BarContainer-first': index === 0,
-                BarContainer: step.selected,
-                'BarContainer-disabled': disabled,
-                'BarContainer-last':
-                  step.type !== TOGGLE_TYPE.truck && step.lastSelected,
+          <div className="TouchableChildContainer">
+            {steps.map((step, index) =>
+              (<div
+                key={step.value}
+                onClick={() => this.handlePress(step.value)}
+                style={{ flex: step.flexValue }}
+                className={classnames({
+                  'BarContainer-first': index === 0,
+                  BarContainer: step.selected,
+                  'BarContainer-disabled': disabled,
+                  'BarContainer-last':
+                    step.type !== TOGGLE_TYPE.truck && step.lastSelected,
+                })}
+              >
+                <GradationBall
+                  key={step.value}
+                  flexValue={step.flexValue}
+                  disabled={disabled}
+                />
+                {
+                  !disabled &&
+                  step.lastSelected &&
+                  <div className="SliderButton">
+                    <div className="InsideSliderButton" />
+                  </div>
+                }
+              </div>),
+            )}
+            <div
+              className={classnames('completer', {
+                disabled,
+                filled: fourth.selected,
               })}
-            >
-              {!disabled &&
-                step.lastSelected &&
-                <div className="SliderButton">
-                  <div className="InsideSliderButton" />
-                </div>}
-            </div>),
-          )}
-          <div
-            className={classnames('completer', {
-              disabled,
-              filled: fourth.selected,
-            })}
-            onClick={() => this.handlePress(fourth.value)}
-          />
-        </div>
-        <div className="TrashAmount-selected">
-          <span
-            className={classnames('TrashAmount-selected-text', { disabled })}
-          >
-            {lastSelected.label}
-          </span>
+              onClick={() => this.handlePress(fourth.value)}
+            />
+          </div>
+          <div className="TrashAmount-types">
+            {steps.map(step =>
+              (
+                <span
+                  key={step.label}
+                  className={
+                    classnames('TrashAmount-types-text',
+                    { selected: step.label === lastSelected.label })
+                  }
+                >
+                  {step.label}
+                </span>
+              ))
+            }
+          </div>
         </div>
       </div>
     );

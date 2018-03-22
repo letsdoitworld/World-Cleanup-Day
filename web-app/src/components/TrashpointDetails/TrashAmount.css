@@ -1,20 +1,21 @@
 .TrashAmount {
-  width: 280px;
+  width: 100%;
   position: relative;
 }
 
 .TrashAmount-title {
   font-size: 14px;
-  color: #3e8ede;
+  color: #4a90e2;
   letter-spacing: 0;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .TrashAmount-container-images {
-  display: none;
+  display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  margin-top: 10px;
+  margin-bottom: 25px;
+  margin-top: 20px;
 }
 
 .completer {
@@ -22,27 +23,27 @@
 }
 
 .completer.filled {
-  background-color: #4AA5FF;
+  background-color: #3e8ede;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
 .completer.filled.disabled {
-  background-color: #7F7F7F;
+  background-color: #7f7f7f;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
 .TouchableChildContainer {
-  background-color: #F7F7F7;
+  background-color: #e8f1fb;
   position: relative;
   display: flex;
   border-radius: 10px;
 }
 
 .BarContainer {
-  height: 10px;
-  background-color: #4AA5FF;
+  height: 8px;
+  background-color: #3e8ede;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -54,7 +55,7 @@
 }
 
 .BarContainer.BarContainer-disabled {
-  background-color: #7F7F7F;
+  background-color: #7f7f7f;
 }
 
 .BarContainer-last {
@@ -62,44 +63,52 @@
   border-bottom-right-radius: 10px;
 }
 
+.BarContainer-label {
+  color: #282633;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
 .SliderButton {
   display: flex;
   position: relative;
-  left: 11px;
-  /* position: absolute; */
-  width: 22px;
-  height: 22px;
+  left: 8px;
+  width: 18px;
+  height: 18px;
   border-radius: 11px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   justify-content: center;
   align-items: center;
-  /* top: 46  px; */
+  box-shadow: 0 2px 4px 0 #a4c7f0;
 }
 
 .InsideSliderButton {
-  background-color: #4AA5FF;
-  width: 11px;
-  height: 11px;
+  background-color: #3e8ede;
+  width: 8px;
+  height: 8px;
   border-radius: 6px;
 }
 
-.TrashAmount-selected {
-  margin-top: 20px;
+.TrashAmount-types {
+  margin-top: 5px;
   height: 30px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
 }
 
-.TrashAmount-selected-text {
+.TrashAmount-types-text {
   text-align: center;
-  color: #3E8EDE;
+  color: #282633;
+  width: 25%;
   font-size: 12px;
-  font-weight: bold;
   line-height: 12px;
-  text-align: center;
-  text-transform: uppercase;
 }
+
+.selected {
+  color: #3e8ede;
+  font-weight: bold;
+}
+
 .TrashAmount-selected-text.disabled{
   color: rgba(43,43,43,0.98);
 }

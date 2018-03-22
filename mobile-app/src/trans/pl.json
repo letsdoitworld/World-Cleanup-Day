@@ -7,9 +7,9 @@
   "label_button_cancel": "Anuluj",
   "label_button_continue": "Kontynuuj",
   "label_trash_status_threat": "zagrożenie",
-  "label_trash_status_regular": "normalny",
-  "label_trash_status_cleaned": "oczyszczony",
-  "label_trash_status_outdated": "nieaktualny",
+  "label_trash_status_regular": "normalne",
+  "label_trash_status_cleaned": "oczyszczone",
+  "label_trash_status_outdated": "nieaktualne",
   "label_trash_status_user": "użytkownik",
   "label_trash_status_change_location": "zmień lokalizację",
   "label_trash_status_state_threat": "Ten punkt stanowi zagrożenie!",
@@ -124,7 +124,7 @@
   "label_text_about_2": "Wszystkie dane zebrane przez użytkowników na całym świecie będzie można podejrzeć na globalnej mapie śmieci, aby rozpocząć ogólnoświatowe wydarzenia porządkowe podczas Światowego Dnia Odśmiecania, 15 września 2018",
   "label_text_about_3": "Aplikacja współtworzona z",
   "label_text_about_4": "Produkt Estoński, sponsorowany przez kraj i rząd",
-  "label_text_about_5": "Fundatorzy: Estońskie Ministerstwo Środowiska, Ministerstwo Spraw Zagranicznych Republiki Estonii, program 100 Republiki Estońskiej",
-  "label_button_editTP_delete": "Usuń trashpoint",
+  "label_text_about_5": "Fundatorzy: Estońskie Ministerstwo Środowiska, Ministerstwo Spraw Zagranicznych Republiki Estonii, program Republiki Estońskiej \"Estonia100\"",
+  "label_button_editTP_delete": "Usuń zaśmiecone miejsce",
   "label_locked_account_warning": "Twoje konto zostało zablokowane. Po szczegóły skontaktuj się z administratorem."
 }

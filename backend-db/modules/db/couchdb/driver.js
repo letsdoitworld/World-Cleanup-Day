@@ -43,7 +43,7 @@ const insertDoc = async (db, doc) => await couch.insert(db, doc);
 
 const updateDoc = async (db, doc) => {
     return await couch.update(db, doc);
-}
+};
 
 const deleteDoc = async (db, id, rev) => await couch.del(db, id, rev);
 

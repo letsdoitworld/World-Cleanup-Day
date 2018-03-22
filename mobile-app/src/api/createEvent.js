@@ -7,14 +7,34 @@ import {API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES} from "../shared/constants";
 
 async function createEvent(event) {
     try {
-        let newPhotos = event.photos;
         const newEvent = {
-            ...event,
-            phonenumber: "123456789",
-        }
-
+            datasetId: event.datasetId,
+            name: event.name,
+            address: event.address,
+            startTime: event.startTime,
+            endTime: event.endTime,
+            location: event.location,
+            description: event.description,
+            whatToBring: event.whatToBring,
+            email: event.email,
+            phonenumber: event.phonenumber,
+            maxPeopleAmount: event.maxPeopleAmount,
+        };
+        const photos = event.photos;
         const createEventResponse = await Api.put(API_ENDPOINTS.EVENT, newEvent);
-        // let uploadStatus;
+        console.warn("createEventResponse", createEventResponse);
+        let uploadStatus = photos && photos !== []
+            ? await handleEventImageUpload({
+                photos,
+                eventId: createEventResponse.data.id,
+            }) : undefined;
+
+        if (photos && photos !== []) {
+            uploadStatus = await handleEventImageUpload({
+                photos,
+                eventId: createEventResponse.data.id,
+            });
+        }
 
         // uploadStatus = await handleEventImageUpload({
         //     newPhotos,
@@ -31,63 +51,63 @@ async function createEvent(event) {
     }
 }
 
- async function handleEventImageUpload ({ photos, eventId }) {
-     if ((photos || []).length === 0) {
-         return true;
-     }
-     const photosResponse = await getUploadURIsForPhotos(photos, eventId);
+async function handleEventImageUpload({photos, eventId}) {
+    if ((photos || []).length === 0) {
+        return true;
+    }
+    const photosResponse = await getUploadURIsForPhotos(photos, eventId);
 
-     const uploadedPhotosIds = {
-         confirmed: [],
-         failed: [],
-         backendConfirmed: false,
-     };
+    const uploadedPhotosIds = {
+        confirmed: [],
+        failed: [],
+        backendConfirmed: false,
+    };
 
-     if (photosResponse) {
-         const thumbnailsPhotos = photosResponse.data
-             .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
-             .map(({permission: {token, resourceId}}, index) => {
-                 const {thumbnail: {base64}} = photos[index];
-                 return {
-                     url: token,
-                     id: resourceId,
-                     blob: convertToByteArray(base64),
-                 };
-             });
+    if (photosResponse) {
+        const thumbnailsPhotos = photosResponse.data
+            .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
+            .map(({permission: {token, resourceId}}, index) => {
+                const {thumbnail: {base64}} = photos[index];
+                return {
+                    url: token,
+                    id: resourceId,
+                    blob: convertToByteArray(base64),
+                };
+            });
 
-         const mediumPhotos = photosResponse.data
-             .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
-             .map(({permission: {token, resourceId}}, index) => {
-                 const {base64} = photos[index];
-                 return {
-                     url: token,
-                     id: resourceId,
-                     blob: convertToByteArray(base64),
-                 };
-             });
+        const mediumPhotos = photosResponse.data
+            .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
+            .map(({permission: {token, resourceId}}, index) => {
+                const {base64} = photos[index];
+                return {
+                    url: token,
+                    id: resourceId,
+                    blob: convertToByteArray(base64),
+                };
+            });
 
-         const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
+        const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
 
-         const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
+        const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
 
-         if (uploadedPhotosResponses) {
-             uploadedPhotosResponses.forEach(({status}, index) => {
-                 const state = status === 201 ? 'confirmed' : 'failed';
-                 uploadedPhotosIds[state].push(handledPhotos[index].id);
-             });
-             const upRes = await confirmUploadedPhotos(eventId, uploadedPhotosIds);
+        if (uploadedPhotosResponses) {
+            uploadedPhotosResponses.forEach(({status}, index) => {
+                const state = status === 201 ? 'confirmed' : 'failed';
+                uploadedPhotosIds[state].push(handledPhotos[index].id);
+            });
+            const upRes = await confirmUploadedPhotos(eventId, uploadedPhotosIds);
 
-             if (upRes && upRes.status === 200) {
-                 uploadedPhotosIds.backendConfirmed = true;
-             }
-         }
-         (thumbnailsPhotos || []).forEach((photo) => {
-             if (photo && photo.uri) {
-                 ImageStore.removeImageForTag(photo.uri);
-             }
-         });
-     }
- }
+            if (upRes && upRes.status === 200) {
+                uploadedPhotosIds.backendConfirmed = true;
+            }
+        }
+        (thumbnailsPhotos || []).forEach((photo) => {
+            if (photo && photo.uri) {
+                ImageStore.removeImageForTag(photo.uri);
+            }
+        });
+    }
+}
 
 async function confirmUploadedPhotos(eventId, uploadedPhotos) {
     const url = API_ENDPOINTS.FETCH_EVENT_IMAGES(eventId);
@@ -97,7 +117,7 @@ async function confirmUploadedPhotos(eventId, uploadedPhotos) {
 
 async function uploadPhotosOnAzure(photo) {
     return Promise.all(
-        photo.map(({ url, blob }) => {
+        photo.map(({url, blob}) => {
             return axios
                 .put(url, blob, {
                     headers: {

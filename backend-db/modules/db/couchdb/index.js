@@ -57,6 +57,28 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
+    getEvents: async (pageSize = 10, pageNumber = 1) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/all/_view/view',
+        {
+          sorted: true,
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          limit: pageSize,
+          skip: pageSize * (pageNumber - 1),
+        });
+    },
+
+    getEventsByLocation: async (minLocation, maxLocation) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byLocation/_view/view',
+        {
+          startkey: maxLocation ? [minLocation.latitude, minLocation.longitude] : [],
+          endkey: minLocation ? [maxLocation.latitude, maxLocation.longitude, {}] : [{}],
+        });
+    },
+
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
       return await adapter.getEntities(
         'Event',
@@ -71,10 +93,36 @@ const layer = {
         });
     },
 
+    countEvents: async () => {
+      const ret = await adapter.getRawDocs('Event', '_design/countAll/_view/view');
+      if (!ret.length) return 0;
+      return parseInt(ret.pop());
+    },
+
     countUserEvents: async userId => {
       const ret = await adapter.getRawDocs('Event', '_design/countByCreatingUser/_view/view', { key: userId });
       if (!ret.length) return 0;
       return parseInt(ret.pop());
+    },
+
+    touchEvent: async (id, who) => {
+        return await layer.modifyEvent(id, who, {});
+    },
+
+    modifyEvent: async (id, who, update, rawEventDoc = null) => {
+        return await adapter.modifyDocument(
+            'Event',
+            rawEventDoc || await layer.getRawEventDoc(id),
+            update,
+            {
+                updatedAt: util.time.getNowUTC(),
+                updatedBy: who,
+            }
+        );
+    },
+
+    getRawEventDoc: async id => {
+        return await adapter.getOneRawDocById('Event', '_design/all/_view/view', id);
     },
 
     //========================================================
@@ -519,17 +567,46 @@ const layer = {
         );
         return ret;
     },
-    getChildImages: async (parentId, trashpointId) => {
+    getEventImages: async (eventId, status = null) => {
         const ret = await adapter.getEntities(
             'Image',
-            '_design/byTrashpointAndParent/_view/view',
+            '_design/byEventAndStatusAndCreation/_view/view',
             {
-                keys: [
-                    [trashpointId, parentId],
-                ],
-                sorted: false,
+                descending: true, //XXX: when desc=true, startkey and endkey are reversed
+                startkey: status ? [eventId, status, {}] : [eventId, {}],
+                endkey: status ? [eventId, status] : [eventId],
+                sorted: true,
             }
         );
+        return ret;
+    },
+    getChildImages: async (parentId, trashpointId, eventId) => {
+        let ret = null;
+        if (trashpointId) {
+            ret = await adapter.getEntities(
+                'Image',
+                '_design/byTrashpointAndParent/_view/view',
+                {
+                    keys: [
+                        [trashpointId, parentId],
+                    ],
+                    sorted: false,
+                }
+            );
+        }
+        if (eventId) {
+            ret = await adapter.getEntities(
+                'Image',
+                '_design/byEventAndParent/_view/view',
+                {
+                    keys: [
+                        [eventId, parentId],
+                    ],
+                    sorted: false,
+                }
+            );
+        }
+
         return ret;
     },
 

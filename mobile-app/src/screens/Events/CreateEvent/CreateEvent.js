@@ -215,7 +215,7 @@ export default class CreateEvent extends ImmutableComponent {
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
         const isStartDateValid = this.state.data.get('isStartDateValid');
         const isEndDateValid = this.state.data.get('isEndDateValid');
-        const imagePath = this.state.data.get('photos')[0].uri;
+        // const imagePath = this.state.data.get('photos')[0].uri;
 
         const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
 
@@ -312,7 +312,7 @@ export default class CreateEvent extends ImmutableComponent {
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
+                        <Image style={styles.photoIconStyle} source={{uri: ''}}/>
                         <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                             <Image style={styles.addPhotoIconStyle}
                                    source={require('../../../assets/images/ic_add_photo.png')}/>
@@ -403,8 +403,6 @@ export default class CreateEvent extends ImmutableComponent {
     trashPoints = new Map();
 
     onTrashPointsSelected(trashPoints) {
-        console.log(trashPoints);
-        console.log("onTrashPointsSelected");
         this.trashPoints = trashPoints;
     }
 
@@ -471,7 +469,7 @@ export default class CreateEvent extends ImmutableComponent {
                         },
                         description: this.description,
                         whatToBring: this.whatToBring,
-                        photos: this.state.data.get('photos'),
+                        // photos: this.state.data.get('photos'),
                     },
                 }
             });

@@ -44,13 +44,11 @@ async function loadMyEvents(pageSize, pageNumber) {
             {
                 withToken: true,
             },);
-        //console.warn("loadMyEvents api", response.data.records);
         if (!response || !response.data) {
             throw {error: 'Could not load my events'};
         }
         return response.data.records;
     } catch (ex) {
-        //console.warn("loadMyEvents api error", ex);
         throw ex
     }
 }
@@ -58,13 +56,13 @@ async function loadMyEvents(pageSize, pageNumber) {
 async function loadMyTrashPoints(pageSize, pageNumber) {
     try {
         const response = await Api.get(API_ENDPOINTS.FETCH_USERS_TRASHPOINTS, {
-                withToken: true,
-            },
-            {
                 params: {
                     pageSize,
-                    pageNumber: reset ? 1 : pageNumber,
+                    pageNumber,
                 },
+            },
+            {
+                withToken: true,
             },
         );
         if (!response || !response.data) {

@@ -36,16 +36,8 @@ export default class MyEventsList extends ImmutableComponent {
         this.props.onPageChanged(this.page)
     };
 
-    // componentDidMount() {
-    //     this.props.onRef(this)
-    // }
-    // componentWillUnmount() {
-    //     this.props.onRef(undefined)
-    // }
-
     getMyEventsFromProps() {
-        const {myEvents} = this.props;
-        //console.warn("getMyEventsFromProps", myEvents.myEvents);
+        const { myEvents } = this.props;
         return myEvents;
     }
 
@@ -64,6 +56,7 @@ export default class MyEventsList extends ImmutableComponent {
                 data={this.getMyEventsFromProps()}
                 keyExtractor={this.keyExtractor.bind(this)}
                 renderItem={this.renderItem.bind(this)}
+                onEndReachedThreshold={0}
                 onEndReached={this.handleLoadMore.bind(this)}/>
         );
     }
@@ -74,9 +67,7 @@ export default class MyEventsList extends ImmutableComponent {
     }
 
     renderSeparator = () => {
-        return (
-            <View style={styles.listDivider}/>
-        )
+        return (<View style={styles.listDivider}/>)
     };
 
     getMyEventsListLength() {

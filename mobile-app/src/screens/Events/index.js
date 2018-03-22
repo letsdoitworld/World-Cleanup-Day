@@ -3,7 +3,13 @@ import {createStructuredSelector} from 'reselect';
 
 import {searchEventsAction, clearEventsAction} from '../../store/actions/events';
 
-import {getEventsEntity, getCoordUser, isAuthenticated, isLoading} from '../../store/selectors';
+import {
+    getEventsEntity,
+    getCoordUser,
+    isAuthenticated,
+    isLoading,
+    isPrivateProfile,
+} from '../../store/selectors';
 
 import Component from './Events';
 import {guestLogIn} from "../../store/actions/auth";
@@ -13,6 +19,7 @@ const selector = createStructuredSelector({
     userCoord: getCoordUser,
     isAuthenticated,
     isLoading,
+    isPrivateProfile,
 });
 
 const actions = {

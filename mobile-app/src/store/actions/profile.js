@@ -69,11 +69,15 @@ export const loadMyEvents = (pageSize, pageNumber) => ({
 });
 
 export const LOAD_MY_EVENTS_SUCCESS = 'profile/LOAD_MY_EVENTS_SUCCESS';
-export const loadMyEventsSuccess = (myEvents, pageSize, pageNumber) => ({
+export const loadMyEventsSuccess = myEvents => ({
     type: LOAD_MY_EVENTS_SUCCESS,
-    myEvents,
-    pageSize,
-    pageNumber,
+    payload: myEvents,
+});
+
+export const LOAD_MY_EVENTS_PAGINATION_SUCCESS = 'profile/LOAD_MY_EVENTS_PAGINATION_SUCCESS';
+export const loadMyEventsPaginationSuccess = myEvents => ({
+    type: LOAD_MY_EVENTS_PAGINATION_SUCCESS,
+    payload: myEvents,
 });
 
 export const LOAD_MY_TRASH_POINTS_ERROR = 'profile/LOAD_MY_TRASH_POINTS_ERROR';
@@ -89,12 +93,16 @@ export const loadMyTrashPoints = (pageSize, pageNumber) => ({
     pageNumber,
 });
 
+export const LOAD_MY_TRASH_POINTS_PAGINATION_SUCCESS = 'profile/LOAD_MY_TRASH_POINTS_PAGINATION_SUCCESS';
+export const loadMyTrashPointsPaginationSuccess = myTrashpoints => ({
+    type: LOAD_MY_TRASH_POINTS_PAGINATION_SUCCESS,
+    payload: myTrashpoints,
+});
+
 export const LOAD_MY_TRASH_POINTS_SUCCESS = 'profile/LOAD_MY_TRASH_POINTS_SUCCESS';
-export const loadMyTrashPointsSuccess = (myTrashPoints, pageSize, pageNumber) => ({
+export const loadMyTrashPointsSuccess = myTrashpoints => ({
     type: LOAD_MY_TRASH_POINTS_SUCCESS,
-    myTrashPoints,
-    pageSize,
-    pageNumber,
+    payload: myTrashpoints,
 });
 
 export const LOAD_MY_EVENTS_ERROR = 'profile/LOAD_MY_EVENTS_ERROR';
@@ -102,5 +110,3 @@ export const loadMyEventsError = error => ({
     type: LOAD_MY_EVENTS_ERROR,
     payload: error,
 });
-
-

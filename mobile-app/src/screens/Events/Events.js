@@ -171,8 +171,9 @@ class Events extends Component {
     };
 
     isProgressEnabled() {
-        const { isLoading } = this.props;
-        return isLoading;
+        return false;
+        // const { isLoading } = this.props;
+        // return isLoading;
     }
 
     renderProgress() {

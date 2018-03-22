@@ -17,6 +17,7 @@ import {renderItem} from '../List/ListItem/ListItem';
 import colors from '../../../config/colors';
 import {toRadians} from "../../../shared/helpers";
 import Button from "../../../components/Button/Button";
+import EventsListHorizontal from "./EventsListHorizontal";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -147,6 +148,10 @@ export default class EventsMap extends Component {
                     getRef={(map) => this.map = map}
                     circleProps={this.circle}/>
                 {this.renderSelectedItem(selectedItem, checked)}
+                <EventsListHorizontal
+                    onRef={ref => (this.list = ref)}
+                    navigator={this.props.navigator}
+                    events={this.props.mapEvents}/>
                 <Button style={styles.buttonStyle}
                         text={"Load"}
                         onPress={() => this.loadMapEventsWithMoreRadius()}/>

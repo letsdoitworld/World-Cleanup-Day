@@ -54,13 +54,14 @@ export default class EventsList extends ImmutableComponent {
                 data={this.getEventsFromProps()}
                 keyExtractor={this.keyExtractor.bind(this)}
                 renderItem={this.renderItem.bind(this)}
-                onEndReached={this.handleLoadMore.bind(this)}/>
+                onEndReached={this.handleLoadMore.bind(this)}
+                onEndReachedThreshold={0}
+            />
         );
     }
 
     isProgressEnabled() {
-        return false;
-        //return this.props.app.get('progress');
+        return this.props.isLoading;
     }
 
     renderSeparator = () => {

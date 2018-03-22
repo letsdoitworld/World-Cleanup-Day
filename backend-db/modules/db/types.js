@@ -107,7 +107,12 @@ class Event extends Type {
             startTime: true,
             endTime: true,
             email: true,
-            trashpoints: true
+            phonenumber: true,
+            trashpoints: true,
+            maxPeopleAmount: true,
+            peoples: true,
+            createdBy: true,
+            updatedBy: true,
         });
     }
 }
@@ -169,6 +174,7 @@ class Image extends Type {
             url: true,
             server: true,
             trashpointId: true,
+            eventId: true,
             parentId: true,
             createdAt: true,
             createdBy: true,

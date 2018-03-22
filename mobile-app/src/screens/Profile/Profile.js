@@ -223,7 +223,6 @@ class Profile extends Component {
     );
   };
 
-
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
     const { visible } = this.state;

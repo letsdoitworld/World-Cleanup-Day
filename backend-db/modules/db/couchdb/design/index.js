@@ -256,6 +256,22 @@ const designDocs = {
                 },
             },
         },
+        byEventAndStatusAndCreation: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'image') {
+                            emit([
+                                doc.eventId,
+                                doc.status,
+                                doc.createdAt,
+                            ], doc);
+                        }
+                    },
+                },
+            },
+        },
         byTrashpointAndParent: {
             $version: 1,
             views: {
@@ -264,6 +280,21 @@ const designDocs = {
                         if (doc.$doctype === 'image') {
                             emit([
                                 doc.trashpointId,
+                                doc.parentId,
+                            ], doc);
+                        }
+                    },
+                },
+            },
+        },
+        byEventAndParent: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'image') {
+                            emit([
+                                doc.eventId,
                                 doc.parentId,
                             ], doc);
                         }
@@ -284,7 +315,57 @@ const designDocs = {
                   },
               },
           },
-      }
+      },
+      countAll: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit(doc._id, doc);
+              }
+            },
+            reduce: '_count',
+          },
+        },
+      },
+      byLocation: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.location.latitude, doc.location.longitude], doc);
+              }
+            },
+          },
+        },
+      },
+      byCreatingUser: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.createdBy, doc.createdAt], doc);
+              }
+            },
+          },
+        },
+      },
+      countByCreatingUser: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit(doc.createdBy, null);
+              }
+            },
+            reduce: '_count',
+          },
+        },
+      },
     },
     trashpoints: {
         all: {

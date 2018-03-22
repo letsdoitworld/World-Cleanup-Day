@@ -16,7 +16,7 @@ import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 import {Navigation} from "react-native-navigation";
 
-import { Icons } from '../../../assets/images';
+import {Icons} from '../../../assets/images';
 
 const cancelId = 'cancelId';
 
@@ -169,7 +169,12 @@ export default class CreateEvent extends ImmutableComponent {
         const isDescriptionValid = this.state.data.get('isDescriptionValid');
         const isDescriptionTextChanged = this.state.data.get('isDescriptionTextChanged');
         if (!isDescriptionValid && isDescriptionTextChanged) {
-            return <Text style={styles.textErrorStyle}>{strings.label_description}{strings.label_invalid_event_description}</Text>
+            return
+            (
+                <Text style={styles.textErrorStyle}>
+                    {strings.label_description}{strings.label_invalid_event_description}
+                </Text>
+            );
         } else {
             return null
         }
@@ -179,7 +184,11 @@ export default class CreateEvent extends ImmutableComponent {
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
         const isWhatToBringTextChanged = this.state.data.get('isWhatToBringTextChanged');
         if (!isWhatToBringValid && isWhatToBringTextChanged) {
-            return <Text style={styles.textErrorStyle}>{strings.label_what_to_bring_with_you}{strings.label_invalid_event_description}</Text>
+            return (
+                <Text style={styles.textErrorStyle}>
+                    {strings.label_what_to_bring_with_you}{strings.label_invalid_event_description}
+                </Text>
+            );
         } else {
             return null
         }
@@ -222,7 +231,6 @@ export default class CreateEvent extends ImmutableComponent {
                 <ScrollView
                     ref='scrollView'
                     style={styles.container}>
-
                     {this.renderTitle()}
                     <View style={styles.inputContainerStyle}>
                         <InputField style={styles.inputTextStyle}
@@ -301,23 +309,27 @@ export default class CreateEvent extends ImmutableComponent {
                                     underlineColorAndroid={'transparent'}
                                     autoCorrect={false}
                                     multiline={true}
-                                    validate={this.validateWhatToBring}
                                     maxLength={500}
-                                    onChangeText={this.onWhatToBringTextChanged}/>
+                                    validate={this.validateWhatToBring}
+                                    onChangeText={this.onWhatToBringTextChanged}
+                        />
                     </View>
                     {this.renderWhatToBringError()}
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
-                        <TouchableOpacity onPress={() => this.showChoosedDialog()}>
+                        {
+                            imagePath && !imagePath.isEmpty()
+                                ? <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
+                                : null
+                        }
+                        <TouchableOpacity onPress={this.showChoosedDialog}>
                             <Image style={styles.addPhotoIconStyle}
                                    source={require('../../../assets/images/ic_add_photo.png')}/>
                         </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
-
                     <MainButton
                         isValid={isValid}
                         text={strings.label_next}

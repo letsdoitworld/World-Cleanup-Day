@@ -61,9 +61,11 @@ export default class InputField extends ImmutableComponent {
 
         } = this.props;
 
-        if (this.state.data.get('text') === '') {
-            this.setState({ text: value })
-        }
+        // This is a reason of this issue
+        // https://github.com/react-navigation/react-navigation/issues/2571
+        // if (this.state.data.get('text') === '') {
+        //    this.setState({ text: value })
+        // }
 
         return (
             <View style={style}>
@@ -94,6 +96,9 @@ export default class InputField extends ImmutableComponent {
     onChangeText = (text: String) => {
 
         this.setData(d => d.set('text', text));
+        if (this.state.data.get('text') === '') {
+            this.setState({ text: value })
+        }
 
          this.setData(d => d
              .set('cursorPosition', undefined)

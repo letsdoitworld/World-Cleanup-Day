@@ -16,6 +16,39 @@ const filterTrashpointsForOverview = value => util.object.filter(
     {id: true, status: true, location: true}
 );
 
+const fetchRectangleMarkers = async (datasetId, cellSize, rectangle, fetcher) => {
+    let markers = [];
+    // see if the rectangle crosses the longitude separation line (180 to -180)
+    if (rectangle.se.longitude < rectangle.nw.longitude) {
+        // split the rectangle at the separation line
+        // and request trashpoints from each of them
+        const pointsLeft = await fetcher(
+            datasetId,
+            cellSize,
+            rectangle.nw.latitude, rectangle.nw.longitude,
+            rectangle.se.latitude, 180
+        );
+        const pointsRight = await fetcher(
+            datasetId,
+            cellSize,
+            rectangle.nw.latitude, -180,
+            rectangle.se.latitude, rectangle.se.longitude
+        );
+        // merge them
+        markers = pointsLeft.concat(pointsRight);
+    }
+    else {
+        markers = await fetcher(
+            datasetId,
+            cellSize,
+            rectangle.nw.latitude, rectangle.nw.longitude,
+            rectangle.se.latitude, rectangle.se.longitude
+        );
+    }
+    // done
+    return markers;
+};
+
 const connectVerifyDataset = async function (connector, input) {
     return connector
     .input({id: input.datasetId})
@@ -104,13 +137,8 @@ module.exports = function () {
         .connect(connectVerifyDataset)
         // fetch clusters
         .use(async function (dataset, responder) {
-            const rectangle = args.rectangle;
-            const clusters = await db.getOverviewClusters(
-                dataset.id,
-                args.scale,
-                rectangle.nw.latitude, rectangle.nw.longitude,
-                rectangle.se.latitude, rectangle.se.longitude
-            );
+            const clusters = await fetchRectangleMarkers(
+                dataset.id, args.cellSize, args.rectangle, db.getOverviewClusters);
             const filtered = clusters.map(value => util.object.filter(
                 value,
                 {count: true, status: true, location: true, coordinates: true}
@@ -125,13 +153,8 @@ module.exports = function () {
         .connect(connectVerifyDataset)
         // fetch trashpoints
         .use(async function (dataset, responder) {
-            const rectangle = args.rectangle;
-            const trashpoints = await db.getOverviewTrashpoints(
-                dataset.id,
-                args.scale,
-                rectangle.nw.latitude, rectangle.nw.longitude,
-                rectangle.se.latitude, rectangle.se.longitude
-            );
+            const trashpoints = await fetchRectangleMarkers(
+                dataset.id, args.cellSize, args.rectangle, db.getOverviewTrashpoints);
             const filtered = trashpoints.map(filterTrashpointsForOverview);
             return responder.success(filtered);
         })
@@ -145,7 +168,7 @@ module.exports = function () {
         .use(async function (dataset, responder) {
             const trashpoints = await db.getGridCellTrashpoints(
                 dataset.id,
-                args.scale,
+                args.cellSize,
                 args.coordinates
             );
             const filtered = trashpoints.map(filterTrashpointsForOverview);

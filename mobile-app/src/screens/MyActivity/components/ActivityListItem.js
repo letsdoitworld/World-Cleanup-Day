@@ -54,6 +54,17 @@ const ActivityListItem = ({
   onPressItem,
 }) => {
   const statusStyle = { backgroundColor: STATUSES_COLOR[status] };
+  let nameToList = name.trim();
+  let addressToList = address.trim();
+  if (!nameToList || !addressToList) {
+    const { longitude, latitude } = location;
+    if (!nameToList) {
+      nameToList = `${latitude.toFixed(3)}, ${longitude.toFixed(3)}`;
+    }
+    if (!addressToList) {
+      addressToList = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+    }
+  }
   return (
     <TouchableHighlight
       onPress={() => onPressItem({ id, location })}
@@ -66,12 +77,12 @@ const ActivityListItem = ({
         <View style={styles.textsContainer}>
           <View style={{ paddingBottom: 2 }}>
             <Text style={styles.name}>
-              {name}
+              {nameToList}
             </Text>
           </View>
           <View>
             <Text style={styles.address}>
-              {address}
+              {addressToList}
             </Text>
           </View>
         </View>

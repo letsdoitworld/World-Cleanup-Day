@@ -132,15 +132,29 @@ module.exports = function () {
                 const dependents = await db.getChildImages(mainImageId, trashpoint.id);
                 for (let k = 0; k < dependents.length; k++) {
                     const depImgId = dependents[k].id;
-                    // delete dependent from storage
-                    const storDelRequest = {
-                        container: Image.makeContainerName(dependents[k].type),
-                        file: dependents[k].file,
-                    };
-                    try {
-                        const ret = await lucius.request('role:auth,cmd:deleteBlob', storDelRequest);
-                        if (!ret.isSuccessful()) {
-                            logger.error(ret.getErrors());
+
+                    // delete dependent from storage (but only if it was confirmed uploaded)
+                    if (dependents[k].status === Image.STATUS_READY) {
+                        const storDelRequest = {
+                            container: Image.makeContainerName(dependents[k].type),
+                            file: dependents[k].file,
+                        };
+                        try {
+                            const ret = await lucius.request('role:auth,cmd:deleteBlob', storDelRequest);
+                            if (!ret.isSuccessful()) {
+                                logger.error(ret.getErrors());
+                                errors.push(new LuciusError(E.STORAGE_DELETE_FAILED,
+                                    {
+                                        resourceId: depImgId,
+                                        container: storDelRequest.container,
+                                        blob: storDelRequest.file,
+                                    }
+                                ));
+                                deletedAllDeps = false;
+                                continue;
+                            }
+                        } catch (e) {
+                            logger.error(e);
                             errors.push(new LuciusError(E.STORAGE_DELETE_FAILED,
                                 {
                                     resourceId: depImgId,
@@ -151,19 +165,8 @@ module.exports = function () {
                             deletedAllDeps = false;
                             continue;
                         }
-                    } catch (e) {
-                        logger.error(e);
-                        errors.push(new LuciusError(E.STORAGE_DELETE_FAILED,
-                            {
-                                resourceId: depImgId,
-                                container: storDelRequest.container,
-                                blob: storDelRequest.file,
-                            }
-                        ));
-                        deletedAllDeps = false;
-                        continue;
+                        logger.debug(`Deleted dependent image '${depImgId}' from storage.`);
                     }
-                    logger.debug(`Deleted dependent image '${depImgId}' from storage.`);
 
                     // delete dependent from db
                     try {
@@ -178,15 +181,27 @@ module.exports = function () {
                 } // END OF dependent images for-loop
 
                 if (deletedAllDeps) {
-                    // delete main image from storage
-                    const delRequest = {
-                        container: Image.makeContainerName(mainImg.type),
-                        file: mainImg.file,
-                    };
-                    try {
-                        const ret = await lucius.request('role:auth,cmd:deleteBlob', delRequest);
-                        if (!ret.isSuccessful()) {
-                            logger.error(ret.getErrors());
+                    // delete main image from storage (but only if it was confirmed uploaded)
+                    if (mainImg.status === Image.STATUS_READY) {
+                        const delRequest = {
+                            container: Image.makeContainerName(mainImg.type),
+                            file: mainImg.file,
+                        };
+                        try {
+                            const ret = await lucius.request('role:auth,cmd:deleteBlob', delRequest);
+                            if (!ret.isSuccessful()) {
+                                logger.error(ret.getErrors());
+                                errors.push(new LuciusError(E.STORAGE_DELETE_FAILED,
+                                    {
+                                        resourceId: mainImageId,
+                                        container: delRequest.container,
+                                        blob: delRequest.file,
+                                    }
+                                ));
+                                continue;
+                            }
+                        } catch (e) {
+                            logger.error(e);
                             errors.push(new LuciusError(E.STORAGE_DELETE_FAILED,
                                 {
                                     resourceId: mainImageId,
@@ -196,18 +211,8 @@ module.exports = function () {
                             ));
                             continue;
                         }
-                    } catch (e) {
-                        logger.error(e);
-                        errors.push(new LuciusError(E.STORAGE_DELETE_FAILED,
-                            {
-                                resourceId: mainImageId,
-                                container: delRequest.container,
-                                blob: delRequest.file,
-                            }
-                        ));
-                        continue;
+                        logger.debug(`Deleted main image '${mainImageId}' from storage.`);
                     }
-                    logger.debug(`Deleted main image '${mainImageId}' from storage.`);
 
                     // delete main image from db
                     try {

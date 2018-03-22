@@ -13,6 +13,8 @@ const adapter = require('./adapter');
 const types =  require('../types');
 const grid =  require('../../geo/grid');
 
+const RETRY_CONFLICTS = 3;
+
 const layer = {
     //========================================================
     // COMMON
@@ -49,12 +51,60 @@ const layer = {
                 sorted: true,
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),
-                descending: true,
+            }
+        );
+    },
+    getAccountsByCountry: async (country, pageSize = 10, pageNumber = 1) => {
+        return await adapter.getEntities(
+            'Account',
+            '_design/byCountryAndName/_view/view',
+            {
+                sorted: true,
+                limit: pageSize,
+                skip: pageSize * (pageNumber - 1),
+                startkey: [country],
+                endkey: [country, {}],
+            }
+        );
+    },
+    getAccountsByNameSearch: async (nameSearch, pageSize = 10, pageNumber = 1, country = null) => {
+        return await adapter.getEntities(
+            'Account',
+            '_design/byNamePieces/_view/view',
+            {
+                reduce: false,
+                sorted: true,
+                limit: pageSize,
+                skip: pageSize * (pageNumber - 1),
+                startkey: country  ? [nameSearch, country] : [nameSearch],
+                endkey: country ? [nameSearch, country, {}] : [nameSearch, {}],
             }
         );
     },
     countAccounts: async () => {
         const ret = await adapter.getRawDocs('Account', '_design/countAll/_view/view', {});
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
+    countAccountsForCountry: async country => {
+        const ret = await adapter.getRawDocs('Account', '_design/countByCountry/_view/view', {
+            key: country,
+            group: true,
+        });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
+    countAccountsForNameSearch: async (nameSearch, country = null) => {
+        const ret = await adapter.getRawDocs('Account', '_design/byNamePieces/_view/view', {
+            startkey: country  ? [nameSearch, country] : [nameSearch],
+            endkey: country ? [nameSearch, country, {}] : [nameSearch, {}],
+            reduce: true,
+            group: false,
+        });
         if (!ret.length) {
             return 0;
         }
@@ -113,17 +163,14 @@ const layer = {
         }
         return true;
     },
-    setAccountLock: async (accountId, locked, updatedBy) => {
-        const account = await layer.getRawAccountDoc(accountId);
-        if (!account) {
-            return false;
-        }
-        if (account.role === types.Account.ROLE_SUPERADMIN) {
+    setAccountLock: async (accountId, locked, updatedBy, rawAccountDoc = null) => {
+        rawAccountDoc = rawAccountDoc || await layer.getRawAccountDoc(accountId);
+        if (!rawAccountDoc) {
             return false;
         }
         const ret = await adapter.modifyDocument(
             'Account',
-            account,
+            rawAccountDoc,
             {},
             {
                 locked,
@@ -143,28 +190,33 @@ const layer = {
     getSession: async id => {
         return await adapter.getOneEntityById('Session', '_design/all/_view/view', id);
     },
-    createSession: async (accountId, expirationUTC) => {
-        const id = types.Session.makeSessionIdFromAccountId(accountId);
-        await adapter.createDocument('Session', id, {
-            accountId,
-        }, {
-            createdAt: util.time.getNowUTC(),
-            expiresAt: expirationUTC,
-        });
-        return await layer.getSession(id);
+    touchSession: async (id, expirationDays) => {
+        // XXX: This function is particularly susceptible to race conditions.
+        // There are updates coming in sometimes as fast as 10ms behind each other.
+        // We retry the timestamp update several times, since it's the only method
+        // that works with Couch's optimistic locking. A successful update breaks
+        // the cycle. A conflict error retries. Any other error throws.
+        for (let i = 0; i < RETRY_CONFLICTS; i++) {
+            try {
+                return await adapter.modifyDocument(
+                    'Session',
+                    await adapter.getOneRawDocById('Session', '_design/all/_view/view', id),
+                    {
+                        expiresAt: util.time.getNowUTCShifted(expirationDays, 'd'),
+                        updatedAt: util.time.getNowUTC(),
+                    }
+                );
+            } catch (e) {
+                if (e.code !== 'EDOCCONFLICT') {
+                    throw e;
+                }
+            }
+        }
     },
     createOrTouchSession: async (accountId, expirationDays) => {
         const id = types.Session.makeSessionIdFromAccountId(accountId);
-        const expirationUTC = util.time.getNowUTCShifted(expirationDays, 'd');
         // assume session exists, attempt to update it
-        const session = await adapter.modifyDocument(
-            'Session',
-            await adapter.getOneRawDocById('Session', '_design/all/_view/view', id),
-            {
-                expiresAt: expirationUTC,
-                updatedAt: util.time.getNowUTC(),
-            }
-        );
+        const session = await layer.touchSession(id, expirationDays);
         // if it was there, all done, return it
         if (session) {
             return session;
@@ -172,35 +224,26 @@ const layer = {
         // we didn't find it, so create it and return it
         await adapter.createDocument('Session', id, {
             accountId,
-            expiresAt: expirationUTC,
         }, {
+            expiresAt: util.time.getNowUTCShifted(expirationDays, 'd'),
             createdAt: util.time.getNowUTC(),
             updatedAt: util.time.getNowUTC(),
         });
         return await layer.getSession(id);
     },
     verifyAndTouchSession: async (id, expirationDays) => {
-        const rawSession = await adapter.getOneRawDocById('Session', '_design/all/_view/view', id)
-        if (!rawSession) {
+        const session = await layer.getSession(id);
+        if (!session) {
             return false;
         }
         // check expiration time
         const now = util.time.getNowUTC();
-        if (now >= rawSession.expiresAt) {
-            await cdb.deleteDoc(rawSession._id, rawSession._rev);
+        if (now >= session.expiresAt) {
+            await layer.removeSession(id);
             return false;
         }
         // session is ok, extend the expiration time
-        const expirationUTC = util.time.getNowUTCShifted(expirationDays, 'd');
-        return await adapter.modifyDocument(
-            'Session',
-            rawSession,
-            {
-                expiresAt: expirationUTC,
-            }, {
-                updatedAt: now,
-            }
-        );
+        return await layer.touchSession(id, expirationDays);
     },
     removeSession: async id => {
         return await adapter.removeDocument('Session', '_design/all/_view/view', id);
@@ -255,7 +298,8 @@ const layer = {
             }
         );
     },
-    getGridCellTrashpoints: async (datasetId, scale, gridCoord) => {
+    getGridCellTrashpoints: async (datasetId, cellSize, gridCoord) => {
+        const scale = grid.getScaleForCellSize(cellSize);
         const ret = await adapter.getEntities(
             'Trashpoint',
             `_design/byGridCell${scale}/_view/view`,
@@ -268,29 +312,34 @@ const layer = {
         );
         return ret.filter(val => val !== null);
     },
-    getOverviewTrashpoints: async (datasetId, scale, nwLat, nwLong, seLat, seLong) => {
+    getOverviewTrashpoints: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+        const scale = grid.getScaleForCellSize(cellSize);
         const ret = await layer.getOverview('Trashpoint', `_design/isolated${scale}/_view/view`,
             datasetId, scale, nwLat, nwLong, seLat, seLong);
         return ret.filter(row => adapter.rawDocToEntity('Trashpoint', row));
     },
-    getOverviewClusters: async (datasetId, scale, nwLat, nwLong, seLat, seLong) => {
+    getOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+        const scale = grid.getScaleForCellSize(cellSize);
         const ret = await layer.getOverview('Trashpoint', `_design/clusters${scale}/_view/view`,
-            datasetId, scale, nwLat, nwLong, seLat, seLong);
+            datasetId, scale, nwLat, nwLong, seLat, seLong, {
+                'group_level': 2,
+            });
         return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
     },
-    getOverview: async (datatype, view, datasetId, scale, nwLat, nwLong, seLat, seLong) => {
-        const cellCoords = grid.geoCornersToCells([nwLong, nwLat], [seLong, seLat], grid.SCALES[scale]);
+    getOverview: async (datatype, view, datasetId, scale, nwLat, nwLong, seLat, seLong, extraViewParams = {}) => {
+        const cellCoords = grid.geoCornersToCells(
+            [nwLong, nwLat], [seLong, seLat], grid.SCALES[scale]);
         const ret = await adapter.getRawDocs(
             datatype,
             view,
-            {
+            Object.assign({
                 startkey: [datasetId, cellCoords[0]],
                 endkey: [datasetId, cellCoords[1]],
                 'inclusive_end': true,
                 group: true,
                 reduce: true,
                 sorted: false,
-            },
+            }, extraViewParams),
             false // leave data untouched, we need the keys
         );
         if (!ret || !ret.data || !ret.data.rows) {
@@ -480,7 +529,7 @@ const layer = {
             update,
             {
                 updatedAt: util.time.getNowUTC(),
-                updatedBy: who,
+                updatedBy: who || undefined,
             }
         );
     },
@@ -500,6 +549,16 @@ const layer = {
                     parentId: area.parent || undefined,
                 });
             }
+            else {
+                if (existingAreas[area.code].name !== area.name
+                    || existingAreas[area.code].parentId !== area.parent
+                ) {
+                    await layer.modifyArea(area.code, null, {
+                        name: area.name,
+                        parentId: area.parent || undefined,
+                    });
+                }
+            }
         }
         return true;
     },
@@ -515,7 +574,6 @@ const layer = {
             byStatus ? false : true // for statuses we'll need the keys
         );
         if (byStatus) {
-            console.log('-----------', ret.data.rows);
             if (!ret || !ret.data || !ret.data.rows || !ret.data.rows.length) {
                 return {};
             }

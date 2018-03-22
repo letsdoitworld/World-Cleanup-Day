@@ -26,7 +26,7 @@ class CreateTrashpoint extends Component {
       location: undefined,
       editLocation: false,
       amount: 'handful',
-      status: 'threat',
+      status: 'regular',
       composition: TRASH_COMPOSITION_TYPE_LIST.map(t => ({
         label: t.label,
         value: t.type,
@@ -165,8 +165,8 @@ class CreateTrashpoint extends Component {
     });
 
     this.setState({
-      name: data.streetAddress,
-      address: data.completeAddress,
+      name: data.streetAddress || 'Unknown address',
+      address: data.completeAddress || 'Unknown address',
       location: {
         latitude: lat,
         longitude: lng,
@@ -189,7 +189,11 @@ class CreateTrashpoint extends Component {
       validationMessage: false,
     });
   };
-
+  hasAddressLineSet = () => {
+    const { location, address } = this.state;
+    const { latitude, longitude } = location || {};
+    return !!address || !!latitude || !!longitude;
+  };
   renderAddressLine = () => {
     const { location, address } = this.state;
     const { latitude, longitude } = location || {};
@@ -233,12 +237,10 @@ class CreateTrashpoint extends Component {
           onLocationChange={this.handleLocationChanged}
           location={location ? { lat: latitude, lng: longitude } : undefined}
           visible={this.state.editLocation}
-          textInput
+          status={status}
         />
         <div style={{ padding: '20px' }}>
-          <span className="CreateTrashpoint-name">
-            {name}
-          </span>
+          <span className="CreateTrashpoint-name">{name}</span>
           <button
             className="CreateTrashpoint-close-button"
             onClick={this.handleCloseClick}
@@ -247,7 +249,7 @@ class CreateTrashpoint extends Component {
           </button>
           <div className="CreateTrashpoint-address-container">
             <div>
-              <img src={imageLocation} alt="" />
+              {this.hasAddressLineSet() && <img src={imageLocation} alt="" />}
             </div>
             <span className="CreateTrashpoint-address">
               {this.renderAddressLine()}

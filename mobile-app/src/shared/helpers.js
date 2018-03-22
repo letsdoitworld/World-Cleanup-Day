@@ -5,6 +5,8 @@ import {
   GRID_HASH,
   GRID_VALUES,
 } from './constants';
+import Sentry from 'sentry-expo';
+import { SentrySeverity } from 'react-native-sentry';
 
 const DESIGNS_HEIGHT = 568;
 const DESIGNS_WIDTH = 320;
@@ -66,29 +68,50 @@ const atob = input => {
   return output;
 };
 
+const scales = [
+  1000000, 500000, 300000, 200000, 180000, 160000,
+  140000, 120000, 100000, 90000, 80000,
+  70000, 60000, 50000, 30000, 20000,
+  10000, 5000, 3000, 2000, 1000, 500, 300, 200,
+  100, 50, 30, 20, 10, 5, 1].reverse();
+
+const scalesGrid = [
+  '1000km', '500km', '300km', '200km', '180km', '160km', '140km', '120km', '100km', '90km', '80km', '70km',
+  '60km', '50km', '30km', '20km', '10km', '5km', '3km', '2km', '1km', '500m', '300m', '200m', '100m', '50m', '30m',
+  '20m', '10m', '5m', '1m'].reverse();
+
 export const getGridValue = diagonaleInMeters => {
   // console.log(diagonaleInMeters);
-  const length = GRID_VALUES.length;
+  const length = scales.length;
   const lastIndex = length - 1;
 
-  if (diagonaleInMeters >= GRID_VALUES[lastIndex]) {
+  if (diagonaleInMeters >= scales[lastIndex]) {
     return {
-      gridValue: GRID_HASH[GRID_VALUES[lastIndex]],
-      gridValueToZoom: GRID_HASH[GRID_VALUES[lastIndex - 1]],
+      gridValue: scalesGrid[lastIndex],
+      gridValueToZoom: scalesGrid[lastIndex - 1],
     };
   }
 
   for (let i = 0; i < length; i++) {
-    if (diagonaleInMeters <= GRID_VALUES[i]) {
+    if (diagonaleInMeters <= scales[i]) {
       let previousIndex = i - 1;
       if (previousIndex < 0) {
         previousIndex = i;
       }
+
+      const val1 = diagonaleInMeters - scales[previousIndex];
+      const val2 = scales[i] - diagonaleInMeters;
       return {
-        gridValue: GRID_HASH[GRID_VALUES[i]],
-        gridValueToZoom: GRID_HASH[GRID_VALUES[previousIndex]],
+        gridValue: val1 < val2 ? scalesGrid[previousIndex] : scalesGrid[i],
+        gridValueToZoom: val1 < val2 ? scalesGrid[(previousIndex - 1) === -1 ? previousIndex : previousIndex - 1] : scalesGrid[previousIndex],
         maxZoomedIn: previousIndex === i
       };
+
+      // return {
+      //   gridValue: scalesGrid[i],
+      //   gridValueToZoom: scalesGrid[previousIndex],
+      //   maxZoomedIn: previousIndex === i
+      // };
     }
   }
 };
@@ -122,12 +145,10 @@ export const toDegrees = no => {
   return no * 180 / Math.PI;
 };
 
-export const destinationPoint = (
-  fromPoint,
+export const destinationPoint = (fromPoint,
   distance,
   bearing,
-  radius = 6371e3,
-) => {
+  radius = 6371e3,) => {
   const δ = distance / radius; // angular distance in radians
   const θ = toRadians(bearing);
 
@@ -151,4 +172,22 @@ export const destinationPoint = (
     latitude: toDegrees(φ2),
     longitude: (toDegrees(λ2) + 540) % 360 - 180,
   };
+};
+
+export const sendSentryMessage = (message) => {
+  Sentry.captureMessage(message, {
+    level: SentrySeverity.Error
+  });
+};
+
+export const handleSentryError = (error) => {
+  if (!error) {
+    return;
+  }
+  let errorText =  error.message ? error.message : 'Error';
+  if (error && error.response && error.response.status) {
+    errorText = `Error Code: ${error.response.status}, ${errorText}`;
+  }
+
+  sendSentryMessage(errorText);
 };

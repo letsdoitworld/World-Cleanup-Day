@@ -8,6 +8,9 @@ import {
   actions as userActions,
   selectors as userSels,
 } from '../../reducers/user';
+import {
+  actions as adminActions
+} from '../../reducers/admin';
 
 import { UserDetails } from '../../pages/UserDetails';
 import { CreateTrashpoint } from '../../components/CreateTrashpoint';
@@ -15,7 +18,7 @@ import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
 import { TrashpointDetails } from '../../pages/TrashpointDetails';
-
+import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
 import { Privacy } from '../../components/Privacy';
 import trashpointIcon from '../../assets/trashpoint_menu.png';
@@ -58,20 +61,19 @@ class Home extends React.Component {
         <Route path="/users" exact component={UserList} />
         {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
+        <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
         <Route path="/trashpoints/:id" exact component={TrashpointDetails} />
       </Switch>
       <div className="Home-map-container">
         <AdminMap />
       </div>
-      {/* <div
-        onClick={() => {
-          history.push('/trashpoints/create');
-        }}
+      <div
+        onClick={() => { history.push('/trashpoints/create'); }}
         className="Home-create-marker-button"
       >
         <span>Place trashpoint</span>
-      </div> */}
+      </div>
     </div>);
 
   render() {
@@ -82,9 +84,15 @@ class Home extends React.Component {
     const SIDEBAR_LINKS = [
       { image: trashpointIcon, title: 'Trashpoints', url: '/areas' },
     ];
-    if (userProfile.role === 'superadmin') {
-      SIDEBAR_LINKS.push({ image: userIcon, title: 'Users', url: '/users' });
+    if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
+      SIDEBAR_LINKS.push({
+        image: userIcon,
+        title: 'Users',
+        url: userProfile.role === USER_ROLES.LEADER ? '/user-areas' : '/users'
+      });
     }
+
+    SIDEBAR_LINKS.forEach(link => link.onClick = () => this.props.resetUsers());
     return (
       <div className="Home">
         <Sidebar
@@ -111,6 +119,7 @@ const mapState = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),
   agreeToTerms: () => dispatch(userActions.agreeToTerms()),
+  resetUsers: () => dispatch(adminActions.resetUsers())
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);

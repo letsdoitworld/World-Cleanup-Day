@@ -18,8 +18,8 @@ class Details extends Component {
         name,
         address,
         status,
-        created,
-        updated,
+        createdAt,
+        updatedAt,
         createdByName,
         updatedByName,
         thumbnails,
@@ -59,8 +59,8 @@ class Details extends Component {
           <div className="Details-divider" />
           <StatusText status={status} />
           <TrashpointDate
-            createdDate={created}
-            updatedDate={updated}
+            createdDate={createdAt}
+            updatedDate={updatedAt}
             createdBy={createdByName}
             updatedBy={updatedByName}
           />

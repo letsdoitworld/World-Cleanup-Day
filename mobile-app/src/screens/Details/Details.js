@@ -21,6 +21,7 @@ import {
   getHeightPercentage,
   getWidthPercentage,
   getDistanceBetweenPointsInMeters,
+  handleSentryError
 } from '../../shared/helpers';
 import {
   SCREEN_WIDTH,
@@ -113,6 +114,7 @@ class Details extends Component {
           ) <= 100;
         this.setState({ showFooter });
       } catch (e) {
+        handleSentryError(ex);
         console.log(e.message);
       }
     }
@@ -248,6 +250,7 @@ class Details extends Component {
         });
       }
     } catch (e) {
+      handleSentryError(e);
       console.log(e.message);
     }
   };
@@ -285,7 +288,9 @@ class Details extends Component {
     if (marker && marker.name) {
       return marker.name;
     }
-    return '';
+
+    const { initialLocation: { longitude, latitude } } = this.state;
+    return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
   };
   renderStreetDetails = () => {
     const { address } = this.state;
@@ -305,7 +310,7 @@ class Details extends Component {
     // {`${this.renderStreetDetails()} | ${latitude.toFixed(
     //             6,
     //           )}, ${longitude.toFixed(6)}`}
-    const streetDetails = this.renderStreetDetails();
+    const streetDetails = this.renderStreetDetails().trim();
     const gpsCoords = this.renderMarkerCoords();
     if (streetDetails && gpsCoords) {
       return `${streetDetails} | ${gpsCoords}`;

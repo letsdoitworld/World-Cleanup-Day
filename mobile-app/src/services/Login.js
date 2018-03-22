@@ -1,6 +1,7 @@
 import { Facebook, Google, Constants } from 'expo';
 import _ from 'lodash';
 import axios from 'axios';
+import { handleSentryError } from '../shared/helpers';
 
 import Api, { handleApiError } from './Api';
 
@@ -46,6 +47,7 @@ const loginGoogle = async () => {
     const { accessToken, ...rest } = await Google.logInAsync(config);
     return { token: accessToken, ...rest };
   } catch (ex) {
+    handleSentryError(ex);
     console.log(ex);
     throw ex;
   }
@@ -62,6 +64,7 @@ class UnknownSocialNetworkException {
 
     this.toString = this.toString.bind(this);
   }
+
   toString() {
     return `Social network ${this.network} is unknown`;
   }
@@ -72,6 +75,7 @@ class TokenFetchException {
 
     this.toString = this.toString.bind(this);
   }
+
   toString() {
     return `Could not fetch the token for the social network ${this.network}`;
   }
@@ -93,6 +97,7 @@ const fetchNetworkTokenAsync = async (network) => {
       token,
     });
   } catch (ex) {
+    handleSentryError(ex);
     response = ex.response;
     if (response.data && _.isArray(response.data) && response.data.length > 0) {
       const error = response.data[0];

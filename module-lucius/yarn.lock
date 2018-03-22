@@ -22,19 +22,6 @@ isstream@0.1.x:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-"module-logger@git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#68be016112bfdc381d5e0c374e3037e9b4f120d1"
-  dependencies:
-    winston "^2.3.1"
-
-"module-util@git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#bef23a3fa95b7d3eea17ee8d8cebcefed2925195"
-  dependencies:
-    moment "^2.18.1"
-    uuid "^3.1.0"
-
 moment@^2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"

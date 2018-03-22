@@ -53,7 +53,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bluebird@^3.5.0:
+bluebird@=3.5.0, bluebird@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
@@ -79,7 +79,7 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-caught@^0.1.1:
+caught@=0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/caught/-/caught-0.1.1.tgz#8abc85f205ba11fe70e4fc6faf3f46ddc18908ca"
 
@@ -301,30 +301,6 @@ minimist@1.2.0, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-"module-logger@git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#783373daf06ed247415404e90c852365b27d6f6e"
-  dependencies:
-    winston "^2.3.1"
-
-"module-lucius@git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#d9557d01a49868a00adb6a543d32ef7922756012"
-  dependencies:
-    bluebird "^3.5.0"
-    module-logger "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
-
-"module-service-factory@git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#20dd31f5a3bd0f2f1069cc67a236fa7ebaf741c4"
-  dependencies:
-    module-logger "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
-    seneca "^3.4.1"
-
-"module-util@git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#ed62a312dca227dd11e67f1771816a770835d807"
-
 ndjson@1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/ndjson/-/ndjson-1.4.3.tgz#7aa026fe3ab38a7da1a2b4ad07b1008e733eb239"
@@ -337,7 +313,7 @@ nid@0.3, nid@0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/nid/-/nid-0.3.2.tgz#977a9318ed5c2a38edd66263f3eafd8143f2251a"
 
-node-couchdb@^1.1.1:
+node-couchdb@=1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/node-couchdb/-/node-couchdb-1.1.1.tgz#90f50058b2d4e08cc46814b623754eb5eb1141b2"
   dependencies:

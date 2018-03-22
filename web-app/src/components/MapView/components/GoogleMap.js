@@ -15,7 +15,19 @@ export default withGoogleMap(props => {
     isIdle = noop,
     onBoundsChanged = noop,
     onClick = noop,
+    cursor,
   } = props;
+
+  const mapOptions = {
+    mapTypeControl: true,
+    mapTypeControlOptions: { position: 3 /* TOP_RIGHT */ },
+    streetViewControl: false,
+    scaleControl: true,
+    minZoom: 3,
+  };
+  if (cursor) {
+    mapOptions.draggableCursor = cursor;
+  }
 
   return (
     <GoogleMap
@@ -24,21 +36,14 @@ export default withGoogleMap(props => {
       defaultCenter={location}
       googleMapURL={googleMapURL}
       ref={setMapComponent}
-      options={{
-        mapTypeControl: false,
-        streetViewControl: false,
-      }}
+      options={mapOptions}
       onIdle={isIdle}
       onDragEnd={onBoundsChanged}
       onZoomChanged={onBoundsChanged}
     >
-      {points.map(point =>
-        (<PointMarker
-          key={point.id}
-          point={point}
-          onPointClick={onPointClick}
-        />),
-      )}
+      {points.map(point => (
+        <PointMarker key={point.id} point={point} onPointClick={onPointClick} />
+      ))}
     </GoogleMap>
   );
 });

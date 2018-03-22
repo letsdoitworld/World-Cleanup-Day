@@ -74,7 +74,7 @@ const userTrashpointsRefreshing = createSelector(
   userTrashpointsSelector,
   state => state.refreshing,
 );
-const getGridValue = createSelector(legacySelector, state => state.gridValue);
+const getLastDeltaValue = createSelector(legacySelector, state => state.delta);
 const getMarkerDeleting = createSelector(
   legacySelector,
   state => state.markerDeleting,
@@ -87,7 +87,7 @@ export default {
   userTrashpointsSelector,
   getMarkerCreatorId,
   isLoading,
-  getGridValue,
+  getLastDeltaValue,
 
   userTrashpoints,
   userTrashpointsLoading,

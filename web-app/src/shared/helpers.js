@@ -70,12 +70,10 @@ export const toRadians = no => no * Math.PI / 180;
 
 export const toDegrees = no => no * 180 / Math.PI;
 
-export const destinationPoint = (
-  fromPoint,
+export const destinationPoint = (fromPoint,
   distance,
   bearing,
-  radius = 6371e3,
-) => {
+  radius = 6371e3,) => {
   const δ = distance / radius; // angular distance in radians
   const θ = toRadians(bearing);
 
@@ -132,4 +130,17 @@ export const convertToByteArray = input => {
     bytes[i] = binary_string.charCodeAt(i);
   }
   return bytes;
+};
+
+export const getCountryFromStr = (str) => {
+  if (str === undefined) {
+    return '';
+  }
+
+  const texts = str.split('.');
+  if (texts.length > 1) {
+    return texts[0];
+  }
+
+  return str;
 };

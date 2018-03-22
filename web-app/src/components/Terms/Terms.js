@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TERMS_URL =
-  'https://storeldiweustaging.blob.core.windows.net/static-resources/Admin_terms.html';
+  'https://storeldiweuprod.blob.core.windows.net/static-resources/Admin_terms.html';
 
 const Terms = ({ onAccept }) =>
   (<div className="Terms-container">

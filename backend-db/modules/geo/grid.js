@@ -1,54 +1,58 @@
 'use strict';
 
 //-------------------------------------------------------------------
+// GENERATE SQUARE SCALES
+//-------------------------------------------------------------------
+const SQUARE_SCALES = (() => {
+    const scales = {};
+    const minRes = 0.00003165120288457081; // geodetic degrees
+    const maxRes = 33.04687231063843; // geodetic degrees
+    const logMin = Math.log2(minRes);
+    const logMax = Math.log2(maxRes);
+    const steps = 100;
+    const logStep = (logMax - logMin) / (steps - 1);
+    for (let i = 0; i < steps; i++) {
+        scales['S' + i] = Math.pow(2, logMin + logStep * i);
+    }
+    return scales;
+})();
+
+//-------------------------------------------------------------------
 // SQUARE GRID DEFINITIONS
 //-------------------------------------------------------------------
 
-const SQUARE_SCALES = {
-    '1000km': 9,
-    '500km': 4.5,
-    '300km': 2.7,
-    '200km': 1.8,
-    '180km': 1.62,
-    '160km': 1.44,
-    '140km': 1.26,
-    '120km': 1.08,
-    '100km': 0.9,
-    '90km': 0.81,
-    '80km': 0.72,
-    '70km': 0.63,
-    '60km': 0.54,
-    '50km': 0.45,
-    '30km': 0.27,
-    '20km': 0.18,
-    '10km': 0.09,
-    '5km': 0.045,
-    '3km': 0.027,
-    '2km': 0.018,
-    '1km': 0.009,
-    '500m': 0.0045,
-    '300m': 0.0027,
-    '200m': 0.0018,
-    '100m': 0.0009,
-    '50m': 0.00045,
-    '30m': 0.00027,
-    '20m': 0.00018,
-    '10m': 0.00009,
-    '5m': 0.000045,
-    '1m': 0.000009,
+const getScaleForSquareCellSize = function (geodesicCellSide) {
+    return Object.getOwnPropertyNames(SQUARE_SCALES).reduce((prevScale, currScale) => {
+        if (geodesicCellSide > SQUARE_SCALES[currScale]) {
+            if (prevScale) {
+                if (SQUARE_SCALES[currScale] > SQUARE_SCALES[prevScale]) {
+                    return currScale;
+                }
+                else {
+                    return prevScale;
+                }
+            }
+            else {
+                return currScale;
+            }
+        }
+        else {
+            return prevScale;
+        }
+    }, 'S0');
 };
 
-const geodesicToSquareCell = function (geoCoords, gridSize) {
+const geodesicToSquareCell = function (geoPoint, gridSize) {
     return [
-        parseInt(Math.floor(geoCoords[0] / gridSize)),
-        parseInt(Math.floor(geoCoords[1] / gridSize)),
+        parseInt(Math.floor(geoPoint[0] / gridSize)),
+        parseInt(Math.floor(geoPoint[1] / gridSize)),
     ];
 };
 
-const squareCellCenterToGeodesic = function (gridCoords, gridSize) {
+const squareCellCenterToGeodesic = function (geoPoint, gridSize) {
     return [
-        (gridCoords[0] + 0.5) * gridSize,
-        (gridCoords[1] + 0.5) * gridSize,
+        (geoPoint[0] + 0.5) * gridSize,
+        (geoPoint[1] + 0.5) * gridSize,
     ];
 };
 
@@ -63,13 +67,13 @@ const geodesicPointsToSquareCellArea = function (geoPointA, geoPointB, gridSize)
     ];
 };
 
-const isCellInSquareGridArea = function (cellCoords, gridCellA, gridCellB) {
+const isCellInSquareGridArea = function (geoPoint, gridCellA, gridCellB) {
     const minX = Math.min(gridCellA[0], gridCellB[0]);
     const minY = Math.min(gridCellA[1], gridCellB[1]);
     const maxX = Math.max(gridCellA[0], gridCellB[0]);
     const maxY = Math.max(gridCellA[1], gridCellB[1]);
-    return minX <= cellCoords[0] && cellCoords[0] <= maxX
-        && minY <= cellCoords[1] && cellCoords[1] <= maxY;
+    return minX <= geoPoint[0] && geoPoint[0] <= maxX
+        && minY <= geoPoint[1] && geoPoint[1] <= maxY;
 }
 
 //-------------------------------------------------------------------
@@ -111,4 +115,5 @@ module.exports = {
     gridToGeoCenter: squareCellCenterToGeodesic,
     geoCornersToCells: geodesicPointsToSquareCellArea,
     cellIsInGridArea: isCellInSquareGridArea,
+    getScaleForCellSize: getScaleForSquareCellSize,
 };

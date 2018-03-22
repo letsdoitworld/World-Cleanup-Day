@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { translate } from 'react-i18next';
 
-import { operations as appOps } from '../../reducers/app';
+import { operations as appOps, selectors as appSels } from '../../reducers/app';
 
 import { withNavigationHelpers } from '../../services/Navigation';
 
@@ -28,11 +28,12 @@ import { LocationPicker } from './components/LocationPicker';
 import { StatusPicker } from './components/StatusPicker';
 import { PhotoPicker } from '../../components/PhotoPicker';
 import { Divider } from '../../components/Divider';
-import { getWidthPercentage, getHeightPercentage } from '../../shared/helpers';
+import { getWidthPercentage, getHeightPercentage, handleSentryError } from '../../shared/helpers';
 import { Tags } from '../../components/Tags';
 import { AmountPicker, AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { CongratsModal } from './components/CongratsModal';
 import { AlertModal } from '../../components/AlertModal';
+import { CustomSlider } from '../../components/CustomSlider';
 import {
   TRASH_COMPOSITION_TYPE_LIST,
   MARKER_STATUSES,
@@ -44,8 +45,26 @@ import {
 } from '../../reducers/trashpile';
 import _ from 'lodash';
 import styles from './styles';
+import { NavigationActions } from 'react-navigation'
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
+
+const HANDFUL_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_handful_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_handful_blue_fill.png'),
+};
+const BAGFUL_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_bagful_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_bagful_blue_fill.png'),
+};
+const CARTLOAD_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_cartload_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_cartload_blue_fill.png'),
+};
+const TRUCKLOAD_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_truck_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_truck_blue_fill.png'),
+};
 
 const MAX_HASHTAGS_NO = 15;
 const GRADIENT_COLORS = ['#FFFFFF', '#F1F1F1'];
@@ -81,6 +100,8 @@ class CreateMarker extends Component {
       initialLocation: params.coords,
       editableLocation: params.coords,
       address: {},
+      disableCreateTrashpointButton: false,
+      locationSetByUser: false,
     };
 
     this.state = state;
@@ -118,6 +139,17 @@ class CreateMarker extends Component {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
+
+  componentWillReceiveProps(nextProps) {
+    const { isConnected: wasConnected } = this.props;
+    const { isConnected} = nextProps;
+    const { address, locationSetByUser } = this.state;
+    if (!wasConnected && isConnected && !locationSetByUser &&
+      (!address || !address.completeAddress)) {
+      this.fetchAddressAsync();
+    }
+  }
+
   fetchAddressAsync = async (coords) => {
     const address = await locationOperations.fetchAddress(
       coords || this.state.initialLocation,
@@ -136,10 +168,13 @@ class CreateMarker extends Component {
       validation: false,
     });
   };
+
   handleBackPress() {
     const { navigation } = this.props;
-    navigation.goBack(null);
-    navigation.navigate('Home');
+    navigation.dispatch(NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Tabs' })]
+    }));
     return true;
   }
 
@@ -152,7 +187,10 @@ class CreateMarker extends Component {
       onGoBack: (coords) => {
         this.setState(
           { editableLocation: coords },
-          async () => await this.fetchAddressAsync(coords),
+          async () => {
+            this.setState({ locationSetByUser: true });
+            await this.fetchAddressAsync(coords);
+          },
         );
       },
     });
@@ -160,31 +198,31 @@ class CreateMarker extends Component {
 
   handlePhotoAdd = () => {
     this.props
-      .takePhotoAsync({ quality: 0.2, base64: true })
-      .then(async (response) => {
-        if (!response) {
-          return;
-        }
-        const { cancelled, uri, base64, width, height } = response;
+        .takePhotoAsync({ quality: 0.2, base64: true })
+        .then(async (response) => {
+          if (!response) {
+            return;
+          }
+          const { cancelled, uri, base64, width, height } = response;
 
-        if (cancelled) {
-          return;
-        }
+          if (cancelled) {
+            return;
+          }
 
-        const { photos } = this.state;
-        const thumbnailBase64 = await ImageService.getResizedImageBase64({
-          uri,
-          width,
-          height,
-        });
-        this.setState({
-          photos: [
-            ...photos,
-            { uri, base64, thumbnail: { base64: thumbnailBase64 } },
-          ],
-        });
-      })
-      .catch(() => {});
+          const { photos } = this.state;
+          const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height,
+          });
+          this.setState({
+            photos: [
+              ...photos,
+              { uri, base64, thumbnail: { base64: thumbnailBase64 } },
+            ],
+          });
+        })
+        .catch((err) => handleSentryError(err));
   };
 
   handlePhotoDelete = (index) => {
@@ -243,29 +281,31 @@ class CreateMarker extends Component {
       return;
     }
 
-    createMarker({
-      location: this.state.editableLocation,
-      status,
-      photos,
-      composition: [
-        ...trashCompositionTypes.filter(t => t.selected).map(t => t.type),
-      ],
-      hashtags: [...hashtags.map(t => t.label)],
-      amount: AMOUNT_STATUSES[amount],
-      address: completeAddress,
-      name: `${streetAddress} ${streetNumber}`,
-    }).then(
-      (res) => {
-        if (res) {
-          if (!res.photoStatus) {
-            setErrorMessage(t('label_create_marker_missing_photos'));
+    this.setState({ disableCreateTrashpointButton: true }, () => {
+      createMarker({
+        location: this.state.editableLocation,
+        status,
+        photos,
+        composition: [
+          ...trashCompositionTypes.filter(t => t.selected).map(t => t.type),
+        ],
+        hashtags: [...hashtags.map(t => t.label)],
+        amount: AMOUNT_STATUSES[amount],
+        address: completeAddress,
+        name: `${streetAddress} ${streetNumber}`,
+      }).then(
+        (res) => {
+          if (res) {
+            if (!res.photoStatus) {
+              setErrorMessage(t('label_create_marker_missing_photos'));
+            }
+            navigation.resetTo('Tabs');
+            setTimeout(this.showSuccessAlert);
           }
-          navigation.resetTo('Tabs');
-          setTimeout(this.showSuccessAlert);
-        }
-      },
-      () => {},
-    );
+        },
+        () => {},
+      );
+    });
   };
 
   showSuccessAlert = () => {
@@ -305,26 +345,24 @@ class CreateMarker extends Component {
       return;
     }
 
-    let label = temporaryHashtag.replace(/[^0-9a-z]/gi, '');
+    let labels = temporaryHashtag.replace(/[^0-9a-z,]/gi, '').split(',');
 
-    if (!label) {
+    if (labels.length === 1 && labels[0] === '') {
       return;
     }
 
-    label = `#${label}`;
+    labels = labels.map(label => `#${label}`);
 
-    const hashtagAlreadyExists = hashtags.find(
-      hashtag => hashtag.label === label,
-    );
+    labels = _.difference(labels, hashtags.map(hashtag => hashtag.label));
 
-    if (hashtagAlreadyExists) {
+    if (labels.length === 0) {
       return this.setState({
         temporaryHashtag: '',
       });
     }
 
     this.setState({
-      hashtags: [...hashtags, { label }],
+      hashtags: [...hashtags, ...labels.map(label => ({ label }))],
       temporaryHashtag: '',
     });
   };
@@ -335,7 +373,7 @@ class CreateMarker extends Component {
 
   handleAmountSelect = (amount) => {
     this.setState({
-      amount: AMOUNT_STATUSES[amount],
+      amount,
     });
   };
 
@@ -363,6 +401,7 @@ class CreateMarker extends Component {
       initialLocation,
       editableLocation,
       address = {},
+      disableCreateTrashpointButton
     } = this.state;
     const addHashtagTextStyle = {};
     if (hashtags.length === MAX_HASHTAGS_NO) {
@@ -408,22 +447,46 @@ class CreateMarker extends Component {
             <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
               {this.props.t('label_text_createTP_select_amount')}
             </Text>
-            <AmountPicker amount={amount} onSelect={this.handleAmountSelect} />
-            <View
-              style={{
-                paddingTop: HEIGHT_SIZE20,
-                alignItems: 'center',
-              }}
-            >
-              <Text
+            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+              <CustomSlider
+                width={getWidthPercentage(264)}
+                maximumValue={3}
+                step={1}
+                onValueChange={this.handleAmountSelect}
+                gradationData={[{
+                  position: getWidthPercentage(10.5),
+                  image: this.state.amount >= 0 ? HANDFUL_IMAGE_DATA.active
+                                                : HANDFUL_IMAGE_DATA.default,
+                }, {
+                  position: getWidthPercentage(91.2),
+                  image: this.state.amount >= 1 ? BAGFUL_IMAGE_DATA.active
+                                                : BAGFUL_IMAGE_DATA.default,
+                }, {
+                  position: getWidthPercentage(172),
+                  image: this.state.amount >= 2 ? CARTLOAD_IMAGE_DATA.active
+                                                : CARTLOAD_IMAGE_DATA.default,
+                }, {
+                  position: getWidthPercentage(253.2),
+                  image: this.state.amount >= 3 ? TRUCKLOAD_IMAGE_DATA.active
+                                                : TRUCKLOAD_IMAGE_DATA.default,
+                }]}
+              />
+              <View
                 style={{
-                  color: '#3E8EDE',
-                  fontFamily: 'noto-sans-bold',
-                  fontSize: 13,
+                  paddingTop: HEIGHT_SIZE20,
+                  alignItems: 'center',
                 }}
               >
-                {this.props.t(AMOUNT_HASH[AMOUNT_STATUSES[amount]]).toUpperCase()}
-              </Text>
+                <Text
+                  style={{
+                    color: '#3E8EDE',
+                    fontFamily: 'noto-sans-bold',
+                    fontSize: 13,
+                  }}
+                >
+                  {this.props.t(AMOUNT_HASH[AMOUNT_STATUSES[amount]]).toUpperCase()}
+                </Text>
+              </View>
             </View>
           </View>
           <Divider />
@@ -488,6 +551,7 @@ class CreateMarker extends Component {
               style={styles.createButton}
               text={this.props.t('label_button_createTP_confirm_create')}
               onPress={this.handleTrashpointCreate}
+              disabled={disableCreateTrashpointButton}
             />
           </View>
         </ScrollView>
@@ -502,6 +566,7 @@ const mapDispatch = {
 };
 
 const mapStateToProps = state => ({
+  isConnected: appSels.isConnected(state),
   loading: trashpileSelectors.isLoading(state),
 });
 

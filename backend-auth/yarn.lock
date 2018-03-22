@@ -55,7 +55,7 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-azure-storage@^2.2.1:
+azure-storage@=2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/azure-storage/-/azure-storage-2.2.1.tgz#dba054b3575ca3dfafc3d437aabfc8e842e69831"
   dependencies:
@@ -222,7 +222,7 @@ eyes@0.1.x:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
 
-fbgraph@^1.4.1:
+fbgraph@=1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/fbgraph/-/fbgraph-1.4.1.tgz#b2aa380f9ef7da302978d0749fad699fb974c104"
   dependencies:
@@ -290,7 +290,7 @@ google-p12-pem@^0.1.0:
   dependencies:
     node-forge "^0.7.1"
 
-googleapis@^20.0.1:
+googleapis@=20.0.1:
   version "20.0.1"
   resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-20.0.1.tgz#cba14e82931606fbdbccd3a6d47487195e0d66dc"
   dependencies:
@@ -455,7 +455,7 @@ jsonpointer@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/jsonpointer/-/jsonpointer-4.0.1.tgz#4fd92cb34e0e9db3c89c8622ecf51f9b978c6cb9"
 
-jsonwebtoken@^7.4.1:
+jsonwebtoken@=7.4.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-7.4.1.tgz#7ca324f5215f8be039cd35a6c45bb8cb74a448fb"
   dependencies:
@@ -546,33 +546,6 @@ mime@^1.2.11:
 minimist@1.2.0, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
-
-"module-logger@git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#783373daf06ed247415404e90c852365b27d6f6e"
-  dependencies:
-    winston "^2.3.1"
-
-"module-lucius@git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-lucius.git#d9557d01a49868a00adb6a543d32ef7922756012"
-  dependencies:
-    bluebird "^3.5.0"
-    module-logger "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
-
-"module-service-factory@git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-service-factory.git#20dd31f5a3bd0f2f1069cc67a236fa7ebaf741c4"
-  dependencies:
-    module-logger "git+ssh://git@gitlab.qualitance.com:ldiw/module-logger.git#develop"
-    seneca "^3.4.1"
-
-"module-util@git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#develop":
-  version "1.0.0"
-  resolved "git+ssh://git@gitlab.qualitance.com:ldiw/module-util.git#07d6e4b990dbb9d2220bd3d8ce0535271024ae3e"
-  dependencies:
-    moment "^2.18.1"
-    uuid "^3.1.0"
 
 moment@2.x.x, moment@^2.18.1:
   version "2.18.1"

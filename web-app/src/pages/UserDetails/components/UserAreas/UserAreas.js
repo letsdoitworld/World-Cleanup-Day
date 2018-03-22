@@ -10,22 +10,23 @@ const getContainerStyle = index => {
   return containerStyle;
 };
 
-const UserAreas = ({ areas, onClick }) =>
-  (<div className="UserAreas-container">
-    {areas.map((a, index) =>
-      (<div
+const UserAreas = ({ areas, onClick }) => (
+  <div className="UserAreas-container">
+    {areas.map((a, index) => (
+      <div
         style={getContainerStyle(index)}
         className="UserAreas-item"
         key={a.id}
       >
-        <div className="UserAreas-name">
-          {a.name}
-        </div>
-        <div className="UserAreas-remove" onClick={() => onClick(a)}>
-          x
-        </div>
-      </div>),
-    )}
-  </div>);
+        <div className="UserAreas-name">{a.name}</div>
+        {onClick && (
+          <div className="UserAreas-remove" onClick={() => onClick(a)}>
+            x
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+);
 
 export default UserAreas;

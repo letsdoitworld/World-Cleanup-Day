@@ -7,10 +7,13 @@ const getUserAreas = ({ userId }) => async (dispatch, getState) => {
   const authUser = userSels.getProfile(getState());
   const isOwnUser = authUser && authUser.id === userId;
   dispatch(actions.getUserAreas({ userId }));
-  const response = await ApiService.get(
+  let response = await ApiService.get(
     isOwnUser ? '/areas/user' : `/areas/user/${userId}`,
   );
   if (!response) {
+    response = await ApiService.get(
+      isOwnUser ? '/areas/user' : `/areas/user/${userId}`,
+    );
     dispatch(actions.getUserAreasError({ userId, error: true }));
     return;
   }
@@ -20,10 +23,13 @@ const getUserAreas = ({ userId }) => async (dispatch, getState) => {
 };
 const getAreas = () => async dispatch => {
   dispatch(actions.getAreas());
-  const response = await ApiService.get('/areas');
+  let response = await ApiService.get('/areas');
   if (!response) {
-    dispatch(actions.getAreasError({ error: true }));
-    return;
+    response = await ApiService.get('/areas');
+    if (!response) {
+      dispatch(actions.getAreasError({ error: true }));
+      return;
+    }
   }
   const areas = response.data;
   try {

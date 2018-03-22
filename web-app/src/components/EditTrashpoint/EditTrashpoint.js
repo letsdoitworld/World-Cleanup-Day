@@ -13,7 +13,7 @@ import ImageService from '../../services/Image';
 import { actions as trashpileOperations } from '../../reducers/trashpile';
 
 import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
-import { EditLocation } from '../../components/EditLocation';
+import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from './components/Tags';
 import StatusPicker from './StatusPicker';
 import closeButton from '../../assets/closeButton.png';
@@ -177,8 +177,8 @@ class EditTrashpoint extends Component {
     });
 
     this.setState({
-      name: data.streetAddress,
-      address: data.completeAddress,
+      name: data.streetAddress || 'Unknown address',
+      address: data.completeAddress || 'Unknown address',
       location: {
         latitude: lat,
         longitude: lng,
@@ -218,7 +218,7 @@ class EditTrashpoint extends Component {
 
   render() {
     const {
-      marker: { created, updated, createdByName, updatedByName },
+      marker: { createdAt, updatedAt, createdByName, updatedByName },
       actions,
     } = this.props;
     const {
@@ -244,11 +244,10 @@ class EditTrashpoint extends Component {
           onLocationChange={this.handleLocationChanged}
           location={{ lat: latitude, lng: longitude }}
           visible={this.state.editLocation}
+          status={status}
         />
         <div style={{ padding: '20px' }}>
-          <span className="EditTrashpoint-name">
-            {name}
-          </span>
+          <span className="EditTrashpoint-name">{name}</span>
           <button
             className="EditTrashpoint-close-button"
             onClick={actions.onCloseEditClick}
@@ -271,11 +270,14 @@ class EditTrashpoint extends Component {
               Edit location
             </span>
           </div>
+          <div className="CreateTrashpoint-edit-location-text">
+            <EditLocationInput onChange={this.handleLocationChanged} />
+          </div>
           <div className="EditTrashpoint-divider" />
           <StatusText status={status} />
           <TrashpointDate
-            createdDate={created}
-            updatedDate={updated}
+            createdDate={createdAt}
+            updatedDate={updatedAt}
             createdBy={createdByName}
             updatedBy={updatedByName}
           />
@@ -284,6 +286,7 @@ class EditTrashpoint extends Component {
           <StatusPicker
             status={status}
             onStatusChange={this.handleStatusChange}
+            showCleaned
           />
         </div>
         <div className="EditTrashpoint-default-container">
@@ -343,6 +346,9 @@ const mapDispatchToProps = dispatch => ({
   },
   deleteMarker: (...args) =>
     dispatch(trashpileOperations.deleteMarker(...args)),
+  updateMarkerLocation: (...args) => {
+    dispatch(trashpileOperations.updateMarkerLocation(...args));
+  },
 });
 
 export default connect(undefined, mapDispatchToProps)(EditTrashpoint);

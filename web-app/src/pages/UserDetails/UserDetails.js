@@ -14,7 +14,7 @@ import {
 import { COUNTRIES_HASH } from '../../shared/countries';
 import closeButton from '../../assets/closeButton.png';
 import { Loader } from '../../components/Spinner';
-
+import { USER_ROLES } from '../../shared/constants';
 import { UserAreas } from './components/UserAreas';
 import { AreaAssingList } from './components/AreaAssignList';
 
@@ -26,27 +26,45 @@ class UserDetails extends React.Component {
       assignAreas: false,
     };
   }
+
   componentWillMount = () => {
     const { getUser, user, match } = this.props;
-
-    getUser({ id: match.params.id });
+    if (!user || user.id !== match.params.id) {
+      getUser({ id: match.params.id });
+    } else {
+      this.loadUserAreas(user);
+    }
   };
 
   componentWillReceiveProps = nextProps => {
-    if (!this.props.user && nextProps.user) {
+    if (
+      (!this.props.user && nextProps.user) ||
+      (this.props.user &&
+      nextProps.user &&
+      this.props.user.id !== nextProps.user.id)
+    ) {
+
+      if (
+        this.props.authUser.id === nextProps.user.id &&
+        this.props.authUser.role === USER_ROLES.SUPERADMIN
+      ) {
+        return;
+      }
+
       this.loadUserAreas(nextProps.user);
     }
   };
 
   loadUserAreas = user => {
     const {
+      authUser,
       getUser,
       match,
       userAreas,
       userAreasLoading,
       getUserAreas,
     } = this.props;
-    if (user.role !== 'leader') {
+    if (authUser.role !== 'superadmin' && user.id !== authUser.id) {
       return;
     }
     if ((!userAreas || userAreas.length === 0) && !userAreasLoading) {
@@ -95,9 +113,16 @@ class UserDetails extends React.Component {
       return null;
     }
     return (
-      <UserAreas onClick={this.handleRemoveAreaClicked} areas={userAreas} />
+      <UserAreas
+        onClick={
+          this.props.authUser.role === 'superadmin' &&
+          this.handleRemoveAreaClicked
+        }
+        areas={userAreas}
+      />
     );
   };
+
   canBlockUser = () => {
     const { user, authUser } = this.props;
     if (!user || !authUser) {
@@ -127,6 +152,7 @@ class UserDetails extends React.Component {
         return 'Volunteer';
     }
   };
+
   render() {
     const { user, authUser, loading, error } = this.props;
     if (this.state.assignAreas) {
@@ -164,18 +190,17 @@ class UserDetails extends React.Component {
         </button>
         <div style={{ padding: '20px' }}>
           <div className="UserDetails-image-container">
-            {user.pictureURL &&
-              <img className="UserDetails-image" src={user.pictureURL} />}
+            {user.pictureURL && (
+              <img className="UserDetails-image" src={user.pictureURL} />
+            )}
             <div className="UserDetails-info-container">
-              {user.name &&
-                <span className="UserDetails-name">
-                  {user.name}
-                </span>}
-              {user.email &&
-                <span className="UserDetails-email">
-                  {user.email}
-                </span>}
-              {user.country &&
+              {user.name && (
+                <span className="UserDetails-name">{user.name}</span>
+              )}
+              {user.email && (
+                <span className="UserDetails-email">{user.email}</span>
+              )}
+              {user.country && (
                 <div className="UserDetails-country-container">
                   <img
                     className="UserDetails-country-image"
@@ -184,18 +209,20 @@ class UserDetails extends React.Component {
                   <span className="UserDetails-country">
                     {COUNTRIES_HASH[user.country]}
                   </span>
-                </div>}
-              {user.role &&
+                </div>
+              )}
+              {user.role && (
                 <span className="UserDetails-role">
                   {this.renderRoleName()}
-                </span>}
+                </span>
+              )}
             </div>
           </div>
 
           <div className="UserDetails-areas-container">
             {this.renderUserAreasList()}
             {authUser.role === 'superadmin' &&
-              user.role !== 'superadmin' &&
+            user.role !== 'superadmin' && (
               <div className="UserDetails-area-assign-container">
                 <span
                   className="UserDetails-area-assign-button"
@@ -203,10 +230,11 @@ class UserDetails extends React.Component {
                 >
                   Assign areas
                 </span>
-              </div>}
+              </div>
+            )}
           </div>
           <div className="UserDetails-actions-container">
-            {this.canBlockUser() &&
+            {this.canBlockUser() && (
               <span
                 onClick={this.handleBlockClicked}
                 className={classnames('UserDetails-block-user', {
@@ -214,7 +242,8 @@ class UserDetails extends React.Component {
                 })}
               >
                 {user.locked ? 'Unblock user' : 'Block user'}
-              </span>}
+              </span>
+            )}
           </div>
         </div>
       </div>

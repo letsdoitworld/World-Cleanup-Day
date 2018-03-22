@@ -12,13 +12,14 @@ import {
 import { selectors as locationSelectors } from '../reducers/location';
 import { selectors as appSelectors } from '../reducers/app';
 import { SCREENS } from '../shared/constants';
-import { DELTA_HASH, GRID_HASH } from '../shared/constants';
+import { DELTA_HASH, GRID_HASH, MIN_ZOOM } from '../shared/constants';
 import _ from 'lodash';
 
 class Home extends Component {
   state = {
     updateRegion: true,
   };
+
   shouldComponentUpdate(nextProps) {
     const locationChanged = this.props.userLocation !== nextProps.userLocation;
     return (
@@ -29,12 +30,11 @@ class Home extends Component {
   }
 
   onPressMarker = event => {
-    event.preventDefault();
     const marker = this.props.markers.find(
       marker => marker.id === event.nativeEvent.id,
     );
 
-    if (!marker.isTrashpile) {
+    if (!marker || !marker.isTrashpile) {
       return;
     }
 
@@ -44,28 +44,23 @@ class Home extends Component {
         latlng: marker.latlng,
       });
     } else {
-      if (this.map && _.has(this.props, 'gridValueObj.gridValueToZoom')) {
-        const diagonaleInMeters =
-          GRID_HASH[this.props.gridValueObj.gridValueToZoom];
+      if (this.map && _.has(this.props, 'delta.latitudeDelta')) {
+        if (this.props.delta.latitudeDelta === MIN_ZOOM) {
+          return this.setState({
+            updateRegion: false
+          }, () => {
+            this.props.fetchClusterTrashpoints(
+              this.props.delta.cellSize,
+              marker.coordinates,
+              marker.id
+            );
+          });
+        }
         const region = {
-          ...DELTA_HASH[diagonaleInMeters],
+          ...this.props.delta,
           ...marker.latlng,
         };
-        if (!this.props.gridValueObj.maxZoomedIn) {
-          this.map.animateToRegion(region, 100);
-        } else {
-          this.setState(
-            {
-              updateRegion: false,
-            },
-            () =>
-              this.props.fetchClusterTrashpoints(
-                this.props.gridValueObj.gridValueToZoom,
-                marker.coordinates,
-                marker.id,
-              ),
-          );
-        }
+        this.map.animateToRegion(region, 100);
       }
     }
   };
@@ -139,7 +134,7 @@ const mapStateToProps = state => {
     initialRegion: locationSelectors.initialRegionSelector(state),
     activeScreen: appSelectors.getActiveScreen(state),
     userLocation: locationSelectors.userLocationSelector(state),
-    gridValueObj: trashpileSelectors.getGridValue(state),
+    delta: trashpileSelectors.getLastDeltaValue(state),
   };
 };
 
@@ -150,14 +145,14 @@ const mapDispatchToProps = dispatch => {
         trashpileOperations.fetchAllMarkers(
           northWestViewPort,
           southEastViewPort,
-          // delta,
+          delta,
         ),
       );
     },
-    fetchClusterTrashpoints(scale, coordinates, clusterId) {
+    fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
       dispatch(
         trashpileOperations.fetchClusterTrashpoints({
-          scale,
+          cellSize,
           coordinates,
           clusterId,
         }),

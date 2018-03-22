@@ -69,7 +69,7 @@ class TrashpointList extends Component {
     if (!id) {
       return;
     }
-    this.props.history.push(`/trashpoints/${id}?focus=y`);
+    this.props.history.push(`/trashpoints/${id}?focus=y`, {selectedArea: this.props.selectedArea});
   };
   handleLoadMore = () => {
     if (!this.props.canLoadMore) {

@@ -1,6 +1,6 @@
 'use strict';
 
-/*global emit $$LENGTH$$ $$GRID_CONVERTER$$ $$GET_CELL_CENTER$$ */
+/*global emit $$LENGTH$$ $$GRID_CONVERTER$$ */
 module.exports = {
     isolatedTrashpoints: {
         map: function (doc) {
@@ -8,10 +8,10 @@ module.exports = {
                 return;
             }
 
-            const LENGTH = $$LENGTH$$;
-            const GRID_CONVERTER = $$GRID_CONVERTER$$;
+            var LENGTH = $$LENGTH$$;
+            var GRID_CONVERTER = $$GRID_CONVERTER$$;
 
-            const gridCoords = GRID_CONVERTER(
+            var gridCoords = GRID_CONVERTER(
                 [doc.location.longitude, doc.location.latitude],
                 LENGTH
             );
@@ -24,20 +24,14 @@ module.exports = {
                 status: doc.status,
             });
         },
-        reduce: function (keys, values, rereduce) {
-            if (rereduce) {
-                // filter out clusters eliminated during reduce
-                values = values.filter(function (val) { return val !== null; });
-                // return the trashpoint itself
-                return values[0];
-            } else {
-                // eliminate clusters with more than one trashpoint
-                if (values.length > 1) {
-                    return null;
-                }
-                // return the trashpoint itself
-                return values[0];
+        reduce: function (keys, values) {
+            // XXX: the logic for reduce and rereduce is the same.
+            // eliminate clusters with more than one trashpoint
+            if (values.length > 1) {
+                return null;
             }
+            // return the trashpoint itself, if any
+            return values[0];
         },
     },
 
@@ -47,10 +41,10 @@ module.exports = {
                 return;
             }
 
-            const LENGTH = $$LENGTH$$;
-            const GRID_CONVERTER = $$GRID_CONVERTER$$;
+            var LENGTH = $$LENGTH$$;
+            var GRID_CONVERTER = $$GRID_CONVERTER$$;
 
-            const gridCoords = GRID_CONVERTER(
+            var gridCoords = GRID_CONVERTER(
                 [doc.location.longitude, doc.location.latitude],
                 LENGTH
             );
@@ -71,51 +65,63 @@ module.exports = {
                 return;
             }
 
-            const LENGTH = $$LENGTH$$;
-            const GRID_CONVERTER = $$GRID_CONVERTER$$;
+            var LENGTH = $$LENGTH$$;
+            var GRID_CONVERTER = $$GRID_CONVERTER$$;
 
-            const gridCoords = GRID_CONVERTER(
-                [doc.location.longitude, doc.location.latitude],
-                LENGTH
-            );
+            var docCoords = [doc.location.longitude, doc.location.latitude];
             emit([
                 doc.datasetId,
-                gridCoords,
+                GRID_CONVERTER(docCoords, LENGTH),
+                docCoords,
             ], doc.status);
         },
         reduce: function (keys, values, rereduce) {
-            const LENGTH = $$LENGTH$$;
-            const GET_CELL_CENTER = $$GET_CELL_CENTER$$;
-            const clusterStatus = function (data, statExtractor) {
-                const states = ['threat', 'regular', 'cleaned', 'outdated'];
-                const priorities = states.reduce(function (red, val, idx) {
+            function clusterLocation(locs) {
+                var minLong = null;
+                var maxLong = null;
+                var minLat = null;
+                var maxLat = null;
+                for (var i = 0; i < locs.length; i++) {
+                    minLong = typeof minLong === 'number' ? Math.min(locs[i][0], minLong) : locs[i][0];
+                    maxLong = typeof maxLong === 'number' ? Math.max(locs[i][0], maxLong) : locs[i][0];
+                    minLat = typeof minLat === 'number' ? Math.min(locs[i][1], minLat) : locs[i][1];
+                    maxLat = typeof maxLat === 'number' ? Math.max(locs[i][1], maxLat) : locs[i][1];
+                }
+                return {
+                    longitude: minLong + (maxLong - minLong) / 2,
+                    latitude: minLat + (maxLat - minLat) / 2,
+                };
+            }
+            function clusterStatus(data, statExtractor) {
+                var states = ['threat', 'regular', 'cleaned', 'outdated'];
+                var priorities = states.reduce(function (red, val, idx) {
                     red[val] = idx;
                     return red;
                 }, {});
-                const mostUrgent = data.reduce(function (prev, curr) {
+                var mostUrgent = data.reduce(function (prev, curr) {
                     return Math.min(prev, priorities[statExtractor(curr)]);
                 }, states.length - 1);
                 return states[mostUrgent];
-            };
+            }
             if (rereduce) {
                 values = values.filter(function (val) { return val !== null; });
                 return {
                     status: clusterStatus(values, function (x) { return x.status; }),
                     count: values.reduce(function (prev, curr) { return prev + curr.count; }, 0),
-                    location: values[0].location,
+                    location: clusterLocation(values.map(function (val) {
+                        return [val.location.longitude, val.location.latitude];
+                    })),
                 };
             } else {
                 if (keys.length < 2) {
                     return null;
                 }
-                const cellCenter = GET_CELL_CENTER(keys[0][0][1], LENGTH);
                 return {
                     status: clusterStatus(values, function (x) { return x; }),
                     count: keys.length,
-                    location: {
-                        longitude: cellCenter[0],
-                        latitude: cellCenter[1],
-                    },
+                    location: clusterLocation(keys.map(function (val) {
+                        return val[0][2];
+                    })),
                 };
             }
         },

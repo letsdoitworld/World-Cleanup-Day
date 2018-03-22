@@ -18,6 +18,27 @@ export const isPrivateProfile = createSelector(
   entity => !!entity.public)
 ;
 
+export const loadMyEventsEntity = createSelector(
+    profileSelector,
+    profile => profile.myEvents,
+);
+
+export const loadMyEventsErrorEntity = createSelector(
+    profileSelector,
+    profile => profile.myEventsError,
+);
+
+export const loadMyTrashPointsEntity = createSelector(
+    profileSelector,
+    profile => profile.myTrashPoints,
+);
+
+export const loadMyTrashPointsErrorEntity = createSelector(
+    profileSelector,
+    profile => profile.myTrashPointsError,
+);
+
+
 // export const isProfileLoading = createSelector(
 //   profileSelector,
 //   profile => profile.loading,

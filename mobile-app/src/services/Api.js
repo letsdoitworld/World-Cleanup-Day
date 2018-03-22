@@ -72,14 +72,14 @@ class ApiService {
     }
 
     async get(url, axiosOptions, options = {withToken: true}) {
-        try {
+        // try {
             return await this.getApiInstance(options.withToken).get(
                 url,
                 axiosOptions,
             );
-        } catch (e) {
-            handleApiError(e);
-        }
+        // } catch (e) {
+        //     handleApiError(e);
+        // }
     }
 
     async post(url, data, options = {withToken: true}, headers) {

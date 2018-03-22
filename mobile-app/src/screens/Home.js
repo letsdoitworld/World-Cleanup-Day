@@ -34,7 +34,7 @@ class Home extends Component {
       marker => marker.id === event.nativeEvent.id,
     );
 
-    if (!marker.isTrashpile) {
+    if (!marker || !marker.isTrashpile) {
       return;
     }
 

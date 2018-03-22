@@ -10,6 +10,13 @@ import styles from "./styles"
 import Checkbox from '../../../components/Checkbox/Checkbox'
 import strings from '../../../assets/strings'
 
+export const STATUS_IMAGES = {
+    cleaned: require('../../../assets/images/icCleanedTrashpoint.png'),
+    outdated: require('../../../assets/images/icRegularTrashpointInactive.png'),
+    regular: require('../../../assets/images/icRegularTrashpoint.png'),
+    urgent: require('../../../assets/images/icToxicTrashpoint.png'),
+};
+
 export default class ListItem extends PureComponent {
 
     constructor(props) {
@@ -43,8 +50,6 @@ export default class ListItem extends PureComponent {
 }
 
 export function renderItem(item, checked, style, onPress, onCheckedChanged) {
-    const pin = checked ? require('./images/icSmallLocationPinActive.png') : require('./images/icSmallLocationPinInactive.png');
-
     return (
         <TouchableHighlight
             underlayColor="rgb(232, 232, 232)"
@@ -53,15 +58,15 @@ export function renderItem(item, checked, style, onPress, onCheckedChanged) {
             <View style={styles.itemContent}>
                 <Image
                     style={styles.status}
-                    source={require('../../../assets/images/icCleanedTrashpoint.png')}/>
+                    source={STATUS_IMAGES[item.status]}/>
                 <Image
                     style={styles.pin}
                     resizeMode={'center'}
-                    source={pin}/>
+                    source={require('./images/icSmallLocationPinInactive.png')}/>
                 <View style={styles.titleContainer}>
                     <Text
                         numberOfLines={1}
-                        style={checked ? styles.title : styles.titleBlack}>
+                        style={styles.titleBlack}>
                         {item.title}
                     </Text>
                     {

@@ -62,10 +62,20 @@ export default class AddTrashPointsMap extends Component {
             }
         });
 
-        this.state = {
-            markers,
-            selectedItem: undefined
-        };
+        if (markers.length > 0) {
+            markers[0].isSelected = true;
+            this.state = {
+                markers,
+                selectedItem: markers[0].item,
+                count: this.marked.size
+            };
+        } else {
+            this.state = {
+                markers,
+                selectedItem: undefined,
+                count: this.marked.size
+            };
+        }
 
         this.initialRegion = {
             latitude: this.props.location.latitude,
@@ -78,9 +88,9 @@ export default class AddTrashPointsMap extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    componentDidUpdate() {
-
-    }
+    // componentDidUpdate() {
+    //
+    // }
 
     onNavigatorEvent(event) {
         if (event.type === 'NavBarButtonPress') {
@@ -111,16 +121,18 @@ export default class AddTrashPointsMap extends Component {
                 latlng: trashPoint.location,
                 status: trashPoint.status,
                 isMarked: this.marked.has(trashPoint.id),
-                item: trashPoint
+                item: trashPoint,
+                isSelected: this.state.selectedItem.id === trashPoint
             }
         });
+
         this.setState(previousState => {
             return {
                 ...previousState,
-                markers
+                markers,
+                count: this.marked.size
             };
         });
-
     };
 
     render() {
@@ -131,6 +143,7 @@ export default class AddTrashPointsMap extends Component {
 
         return (
             <View style={styles.container}>
+                {this.renderCounter()}
                 <MapView
                     handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
                     markers={this.state.markers}
@@ -143,13 +156,43 @@ export default class AddTrashPointsMap extends Component {
         );
     }
 
+    renderCounter() {
+        const count = this.state.count;
+        const text = count > 0
+            ? strings.formatString(strings.trashPoints_counter, count)
+            : strings.label_no_trashpoints_selected;
+        return (
+            <View style={styles.counterContainer}>
+                <Text style={styles.counter}>
+                    {text}
+                </Text>
+            </View>
+        );
+    }
+
+
     handleOnMarkerPress(marker) {
+
+        const markers = this.props.trashPoints.map((trashPoint) => {
+            return {
+                id: trashPoint.id,
+                latlng: trashPoint.location,
+                status: trashPoint.status,
+                isMarked: this.marked.has(trashPoint.id),
+                item: trashPoint,
+                isSelected: trashPoint.id === marker.id
+            }
+        });
+
         this.setState(previousState => {
             return {
                 ...previousState,
-                selectedItem: marker.item
+                selectedItem: marker.item,
+                markers
             };
         });
+
+
     }
 
     renderSelectedItem(selectedItem, checked) {

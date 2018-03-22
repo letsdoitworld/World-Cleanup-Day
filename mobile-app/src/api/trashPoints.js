@@ -19,7 +19,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 1,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'cleaned',
                             location: {
                                 longitude: 35.0460,
                                 latitude: 48.4647,
@@ -29,7 +29,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 2,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'regular',
                             location: {
                                 longitude: 35.0461,
                                 latitude: 48.4647,
@@ -39,7 +39,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 3,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0464,
                                 latitude: 48.4647,
@@ -49,7 +49,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 4,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0454,
                                 latitude: 48.4647,
@@ -59,7 +59,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 5,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0469,
                                 latitude: 48.4647,
@@ -69,7 +69,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 6,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0454,
                                 latitude: 48.4647,
@@ -79,7 +79,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 7,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0448,
                                 latitude: 48.4647,
@@ -89,7 +89,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 8,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0460,
                                 latitude: 48.4645,
@@ -99,7 +99,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 9,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0460,
                                 latitude: 48.4643,
@@ -109,7 +109,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 10,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0460,
                                 latitude: 48.4649,
@@ -119,7 +119,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 11,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0460,
                                 latitude: 48.4646,
@@ -129,7 +129,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 12,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0460,
                                 latitude: 48.4648,
@@ -139,7 +139,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 13,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0460,
                                 latitude: 48.4644,
@@ -149,7 +149,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 14,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0451,
                                 latitude: 48.4647,
@@ -159,7 +159,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 15,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0461,
                                 latitude: 48.4645,
@@ -169,7 +169,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 16,
                             isIncluded: true,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0462,
                                 latitude: 48.4646,
@@ -179,7 +179,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 17,
                             isIncluded: true,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0461,
                                 latitude: 48.4649,
@@ -189,7 +189,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 18,
                             isIncluded: true,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0465,
                                 latitude: 48.4646,
@@ -199,7 +199,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 19,
                             isIncluded: true,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0461,
                                 latitude: 48.4646,
@@ -209,7 +209,7 @@ export function searchTrashPointsRequest(query, page, pageSize, location) {
                         {
                             id: 20,
                             isIncluded: false,
-                            status: 'threat',
+                            status: 'urgent',
                             location: {
                                 longitude: 35.0457,
                                 latitude: 48.4657,

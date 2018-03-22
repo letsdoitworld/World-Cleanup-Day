@@ -48,13 +48,12 @@ class AddLocation extends Component {
         if (initialLocation !== undefined) {
             this.state = {
                 marker: undefined,
-                region: null,
                 initialRegion: {
                     latitude: initialLocation.latitude,
                     longitude: initialLocation.longitude,
                     latitudeDelta: DEFAULT_ZOOM,
                     longitudeDelta: DEFAULT_ZOOM,
-                },
+                }
             };
         } else {
             this.state = {
@@ -68,14 +67,8 @@ class AddLocation extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    // componentDidMount() {
-    //     if (this.state.initialRegion === undefined) {
-    //         this.getCurrentPosition();
-    //     }
-    // }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.state.initialRegion === undefined && nextProps.auth.get('token') !== undefined) {
+    componentDidMount() {
+        if (this.state.initialRegion === undefined) {
             this.getCurrentPosition();
         }
     }
@@ -97,31 +90,11 @@ class AddLocation extends Component {
                     });
                 },
                 (error) => {
-                    //todo: some default location
-                    this.setState(previousState => {
-                        return {
-                            initialRegion: {
-                                latitude: 48.8152937,
-                                longitude: 2.4597668,
-                                latitudeDelta: DEFAULT_ZOOM,
-                                longitudeDelta: DEFAULT_ZOOM,
-                            }
-                        };
-                    });
+                    alert(JSON.stringify(error))
                 }
             );
-        } catch(e) {
-            //todo: some default location
-            this.setState(previousState => {
-                return {
-                    initialRegion: {
-                        latitude: 48.8152937,
-                        longitude: 2.4597668,
-                        latitudeDelta: DEFAULT_ZOOM,
-                        longitudeDelta: DEFAULT_ZOOM,
-                    }
-                };
-            });
+        } catch(error) {
+            alert(JSON.stringify(error))
         }
     };
 

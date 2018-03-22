@@ -25,7 +25,7 @@ import Profile from '../Profile/Profile';
 const filterId = 'filterId';
 const searchId = 'searchId';
 
-const PAGE_SIZE = 15;
+const PAGE_SIZE = 10;
 
 const MODE = {
     list: 0,
@@ -146,7 +146,7 @@ class Events extends Component {
                         navigator={this.props.navigator}
                         onPageChanged={this.loadEvents.bind(this)}
                         pageSize={PAGE_SIZE}
-                        app={this.props.app}
+                        isLoading={this.props.isLoading}
                         events={this.props.events}
                     />
                 );

@@ -79,7 +79,6 @@ const scalesGrid = [
   '20m', '10m', '5m', '1m'].reverse();
 
 export const getGridValue = diagonaleInMeters => {
-  // console.log(diagonaleInMeters);
   const length = scales.length;
   const lastIndex = length - 1;
 

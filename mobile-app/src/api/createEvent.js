@@ -36,10 +36,16 @@ async function createEvent(event) {
             });
         }
 
-        return {
-            ...createEventResponse.data,
-            photoStatus: uploadStatus,
-        };
+        // uploadStatus = await handleEventImageUpload({
+        //     newPhotos,
+        //     markerId: createEventResponse.data.id,
+        // });
+
+        // return {
+        //     ...createEventResponse.data,
+        //     photoStatus: uploadStatus,
+        // };
+        return createEventResponse.data;
     } catch (ex) {
         throw ex;
     }

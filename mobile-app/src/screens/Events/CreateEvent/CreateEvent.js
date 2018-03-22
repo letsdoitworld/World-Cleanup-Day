@@ -315,7 +315,7 @@ export default class CreateEvent extends ImmutableComponent {
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
+                        <Image style={styles.photoIconStyle} source={{uri: ''}}/>
                         <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                             <Image style={styles.addPhotoIconStyle}
                                    source={require('../../../assets/images/ic_add_photo.png')}/>
@@ -411,8 +411,6 @@ export default class CreateEvent extends ImmutableComponent {
     trashPoints = new Map();
 
     onTrashPointsSelected(trashPoints) {
-        console.log(trashPoints);
-        console.log("onTrashPointsSelected");
         this.trashPoints = trashPoints;
     }
 

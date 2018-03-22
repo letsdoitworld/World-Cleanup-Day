@@ -15,12 +15,22 @@ export const getProfileEntity = createSelector(
 
 export const isPrivateProfile = createSelector(
   getProfileEntity,
-  entity => !!entity.public)
-;
+  entity => !!entity.public,
+);
 
 export const loadMyEventsEntity = createSelector(
     profileSelector,
-    profile => profile.myEvents,
+    profile => profile.myEvents && profile.myEvents.listMyEvents,
+);
+
+export const getMyEventsPageSize = createSelector(
+    profileSelector,
+    profile => profile.myEvents && profile.myEvents.pageSize,
+);
+
+export const getMyEventsPageNumber = createSelector(
+    profileSelector,
+    profile => profile.myEvents && profile.myEvents.pageNumber,
 );
 
 export const loadMyEventsErrorEntity = createSelector(
@@ -30,60 +40,21 @@ export const loadMyEventsErrorEntity = createSelector(
 
 export const loadMyTrashPointsEntity = createSelector(
     profileSelector,
-    profile => profile.myTrashPoints,
+    profile => profile.myTrashPoints && profile.myTrashPoints.listMyTrashPoints,
 );
+
+export const getMyTrashpointsPageSize = createSelector(
+    profileSelector,
+    profile => profile.myTrashPoints && profile.myTrashPoints.pageSize,
+);
+
+export const getMyTrashpointsPageNumber = createSelector(
+    profileSelector,
+    profile => profile.myTrashPoints && profile.myTrashPoints.pageNumber,
+);
+
 
 export const loadMyTrashPointsErrorEntity = createSelector(
     profileSelector,
     profile => profile.myTrashPointsError,
 );
-
-
-// export const isProfileLoading = createSelector(
-//   profileSelector,
-//   profile => profile.loading,
-// );
-
-// export const getProfileError = createSelector(
-//   profileSelector,
-//   profile => profile.error,
-// );
-
-// export const isProfileUpdating = createSelector(
-//   profileSelector,
-//   profile => profile.updating,
-// );
-
-// export const getUserProfileId = createSelector(
-//   getProfile,
-//   profile => (profile ? profile.id : undefined),
-// );
-
-// export const isOwnTrashpoint = createSelector(
-//   getUserProfileId,
-//   // trashpileSelector.getMarkerCreatorId,
-//   (userProfileId, markerCreatorId) => userProfileId === markerCreatorId,
-// );
-
-// export const getProfileCountry = createSelector(getProfile, (profile) => {
-//   if (!profile || !profile.country) {
-//     return undefined;
-//   }
-//   return COUNTRY_LIST.find(c => c.code === profile.country);
-// });
-
-// export const getRole = createSelector(getProfile, (profile) => {
-//   if (!profile) {
-//     return undefined;
-//   }
-//   return profile.role;
-// });
-
-// export const isLeader = createSelector(getRole, role => role === USER_ROLES.LEADER);
-
-// export const isSuperAdmin = createSelector(
-//   getRole,
-//   role => role === USER_ROLES.SUPERADMIN,
-// );
-
-// export const getCachedLocation = () => undefined;

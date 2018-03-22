@@ -46,6 +46,9 @@ See the [API docs](http://ldiw-api.s3-website.eu-central-1.amazonaws.com/)
 ## Translations
 See [translate.worldcleanupday.org](https://translate.worldcleanupday.org/ )
 
+## Chat
+Join our [Slack chatroom](https://join.slack.com/t/worldcleanupday/shared_invite/enQtMzM0NDQ0MTE5NDI3LThmYTUxNGRiYmQ2ZGVkODJmMDAwN2U3YWVhMTI2ZmU4ZjBlMzk0YjM2YjU0MjNhNmE4ZWEwNDJkN2U0ZjMyZWY)
+
 ## Roadmap
 See [Roadmap.md](https://github.com/letsdoitworld/World-Cleanup-Day/blob/master/ROADMAP.md)
 

@@ -21,6 +21,8 @@ import {
     searchEventsFlow,
     loadLocationFlow,
     autoRegidrateFlow,
+    loadMyEventsFlow,
+    loadMyTrashPointsFlow,
 } from './sagas';
 
 
@@ -58,7 +60,7 @@ export default function configureStore() {
         store,
     {
       storage: AsyncStorage,
-      blacklist: ['trashPoints', 'events'],
+      blacklist: ['trashPoints', 'events', 'myEvents'],
     },
   );
 
@@ -75,6 +77,8 @@ export default function configureStore() {
       sagaMiddleware.run(searchTrashPointsFlow),
       sagaMiddleware.run(searchEventsFlow),
       sagaMiddleware.run(loadLocationFlow),
+      sagaMiddleware.run(loadMyEventsFlow),
+      sagaMiddleware.run(loadMyTrashPointsFlow),
     ],
   };
 }

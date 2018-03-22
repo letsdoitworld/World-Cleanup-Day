@@ -22,8 +22,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		14ED8AFD7E7B4CC5A51357B4 /* NotoSansUI-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE37F0D708054CAAB4121168 /* NotoSansUI-Italic.ttf */; };
 		150C651E205A84E100320E43 /* libPods-mobileapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1595D3722059526000F67A9B /* libPods-mobileapp.a */; };
-		150C6749205A99E300320E43 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C6747205A99E200320E43 /* Fabric.framework */; };
-		150C674A205A9D3100320E43 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C6718205A99E200320E43 /* Crashlytics.framework */; };
 		150C674B205A9F0200320E43 /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C6665205A937100320E43 /* libcxxreact.a */; };
 		150C674C205A9F0800320E43 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C665D205A937100320E43 /* libReact.a */; };
 		17D77BED771448C7A4A722E1 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB7F4B6A14A46BF8F9C7BFA /* Feather.ttf */; };
@@ -71,7 +69,6 @@
 		944FCD1A718944378EBAD0ED /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D45E10157CB430E8041C161 /* Roboto-Italic.ttf */; };
 		98A82D1B0FA441F19C7AB3C5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7E99D8C64240D793C9247E /* libRNVectorIcons.a */; };
 		9F38AACE96424A5AAF8EE780 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC65F903ED6545AF8F7E8898 /* Octicons.ttf */; };
-		BA15A42520441A9400B1253C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA15A42320441A9300B1253C /* Fabric.framework */; };
 		BA257C73204033FF00A5766B /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EACEF89203FF52C0035A33E /* libReactNativeNavigation.a */; };
 		BA8DD8AF204963F200D32834 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8DD8AC204963F100D32834 /* FBSDKCoreKit.framework */; };
 		BA8DD8B0204963F200D32834 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8DD8AD204963F200D32834 /* FBSDKLoginKit.framework */; };
@@ -108,6 +105,8 @@
 		D58BDA376FCF4E338E05AC2D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CAFC0FA30124D9F8441DB1C /* Zocial.ttf */; };
 		D8A5A767F32947B48BA1DB47 /* NotoSansUI-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49C81344BFF844648B076445 /* NotoSansUI-Bold.ttf */; };
 		DE62F28735E249EC80A73B35 /* NotoSansUI-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02FBEEAE73B4419AAC0848B0 /* NotoSansUI-BoldItalic.ttf */; };
+		DEA1782A206255E8006D4589 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA17828206255E7006D4589 /* Fabric.framework */; };
+		DEA1782B206255E8006D4589 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA17829206255E8006D4589 /* Crashlytics.framework */; };
 		E3605593815344A39557FF5B /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE3D7072C4664836B6D8FB1F /* NotoSans-Regular.ttf */; };
 		EECBE8218D83449FB3081873 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57247FACD2B54A0FA54EB259 /* FontAwesome.ttf */; };
 		F2BE354700444550956E47D8 /* NotoSansUI-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44EA6A423EB349C8B9F60C8A /* NotoSansUI-Regular.ttf */; };
@@ -504,8 +503,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = mobileapp/main.m; sourceTree = "<group>"; };
 		14019CD5D9C74A048427C169 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		150C664B205A937100320E43 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		150C6718205A99E200320E43 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "../../../../../Downloads/com.crashlytics.ios-manual/Crashlytics.framework"; sourceTree = "<group>"; };
-		150C6747205A99E200320E43 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = "../../../../../Downloads/com.crashlytics.ios-manual/Fabric.framework"; sourceTree = "<group>"; };
 		1595D36A2059525F00F67A9B /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		17D11C876C2E464B9B8D4732 /* NotoSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Italic.ttf"; path = "../src/assets/fonts/NotoSans-Italic.ttf"; sourceTree = "<group>"; };
 		1E307AD1CD71469BB538C542 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
@@ -605,6 +602,8 @@
 		C339738660600A970741EE7F /* libPods-mobileapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobileapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA155CB495464438AF9468D8 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		CC7350B034BF4676841A7FC0 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Bold.ttf"; path = "../src/assets/fonts/NotoSans-Bold.ttf"; sourceTree = "<group>"; };
+		DEA17828206255E7006D4589 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		DEA17829206255E8006D4589 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E2AA01C92A9A4ADE8A23635A /* libReactNativeLocalization.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeLocalization.a; sourceTree = "<group>"; };
 		E7DE3428F8784E44B4C67C40 /* NotoSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-BoldItalic.ttf"; path = "../src/assets/fonts/NotoSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		EE37F0D708054CAAB4121168 /* NotoSansUI-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansUI-Italic.ttf"; path = "../src/assets/fonts/NotoSansUI-Italic.ttf"; sourceTree = "<group>"; };
@@ -641,6 +640,7 @@
 				150C674C205A9F0800320E43 /* libReact.a in Frameworks */,
 				150C674B205A9F0200320E43 /* libcxxreact.a in Frameworks */,
 				2EB896FE20452A59007A7EC9 /* libRCTFBSDK.a in Frameworks */,
+				DEA1782B206255E8006D4589 /* Crashlytics.framework in Frameworks */,
 				BA8F1ED52040451C00672998 /* libAirMaps.a in Frameworks */,
 				BA8DD8B1204963F200D32834 /* FBSDKShareKit.framework in Frameworks */,
 				BA257C73204033FF00A5766B /* libReactNativeNavigation.a in Frameworks */,
@@ -651,16 +651,14 @@
 				BA8F1F142040471400672998 /* GoogleMaps.framework in Frameworks */,
 				BA8F1F122040470200672998 /* GoogleMapsBase.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
-				150C674A205A9D3100320E43 /* Crashlytics.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
+				DEA1782A206255E8006D4589 /* Fabric.framework in Frameworks */,
 				BA8DD8B0204963F200D32834 /* FBSDKLoginKit.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				BA8F1F162040472700672998 /* GoogleMapsCore.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
-				BA15A42520441A9400B1253C /* Fabric.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
-				150C6749205A99E300320E43 /* Fabric.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				CE466BBBA5044034BFF9AE00 /* libRNGestureHandler.a in Frameworks */,
 				19C1BE28F6D34835A88BA340 /* libReactNativeLocalization.a in Frameworks */,
@@ -953,8 +951,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				150C6718205A99E200320E43 /* Crashlytics.framework */,
-				150C6747205A99E200320E43 /* Fabric.framework */,
+				DEA17829206255E8006D4589 /* Crashlytics.framework */,
+				DEA17828206255E7006D4589 /* Fabric.framework */,
 				1595D36A2059525F00F67A9B /* Pods.xcodeproj */,
 				BA8F1ED7204045FD00672998 /* AirGoogleMaps */,
 				13B07FAE1A68108700A75B9A /* mobileapp */,

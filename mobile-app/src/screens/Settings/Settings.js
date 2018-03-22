@@ -161,6 +161,7 @@ export class Settings extends Component {
 
   render() {
     const { country, profile, isPrivateProfile } = this.props;
+    console.log('isPrivateProfile', isPrivateProfile);
         // if (profile === null) {
         //     return null
         // }

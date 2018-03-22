@@ -1,15 +1,23 @@
 import { call, put, take } from 'redux-saga/effects';
 
 import {
-  setErrorMessage,
+    setErrorMessage,
 } from '../actions/app';
 
 import {
-  // CREATE_PROFILE_ACTION,
-  FETCH_PROFILE,
-  UPDATE_PROFILE_STATUS_ACTION,
-  fetchProfileDone,
-  updateProfileStatusDone,
+    // CREATE_PROFILE_ACTION,
+    FETCH_PROFILE,
+    UPDATE_PROFILE_STATUS_ACTION,
+    LOAD_MY_EVENTS_ACTION,
+    LOAD_MY_TRASH_POINTS_ACTION,
+    fetchProfileDone,
+    updateProfileStatusDone,
+    loadMyEventsSuccess,
+    loadMyEventsError,
+    loadMyTrashPointsSuccess,
+    loadMyTrashPointsError,
+    loadMyEventsPaginationSuccess,
+    loadMyTrashPointsPaginationSuccess,
 } from '../actions/profile';
 
 import Api from '../../api';
@@ -46,5 +54,57 @@ export function* updateProfileStatusFlow() {
   while (true) {
     const { payload } = yield take(UPDATE_PROFILE_STATUS_ACTION);
     yield call(updateStatus, payload);
+  }
+}
+
+export function* loadMyEvents(pageSize, pageNumber) {
+  try {
+    const listMyEvents = yield call(Api.profile.loadMyEvents, pageSize, pageNumber);
+    const events = {
+      listMyEvents,
+      pageSize,
+      pageNumber,
+    };
+
+    if (events.pageNumber > 1) {
+      yield put(loadMyEventsPaginationSuccess(events));
+    } else {
+      yield put(loadMyEventsSuccess(events));
+    }
+  } catch (error) {
+    yield put(loadMyEventsError(error.message));
+  }
+}
+
+export function* loadMyEventsFlow() {
+  while (true) {
+    const { pageSize, pageNumber } = yield take(LOAD_MY_EVENTS_ACTION);
+    yield call(loadMyEvents, pageSize, pageNumber);
+  }
+}
+
+export function* loadMyTrashPoints(pageSize, pageNumber) {
+  try {
+    const responce = yield call(Api.profile.loadMyTrashPoints, pageSize, pageNumber);
+    const trashpoints = {
+      listMyTrashPoints: responce.records,
+      pageSize: responce.pageSize,
+      pageNumber: responce.pageNumber,
+    };
+  
+    if (responce.pageNumber > 1) {
+      yield put(loadMyTrashPointsPaginationSuccess(trashpoints));
+    } else {
+      yield put(loadMyTrashPointsSuccess(trashpoints));
+    }
+  } catch (error) {
+    yield put(loadMyTrashPointsError(error.message));
+  }
+}
+
+export function* loadMyTrashPointsFlow() {
+  while (true) {
+    const { pageSize, pageNumber } = yield take(LOAD_MY_TRASH_POINTS_ACTION);
+    yield call(loadMyTrashPoints, pageSize, pageNumber);
   }
 }

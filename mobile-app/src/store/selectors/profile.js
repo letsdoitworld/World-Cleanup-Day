@@ -15,7 +15,7 @@ export const getProfileEntity = createSelector(
 
 export const isPrivateProfile = createSelector(
   getProfileEntity,
-  entity => !!entity.public,
+  entity => entity &&!!entity.public,
 );
 
 export const loadMyEventsEntity = createSelector(

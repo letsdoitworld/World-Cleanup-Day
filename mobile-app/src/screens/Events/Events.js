@@ -128,19 +128,19 @@ class Events extends Component {
         const {isAuthenticated, isPrivateProfile} = this.props;
 
 
-        if(isPrivateProfile) {
-            Alert.alert(
-                'Update your privacy settings!',
-                'Your profile should be public\n' +
-                'in order to post event.',
-                [
-                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                    {text: 'Settings', onPress: this.handleSettingsPress},
-                ],
-            )
-
-            return;
-        }
+        // if(isPrivateProfile) {
+        //     Alert.alert(
+        //         'Update your privacy settings!',
+        //         'Your profile should be public\n' +
+        //         'in order to post event.',
+        //         [
+        //             {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        //             {text: 'Settings', onPress: this.handleSettingsPress},
+        //         ],
+        //     )
+        //
+        //     return;
+        // }
 
         if (isAuthenticated) {
             this.props.navigator.showModal({
@@ -190,8 +190,9 @@ class Events extends Component {
     };
 
     isProgressEnabled() {
-        const { isLoading } = this.props;
-        return isLoading;
+        return false;
+        // const { isLoading } = this.props;
+        // return isLoading;
     }
 
     renderProgress() {

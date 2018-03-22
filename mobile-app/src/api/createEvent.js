@@ -22,29 +22,16 @@ async function createEvent(event) {
         };
         const photos = event.photos;
         const createEventResponse = await Api.put(API_ENDPOINTS.EVENT, newEvent);
-        console.warn("createEventResponse", createEventResponse);
         let uploadStatus = photos && photos !== []
             ? await handleEventImageUpload({
                 photos,
                 eventId: createEventResponse.data.id,
             }) : undefined;
 
-        if (photos && photos !== []) {
-            uploadStatus = await handleEventImageUpload({
-                photos,
-                eventId: createEventResponse.data.id,
-            });
-        }
-
-        // uploadStatus = await handleEventImageUpload({
-        //     newPhotos,
-        //     markerId: createEventResponse.data.id,
-        // });
-
-        // return {
-        //     ...createEventResponse.data,
-        //     photoStatus: uploadStatus,
-        // };
+        return {
+            ...createEventResponse.data,
+            photoStatus: uploadStatus,
+        };
         return createEventResponse.data;
     } catch (ex) {
         throw ex;

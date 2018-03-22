@@ -32,7 +32,7 @@ class OfflineService {
     if (!newMarker.name || newMarker.name.length < 1) {
       newMarker.name = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
     }
-    await this.executeSql('INSERT OR REPLACE INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
+    await this.executeSql('INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
       url,
       JSON.stringify(newMarker),
       JSON.stringify(photos),

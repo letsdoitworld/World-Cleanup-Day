@@ -13,7 +13,8 @@ const opts = {
 const PLUGIN_NAME = 'events';
 
 const filterFieldsEvents = event => _.pick(event, ['id', 'name', 'address', 'location', 'description', 'startTime',
-  'endTime', 'email', 'phonenumber', 'whatToBring', 'maxPeopleAmount', 'peopleAmount']);
+  'endTime', 'email', 'phonenumber', 'whatToBring', 'maxPeopleAmount', 'peopleAmount', 'createdByName',
+  'updatedByName']);
 
 const mapEvent = event => {
     event.peopleAmount = event.peoples ? event.peoples.length : 0;
@@ -22,9 +23,50 @@ const mapEvent = event => {
 
 module.exports = function () {
     const lucius = new Lucius(this);
-
     lucius.pluginInit(PLUGIN_NAME, next => {
         db.ready().then(() => next()).catch(e => next(e))
+    });
+    lucius.register('role:db,cmd:getEventById', async function (connector, args, __) {
+      return connector
+        .input(args)
+        .use(async function ({id}, responder) {
+          const event = await db.getEvent(id);
+          if (!event) {
+            return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id: request.id}));
+          }
+          if (event.createdBy) {
+            const createdByUser = await db.getAccount(event.createdBy);
+            if (createdByUser) {
+              event.createdByName = createdByUser.name;
+            }
+          }
+          if (event.updatedBy) {
+            if (event.createdByName && event.updatedBy === event.createdBy) {
+              event.updatedByName = event.createdByName;
+            }
+            else {
+              const updatedByUser = await db.getAccount(event.updatedBy);
+              if (updatedByUser) {
+                event.updatedByName = updatedByUser.name;
+              }
+            }
+          }
+          if (event.trashpoints) {
+            event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
+                _.pick((await db.getTrashpoint(trashpointId)), ["id", "isIncluded", "status", "location", "name"])));
+            event.trashpoints = event.trashpoints.map(t => {
+              t.latitude = t.location.latitude;
+              t.longitude = t.location.longitude;
+              return t;
+            });
+            event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
+            event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+          }
+          const mappedEvent = mapEvent(event);
+          //TODO Status TRUE should be implemented all over the project. For now it's just mock data
+          mappedEvent.status = true;
+          return responder.success(mappedEvent);
+        });
     });
     lucius.register('role:db,cmd:createEvent', async function (connector, args, __) {
         return connector
@@ -109,30 +151,6 @@ module.exports = function () {
                 const records = events.map(mapEvent).map(filterFieldsEvents);
                 const total = await db.countUserEvents(__.user.id);
                 return responder.success({total, pageSize, pageNumber, records});
-            })
-    });
-    lucius.register('role:db,cmd:getEventById', async function (connector, args) {
-        return connector
-            .input({id: args.id})
-            .use(async function (request, responder) {
-                const event = await db.getEvent(request.id);
-                if (!event) {
-                    return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id: request.id}));
-                }
-                const createdByUser = await db.getAccount(event.createdBy);
-                if (createdByUser && createdByUser.name) {
-                    event.createdByName = createdByUser.name;
-                }
-                if (event.createdByName && event.updatedBy === event.createdBy) {
-                    event.updatedByName = event.createdByName;
-                }
-                else {
-                    const updatedByUser = await db.getAccount(event.updatedBy);
-                    if (updatedByUser && updatedByUser.name) {
-                        event.updatedByName = updatedByUser.name;
-                    }
-                }
-                return responder.success(event);
             })
     });
 };

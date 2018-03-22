@@ -119,7 +119,7 @@ i18n.addResources('lt', 'general', require('../trans/lt.json'));
 // i18n.addResources('na', 'general', require('../trans/na.json'));
 // i18n.addResources('ne', 'general', require('../trans/ne.json'));
 i18n.addResources('nl', 'general', require('../trans/nl.json'));
-// i18n.addResources('no', 'general', require('../trans/no.json'));
+i18n.addResources('no', 'general', require('../trans/no.json'));
 
 // i18n.addResources('pap', 'general', require('../trans/pap.json'));
 // i18n.addResources('pcm', 'general', require('../trans/pcm.json'));
@@ -150,7 +150,7 @@ i18n.addResources('sq', 'general', require('../trans/sq.json'));
 // i18n.addResources('tk', 'general', require('../trans/tk.json'));
 i18n.addResources('tl', 'general', require('../trans/tl.json'));
 // i18n.addResources('tn', 'general', require('../trans/tn.json'));
-// i18n.addResources('tr', 'general', require('../trans/tr.json'));
+i18n.addResources('tr', 'general', require('../trans/tr.json'));
 // i18n.addResources('ty', 'general', require('../trans/ty.json'));
 
 // i18n.addResources('ug', 'general', require('../trans/ug.json'));

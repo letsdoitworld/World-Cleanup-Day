@@ -33,5 +33,12 @@ allprojects {
             name 'Google'
         }
         maven { url "https://jitpack.io" }
+        configurations.all {
+            resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+                if (details.getRequested().getGroup() == 'com.google.android.gms') {
+                    details.useVersion('11.8.0')
+                }
+            }
+        }
     }
 }

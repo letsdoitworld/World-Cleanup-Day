@@ -317,11 +317,12 @@ export const createMarker = ({
       if (isConnected) {
         createMarkerResponse = await Api.put(url, newMarker);
       } else {
-        if (!isEdit) {
-          createMarkerResponse = await OfflineService.saveTrashpoint(url, newMarker, photos, []);
-        } else {
-          createMarkerResponse = await OfflineService.saveTrashpoint(url, newMarker, newPhotos, toDeletePhotos);
-        }
+        createMarkerResponse = await OfflineService.saveTrashpoint(
+          url,
+          newMarker,
+          photos,
+          !isEdit ? [] : toDeletePhotos
+        );
       }
 
       if (!createMarkerResponse) {

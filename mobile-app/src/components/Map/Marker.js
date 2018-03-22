@@ -56,6 +56,8 @@ export default class Marker extends Component {
             } else {
                 markerImage = require('../../assets/images/icLocationPinInactive.png')
             }
+        } if (marker.user !== undefined || marker.user !==null) {
+            //markerImage =
         } else {
             if (marker.isMarked) {
                 if (marker.isSelected) {

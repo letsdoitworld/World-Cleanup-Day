@@ -59,6 +59,7 @@ export default {
     buttonStyle: {
         position: 'absolute',
         right: 0,
+        width: '4%',
     }
 
 }

@@ -75,8 +75,6 @@ module.exports = function () {
         .use(async function ({location, radius}, responder) {
           let minLocation, maxLocation;
 
-          console.log('Location', location);
-
           try {
             location = JSON.parse(location);
           } catch (e) {
@@ -98,11 +96,8 @@ module.exports = function () {
             return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
           }
 
-          console.log(minLocation, maxLocation);
-
           const events = await db.getEventsByLocation(minLocation, maxLocation);
           const records = events.map(mapEvent).map(filterFieldsEvents);
-          console.log(records);
           return responder.success(records);
         })
     });

@@ -204,8 +204,16 @@ paths:
       description: Fetch full information about events by location and radius
       operationId: getEventsOverview
       parameters:
-        - $ref: "#/parameters/Radius"
-        - $ref: "#/parameters/Location"
+        - name: radius
+          in: query
+          required: true
+          type: number
+          format: float
+          minimum: 0
+        - name: location
+          in: query
+          required: true
+          type: string
       responses:
         "200":
           description: List of events.
@@ -498,6 +506,26 @@ paths:
   #-----------------------------------------------------------------------------
   /trashpoints:
     x-swagger-router-controller: trashpoints
+    get:
+      description: Fetch full information about trashpoints.
+      operationId: getTrashpoints
+      parameters:
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+        - name: location
+          in: query
+          required: false
+          type: string
+        - name: name
+          description: Trashpoint name.
+          in: query
+          required: false
+          type: string
+      responses:
+        "200":
+          $ref: "#/responses/Trashpoints"
+        "default":
+          $ref: "#/responses/ErrorSet"
     put:
       description: Create a new trashpoint in a certain dataset ID.
       operationId: createTrashpoint
@@ -639,20 +667,6 @@ parameters:
     required: true
     type: integer
     minimum: 1
-  Radius:
-    name: radius
-    in: query
-    description: number of items on a page.
-    required: true
-    type: number
-    format: float
-    minimum: 0
-  Location:
-    name: location
-    in: query
-    description: A geographical point coordinate, expressed as latitude and longitude.
-    required: true
-    type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:
     name: request
@@ -910,6 +924,11 @@ responses:
     description: List of events.
     schema:
       $ref: "#/definitions/PaginatedEvents"
+
+  Trashpoints:
+    description: List of trashpoints.
+    schema:
+      $ref: "#/definitions/PaginatedTrashpoints"
 
   UserEvents:
     description: List of events for user consumption.

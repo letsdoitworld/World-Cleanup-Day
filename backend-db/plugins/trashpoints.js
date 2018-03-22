@@ -74,6 +74,26 @@ module.exports = function () {
         db.ready().then(() => next()).catch(e => next(e));
     });
 
+    lucius.register('role:db,cmd:getTrashpoints', async function (connector, args) {
+      return connector
+        .input(args)
+        .use(async function ({pageSize, pageNumber, location, name}, responder) {
+          if (location) {
+            try {
+              location = JSON.parse(location);
+            } catch (e) {
+              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
+            }
+            if (!location.latitude || !location.longitude) {
+              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
+            }
+          }
+          const { data: {rows, total_rows: total} } = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location);
+          const records = rows.map(r => r.value);
+          return responder.success({total, pageSize, pageNumber, records});
+        })
+    });
+
     lucius.register('role:db,cmd:getAdminTrashpoints',async function (connector, args) {
         return connector
         .input(args)

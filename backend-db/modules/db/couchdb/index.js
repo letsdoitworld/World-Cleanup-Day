@@ -359,6 +359,27 @@ const layer = {
     getTrashpoint: async id => {
         return await adapter.getOneEntityById('Trashpoint', '_design/all/_view/view', id);
     },
+    getTrashpointsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location) => {
+      return await adapter.executeTemporaryView('Trashpoint', {
+        map: `function(doc) {
+          function distanceBetweenPoints (p1, p2) {
+            return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
+                    + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
+          }
+          if (doc.$doctype === 'trashpoint' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''}) {
+            ${location ? `
+              emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
+            ` : `
+              emit(doc._id, doc)
+            `}
+          }
+        }`
+      }, {
+        sorted: true,
+        limit: pageSize,
+        skip: pageSize * (pageNumber - 1),
+      }, false);
+    },
     getRawTrashpointDoc: async id => {
         return await adapter.getOneRawDocById('Trashpoint', '_design/all/_view/view', id);
     },

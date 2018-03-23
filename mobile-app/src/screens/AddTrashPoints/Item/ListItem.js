@@ -9,6 +9,7 @@ import {
 import styles from "./styles"
 import Checkbox from '../../../components/Checkbox/Checkbox'
 import strings from '../../../assets/strings'
+import {TRASH_POINT} from "../../index";
 
 export const STATUS_IMAGES = {
     cleaned: require('../../../assets/images/icCleanedTrashpoint.png'),
@@ -24,13 +25,19 @@ export default class ListItem extends PureComponent {
         this.state = {checked: props.checked};
     }
 
-    onPress = () => {
-        // this.props.navigator.push({
-        //     screen: consts.DISCOVER_SCREEN,
-        //     passProps: {
-        //         school: this.props.item
-        //     }
-        // })
+    onPress() {
+        this.props.navigator.push({
+            screen: TRASH_POINT,
+            title: strings.label_trashpoint,
+            passProps: {
+                onAddedPress: this.onAddedPress.bind(this),
+                trashPoint: this.props.item
+            }
+        })
+    };
+
+    onAddedPress() {
+        this.onCheckedChanged(true)
     };
 
     onCheckedChanged = (checked) => {
@@ -45,7 +52,7 @@ export default class ListItem extends PureComponent {
         const item = this.props.item;
         const checked = this.state.checked;
 
-        return renderItem(item, checked, this.props.style, this.onPress, this.onCheckedChanged)
+        return renderItem(item, checked, this.props.style, this.onPress.bind(this), this.onCheckedChanged)
     }
 }
 

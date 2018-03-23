@@ -15,7 +15,7 @@ import {Map as MapView} from '../../../components/Map/Map';
 import {DEFAULT_ZOOM} from "../../../shared/constants";
 import strings from "../../../assets/strings";
 import {renderItem} from '../Item/ListItem';
-import {ADD_TRASH_POINTS} from "../../index";
+import {ADD_TRASH_POINTS, TRASH_POINT} from "../../index";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -191,9 +191,11 @@ export default class AddTrashPointsMap extends Component {
                 markers
             };
         });
-
-
     }
+
+    onAddedPress() {
+        this.onCheckedChanged(true, this.state.selectedItem)
+    };
 
     renderSelectedItem(selectedItem, checked) {
 
@@ -202,7 +204,14 @@ export default class AddTrashPointsMap extends Component {
         if (selectedItem) {
 
             const onPress = () => {
-
+                this.props.navigator.push({
+                    screen: TRASH_POINT,
+                    title: strings.label_trashpoint,
+                    passProps: {
+                        onAddedPress: this.onAddedPress.bind(this),
+                        trashPoint: selectedItem
+                    }
+                })
             };
 
             return renderItem(

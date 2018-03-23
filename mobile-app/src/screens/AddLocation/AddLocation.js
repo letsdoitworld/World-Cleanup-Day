@@ -17,6 +17,8 @@ import {Map} from '../../components/Map/Map';
 import {DEFAULT_ZOOM} from "../../shared/constants";
 import {MARKER_STATUS_IMAGES} from "../../components/Map/Marker";
 import {connect} from "react-redux";
+import {IGPSCoordinates} from "NativeModules";
+import {geocodeCoordinates} from "../../shared/geo";
 
 const cancelId = 'cancelId';
 
@@ -102,28 +104,24 @@ class AddLocation extends Component {
         if (event.type === 'NavBarButtonPress') {
             switch (event.id) {
                 case cancelId: {
-                    this.back();
+                    this.props.navigator.pop();
                     break;
                 }
             }
         }
     }
 
-    onConfirmPress = () => {
+    async onConfirmPress() {
         const {latitude, longitude} = this.state.marker.latlng;
-        this.back({
+        const place = await geocodeCoordinates(this.state.marker.latlng);
+
+        this.props.onLocationSelected({
             latitude,
             longitude,
-        })
-    };
-
-    back(selectedLocation = undefined) {
-        this.props.onLocationSelected(selectedLocation);
-        this.props.navigator.pop({
-            animated: true,
-            animationType: 'slide_out',
+            place: place.mainText
         });
-    }
+        this.props.navigator.pop()
+    };
 
     onMapPress = (e) => {
         const coordinate = e.nativeEvent.coordinate;

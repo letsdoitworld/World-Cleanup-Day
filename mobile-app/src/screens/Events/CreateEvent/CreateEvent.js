@@ -266,7 +266,11 @@ export default class CreateEvent extends ImmutableComponent {
                         <View style={styles.locationContainerStyle}>
                             <Image source={require('../../../../src/assets/images/ic_location.png')}
                                    style={styles.imageTrashStyle}/>
-                            <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
+                            {
+                                (this.state.data.get('selectedLocation') === undefined)
+                                ? <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
+                                : <Text style={styles.textTrashStyle}>{this.state.data.get('selectedLocation').place}</Text>
+                            }
                         </View>
                     </TouchableOpacity>
                     <View style={styles.titleStyle}>

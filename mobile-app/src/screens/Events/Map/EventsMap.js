@@ -8,6 +8,7 @@ import {
     Dimensions,
     LayoutAnimation,
     UIManager,
+    FlatList,
     KeyboardAvoidingView
 } from 'react-native';
 import styles from './styles'
@@ -68,7 +69,7 @@ export default class EventsMap extends Component {
     }
 
     componentDidMount() {
-            this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (this.state.radius/1000)})
+        this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (this.state.radius / 1000)})
     }
 
     onCheckedChanged(checked, item) {
@@ -96,7 +97,7 @@ export default class EventsMap extends Component {
 
     loadMapEventsWithMoreRadius() {
         const newRadius = this.state.radius + DEFAULT_RADIUS_M;
-        this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (newRadius/1000)});
+        this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (newRadius / 1000)});
         this.setState(previousState => {
             return {
                 radius: newRadius,
@@ -104,9 +105,23 @@ export default class EventsMap extends Component {
         })
     }
 
+    getEventsFromProps() {
+        const {events} = this.props;
+        return events;
+    }
+
+    keyExtractor = (item, index) => item.id.toString();
+
+    renderItem = ({item}) => (
+
+        <View>
+            <Text>item.name</Text>
+        </View>
+    );
+
     render() {
 
-        const { selectedItem, radius } = this.state;
+        const {selectedItem, radius} = this.state;
         let markers;
         if (this.props.mapEvents !== undefined) {
             markers = this.props.mapEvents.map((event) => {
@@ -139,22 +154,25 @@ export default class EventsMap extends Component {
         return (
             <View style={styles.container}>
                 <MapView
-                    handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
-                    //markers={this.state.markers}
-                    markers={markers}
-                    initialRegion={this.initialRegion}
-                    region={this.regionWIthMarkers}
-                    style={styles.map}
-                    getRef={(map) => this.map = map}
-                    circleProps={this.circle}/>
-                {this.renderSelectedItem(selectedItem, checked)}
+                handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
+                //markers={this.state.markers}
+                markers={markers}
+                initialRegion={this.initialRegion}
+                region={this.regionWIthMarkers}
+                style={styles.map}
+                getRef={(map) => this.map = map}
+                circleProps={this.circle}>
+
+                </MapView>
+                {/*{this.renderSelectedItem(selectedItem, checked)}*/}
+
+                {/*<Button style={styles.buttonStyle}*/}
+                {/*text={"Load"}*/}
+                {/*onPress={() => this.loadMapEventsWithMoreRadius()}/>*/}
+
                 <EventsListHorizontal
-                    onRef={ref => (this.list = ref)}
-                    navigator={this.props.navigator}
-                    events={this.props.mapEvents}/>
-                <Button style={styles.buttonStyle}
-                        text={"Load"}
-                        onPress={() => this.loadMapEventsWithMoreRadius()}/>
+                />
+
             </View>
         );
     }

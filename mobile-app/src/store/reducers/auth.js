@@ -23,6 +23,7 @@ const handlers = {
   [LOGOUT]: () => initialState,
   [GUEST_LOG_IN]: () => initialState,
   [SET_AUTH_TOKEN]: (state, { payload }) => {
+      console.log("Reducer ", payload);
     return state.withMutations(mState =>
       mState.set('token', payload),
     );

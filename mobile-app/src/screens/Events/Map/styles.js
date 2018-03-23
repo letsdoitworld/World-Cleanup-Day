@@ -1,6 +1,7 @@
 import dimens from "../../../config/dimens";
 import {Dimensions} from "react-native";
 import colors from "../../../config/colors";
+import {getWidthPercentage, getHeightPercentage} from '../../../shared/helpers';
 
 export default {
 
@@ -22,7 +23,7 @@ export default {
     mainContentContainer: {
         position: 'absolute',
         top: 0,
-        width:'100%',
+        width: '100%',
         height: '100%'
     },
     vertical: {
@@ -35,10 +36,13 @@ export default {
         alignItems: 'center',
     },
     container: {
-        flex: 1,
-        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+
     },
     map: {
+        width: '100%',
+        height: '100%'
     },
     navigatorStyle: {
         tabBarHidden: true,
@@ -58,8 +62,24 @@ export default {
     },
     buttonStyle: {
         position: 'absolute',
+        left: 0,
+        width: '6%',
+    },
+    horizontalListStyle: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
         right: 0,
-        width: '4%',
+        height: '30%',
+        overflow: 'hidden',
+    },
+    list: {
+        position: 'absolute',
+        height: 80,
+        left: 0,
+        top: '85%',
+        width: '100%',
+        backgroundColor: 'red',
     }
 
 }

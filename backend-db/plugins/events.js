@@ -137,13 +137,17 @@ module.exports = function () {
             if (event.trashpoints) {
               event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
                 await db.getTrashpoint(trashpointId)));
-              event.trashpoints = event.trashpoints.map(t => {
-                t.latitude = t.location.latitude;
-                t.longitude = t.location.longitude;
-                return t;
-              });
+              if (event.location) {
+                event.trashpoints = event.trashpoints.map(t => {
+                  t.latitude = t.location.latitude;
+                  t.longitude = t.location.longitude;
+                  return t;
+                });
+              }
               event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
               event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+            } else {
+              event.trashpoints = [];
             }
             console.log(event);
             return mapEvent(event);

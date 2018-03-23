@@ -107,7 +107,7 @@ module.exports = function () {
                   }
               }
               trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
-              trashpoint.photos = trashpoint.photos.map(t => t.url);
+              trashpoint.photos = trashpoint.photos.map(p => p.url);
               return trashpoint;
           }));
           return responder.success({total, pageSize, pageNumber, records});

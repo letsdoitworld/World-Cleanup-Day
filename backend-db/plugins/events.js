@@ -132,8 +132,8 @@ module.exports = function () {
                 }
               }
             }
-            event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
-            event.photos = event.photos.map(t => t.url);
+            // event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
+            // event.photos = event.photos.map(p => p.url);
             if (event.trashpoints) {
               event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
                 await db.getTrashpoint(trashpointId)));
@@ -145,7 +145,7 @@ module.exports = function () {
               event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
               event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
             }
-            console.log(event.trashpoints);
+            console.log(event);
             return mapEvent(event);
           }));
           return responder.success({total, pageSize, pageNumber, records});

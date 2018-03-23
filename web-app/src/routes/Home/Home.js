@@ -71,7 +71,12 @@ class Home extends React.Component {
           path="/trashpoints/:id?"
           render={
             ({ match }) =>
-              <TrashpointDetails trashpointId={match.params.id} history={history} />}
+              <TrashpointDetails
+                isUserLoggedIn={!!this.props.userProfile.role}
+                trashpointId={match.params.id}
+                history={history}
+              />
+          }
         />
       </Switch>
       <div className="Home-map-container">
@@ -81,7 +86,9 @@ class Home extends React.Component {
 
   render() {
     const { userProfile } = this.props;
-
+    if (userProfile.role && !userProfile.termsAcceptedAt) {
+      return this.renderTerms();
+    }
     const HEADER_LINKS = [
       { title: 'Events', url: '/events', image: <EventsIcon /> },
       { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> }
@@ -98,7 +105,7 @@ class Home extends React.Component {
         <Header
           onLogout={this.handleLogout}
           links={HEADER_LINKS}
-          authUser={userProfile.role ? userProfile: null}
+          authUser={userProfile.role ? userProfile : null}
         />
         <Switch>
           <Route path="/terms" render={this.renderTermsRoute} />

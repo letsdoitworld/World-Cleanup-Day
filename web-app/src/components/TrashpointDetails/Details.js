@@ -35,16 +35,20 @@ class Details extends Component {
       toggleDetailsWindow,
       canEdit,
       trashpointId,
+      isUserLoggedIn,
       history,
     } = this.props;
     return (
       <div className="Tpdetails">
-        <div
-          onClick={() => { history.push('/trashpoints/create') }}
-          className="Create-trashpoint"
-        >
-          <span>Place trashpoint</span>
-        </div>
+        {
+          isUserLoggedIn &&
+          <div
+            onClick={() => { history.push('/trashpoints/create') }}
+            className="Create-trashpoint"
+          >
+            <span>Place trashpoint</span>
+          </div>
+        }
         {
           trashpointId &&
           <TpdetailsHeader

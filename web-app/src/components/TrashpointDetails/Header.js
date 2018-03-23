@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MinimizeIcon } from '../../components/common/Icons';
+import { MinimizeIcon, CloseIcon } from '../../components/common/Icons';
 import { selectors } from '../../reducers/trashpile';
 
 const TpdetailsHeader = ({
@@ -14,7 +14,7 @@ const TpdetailsHeader = ({
         className="Tpdetails-header-minimize"
         onClick={() => onMinimizeClick()}
       >
-        <MinimizeIcon />
+        <CloseIcon />
       </div>
     </div>
   );

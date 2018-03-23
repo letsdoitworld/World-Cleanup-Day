@@ -49,7 +49,7 @@ class Details extends Component {
           trashpointId &&
           <TpdetailsHeader
             tpTitle={name}
-            onMinimizeClick={() => toggleDetailsWindow()}
+            onMinimizeClick={() => history.push('/trashpoints')}
           />
         }
         {

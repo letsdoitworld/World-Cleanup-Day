@@ -12,6 +12,10 @@
   overflow: visible;
 }
 
+.ReactModal__Overlay {
+  z-index: 9;
+}
+
 .Tpdetails-header {
   display: flex;
   flex-direction: row;

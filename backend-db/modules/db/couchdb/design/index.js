@@ -273,6 +273,23 @@ const designDocs = {
             },
           },
         },
+        byEventAndTypeAndStatusAndCreation: {
+          $version: 1,
+          views: {
+            view: {
+              map: function (doc) {
+                if (doc.$doctype === 'image') {
+                  emit([
+                    doc.eventId,
+                    doc.type,
+                    doc.status,
+                    doc.createdAt,
+                  ], doc);
+                }
+              },
+            },
+          },
+        },
         byEventAndStatusAndCreation: {
             $version: 1,
             views: {

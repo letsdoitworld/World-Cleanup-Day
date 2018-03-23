@@ -205,6 +205,15 @@ paths:
       parameters:
         - $ref: "#/parameters/PageSize"
         - $ref: "#/parameters/PageNumber"
+        - name: location
+          in: query
+          required: false
+          type: string
+        - name: name
+          description: Event name.
+          in: query
+          required: false
+          type: string
       responses:
         "200":
           $ref: "#/responses/Events"

@@ -55,8 +55,10 @@ module.exports = function () {
             event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
                 _.pick((await db.getTrashpoint(trashpointId)), ["id", "isIncluded", "status", "location", "name"])));
             event.trashpoints = event.trashpoints.map(t => {
-              t.latitude = t.location.latitude;
-              t.longitude = t.location.longitude;
+              if (t.location) {
+                t.latitude = t.location.latitude;
+                t.longitude = t.location.longitude;
+              }
               return t;
             });
             event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
@@ -132,24 +134,23 @@ module.exports = function () {
                 }
               }
             }
-            // event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
-            // event.photos = event.photos.map(p => p.url);
+            event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
+            event.photos = event.photos.map(p => p.url);
             if (event.trashpoints) {
               event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
                 await db.getTrashpoint(trashpointId)));
-              if (event.location) {
-                event.trashpoints = event.trashpoints.map(t => {
+              event.trashpoints = event.trashpoints.map(t => {
+                if (t.location) {
                   t.latitude = t.location.latitude;
                   t.longitude = t.location.longitude;
-                  return t;
-                });
-              }
+                }
+                return t;
+              });
               event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
               event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
             } else {
               event.trashpoints = [];
             }
-            console.log(event);
             return mapEvent(event);
           }));
           return responder.success({total, pageSize, pageNumber, records});

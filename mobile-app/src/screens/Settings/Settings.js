@@ -194,7 +194,8 @@ export class Settings extends Component {
                         <Switch
                             width={50}
                             height={30}
-                            defaultValue={isPrivateProfile}
+                            defaultValue={false}
+                            value={isPrivateProfile}
                             onSyncPress={isOn => this.handlePrivacyPress(isOn)}/>
                       </View>
                   </View>

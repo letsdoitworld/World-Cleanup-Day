@@ -100,7 +100,7 @@ export default class IosLikeSwitch extends Component {
 
     onPanResponderMove = (evt, gestureState) => {
         const { value, toggleable } = this.state;
-        const { disabled } = this.props
+        const { disabled } = this.props;
         if (disabled) return;
 
         this.setState({
@@ -129,7 +129,7 @@ export default class IosLikeSwitch extends Component {
         const { value, switchAnimation } = this.state;
         const toValue = !value;
 
-        this.animateHandler(this.handlerSize)
+        this.animateHandler(this.handlerSize);
         if (result) {
             this.animateSwitch(toValue, () => {
                 this.setState({

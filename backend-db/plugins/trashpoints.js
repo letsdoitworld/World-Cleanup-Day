@@ -2,6 +2,7 @@
 const {E, LuciusError, Lucius} = require('module-lucius');
 const util = require('module-util');
 const db = require('../modules/db');
+const _ = require('lodash');
 const {Dataset, Account, Image} = require('../modules/db/types');
 
 const PLUGIN_NAME = 'trashpoints';
@@ -89,7 +90,26 @@ module.exports = function () {
             }
           }
           const { data: {rows, total_rows: total} } = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location);
-          const records = rows.map(r => r.value);
+          const records = await Promise.all(rows.map(async r => {
+              const trashpoint = r.value;
+              if (trashpoint.createdBy) {
+                  const createdByUser = await db.getAccount(trashpoint.createdBy);
+                  trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+              }
+              if (trashpoint.updatedBy) {
+                  if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
+                      trashpoint.updater = trashpoint.creator;
+                  } else {
+                    const updatedByUser = await db.getAccount(trashpoint.updatedBy);
+                    if (updatedByUser) {
+                      trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                    }
+                  }
+              }
+              trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
+              trashpoint.photos = trashpoint.photos.map(t => t.url);
+              return trashpoint;
+          }));
           return responder.success({total, pageSize, pageNumber, records});
         })
     });

@@ -588,6 +588,19 @@ const layer = {
         );
         return ret;
     },
+    getTrashpointImagesByType: async (trashpointId, type, status = null) => {
+      const ret = await adapter.getEntities(
+        'Image',
+        '_design/byTrashpointAndTypeAndStatusAndCreation/_view/view',
+        {
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          startkey: status ? [trashpointId, type, status, {}] : [trashpointId, type, {}],
+          endkey: status ? [trashpointId, type, status] : [trashpointId, type],
+          sorted: true,
+        }
+      );
+      return ret;
+    },
     getEventImages: async (eventId, status = null) => {
         const ret = await adapter.getEntities(
             'Image',

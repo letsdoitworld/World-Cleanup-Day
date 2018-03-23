@@ -105,20 +105,6 @@ export default class EventsMap extends Component {
         })
     }
 
-    getEventsFromProps() {
-        const {events} = this.props;
-        return events;
-    }
-
-    keyExtractor = (item, index) => item.id.toString();
-
-    renderItem = ({item}) => (
-
-        <View>
-            <Text>item.name</Text>
-        </View>
-    );
-
     render() {
 
         const {selectedItem, radius} = this.state;
@@ -173,7 +159,7 @@ export default class EventsMap extends Component {
                 <EventsListHorizontal
                     onRef={ref => (this.list = ref)}
                     navigator={this.props.navigator}
-                    events={this.props.events}
+                    events={this.props.mapEvents}
                 />
 
             </View>

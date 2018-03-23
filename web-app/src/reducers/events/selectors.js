@@ -25,7 +25,7 @@ export const getEventDetails = createSelector(
 
 export const getCurrentMarkerID = createSelector(
   detailsSel,
-  state => get(state, 'event.datasetId', 'Unknown ID'),
+  state => get(state, 'event.id', 'Unknown ID'),
 );
 
 export const getEventTitle = createSelector(

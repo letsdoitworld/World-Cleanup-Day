@@ -1,28 +1,4 @@
 {
-  "presets": [
-    "es2015",
-    "stage-0",
-    "react",
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "safari >= 8"
-          ]
-        }
-      }
-    ]
-  ],
-  "plugins": [
-    "jsx-control-statements"
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        "jsx-control-statements"
-      ]
-    }
-  }
-}
+  "presets": ["react"],
+  "plugins": ["jsx-control-statements"]
+ }

@@ -37,11 +37,10 @@ class EventDet extends Component {
 
   render() {
     const { event, eventId } = this.props;
-
     return (
       <div className="EventDetails">
         <div className="EventDetails-cover">
-          <img src={event.avatar} alt="demo" />
+          <img src={event.avatar && 'https://robohash.org/quiporrovelit.jpg?size=70x70&set=set1'} alt="demo" />
         </div>
         <div className="EventDetails-plot">
           <div className="EventDetails-timing EventDetails-infoblock">
@@ -58,7 +57,7 @@ class EventDet extends Component {
           <div className="EventDetails-location EventDetails-infoblock">
             <LocationIconEvent />
             <p className="EventDetails-location-address">
-              {`${event.address} | ${event.location_lat}, ${event.location_lon}`}
+              {`${event.address} | ${event.location.latitude}, ${event.location.longitude}`}
             </p>
           </div>
           <div className="EventDetails-actions EventDetails-infoblock">
@@ -157,7 +156,8 @@ class EventDet extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  event: selectors.getEventDetails(state),
+  event: state.events.details,
+  //event: selectors.getEventDetails(state),
 });
 
 export const EventDetails = connect(mapStateToProps)(EventDet);

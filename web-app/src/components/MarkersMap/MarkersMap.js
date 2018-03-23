@@ -29,7 +29,6 @@ class MarkersMap extends React.Component {
     fetchAllTrashpoints: PropTypes.func.isRequired,
     fetchAllEventMarkers: PropTypes.func,
     onMarkerClick: PropTypes.func,
-    markers: PropTypes.array.isRequired,
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
     fetchClusterEvents: PropTypes.func,
@@ -85,7 +84,12 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width, 10),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    this.props.fetchAllEventMarkers(nw, se, mapSize);
+    this.props.fetchAllEventMarkers({
+      latitude: 44.988046,
+      longitude: 44.878046,
+    },
+      5,
+    );
     this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {

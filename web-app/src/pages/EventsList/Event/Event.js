@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as moment from 'moment';
 import {
   LocationIcon24px,
   GroupIcon24px,
@@ -40,7 +41,9 @@ export class Event extends Component {
               <p className="Event-fill Event-info">
                 {`${numberOfParticipants - 2}/${numberOfParticipants}`}
               </p>
-              <p className="Event-date Event-info">{date}</p>
+              <p className="Event-date Event-info">
+                {moment(date).format('l')}
+              </p>
             </div>
           </div>
         </div>

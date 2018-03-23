@@ -14,7 +14,12 @@ import {
 class EventsList extends Component {
 
   componentWillMount() {
-    this.props.fetchAllEvents();
+    this.props.fetchAllEvents({
+      latitude: 44.988046,
+      longitude: 44.878046,
+    },
+      5,
+    );
     this.props.setActiveTab('events');
   }
 
@@ -27,7 +32,6 @@ class EventsList extends Component {
       isOpened,
       fetchEventDetails,
     } = this.props;
-
     return (
       <div className="EventsList-container">
         <EventListHeader
@@ -40,16 +44,16 @@ class EventsList extends Component {
             !eventId ?
             events.map((ev) => {
               return (
-                <NavLink key={ev.datasetId} to={`/events/${ev.datasetId}`}>
+                <NavLink key={ev.id} to={`/events/${ev.id}`}>
                   <Event
                     onClick={fetchEventDetails}
-                    eventId={ev.datasetId}
+                    eventId={ev.id}
                     avatar={ev.avatar}
-                    title={ev.title}
-                    author={ev.coordinator_name}
-                    date={ev.createDate}
+                    title={ev.name}
+                    author={ev.email}
+                    date={ev.startTime}
                     location={ev.address}
-                    numberOfParticipants={ev.number_of_participants}
+                    numberOfParticipants={ev.maxPeopleAmount || 20}
                   />
                 </NavLink>
               );

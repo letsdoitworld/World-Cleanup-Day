@@ -40,9 +40,12 @@ class ApiService {
   getApiInstance(withToken) {
     return withToken ? this.axios : this.publicAxios;
   }
-  async get(url, options = { withToken: true }) {
+  async get(url, data, options = { withToken: true }) {
     try {
-      return await this.getApiInstance(options.withToken).get(url);
+      return await this.getApiInstance(options.withToken).get(
+        url,
+        data,
+      );
     } catch (e) {
       console.log(e);
     }
@@ -79,11 +82,11 @@ class ApiService {
   }
 }
 const IS_PRODUCTION = window.location.host === 'app.worldcleanupday.com';
-// export const BASE_URL = 'http://10.100.1.143:60000/api/v1'
+// export const BASE_URL = 'https://api.app.worldcleanupday.com/api/v1'
 
 export const BASE_URL =
   process.env.NODE_ENV === 'development'
-    ? 'https://api.app.worldcleanupday.com/api/v1'
+    ? 'http://52.143.138.160:50000/api/v1'
     : IS_PRODUCTION
     ? `${window.location.protocol}//api.${window.location.host}/api/v1`
     : `${window.location.protocol}//api-${window.location.host}/api/v1`;

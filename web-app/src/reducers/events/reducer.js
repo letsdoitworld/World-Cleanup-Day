@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import TYPES from './types';
-import events from './events.json';
+// import events from './events.json';
 
 const EVENTS_MARKERS_INITIAL_STATE = {
   markers: [],
@@ -8,7 +8,7 @@ const EVENTS_MARKERS_INITIAL_STATE = {
 };
 
 const EVENTS_INITIAL_STATE = {
-  events,
+  events: [],
   loading: false,
   error: false,
   showEventWindow: true,

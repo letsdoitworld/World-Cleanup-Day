@@ -171,6 +171,9 @@ export default class EventsMap extends Component {
                 {/*onPress={() => this.loadMapEventsWithMoreRadius()}/>*/}
 
                 <EventsListHorizontal
+                    onRef={ref => (this.list = ref)}
+                    navigator={this.props.navigator}
+                    events={this.props.events}
                 />
 
             </View>

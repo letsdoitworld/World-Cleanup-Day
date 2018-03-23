@@ -17,10 +17,10 @@ export default class EventsListHorizontal extends Component {
     keyExtractor = (item, index) => item.id.toString();
 
     renderItem = ({item}) => (
-
-            <View>
-                <Text>item.name</Text>
-            </View>
+        <ListItem
+            navigator={this.props.navigator}
+            item={item}
+            id={item.id}/>
     );
 
     render() {

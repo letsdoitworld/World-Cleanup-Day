@@ -66,7 +66,8 @@ export default class CreateEvent extends ImmutableComponent {
                 isDateTimePickerVisible: false,
                 startDate: this.calculateMinDate(),
                 endDate: this.calculateMinDate(),
-                selectedLocation: undefined
+                selectedLocation: undefined,
+                trashPointsCount: 0
             })
         };
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -287,7 +288,11 @@ export default class CreateEvent extends ImmutableComponent {
                         <View style={styles.locationContainerStyle}>
                             <Image source={require('../../../../src/assets/images/ic_location.png')}
                                    style={styles.imageTrashStyle}/>
-                            <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
+                            {
+                                (this.state.data.get('selectedLocation') === undefined)
+                                ? <Text style={styles.textTrashStyle}>{strings.label_add_location}</Text>
+                                : <Text style={styles.textTrashStyle}>{this.state.data.get('selectedLocation').place}</Text>
+                            }
                         </View>
                     </TouchableOpacity>
                     {this.renderLocationError()}
@@ -307,6 +312,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     <Image source={require('../../../assets/images/ic_trashpoints.png')}
                                            style={styles.imageTrashStyle}/>
                                     <Text style={styles.textTrashStyle}>{strings.label_add_trashPoints}</Text>
+                                    {this.renderTrashPointsCount()}
                                 </View>
                             </TouchableOpacity>
                     }
@@ -354,6 +360,20 @@ export default class CreateEvent extends ImmutableComponent {
                 </ScrollView>
             </View>
         )
+    }
+
+    renderTrashPointsCount() {
+        if (this.trashPoints.size > 0) {
+            return (
+                <View style={styles.trashPointCircle}>
+                    <Text style={styles.trashPointCount}>
+                        {this.trashPoints.size.toString()}
+                    </Text>
+                </View>
+            );
+        } else {
+            return null
+        }
     }
 
     showChoosedDialog() {
@@ -435,6 +455,7 @@ export default class CreateEvent extends ImmutableComponent {
 
     onTrashPointsSelected(trashPoints) {
         this.trashPoints = trashPoints;
+        this.setData(d => d.set('trashPointsCount', this.trashPoints.size));
     }
 
     onLocationSelected(location) {

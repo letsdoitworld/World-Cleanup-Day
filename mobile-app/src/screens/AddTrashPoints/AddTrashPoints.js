@@ -8,7 +8,7 @@ import {
     Image,
     TouchableHighlight,
     ActivityIndicator,
-    FlatList
+    FlatList, UIManager, LayoutAnimation
 } from 'react-native';
 import styles from './styles'
 import strings from '../../assets/strings'
@@ -55,9 +55,11 @@ class AddTrashPoints extends Component {
         });
 
         this.state = {
+            count: 0,
             trashPoints: []
         };
 
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
@@ -102,7 +104,10 @@ class AddTrashPoints extends Component {
             this.marked.set(trashPoint.id, trashPoint)
         });
         this.setState(previousState => {
-            return {trashPoints: this.props.trashPoints}
+            return {
+                trashPoints: this.props.trashPoints,
+                count: this.marked.size
+            }
         });
     }
 
@@ -127,17 +132,22 @@ class AddTrashPoints extends Component {
                 return {trashPoints: receivedTrashPointsList}
             });
         } else {
+            if (this.page === 0) {
+                const filteredReceivedTrashPoints = receivedTrashPointsList
+                    .filter((trashPoint) => !this.marked.has(trashPoint.id));
 
-            const filteredReceivedTrashPoints = receivedTrashPointsList
-                .filter((trashPoint) => !this.marked.has(trashPoint.id));
+                if (filteredReceivedTrashPoints === undefined) return;
 
-            if (filteredReceivedTrashPoints === undefined) return;
+                const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
 
-            const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
-
-            this.setState(previousState => {
-                return {trashPoints: trashPoints}
-            });
+                this.setState(previousState => {
+                    return {trashPoints: trashPoints}
+                });
+            } else {
+                this.setState(previousState => {
+                    return {trashPoints: receivedTrashPointsList}
+                });
+            }
         }
 
         this.props.navigator.setButtons({
@@ -156,7 +166,7 @@ class AddTrashPoints extends Component {
                     buttonFontFamily: 'Lato-Bold',
                 },
                 {
-                    icon: require('../../../src/assets/images/icon_menu_map_active.png'),
+                    icon: require('../../../src/assets/images/icMapView.png'),
                     id: mapId,
                 }
             ]
@@ -174,6 +184,13 @@ class AddTrashPoints extends Component {
         } else {
             this.marked.delete(item.id)
         }
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                count: this.marked.size
+            };
+        });
     };
 
     //noinspection JSMethodCanBeStatic
@@ -182,6 +199,7 @@ class AddTrashPoints extends Component {
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
                     {this.renderSearchBox()}
+                    {this.renderCounter()}
                     <FlatList
                         ListFooterComponent={this.renderFooter.bind(this)}
                         ListHeaderComponent={this.renderHeader.bind(this)}
@@ -190,11 +208,28 @@ class AddTrashPoints extends Component {
                         data={this.getTrashPointsFromState()}
                         keyExtractor={this.keyExtractor.bind(this)}
                         renderItem={this.renderItem.bind(this)}
-                        onEndReached={this.handleLoadMore.bind(this)}/>
+                        onEndReached={this.handleLoadMore.bind(this)}
+                        onEndReachedThreshold={0}
+                    />
                 </View>
                 {this.renderProgress()}
             </View>
         );
+    }
+
+    renderCounter() {
+        const count = this.state.count;
+        if (count > 0) {
+            return (
+                <View style={styles.counterContainer}>
+                    <Text style={styles.counter}>
+                        {strings.formatString(strings.trashPoints_counter, count)}
+                    </Text>
+                </View>
+            );
+        } else {
+            return null;
+        }
     }
 
     renderSearchBox() {

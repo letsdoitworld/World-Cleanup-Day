@@ -7,20 +7,18 @@ import MapView from 'react-native-maps';
 
 import styles from './styles';
 
-export const MARKER_MARKED_STATUS_IMAGES = {
-    cleaned: require('./images/status/icActiveCleanedTrashpointMap.png'),
-    outdated: require('./images/status/icActiveInactiveTrashpointMap.png'),
-    regular: require('./images/status/icActiveRegularTrashpointMap.png'),
-    threat: require('./images/status/icActiveToxicTrashpointMap.png'),
-    user: require('./images/status/icActiveInactiveToxicTrashpointMap.png'),
-};
-
-export const MARKER_STATUS_IMAGES = {
+export const STATUS_IMAGES = {
     cleaned: require('./images/status/icInactiveCleanedTrashpointMap.png'),
     outdated: require('./images/status/icInactiveInactiveTrashpointMap.png'),
     regular: require('./images/status/icInactiveRegularTrashpointMap.png'),
-    threat: require('./images/status/icInactiveToxicTrashpointMap.png'),
-    user: require('./images/status/icInactiveInactiveToxicTrashpointMap.png'),
+    urgent: require('./images/status/icInactiveToxicTrashpointMap.png')
+};
+
+export const SELECTED_STATUS_IMAGES = {
+    cleaned: require('./images/status/icActiveCleanedTrashpointMap.png'),
+    outdated: require('./images/status/icActiveInactiveTrashpointMap.png'),
+    regular: require('./images/status/icActiveRegularTrashpointMap.png'),
+    urgent: require('./images/status/icActiveToxicTrashpointMap.png')
 };
 
 const TRASHPILE_MARKER_OFFSET = {
@@ -60,9 +58,17 @@ export default class Marker extends Component {
             }
         } else {
             if (marker.isMarked) {
-                markerImage = MARKER_MARKED_STATUS_IMAGES[marker.status]
+                if (marker.isSelected) {
+                    markerImage = require('./images/pin/icActiveAddedCopy.png')
+                } else {
+                    markerImage = require('./images/pin/icInactiveAdded.png')
+                }
             } else {
-                markerImage = MARKER_STATUS_IMAGES[marker.status]
+                if (marker.isSelected) {
+                    markerImage = SELECTED_STATUS_IMAGES[marker.status]
+                } else {
+                    markerImage = STATUS_IMAGES[marker.status]
+                }
             }
         }
 

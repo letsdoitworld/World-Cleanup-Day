@@ -17,6 +17,8 @@ import {Map} from '../../components/Map/Map';
 import {DEFAULT_ZOOM} from "../../shared/constants";
 import {MARKER_STATUS_IMAGES} from "../../components/Map/Marker";
 import {connect} from "react-redux";
+import {IGPSCoordinates} from "NativeModules";
+import {geocodeCoordinates} from "../../shared/geo";
 
 const cancelId = 'cancelId';
 
@@ -48,13 +50,12 @@ class AddLocation extends Component {
         if (initialLocation !== undefined) {
             this.state = {
                 marker: undefined,
-                region: null,
                 initialRegion: {
                     latitude: initialLocation.latitude,
                     longitude: initialLocation.longitude,
                     latitudeDelta: DEFAULT_ZOOM,
                     longitudeDelta: DEFAULT_ZOOM,
-                },
+                }
             };
         } else {
             this.state = {
@@ -68,14 +69,8 @@ class AddLocation extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    // componentDidMount() {
-    //     if (this.state.initialRegion === undefined) {
-    //         this.getCurrentPosition();
-    //     }
-    // }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.state.initialRegion === undefined && nextProps.auth.get('token') !== undefined) {
+    componentDidMount() {
+        if (this.state.initialRegion === undefined) {
             this.getCurrentPosition();
         }
     }
@@ -97,31 +92,11 @@ class AddLocation extends Component {
                     });
                 },
                 (error) => {
-                    //todo: some default location
-                    this.setState(previousState => {
-                        return {
-                            initialRegion: {
-                                latitude: 48.8152937,
-                                longitude: 2.4597668,
-                                latitudeDelta: DEFAULT_ZOOM,
-                                longitudeDelta: DEFAULT_ZOOM,
-                            }
-                        };
-                    });
+                    alert(JSON.stringify(error))
                 }
             );
-        } catch(e) {
-            //todo: some default location
-            this.setState(previousState => {
-                return {
-                    initialRegion: {
-                        latitude: 48.8152937,
-                        longitude: 2.4597668,
-                        latitudeDelta: DEFAULT_ZOOM,
-                        longitudeDelta: DEFAULT_ZOOM,
-                    }
-                };
-            });
+        } catch(error) {
+            alert(JSON.stringify(error))
         }
     };
 
@@ -129,28 +104,24 @@ class AddLocation extends Component {
         if (event.type === 'NavBarButtonPress') {
             switch (event.id) {
                 case cancelId: {
-                    this.back();
+                    this.props.navigator.pop();
                     break;
                 }
             }
         }
     }
 
-    onConfirmPress = () => {
+    async onConfirmPress() {
         const {latitude, longitude} = this.state.marker.latlng;
-        this.back({
+        const place = await geocodeCoordinates(this.state.marker.latlng);
+
+        this.props.onLocationSelected({
             latitude,
             longitude,
-        })
-    };
-
-    back(selectedLocation = undefined) {
-        this.props.onLocationSelected(selectedLocation);
-        this.props.navigator.pop({
-            animated: true,
-            animationType: 'slide_out',
+            place: place.mainText
         });
-    }
+        this.props.navigator.pop()
+    };
 
     onMapPress = (e) => {
         const coordinate = e.nativeEvent.coordinate;

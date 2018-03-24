@@ -143,6 +143,7 @@ module.exports = new LocalizedStrings({
         label_settings_header: "Settings",
         label_about_world_cleanup_day: "About World Cleanup Day",
         label_events: 'Events',
+        label_event: 'Event',
         label_create_events_step_one: 'Step 1 of 3',
         label_create_events_step_two: 'Step 2 of 3',
         label_create_events_step_three: 'Step 3 of 3',

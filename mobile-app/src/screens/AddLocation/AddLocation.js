@@ -18,6 +18,8 @@ import {DEFAULT_ZOOM} from "../../shared/constants";
 import {MARKER_STATUS_IMAGES} from "../../components/Map/Marker";
 import {connect} from "react-redux";
 
+import { Icons } from '../../assets/images';
+
 const cancelId = 'cancelId';
 
 const autocompleteStyle = {
@@ -29,13 +31,13 @@ const autocompleteStyle = {
 };
 
 class AddLocation extends Component {
-
+     
     static navigatorStyle = styles.navigatorStyle;
 
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../src/assets/images/ic_back.png'),
+                icon: Icons.Back,
                 id: cancelId,
             }
         ]

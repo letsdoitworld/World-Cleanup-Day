@@ -12,3 +12,13 @@ export const getEventsEntity = createSelector(
     eventsSelector,
     events => events.events,
 );
+
+export const getEventEntity = createSelector(
+    eventsSelector,
+    events => events.currentEvent,
+);
+
+export const getErrorEvent = createSelector(
+    eventsSelector,
+    events => events.errors && events.errors.errorEvent,
+);

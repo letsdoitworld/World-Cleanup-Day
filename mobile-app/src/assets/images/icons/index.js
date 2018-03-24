@@ -11,7 +11,9 @@ module.exports = {
   Phone: require('./icPhoneNumber.png'),
   Email: require('./icEmail.png'),
   GroupPeople: require('./icGroupBlack.png'),
-    Close: require('./close.png'),
+  Close: require('./close.png'),
+  Back: require('./ic_back.png'),
+  Dots: require('./icMore.png'),
 
   CleanedTrashpoint: require('./icCleanedTrashpoint.png'),
   OutdatedToxicTrashpoint: require('./icOutdatedToxicTrashpoint.png'),

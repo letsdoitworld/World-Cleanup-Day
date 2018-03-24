@@ -6,7 +6,6 @@ import isNil from 'lodash/isNil';
 
 import {
     LOGIN_SCREEN,
-    MY_ACTIVITY_SCREEN,
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
     EVENTS,

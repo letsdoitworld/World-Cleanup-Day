@@ -17,6 +17,8 @@ import strings from "../../../assets/strings";
 import {renderItem} from '../Item/ListItem';
 import {ADD_TRASH_POINTS} from "../../index";
 
+import { Icons } from '../../../assets/images';
+
 const cancelId = 'cancelId';
 const saveId = 'saveId';
 
@@ -29,7 +31,7 @@ export default class AddTrashPointsMap extends Component {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../../src/assets/images/ic_back.png'),
+                icon: Icons.Back,
                 id: cancelId,
             }
         ],

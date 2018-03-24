@@ -22,6 +22,8 @@ import {
 
 let _ = require('lodash');
 
+import { Icons } from '../../assets/images';
+
 const cancelId = 'cancelId';
 const saveId = 'saveId';
 const mapId = 'mapId';
@@ -37,7 +39,7 @@ class AddTrashPoints extends Component {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../src/assets/images/ic_back.png'),
+                icon: Icons.Back,
                 id: cancelId,
             }
         ]
@@ -143,7 +145,7 @@ class AddTrashPoints extends Component {
         this.props.navigator.setButtons({
             leftButtons: [
                 {
-                    icon: require('../../../src/assets/images/ic_back.png'),
+                    icon: Icons.Back,
                     id: cancelId,
                 }
             ],

@@ -23,7 +23,7 @@ function googleLogin() {
   return GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
-      '343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl.apps.googleusercontent.com',
+      '750766631573-e1iuvffcrt5jukhqru17hr96lg94serc.apps.googleusercontent.com',
     webClientId:
       '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
     offlineAccess: false,

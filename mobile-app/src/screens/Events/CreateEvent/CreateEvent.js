@@ -234,6 +234,14 @@ export default class CreateEvent extends ImmutableComponent {
             }}/>
     }
 
+    renderImage(imagePath) {
+        if (imagePath !== '') {
+            return <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
+        } else {
+            return null;
+        }
+    }
+
     render() {
         const isTitleValid = this.state.data.get('isTitleValid');
         const isDescriptionValid = this.state.data.get('isDescriptionValid');
@@ -344,7 +352,7 @@ export default class CreateEvent extends ImmutableComponent {
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
+                        {this.renderImage(imagePath)}
                         <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                             <Image style={styles.addPhotoIconStyle}
                                    source={require('../../../assets/images/ic_add_photo.png')}/>
@@ -514,6 +522,12 @@ export default class CreateEvent extends ImmutableComponent {
 
     onNextClick = (isValid) => {
         if (isValid) {
+            const selectedLocation = this.state.data.get('selectedLocation');
+            const location = {
+                latitude: selectedLocation.latitude,
+                longitude: selectedLocation.longitude,
+            };
+            const address = selectedLocation.place;
             this.props.navigator.push({
                 screen: ADD_COORDINATOR,
                 title: strings.label_create_events_step_two,
@@ -521,10 +535,10 @@ export default class CreateEvent extends ImmutableComponent {
                     event: {
                         datasetId: '26e7668a-fa3f-4ba6-bb0b-e8892ee306аа',
                         name: this.title,
-                        address: '456',
+                        address: address,
                         startTime: this.state.data.get('startDate'),
                         endTime: this.state.data.get('endDate'),
-                        location: this.state.data.get('selectedLocation'),
+                        location: location,
                         description: this.description,
                         whatToBring: this.whatToBring,
                         photos: this.state.photos,

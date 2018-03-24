@@ -131,10 +131,6 @@ class Events extends Component {
 
 
         if (isAuthenticated) {
-            this.props.navigator.showModal({
-                screen: CREATE_EVENT,
-                title: strings.label_create_events_step_one
-            });
             if(!isPrivateProfile) {
                 Alert.alert(
                     'Update your privacy settings!',
@@ -148,6 +144,10 @@ class Events extends Component {
 
                 return;
             }
+            this.props.navigator.showModal({
+                screen: CREATE_EVENT,
+                title: strings.label_create_events_step_one
+            });
         } else {
             Alert.alert(
                 'Oh no!',

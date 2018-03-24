@@ -32,7 +32,6 @@ async function createEvent(event) {
             ...createEventResponse.data,
             photoStatus: uploadStatus,
         };
-        return createEventResponse.data;
     } catch (ex) {
         throw ex;
     }

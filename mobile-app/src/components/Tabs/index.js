@@ -34,15 +34,14 @@ class Tabs extends Component {
     />
   );
 
-  renderScene = SceneMap(this.props.scenes);
+  // renderScene = SceneMap(this.props.scenes);
 
   render() {
-
     return (
       <TabViewAnimated
         style={[styles.container, { flex: this.props.isVisible ? 1 : 0 }]}
         navigationState={this.state}
-        renderScene={this.renderScene}
+        renderScene={this.props.renderSceneTab}
         renderHeader={this.renderHeader}
         onIndexChange={this.handleIndexChange}
         initialLayout={initialLayout}
@@ -54,7 +53,8 @@ class Tabs extends Component {
 Tabs.propTypes = {
   isVisible: PropTypes.bool,
   routes: PropTypes.array.isRequired,
-  scenes: PropTypes.object.isRequired,
+  renderSceneTab: PropTypes.func.isRequired,
+  // scenes: PropTypes.object.isRequired,
 };
 
 export { Tabs };

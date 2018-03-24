@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    View, TouchableOpacity, Text, ScrollView, Image, Alert
+    View, TouchableOpacity, Text, ScrollView, Image, Alert, ImageStore
 } from 'react-native';
 import styles from './styles'
 import strings from '../../../assets/strings'
@@ -17,6 +17,7 @@ import Moment from 'moment';
 import {Navigation} from "react-native-navigation";
 
 import {Icons} from '../../../assets/images';
+import ImageService from "../../../services/Image";
 
 const cancelId = 'cancelId';
 
@@ -48,7 +49,9 @@ export default class CreateEvent extends ImmutableComponent {
         this.title = "";
         this.description = "";
         this.whatToBring = "";
+
         this.state = {
+            photos: [],
             data: Immutable.Map({
                 isTitleValid: false,
                 isTitleTextChanged: false,
@@ -59,10 +62,10 @@ export default class CreateEvent extends ImmutableComponent {
                 isStartDateValid: true,
                 isEndDateValid: true,
                 isDateTimePickerVisible: false,
-                imageUrl: '',
                 startDate: this.calculateMinDate(),
                 endDate: this.calculateMinDate(),
-                selectedLocation: undefined
+                selectedLocation: undefined,
+                trashPointsCount: 0
             })
         };
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -169,12 +172,8 @@ export default class CreateEvent extends ImmutableComponent {
         const isDescriptionValid = this.state.data.get('isDescriptionValid');
         const isDescriptionTextChanged = this.state.data.get('isDescriptionTextChanged');
         if (!isDescriptionValid && isDescriptionTextChanged) {
-            return
-            (
-                <Text style={styles.textErrorStyle}>
-                    {strings.label_description}{strings.label_invalid_event_description}
-                </Text>
-            );
+            return <Text
+                style={styles.textErrorStyle}>{strings.label_description}{strings.label_invalid_event_description}</Text>
         } else {
             return null
         }
@@ -184,11 +183,8 @@ export default class CreateEvent extends ImmutableComponent {
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
         const isWhatToBringTextChanged = this.state.data.get('isWhatToBringTextChanged');
         if (!isWhatToBringValid && isWhatToBringTextChanged) {
-            return (
-                <Text style={styles.textErrorStyle}>
-                    {strings.label_what_to_bring_with_you}{strings.label_invalid_event_description}
-                </Text>
-            );
+            return <Text
+                style={styles.textErrorStyle}>{strings.label_what_to_bring_with_you}{strings.label_invalid_event_description}</Text>
         } else {
             return null
         }
@@ -222,7 +218,8 @@ export default class CreateEvent extends ImmutableComponent {
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
         const isStartDateValid = this.state.data.get('isStartDateValid');
         const isEndDateValid = this.state.data.get('isEndDateValid');
-        const imagePath = this.state.data.get('imageUrl');
+        const photos = this.state.photos;
+        const imagePath = (photos.length > 0) ? photos[0].uri : '';
 
         const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid && isStartDateValid && isEndDateValid;
 
@@ -231,6 +228,7 @@ export default class CreateEvent extends ImmutableComponent {
                 <ScrollView
                     ref='scrollView'
                     style={styles.container}>
+
                     {this.renderTitle()}
                     <View style={styles.inputContainerStyle}>
                         <InputField style={styles.inputTextStyle}
@@ -287,6 +285,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     <Image source={require('../../../assets/images/ic_trashpoints.png')}
                                            style={styles.imageTrashStyle}/>
                                     <Text style={styles.textTrashStyle}>{strings.label_add_trashPoints}</Text>
+                                    {this.renderTrashPointsCount()}
                                 </View>
                             </TouchableOpacity>
                     }
@@ -309,27 +308,24 @@ export default class CreateEvent extends ImmutableComponent {
                                     underlineColorAndroid={'transparent'}
                                     autoCorrect={false}
                                     multiline={true}
-                                    maxLength={500}
                                     validate={this.validateWhatToBring}
-                                    onChangeText={this.onWhatToBringTextChanged}
-                        />
+                                    maxLength={500}
+                                    onChangeText={this.onWhatToBringTextChanged}/>
                     </View>
                     {this.renderWhatToBringError()}
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
                     <View style={styles.eventPhotoContainerStyle}>
-                        {
-                            imagePath && !imagePath.isEmpty()
-                                ? <Image style={styles.photoIconStyle} source={{uri: imagePath}}/>
-                                : null
-                        }
-                        <TouchableOpacity onPress={this.showChoosedDialog}>
+                        {/*Empty uri!!! I HATE YOU!!!!*/}
+                        {/*<Image style={styles.photoIconStyle} source={{uri: ''}}/>*/}
+                        <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                             <Image style={styles.addPhotoIconStyle}
                                    source={require('../../../assets/images/ic_add_photo.png')}/>
                         </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
+
                     <MainButton
                         isValid={isValid}
                         text={strings.label_next}
@@ -338,6 +334,20 @@ export default class CreateEvent extends ImmutableComponent {
                 </ScrollView>
             </View>
         )
+    }
+
+    renderTrashPointsCount() {
+        if (this.trashPoints.size > 0) {
+            return (
+                <View style={styles.trashPointCircle}>
+                    <Text style={styles.trashPointCount}>
+                        {this.trashPoints.size.toString()}
+                    </Text>
+                </View>
+            );
+        } else {
+            return null
+        }
     }
 
     showChoosedDialog() {
@@ -357,9 +367,10 @@ export default class CreateEvent extends ImmutableComponent {
         ImagePicker.openPicker({
             width: 300,
             height: 400,
-            cropping: true
-        }).then(image => {
-            this.setData(d => d.set('imageUrl', image.path))
+            cropping: true,
+            includeBase64: true,
+        }).then(async image => {
+            this.setImageData(image)
         });
     };
 
@@ -367,9 +378,23 @@ export default class CreateEvent extends ImmutableComponent {
         ImagePicker.openCamera({
             width: 300,
             height: 400,
-            cropping: true
-        }).then(image => {
-            this.setData(d => d.set('imageUrl', image.path))
+            cropping: true,
+            includeBase64: true,
+        }).then(async image => {
+            this.setImageData(image)
+        });
+    }
+
+    async setImageData(image) {
+        const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+        });
+        this.setState({
+            photos: [
+                {uri: image.path, base64: image.data, thumbnail: {base64: thumbnailBase64}},
+            ],
         });
     }
 
@@ -403,9 +428,8 @@ export default class CreateEvent extends ImmutableComponent {
     trashPoints = new Map();
 
     onTrashPointsSelected(trashPoints) {
-        console.log(trashPoints);
-        console.log("onTrashPointsSelected");
         this.trashPoints = trashPoints;
+        this.setData(d => d.set('trashPointsCount', this.trashPoints.size));
     }
 
     onLocationSelected(location) {
@@ -471,7 +495,7 @@ export default class CreateEvent extends ImmutableComponent {
                         },
                         description: this.description,
                         whatToBring: this.whatToBring,
-                        //imageUrl: this.state.data.get('imageUrl'),
+                        photos: this.state.photos,
                     },
                 }
             });

@@ -54,7 +54,7 @@ module.exports = new LocalizedStrings({
         label_header_select_country: "Select a country",
         label_text_select_country_hint: "Search",
         label_button_tc: "Terms and Conditions",
-        label_button_logout: "Log ostrings.label_trashpointut",
+        label_button_logout: "Log out",
         label_trashpoints: "Trashpoints",
         label_trashpoint: "Trashpoint",
         label_text_congrats_image: "Trash captured",

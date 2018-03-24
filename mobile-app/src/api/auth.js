@@ -23,15 +23,16 @@ function googleLogin() {
   return GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
-      '750766631573-e1iuvffcrt5jukhqru17hr96lg94serc.apps.googleusercontent.com',
+      '750766631573-gub35t5jrnlng5pr2u81rgtitljbbn85.apps.googleusercontent.com',
     webClientId:
-      '343042629555-168fin9loioa94ttsudsi1lptea79l4b.apps.googleusercontent.com',
+      '750766631573-3ucld7s069juiur8hstqia93rpu92c9q.apps.googleusercontent.com',
     offlineAccess: false,
   })
     .then(() => {
       return GoogleSignin.signIn();
     })
     .catch((error) => {
+        console.log("Google error", error);
       throw error;
     });
 }

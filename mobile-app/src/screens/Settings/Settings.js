@@ -37,6 +37,7 @@ export class Settings extends Component {
     super(props);
 
     this.state = {
+        value: props.isPrivateProfile,
         showCountryModal: false,
         countryFilter: undefined,
       };
@@ -160,8 +161,7 @@ export class Settings extends Component {
   }
 
   render() {
-    const { country, profile, isPrivateProfile } = this.props;
-    console.log('isPrivateProfile', isPrivateProfile);
+    const { country, profile } = this.props;
         // if (profile === null) {
         //     return null
         // }
@@ -194,9 +194,9 @@ export class Settings extends Component {
                         <Switch
                             width={50}
                             height={30}
-                            defaultValue={false}
-                            value={isPrivateProfile}
-                            onSyncPress={isOn => this.handlePrivacyPress(isOn)}/>
+                            value={this.state.value}
+                            onSyncPress={isOn =>this.handlePrivacyPress(isOn)}
+                            />
                       </View>
                   </View>
                 <View style={styles.titleStyle}>

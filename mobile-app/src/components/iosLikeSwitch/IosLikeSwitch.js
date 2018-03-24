@@ -111,7 +111,6 @@ export default class IosLikeSwitch extends Component {
     onPanResponderRelease = (evt, gestureState) => {
         const { handlerAnimation, toggleable, value } = this.state;
         const { height, disabled, onAsyncPress, onSyncPress } = this.props;
-
         if (disabled) return;
 
         if (toggleable) {
@@ -161,14 +160,14 @@ export default class IosLikeSwitch extends Component {
         Animated.timing(handlerAnimation,
             {
                 toValue: value,
-                duration: 200,
+                duration: 100,
                 easing: Easing.linear
             }
         ).start(callback)
     };
 
     render() {
-        const { switchAnimation, handlerAnimation, alignItems, value } = this.state
+        const { switchAnimation, handlerAnimation, alignItems, value } = this.state;
         const {
             backgroundActive, backgroundInactive,
             width, height, circleColorActive, circleColorInactive, style,

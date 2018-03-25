@@ -11,7 +11,7 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import styles from './styles'
-import {Map as MapView} from '../../../components/Map/Map';
+import {Map as MapView} from '../../../components';
 import {DEFAULT_ZOOM} from "../../../shared/constants";
 import strings from "../../../assets/strings";
 import {renderItem} from '../Item/ListItem';

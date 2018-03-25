@@ -242,7 +242,7 @@ export default class CreateEvent extends ImmutableComponent {
                     {this.renderDateTitle()}
                     <View style={styles.dateContainer}>
                         <View style={styles.imageContainer}>
-                            <Image source={require('../../../assets/images/ic_time.png')}
+                            <Image source={require('../../../assets/images/icons/ic_time.png')}
                                    style={styles.imageItemStyle}/>
                         </View>
                         <View style={styles.dateAndTimeContainerStyle}>

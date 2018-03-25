@@ -22,3 +22,11 @@ export const navigatorButtons = {
   ],
 };
 
+export const calendarConfig = {
+  sameDay: '[Today]',
+  nextDay: '[Tomorrow]',
+  nextWeek: 'dddd',
+  lastDay: '[Yesterday]',
+  lastWeek: '[Last] dddd',
+  sameElse: 'DD/MM/YYYY',
+};

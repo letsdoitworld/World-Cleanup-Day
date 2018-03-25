@@ -14,6 +14,8 @@ module.exports = {
   Close: require('./close.png'),
   Back: require('./ic_back.png'),
   Dots: require('./icMore.png'),
+  Time: require('./ic_time.png'),
+  Map: require('./icMap.png'),
 
   CleanedTrashpoint: require('./icCleanedTrashpoint.png'),
   OutdatedToxicTrashpoint: require('./icOutdatedToxicTrashpoint.png'),

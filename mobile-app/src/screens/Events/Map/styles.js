@@ -82,6 +82,27 @@ export default {
         height: getHeightPercentage(80),
         marginBottom: getWidthPercentage(6),
         backgroundColor: 'transparent',
+    },
+    containerMapElement: {
+        flex: 1,
+        flexDirection: 'row',
+        padding: 10,
+        marginTop: 3,
+        marginLeft: getWidthPercentage(6),
+        width: getWidthPercentage(240),
+        backgroundColor: colors.white,
+    },
+    containerFirstMapElement: {
+        flex: 1,
+        flexDirection: 'row',
+        padding: 10,
+        marginTop: 3,
+        marginLeft: getWidthPercentage(30),
+        width: getWidthPercentage(240),
+        backgroundColor: colors.white,
+    },
+    emptyStyle: {
+        marginLeft: getWidthPercentage(30),
     }
 
 }

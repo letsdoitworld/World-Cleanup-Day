@@ -21,6 +21,7 @@ const HorizontalEvent = ({
   maxParticipants,
   participants,
   onPress,
+    containerStyle,
 }) => {
   const photo = img ? { uri: img } : Icons.PlaceHolderAvatar;
   const handleRenderParticipants = () => {

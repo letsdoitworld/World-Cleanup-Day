@@ -121,6 +121,10 @@ export default class EventsMap extends Component {
         );
     }
 
+    renderHeader = () => {
+            return (<View style={styles.emptyStyle}/>)
+    };
+
     render() {
 
         const {selectedItem, radius} = this.state;
@@ -176,6 +180,7 @@ export default class EventsMap extends Component {
                 <FlatList
                     style={styles.list}
                     contentContainerStyle={styles.listContainer}
+                    ListHeaderComponent={this.renderHeader.bind(this)}
                     data={this.props.mapEvents}
                     horizontal
                     keyExtractor={this.keyExtractor.bind(this)}

@@ -131,7 +131,7 @@ class Events extends Component {
 
 
         if (isAuthenticated) {
-            if(!isPrivateProfile) {
+            if(isPrivateProfile) {
                 Alert.alert(
                     'Update your privacy settings!',
                     'Your profile should be public\n' +

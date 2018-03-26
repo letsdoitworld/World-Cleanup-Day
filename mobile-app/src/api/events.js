@@ -429,10 +429,10 @@ async function loadMapEvents(location, radius) {
                     radius,
                 },
             },);
-        console.log("==> loadMapEvents ", response.data);
+        //console.log("==> loadMapEvents ", response.data);
         return response.data
     } catch (ex) {
-        console.log("==> loadMapEvents ex ", ex);
+        //console.log("==> loadMapEvents ex ", ex);
         throw ex;
     }
 }

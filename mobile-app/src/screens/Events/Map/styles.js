@@ -36,6 +36,7 @@ export default {
         alignItems: 'center',
     },
     container: {
+        flex: 1,
         width: '100%',
         height: '100%',
 
@@ -75,11 +76,12 @@ export default {
     },
     list: {
         position: 'absolute',
-        height: 80,
-        left: 0,
-        top: '85%',
-        width: '100%',
-        backgroundColor: 'red',
+        bottom: 0,
+    },
+    listContainer: {
+        height: getHeightPercentage(80),
+        marginBottom: getWidthPercentage(6),
+        backgroundColor: 'transparent',
     }
 
 }

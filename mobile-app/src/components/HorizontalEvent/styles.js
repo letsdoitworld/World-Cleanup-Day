@@ -10,9 +10,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     marginTop: 3,
+      marginLeft: getWidthPercentage(6),
+      width: getWidthPercentage(240),
     backgroundColor: colors.white,
-      width: getWidthPercentage(90),
-      height: '90%',
   },
   avatar: {
     width: getWidthPercentage(80),

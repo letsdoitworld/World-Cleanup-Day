@@ -18,7 +18,7 @@ import {renderItem} from '../List/ListItem/ListItem';
 import colors from '../../../config/colors';
 import {toRadians} from "../../../shared/helpers";
 import Button from "../../../components/Button/Button";
-import EventsListHorizontal from "./EventsListHorizontal";
+import { HorizontalEvent } from "../../../components";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -105,6 +105,22 @@ export default class EventsMap extends Component {
         })
     }
 
+
+    keyExtractor = (item, index) => item.id.toString();
+
+    renderItem(event) {
+        console.log("renderItem", event);
+        return (
+            <HorizontalEvent
+                img={event.photo}
+                title={event.name}
+                coordinator={event.coordinator}
+                date={event.createDate}
+                maxParticipants={event.maxPeopleAmount}
+                participants={event.peopleAmount}/>
+        );
+    }
+
     render() {
 
         const {selectedItem, radius} = this.state;
@@ -136,6 +152,7 @@ export default class EventsMap extends Component {
         };
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
+        console.log("Render", this.props.mapEvents);
 
         return (
             <View style={styles.container}>
@@ -156,10 +173,13 @@ export default class EventsMap extends Component {
                 {/*text={"Load"}*/}
                 {/*onPress={() => this.loadMapEventsWithMoreRadius()}/>*/}
 
-                <EventsListHorizontal
-                    onRef={ref => (this.list = ref)}
-                    navigator={this.props.navigator}
-                    events={this.props.mapEvents}
+                <FlatList
+                    style={styles.list}
+                    contentContainerStyle={styles.listContainer}
+                    data={this.props.mapEvents}
+                    horizontal
+                    keyExtractor={this.keyExtractor.bind(this)}
+                    renderItem={({ item }) =>this.renderItem(item)}
                 />
 
             </View>

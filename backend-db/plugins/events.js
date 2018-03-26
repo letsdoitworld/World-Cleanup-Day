@@ -189,13 +189,49 @@ module.exports = function () {
         })
     });
     lucius.register('role:db,cmd:getUserOwnEvents', async function (connector, args, __) {
-        return connector
-            .input(args)
-            .use(async function ({pageSize, pageNumber}, responder) {
-                const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
-                const records = events.map(mapEvent).map(filterFieldsEvents);
-                const total = await db.countUserEvents(__.user.id);
-                return responder.success({total, pageSize, pageNumber, records});
-            })
+      return connector
+        .input(args)
+        .use(async function ({pageSize, pageNumber}, responder) {
+          const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
+          const records = await Promise.all(events.map(async event => {
+            if (event.createdBy) {
+              const createdByUser = await db.getAccount(event.createdBy);
+              event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+            }
+            if (event.updatedBy) {
+              if (event.creator && event.updatedBy === event.createdBy) {
+                event.updater = event.creator;
+              } else {
+                const updatedByUser = await db.getAccount(event.updatedBy);
+                if (updatedByUser) {
+                  event.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                }
+              }
+            }
+            event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
+            event.photos = event.photos.map(p => p.url);
+            if (event.trashpoints) {
+              event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
+                await db.getTrashpoint(trashpointId)));
+              event.trashpoints = event.trashpoints.map(t => {
+                if (t.location) {
+                  t.latitude = t.location.latitude;
+                  t.longitude = t.location.longitude;
+                }
+                return t;
+              });
+              event.trashpoints = sortByDistance(event.location, event.trashpoints, {
+                yName: 'latitude',
+                xName: 'longitude'
+              });
+              event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+            } else {
+              event.trashpoints = [];
+            }
+            return mapEvent(event);
+          }));
+          const total = await db.countUserEvents(__.user.id);
+          return responder.success({total, pageSize, pageNumber, records});
+        })
     });
 };

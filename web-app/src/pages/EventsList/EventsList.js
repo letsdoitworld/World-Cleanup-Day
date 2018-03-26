@@ -9,14 +9,15 @@ import './EventsList.css';
 import { actions, selectors } from '../../reducers/events';
 import {
   actions as appActions,
+  selectors as appSelectors,
 } from '../../reducers/app';
 
 class EventsList extends Component {
 
   componentWillMount() {
-    this.props.fetchAllEvents({
-      latitude: 44.988046,
-      longitude: 44.878046,
+    this.props.fetchEventsList({
+      latitude: this.props.currentLocation.lat,
+      longitude: this.props.currentLocation.lng,
     },
       5,
     );
@@ -53,7 +54,8 @@ class EventsList extends Component {
                     author={ev.email}
                     date={ev.startTime}
                     location={ev.address}
-                    numberOfParticipants={ev.maxPeopleAmount || 20}
+                    maxNumberOfParticipants={ev.maxPeopleAmount || 20}
+                    numberOfParticipants={ev.peopleAmount}
                   />
                 </NavLink>
               );
@@ -69,11 +71,12 @@ class EventsList extends Component {
 const mapStateToProps = (state) => ({
   events: selectors.getEventsList(state),
   isOpened: selectors.getShowEventWindow(state),
+  currentLocation: appSelectors.getCurrentLocation(state),
 });
 
 const mapDispatchToProps = {
   toggleEventWindow: actions.toggleEventWindow,
-  fetchAllEvents: actions.fetchAllEvents,
+  fetchEventsList: actions.fetchEventsList,
   fetchEventDetails: actions.fetchEventDetails,
   setActiveTab: appActions.setActiveTab,
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { LocationService } from '../../services';
 import MapView from '../MapView';
 import {
   selectors as trashpileSelectors,
@@ -13,6 +13,9 @@ import {
   selectors as eventSelectors,
   actions as eventActions,
 } from '../../reducers/events';
+import {
+  selectors as appSelectors,
+} from '../../reducers/app';
 import { getViewportPoints } from '../../shared/helpers';
 import { GRID_HASH, DELTA_HASH, GRID_MIN_VALUE } from '../../shared/constants';
 
@@ -85,11 +88,9 @@ class MarkersMap extends React.Component {
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
     this.props.fetchAllEventMarkers({
-      latitude: 44.988046,
-      longitude: 44.878046,
-    },
-      5,
-    );
+      latitude: this.props.currentLocation.lat,
+      longitude: this.props.currentLocation.lng,
+    }, 5);
     this.props.fetchAllTrashpoints(nw, se, mapSize);
   };
   handleMarkerClick = marker => {
@@ -146,8 +147,14 @@ class MarkersMap extends React.Component {
   };
 
   render() {
-    const { trashpointMarkers, eventMarkers, isUserLoggedIn, tabActive } = this.props;
-    const visiblePoints = tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
+    const {
+      trashpointMarkers,
+      eventMarkers,
+      isUserLoggedIn,
+      tabActive
+    } = this.props;
+    const visiblePoints =
+      tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
     return (
       <MapView
         isUserLoggedIn={isUserLoggedIn}
@@ -165,6 +172,7 @@ const mapStateToProps = state => ({
   currentEventMarker: eventSelectors.getCurrentMarkerID(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
+  currentLocation: appSelectors.getCurrentLocation(state),
 });
 const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,

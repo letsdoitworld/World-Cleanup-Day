@@ -40,7 +40,7 @@ async (dispatch, getState) => {
   });
 };
 
-const fetchAllEvents = (location, radius) => async dispatch => {
+const fetchEventsList = (location, radius) => async dispatch => {
   dispatch({ type: TYPES.FETCH_ALL_EVENTS_REQUEST });
   const res = await ApiService.get(API_ENDPOINTS.FETCH_EVENTS, {
     params: {
@@ -77,7 +77,7 @@ const fetchEventDetails = id => (dispatch, getState) => {
 export default {
   toggleEventWindow,
   fetchAllEventMarkers,
-  fetchAllEvents,
+  fetchEventsList,
   fetchEventTitle,
   fetchEventDetails,
 };

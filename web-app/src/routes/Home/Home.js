@@ -71,11 +71,11 @@ class Home extends React.Component {
           path="/trashpoints/:id?"
           render={
             ({ match }) =>
-              <TrashpointDetails
+              (<TrashpointDetails
                 isUserLoggedIn={!!this.props.userProfile.role}
                 trashpointId={match.params.id}
                 history={history}
-              />
+              />)
           }
         />
       </Switch>

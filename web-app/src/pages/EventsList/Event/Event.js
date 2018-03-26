@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as moment from 'moment';
+import classnames from 'classnames';
 import {
   LocationIcon24px,
   GroupIcon24px,
@@ -15,9 +16,11 @@ export class Event extends Component {
       author,
       location,
       numberOfParticipants,
+      maxNumberOfParticipants,
       date
     } = this.props;
-
+    const eventStatus = moment(date).isBefore(moment()) ?
+    'Past' : 'Upcoming';
     return (
       <div>
         <div className="Event-item">
@@ -31,7 +34,11 @@ export class Event extends Component {
                 <GroupIcon24px />
                 <span>{author}</span>
               </p>
-              <p className="Event-status Event-info">Upcoming</p>
+              <p className={
+                classnames('Event-status', 'Event-info', eventStatus)}
+              >
+                {eventStatus}
+              </p>
               <p className="Event-location Event-info">
                 <LocationIcon24px />
                 <span>{location}</span>
@@ -39,7 +46,7 @@ export class Event extends Component {
             </div>
             <div className="Event-details-part2">
               <p className="Event-fill Event-info">
-                {`${numberOfParticipants - 2}/${numberOfParticipants}`}
+                {`${numberOfParticipants}/${maxNumberOfParticipants}`}
               </p>
               <p className="Event-date Event-info">
                 {moment(date).format('l')}

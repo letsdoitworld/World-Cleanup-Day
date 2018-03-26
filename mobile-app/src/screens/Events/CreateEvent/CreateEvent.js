@@ -574,4 +574,5 @@ export default class CreateEvent extends ImmutableComponent {
         }
 
     }
+
 }

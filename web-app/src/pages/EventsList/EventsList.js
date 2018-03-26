@@ -15,13 +15,13 @@ import {
 class EventsList extends Component {
 
   componentWillMount() {
+    this.props.setActiveTab('events');
     this.props.fetchEventsList({
       latitude: this.props.currentLocation.lat,
       longitude: this.props.currentLocation.lng,
     },
       5,
     );
-    this.props.setActiveTab('events');
   }
 
   render() {

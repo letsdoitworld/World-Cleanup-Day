@@ -16,7 +16,7 @@ const getShowEventWindow = createSelector(
   state => state.showEventWindow,
 );
 
-const getAllEventMarkers = createSelector(markersSel, state => state.markers);
+export const getAllEventMarkers = createSelector(markersSel, state => state.markers);
 
 export const getEventDetails = createSelector(
   detailsSel,

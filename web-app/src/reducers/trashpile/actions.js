@@ -14,7 +14,7 @@ import {
 } from '../../shared/helpers';
 import { ApiService } from '../../services';
 import selectors from './selectors';
-import { selectors as appSelectors } from '../app';
+import { actions as appActions, selectors as appSelectors } from '../app';
 
 import TYPES from './types';
 
@@ -80,7 +80,16 @@ const fetchAllMarkers = (
   mapSize,
 ) => async (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_ALL_MARKERS_REQUEST });
-  const datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+  let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+
+  if (!datasetId) {
+    try {
+      await dispatch(appActions.fetchDatasets());
+      datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+    } catch (ex) {
+      return dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
+    }
+  }
 
   const diagonaleInMeters = getDistanceBetweenPointsInMeters(
     viewPortLeftTopCoordinate.latitude,
@@ -180,8 +189,17 @@ const fetchClusterTrashpoints = ({
   clusterId,
 }) => async (dispatch, getState) => {
   try {
-    const datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+    let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
     const markers = selectors.getAllMarkers(getState());
+
+    if (!datasetId) {
+      try {
+        await dispatch(appActions.fetchDatasets());
+        datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+      } catch (ex) {
+        return dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
+      }
+    }
 
     const body = {
       datasetId,

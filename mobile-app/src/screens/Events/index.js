@@ -12,6 +12,7 @@ import {
     getCoordUser,
     isAuthenticated,
     isLoading,
+    isPrivateProfile,
     getMapEventsEntity
 } from '../../store/selectors';
 
@@ -24,6 +25,7 @@ const selector = createStructuredSelector({
     mapEvents: getMapEventsEntity,
     isAuthenticated,
     isLoading,
+    isPrivateProfile,
 });
 
 const actions = {

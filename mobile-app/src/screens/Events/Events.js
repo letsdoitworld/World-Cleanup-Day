@@ -23,6 +23,8 @@ import PropTypes from 'prop-types';
 import Profile from '../Profile/Profile';
 import EventsMap from "./Map/EventsMap";
 
+import { SETTINGS_SCREEN } from '../index';
+
 const filterId = 'filterId';
 const searchId = 'searchId';
 
@@ -115,9 +117,32 @@ class Events extends Component {
             }
         }
     }
+    
+    handleSettingsPress = () => {
+        this.props.navigator.push({
+            screen: SETTINGS_SCREEN,
+            title: strings.label_settings_header,
+        });
+    }
 
     handleFabPress = () => {
-        const {isAuthenticated} = this.props;
+        const {isAuthenticated, isPrivateProfile} = this.props;
+
+
+        if(isPrivateProfile) {
+            Alert.alert(
+                'Update your privacy settings!',
+                'Your profile should be public\n' +
+                'in order to post event.',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'Settings', onPress: this.handleSettingsPress},
+                ],
+            )
+
+            return;
+        }
+
         if (isAuthenticated) {
             this.props.navigator.showModal({
                 screen: CREATE_EVENT,

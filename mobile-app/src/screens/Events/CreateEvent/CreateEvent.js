@@ -64,7 +64,8 @@ export default class CreateEvent extends ImmutableComponent {
                 isDateTimePickerVisible: false,
                 startDate: this.calculateMinDate(),
                 endDate: this.calculateMinDate(),
-                selectedLocation: undefined
+                selectedLocation: undefined,
+                trashPointsCount: 0
             })
         };
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -171,12 +172,8 @@ export default class CreateEvent extends ImmutableComponent {
         const isDescriptionValid = this.state.data.get('isDescriptionValid');
         const isDescriptionTextChanged = this.state.data.get('isDescriptionTextChanged');
         if (!isDescriptionValid && isDescriptionTextChanged) {
-            return
-            (
-                <Text style={styles.textErrorStyle}>
-                    {strings.label_description}{strings.label_invalid_event_description}
-                </Text>
-            );
+            return <Text
+                style={styles.textErrorStyle}>{strings.label_description}{strings.label_invalid_event_description}</Text>
         } else {
             return null
         }
@@ -186,11 +183,8 @@ export default class CreateEvent extends ImmutableComponent {
         const isWhatToBringValid = this.state.data.get('isWhatToBringValid');
         const isWhatToBringTextChanged = this.state.data.get('isWhatToBringTextChanged');
         if (!isWhatToBringValid && isWhatToBringTextChanged) {
-            return (
-                <Text style={styles.textErrorStyle}>
-                    {strings.label_what_to_bring_with_you}{strings.label_invalid_event_description}
-                </Text>
-            );
+            return <Text
+                style={styles.textErrorStyle}>{strings.label_what_to_bring_with_you}{strings.label_invalid_event_description}</Text>
         } else {
             return null
         }
@@ -234,6 +228,7 @@ export default class CreateEvent extends ImmutableComponent {
                 <ScrollView
                     ref='scrollView'
                     style={styles.container}>
+
                     {this.renderTitle()}
                     <View style={styles.inputContainerStyle}>
                         <InputField style={styles.inputTextStyle}
@@ -290,6 +285,7 @@ export default class CreateEvent extends ImmutableComponent {
                                     <Image source={require('../../../assets/images/ic_trashpoints.png')}
                                            style={styles.imageTrashStyle}/>
                                     <Text style={styles.textTrashStyle}>{strings.label_add_trashPoints}</Text>
+                                    {this.renderTrashPointsCount()}
                                 </View>
                             </TouchableOpacity>
                     }
@@ -312,10 +308,9 @@ export default class CreateEvent extends ImmutableComponent {
                                     underlineColorAndroid={'transparent'}
                                     autoCorrect={false}
                                     multiline={true}
-                                    maxLength={500}
                                     validate={this.validateWhatToBring}
-                                    onChangeText={this.onWhatToBringTextChanged}
-                        />
+                                    maxLength={500}
+                                    onChangeText={this.onWhatToBringTextChanged}/>
                     </View>
                     {this.renderWhatToBringError()}
                     <View style={styles.titleStyle}>
@@ -333,6 +328,7 @@ export default class CreateEvent extends ImmutableComponent {
                         </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
+
                     <MainButton
                         isValid={isValid}
                         text={strings.label_next}
@@ -341,6 +337,20 @@ export default class CreateEvent extends ImmutableComponent {
                 </ScrollView>
             </View>
         )
+    }
+
+    renderTrashPointsCount() {
+        if (this.trashPoints.size > 0) {
+            return (
+                <View style={styles.trashPointCircle}>
+                    <Text style={styles.trashPointCount}>
+                        {this.trashPoints.size.toString()}
+                    </Text>
+                </View>
+            );
+        } else {
+            return null
+        }
     }
 
     showChoosedDialog() {
@@ -421,9 +431,8 @@ export default class CreateEvent extends ImmutableComponent {
     trashPoints = new Map();
 
     onTrashPointsSelected(trashPoints) {
-        console.log(trashPoints);
-        console.log("onTrashPointsSelected");
         this.trashPoints = trashPoints;
+        this.setData(d => d.set('trashPointsCount', this.trashPoints.size));
     }
 
     onLocationSelected(location) {

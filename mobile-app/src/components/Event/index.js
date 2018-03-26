@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import moment from 'moment';
 
+import isNil from 'lodash/isNil';
+
 import { Icon } from '../Icon';
 
 import { Icons } from '../../assets/images';
@@ -20,11 +22,25 @@ const Event = ({
   participants,
   onPress,
 }) => {
+  const photo = img ? { uri: img } : Icons.PlaceHolderAvatar;
   const handleRenderParticipants = () => {
-    if (maxParticipants && participants) {
+    if (!isNil(maxParticipants) && !isNil(participants)) {
       return (
         <View style={styles.participantsContainer}>
           <Text>{participants}/{maxParticipants}</Text>
+        </View>
+      );
+    }
+  };
+
+  const handleRenderCountry = () => {
+    if (location) {
+      return (
+        <View style={styles.locationContainer}>
+          <Icon path={Icons.Location} containerStyle={styles.icon} />
+          <Text style={styles.locationText}>
+            {location}
+          </Text>
         </View>
       );
     }
@@ -34,7 +50,7 @@ const Event = ({
 
   return (
     <TouchableWrapper onPress={onPress} style={styles.container}>
-      <Image source={img} style={styles.image} />
+      <Image source={photo} style={styles.image} />
 
       <View style={styles.middleColumn}>
         <Text style={styles.title}>{title}</Text>
@@ -45,10 +61,8 @@ const Event = ({
               <Text style={styles.coordinatorText}>{coordinator}</Text>
             </View>
           }
-          <View style={styles.locationContainer}>
-            <Icon path={Icons.Location} containerStyle={styles.icon} />
-            <Text style={styles.locationText}>{location}</Text>
-          </View>
+         
+          {handleRenderCountry()}
         </View>
       </View>
 

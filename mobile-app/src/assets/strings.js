@@ -165,7 +165,7 @@ module.exports = new LocalizedStrings({
         label_create_events_step_two: 'Step 2 of 3',
         label_create_events_step_three: 'Step 3 of 3',
         label_title: "Title",
-        label_title_hint: "Type here to translate!",
+        label_title_hint: "Type short name of event",
         label_date_and_time: "Date and time",
         label_start: "Starts",
         label_date: "Date",
@@ -198,6 +198,7 @@ module.exports = new LocalizedStrings({
         label_invalid_phone_number: "Invalid phone number",
         label_invalid_email: "Invalid email",
         label_invalid_attendees: "Invalid attendees",
+        label_invalid_location: " is required",
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

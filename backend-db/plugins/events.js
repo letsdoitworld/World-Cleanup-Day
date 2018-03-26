@@ -13,7 +13,8 @@ const opts = {
 const PLUGIN_NAME = 'events';
 
 const filterFieldsEvents = event => _.pick(event, ['id', 'name', 'address', 'location', 'description', 'startTime',
-  'endTime', 'email', 'phonenumber', 'whatToBring', 'maxPeopleAmount', 'peopleAmount']);
+  'endTime', 'email', 'phonenumber', 'whatToBring', 'maxPeopleAmount', 'peopleAmount', 'createdByName',
+  'updatedByName']);
 
 const mapEvent = event => {
     event.peopleAmount = event.peoples ? event.peoples.length : 0;
@@ -22,9 +23,52 @@ const mapEvent = event => {
 
 module.exports = function () {
     const lucius = new Lucius(this);
-
     lucius.pluginInit(PLUGIN_NAME, next => {
         db.ready().then(() => next()).catch(e => next(e))
+    });
+    lucius.register('role:db,cmd:getEventById', async function (connector, args, __) {
+      return connector
+        .input(args)
+        .use(async function ({id}, responder) {
+          const event = await db.getEvent(id);
+          if (!event) {
+            return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id: request.id}));
+          }
+          if (event.createdBy) {
+            const createdByUser = await db.getAccount(event.createdBy);
+            if (createdByUser) {
+              event.createdByName = createdByUser.name;
+            }
+          }
+          if (event.updatedBy) {
+            if (event.createdByName && event.updatedBy === event.createdBy) {
+              event.updatedByName = event.createdByName;
+            }
+            else {
+              const updatedByUser = await db.getAccount(event.updatedBy);
+              if (updatedByUser) {
+                event.updatedByName = updatedByUser.name;
+              }
+            }
+          }
+          if (event.trashpoints) {
+            event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
+                _.pick((await db.getTrashpoint(trashpointId)), ["id", "isIncluded", "status", "location", "name"])));
+            event.trashpoints = event.trashpoints.map(t => {
+              if (t.location) {
+                t.latitude = t.location.latitude;
+                t.longitude = t.location.longitude;
+              }
+              return t;
+            });
+            event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
+            event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+          }
+          const mappedEvent = mapEvent(event);
+          //TODO Status TRUE should be implemented all over the project. For now it's just mock data
+          mappedEvent.status = true;
+          return responder.success(mappedEvent);
+        });
     });
     lucius.register('role:db,cmd:createEvent', async function (connector, args, __) {
         return connector
@@ -62,10 +106,53 @@ module.exports = function () {
     lucius.register('role:db,cmd:getEvents', async function (connector, args) {
       return connector
         .input(args)
-        .use(async function ({pageSize, pageNumber}, responder) {
-          const events = await db.getEvents(pageSize, pageNumber);
-          const records = events.map(mapEvent).map(filterFieldsEvents);
-          const total = await db.countEvents();
+        .use(async function ({pageSize, pageNumber, location, name}, responder) {
+          if (location) {
+            try {
+              location = JSON.parse(location);
+            } catch (e) {
+              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
+            }
+            if (!location.latitude || !location.longitude) {
+              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
+            }
+          }
+          const { data: {rows, total_rows: total} } = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, location);
+          const records = await Promise.all(rows.map(async r => {
+            const event = r.value;
+            if (event.createdBy) {
+              const createdByUser = await db.getAccount(event.createdBy);
+              event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+            }
+            if (event.updatedBy) {
+              if (event.creator && event.updatedBy === event.createdBy) {
+                event.updater = event.creator;
+              } else {
+                const updatedByUser = await db.getAccount(event.updatedBy);
+                if (updatedByUser) {
+                  event.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                }
+              }
+            }
+            event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
+            event.photos = event.photos.map(p => p.url);
+            if (event.trashpoints) {
+              event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
+                await db.getTrashpoint(trashpointId)));
+              event.trashpoints = event.trashpoints.map(t => {
+                if (t.location) {
+                  t.latitude = t.location.latitude;
+                  t.longitude = t.location.longitude;
+                }
+                return t;
+              });
+              event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
+              event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+            } else {
+              event.trashpoints = [];
+            }
+            return mapEvent(event);
+          }));
           return responder.success({total, pageSize, pageNumber, records});
         })
     });
@@ -74,8 +161,6 @@ module.exports = function () {
         .input(args)
         .use(async function ({location, radius}, responder) {
           let minLocation, maxLocation;
-
-          console.log('Location', location);
 
           try {
             location = JSON.parse(location);
@@ -98,46 +183,55 @@ module.exports = function () {
             return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
           }
 
-          console.log(minLocation, maxLocation);
-
           const events = await db.getEventsByLocation(minLocation, maxLocation);
           const records = events.map(mapEvent).map(filterFieldsEvents);
-          console.log(records);
           return responder.success(records);
         })
     });
     lucius.register('role:db,cmd:getUserOwnEvents', async function (connector, args, __) {
-        return connector
-            .input(args)
-            .use(async function ({pageSize, pageNumber}, responder) {
-                const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
-                const records = events.map(mapEvent).map(filterFieldsEvents);
-                const total = await db.countUserEvents(__.user.id);
-                return responder.success({total, pageSize, pageNumber, records});
-            })
-    });
-    lucius.register('role:db,cmd:getEventById', async function (connector, args) {
-        return connector
-            .input({id: args.id})
-            .use(async function (request, responder) {
-                const event = await db.getEvent(request.id);
-                if (!event) {
-                    return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id: request.id}));
+      return connector
+        .input(args)
+        .use(async function ({pageSize, pageNumber}, responder) {
+          const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
+          const records = await Promise.all(events.map(async event => {
+            if (event.createdBy) {
+              const createdByUser = await db.getAccount(event.createdBy);
+              event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+            }
+            if (event.updatedBy) {
+              if (event.creator && event.updatedBy === event.createdBy) {
+                event.updater = event.creator;
+              } else {
+                const updatedByUser = await db.getAccount(event.updatedBy);
+                if (updatedByUser) {
+                  event.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
                 }
-                const createdByUser = await db.getAccount(event.createdBy);
-                if (createdByUser && createdByUser.name) {
-                    event.createdByName = createdByUser.name;
+              }
+            }
+            event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
+            event.photos = event.photos.map(p => p.url);
+            if (event.trashpoints) {
+              event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
+                await db.getTrashpoint(trashpointId)));
+              event.trashpoints = event.trashpoints.map(t => {
+                if (t.location) {
+                  t.latitude = t.location.latitude;
+                  t.longitude = t.location.longitude;
                 }
-                if (event.createdByName && event.updatedBy === event.createdBy) {
-                    event.updatedByName = event.createdByName;
-                }
-                else {
-                    const updatedByUser = await db.getAccount(event.updatedBy);
-                    if (updatedByUser && updatedByUser.name) {
-                        event.updatedByName = updatedByUser.name;
-                    }
-                }
-                return responder.success(event);
-            })
+                return t;
+              });
+              event.trashpoints = sortByDistance(event.location, event.trashpoints, {
+                yName: 'latitude',
+                xName: 'longitude'
+              });
+              event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+            } else {
+              event.trashpoints = [];
+            }
+            return mapEvent(event);
+          }));
+          const total = await db.countUserEvents(__.user.id);
+          return responder.success({total, pageSize, pageNumber, records});
+        })
     });
 };

@@ -57,16 +57,26 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
-    getEvents: async (pageSize = 10, pageNumber = 1) => {
-      return await adapter.getEntities(
-        'Event',
-        '_design/all/_view/view',
-        {
-          sorted: true,
-          descending: true, //XXX: when desc=true, startkey and endkey are reversed
-          limit: pageSize,
-          skip: pageSize * (pageNumber - 1),
-        });
+    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location) => {
+      return await adapter.executeTemporaryView('Event', {
+        map: `function(doc) {
+            function distanceBetweenPoints (p1, p2) {
+              return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
+                      + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
+            }
+            if (doc.$doctype === 'event' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''}) {
+              ${location ? `
+                emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
+              ` : `
+                emit(doc._id, doc)
+              `}
+            }
+          }`
+      }, {
+        sorted: true,
+        limit: pageSize,
+        skip: pageSize * (pageNumber - 1),
+      }, false);
     },
 
     getEventsByLocation: async (minLocation, maxLocation) => {
@@ -359,6 +369,27 @@ const layer = {
     getTrashpoint: async id => {
         return await adapter.getOneEntityById('Trashpoint', '_design/all/_view/view', id);
     },
+    getTrashpointsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location) => {
+      return await adapter.executeTemporaryView('Trashpoint', {
+        map: `function(doc) {
+          function distanceBetweenPoints (p1, p2) {
+            return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
+                    + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
+          }
+          if (doc.$doctype === 'trashpoint' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''}) {
+            ${location ? `
+              emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
+            ` : `
+              emit(doc._id, doc)
+            `}
+          }
+        }`
+      }, {
+        sorted: true,
+        limit: pageSize,
+        skip: pageSize * (pageNumber - 1),
+      }, false);
+    },
     getRawTrashpointDoc: async id => {
         return await adapter.getOneRawDocById('Trashpoint', '_design/all/_view/view', id);
     },
@@ -566,6 +597,32 @@ const layer = {
             }
         );
         return ret;
+    },
+    getTrashpointImagesByType: async (trashpointId, type, status = null) => {
+      const ret = await adapter.getEntities(
+        'Image',
+        '_design/byTrashpointAndTypeAndStatusAndCreation/_view/view',
+        {
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          startkey: status ? [trashpointId, type, status, {}] : [trashpointId, type, {}],
+          endkey: status ? [trashpointId, type, status] : [trashpointId, type],
+          sorted: true,
+        }
+      );
+      return ret;
+    },
+    getEventImagesByType: async (eventId, type, status = null) => {
+      const ret = await adapter.getEntities(
+        'Image',
+        '_design/byEventAndTypeAndStatusAndCreation/_view/view',
+        {
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          startkey: status ? [eventId, type, status, {}] : [eventId, type, {}],
+          endkey: status ? [eventId, type, status] : [eventId, type],
+          sorted: true,
+        }
+      );
+      return ret;
     },
     getEventImages: async (eventId, status = null) => {
         const ret = await adapter.getEntities(

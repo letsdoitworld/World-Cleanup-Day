@@ -97,7 +97,7 @@ export default class InputField extends ImmutableComponent {
 
         this.setData(d => d.set('text', text));
         if (this.state.data.get('text') === '') {
-            this.setState({ text: value })
+            this.setState({ text: text })
         }
 
          this.setData(d => d

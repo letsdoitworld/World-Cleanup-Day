@@ -1,5 +1,6 @@
 'use strict';
 const senecaRequestMw = require('../../modules/swagger-setup/middleware/seneca');
+const filters = require('./filters');
 
 module.exports = {
   getEventById: senecaRequestMw(
@@ -22,6 +23,10 @@ module.exports = {
       location: req.swagger.params.location.value,
       name: req.swagger.params.name.value
     })
+  ),
+  getEventsClustersOverview: senecaRequestMw(
+    'role:db,cmd:getEventsClustersOverview',
+    req => filters.convertGeoScale(req.swagger.params.query.value),
   ),
   getEventsOverview: senecaRequestMw(
     'role:db,cmd:getEventsOverview',

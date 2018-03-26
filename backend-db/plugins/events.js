@@ -21,12 +21,65 @@ const mapEvent = event => {
     return event;
 };
 
+const fetchRectangleMarkers = async (datasetId, cellSize, rectangle, fetcher) => {
+  let markers = [];
+  // see if the rectangle crosses the longitude separation line (180 to -180)
+  if (rectangle.se.longitude < rectangle.nw.longitude) {
+    // split the rectangle at the separation line
+    // and request trashpoints from each of them
+    const pointsLeft = await fetcher(
+      datasetId,
+      cellSize,
+      rectangle.nw.latitude, rectangle.nw.longitude,
+      rectangle.se.latitude, 180
+    );
+    const pointsRight = await fetcher(
+      datasetId,
+      cellSize,
+      rectangle.nw.latitude, -180,
+      rectangle.se.latitude, rectangle.se.longitude
+    );
+    // merge them
+    markers = pointsLeft.concat(pointsRight);
+  }
+  else {
+    markers = await fetcher(
+      datasetId,
+      cellSize,
+      rectangle.nw.latitude, rectangle.nw.longitude,
+      rectangle.se.latitude, rectangle.se.longitude
+    );
+  }
+  // done
+  return markers;
+};
+
+const connectVerifyDataset = async function (connector, input) {
+  return connector
+    .input({id: input.datasetId})
+    // verify that the dataset exists
+    .request('role:db,cmd:getDatasetById')
+    // verify that dataset has correct type
+    .use(async function (dataset, responder) {
+      if (dataset.type !== Dataset.TYPE_TRASHPOINTS) {
+        return responder.failure(
+          new LuciusError(E.DATASET_TYPE_MISMATCH, {
+            id: dataset.id, wantedType: Dataset.TYPE_TRASHPOINTS, 'actualType': dataset.type,
+          })
+        );
+      }
+      return responder.success(dataset);
+    });
+};
+
 module.exports = function () {
     const lucius = new Lucius(this);
+
     lucius.pluginInit(PLUGIN_NAME, next => {
         db.ready().then(() => next()).catch(e => next(e))
     });
-    lucius.register('role:db,cmd:getEventById', async function (connector, args, __) {
+
+    lucius.register('role:db,cmd:getEventById', async function (connector, args) {
       return connector
         .input(args)
         .use(async function ({id}, responder) {
@@ -70,6 +123,7 @@ module.exports = function () {
           return responder.success(mappedEvent);
         });
     });
+
     lucius.register('role:db,cmd:createEvent', async function (connector, args, __) {
         return connector
             .input(args)
@@ -103,6 +157,7 @@ module.exports = function () {
                 return responder.success(mappedEvent);
             });
     });
+
     lucius.register('role:db,cmd:getEvents', async function (connector, args) {
       return connector
         .input(args)
@@ -156,6 +211,45 @@ module.exports = function () {
           return responder.success({total, pageSize, pageNumber, records});
         })
     });
+
+    lucius.register('role:db,cmd:getEventsClustersOverview', async function (connector, args) {
+      return connector.input(args)
+        .connect(connectVerifyDataset)
+        .use(async function (dataset, responder) {
+          const clusters = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getEventsOverviewClusters);
+          const filtered = clusters.map(value => util.object.filter(
+            value,
+            {count: true, location: true, coordinates: true}
+          ));
+          return responder.success(filtered);
+        })
+    });
+
+    lucius.register('role:db,cmd:getEventsOverview', async function (connector, args) {
+      return connector.input(args)
+        .connect(connectVerifyDataset)
+        .use(async function (dataset, responder) {
+          const trashpoints = await fetchRectangleMarkers(
+            dataset.id, args.cellSize, args.rectangle, db.getOverviewEvents);
+          const filtered = trashpoints.map(filterEventsForOverview);
+          return responder.success(filtered);
+        })
+    });
+
+    lucius.register('role:db,cmd:getEventsInGridCell', async function (connector, args) {
+      return connector.input(args)
+        .connect(connectVerifyDataset)
+        .use(async function (dataset, responder) {
+          const trashpoints = await db.getGridCellTrashpoints(
+            dataset.id,
+            args.cellSize,
+            args.coordinates
+          );
+          const filtered = trashpoints.map(filterTrashpointsForOverview);
+          return responder.success(filtered);
+        })
+    });
+
     lucius.register('role:db,cmd:getEventsOverview', async function (connector, args) {
       return connector
         .input(args)
@@ -188,6 +282,7 @@ module.exports = function () {
           return responder.success(records);
         })
     });
+
     lucius.register('role:db,cmd:getUserOwnEvents', async function (connector, args, __) {
       return connector
         .input(args)

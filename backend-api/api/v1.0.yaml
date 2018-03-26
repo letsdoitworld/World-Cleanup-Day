@@ -220,30 +220,21 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
 
-  #-----------------------------------------------------------------------------
-  /events/overview:
+
+  /events/overview/clusters:
     x-swagger-router-controller: events
-    get:
-      description: Fetch full information about events by location and radius
-      operationId: getEventsOverview
+    post:
+      description: Fetch clustered events from a specific dataset, within a certain rectangular area, and for a certain grid scale.
+      operationId: getEventsClustersOverview
       parameters:
-        - name: radius
-          in: query
-          required: true
-          type: number
-          format: float
-          minimum: 0
-        - name: location
-          in: query
-          required: true
-          type: string
+        - $ref: "#/parameters/MapQuery"
       responses:
         "200":
-          description: List of events.
+          description: List of event clusters.
           schema:
             type: array
             items:
-              $ref: "#/definitions/Event"
+              $ref: "#/definitions/EventCluster"
         "default":
           $ref: "#/responses/ErrorSet"
 
@@ -1057,6 +1048,23 @@ definitions:
         minimum: 1
       status:
         $ref: "#/definitions/TrashStatus"
+      location:
+        $ref: "#/definitions/GeoPoint"
+      coordinates:
+        $ref: "#/definitions/GridCoordinates"
+
+  #-----------------------------------------------------------------------------
+  # Event characteristics.
+  #-----------------------------------------------------------------------------
+  EventCluster:
+    description: If not present, this object is a event. If present, this object is a cluster and this property contains cluster-specific properties.
+    type: object
+    required: [count, location, coordinates]
+    properties:
+      count:
+        type: number
+        format: int32
+        minimum: 1
       location:
         $ref: "#/definitions/GeoPoint"
       coordinates:

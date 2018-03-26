@@ -79,6 +79,22 @@ const layer = {
       }, false);
     },
 
+    getOverviewEvents: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await layer.getOverview('Event', `_design/isolated${scale}/_view/view`,
+        datasetId, scale, nwLat, nwLong, seLat, seLong);
+      return ret.filter(row => adapter.rawDocToEntity('Event', row));
+    },
+
+    getEventsOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await layer.getOverview('Event', `_design/clusters${scale}/_view/view`,
+        datasetId, scale, nwLat, nwLong, seLat, seLong, {
+          'group_level': 2,
+        });
+      return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
+    },
+
     getEventsByLocation: async (minLocation, maxLocation) => {
       return await adapter.getEntities(
         'Event',
@@ -101,12 +117,6 @@ const layer = {
           limit: pageSize,
           skip: pageSize * (pageNumber - 1),
         });
-    },
-
-    countEvents: async () => {
-      const ret = await adapter.getRawDocs('Event', '_design/countAll/_view/view');
-      if (!ret.length) return 0;
-      return parseInt(ret.pop());
     },
 
     countUserEvents: async userId => {

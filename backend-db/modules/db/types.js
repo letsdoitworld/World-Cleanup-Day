@@ -99,7 +99,11 @@ class Event extends Type {
             datasetId: true,
             name: true,
             address: true,
-            location: true,
+            location: {
+                latitude: true,
+                longitude: true,
+            },
+            areas: true,
             description: true,
             whatToBring: true,
             createDate: true,

@@ -363,6 +363,20 @@ const designDocs = {
           },
         },
       },
+      byTrashpoint: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event' && doc.trashpoints) {
+                doc.trashpoints.forEach(function(trashpoint) {
+                  emit(trashpoint, doc);
+                })
+              }
+            },
+          },
+        },
+      },
       byLocation: {
         $version: 1,
         views: {

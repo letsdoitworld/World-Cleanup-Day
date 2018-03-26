@@ -79,6 +79,15 @@ const layer = {
       }, false);
     },
 
+    getEventsByTrashpoint: async (trashpointId) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byTrashpoint/_view/view',
+        {
+          key: trashpointId
+        });
+    },
+
     getEventsByLocation: async (minLocation, maxLocation) => {
       return await adapter.getEntities(
         'Event',

@@ -12,10 +12,6 @@ const opts = {
 
 const PLUGIN_NAME = 'events';
 
-const filterFieldsEvents = event => _.pick(event, ['id', 'name', 'address', 'location', 'description', 'startTime',
-  'endTime', 'email', 'phonenumber', 'whatToBring', 'maxPeopleAmount', 'peopleAmount', 'createdByName',
-  'updatedByName']);
-
 const mapEvent = event => {
     event.peopleAmount = event.peoples ? event.peoples.length : 0;
     return event;
@@ -32,7 +28,7 @@ module.exports = function () {
         .use(async function ({id}, responder) {
           const event = await db.getEvent(id);
           if (!event) {
-            return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id: request.id}));
+            return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id}));
           }
           if (event.createdBy) {
             const createdByUser = await db.getAccount(event.createdBy);
@@ -72,8 +68,21 @@ module.exports = function () {
     });
     lucius.register('role:db,cmd:createEvent', async function (connector, args, __) {
         return connector
-            .input(args)
-            .use(async function ({event}, responder) {
+            // verify that the dataset exists
+            .request('role:db,cmd:getDatasetById', {id: args.event.datasetId})
+            .set('dataset')
+            .input(args.event)
+            .input(event => ({
+              longitude: event.location.longitude,
+              latitude: event.location.latitude,
+            }))
+            .request('role:geo,cmd:resolveLocation')
+            .set('areas')
+            // create the event
+            .get(['areas'])
+            .use(async function ({areas, dataset}, responder) {
+                const event = args.event;
+                args.event.areas = areas;
                 const savedEvent = await db.createEvent(__.user.id, event);
                 if (savedEvent.trashpoints) {
                     const addedTrashpointsInfo = {};
@@ -184,7 +193,7 @@ module.exports = function () {
           }
 
           const events = await db.getEventsByLocation(minLocation, maxLocation);
-          const records = events.map(mapEvent).map(filterFieldsEvents);
+          const records = events.map(mapEvent);
           return responder.success(records);
         })
     });

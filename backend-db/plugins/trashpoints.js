@@ -340,6 +340,16 @@ module.exports = function () {
             // found no reason to allow delete
             return responder.failure(new LuciusError(E.ACCESS_DENIED))
         })
+        //delete trashpoint ids from events
+        .get(['trashpoint'])
+        .use(async function({trashpoint}, responder) {
+          const events = await db.getEventsByTrashpoint(trashpoint.id);
+          for (let event of events) {
+            event.trashpoints = event.trashpoints.filter(t => t !== trashpoint.id);
+            await db.modifyEvent(event.id, __.user.id, event);
+          }
+          return responder.success();
+        })
         // obtain image ids (all statuses)
         .get(['trashpoint'])
         .request('role:db,cmd:getTrashpointImageSimple')

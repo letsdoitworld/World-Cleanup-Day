@@ -109,10 +109,10 @@ export default class CreateEvent extends ImmutableComponent {
             customStyles={{dateInput: {borderWidth: 0}}}
             onDateChange={(date) => {
                 const endDate = this.state.data.get('endDate');
-                this.validateEndTime();
                 this.setData(d => d.set('startDate', date));
                 const changedEndDate = date.split(" ")[0] + " " + endDate.split(" ")[1];
-                this.setData(d => d.set('endDate', changedEndDate))
+                this.setData(d => d.set('endDate', changedEndDate));
+                this.validateEndTime(changedEndDate);
             }}/>
     }
 
@@ -227,10 +227,10 @@ export default class CreateEvent extends ImmutableComponent {
             maxDate="01-01-2060"
             customStyles={{dateInput: {borderWidth: 0}}}
             onDateChange={(date) => {
-                this.validateEndTime(date);
                 const startDate = this.state.data.get('startDate');
                 const endDate = startDate.split(" ")[0] + " " + date.split(" ")[1];
-                this.setData(d => d.set('endDate', endDate))
+                this.setData(d => d.set('endDate', endDate));
+                this.validateEndTime(endDate);
             }}/>
     }
 
@@ -574,4 +574,5 @@ export default class CreateEvent extends ImmutableComponent {
         }
 
     }
+
 }

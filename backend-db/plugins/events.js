@@ -101,8 +101,8 @@ module.exports = function () {
             }
           }
           if (event.trashpoints) {
-            event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
-                _.pick((await db.getTrashpoint(trashpointId)), ["id", "isIncluded", "status", "location", "name"])));
+            event.trashpoints = await Promise.all(await event.trashpoints.map(
+              async (trashpointId) => await db.getTrashpoint(trashpointId)));
             event.trashpoints = event.trashpoints.map(t => {
               if (t.location) {
                 t.latitude = t.location.latitude;
@@ -134,32 +134,46 @@ module.exports = function () {
             .set('areas')
             // create the event
             .get(['areas'])
-            .use(async function ({areas, dataset}, responder) {
+            .use(async function ({areas}, responder) {
                 const event = args.event;
                 args.event.areas = areas;
                 const savedEvent = await db.createEvent(__.user.id, event);
-                if (savedEvent.trashpoints) {
-                    const addedTrashpointsInfo = {};
-                    const addedTrashpointLocations = [];
-                    const addedTrashpointIds = {};
-                    const trashpointsIds = savedEvent.trashpoints;
-                    const origin = savedEvent.location;
-                    for (let trashpointId of trashpointsIds) {
-                        let trashpointInfo = await db.getTrashpoint(trashpointId);
-                        trashpointInfo.isIncluded = true;
-                        await db.modifyTrashpoint(trashpointId, __.user.id, trashpointInfo);
-                        trashpointInfo.id = trashpointId;
-                        addedTrashpointsInfo[trashpointId] = _.pick(trashpointInfo, ["id", "isIncluded", "status", "location", "name"]);
-                        addedTrashpointLocations.push(trashpointInfo.location);
-                        addedTrashpointIds[trashpointId] = trashpointInfo.location;
-                    }
-                    savedEvent.trashpoints = _.map(sortByDistance(origin, addedTrashpointLocations, opts),
-                        (location) => {
-                            const trpId = _.findKey(addedTrashpointIds, _.omit(location, ["distance"]));
-                            return addedTrashpointsInfo[trpId];
-                        }
-                    );
+                if (savedEvent.createdBy) {
+                  const createdByUser = await db.getAccount(savedEvent.createdBy);
+                  savedEvent.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
                 }
+                if (savedEvent.updatedBy) {
+                  if (savedEvent.creator && savedEvent.updatedBy === savedEvent.createdBy) {
+                    savedEvent.updater = savedEvent.creator;
+                  } else {
+                    const updatedByUser = await db.getAccount(savedEvent.updatedBy);
+                    if (updatedByUser) {
+                      savedEvent.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                    }
+                  }
+                }
+                if (savedEvent.trashpoints) {
+                  const mappedTrashpoints = [];
+                  for (let trashpointId of savedEvent.trashpoints) {
+                    let trashpoint = await db.getTrashpoint(trashpointId);
+                    if (trashpoint) {
+                      trashpoint.isIncluded = true;
+                      trashpoint = await db.modifyTrashpoint(trashpointId, __.user.id, trashpoint);
+                      mappedTrashpoints.push(trashpoint);
+                    }
+                  }
+                  savedEvent.trashpoints = mappedTrashpoints;
+                  savedEvent.trashpoints = savedEvent.trashpoints.map(t => {
+                    if (t.location) {
+                      t.latitude = t.location.latitude;
+                      t.longitude = t.location.longitude;
+                    }
+                    return t;
+                  });
+                  savedEvent.trashpoints = sortByDistance(savedEvent.location, savedEvent.trashpoints, {yName: 'latitude', xName: 'longitude'});
+                  savedEvent.trashpoints = savedEvent.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+                }
+
                 const mappedEvent = mapEvent(savedEvent);
                 //TODO Status TRUE should be implemented all over the project. For now it's just mock data
                 mappedEvent.status = true;

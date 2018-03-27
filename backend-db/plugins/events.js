@@ -183,7 +183,7 @@ module.exports = function () {
     lucius.register('role:db,cmd:getEvents', async function (connector, args) {
       return connector
         .input(args)
-        .use(async function ({pageSize, pageNumber, location, name}, responder) {
+        .use(async function ({pageSize, pageNumber, location, name, area}, responder) {
           if (location) {
             try {
               location = JSON.parse(location);
@@ -194,7 +194,7 @@ module.exports = function () {
               return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
             }
           }
-          const { data: {rows, total_rows: total} } = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, location);
+          const { data: {rows, total_rows: total} } = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, location, area);
           const records = await Promise.all(rows.map(async r => {
             const event = r.value;
             if (event.createdBy) {

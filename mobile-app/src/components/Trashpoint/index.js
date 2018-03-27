@@ -39,7 +39,7 @@ const Trashpoint = ({
 
       <View style={styles.content}>
         <Icon path={Icons.Location} containerStyle={styles.iconContainer} />
-        {/*<Text numberOfLines={1} style={styles.locationText}>{location}</Text>*/}
+        <Text numberOfLines={1} style={styles.locationText}>{location}</Text>
       </View>
     </TouchableWrapper>
   );

@@ -57,14 +57,14 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
-    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location) => {
+    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location, area) => {
       return await adapter.executeTemporaryView('Event', {
         map: `function(doc) {
             function distanceBetweenPoints (p1, p2) {
               return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
                       + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
             }
-            if (doc.$doctype === 'event' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''}) {
+            if (doc.$doctype === 'event' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''} ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}) {
               ${location ? `
                 emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
               ` : `

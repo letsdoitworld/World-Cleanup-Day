@@ -20,7 +20,8 @@ module.exports = {
       pageSize: req.swagger.params.pageSize.value,
       pageNumber: req.swagger.params.pageNumber.value,
       location: req.swagger.params.location.value,
-      name: req.swagger.params.name.value
+      name: req.swagger.params.name.value,
+      area: req.swagger.params.area.value
     })
   ),
   getEventsOverview: senecaRequestMw(

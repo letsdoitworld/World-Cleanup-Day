@@ -52,7 +52,7 @@ class Details extends Component {
         {
           trashpointId &&
           <TpdetailsHeader
-            tpTitle={name}
+            tpTitle={name || "Loading..."}
             onMinimizeClick={() => history.push('/trashpoints')}
           />
         }

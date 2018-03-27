@@ -9,6 +9,7 @@ import {
   TrashpointIcons,
   locationPinInactive,
   locationPinActive,
+  clusterIcon,
 } from '../../common/Icons';
 import {
   selectors as trashpileSelectors,
@@ -17,10 +18,8 @@ import {
   selectors as eventSelectors,
 } from '../../../reducers/events';
 
-const { MarkerWithLabel } = require('react-google-maps/lib/components/addons/MarkerWithLabel');
-
 const TRASHPOINT_INACTIVE_MARKER_STATUS_IMAGES = {
-  cleaned: TrashpointIcons.inactiveCleanedTP,
+  cleaned: TrashpointIcons.inactiveCleanedTp,
   outdated: TrashpointIcons.inactiveInRegularTp,
   regular: TrashpointIcons.inactiveRegularTp,
   threat: TrashpointIcons.inactiveToxicTp,
@@ -29,7 +28,7 @@ const TRASHPOINT_INACTIVE_MARKER_STATUS_IMAGES = {
 };
 
 const TRASHPOINT_ACTIVE_MARKER_STATUS_IMAGES = {
-  cleaned: TrashpointIcons.activeCleanedTP,
+  cleaned: TrashpointIcons.activeCleanedTp,
   outdated: TrashpointIcons.activeInRegularTp,
   regular: TrashpointIcons.activeRegularTp,
   threat: TrashpointIcons.activeToxicTp,
@@ -55,10 +54,14 @@ const PointMarker = props => {
           text: String(point.count),
           color: '#fff',
           fontWeight: 'bold',
-          fontSize: '16px',
+          fontSize: '14px',
         }}
         icon={{
-          url: locationPinInactive,
+          url: clusterIcon,
+          labelOrigin: {
+            x: 14,
+            y: 15,
+          },
         }}
       />
     );

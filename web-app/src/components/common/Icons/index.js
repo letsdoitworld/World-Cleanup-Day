@@ -32,6 +32,7 @@ import inactiveInToxicTP from '../../../assets/trashpoints/icInactiveInactiveTox
 import inactiveInTrashpointTP from '../../../assets/trashpoints/icInactiveInactiveTrashpointMap.png';
 import inactiveRegularTP from '../../../assets/trashpoints/icInactiveRegularTrashpointMap.png';
 import inactiveToxicTP from '../../../assets/trashpoints/icInactiveToxicTrashpointMap.png';
+import clusterIcon from '../../../assets/trashpoints/cluster.png';
 
 export const BinIcon = () => <img src={bin} alt="bin-icon" />;
 export const ArrowDownIcon = () => <img src={arrowDown} alt="arrowdown-icon" />;
@@ -71,4 +72,5 @@ export const TrashpointIcons = {
 export {
   locationPinActive,
   locationPinInactive,
+  clusterIcon,
 };

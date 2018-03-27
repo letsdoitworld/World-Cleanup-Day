@@ -51,11 +51,11 @@ class CountryModal extends Component {
           <Header
             onPressLeftButton={onClose}
             title={this.props.t('label_header_select_country')}
-            titleLeftButton="Cancel"
+            titleLeftButton={this.props.t('label_button_cancel')}
           />
           <FormInput
             containerStyle={styles.inputContainer}
-            placeholder="Search"
+            placeholder={this.props.t('label_text_select_country_hint')}
             value={search}
             onChangeText={onSearchChange}
           />

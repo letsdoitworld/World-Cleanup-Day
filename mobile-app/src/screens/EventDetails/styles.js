@@ -68,6 +68,7 @@ export default StyleSheet.create({
   },
   locationContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: colors.white,
     paddingVertical: dm.margin_medium,
     paddingHorizontal: dm.margin_medium,
@@ -76,6 +77,8 @@ export default StyleSheet.create({
     fontSize: 17,
     fontFamily: 'Lato',
     paddingHorizontal: dm.margin_medium,
+    flex: 1,
+    flexWrap: 'wrap',
   },
   mapContainer: {
     flex: 1,
@@ -112,6 +115,7 @@ export default StyleSheet.create({
   },
   coordinatorContainerItem: {
     flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: colors.white,
     paddingVertical: dm.margin_medium,
     paddingHorizontal: dm.margin_medium,

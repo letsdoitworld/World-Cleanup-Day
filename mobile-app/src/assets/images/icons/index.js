@@ -18,6 +18,9 @@ module.exports = {
   Map: require('./icMap.png'),
   Person: require('./icPerson.png'),
   List: require('./icList.png'),
+  BtnAdd: require('./btnAdd.png'),
+  BtnRemove: require('./btnRemove.png'),
+  BtnCheck: require('./btnCheck.png'),
 
   CleanedTrashpoint: require('./icCleanedTrashpoint.png'),
   OutdatedToxicTrashpoint: require('./icOutdatedToxicTrashpoint.png'),

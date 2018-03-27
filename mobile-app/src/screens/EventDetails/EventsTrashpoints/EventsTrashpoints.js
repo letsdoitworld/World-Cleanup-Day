@@ -1,32 +1,18 @@
 import React, { PureComponent } from 'react';
 import {
   View,
-  Text,
-  Image,
-  ScrollView,
-  ActivityIndicator,
   TouchableOpacity,
-  Linking,
   FlatList,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
+import toString from 'lodash/toString';
 
-import toUpper from 'lodash/toUpper';
-
-import strings from '../../../assets/strings';
 import { Icons } from '../../../assets/images';
 import {
     Icon,
-    Map,
-    ReadMore,
     Trashpoint,
 } from '../../../components';
-
-import { DEFAULT_ZOOM } from '../../../shared/constants';
-
-import MainButton from '../../../components/Buttons/MainButton';
 
 import styles from './styles';
 
@@ -62,41 +48,43 @@ class EventsTrshpoints extends PureComponent {
 
   handleRenderTrashpoint(trashpoint) {
     return (
-      <Trashpoint
-        // type={trashpoint.type}
-        location={trashpoint.name}
-        onPress={this.handleTrashpointPress}
-      />
+      <View style={styles.trashpointContainer}>
+        <Trashpoint
+          // type={trashpoint.type}
+          location={trashpoint.name}
+          onPress={this.handleTrashpointPress}
+        />
+        <TouchableOpacity
+          onPress={this.handleTrashpointSelect}
+        >
+          <Icon path={Icons.BtnRemove} />
+        </TouchableOpacity>
+      </View>
     );
   }
 
-  handleTrashpointsPagination = () => console.log('Pagination')
+  handleTrashpointSelect = () => console.log('Trashpoint select');
+
+  handleTrashpointsPagination = () => console.log('Pagination');
+
+  handleKeyExtractor = item => toString(item.id);
 
   onRenderTrashPoints = () => {
     const { trashpoints } = this.props;
     return (
       <FlatList
-        style={styles.tabContent}
         data={trashpoints}
         renderItem={({ item }) => this.handleRenderTrashpoint(item)}
         keyExtractor={this.handleKeyExtractor}
         onEndReachedThreshold={0.5}
-        extraData={this.state}
         onEndReached={this.handleTrashpointsPagination}
       />
     );
   };
 
   render() {
-    const { trashpoints } = this.props;
-
-    console.log('PROPS!!!', this.props);
     return (
-      <View
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <Text>Hello</Text>
+      <View style={styles.container}>
         {this.onRenderTrashPoints()}
       </View>
     );
@@ -104,11 +92,8 @@ class EventsTrshpoints extends PureComponent {
 }
 
 EventsTrshpoints.propTypes = {
-  event: PropTypes.object,
-  error: PropTypes.object,
-  eventId: PropTypes.string,
+  trashpoints: PropTypes.array,
   navigator: PropTypes.object,
-  onLoadEvent: PropTypes.func,
 };
 
 export default EventsTrshpoints;

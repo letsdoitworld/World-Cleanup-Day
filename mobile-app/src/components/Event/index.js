@@ -16,7 +16,7 @@ const Event = ({
   img,
   title,
   coordinator,
-    address,
+  address,
   location,
   date,
   maxParticipants,

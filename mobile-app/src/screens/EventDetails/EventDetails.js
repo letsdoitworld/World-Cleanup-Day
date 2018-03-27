@@ -58,7 +58,6 @@ class EventDetails extends PureComponent {
   }
 
   onNavigatorEvent = (event) => {
-    console.log('Event', event);
     if (event.type === 'NavBarButtonPress') {
       switch (event.id) {
         case backId: {
@@ -134,6 +133,8 @@ class EventDetails extends PureComponent {
   handleRenderLocation() {
     const { event } = this.props;
 
+    if (!event.location) return null;
+
     const initialRegion = {
       latitude: event.location.latitude,
       longitude: event.location.longitude,
@@ -152,7 +153,12 @@ class EventDetails extends PureComponent {
       <View>
         <View style={styles.locationContainer}>
           <Icon path={Icons.Map} />
-          <Text style={styles.locationText}>Sukhumvit 20, Bangkok, Thailand</Text>
+          <Text
+            numberOfLines={2}
+            style={styles.locationText}
+          >
+            {event.address}
+          </Text>
         </View>
         <View style={styles.mapContainer}>
           <Map
@@ -167,7 +173,7 @@ class EventDetails extends PureComponent {
   handleRenderCircle() {
     const { event } = this.props;
 
-    if (event.trashpoints.length) {
+    if (event.trashpoints) {
       return (
         <View style={styles.circleContainer}>
           <Text style={styles.circleText}>
@@ -181,11 +187,14 @@ class EventDetails extends PureComponent {
   handleRenderTrashpoints() {
     const { event } = this.props;
 
-    const Wrapper = event.trashpoints.length ? TouchableOpacity : View;
+    const Wrapper = event.trashpoints ? TouchableOpacity : View;
     const navigation = { type: trashpoints };
 
     return (
-      <Wrapper onPress={this.onNavigatorEvent.bind(this, navigation)} style={styles.trashpointsContainer}>
+      <Wrapper
+        onPress={this.onNavigatorEvent.bind(this, navigation)}
+        style={styles.trashpointsContainer}
+      >
         <Icon path={Icons.Trashpoints} />
         <Text style={styles.locationText}>{strings.label_tap_to_preview_trashpoints}</Text>
         <View style={styles.trashpointsRightContainer}>

@@ -240,11 +240,13 @@ class Profile extends Component {
 
   handleRenderTrashpoint(trashpoint) {
     return (
-      <Trashpoint
-        type={trashpoint.type}
-        location={trashpoint.address}
-        onPress={this.handleTrashpointPress}
-      />
+      <View style={styles.trashpointContainer}>
+        <Trashpoint
+          type={trashpoint.type}
+          location={trashpoint.address}
+          onPress={this.handleTrashpointPress}
+        />
+      </View>
     );
   }
 

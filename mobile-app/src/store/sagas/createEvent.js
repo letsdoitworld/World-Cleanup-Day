@@ -21,15 +21,15 @@ function* createNewEvent(event) {
   try {
     const eventFromServer = yield call(Api.createEvent.createEvent, event);
 
-    //const listMyEvents = yield call(Api.profile.loadMyEvents, 15, 1);
+    const listMyEvents = yield call(Api.profile.loadMyEvents, 15, 1);
 
-    // const events = {
-    //   listMyEvents,
-    //   pageSize: 15,
-    //   pageNumber: 1,
-    // };
+    const events = {
+      listMyEvents,
+      pageSize: 15,
+      pageNumber: 1,
+    };
     yield put(createEventDone(eventFromServer));
-    // yield put(loadMyEventsSuccess(events));
+    yield put(loadMyEventsSuccess(events));
   } catch (error) {
     yield put(createEventError(error.message));
   }

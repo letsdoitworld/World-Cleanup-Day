@@ -16,6 +16,8 @@ module.exports = {
   Dots: require('./icMore.png'),
   Time: require('./ic_time.png'),
   Map: require('./icMap.png'),
+  Person: require('./icPerson.png'),
+  List: require('./icList.png'),
 
   CleanedTrashpoint: require('./icCleanedTrashpoint.png'),
   OutdatedToxicTrashpoint: require('./icOutdatedToxicTrashpoint.png'),

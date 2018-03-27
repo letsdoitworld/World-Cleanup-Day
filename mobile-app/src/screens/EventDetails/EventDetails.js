@@ -1,22 +1,32 @@
-import React, { Component } from 'react';
-import { View, Text, Image, ScrollView, ActivityIndicator } from 'react-native';
+import React, { PureComponent } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
 
 import toUpper from 'lodash/toUpper';
 
-import strings from '../../../assets/strings';
-import { Icons } from '../../../assets/images';
+import strings from '../../assets/strings';
+import { Icons } from '../../assets/images';
 import {
     Icon,
     Map,
     ReadMore,
-} from '../../../components';
+} from '../../components';
 
-import { DEFAULT_ZOOM } from '../../../shared/constants';
+import { DEFAULT_ZOOM } from '../../shared/constants';
 
-import MainButton from '../../../components/Buttons/MainButton';
+import MainButton from '../../components/Buttons/MainButton';
+
+import { EVENTS_TRASHPOINTS_SCREEN } from '../index';
 
 import styles from './styles';
 
@@ -24,10 +34,11 @@ import {
   navigatorStyle,
   navigatorButtons,
   calendarConfig,
+  trashpoints,
   backId,
 } from './config';
 
-class EventDetails extends Component {
+class EventDetails extends PureComponent {
 
   static navigatorStyle = navigatorStyle;
   static navigatorButtons = navigatorButtons;
@@ -38,10 +49,6 @@ class EventDetails extends Component {
     props.navigator.setOnNavigatorEvent(
         this.onNavigatorEvent,
     );
-
-    this.state = {
-      visible: true,
-    };
   }
 
   componentWillMount() {
@@ -51,6 +58,7 @@ class EventDetails extends Component {
   }
 
   onNavigatorEvent = (event) => {
+    console.log('Event', event);
     if (event.type === 'NavBarButtonPress') {
       switch (event.id) {
         case backId: {
@@ -59,16 +67,36 @@ class EventDetails extends Component {
         }
       }
     }
+
+    if (event.type === trashpoints) {
+      this.props.navigator.showModal({
+        screen: EVENTS_TRASHPOINTS_SCREEN,
+        title: strings.label_trashpoints,
+      });
+    }
   }
 
   handleEventJoin = () => console.log('Join Event');
+
+  handlePhoneNumberOpen = (phoneNumber) => {
+    const formatedPhoneNumber = phoneNumber && `tel:${phoneNumber}`;
+
+    Linking.canOpenURL(formatedPhoneNumber).then(
+      (supported) => {
+        if (!supported) {
+          console.warn(`Can't handle url: ${formatedPhoneNumber}`);
+        } else {
+          return Linking.openURL(formatedPhoneNumber);
+        }
+      }).catch(err => console.warn('An error occurred', err));
+  }
 
   handleRenderImage() {
     const { event } = this.props;
     if (event && !event.img) {
       return (
         <Image
-          style={{ height: 200, flex: 1, resizeMode: 'cover' }}
+          style={styles.coverImage}
           source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
         />
       );
@@ -130,7 +158,6 @@ class EventDetails extends Component {
           <Map
             markers={[marker]}
             region={initialRegion}
-            // liteMode
           />
         </View>
       </View>
@@ -138,23 +165,34 @@ class EventDetails extends Component {
   }
 
   handleRenderCircle() {
-    return (
-      <View style={styles.circleContainer}>
-        <Text style={styles.circleText}>5</Text>
-      </View>
-    );
+    const { event } = this.props;
+
+    if (event.trashpoints.length) {
+      return (
+        <View style={styles.circleContainer}>
+          <Text style={styles.circleText}>
+            {event.trashpoints.length}
+          </Text>
+        </View>
+      );
+    }
   }
 
   handleRenderTrashpoints() {
+    const { event } = this.props;
+
+    const Wrapper = event.trashpoints.length ? TouchableOpacity : View;
+    const navigation = { type: trashpoints };
+
     return (
-      <View style={styles.trashpointsContainer}>
+      <Wrapper onPress={this.onNavigatorEvent.bind(this, navigation)} style={styles.trashpointsContainer}>
         <Icon path={Icons.Trashpoints} />
         <Text style={styles.locationText}>{strings.label_tap_to_preview_trashpoints}</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.trashpointsRightContainer}>
           {this.handleRenderCircle()}
-          <Icon path={Icons.Back} iconStyle={{ transform: [{ rotate: '180deg' }] }} />
+          <Icon path={Icons.Back} iconStyle={styles.arrowIcon} />
         </View>
-      </View>
+      </Wrapper>
     );
   }
 
@@ -169,6 +207,80 @@ class EventDetails extends Component {
           {event.description}
         </Text>
       </ReadMore>
+    );
+  }
+
+  handleRenderWhatToBring() {
+    const { event } = this.props;
+    return (
+      <ReadMore
+        numberOfLines={3}
+        style={styles.readMoreContainer}
+      >
+        <Text style={styles.locationText}>
+          {event.whatToBring}
+        </Text>
+      </ReadMore>
+    );
+  }
+
+  handleRenderCoordinator() {
+    const { event } = this.props;
+
+    return (
+      <View>
+        {event.createdByName &&
+          <View style={styles.coordinatorContainerItem}>
+            <Icon path={Icons.Person} />
+            <Text style={styles.coordinatorTextItem}>
+              {event.createdByName}
+            </Text>
+          </View>
+        }
+
+        <View style={styles.coordinatorContainerItem}>
+          <Icon path={Icons.GroupPeople} />
+          <Text style={styles.noOrganizationText}>
+            {strings.label_no_organization}
+          </Text>
+        </View>
+
+        {event.phonenumber &&
+          <View style={styles.coordinatorContainerItem}>
+            <Icon path={Icons.Phone} iconStyle={styles.phoneIconStyle} />
+            <TouchableOpacity
+              onPress={this.handlePhoneNumberOpen.bind(this, event.phonenumber)}
+            >
+              <Text style={styles.coordinatorPhoneNumber}>
+                {event.phonenumber}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        }
+
+        {event.email &&
+          <View style={styles.coordinatorContainerItem}>
+            <Icon path={Icons.Email} />
+            <Text style={styles.coordinatorTextItem}>
+              {event.email}
+            </Text>
+          </View>
+        }
+      </View>
+    );
+  }
+
+  hadnleRenderAttendees() {
+    const { event } = this.props;
+    const string = `${event.peopleAmount}/${event.maxPeopleAmount}`;
+    return (
+      <View style={styles.trashpointsContainer}>
+        <View style={styles.attendeesCount}>
+          <Icon path={Icons.List} />
+          <Text style={styles.locationText}>{string}</Text>
+        </View>
+        <Icon path={Icons.Back} iconStyle={styles.arrowIcon} />
+      </View>
     );
   }
 
@@ -207,6 +319,12 @@ class EventDetails extends Component {
           {this.handleRenderTrashpoints()}
           <Text style={styles.title}>{toUpper(strings.label_description)}</Text>
           {this.handleRenderDescription()}
+          <Text style={styles.title}>{toUpper(strings.label_what_to_bring)}</Text>
+          {this.handleRenderWhatToBring()}
+          <Text style={styles.title}>{toUpper(strings.lable_coordinator)}</Text>
+          {this.handleRenderCoordinator()}
+          <Text style={styles.title}>{toUpper(strings.label_attendees)}</Text>
+          {this.hadnleRenderAttendees()}
         </View>
       </ScrollView>
     );

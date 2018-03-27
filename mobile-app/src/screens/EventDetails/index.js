@@ -3,12 +3,12 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   loadEvent,
-} from '../../../store/actions/events';
+} from '../../store/actions/events';
 
 import {
   getEventEntity,
   getErrorEvent,
-} from '../../../store/selectors';
+} from '../../store/selectors';
 
 import Component from './EventDetails';
 

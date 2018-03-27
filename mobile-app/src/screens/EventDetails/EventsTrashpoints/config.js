@@ -1,4 +1,5 @@
 import { Icons } from '../../../assets/images';
+import strings from '../../../assets/strings';
 
 export const backId = 'back';
 
@@ -10,8 +11,8 @@ export const navigatorStyle = {
 export const navigatorButtons = {
   rightButtons: [
     {
-      icon: Icons.Dots,
-      id: 'menu',
+      title: strings.label_add,
+      id: 'add_trashpoint',
     },
   ],
   leftButtons: [
@@ -20,13 +21,4 @@ export const navigatorButtons = {
       id: backId,
     },
   ],
-};
-
-export const calendarConfig = {
-  sameDay: '[Today]',
-  nextDay: '[Tomorrow]',
-  nextWeek: 'dddd',
-  lastDay: '[Yesterday]',
-  lastWeek: '[Last] dddd',
-  sameElse: 'DD/MM/YYYY',
 };

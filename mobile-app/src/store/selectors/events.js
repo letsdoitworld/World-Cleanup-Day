@@ -18,6 +18,11 @@ export const getEventEntity = createSelector(
     events => events.currentEvent,
 );
 
+export const getEventsTrashpoints = createSelector(
+    eventsSelector,
+    events => events.currentEvent && events.currentEvent.trashpoints,
+);
+
 export const getErrorEvent = createSelector(
     eventsSelector,
     events => events.errors && events.errors.errorEvent,

@@ -1,13 +1,14 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { colors, dm } from '../../../themes';
+import { colors, dm } from '../../themes';
 
-import { getWidthPercentage, getHeightPercentage } from '../../../shared/helpers';
+import { getHeightPercentage } from '../../shared/helpers';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.gray100,
+    paddingBottom: dm.margin_large,
   },
   contentContainer: {
     backgroundColor: colors.gray100,
@@ -108,5 +109,49 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     paddingVertical: dm.margin_medium,
     paddingHorizontal: dm.margin_medium,
+  },
+  coordinatorContainerItem: {
+    flexDirection: 'row',
+    backgroundColor: colors.white,
+    paddingVertical: dm.margin_medium,
+    paddingHorizontal: dm.margin_medium,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray100,
+  },
+  coordinatorTextItem: {
+    fontSize: 17,
+    fontFamily: 'Lato',
+    paddingHorizontal: dm.margin_medium,
+  },
+  noOrganizationText: {
+    fontSize: 17,
+    fontFamily: 'Lato',
+    color: colors.grey,
+    paddingHorizontal: dm.margin_medium,
+  },
+  coordinatorPhoneNumber: {
+    fontSize: 17,
+    fontFamily: 'Lato',
+    color: colors.blue,
+    paddingHorizontal: dm.margin_medium,
+  },
+  phoneIconStyle: {
+    tintColor: colors.blue,
+  },
+  attendeesCount: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  arrowIcon: {
+    transform: [{ rotate: '180deg' }],
+  },
+  trashpointsRightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  coverImage: {
+    height: 200,
+    flex: 1,
+    resizeMode: 'cover',
   },
 });

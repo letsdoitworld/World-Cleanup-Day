@@ -10,7 +10,8 @@ import EventsScreen from './Events';
 import AddLocationScreen from './AddLocation/AddLocation';
 import AddTrashPointsScreen from './AddTrashPoints';
 import AddTrashPointsMap from './AddTrashPoints/Map/AddTrashPointsMap';
-import EventDetailsScreen from './Events/EventDetails';
+import EventDetailsScreen from './EventDetails';
+import EventsTrashpointsScreen from './EventDetails/EventsTrashpoints';
 import CreateEventScreen from './Events/CreateEvent/CreateEvent';
 import AddCoordinatorScreen from './Events/CreateEvent/AddCoordinator';
 import AddPeopleToEventScreen from './Events/CreateEvent';
@@ -34,6 +35,7 @@ export const EVENT_DETAILS_SCREEN = 'EVENT_DETAILS_SCREEN';
 export const ADD_COORDINATOR = 'ADD_COORDINATOR';
 export const ADD_PEOPLE_TO_EVENT = 'ADD_PEOPLE_TO_EVENT';
 export const EVENTS_NAV_BAR = 'EVENTS_NAV_BAR';
+export const EVENTS_TRASHPOINTS_SCREEN = 'EVENTS_TRASHPOINTS_SCREEN';
 
 export function registerScreens(store, Provider) {
   Navigation.registerComponent(PROFILE_SCREEN, () => ProfileScreen, store, Provider);
@@ -52,4 +54,5 @@ export function registerScreens(store, Provider) {
   Navigation.registerComponent(ADD_TRASH_POINTS, () => AddTrashPointsScreen, store, Provider);
   Navigation.registerComponent(EVENTS_NAV_BAR, () => EventsNavBar, store, Provider);
   Navigation.registerComponent(ADD_TRASH_POINTS_MAP, () => AddTrashPointsMap, store, Provider);
+  Navigation.registerComponent(EVENTS_TRASHPOINTS_SCREEN, () => EventsTrashpointsScreen, store, Provider);
 }

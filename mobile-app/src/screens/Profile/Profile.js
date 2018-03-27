@@ -234,7 +234,7 @@ class Profile extends Component {
     return (
       <Trashpoint
         type={trashpoint.type}
-        location={trashpoint.location}
+        location={trashpoint.address}
         onPress={this.handleTrashpointPress}
       />
     );

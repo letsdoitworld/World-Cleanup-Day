@@ -471,6 +471,20 @@ const layer = {
             });
         return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
     },
+    getGridCellEvents: async (datasetId, cellSize, gridCoord) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await adapter.getEntities(
+        'Event',
+        `_design/byGridCell${scale}/_view/view`,
+        {
+          startkey: [datasetId, gridCoord],
+          endkey: [datasetId, gridCoord],
+          'inclusive_end': true,
+          sorted: false,
+        }
+      );
+      return ret.filter(val => val !== null);
+    },
     getOverview: async (datatype, view, datasetId, scale, nwLat, nwLong, seLat, seLong, extraViewParams = {}) => {
         const cellCoords = grid.geoCornersToCells(
             [nwLong, nwLat], [seLong, seLat], grid.SCALES[scale]);

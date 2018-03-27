@@ -24,16 +24,17 @@ module.exports = {
       name: req.swagger.params.name.value
     })
   ),
+  getEventsOverview: senecaRequestMw(
+    'role:db,cmd:getEventsOverview',
+    req => filters.convertGeoScale(req.swagger.params.query.value),
+  ),
   getEventsClustersOverview: senecaRequestMw(
     'role:db,cmd:getEventsClustersOverview',
     req => filters.convertGeoScale(req.swagger.params.query.value),
   ),
-  getEventsOverview: senecaRequestMw(
-    'role:db,cmd:getEventsOverview',
-    req => ({
-      radius: req.swagger.params.radius.value,
-      location: req.swagger.params.location.value
-    })
+  getEventsInGridCell: senecaRequestMw(
+    'role:db,cmd:getEventsInGridCell',
+    req => filters.convertGeoScale(req.swagger.params.query.value),
   ),
   getUserOwnEvents: senecaRequestMw(
     'role:db,cmd:getUserOwnEvents',

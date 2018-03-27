@@ -12,10 +12,6 @@ const opts = {
 
 const PLUGIN_NAME = 'events';
 
-const filterFieldsEvents = event => _.pick(event, ['id', 'name', 'address', 'location', 'description', 'startTime',
-  'endTime', 'email', 'phonenumber', 'whatToBring', 'maxPeopleAmount', 'peopleAmount', 'createdByName',
-  'updatedByName']);
-
 const mapEvent = event => {
     event.peopleAmount = event.peoples ? event.peoples.length : 0;
     return event;
@@ -229,9 +225,9 @@ module.exports = function () {
       return connector.input(args)
         .connect(connectVerifyDataset)
         .use(async function (dataset, responder) {
-          const trashpoints = await fetchRectangleMarkers(
+          const events = await fetchRectangleMarkers(
             dataset.id, args.cellSize, args.rectangle, db.getOverviewEvents);
-          const filtered = trashpoints.map(filterEventsForOverview);
+          const filtered = events.map(e => _.pick(e, ['id', 'location']));
           return responder.success(filtered);
         })
     });
@@ -240,46 +236,13 @@ module.exports = function () {
       return connector.input(args)
         .connect(connectVerifyDataset)
         .use(async function (dataset, responder) {
-          const trashpoints = await db.getGridCellTrashpoints(
+          const events = await db.getGridCellEvents(
             dataset.id,
             args.cellSize,
             args.coordinates
           );
-          const filtered = trashpoints.map(filterTrashpointsForOverview);
+          const filtered = events.map(e => _.pick(e, ['id', 'location']));
           return responder.success(filtered);
-        })
-    });
-
-    lucius.register('role:db,cmd:getEventsOverview', async function (connector, args) {
-      return connector
-        .input(args)
-        .use(async function ({location, radius}, responder) {
-          let minLocation, maxLocation;
-
-          try {
-            location = JSON.parse(location);
-          } catch (e) {
-            return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
-          }
-
-          if (location.latitude && location.longitude) {
-            if (radius > 0) {
-              const minLatitude = location.latitude - radius / 111.12;
-              const minLongitude = location.longitude - radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
-              const maxLatitude = location.latitude + radius / 111.12;
-              const maxLongitude = location.longitude + radius / (111.320 * (Math.cos(location.latitude / 180.0 * Math.PI)));
-              minLocation = {latitude: minLatitude, longitude: minLongitude};
-              maxLocation = {latitude: maxLatitude, longitude: maxLongitude};
-            } else {
-              minLocation = maxLocation = location;
-            }
-          } else {
-            return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
-          }
-
-          const events = await db.getEventsByLocation(minLocation, maxLocation);
-          const records = events.map(mapEvent).map(filterFieldsEvents);
-          return responder.success(records);
         })
     });
 

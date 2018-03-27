@@ -204,7 +204,7 @@ class Profile extends Component {
     let { eventsPageNumber } = this.props;
 
     if (!this.state.isEndEventsReached) {
-      if (myEvents.length % eventsPageSize) return;
+      if(!!(myEvents && (myEvents.length % eventsPageSize))) return;
 
       onLoadMyEvents(eventsPageSize, ++eventsPageNumber);
       this.setState({ isEndEventsReached: true });
@@ -216,12 +216,12 @@ class Profile extends Component {
     let { trashpointsPageNumber } = this.props;
 
     if (!this.state.isEndTrashpointReached) {
-      if (myEvents.length % trashpointsPageSize) return;
+      if(!!(myEvents && (myEvents.length % trashpointsPageSize))) return;
 
       onLoadMyTrashPoints(trashpointsPageSize, ++trashpointsPageNumber);
       this.setState({ isEndTrashpointReached: true });
     }
-  }
+  };
 
   handleRenderEvents(event) {
     return (
@@ -229,7 +229,7 @@ class Profile extends Component {
         img={event.photo}
         title={event.name}
         coordinator={event.coordinator}
-                // location={event.location}
+        address={event.address}
         date={event.createDate}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}

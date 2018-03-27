@@ -10,13 +10,15 @@ import {
     UIManager,
     KeyboardAvoidingView,
 } from 'react-native';
-import styles from './styles';
-import strings from '../../assets/strings';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { Map } from '../../components';
-import { DEFAULT_ZOOM } from '../../shared/constants';
-import { MARKER_STATUS_IMAGES } from '../../components/Map/Marker';
-import { connect } from 'react-redux';
+import styles from './styles'
+import strings from '../../assets/strings'
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {Map} from '../../components/Map/Map';
+import {DEFAULT_ZOOM} from "../../shared/constants";
+import {MARKER_STATUS_IMAGES} from "../../components/Map/Marker";
+import {connect} from "react-redux";
+import {IGPSCoordinates} from "NativeModules";
+import {geocodeCoordinates} from "../../shared/geo";
 
 import { Icons } from '../../assets/images';
 
@@ -44,19 +46,18 @@ class AddLocation extends Component {
 
     };
 
-  constructor(props) {
-      super(props);
-      const { initialLocation } = props;
-      if (initialLocation !== undefined) {
-          this.state = {
-              marker: undefined,
-              region: null,
-              initialRegion: {
-                  latitude: initialLocation.latitude,
-                  longitude: initialLocation.longitude,
-                  latitudeDelta: DEFAULT_ZOOM,
-                  longitudeDelta: DEFAULT_ZOOM,
-                },
+    constructor(props) {
+        super(props);
+        const {initialLocation} = props;
+        if (initialLocation !== undefined) {
+            this.state = {
+                marker: undefined,
+                initialRegion: {
+                    latitude: initialLocation.latitude,
+                    longitude: initialLocation.longitude,
+                    latitudeDelta: DEFAULT_ZOOM,
+                    longitudeDelta: DEFAULT_ZOOM,
+                }
             };
         } else {
           this.state = {
@@ -70,15 +71,9 @@ class AddLocation extends Component {
       this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    // componentDidMount() {
-    //     if (this.state.initialRegion === undefined) {
-    //         this.getCurrentPosition();
-    //     }
-    // }
-
-  componentWillReceiveProps(nextProps) {
-      if (this.state.initialRegion === undefined && nextProps.auth.get('token') !== undefined) {
-          this.getCurrentPosition();
+    componentDidMount() {
+        if (this.state.initialRegion === undefined) {
+            this.getCurrentPosition();
         }
     }
 
@@ -99,65 +94,41 @@ class AddLocation extends Component {
                     });
                 },
                 (error) => {
-                    // todo: some default location
-                  this.setState((previousState) => {
-                      return {
-                          initialRegion: {
-                              latitude: 48.8152937,
-                              longitude: 2.4597668,
-                              latitudeDelta: DEFAULT_ZOOM,
-                              longitudeDelta: DEFAULT_ZOOM,
-                            },
-                        };
-                    });
-                },
+                    alert(JSON.stringify(error))
+                }
             );
-        } catch (e) {
-            // todo: some default location
-          this.setState((previousState) => {
-              return {
-                  initialRegion: {
-                      latitude: 48.8152937,
-                      longitude: 2.4597668,
-                      latitudeDelta: DEFAULT_ZOOM,
-                      longitudeDelta: DEFAULT_ZOOM,
-                    },
-                };
-            });
+        } catch(error) {
+            alert(JSON.stringify(error))
         }
     }
 
     onNavigatorEvent(event) {
-      if (event.type === 'NavBarButtonPress') {
-          switch (event.id) {
-              case cancelId: {
-                  this.back();
-                  break;
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.props.navigator.pop();
+                    break;
                 }
             }
         }
     }
 
-  onConfirmPress = () => {
-      const { latitude, longitude } = this.state.marker.latlng;
-      this.back({
-          latitude,
-          longitude,
+    async onConfirmPress() {
+        const {latitude, longitude} = this.state.marker.latlng;
+        const place = await geocodeCoordinates(this.state.marker.latlng);
+
+        this.props.onLocationSelected({
+            latitude,
+            longitude,
+            place: place.mainText
         });
+        this.props.navigator.pop()
     };
 
-  back(selectedLocation = undefined) {
-      this.props.onLocationSelected(selectedLocation);
-      this.props.navigator.pop({
-          animated: true,
-          animationType: 'slide_out',
-        });
-    }
-
-  onMapPress = (e) => {
-      const coordinate = e.nativeEvent.coordinate;
-      const longitude = coordinate.longitude;
-      const latitude = coordinate.latitude;
+    onMapPress = (e) => {
+        const coordinate = e.nativeEvent.coordinate;
+        const longitude = coordinate.longitude;
+        const latitude = coordinate.latitude;
 
       this.updateMarkerInState({
           latitude,

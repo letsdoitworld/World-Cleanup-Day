@@ -57,6 +57,7 @@ module.exports = new LocalizedStrings({
         label_button_logout: "Log out",
         label_trashpoints: "Trashpoints",
         label_event: 'Event',
+        label_trashpoint: "Trashpoint",
         label_text_congrats_image: "Trash captured",
         label_text_congrats_subtitle: "Great job!",
         label_text_congrats_text: "Now save the point by verifying the data.",

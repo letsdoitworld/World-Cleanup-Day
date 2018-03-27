@@ -63,7 +63,7 @@ export default function configureStore() {
         store,
     {
       storage: AsyncStorage,
-      blacklist: ['trashPoints', 'events', 'myEvents'],
+      blacklist: ['trashPoints', 'events', 'myEvents', 'errorEvent'],
     },
   );
 

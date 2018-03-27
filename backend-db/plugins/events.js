@@ -81,7 +81,7 @@ module.exports = function () {
         .use(async function ({id}, responder) {
           const event = await db.getEvent(id);
           if (!event) {
-            return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id: request.id}));
+            return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id}));
           }
           if (event.createdBy) {
             const createdByUser = await db.getAccount(event.createdBy);
@@ -122,8 +122,21 @@ module.exports = function () {
 
     lucius.register('role:db,cmd:createEvent', async function (connector, args, __) {
         return connector
-            .input(args)
-            .use(async function ({event}, responder) {
+            // verify that the dataset exists
+            .request('role:db,cmd:getDatasetById', {id: args.event.datasetId})
+            .set('dataset')
+            .input(args.event)
+            .input(event => ({
+              longitude: event.location.longitude,
+              latitude: event.location.latitude,
+            }))
+            .request('role:geo,cmd:resolveLocation')
+            .set('areas')
+            // create the event
+            .get(['areas'])
+            .use(async function ({areas, dataset}, responder) {
+                const event = args.event;
+                args.event.areas = areas;
                 const savedEvent = await db.createEvent(__.user.id, event);
                 if (savedEvent.trashpoints) {
                     const addedTrashpointsInfo = {};
@@ -153,7 +166,6 @@ module.exports = function () {
                 return responder.success(mappedEvent);
             });
     });
-
     lucius.register('role:db,cmd:getEvents', async function (connector, args) {
       return connector
         .input(args)
@@ -221,32 +233,32 @@ module.exports = function () {
         })
     });
 
-    lucius.register('role:db,cmd:getEventsOverview', async function (connector, args) {
-      return connector.input(args)
-        .connect(connectVerifyDataset)
-        .use(async function (dataset, responder) {
-          const events = await fetchRectangleMarkers(
-            dataset.id, args.cellSize, args.rectangle, db.getOverviewEvents);
-          const filtered = events.map(e => _.pick(e, ['id', 'location']));
-          return responder.success(filtered);
-        })
-    });
+  lucius.register('role:db,cmd:getEventsOverview', async function (connector, args) {
+    return connector.input(args)
+      .connect(connectVerifyDataset)
+      .use(async function (dataset, responder) {
+        const events = await fetchRectangleMarkers(
+          dataset.id, args.cellSize, args.rectangle, db.getOverviewEvents);
+        const filtered = events.map(e => _.pick(e, ['id', 'location']));
+        return responder.success(filtered);
+      })
+  });
 
-    lucius.register('role:db,cmd:getEventsInGridCell', async function (connector, args) {
-      return connector.input(args)
-        .connect(connectVerifyDataset)
-        .use(async function (dataset, responder) {
-          const events = await db.getGridCellEvents(
-            dataset.id,
-            args.cellSize,
-            args.coordinates
-          );
-          const filtered = events.map(e => _.pick(e, ['id', 'location']));
-          return responder.success(filtered);
-        })
-    });
+  lucius.register('role:db,cmd:getEventsInGridCell', async function (connector, args) {
+    return connector.input(args)
+      .connect(connectVerifyDataset)
+      .use(async function (dataset, responder) {
+        const events = await db.getGridCellEvents(
+          dataset.id,
+          args.cellSize,
+          args.coordinates
+        );
+        const filtered = events.map(e => _.pick(e, ['id', 'location']));
+        return responder.success(filtered);
+      })
+  });
 
-    lucius.register('role:db,cmd:getUserOwnEvents', async function (connector, args, __) {
+  lucius.register('role:db,cmd:getUserOwnEvents', async function (connector, args, __) {
       return connector
         .input(args)
         .use(async function ({pageSize, pageNumber}, responder) {

@@ -79,21 +79,31 @@ const layer = {
       }, false);
     },
 
-    getOverviewEvents: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
-      const scale = grid.getScaleForCellSize(cellSize);
-      const ret = await layer.getOverview('Event', `_design/isolated${scale}/_view/view`,
-        datasetId, scale, nwLat, nwLong, seLat, seLong);
-      return ret.filter(row => adapter.rawDocToEntity('Event', row));
-    },
+  getEventsByTrashpoint: async (trashpointId) => {
+    return await adapter.getEntities(
+      'Event',
+      '_design/byTrashpoint/_view/view',
+      {
+        key: trashpointId
+      });
+  },
 
-    getEventsOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
-      const scale = grid.getScaleForCellSize(cellSize);
-      const ret = await layer.getOverview('Event', `_design/clusters${scale}/_view/view`,
-        datasetId, scale, nwLat, nwLong, seLat, seLong, {
-          'group_level': 2,
-        });
-      return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
-    },
+
+  getOverviewEvents: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+    const scale = grid.getScaleForCellSize(cellSize);
+    const ret = await layer.getOverview('Event', `_design/isolated${scale}/_view/view`,
+      datasetId, scale, nwLat, nwLong, seLat, seLong);
+    return ret.filter(row => adapter.rawDocToEntity('Event', row));
+  },
+
+  getEventsOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+    const scale = grid.getScaleForCellSize(cellSize);
+    const ret = await layer.getOverview('Event', `_design/clusters${scale}/_view/view`,
+      datasetId, scale, nwLat, nwLong, seLat, seLong, {
+        'group_level': 2,
+      });
+    return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
+  },
 
     getEventsByLocation: async (minLocation, maxLocation) => {
       return await adapter.getEntities(
@@ -117,6 +127,12 @@ const layer = {
           limit: pageSize,
           skip: pageSize * (pageNumber - 1),
         });
+    },
+
+    countEvents: async () => {
+      const ret = await adapter.getRawDocs('Event', '_design/countAll/_view/view');
+      if (!ret.length) return 0;
+      return parseInt(ret.pop());
     },
 
     countUserEvents: async userId => {
@@ -470,20 +486,6 @@ const layer = {
                 'group_level': 2,
             });
         return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
-    },
-    getGridCellEvents: async (datasetId, cellSize, gridCoord) => {
-      const scale = grid.getScaleForCellSize(cellSize);
-      const ret = await adapter.getEntities(
-        'Event',
-        `_design/byGridCell${scale}/_view/view`,
-        {
-          startkey: [datasetId, gridCoord],
-          endkey: [datasetId, gridCoord],
-          'inclusive_end': true,
-          sorted: false,
-        }
-      );
-      return ret.filter(val => val !== null);
     },
     getOverview: async (datatype, view, datasetId, scale, nwLat, nwLong, seLat, seLong, extraViewParams = {}) => {
         const cellCoords = grid.geoCornersToCells(

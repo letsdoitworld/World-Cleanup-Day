@@ -213,7 +213,7 @@ class Profile extends Component {
       onLoadMyTrashPoints(trashpointsPageSize, ++trashpointsPageNumber);
       this.setState({ isEndTrashpointReached: true });
     }
-  }
+  };
 
   handleRenderEvents(event) {
     return (
@@ -221,7 +221,7 @@ class Profile extends Component {
         img={event.photo}
         title={event.name}
         coordinator={event.coordinator}
-                // location={event.location}
+        address={event.address}
         date={event.createDate}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}

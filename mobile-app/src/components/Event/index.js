@@ -16,6 +16,7 @@ const Event = ({
   img,
   title,
   coordinator,
+    address,
   location,
   date,
   maxParticipants,
@@ -34,12 +35,12 @@ const Event = ({
   };
 
   const handleRenderCountry = () => {
-    if (location) {
+    if (address) {
       return (
         <View style={styles.locationContainer}>
           <Icon path={Icons.Location} containerStyle={styles.icon} />
           <Text style={styles.locationText}>
-            {location}
+            {address}
           </Text>
         </View>
       );

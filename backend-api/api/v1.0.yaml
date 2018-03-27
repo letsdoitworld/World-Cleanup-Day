@@ -214,6 +214,13 @@ paths:
           in: query
           required: false
           type: string
+        - name: area
+          description: Area code.
+          in: query
+          required: false
+          type: string
+          minLength: 2
+          maxLength: 2
       responses:
         "200":
           $ref: "#/responses/Events"

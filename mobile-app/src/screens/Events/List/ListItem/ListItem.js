@@ -9,7 +9,7 @@ import {
 import styles from "./styles"
 import strings from '../../../../assets/strings'
 
-export default class ListItem extends  PureComponent {
+export default class ListItem extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -35,14 +35,17 @@ export default class ListItem extends  PureComponent {
                 onPress={this.onPress.bind(this)}
                 style={item.participant ? styles.itemTouchParticipant : styles.itemTouch}>
                 <View style={styles.itemContent}>
-                    <Image
-                        style={styles.image}
-                        source={{uri: item.cover_picture}}/>
+                    {   item.photos[0]
+                        ? <Image
+                            style={styles.image}
+                            source={{uri: item.photos[0]}}/>
+                        : <View style={[styles.image, {backgroundColor: 'grey'}]}/>
+                    }
                     <View style={styles.titleContainer}>
                         <Text
                             numberOfLines={2}
                             style={styles.title}>
-                            {item.title}
+                            {item.name}
                         </Text>
                         <View style={styles.organizationRow}>
                             <Image
@@ -51,7 +54,7 @@ export default class ListItem extends  PureComponent {
                             <Text
                                 numberOfLines={1}
                                 style={styles.organizationText}>
-                                {item.organization_name}
+                                {item.description}
                             </Text>
                         </View>
                         <View style={styles.placeRow}>
@@ -63,13 +66,13 @@ export default class ListItem extends  PureComponent {
                             <Text
                                 numberOfLines={1}
                                 style={styles.placeText}>
-                                {`${item.place.city}, ${item.place.country}`}
+                                {item.address}
                             </Text>
                         </View>
                     </View>
                     <View style={styles.statsContainer}>
                         <Text style={item.participant ? styles.availableParticipant : styles.available}>
-                            {`${item.available}/${item.all}`}
+                            {`${item.peopleAmount}/${item.maxPeopleAmount}`}
                         </Text>
                         <Text style={styles.date}>
                             {item.date}

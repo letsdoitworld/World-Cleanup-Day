@@ -15,8 +15,8 @@ import Api from '../../api';
 function* searchEvents(query, page, pageSize, location) {
     try {
         const response = yield call(Api.events.searchEventsRequest, query, page, pageSize, location);
-        if (response.status) {
-            yield put(searchEventsSuccessAction(response.events, page, pageSize));
+        if (response.data) {
+            yield put(searchEventsSuccessAction(response.data.records, page, pageSize));
         } else {
             setErrorMessage(String(response.error));
         }

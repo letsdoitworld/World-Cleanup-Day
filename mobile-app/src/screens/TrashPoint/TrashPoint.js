@@ -22,6 +22,8 @@ import PageControl from "react-native-page-control";
 
 const {height, width} = Dimensions.get('window');
 
+const moment = require('moment');
+
 const cancelId = 'cancelId';
 
 export const STATUS_IMAGES = {
@@ -81,14 +83,15 @@ export default class CreateEvent extends Component {
     render() {
 
         const {
-            place,
+            address,
             status,
             creator,
             updater,
             createdAt,
             updatedAt,
-            level,
-            trashTypes
+            amount,
+            composition,
+            isIncluded
         } = this.props.trashPoint;
 
         return (
@@ -103,7 +106,7 @@ export default class CreateEvent extends Component {
                     <View style={styles.row}>
                         <Image source={require('./images/icTrashpointAddress.png')}/>
                         <Text style={styles.textLabel}>
-                            {`${place.house.toString()} ${place.street} ${place.city}`}
+                            {address}
                         </Text>
                     </View>
                     <View style={styles.rowHeader}>
@@ -132,15 +135,15 @@ export default class CreateEvent extends Component {
                             resizeMethod={'scale'}
                             resizeMode={'center'}
                             style={styles.avatar}
-                            source={{uri: creator.avatar}}/>
+                            source={{uri: creator.pictureURL}}/>
                         <Text style={styles.textLabel}>
-                            {`${creator.name} ${creator.lastname}`}
+                            {creator.name}
                         </Text>
                     </View>
                     <View style={[styles.row, {marginTop: 1}]}>
                         <Image source={require('./images/icTime.png')}/>
                         <Text style={styles.textLabel}>
-                            {createdAt}
+                            {moment(createdAt).format('DD.MM.YYYY')}
                         </Text>
                     </View>
                     <View style={styles.rowHeader}>
@@ -153,15 +156,15 @@ export default class CreateEvent extends Component {
                             resizeMethod={'scale'}
                             resizeMode={'center'}
                             style={styles.avatar}
-                            source={{uri: updater.avatar}}/>
+                            source={{uri: updater.pictureURL}}/>
                         <Text style={styles.textLabel}>
-                            {`${updater.name} ${updater.lastname}`}
+                            {updater.name}
                         </Text>
                     </View>
                     <View style={[styles.row, {marginTop: 1}]}>
                         <Image source={require('./images/icTime.png')}/>
                         <Text style={styles.textLabel}>
-                            {updatedAt}
+                            {moment(updatedAt).format('DD.MM.YYYY')}
                         </Text>
                     </View>
                     <View style={styles.rowHeader}>
@@ -170,7 +173,7 @@ export default class CreateEvent extends Component {
                         </Text>
                     </View>
                     <TrashAmountLevel
-                        level={level}
+                        level={amount}
                         paddingHorizontal={20}
                     />
                     <View style={styles.rowHeader}>
@@ -178,7 +181,7 @@ export default class CreateEvent extends Component {
                             {strings.label_trash_type}
                         </Text>
                     </View>
-                    <Chips types={trashTypes}/>
+                    <Chips types={composition}/>
                     <View style={styles.rowHeader}>
                         <Text style={styles.textHeader}>
                             {strings.label_photos}
@@ -193,7 +196,7 @@ export default class CreateEvent extends Component {
                                     index
                                 }
                             });
-                        } }
+                        }}
                         style={styles.swiper}>
                         {this.renderPages()}
                     </Swiper>
@@ -207,20 +210,24 @@ export default class CreateEvent extends Component {
                         indicatorStyle={styles.dotStyle}
                         currentIndicatorStyle={styles.activeDotStyle}
                     />
-                    <TouchableOpacity
-                        style={styles.confirmButton}
-                        onPress={this.onSelectionConfirmed.bind(this)}>
-                        <Text style={styles.confirmButtonText}>
-                            {strings.label_add_trashPoint}
-                        </Text>
-                    </TouchableOpacity>
+                    {
+                        !isIncluded
+                            ? <TouchableOpacity
+                                style={styles.confirmButton}
+                                onPress={this.onSelectionConfirmed.bind(this)}>
+                                <Text style={styles.confirmButtonText}>
+                                    {this.props.isChecked ? strings.label_remove_trashPoint : strings.label_add_trashPoint}
+                                </Text>
+                            </TouchableOpacity>
+                            : null
+                    }
                 </ScrollView>
             </View>
         );
     }
 
     onSelectionConfirmed() {
-        this.props.onAddedPress();
+        this.props.onCheckedChanged(!this.props.isChecked);
         this.props.navigator.pop();
     }
 

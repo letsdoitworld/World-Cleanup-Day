@@ -33,3 +33,4 @@ export function* searchTrashPointsFlow() {
         yield put(controlProgress(false));
     }
 }
+

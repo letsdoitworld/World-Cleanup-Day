@@ -581,19 +581,29 @@ const layer = {
     getImage: async id => {
         return await adapter.getOneEntityById('Image', '_design/all/_view/view', id);
     },
-    allocateImage: async (type, trashpointId, who, parentId = undefined) => {
+    allocateImage: async (type, trashpointId, eventId, who, parentId = undefined) => {
         const id = util.uuid.random();
-        await adapter.createDocument('Image', id, {
-            type,
-            status: types.Image.STATUS_PENDING,
-            trashpointId,
-            parentId,
-        }, {
+        const imgData = trashpointId ?
+            {
+                type,
+                status: types.Image.STATUS_PENDING,
+                trashpointId,
+                parentId,
+            }
+            :
+            {
+                type,
+                status: types.Image.STATUS_PENDING,
+                eventId,
+                parentId,
+            };
+        const imgDate = {
             updatedAt: util.time.getNowUTC(),
             updatedBy: who,
             createdAt: util.time.getNowUTC(),
             createdBy: who,
-        });
+        };
+        await adapter.createDocument('Image', id, imgData, imgDate);
 
         return await layer.getImage(id);
     },

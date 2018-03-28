@@ -414,12 +414,12 @@ module.exports = function () {
                 const imgSet = [];
                 for (let i = 0; i < args.request.count; i++) {
                     const parentImg = await db.allocateImage(
-                        Image.TYPE_MEDIUM, event.id, __.user.id
+                        Image.TYPE_MEDIUM, null, event.id, __.user.id
                     );
                     imgSet.push(parentImg);
 
                     const thumbnailImg = await db.allocateImage(
-                        Image.TYPE_THUMBNAIL, event.id, __.user.id, parentImg.id
+                        Image.TYPE_THUMBNAIL, null, event.id, __.user.id, parentImg.id
                     );
                     imgSet.push(thumbnailImg);
                 }
@@ -465,6 +465,13 @@ module.exports = function () {
             .use(async function ({images, permissions}, responder) {
                 const response = images.map(img => {
                     const perm = permissions.find(val => val.id === img.id);
+                    console.log('assemble response', {
+                        permission: {
+                            token: perm.sas,
+                            resourceId: img.id,
+                        },
+                        type: img.type,
+                    });
                     return {
                         permission: {
                             token: perm.sas,

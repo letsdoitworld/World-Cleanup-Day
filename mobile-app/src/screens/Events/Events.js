@@ -103,7 +103,9 @@ class Events extends Component {
     loadEvents(page) {
         const {userCoord} = this.props;
         const {onSearchEventsAction} = this.props;
-        onSearchEventsAction(this.query, page, PAGE_SIZE, {latitude: userCoord.lat, longitude: userCoord.long});
+        if (userCoord && userCoord !== null) {
+            onSearchEventsAction(this.query, page, PAGE_SIZE, {latitude: userCoord.lat, longitude: userCoord.long});
+        }
     }
 
     onNavigatorEvent(event) {
@@ -267,6 +269,7 @@ class Events extends Component {
 Events.propTypes = {
     events: PropTypes.array,
     isLoading: PropTypes.bool,
+    userCoord: PropTypes.object,
     isAuthenticated: PropTypes.bool,
     onSearchEventsAction: PropTypes.func,
     onClearEventsAction: PropTypes.func,

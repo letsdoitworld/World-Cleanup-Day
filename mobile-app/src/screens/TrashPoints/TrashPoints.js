@@ -10,7 +10,7 @@ import {
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
 
-import {Map as MapView} from '../../components/Map/Map';
+import {Map as MapView} from '../../components/Map';
 
 import {
     operations as trashpileOperations,
@@ -39,6 +39,8 @@ import strings from "../../assets/strings";
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageService from "../../services/Image";
 import {getCurrentPosition} from "../../shared/geo";
+import Events from "../Events/Events";
+//import styles from './styles';
 
 const MODE = {
     list: 0,
@@ -229,7 +231,7 @@ class TrashPoints extends Component {
                         iconTextComponent={<Icon name="plus"/>}
                     />
                 </View>
-                {this.renderProgress()}
+                {/*{this.renderProgress()}*/}
             </View>
         );
     }
@@ -417,7 +419,8 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
+// export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
+export default TrashPoints;
 
 // export default compose(
 //   connect(mapStateToProps, mapDispatchToProps),

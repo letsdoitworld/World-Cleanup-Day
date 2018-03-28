@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
@@ -20,6 +20,7 @@ import styles, {
   downRightIcon,
   defaultRightIcon,
 } from './styles';
+import {selectors as appSelectors} from '../../reducers/app';
 
 class Settings extends Component {
   constructor(props) {
@@ -103,11 +104,24 @@ class Settings extends Component {
     );
   };
 
+  displayLoading = () => {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator />
+      </View>
+    );
+  };
+
   render() {
-    const { country } = this.props;
+    const { country, isConnected } = this.props;
+    if(!isConnected) {
+      return this.displayLoading();
+    }
+
     const countrySubtitle = country
       ? country.name
       : this.props.t('label_country_picker_placeholder');
+
     return (
       <View>
         <View style={styles.listContainer}>
@@ -157,11 +171,13 @@ class Settings extends Component {
     );
   }
 }
+
 const mapState = (state) => {
   return {
     profile: userSels.getProfile(state),
     country: userSels.getProfileCountry(state),
     isProfileUpdating: userSels.isProfileUpdating(state),
+    isConnected: appSelectors.isConnected(state),
   };
 };
 const mapDispatch = {

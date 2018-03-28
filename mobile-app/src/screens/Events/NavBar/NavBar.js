@@ -8,10 +8,10 @@ import styles from './styles'
 
 export default class EventsNavBar extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            selectedIndex: 0,
+            selectedIndex: props.index ? props.index : 0,
         };
     }
 

@@ -38,6 +38,7 @@ export const withCameraService = () => (Component) => {
       pickPhotoAsync: PropTypes.func.isRequired,
       takePhotoAsync: PropTypes.func.isRequired,
     };
+
     getChildContext() {
       const { pickPhotoAsync, takePhotoAsync } = this;
       return {
@@ -45,6 +46,7 @@ export const withCameraService = () => (Component) => {
         takePhotoAsync,
       };
     }
+
     pickPhotoAsync = async (options) => {
       const permitted = await checkPermissions();
       if (!permitted) {
@@ -53,6 +55,7 @@ export const withCameraService = () => (Component) => {
       }
       return ImagePicker.launchImageLibraryAsync(options);
     };
+
     takePhotoAsync = async (options) => {
       const permitted = await checkPermissions();
       if (!permitted) {
@@ -64,11 +67,13 @@ export const withCameraService = () => (Component) => {
       }
       return ImagePicker.launchCameraAsync(options);
     };
+
     showWarning = () => {
       this.setState({
         warning: true,
       });
     };
+
     hideWarning = () => {
       this.setState({
         warning: false,

@@ -18,10 +18,10 @@ export const searchEventsAction = (query, page, pageSize, location) => ({
 });
 
 export const searchEventsSuccessAction = (events, page, pageSize) => ({
-  type: SEARCH_EVENTS_SUCCESS_ACTION,
-  events,
-  page,
-  pageSize,
+    type: SEARCH_EVENTS_SUCCESS_ACTION,
+    events,
+    page,
+    pageSize
 });
 
 export const searchEventsErrorAction = error => ({

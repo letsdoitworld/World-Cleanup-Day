@@ -214,36 +214,68 @@ paths:
           in: query
           required: false
           type: string
+        - name: area
+          description: Area code.
+          in: query
+          required: false
+          type: string
+          minLength: 2
+          maxLength: 2
       responses:
         "200":
           $ref: "#/responses/Events"
         "default":
           $ref: "#/responses/ErrorSet"
 
-  #-----------------------------------------------------------------------------
-  /events/overview:
+  /overview/events:
     x-swagger-router-controller: events
-    get:
-      description: Fetch full information about events by location and radius
+    post:
+      description: Fetch isolated (ie. with no neighbors nearby) location events from a specific dataset, within a certain rectangular area, and for a certain grid scale.
       operationId: getEventsOverview
       parameters:
-        - name: radius
-          in: query
-          required: true
-          type: number
-          format: float
-          minimum: 0
-        - name: location
-          in: query
-          required: true
-          type: string
+        - $ref: "#/parameters/MapQuery"
       responses:
         "200":
-          description: List of events.
+          description: List of simplified event data.
           schema:
             type: array
             items:
-              $ref: "#/definitions/Event"
+              $ref: "#/definitions/OverviewEvent"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+
+  /overview/events/clusters:
+    x-swagger-router-controller: events
+    post:
+      description: Fetch clustered events from a specific dataset, within a certain rectangular area, and for a certain grid scale.
+      operationId: getEventsClustersOverview
+      parameters:
+        - $ref: "#/parameters/MapQuery"
+      responses:
+        "200":
+          description: List of event clusters.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventCluster"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+  /overview/events/grid:
+    x-swagger-router-controller: trashpoints
+    post:
+      description: Fetch isolated (ie. with no neighbors nearby) location events from a specific dataset, within a certain grid slot, for a certain grid scale.
+      operationId: getEventsInGridCell
+      parameters:
+        - $ref: "#/parameters/MapQueryGrid"
+      responses:
+        "200":
+          description: List of simplified event data.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/OverviewEvent"
         "default":
           $ref: "#/responses/ErrorSet"
 
@@ -1061,6 +1093,33 @@ definitions:
         $ref: "#/definitions/GeoPoint"
       coordinates:
         $ref: "#/definitions/GridCoordinates"
+
+  #-----------------------------------------------------------------------------
+  # Event characteristics.
+  #-----------------------------------------------------------------------------
+  EventCluster:
+    description: If not present, this object is a event. If present, this object is a cluster and this property contains cluster-specific properties.
+    type: object
+    required: [count, location, coordinates]
+    properties:
+      count:
+        type: number
+        format: int32
+        minimum: 1
+      location:
+        $ref: "#/definitions/GeoPoint"
+      coordinates:
+        $ref: "#/definitions/GridCoordinates"
+
+  OverviewEvent:
+    description: Simplified version of event, used when listing event overviews.
+    type: object
+    required: [id, location]
+    properties:
+      id:
+        $ref: "#/definitions/UUID"
+      location:
+        $ref: "#/definitions/GeoPoint"
   #-----------------------------------------------------------------------------
   # Trashpoints as paginated sets.
   #-----------------------------------------------------------------------------

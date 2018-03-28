@@ -132,44 +132,44 @@ export default class Home extends Component {
     );
   }
 }
-//
-// const mapStateToProps = state => {
-//   const mapMarkers = trashpileSelectors.markersSelector(state);
-//   const userMarker = locationSelectors.userMarkerSelector(state);
-//   const locationActive = locationSelectors.hasLocationActive(state);
-//
-//   const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
-//   return {
-//     markers,
-//     initialRegion: locationSelectors.initialRegionSelector(state),
-//     activeScreen: appSelectors.getActiveScreen(state),
-//     userLocation: locationSelectors.userLocationSelector(state),
-//     delta: trashpileSelectors.getLastDeltaValue(state),
-//   };
-// };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
-//       dispatch(
-//         trashpileOperations.fetchAllMarkers(
-//           northWestViewPort,
-//           southEastViewPort,
-//           delta,
-//         ),
-//       );
-//     },
-//     fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
-//       dispatch(
-//         trashpileOperations.fetchClusterTrashpoints({
-//           cellSize,
-//           coordinates,
-//           clusterId,
-//         }),
-//       );
-//     },
-//   };
-// };
+const mapStateToProps = state => {
+  const mapMarkers = trashpileSelectors.markersSelector(state);
+  const userMarker = locationSelectors.userMarkerSelector(state);
+  const locationActive = locationSelectors.hasLocationActive(state);
+
+  const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
+  return {
+    markers,
+    initialRegion: locationSelectors.initialRegionSelector(state),
+    activeScreen: appSelectors.getActiveScreen(state),
+    userLocation: locationSelectors.userLocationSelector(state),
+    delta: trashpileSelectors.getLastDeltaValue(state),
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
+      dispatch(
+        trashpileOperations.fetchAllMarkers(
+          northWestViewPort,
+          southEastViewPort,
+          delta,
+        ),
+      );
+    },
+    fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
+      dispatch(
+        trashpileOperations.fetchClusterTrashpoints({
+          cellSize,
+          coordinates,
+          clusterId,
+        }),
+      );
+    },
+  };
+};
 
 // export default compose(
 //   connect(mapStateToProps, mapDispatchToProps),

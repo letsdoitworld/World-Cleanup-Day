@@ -184,6 +184,8 @@ class Events extends Component {
                     location={this.props.userCoord}
                     mapEvents={mapEvents}
                     onLoadMapEventsAction={this.props.onLoadMapEventsAction}
+                    datasetUUIDSelector={this.props.datasetUUIDSelector}
+                    onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}
                 />);
             }
             default:
@@ -285,10 +287,12 @@ Events.propTypes = {
     mapEvents: PropTypes.array,
     isLoading: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
+    datasetUUIDSelector: PropTypes.string,
     onSearchEventsAction: PropTypes.func,
     onClearEventsAction: PropTypes.func,
     onGuestLogIn: PropTypes.func,
     onLoadMapEventsAction: PropTypes.func,
+    onFetchDatasetUUIDAction: PropTypes.func,
 };
 
 export default Events;

@@ -1,7 +1,7 @@
 import {call, put, take} from "redux-saga/effects";
 import {SEARCH_EVENTS_ACTION, LOAD_EVENTS_FOR_MAP_ACTION} from '../actions/events';
 import {
-    controlProgress,
+    controlProgress, fetchDatasetUIIDAction,
     setErrorMessage
 } from "../actions/app";
 import {
@@ -11,6 +11,7 @@ import {
 } from "../actions/events";
 
 import Api from '../../api';
+import {datasetUUID} from "../selectors";
 
 function* searchEvents(query, page, pageSize, location) {
     try {
@@ -40,7 +41,7 @@ export function* getMapEventsFlow() {
     while (true) {
         const { payload } = yield take(LOAD_EVENTS_FOR_MAP_ACTION);
         try {
-            const response = yield call(Api.events.loadMapEvents, payload.location, payload.radius);
+            const response = yield call(Api.events.fetchClustersList, payload.datasetId);
             yield put(loadEventsForMapSuccess(response))
         } catch (error) {
             console.log("getMapEventsFlow error", error);

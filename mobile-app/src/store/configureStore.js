@@ -24,6 +24,7 @@ import {
     getMapEventsFlow,
     loadMyEventsFlow,
     loadMyTrashPointsFlow,
+    fetchDatasetFlow,
 } from './sagas';
 
 
@@ -81,6 +82,7 @@ export default function configureStore() {
       sagaMiddleware.run(loadMyEventsFlow),
       sagaMiddleware.run(loadMyTrashPointsFlow),
       sagaMiddleware.run(getMapEventsFlow),
+        sagaMiddleware.run(fetchDatasetFlow),
     ],
   };
 }

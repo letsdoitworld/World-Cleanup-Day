@@ -19,6 +19,7 @@ import colors from '../../../config/colors';
 import {toRadians} from "../../../shared/helpers";
 import Button from "../../../components/Button/Button";
 import { HorizontalEvent } from "../../../components";
+import strings from ""
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -37,6 +38,7 @@ export default class EventsMap extends Component {
         let userLocation;
         if (location === undefined || location === null) {
             //TODO fix me!! Random location?
+            alert(strings.label_no_location);
             userLocation = {
                 latitude: 48.8152937,
                 longitude: 2.4597668
@@ -69,7 +71,11 @@ export default class EventsMap extends Component {
     }
 
     componentDidMount() {
-        this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (this.state.radius / 1000)})
+        if (!this.props.datasetUUIDSelector) {
+            this.props.onFetchDatasetUUIDAction();
+        } else {
+            this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (this.state.radius / 1000)})
+        }
     }
 
     onCheckedChanged(checked, item) {

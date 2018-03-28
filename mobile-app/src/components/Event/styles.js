@@ -11,8 +11,6 @@ export default StyleSheet.create({
     padding: 10,
     marginTop: 3,
     backgroundColor: colors.white,
-      width: getWidthPercentage(90),
-      height: '90%',
   },
   avatar: {
     width: getWidthPercentage(80),

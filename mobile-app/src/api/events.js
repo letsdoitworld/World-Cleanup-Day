@@ -1,5 +1,7 @@
 import Api from '../services/Api';
 import {API_ENDPOINTS} from "../shared/constants";
+import { datasetUUID } from "../store/selectors";
+import { fetchDatasetUIIDAction } from "../store/actions/app";
 
 export function searchEventsRequest(query, page, pageSize, location) {
     return new Promise(function (resolve, reject) {
@@ -420,24 +422,62 @@ export function searchEventsRequest(query, page, pageSize, location) {
     })
 }
 
-async function loadMapEvents(location, radius) {
+// async function loadMapEvents(location, radius) {
+//     try {
+//         const response = await Api.get(API_ENDPOINTS.FETCH_MAP_EVENTS,
+//             {
+//                 params: {
+//                     location,
+//                     radius,
+//                 },
+//             },);
+//         //console.log("==> loadMapEvents ", response.data);
+//         return response.data
+//     } catch (ex) {
+//         //console.log("==> loadMapEvents ex ", ex);
+//         throw ex;
+//     }
+// }
+
+async function fetchClustersList({
+                             cellSize,
+                             coordinates,
+                             clusterId,
+                            datasetId
+                         }) {
     try {
-        const response = await Api.get(API_ENDPOINTS.FETCH_MAP_EVENTS,
-            {
-                params: {
-                    location,
-                    radius,
-                },
-            },);
-        //console.log("==> loadMapEvents ", response.data);
-        return response.data
-    } catch (ex) {
-        //console.log("==> loadMapEvents ex ", ex);
-        throw ex;
+
+        const body = {
+            datasetId,
+            cellSize,
+            coordinates,
+        };
+        const response = await Api.post( API_ENDPOINTS.FETCH_EVENTS, body, );
+
+        if (response && response.data && Array.isArray(response.data)) {
+            const angleBetweenPoints = 360 / response.data.length;
+            dispatch({
+                type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
+                markers: [
+                    ...markers.filter(({ id }) => id !== clusterId),
+                    ...response.data.map((marker, index) => ({
+                        ...marker,
+                        position: destinationPoint(
+                            marker.location,
+                            3,
+                            index * angleBetweenPoints,
+                        ),
+                        isTrashpile: true,
+                    })),
+                ],
+            });
+        }
+    } catch (e) {
+        console.log(e);
     }
-}
+};
 
 export default {
     searchEventsRequest,
-    loadMapEvents,
+    fetchClustersList,
 }

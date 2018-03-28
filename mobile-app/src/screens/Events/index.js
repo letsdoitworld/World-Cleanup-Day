@@ -8,12 +8,17 @@ import {
 } from '../../store/actions/events';
 
 import {
+    fetchDatasetUIIDAction,
+} from '../../store/actions/app';
+
+import {
     getEventsEntity,
     getCoordUser,
     isAuthenticated,
     isLoading,
     isPrivateProfile,
-    getMapEventsEntity
+    getMapEventsEntity,
+    datasetUUID,
 } from '../../store/selectors';
 
 import Component from './Events';
@@ -26,6 +31,7 @@ const selector = createStructuredSelector({
     isAuthenticated,
     isLoading,
     isPrivateProfile,
+    datasetUUIDSelector: datasetUUID,
 });
 
 const actions = {
@@ -33,6 +39,7 @@ const actions = {
     onClearEventsAction: clearEventsAction,
     onGuestLogIn: guestLogIn,
     onLoadMapEventsAction: loadEventsForMapAction,
+    onFetchDatasetUUIDAction: fetchDatasetUIIDAction,
 };
 
 export default connect(selector, actions)(Component);

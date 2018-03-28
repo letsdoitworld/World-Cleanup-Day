@@ -110,7 +110,8 @@ export const API_ENDPOINTS = {
     FETCH_EVENT_IMAGES: eventId =>
         `/event/${eventId}/images`,
     EVENT: '/event',
-
+    FETCH_EVENTS: '/overview/events',
+    FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {

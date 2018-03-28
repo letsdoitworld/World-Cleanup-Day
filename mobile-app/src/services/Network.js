@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { operations as appOps, selectors as appSels } from '../reducers/app';
 import { AlertModal } from '../components/AlertModal';
 import OfflineService from './Offline';
+import { resetTo, rootNav } from '../services/Navigation';
 
 const CONNECTION_CHECK_INTERVAL = 10; // seconds
 
@@ -96,6 +97,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
     }
     handleCloseAlertModal() {
       this.props.updateLackConnMessStatus(!0);
+      resetTo(rootNav, 'Tabs');
     }
     checkConnection = async () => {
       let isConnected = await NetInfo.isConnected.fetch();

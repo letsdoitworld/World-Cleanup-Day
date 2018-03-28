@@ -109,9 +109,16 @@ class Home extends Component {
   displayNoConnected = (latitude,  longitude) => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontWeight: 'bold', textAlign: 'center', margin: 5 }}>{this.props.t('label_network_off_warning_title')}</Text>
-        <Text style={{ textAlign: 'center', margin: 5 }}>{this.props.t('label_no_connection_note')}</Text>
-        <Text style={{ textAlign: 'center', margin: 5 }}>{this.props.t('label_your_coordinates')}: {`${latitude.toFixed(2)}, ${longitude.toFixed(2)}`}</Text>
+        <Text style={{ fontWeight: 'bold', textAlign: 'center', margin: 5 }}>
+          {this.props.t('label_network_off_warning_title')}
+        </Text>
+        <Text style={{ textAlign: 'center', margin: 5 }}>
+          {this.props.t('label_no_connection_note')}
+        </Text>
+        <Text style={{ textAlign: 'center', margin: 5 }}>
+          {this.props.t('label_your_coordinates')}
+          {`: ${latitude.toFixed(2)}, ${longitude.toFixed(2)}`}
+        </Text>
       </View>
     );
   };

@@ -30,15 +30,16 @@ export default class ListItem extends PureComponent {
             screen: TRASH_POINT,
             title: strings.label_trashpoint,
             passProps: {
-                onAddedPress: this.onAddedPress.bind(this),
-                trashPoint: this.props.item
+                onCheckedChanged: this.onCheckedChanged.bind(this),
+                trashPoint: this.props.item,
+                isChecked: this.state.checked
             }
         })
     };
 
-    onAddedPress() {
-        this.onCheckedChanged(true)
-    };
+    // onAddedPress() {
+    //     this.onCheckedChanged(true)
+    // };
 
     onCheckedChanged = (checked) => {
         this.setState(previousState => {
@@ -68,13 +69,13 @@ export function renderItem(item, checked, style, onPress, onCheckedChanged) {
                     source={STATUS_IMAGES[item.status]}/>
                 <Image
                     style={styles.pin}
-                    resizeMode={'center'}
+                    resizeMode={'contain'}
                     source={require('./images/icSmallLocationPinInactive.png')}/>
                 <View style={styles.titleContainer}>
                     <Text
                         numberOfLines={1}
                         style={styles.titleBlack}>
-                        {item.title}
+                        {item.name}
                     </Text>
                     {
                         item.isIncluded ?

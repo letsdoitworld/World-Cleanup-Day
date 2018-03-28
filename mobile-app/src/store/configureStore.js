@@ -8,6 +8,8 @@ import createSagaMiddleware from 'redux-saga';
 import Reactotron from 'reactotron-react-native';
 import { reactotronRedux } from 'reactotron-redux';
 
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import reducers from './reducers';
 
 import {
@@ -25,13 +27,14 @@ import {
     loadMyEventsFlow,
     loadMyTrashPointsFlow,
     fetchDatasetFlow,
+    loadEventFlow,
 } from './sagas';
 
 
 export default function configureStore() {
   let store;
   const sagaMiddleware = createSagaMiddleware();
-  const enhancer = compose(
+  const enhancer = composeWithDevTools(
     applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
     autoRehydrate({ log: true }),
   );
@@ -81,6 +84,7 @@ export default function configureStore() {
       sagaMiddleware.run(loadLocationFlow),
       sagaMiddleware.run(loadMyEventsFlow),
       sagaMiddleware.run(loadMyTrashPointsFlow),
+      sagaMiddleware.run(loadEventFlow),
       sagaMiddleware.run(getMapEventsFlow),
         sagaMiddleware.run(fetchDatasetFlow),
     ],

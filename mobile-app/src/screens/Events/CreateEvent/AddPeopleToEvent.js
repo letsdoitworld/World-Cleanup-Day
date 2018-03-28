@@ -14,6 +14,8 @@ import {Navigation} from "react-native-navigation";
 import {createEventError} from "../../../store/actions/createEvent";
 import { AlertModal } from '../../../components/AlertModal';
 
+import { Icons } from '../../../assets/images';
+
 const cancelId = 'cancelId';
 
 class AddPeopleToEvent extends ImmutableComponent {
@@ -26,7 +28,7 @@ class AddPeopleToEvent extends ImmutableComponent {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../../src/assets/images/ic_back.png'),
+                icon: Icons.Back,
                 id: cancelId,
             }
         ],

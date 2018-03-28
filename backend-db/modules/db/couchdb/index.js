@@ -57,14 +57,14 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
-    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location) => {
+    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location, area) => {
       return await adapter.executeTemporaryView('Event', {
         map: `function(doc) {
             function distanceBetweenPoints (p1, p2) {
               return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
                       + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
             }
-            if (doc.$doctype === 'event' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''}) {
+            if (doc.$doctype === 'event' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''} ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}) {
               ${location ? `
                 emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
               ` : `
@@ -78,6 +78,32 @@ const layer = {
         skip: pageSize * (pageNumber - 1),
       }, false);
     },
+
+  getEventsByTrashpoint: async (trashpointId) => {
+    return await adapter.getEntities(
+      'Event',
+      '_design/byTrashpoint/_view/view',
+      {
+        key: trashpointId
+      });
+  },
+
+
+  getOverviewEvents: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+    const scale = grid.getScaleForCellSize(cellSize);
+    const ret = await layer.getOverview('Event', `_design/isolated${scale}/_view/view`,
+      datasetId, scale, nwLat, nwLong, seLat, seLong);
+    return ret.filter(row => adapter.rawDocToEntity('Event', row));
+  },
+
+  getEventsOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+    const scale = grid.getScaleForCellSize(cellSize);
+    const ret = await layer.getOverview('Event', `_design/clusters${scale}/_view/view`,
+      datasetId, scale, nwLat, nwLong, seLat, seLong, {
+        'group_level': 2,
+      });
+    return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
+  },
 
     getEventsByLocation: async (minLocation, maxLocation) => {
       return await adapter.getEntities(
@@ -555,19 +581,29 @@ const layer = {
     getImage: async id => {
         return await adapter.getOneEntityById('Image', '_design/all/_view/view', id);
     },
-    allocateImage: async (type, trashpointId, who, parentId = undefined) => {
+    allocateImage: async (type, trashpointId, eventId, who, parentId = undefined) => {
         const id = util.uuid.random();
-        await adapter.createDocument('Image', id, {
-            type,
-            status: types.Image.STATUS_PENDING,
-            trashpointId,
-            parentId,
-        }, {
+        const imgData = trashpointId ?
+            {
+                type,
+                status: types.Image.STATUS_PENDING,
+                trashpointId,
+                parentId,
+            }
+            :
+            {
+                type,
+                status: types.Image.STATUS_PENDING,
+                eventId,
+                parentId,
+            };
+        const imgDate = {
             updatedAt: util.time.getNowUTC(),
             updatedBy: who,
             createdAt: util.time.getNowUTC(),
             createdBy: who,
-        });
+        };
+        await adapter.createDocument('Image', id, imgData, imgDate);
 
         return await layer.getImage(id);
     },

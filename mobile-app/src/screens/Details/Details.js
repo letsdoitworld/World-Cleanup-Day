@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import _ from 'lodash';
 
-import { Map } from '../../components/Map';
+import { Map } from '../../components';
 import { SimpleButton } from '../../components/Button';
 import {
   getHeightPercentage,

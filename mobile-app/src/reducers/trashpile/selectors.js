@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
 
-const stateSelector = state => state.trashpile;
+const stateSelector = state => state.toJS();//.trashpile;
 // this is used since the state was split into 2, in order to
 // separate the user trashpoints from the rest of the state
 const legacySelector = createSelector(
   stateSelector,
-  state => state.trashpoints,
+  state => state.trashPoints,
 );
 
 const trashpointsSelector = createSelector(
@@ -16,13 +16,14 @@ const clustersSelector = createSelector(
   legacySelector,
   state => state.clusters,
 );
-const markersSelector = createSelector(
+export const markersSelector = createSelector(
   trashpointsSelector,
   clustersSelector,
   (trashpoints, clusters) => {
     return [...trashpoints, ...clusters];
   },
 );
+
 const markerDetailsSelector = createSelector(
   legacySelector,
   state => state.markerDetails,
@@ -82,7 +83,7 @@ const getMarkerDeleting = createSelector(
 
 export default {
   stateSelector,
-  markersSelector,
+ // markersSelector,
   markerDetailsSelector,
   userTrashpointsSelector,
   getMarkerCreatorId,

@@ -109,10 +109,10 @@ export default class CreateEvent extends ImmutableComponent {
             customStyles={{dateInput: {borderWidth: 0}}}
             onDateChange={(date) => {
                 const endDate = this.state.data.get('endDate');
-                this.validateEndTime();
                 this.setData(d => d.set('startDate', date));
                 const changedEndDate = date.split(" ")[0] + " " + endDate.split(" ")[1];
-                this.setData(d => d.set('endDate', changedEndDate))
+                this.setData(d => d.set('endDate', changedEndDate));
+                this.validateEndTime(changedEndDate);
             }}/>
     }
 
@@ -227,10 +227,10 @@ export default class CreateEvent extends ImmutableComponent {
             maxDate="01-01-2060"
             customStyles={{dateInput: {borderWidth: 0}}}
             onDateChange={(date) => {
-                this.validateEndTime(date);
                 const startDate = this.state.data.get('startDate');
                 const endDate = startDate.split(" ")[0] + " " + date.split(" ")[1];
-                this.setData(d => d.set('endDate', endDate))
+                this.setData(d => d.set('endDate', endDate));
+                this.validateEndTime(endDate);
             }}/>
     }
 
@@ -275,7 +275,7 @@ export default class CreateEvent extends ImmutableComponent {
                     {this.renderDateTitle()}
                     <View style={styles.dateContainer}>
                         <View style={styles.imageContainer}>
-                            <Image source={require('../../../assets/images/ic_time.png')}
+                            <Image source={require('../../../assets/images/icons/ic_time.png')}
                                    style={styles.imageItemStyle}/>
                         </View>
                         <View style={styles.dateAndTimeContainerStyle}>
@@ -319,7 +319,13 @@ export default class CreateEvent extends ImmutableComponent {
                                 <View style={styles.locationContainerStyle}>
                                     <Image source={require('../../../assets/images/ic_trashpoints.png')}
                                            style={styles.imageTrashStyle}/>
-                                    <Text style={styles.textTrashStyle}>{strings.label_add_trashPoints}</Text>
+                                    <Text style={styles.textTrashStyle}>
+                                        {
+                                            this.trashPoints.size > 0
+                                                ? strings.label_add_trashPoints_included
+                                                : strings.label_add_trashPoints
+                                        }
+                                        </Text>
                                     {this.renderTrashPointsCount()}
                                 </View>
                             </TouchableOpacity>
@@ -533,7 +539,7 @@ export default class CreateEvent extends ImmutableComponent {
                 title: strings.label_create_events_step_two,
                 passProps: {
                     event: {
-                        datasetId: '26e7668a-fa3f-4ba6-bb0b-e8892ee306аа',
+                        datasetId: '8a4a0ed2-d85a-45af-a318-d418427ccc06',
                         name: this.title,
                         address: address,
                         startTime: this.state.data.get('startDate'),
@@ -574,4 +580,5 @@ export default class CreateEvent extends ImmutableComponent {
         }
 
     }
+
 }

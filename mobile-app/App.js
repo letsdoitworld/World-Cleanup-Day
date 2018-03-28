@@ -6,11 +6,10 @@ import isNil from 'lodash/isNil';
 
 import {
     LOGIN_SCREEN,
-    MY_ACTIVITY_SCREEN,
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
     EVENTS,
-    registerScreens,
+    registerScreens, TRASH_POINTS,
 } from './src/screens';
 
 import './src/config/styles';
@@ -76,11 +75,11 @@ export default class App extends PureComponent {
         Navigation.startTabBasedApp({
             tabs: [
                 {
-                    screen: NOTIFICATIONS_SCREEN,
-                    label: 'Notifications',
+                    screen: TRASH_POINTS,
+                    label: 'Trashpoints',
                     icon: Icons.Trashpoints,
                     selectedIcon: Icons.TrashpointsActive,
-                    title: strings.label_header_notific,
+                    title: '',
                 },
                 {
                     screen: EVENTS,

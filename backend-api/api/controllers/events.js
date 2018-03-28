@@ -1,5 +1,6 @@
 'use strict';
 const senecaRequestMw = require('../../modules/swagger-setup/middleware/seneca');
+const filters = require('./filters');
 
 module.exports = {
   getEventById: senecaRequestMw(
@@ -20,15 +21,21 @@ module.exports = {
       pageSize: req.swagger.params.pageSize.value,
       pageNumber: req.swagger.params.pageNumber.value,
       location: req.swagger.params.location.value,
-      name: req.swagger.params.name.value
+      name: req.swagger.params.name.value,
+      area: req.swagger.params.area.value
     })
   ),
   getEventsOverview: senecaRequestMw(
     'role:db,cmd:getEventsOverview',
-    req => ({
-      radius: req.swagger.params.radius.value,
-      location: req.swagger.params.location.value
-    })
+    req => filters.convertGeoScale(req.swagger.params.query.value),
+  ),
+  getEventsClustersOverview: senecaRequestMw(
+    'role:db,cmd:getEventsClustersOverview',
+    req => filters.convertGeoScale(req.swagger.params.query.value),
+  ),
+  getEventsInGridCell: senecaRequestMw(
+    'role:db,cmd:getEventsInGridCell',
+    req => filters.convertGeoScale(req.swagger.params.query.value),
   ),
   getUserOwnEvents: senecaRequestMw(
     'role:db,cmd:getUserOwnEvents',

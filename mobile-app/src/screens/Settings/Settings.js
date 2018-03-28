@@ -36,6 +36,7 @@ export class Settings extends Component {
   constructor(props) {
     super(props);
 
+    console.log("isPrivateProfile ", props.isPrivateProfile);
     this.state = {
         value: props.isPrivateProfile,
         showCountryModal: false,
@@ -195,7 +196,7 @@ export class Settings extends Component {
                             width={50}
                             height={30}
                             value={this.state.value}
-                            onSyncPress={isOn =>this.handlePrivacyPress(isOn)}
+                            onSyncPress={isOn =>this.handlePrivacyPress(!isOn)}
                             />
                       </View>
                   </View>

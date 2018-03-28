@@ -5,7 +5,7 @@ import {
     View,
     TextInput,
     Alert,
-    UIManager
+    UIManager, ActivityIndicator
 } from 'react-native';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
@@ -22,6 +22,7 @@ import {
 import {selectors as locationSelectors} from '../../reducers/location/selectors';
 import {selectors as appSelectors} from '../../reducers/app/selectors';
 import {
+    DEFAULT_ZOOM,
     DELTA_HASH,
     GRID_HASH,
     MIN_ZOOM,
@@ -29,12 +30,15 @@ import {
 } from '../../shared/constants';
 import _ from 'lodash';
 import {fetchAllMarkers} from "../../reducers/trashpile/operations";
-import {CREATE_EVENT, EVENTS_NAV_BAR} from "../index";
+import {ADD_TRASH_POINTS, CREATE_EVENT, CREATE_MARKER, EVENTS_NAV_BAR} from "../index";
 import styles from "../Events/styles";
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import {debounce} from "../../shared/util";
 import strings from "../../assets/strings";
+import ImagePicker from 'react-native-image-crop-picker';
+import ImageService from "../../services/Image";
+import {getCurrentPosition} from "../../shared/geo";
 
 const MODE = {
     list: 0,
@@ -253,7 +257,46 @@ class TrashPoints extends Component {
         }
     }
 
-    handleFabPress = () => {
+
+    handleFabPress = async () => {
+
+
+        const image = await ImagePicker.openCamera({
+            compressImageQuality: 0.2,
+            cropping: true,
+            includeBase64: true
+        });
+        const {width, height, data, path } = image;
+        const uri = path.substring('file://'.length);
+        //
+        // const thumbnailBase64 = await ImageService.getResizedImageBase64({
+        //     uri,
+        //     width,
+        //     height
+        // });
+        //
+        // console.warn(thumbnailBase64)
+
+        const coords = await getCurrentPosition({
+            enableHighAccuracy: false,
+            timeout: 10 * 1000,
+            maximumAge: 60 * 1000
+        });
+
+        this.props.navigator.push({
+            screen: CREATE_MARKER,
+           // title: strings.label_add_trashPoints,
+            passProps: {
+                photos: [{ uri, thumbnail: { base64: data },  base64: data}],
+                coords,
+            }
+        });
+      //  this.props.navigation.push('CreateMarker')
+       // const { navigation, userLocation } = this.props;
+
+
+
+
         // const {isAuthenticated, isPrivateProfile} = this.props;
         //
         // if (isAuthenticated) {

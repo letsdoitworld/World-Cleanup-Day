@@ -18,6 +18,7 @@ import EventsList from './Events/List/List'
 
 import TrashPoints from './TrashPoints/TrashPoints'
 import TrashPoint from "./TrashPoint/TrashPoint";
+import CreateMarker from "./CreateMarker/CreateMarker";
 
 export const PROFILE_SCREEN = "PROFILE_SCREEN";
 export const MY_ACTIVITY_SCREEN = "MY_ACTIVITY_SCREEN";
@@ -36,6 +37,7 @@ export const ADD_PEOPLE_TO_EVENT = "ADD_PEOPLE_TO_EVENT";
 export const EVENTS_NAV_BAR = "EVENTS_NAV_BAR";
 export const TRASH_POINT = "TRASH_POINT";
 export const TRASH_POINTS = "TRASH_POINTS";
+export const CREATE_MARKER = "CREATE_MARKER";
 // register all screens of the app (including internal ones)
 export function registerScreens(store, Provider) {
      Navigation.registerComponent(PROFILE_SCREEN, () => ProfileScreen, store, Provider);
@@ -55,4 +57,5 @@ export function registerScreens(store, Provider) {
      Navigation.registerComponent(ADD_TRASH_POINTS_MAP, () => AddTrashPointsMap, store, Provider);
      Navigation.registerComponent(TRASH_POINT, () => TrashPoint, store, Provider);
      Navigation.registerComponent(TRASH_POINTS, () => TrashPoints, store, Provider);
+     Navigation.registerComponent(CREATE_MARKER, () => CreateMarker, store, Provider);
 }

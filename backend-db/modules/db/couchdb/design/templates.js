@@ -93,7 +93,7 @@ module.exports = {
                 };
             }
             function clusterStatus(data, statExtractor) {
-                var states = ['threat', 'regular', 'cleaned', 'outdated'];
+                var states = ['urgent', 'regular', 'cleaned', 'outdated'];
                 var priorities = states.reduce(function (red, val, idx) {
                     red[val] = idx;
                     return red;
@@ -215,7 +215,7 @@ module.exports = {
         }
 
         function clusterStatus(data, statExtractor) {
-          var states = ['threat', 'regular', 'cleaned', 'outdated'];
+          var states = ['urgent', 'regular', 'cleaned', 'outdated'];
           var priorities = states.reduce(function (red, val, idx) {
             red[val] = idx;
             return red;

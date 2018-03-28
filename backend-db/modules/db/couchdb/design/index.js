@@ -533,15 +533,15 @@ const designDocs = {
  */
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(8, 'isolated', templates.isolatedTrashpoints),
+    tools.makeGridScaleDesignDocs(9, 'isolated', templates.isolatedTrashpoints),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(8, 'clusters', templates.trashpointClusters),
+    tools.makeGridScaleDesignDocs(9, 'clusters', templates.trashpointClusters),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(8, 'byGridCell', templates.trashpointsByGridCell),
+    tools.makeGridScaleDesignDocs(9, 'byGridCell', templates.trashpointsByGridCell),
 );
 designDocs.events = Object.assign(
   designDocs.events,
@@ -549,11 +549,11 @@ designDocs.events = Object.assign(
 );
 designDocs.events = Object.assign(
   designDocs.events,
-  tools.makeGridScaleDesignDocs(8, 'clusters', templates.eventClusters),
+  tools.makeGridScaleDesignDocs(9, 'clusters', templates.eventClusters),
 );
 designDocs.events = Object.assign(
   designDocs.events,
-  tools.makeGridScaleDesignDocs(8, 'byGridCell', templates.eventsByGridCell),
+  tools.makeGridScaleDesignDocs(9, 'byGridCell', templates.eventsByGridCell),
 );
 
 

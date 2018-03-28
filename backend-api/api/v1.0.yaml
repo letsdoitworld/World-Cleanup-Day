@@ -1152,7 +1152,7 @@ definitions:
         statusCounts:
           type: object
           properties:
-            threat:
+            urgent:
               $ref: "#/definitions/Count"
             regular:
               $ref: "#/definitions/Count"
@@ -1225,15 +1225,15 @@ definitions:
   TrashStatus:
     type: string
     description: The current status of this trashpoint. If it's a cluster, the status is determined by the majority of trashpoints in it.
-    enum: [threat, regular, cleaned, outdated]
+    enum: [urgent, regular, cleaned, outdated]
   TrashCreateStatus:
     type: string
     description: The initial status of a newly created trashpoint.
-    enum: [threat, regular]
+    enum: [urgent, regular]
   TrashModifyStatus:
     type: string
     description: Change the status of the trashpoint.
-    enum: [threat, regular, cleaned]
+    enum: [urgent, regular, cleaned]
   TrashAreas:
     description: Under what geographical areas this trashpoint falls.
     type: array
@@ -1253,7 +1253,7 @@ definitions:
     description: The amount of trash.
     type: string
     minItems: 1
-    enum: [handful, bagful, cartload, truckload]
+    enum: [handful, bagful, cartload, truck]
   TrashName:
     type: string
     minLength: 1

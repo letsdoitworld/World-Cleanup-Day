@@ -1,7 +1,9 @@
 import Api from '../services/Api';
-import {API_ENDPOINTS} from "../shared/constants";
+import {API_ENDPOINTS, SCREEN_WIDTH} from "../shared/constants";
 import { datasetUUID } from "../store/selectors";
 import { fetchDatasetUIIDAction } from "../store/actions/app";
+import { guid, getDistanceBetweenPointsInMeters, getGridValue } from "../shared/helpers";
+import types from "../reducers/trashpile/types";
 
 export function searchEventsRequest(query, page, pageSize, location) {
     return new Promise(function (resolve, reject) {
@@ -438,6 +440,119 @@ export function searchEventsRequest(query, page, pageSize, location) {
 //         throw ex;
 //     }
 // }
+
+async function fetchAllEventMarkers(
+    viewPortLeftTopCoordinate,
+    viewPortRightBottomCoordinate,
+    mapSize,
+    datasetId) {
+    // dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_REQUEST });
+    // let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+    //
+    // if (!datasetId) {
+    //     try {
+    //         await dispatch(appActions.fetchDatasets());
+    //         datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+    //     } catch (ex) {
+    //         return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
+    //     }
+    // }
+
+    const diagonaleInMeters = getDistanceBetweenPointsInMeters(
+        viewPortLeftTopCoordinate.latitude,
+        viewPortLeftTopCoordinate.longitude,
+        viewPortRightBottomCoordinate.latitude,
+        viewPortRightBottomCoordinate.longitude,
+    );
+    const grid = getGridValue(diagonaleInMeters);
+    let cellSize = 0;
+    if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
+        cellSize =
+            38 *
+            (viewPortRightBottomCoordinate.longitude -
+                viewPortLeftTopCoordinate.longitude) /
+            mapSize.width;
+    } else {
+        cellSize =
+            (180 -
+                viewPortLeftTopCoordinate.longitude +
+                viewPortRightBottomCoordinate.longitude +
+                180) *
+            38 /
+            mapSize.width;
+    }
+
+    const body = {
+        datasetId,
+        rectangle: {
+            nw: viewPortLeftTopCoordinate,
+            se: viewPortRightBottomCoordinate,
+        },
+        cellSize,
+    };
+
+    const [markersRes, clustersRes] = await Promise.all([
+        ApiService.post(API_ENDPOINTS.FETCH_EVENTS, body, {
+            withToken: false,
+        }),
+        ApiService.post(
+            API_ENDPOINTS.FETCH_OVERVIEW_EVENT_CLUSTERS,
+            {
+                ...body,
+            },
+            {
+                withToken: false,
+            },
+        ),
+    ]);
+
+    const list = await ApiService.post(API_ENDPOINTS.FETCH_EVENTS, body, {
+        withToken: false,
+    });
+
+    let markers = [];
+
+    if (markersRes && markersRes.data && Array.isArray(markersRes.data)) {
+        markers = [
+            ...markersRes.data.map(marker => ({
+                ...marker,
+                position: {
+                    lat: marker.location.latitude,
+                    lng: marker.location.longitude,
+                },
+                isTrashpile: true,
+            })),
+        ];
+    }
+
+    if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
+        markers = [
+            ...markers,
+            ...clustersRes.data.map(cluster => ({
+                ...cluster,
+                position: {
+                    lat: cluster.location.latitude,
+                    lng: cluster.location.longitude,
+                },
+                isTrashpile: true,
+                id: guid(),
+            })),
+        ];
+    }
+
+    if (!markersRes && !clustersRes) {
+        return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
+    }
+
+    dispatch({
+        type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
+        markers,
+    });
+    dispatch({
+        type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
+        events: list.data,
+    });
+};
 
 async function fetchClustersList({
                              cellSize,

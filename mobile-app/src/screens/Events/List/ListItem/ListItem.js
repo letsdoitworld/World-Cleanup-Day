@@ -32,47 +32,47 @@ export default class ListItem extends PureComponent {
               style={item.participant ? styles.itemTouchParticipant : styles.itemTouch}
             >
               <View style={styles.itemContent}>
-                  <Image
-                      style={styles.image}
-                      source={{ uri: item.cover_picture }} 
-                    />
+                  {   item.photos[0]
+                      ? <Image
+                          style={styles.image}
+                          source={{uri: item.photos[0]}}/>
+                      : <View style={[styles.image, {backgroundColor: 'grey'}]}/>
+                  }
                   <View style={styles.titleContainer}>
                       <Text
                           numberOfLines={2}
                           style={styles.title}
                         >
-                          {item.title}
+                          {item.name}
                         </Text>
                       <View style={styles.organizationRow}>
                           <Image
                               style={styles.organizationIcon}
-                              source={require('./images/icGroupBlack24Px.png')} 
+                              source={require('./images/icGroupBlack24Px.png')}
                             />
                           <Text
                               numberOfLines={1}
                               style={styles.organizationText}
                             >
-                              {item.organization_name}
+                              {item.description}
                             </Text>
                         </View>
-                      <View style={styles.placeRow}>
-                          <Image
-                              resizeMode={'center'}
-                              resizeMethod={'scale'}
-                              style={styles.pin}
-                              source={require('./images/icLocationOnBlack24Px.png')} 
-                            />
-                          <Text
-                              numberOfLines={1}
-                              style={styles.placeText}
-                            >
-                              {`${item.place.city}, ${item.place.country}`}
+                        <View style={styles.placeRow}>
+                            <Image
+                                resizeMode={'center'}
+                                resizeMethod={'scale'}
+                                style={styles.pin}
+                                source={require('./images/icLocationOnBlack24Px.png')}/>
+                            <Text
+                                numberOfLines={1}
+                                style={styles.placeText}>
+                                {item.address}
                             </Text>
                         </View>
                     </View>
-                  <View style={styles.statsContainer}>
-                      <Text style={item.participant ? styles.availableParticipant : styles.available}>
-                          {`${item.available}/${item.all}`}
+                    <View style={styles.statsContainer}>
+                        <Text style={item.participant ? styles.availableParticipant : styles.available}>
+                            {`${item.peopleAmount}/${item.maxPeopleAmount}`}
                         </Text>
                       <Text style={styles.date}>
                           {item.date}

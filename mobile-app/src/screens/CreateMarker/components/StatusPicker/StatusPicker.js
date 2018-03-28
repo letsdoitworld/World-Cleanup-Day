@@ -62,16 +62,4 @@ const StatusPicker = ({ value, onChange, display = ['threat', 'regular'], t }) =
   );
 };
 
-StatusPicker.propTypes = {
-  // options: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     id: PropTypes.number.isRequired,
-  //     label: PropTypes.string.isRequired,
-  //     image: PropTypes.string.isRequired,
-  //   }).isRequired,
-  // ).isRequired,
-  value: PropTypes.any.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
-
-export default translate()(StatusPicker);
+// translatransla

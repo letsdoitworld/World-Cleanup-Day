@@ -1,3 +1,5 @@
+import {IGPSCoordinates} from "NativeModules";
+
 const API_KEY = 'AIzaSyDlJyYfCW6sP165uqxjHWB2OTAtH2NBAi4';
 
 export async function geocodeCoordinates(coordinates) {
@@ -11,4 +13,10 @@ export async function geocodeCoordinates(coordinates) {
         mainText: location.formatted_address,
         secondaryText: ''
     };
+}
+
+export async function getCurrentPosition(options) {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
 }

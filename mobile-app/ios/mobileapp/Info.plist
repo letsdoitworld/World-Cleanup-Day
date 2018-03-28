@@ -32,10 +32,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl</string>
+			<string>com.googleusercontent.apps.750766631573-gub35t5jrnlng5pr2u81rgtitljbbn85</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl</string>
+				<string>com.googleusercontent.apps.750766631573-gub35t5jrnlng5pr2u81rgtitljbbn85</string>
 			</array>
 		</dict>
 		<dict>
@@ -58,9 +58,10 @@
 				<string>343042629555-usaaeq5u7a031kargek6fgnmdf1ta1fl.apps.googleusercontent.com</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>10</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -153,8 +154,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

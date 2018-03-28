@@ -51,7 +51,7 @@ export default EStyleSheet.create({
     },
     inputTextStyle: {
         width: '100%',
-        marginLeft: getWidthPercentage(10),
+        marginLeft: getWidthPercentage(14),
         alignSelf: 'center',
     },
     dateAndTimeContainerStyle: {

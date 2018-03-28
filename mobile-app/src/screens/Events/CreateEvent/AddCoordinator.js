@@ -12,6 +12,9 @@ import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
 import {ADD_COORDINATOR, ADD_PEOPLE_TO_EVENT} from "../../index";
 
+import { Icons } from '../../../assets/images';
+
+
 const cancelId = 'cancelId';
 
 export default class AddCoordinator extends ImmutableComponent {
@@ -24,7 +27,7 @@ export default class AddCoordinator extends ImmutableComponent {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../../src/assets/images/ic_back.png'),
+                icon: Icons.Back,
                 id: cancelId,
             }
         ],
@@ -213,13 +216,10 @@ export default class AddCoordinator extends ImmutableComponent {
                     event: {
                         datasetId: this.props.event.datasetId,
                         name: this.props.event.name,
-                        address: '456',
+                        address: this.props.event.address,
                         startTime: this.props.event.startDate,
                         endTime: this.props.event.endDate,
-                        location: {
-                            latitude: 48.8152937,
-                            longitude: 2.4597668,
-                        },
+                        location: this.props.event.location,
                         description: this.props.event.description,
                         whatToBring: this.props.event.whatToBring,
                         photos: this.props.event.photos,

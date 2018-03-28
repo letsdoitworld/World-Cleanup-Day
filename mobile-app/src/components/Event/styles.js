@@ -26,7 +26,7 @@ export default StyleSheet.create({
   locationText: {
     flex: 1,
     fontSize: 12,
-    color: colors.grey,
+    color: colors.textColorDivider,
   },
   image: {
     marginRight: 10,

@@ -3,7 +3,7 @@ import { StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import { Map } from '../components/Map/Map';
+import { Map } from '../components';
 
 // import {
 //   operations as trashpileOperations,

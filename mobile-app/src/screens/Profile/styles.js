@@ -74,4 +74,10 @@ export default StyleSheet.create({
     backgroundColor: colors.grey200,
     marginHorizontal: getHeightPercentage(20),
   },
+  trashpointContainer: {
+    paddingHorizontal: getWidthPercentage(15),
+    backgroundColor: colors.white,
+    borderTopWidth: 2,
+    borderColor: colors.grey200,
+  },
 });

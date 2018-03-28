@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, Alert } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import { SceneMap } from 'react-native-tab-view';
 
 import toString from 'lodash/toString';
 import isEqual from 'lodash/isEqual';
+import isNil from 'lodash/isNil';
 
-import { SETTINGS_SCREEN } from '../index';
+import { SETTINGS_SCREEN, EVENT_DETAILS_SCREEN } from '../index';
 import strings from '../../config/strings';
 import { Icons } from '../../assets/images';
 import {
@@ -23,8 +24,6 @@ import {
 import styles from './styles';
 
 import { navigatorStyle } from './config';
-
-const PAGE_SIZE = 15;
 
 class Profile extends Component {
 
@@ -52,49 +51,62 @@ class Profile extends Component {
         onLoadMyTrashPoints,
     } = this.props;
 
+    onFetchProfile();
+    onLoadMyEvents(15, 1);
+    onLoadMyTrashPoints(15, 1);
+
     if (!isAuthenticated && isGuestSession) {
       this.props.navigator.setButtons({
         rightButtons: [],
         leftButtons: [
-            {
-              icon: Icons.Notification,
-              id: 'notification',
-            },
-          ],
+          {
+            icon: Icons.Notification,
+            id: 'notification',
+          },
+        ],
       });
-    } else {
-      onFetchProfile();
-      onLoadMyEvents(15, 1);
-      onLoadMyTrashPoints(15, 1);
-      this.props.navigator.setButtons({
-        rightButtons: [
-            {
-              icon: Icons.Settings,
-              id: 'settings',
-            },
-          ],
-        leftButtons: [
-            {
-              icon: Icons.Notification,
-              id: 'notification',
-            },
-          ],
-      });
+
+      return;
     }
+
+    this.props.navigator.setButtons({
+      rightButtons: [
+        {
+          icon: Icons.Settings,
+          id: 'settings',
+        },
+      ],
+      leftButtons: [
+        {
+          icon: Icons.Notification,
+          id: 'notification',
+        },
+      ],
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.myEvents, this.props.myEvents)) {
       this.setState({ isEndEventsReached: false });
       this.eventsPageNumber += 1;
-    } 
-  
+    }
+
     if (!isEqual(nextProps.myTrashPoints, this.props.myTrashPoints)) {
       this.setState({ isEndTrashpointReached: false });
-    } 
+    }
   }
 
-  onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+  componentDidUpdate() {
+    const { myEventsError, myTrashPointsError } = this.props;
+    if (!isNil(myEventsError) && !isNil(myTrashPointsError)) {
+      this.showAlert(myEventsError);
+    }
+    if (!isNil(myTrashPointsError) && !isNil(myEventsError)) {
+      this.showAlert(myTrashPointsError);
+    }
+  }
+
+  onNavigatorEvent(event) {
     if (event.id === 'willAppear') {
       this.setState({
         visible: true,
@@ -109,20 +121,10 @@ class Profile extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'settings') {
         this.props.navigator.push({
-            screen: SETTINGS_SCREEN,
-            title: strings.label_settings_header,
-          });
+          screen: SETTINGS_SCREEN,
+          title: strings.label_settings_header,
+        });
       }
-    }
-  }
-
-  componentDidUpdate() {
-    const { myEventsError, myTrashPointsError } = this.props;
-    if ((myEventsError !== null && myEventsError !== undefined) && (myTrashPointsError === null && myTrashPointsError === undefined)) {
-      this.showAlert(myEventsError);
-    }
-    if (myTrashPointsError !== null && myTrashPointsError !== undefined && (myEventsError === null && myEventsError === undefined)) {
-      this.showAlert(myTrashPointsError);
     }
   }
 
@@ -148,9 +150,9 @@ class Profile extends Component {
     if (country && country.name) {
       return (
         <View style={styles.locationContainer}>
-            <Icon path={Icons.Location} />
-            <Text style={styles.locationText}>{country.name}</Text>
-          </View>
+          <Icon path={Icons.Location} />
+          <Text style={styles.locationText}>{country.name}</Text>
+        </View>
       );
     }
   }
@@ -159,9 +161,9 @@ class Profile extends Component {
     return (
       <View>
         <View style={styles.additionalInfoContainer}>
-            <Icon path={Icons.Phone} />
-            <Text style={styles.additionalInfoText}>+3809500000000</Text>
-          </View>
+          <Icon path={Icons.Phone} />
+          <Text style={styles.additionalInfoText}>+3809500000000</Text>
+        </View>
         <Divider />
       </View>
     );
@@ -173,18 +175,24 @@ class Profile extends Component {
     if (profile && profile.email) {
       return (
         <View>
-            <View style={styles.additionalInfoContainer}>
-                <Icon path={Icons.Email} />
-                <Text style={styles.additionalInfoText}>{profile.email}</Text>
-              </View>
-            <Divider />
-          </View>
+          <View style={styles.additionalInfoContainer}>
+              <Icon path={Icons.Email} />
+              <Text style={styles.additionalInfoText}>{profile.email}</Text>
+            </View>
+          <Divider />
+        </View>
       );
     }
   }
 
-  handleEventPress = () => {
-    console.log('Event Press');
+  handleEventPress = (event) => {
+    this.props.navigator.showModal({
+      screen: EVENT_DETAILS_SCREEN,
+      title: strings.label_event,
+      passProps: {
+        eventId: event.id,
+      },
+    });
   };
 
   handleTrashpointPress = () => {
@@ -196,7 +204,7 @@ class Profile extends Component {
     let { eventsPageNumber } = this.props;
 
     if (!this.state.isEndEventsReached) {
-      if(!!(myEvents.length % eventsPageSize)) return;
+      if(!!(myEvents && (myEvents.length % eventsPageSize))) return;
 
       onLoadMyEvents(eventsPageSize, ++eventsPageNumber);
       this.setState({ isEndEventsReached: true });
@@ -208,12 +216,12 @@ class Profile extends Component {
     let { trashpointsPageNumber } = this.props;
 
     if (!this.state.isEndTrashpointReached) {
-      if(!!(myEvents.length % trashpointsPageSize)) return;
+      if(!!(myEvents && (myEvents.length % trashpointsPageSize))) return;
 
       onLoadMyTrashPoints(trashpointsPageSize, ++trashpointsPageNumber);
       this.setState({ isEndTrashpointReached: true });
     }
-  }
+  };
 
   handleRenderEvents(event) {
     return (
@@ -221,22 +229,24 @@ class Profile extends Component {
         img={event.photo}
         title={event.name}
         coordinator={event.coordinator}
-                // location={event.location}
+        address={event.address}
         date={event.createDate}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}
-        onPress={this.handleEventPress}
+        onPress={() => this.handleEventPress(event)}
       />
     );
   }
 
   handleRenderTrashpoint(trashpoint) {
     return (
-      <Trashpoint
-        type={trashpoint.type}
-        location={trashpoint.location}
-        onPress={this.handleTrashpointPress}
-      />
+      <View style={styles.trashpointContainer}>
+        <Trashpoint
+          type={trashpoint.type}
+          location={trashpoint.address}
+          onPress={this.handleTrashpointPress}
+        />
+      </View>
     );
   }
 
@@ -244,7 +254,6 @@ class Profile extends Component {
 
 
   onRenderEvents = () => {
-
     return (
       <FlatList
         style={styles.tabContent}
@@ -279,9 +288,9 @@ class Profile extends Component {
       <View style={styles.guestContainer}>
         <View style={styles.imgPlaceholder} />
         <Button
-            onPress={this.props.onGuestLogIn}
-            text="Log In"
-          />
+          onPress={this.props.onGuestLogIn}
+          text="Log In"
+        />
       </View>
     );
   };
@@ -310,23 +319,23 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.infoContainer}>
-            <View style={styles.avatarContainer}>
-                <Avatar path={profile && profile.pictureURL} />
-                <View style={styles.userNameContainer}>
-                    <Text style={styles.userNameText}>{profile && profile.name}</Text>
-                    {this.handleRenderLocation()}
-                  </View>
-              </View>
-          </View>
+          <View style={styles.avatarContainer}>
+              <Avatar path={profile && profile.pictureURL} />
+              <View style={styles.userNameContainer}>
+                  <Text style={styles.userNameText}>{profile && profile.name}</Text>
+                  {this.handleRenderLocation()}
+                </View>
+            </View>
+        </View>
         <Divider />
         {this.handleRenderPhoneNumber()}
         {this.handleRenderEmail()}
         <Tabs
                 // scenes={scenes}
-            routes={routes}
-            isVisible={visible}
-            renderSceneTab={renderSceneTab}
-          />
+          routes={routes}
+          isVisible={visible}
+          renderSceneTab={renderSceneTab}
+        />
       </View>
     );
   }

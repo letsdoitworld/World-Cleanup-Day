@@ -28,11 +28,7 @@ module.exports = function () {
         .use(async function (params, responder) {
             const userData = await socialAuth.getUserData(params.source, params.token);
             userData.source = params.source;
-            if (!userData.name || !userData.email) {
-                return responder.failure(new LuciusError(E.AUTH_NO_PERMISSIONS));
-            } else {
-                return responder.success(userData);
-            }
+            return responder.success(userData);
         })
         // run social data through account upsert
         .request('role:db,cmd:getOrCreateAccountFromSocial')

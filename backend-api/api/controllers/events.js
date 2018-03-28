@@ -2,6 +2,12 @@
 const senecaRequestMw = require('../../modules/swagger-setup/middleware/seneca');
 
 module.exports = {
+  getEventById: senecaRequestMw(
+    'role:db,cmd:getEventById',
+    req => ({
+      id: req.swagger.params.id.value
+    })
+  ),
   createEvent: senecaRequestMw(
     'role:db,cmd:createEvent',
     req => ({
@@ -12,7 +18,9 @@ module.exports = {
     'role:db,cmd:getEvents',
     req => ({
       pageSize: req.swagger.params.pageSize.value,
-      pageNumber: req.swagger.params.pageNumber.value
+      pageNumber: req.swagger.params.pageNumber.value,
+      location: req.swagger.params.location.value,
+      name: req.swagger.params.name.value
     })
   ),
   getEventsOverview: senecaRequestMw(

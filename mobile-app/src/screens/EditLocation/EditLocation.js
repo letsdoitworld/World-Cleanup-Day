@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import strings  from '../../assets/strings';
 
 import { AlertModal } from '../../components/AlertModal';
-import { Map } from '../../components/Map';
+import { Map } from '../../components';
 import { Button } from '../../components/Button';
 import {
   DEFAULT_ZOOM,

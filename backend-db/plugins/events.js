@@ -5,15 +5,45 @@ const db = require('../modules/db');
 const {Dataset, Account, Image} = require('../modules/db/types');
 const sortByDistance = require('sort-by-distance');
 const _ = require("lodash");
-const opts = {
-    yName: 'latitude',
-    xName: 'longitude'
-};
 
 const PLUGIN_NAME = 'events';
 
-const mapEvent = event => {
+const mapEvent = async event => {
     event.peopleAmount = event.peoples ? event.peoples.length : 0;
+    if (event.createdBy) {
+      const createdByUser = await db.getAccount(event.createdBy);
+      event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+      event.createdByName = createdByUser.name;
+    }
+    if (event.updatedBy) {
+      if (event.creator && event.updatedBy === event.createdBy) {
+        event.updater = event.creator;
+        event.updatedByName = event.createdByName;
+      } else {
+        const updatedByUser = await db.getAccount(event.updatedBy);
+        if (updatedByUser) {
+          event.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+          event.updatedByName = updatedByUser.name;
+        }
+      }
+    }
+    event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
+    event.photos = event.photos.map(p => p.url);
+    if (event.trashpoints) {
+      event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
+        await db.getTrashpoint(trashpointId)));
+      event.trashpoints = event.trashpoints.map(t => {
+        if (t.location) {
+          t.latitude = t.location.latitude;
+          t.longitude = t.location.longitude;
+        }
+        return t;
+      });
+      event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
+      event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
+    } else {
+      event.trashpoints = [];
+    }
     return event;
 };
 
@@ -83,37 +113,7 @@ module.exports = function () {
           if (!event) {
             return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id}));
           }
-          if (event.createdBy) {
-            const createdByUser = await db.getAccount(event.createdBy);
-            if (createdByUser) {
-              event.createdByName = createdByUser.name;
-            }
-          }
-          if (event.updatedBy) {
-            if (event.createdByName && event.updatedBy === event.createdBy) {
-              event.updatedByName = event.createdByName;
-            }
-            else {
-              const updatedByUser = await db.getAccount(event.updatedBy);
-              if (updatedByUser) {
-                event.updatedByName = updatedByUser.name;
-              }
-            }
-          }
-          if (event.trashpoints) {
-            event.trashpoints = await Promise.all(await event.trashpoints.map(
-              async (trashpointId) => await db.getTrashpoint(trashpointId)));
-            event.trashpoints = event.trashpoints.map(t => {
-              if (t.location) {
-                t.latitude = t.location.latitude;
-                t.longitude = t.location.longitude;
-              }
-              return t;
-            });
-            event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
-            event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
-          }
-          const mappedEvent = mapEvent(event);
+          const mappedEvent = await mapEvent(event);
           //TODO Status TRUE should be implemented all over the project. For now it's just mock data
           mappedEvent.status = true;
           return responder.success(mappedEvent);
@@ -137,44 +137,18 @@ module.exports = function () {
             .use(async function ({areas}, responder) {
                 const event = args.event;
                 args.event.areas = areas;
-                const savedEvent = await db.createEvent(__.user.id, event);
-                if (savedEvent.createdBy) {
-                  const createdByUser = await db.getAccount(savedEvent.createdBy);
-                  savedEvent.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
-                }
-                if (savedEvent.updatedBy) {
-                  if (savedEvent.creator && savedEvent.updatedBy === savedEvent.createdBy) {
-                    savedEvent.updater = savedEvent.creator;
-                  } else {
-                    const updatedByUser = await db.getAccount(savedEvent.updatedBy);
-                    if (updatedByUser) {
-                      savedEvent.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
-                    }
-                  }
-                }
-                if (savedEvent.trashpoints) {
-                  const mappedTrashpoints = [];
-                  for (let trashpointId of savedEvent.trashpoints) {
+                const filteredTrashpoints = [];
+                if (event.trashpoints) {
+                  for (let trashpointId of event.trashpoints) {
                     let trashpoint = await db.getTrashpoint(trashpointId);
                     if (trashpoint) {
-                      trashpoint.isIncluded = true;
-                      trashpoint = await db.modifyTrashpoint(trashpointId, __.user.id, trashpoint);
-                      mappedTrashpoints.push(trashpoint);
+                      filteredTrashpoints.push(trashpoint);
                     }
                   }
-                  savedEvent.trashpoints = mappedTrashpoints;
-                  savedEvent.trashpoints = savedEvent.trashpoints.map(t => {
-                    if (t.location) {
-                      t.latitude = t.location.latitude;
-                      t.longitude = t.location.longitude;
-                    }
-                    return t;
-                  });
-                  savedEvent.trashpoints = sortByDistance(savedEvent.location, savedEvent.trashpoints, {yName: 'latitude', xName: 'longitude'});
-                  savedEvent.trashpoints = savedEvent.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
                 }
-
-                const mappedEvent = mapEvent(savedEvent);
+                event.trashpoints = filteredTrashpoints;
+                const savedEvent = await db.createEvent(__.user.id, event);
+                const mappedEvent = await mapEvent(savedEvent);
                 //TODO Status TRUE should be implemented all over the project. For now it's just mock data
                 mappedEvent.status = true;
                 return responder.success(mappedEvent);
@@ -195,41 +169,7 @@ module.exports = function () {
             }
           }
           const { data: {rows, total_rows: total} } = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, location, area);
-          const records = await Promise.all(rows.map(async r => {
-            const event = r.value;
-            if (event.createdBy) {
-              const createdByUser = await db.getAccount(event.createdBy);
-              event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
-            }
-            if (event.updatedBy) {
-              if (event.creator && event.updatedBy === event.createdBy) {
-                event.updater = event.creator;
-              } else {
-                const updatedByUser = await db.getAccount(event.updatedBy);
-                if (updatedByUser) {
-                  event.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
-                }
-              }
-            }
-            event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
-            event.photos = event.photos.map(p => p.url);
-            if (event.trashpoints) {
-              event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
-                await db.getTrashpoint(trashpointId)));
-              event.trashpoints = event.trashpoints.map(t => {
-                if (t.location) {
-                  t.latitude = t.location.latitude;
-                  t.longitude = t.location.longitude;
-                }
-                return t;
-              });
-              event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
-              event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
-            } else {
-              event.trashpoints = [];
-            }
-            return mapEvent(event);
-          }));
+          const records = await Promise.all(rows.map(mapEvent));
           return responder.success({total, pageSize, pageNumber, records});
         })
     });
@@ -251,10 +191,9 @@ module.exports = function () {
     return connector.input(args)
       .connect(connectVerifyDataset)
       .use(async function (dataset, responder) {
-        const events = await fetchRectangleMarkers(
-          dataset.id, args.cellSize, args.rectangle, db.getOverviewEvents);
-        const filtered = events.map(e => _.pick(e, ['id', 'location']));
-        return responder.success(filtered);
+        const events = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getOverviewEvents);
+        const records = await Promise.all(events.map(mapEvent));
+        return responder.success(records);
       })
   });
 
@@ -277,43 +216,7 @@ module.exports = function () {
         .input(args)
         .use(async function ({pageSize, pageNumber}, responder) {
           const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
-          const records = await Promise.all(events.map(async event => {
-            if (event.createdBy) {
-              const createdByUser = await db.getAccount(event.createdBy);
-              event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
-            }
-            if (event.updatedBy) {
-              if (event.creator && event.updatedBy === event.createdBy) {
-                event.updater = event.creator;
-              } else {
-                const updatedByUser = await db.getAccount(event.updatedBy);
-                if (updatedByUser) {
-                  event.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
-                }
-              }
-            }
-            event.photos = await db.getEventImagesByType(event.id, Image.TYPE_MEDIUM);
-            event.photos = event.photos.map(p => p.url);
-            if (event.trashpoints) {
-              event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
-                await db.getTrashpoint(trashpointId)));
-              event.trashpoints = event.trashpoints.map(t => {
-                if (t.location) {
-                  t.latitude = t.location.latitude;
-                  t.longitude = t.location.longitude;
-                }
-                return t;
-              });
-              event.trashpoints = sortByDistance(event.location, event.trashpoints, {
-                yName: 'latitude',
-                xName: 'longitude'
-              });
-              event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
-            } else {
-              event.trashpoints = [];
-            }
-            return mapEvent(event);
-          }));
+          const records = await Promise.all(events.map(async (e) => await mapEvent(e)));
           const total = await db.countUserEvents(__.user.id);
           return responder.success({total, pageSize, pageNumber, records});
         })

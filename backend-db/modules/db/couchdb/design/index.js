@@ -545,7 +545,7 @@ designDocs.trashpoints = Object.assign(
 );
 designDocs.events = Object.assign(
   designDocs.events,
-  tools.makeGridScaleDesignDocs(8, 'isolated', templates.isolatedEvents),
+  tools.makeGridScaleDesignDocs(9, 'isolated', templates.isolatedEvents),
 );
 designDocs.events = Object.assign(
   designDocs.events,

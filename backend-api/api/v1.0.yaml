@@ -223,7 +223,7 @@ paths:
           maxLength: 2
       responses:
         "200":
-          $ref: "#/responses/Events"
+          $ref: "#/definitions/PaginatedEvents"
         "default":
           $ref: "#/responses/ErrorSet"
 
@@ -240,7 +240,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/OverviewEvent"
+              $ref: "#/definitions/Event"
         "default":
           $ref: "#/responses/ErrorSet"
 
@@ -291,7 +291,7 @@ paths:
         - $ref: "#/parameters/PageNumber"
       responses:
         "200":
-          $ref: "#/responses/UserEvents"
+          $ref: "#/definitions/PaginatedEvents"
         "default":
           $ref: "#/responses/ErrorSet"
 
@@ -975,20 +975,10 @@ responses:
             description: The type of resource.
             $ref: "#/definitions/TrashImageType"
 
-  Events:
-    description: List of events.
-    schema:
-      $ref: "#/definitions/PaginatedEvents"
-
   Trashpoints:
     description: List of trashpoints.
     schema:
       $ref: "#/definitions/PaginatedTrashpoints"
-
-  UserEvents:
-    description: List of events for user consumption.
-    schema:
-      $ref: "#/definitions/PaginatedEvents"
 
   ErrorSet:
     description: Contains errors.

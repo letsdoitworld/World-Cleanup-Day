@@ -143,11 +143,7 @@ module.exports = {
           emit([
             doc.datasetId,
             gridCoords,
-          ], {
-            _id: doc._id,
-            location: doc.location,
-            status: doc.status,
-          });
+          ], doc);
         },
         reduce: function (keys, values) {
           // XXX: the logic for reduce and rereduce is the same.

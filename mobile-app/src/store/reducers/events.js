@@ -3,7 +3,7 @@ import {
     CLEAR_EVENTS_ACTION,
     LOAD_EVENTS_FOR_MAP_ACTION,
     LOAD_EVENTS_FOR_MAP_SUCCESS,
-    LOAD_EVENTS_FOR_MAP_ERROR
+    LOAD_EVENTS_FOR_MAP_ERROR, SHOW_NEW_DELTA
 } from "../actions/events";
 
 import {createReducer} from '../helpers/createReducer';
@@ -16,6 +16,7 @@ export const initialState = Immutable.Map(
         events: undefined,
         mapEvents: undefined,
         error: undefined,
+        newDelta: undefined,
     });
 
 const handlers = {
@@ -45,7 +46,11 @@ const handlers = {
     [LOAD_EVENTS_FOR_MAP_ERROR]: (state, { payload }) => {
         return state.withMutations(mState => mState
             .set('error', payload));
-    }
+    },
+    [SHOW_NEW_DELTA]: (state, { payload }) => {
+        return state.withMutations(mState => mState
+            .set('newDelta', payload));
+    },
 };
 
 export default createReducer(initialState, handlers);

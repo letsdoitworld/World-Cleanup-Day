@@ -39,6 +39,12 @@ export const loadEventsForMapSuccess = mapEvents => ({
     payload: mapEvents
 });
 
+export const SHOW_NEW_DELTA = 'SHOW_NEW_DELTA';
+export const showNewDeltaAction = newDelts => ({
+    type: LOAD_EVENTS_FOR_MAP_SUCCESS,
+    payload: newDelts
+});
+
 export const LOAD_EVENTS_FOR_MAP_ERROR = 'LOAD_EVENTS_FOR_MAP_ERROR';
 export const loadEventsForMapError = error => ({
     type: LOAD_EVENTS_FOR_MAP_ERROR,

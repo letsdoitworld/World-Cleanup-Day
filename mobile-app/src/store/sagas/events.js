@@ -8,6 +8,7 @@ import {
     searchEventsSuccessAction,
     loadEventsForMapSuccess,
     loadEventsForMapError,
+    showNewDeltaAction,
 } from "../actions/events";
 
 import Api from '../../api';
@@ -41,7 +42,11 @@ export function* getMapEventsFlow() {
     while (true) {
         const { payload } = yield take(LOAD_EVENTS_FOR_MAP_ACTION);
         try {
-            const response = yield call(Api.events.fetchClustersList, payload.datasetId);
+            const newDelta = yield call(Api.events.calculateDelta, payload.viewPortLeftTopCoordinate,
+                payload.viewPortRightBottomCoordinate, payload.delta);
+            const response = yield call(Api.events.fetchAllEventMarkers, payload.viewPortLeftTopCoordinate,
+                payload.viewPortRightBottomCoordinate, payload.delta, payload.datasetId);
+            //yield put(showNewDeltaAction(newDelta));
             yield put(loadEventsForMapSuccess(response))
         } catch (error) {
             console.log("getMapEventsFlow error", error);

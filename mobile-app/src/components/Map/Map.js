@@ -171,6 +171,7 @@ export class Map extends Component {
 
     displayMarkers = () => {
         const {markers = [], handleOnMarkerPress} = this.props;
+        console.log("displayMarkers", markers);
         return markers
             .filter((marker) => marker !== undefined)
             .map((marker) => {

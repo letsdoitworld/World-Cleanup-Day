@@ -12,14 +12,13 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import styles from './styles'
-import {Map as MapView} from '../../../components/Map/Map';
-import {DEFAULT_ZOOM} from "../../../shared/constants";
-import {renderItem} from '../List/ListItem/ListItem';
-import colors from '../../../config/colors';
-import {toRadians} from "../../../shared/helpers";
-import Button from "../../../components/Button/Button";
-import { HorizontalEvent } from "../../../components";
-import strings from ""
+ import {Map as MapView} from '../../components/Map/Map';
+ import {DEFAULT_ZOOM} from "../../shared/constants";
+import {renderItem} from '../Events/List/ListItem/ListItem';
+import colors from '../../config/colors';
+import {toRadians} from "../../shared/helpers";
+import Button from "../../components/Button/Button";
+ import { HorizontalEvent } from "../../components/index";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -35,14 +34,14 @@ export default class EventsMap extends Component {
     constructor(props) {
         super(props);
         const {location, onLoadMapEventsAction, mapEvents} = props;
-        let userLocation;
+         let userLocation;
         if (location === undefined || location === null) {
             //TODO fix me!! Random location?
-            alert(strings.label_no_location);
-            userLocation = {
-                latitude: 48.8152937,
-                longitude: 2.4597668
-            }
+            //alert(strings.label_no_location);
+            // userLocation = {
+            //     latitude: 48.8152937,
+            //     longitude: 2.4597668
+            // }
         } else {
             userLocation = location
         }
@@ -52,14 +51,15 @@ export default class EventsMap extends Component {
             mapEvents,
             userLocation,
             radius: DEFAULT_RADIUS_M,
-            selectedItem: undefined
+            selectedItem: undefined,
+            updateRegion: true,
         };
 
         this.initialRegion = {
             latitude: userLocation.latitude,
             longitude: userLocation.longitude,
             latitudeDelta: DEFAULT_ZOOM,
-            longitudeDelta: this.calculateZoom(userLocation.latitude),
+            longitudeDelta: DEFAULT_ZOOM,
         };
 
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -73,8 +73,6 @@ export default class EventsMap extends Component {
     componentDidMount() {
         if (!this.props.datasetUUIDSelector) {
             this.props.onFetchDatasetUUIDAction();
-        } else {
-            this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (this.state.radius / 1000)})
         }
     }
 
@@ -111,6 +109,53 @@ export default class EventsMap extends Component {
         })
     }
 
+    handleOnRegionChangeComplete = center => {
+        if (!this.state.updateRegion) {
+            return this.setState({ updateRegion: true });
+        }
+        const adjustLongitude = n => {
+            if (n < -180) {
+                return 360 + n;
+            }
+            if (n > 180) {
+                return n - 360;
+            }
+            return n;
+        };
+        const adjustLatitude = n => {
+            const signMultiplier = n > 0 ? 1 : -1;
+            if (Math.abs(n) > 90) {
+                return signMultiplier * 89.999;
+            }
+
+            return n;
+        };
+
+        const { latitude, longitude, latitudeDelta, longitudeDelta } = center;
+        const northWest = {
+            latitude: adjustLatitude(latitude + latitudeDelta / 2),
+            longitude: adjustLongitude(longitude - longitudeDelta / 2),
+        };
+        const southEast = {
+            latitude: adjustLatitude(latitude - latitudeDelta / 2),
+            longitude: adjustLongitude(longitude + longitudeDelta / 2),
+        };
+
+        const delta = {
+            latitudeDelta,
+            longitudeDelta,
+        };
+
+        if (this.props.datasetUUIDSelector) {
+            this.props.onLoadMapEventsAction({
+                datasetId: this.props.datasetUUIDSelector,
+                viewPortLeftTopCoordinate: northWest,
+                viewPortRightBottomCoordinate: southEast,
+                delta: delta
+            });
+        }
+    };
+
 
     keyExtractor = (item, index) => item.id.toString();
 
@@ -134,16 +179,17 @@ export default class EventsMap extends Component {
     render() {
 
         const {selectedItem, radius} = this.state;
-        let markers;
-        if (this.props.mapEvents !== undefined) {
-            markers = this.props.mapEvents.map((event) => {
-                return {
-                    id: event.id,
-                    latlng: event.location,
-                    item: event
-                }
-            });
-        }
+        // let markers;
+        // if (this.props.mapEvents !== undefined) {
+        //     markers = this.props.mapEvents.map((event) => {
+        //         return {
+        //             id: event.id,
+        //             latlng: event.location,
+        //             item: event
+        //         }
+        //     });
+        // }
+
 
         this.circle = {
             radius: radius,
@@ -163,18 +209,20 @@ export default class EventsMap extends Component {
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
         console.log("Render", this.props.mapEvents);
+        let markers = [];
+        if (this.props.mapEvents) {
+            markers = this.props.mapEvents;
+        }
 
         return (
             <View style={styles.container}>
                 <MapView
-                handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
-                //markers={this.state.markers}
+                onRegionChangeComplete={this.handleOnRegionChangeComplete}
                 markers={markers}
                 initialRegion={this.initialRegion}
-                region={this.regionWIthMarkers}
                 style={styles.map}
-                getRef={(map) => this.map = map}
-                circleProps={this.circle}>
+                handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
+                getRef={(map) => this.map = map}>
 
                 </MapView>
                 {/*{this.renderSelectedItem(selectedItem, checked)}*/}

@@ -3,14 +3,13 @@ import {
     View,
     TextInput,
     UIManager,
-    Animation,
     LayoutAnimation,
     ActivityIndicator,
     Alert
 } from 'react-native';
 import styles from './styles';
 import {
-    CREATE_EVENT, EVENTS_MAP,
+    CREATE_EVENT,
     EVENTS_NAV_BAR,
 } from '../index';
 import strings from '../../assets/strings';
@@ -21,7 +20,7 @@ import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
 import Profile from '../Profile/Profile';
-import EventsMap from "./Map/EventsMap";
+import EventsMap from '../EventMap/EventsMap';
 
 import { SETTINGS_SCREEN } from '../index';
 

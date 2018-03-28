@@ -1,7 +1,7 @@
-import dimens from "../../../config/dimens";
+import dimens from "../../config/dimens";
 import {Dimensions} from "react-native";
-import colors from "../../../config/colors";
-import {getWidthPercentage, getHeightPercentage} from '../../../shared/helpers';
+import colors from "../../config/colors";
+import {getWidthPercentage, getHeightPercentage} from '../../shared/helpers';
 
 export default {
 

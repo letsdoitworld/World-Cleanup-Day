@@ -1,5 +1,5 @@
 import Api from '../services/Api';
-import {API_ENDPOINTS, SCREEN_WIDTH} from "../shared/constants";
+import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH} from "../shared/constants";
 import { datasetUUID } from "../store/selectors";
 import { fetchDatasetUIIDAction } from "../store/actions/app";
 import { guid, getDistanceBetweenPointsInMeters, getGridValue } from "../shared/helpers";
@@ -444,8 +444,10 @@ export function searchEventsRequest(query, page, pageSize, location) {
 async function fetchAllEventMarkers(
     viewPortLeftTopCoordinate,
     viewPortRightBottomCoordinate,
-    mapSize,
+    delta,
     datasetId) {
+    try {
+
     // dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_REQUEST });
     // let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
     //
@@ -458,29 +460,16 @@ async function fetchAllEventMarkers(
     //     }
     // }
 
-    const diagonaleInMeters = getDistanceBetweenPointsInMeters(
-        viewPortLeftTopCoordinate.latitude,
-        viewPortLeftTopCoordinate.longitude,
-        viewPortRightBottomCoordinate.latitude,
-        viewPortRightBottomCoordinate.longitude,
-    );
-    const grid = getGridValue(diagonaleInMeters);
-    let cellSize = 0;
-    if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
-        cellSize =
-            38 *
-            (viewPortRightBottomCoordinate.longitude -
-                viewPortLeftTopCoordinate.longitude) /
-            mapSize.width;
-    } else {
-        cellSize =
-            (180 -
-                viewPortLeftTopCoordinate.longitude +
-                viewPortRightBottomCoordinate.longitude +
-                180) *
-            38 /
-            mapSize.width;
-    }
+    // const diagonaleInMeters = getDistanceBetweenPointsInMeters(
+    //     viewPortLeftTopCoordinate.latitude,
+    //     viewPortLeftTopCoordinate.longitude,
+    //     viewPortRightBottomCoordinate.latitude,
+    //     viewPortRightBottomCoordinate.longitude,
+    // );
+    // const grid = getGridValue(diagonaleInMeters);
+        const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+   // dispatch(actions.setLastDelta(newDelta));
 
     const body = {
         datasetId,
@@ -492,10 +481,10 @@ async function fetchAllEventMarkers(
     };
 
     const [markersRes, clustersRes] = await Promise.all([
-        ApiService.post(API_ENDPOINTS.FETCH_EVENTS, body, {
+        Api.post(API_ENDPOINTS.FETCH_EVENTS, body, {
             withToken: false,
         }),
-        ApiService.post(
+        Api.post(
             API_ENDPOINTS.FETCH_OVERVIEW_EVENT_CLUSTERS,
             {
                 ...body,
@@ -506,9 +495,9 @@ async function fetchAllEventMarkers(
         ),
     ]);
 
-    const list = await ApiService.post(API_ENDPOINTS.FETCH_EVENTS, body, {
-        withToken: false,
-    });
+    // const list = await Api.post(API_ENDPOINTS.FETCH_EVENTS, body, {
+    //     withToken: false,
+    // });
 
     let markers = [];
 
@@ -540,19 +529,50 @@ async function fetchAllEventMarkers(
         ];
     }
 
-    if (!markersRes && !clustersRes) {
-        return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
+    // if (!markersRes && !clustersRes) {
+    //     return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
+    // }
+    //
+    // dispatch({
+    //     type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
+    //     markers,
+    // });
+    // dispatch({
+    //     type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
+    //     events: list.data,
+    // });
+        console.log("fetchAllEventMarkers", markers);
+        return markers;
+    } catch (ex) {
+        throw ex;
     }
-
-    dispatch({
-        type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
-        markers,
-    });
-    dispatch({
-        type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
-        events: list.data,
-    });
 };
+
+function calculateCell(viewPortLeftTopCoordinate,
+                       viewPortRightBottomCoordinate,) {
+    let cellSize = 0;
+    if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
+        cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) /  SCREEN_WIDTH;
+    } else {
+        cellSize =(180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 /  SCREEN_WIDTH;
+    }
+    return cellSize
+}
+
+function calculateDelta(viewPortLeftTopCoordinate,
+                        viewPortRightBottomCoordinate,
+                        delta) {
+    const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+    const latitudeDelta = delta.latitudeDelta / 3;
+    const longitudeDelta = delta.latitudeDelta / 3;
+    const newDelta = {
+        latitudeDelta: latitudeDelta < MIN_ZOOM ? MIN_ZOOM : latitudeDelta,
+        longitudeDelta: longitudeDelta < MIN_ZOOM ? MIN_ZOOM : longitudeDelta,
+        cellSize
+    };
+    return newDelta;
+}
 
 async function fetchClustersList({
                              cellSize,
@@ -594,5 +614,6 @@ async function fetchClustersList({
 
 export default {
     searchEventsRequest,
-    fetchClustersList,
+    fetchAllEventMarkers,
+    calculateDelta,
 }

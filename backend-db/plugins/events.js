@@ -169,7 +169,7 @@ module.exports = function () {
             }
           }
           const { data: {rows, total_rows: total} } = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, location, area);
-          const records = await Promise.all(rows.map(mapEvent));
+          const records = await Promise.all(rows.map(async (e) => await mapEvent(e.value)));
           return responder.success({total, pageSize, pageNumber, records});
         })
     });

@@ -37,7 +37,7 @@ module.exports = function () {
         // args: id, trashpointId, type, container
         return connector.input(args)
         .use(async function (image, responder) {
-            const blobName = image.trashpointId + '_' + image.id + '.jpg';
+            const blobName = `${image.trashpointId ? image.trashpointId : image.eventId}_${image.id}.jpg`;
 
             const sas = azureStorage.getBlobSAS(image.container, blobName, 10);
             const server = azureStorage.getServer();

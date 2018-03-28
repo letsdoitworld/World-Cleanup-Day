@@ -543,5 +543,18 @@ designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
     tools.makeGridScaleDesignDocs(8, 'byGridCell', templates.trashpointsByGridCell),
 );
+designDocs.events = Object.assign(
+  designDocs.events,
+  tools.makeGridScaleDesignDocs(8, 'isolated', templates.isolatedEvents),
+);
+designDocs.events = Object.assign(
+  designDocs.events,
+  tools.makeGridScaleDesignDocs(8, 'clusters', templates.eventClusters),
+);
+designDocs.events = Object.assign(
+  designDocs.events,
+  tools.makeGridScaleDesignDocs(8, 'byGridCell', templates.eventsByGridCell),
+);
+
 
 module.exports = designDocs;

@@ -1,1 +1,1 @@
-export { default as CongratsModal } from './CongratsModal';
+//export { default as CongratsModal } from './CongratsModal';

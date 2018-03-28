@@ -24,6 +24,7 @@ export const LEVEL = {
     TRUCK: 'truck'
 };
 
+
 const blueDot = {
     width: 10,
     height: 10,
@@ -138,7 +139,6 @@ export default class TrashAmountLevel extends Component {
                     <View style={[blueDot, {left: this.one_to_eight * 5 - 5}]}/>
                     <View style={[blueDot, {left: this.one_to_eight * 7 - 5}]}/>
                 </View>
-
                 <View style={labels}>
                     <Text style={label}>
                         {strings.label_handful}
@@ -152,7 +152,6 @@ export default class TrashAmountLevel extends Component {
                     <Text style={label}>
                         {strings.label_truck}
                     </Text>
-
                 </View>
             </View>
         )

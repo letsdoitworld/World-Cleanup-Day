@@ -2,7 +2,7 @@ import dimens from "../../../../config/dimens";
 
 export default {
     itemTouch: {
-        height: 104,
+        height: 104
     },
     itemTouchParticipant: {
         height: 104,

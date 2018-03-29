@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logo from '../../assets/arrow@2x.png';
+import logo from '../../assets/wcd-logo.png';
 import './Logo.css';
 
 export default () =>

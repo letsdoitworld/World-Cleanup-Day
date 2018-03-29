@@ -58,7 +58,6 @@ class Home extends React.Component {
       <Switch>
         <Route path="/users/:id" exact component={UserDetails} />
         <Route path="/users" exact component={UserList} />
-        {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
         <Route
           path="/events/:id?"
@@ -68,7 +67,17 @@ class Home extends React.Component {
         />
         <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
-        <Route path="/trashpoints/:id" exact component={TrashpointDetails} />
+        <Route
+          path="/trashpoints/:id?"
+          render={
+            ({ match }) =>
+              <TrashpointDetails
+                isUserLoggedIn={!!this.props.userProfile.role}
+                trashpointId={match.params.id}
+                history={history}
+              />
+          }
+        />
       </Switch>
       <div className="Home-map-container">
         <AdminMap isUserLoggedIn={!!this.props.userProfile.role} />
@@ -77,7 +86,9 @@ class Home extends React.Component {
 
   render() {
     const { userProfile } = this.props;
-
+    if (userProfile.role && !userProfile.termsAcceptedAt) {
+      return this.renderTerms();
+    }
     const HEADER_LINKS = [
       { title: 'Events', url: '/events', image: <EventsIcon /> },
       { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> }
@@ -94,7 +105,7 @@ class Home extends React.Component {
         <Header
           onLogout={this.handleLogout}
           links={HEADER_LINKS}
-          authUser={userProfile.role ? userProfile: null}
+          authUser={userProfile.role ? userProfile : null}
         />
         <Switch>
           <Route path="/terms" render={this.renderTermsRoute} />
@@ -113,16 +124,25 @@ const mapState = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),
   agreeToTerms: () => dispatch(userActions.agreeToTerms()),
-  resetUsers: () => dispatch(adminActions.resetUsers())
+  resetUsers: () => dispatch(adminActions.resetUsers()),
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);
 
 /*
-  <div
-    onClick={() => { history.push('/trashpoints/create'); }}
-    className="Home-create-marker-button"
-  >
-    <span>Place trashpoint</span>
-  </div>
+<Route
+  path="/trashpoints"
+  render={
+    () => {
+      return (
+        <div
+          onClick={() => { history.push('/trashpoints/create'); }}
+          className="Home-create-marker-button"
+        >
+          <span>Place trashpoint</span>
+        </div>
+      );
+    }
+  }
+/>
 */

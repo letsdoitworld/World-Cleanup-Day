@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import toUpper from 'lodash/toUpper';
+import isEmpty from 'lodash/isEmpty';
 
 import strings from '../../assets/strings';
 import { Icons } from '../../assets/images';
@@ -20,6 +21,7 @@ import {
     Icon,
     Map,
     ReadMore,
+    Button,
 } from '../../components';
 
 import { DEFAULT_ZOOM } from '../../shared/constants';
@@ -36,6 +38,7 @@ import {
   calendarConfig,
   trashpoints,
   backId,
+  placeholder,
 } from './config';
 
 class EventDetails extends PureComponent {
@@ -49,6 +52,10 @@ class EventDetails extends PureComponent {
     props.navigator.setOnNavigatorEvent(
         this.onNavigatorEvent,
     );
+
+    this.state = {
+      isEndReached: false,
+    };
   }
 
   componentWillMount() {
@@ -92,14 +99,14 @@ class EventDetails extends PureComponent {
 
   handleRenderImage() {
     const { event } = this.props;
-    if (event && !event.img) {
-      return (
-        <Image
-          style={styles.coverImage}
-          source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
-        />
-      );
-    }
+    const img = isEmpty(event.photos) ? { uri: placeholder } : { uri: event.photos[0] };
+
+    return (
+      <Image
+        style={styles.coverImage}
+        source={img}
+      />
+    );
   }
 
   handleRenderButton() {
@@ -143,6 +150,7 @@ class EventDetails extends PureComponent {
     };
 
     const marker = {
+      id: event.location.latitude,
       latlng: {
         latitude: event.location.latitude,
         longitude: event.location.longitude,
@@ -173,7 +181,7 @@ class EventDetails extends PureComponent {
   handleRenderCircle() {
     const { event } = this.props;
 
-    if (event.trashpoints) {
+    if (!isEmpty(event.trashpoints)) {
       return (
         <View style={styles.circleContainer}>
           <Text style={styles.circleText}>
@@ -187,7 +195,7 @@ class EventDetails extends PureComponent {
   handleRenderTrashpoints() {
     const { event } = this.props;
 
-    const Wrapper = event.trashpoints ? TouchableOpacity : View;
+    const Wrapper = isEmpty(event.trashpoints) ? View : TouchableOpacity;
     const navigation = { type: trashpoints };
 
     return (
@@ -303,39 +311,66 @@ class EventDetails extends PureComponent {
     );
   }
 
+  handleIsCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 20;
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom;
+  };
+
+  handleScrollToEnd = () => this.scrollView.scrollToEnd({ animated: true });
+
+  handleScroll = ({ nativeEvent }) => {
+    if (this.handleIsCloseToBottom(nativeEvent)) {
+      this.setState({ isEndReached: true });
+    }
+  }
+
   render() {
     const { event } = this.props;
+    const { isEndReached } = this.state;
 
     if (!event) return this.spinner();
 
-    console.log('Event', this.props);
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <View style={styles.container}>
-          {this.handleRenderImage()}
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{event.name}</Text>
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+          ref={ref => this.scrollView = ref}
+          scrollEventThrottle={800}
+          onScroll={this.handleScroll}
+          onContentSizeChange={(contentWidth, contentHeight) => console.log('contentWidth', contentWidth, 'contentHeight', contentHeight)}
+        >
+          <View style={styles.container}>
+            {this.handleRenderImage()}
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{event.name}</Text>
+            </View>
+            {this.handleRenderButton()}
+            <Text style={styles.title}>{toUpper(strings.lable_date_and_time)}</Text>
+            {this.handleRenderDate()}
+            <Text style={styles.title}>{toUpper(strings.label_location)}</Text>
+            {this.handleRenderLocation()}
+            <Text style={styles.title}>{toUpper(strings.label_trashpoints)}</Text>
+            {this.handleRenderTrashpoints()}
+            <Text style={styles.title}>{toUpper(strings.label_description)}</Text>
+            {this.handleRenderDescription()}
+            <Text style={styles.title}>{toUpper(strings.label_what_to_bring)}</Text>
+            {this.handleRenderWhatToBring()}
+            <Text style={styles.title}>{toUpper(strings.lable_coordinator)}</Text>
+            {this.handleRenderCoordinator()}
+            <Text style={styles.title}>{toUpper(strings.label_attendees)}</Text>
+            {this.hadnleRenderAttendees()}
           </View>
-          {this.handleRenderButton()}
-          <Text style={styles.title}>{toUpper(strings.lable_date_and_time)}</Text>
-          {this.handleRenderDate()}
-          <Text style={styles.title}>{toUpper(strings.label_location)}</Text>
-          {this.handleRenderLocation()}
-          <Text style={styles.title}>{toUpper(strings.label_trashpoints)}</Text>
-          {this.handleRenderTrashpoints()}
-          <Text style={styles.title}>{toUpper(strings.label_description)}</Text>
-          {this.handleRenderDescription()}
-          <Text style={styles.title}>{toUpper(strings.label_what_to_bring)}</Text>
-          {this.handleRenderWhatToBring()}
-          <Text style={styles.title}>{toUpper(strings.lable_coordinator)}</Text>
-          {this.handleRenderCoordinator()}
-          <Text style={styles.title}>{toUpper(strings.label_attendees)}</Text>
-          {this.hadnleRenderAttendees()}
-        </View>
-      </ScrollView>
+        </ScrollView>
+
+        {!isEndReached && <Button
+          style={styles.floatingButton}
+          iconStyle={styles.iconFloatingButton}
+          icon={Icons.Back}
+          onPress={this.handleScrollToEnd}
+        />}
+      </View>
     );
   }
 }

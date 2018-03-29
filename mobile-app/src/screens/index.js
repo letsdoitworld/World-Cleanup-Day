@@ -1,4 +1,4 @@
-import { Navigation } from 'react-native-navigation';
+import {Navigation} from 'react-native-navigation';
 
 import ProfileScreen from './Profile';
 import MyActivityScreen from './MyActivity/MyActivity';
@@ -17,9 +17,10 @@ import AddCoordinatorScreen from './Events/CreateEvent/AddCoordinator';
 import AddPeopleToEventScreen from './Events/CreateEvent';
 import EventsNavBar from './Events/NavBar/NavBar';
 
-import TrashPoints from './TrashPoints/TrashPoints'
+import TrashPoints from './TrashPoints'
 import TrashPoint from "./TrashPoint/TrashPoint";
 import CreateMarker from "./CreateMarker/CreateMarker";
+import HomeScreen from './Home';
 
 export const PROFILE_SCREEN = "PROFILE_SCREEN";
 export const MY_ACTIVITY_SCREEN = "MY_ACTIVITY_SCREEN";
@@ -40,8 +41,9 @@ export const TRASH_POINT = "TRASH_POINT";
 export const TRASH_POINTS = "TRASH_POINTS";
 export const CREATE_MARKER = "CREATE_MARKER";
 export const EVENT_DETAILS_SCREEN = 'EVENT_DETAILS_SCREEN';
-// register all screens of the app (including internal ones)
 export const EVENTS_TRASHPOINTS_SCREEN = 'EVENTS_TRASHPOINTS_SCREEN';
+
+
 export function registerScreens(store, Provider) {
      Navigation.registerComponent(PROFILE_SCREEN, () => ProfileScreen, store, Provider);
      Navigation.registerComponent(MY_ACTIVITY_SCREEN, () => MyActivityScreen, store, Provider);

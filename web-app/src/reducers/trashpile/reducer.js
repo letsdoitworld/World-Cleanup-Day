@@ -112,6 +112,7 @@ const MARKER_DETAILS_STATE = {
   },
   loading: false,
   error: false,
+  showTpdetailsWindow: true,
 };
 const markerDetailsReducer = (state = MARKER_DETAILS_STATE, action) => {
   switch (action.type) {
@@ -130,6 +131,8 @@ const markerDetailsReducer = (state = MARKER_DETAILS_STATE, action) => {
       };
     case TYPES.FETCH_MARKER_DETAILS_FAILED:
       return { ...state, loading: false };
+    case TYPES.TOGGLE_TP_DETAILS_WINDOW:
+      return { ...state, showTpdetailsWindow: !state.showTpdetailsWindow }
     case TYPES.DELETE_MARKER_SUCCESS:
       if (state.marker.id !== action.payload.markerId) {
         return state;

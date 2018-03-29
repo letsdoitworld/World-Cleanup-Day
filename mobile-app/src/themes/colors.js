@@ -3,7 +3,7 @@ const colors = {
   googleColor: '#f24033',
   grey: 'rgb(164, 164, 164)',
   gray100: 'rgb(240, 240, 240)',
-  grey200: 'rgb(216, 216, 216)',
+  gray200: 'rgb(216, 216, 216)',
   blue: '#3683d9',
   red: '#FC515E',
   yellow: 'rgb(255, 216, 0)',

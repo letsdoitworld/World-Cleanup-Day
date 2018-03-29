@@ -32,9 +32,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonContainer: {
-    
-  },
   button: {
     width: '90%',
     marginVertical: dm.margin_medium,
@@ -157,5 +154,21 @@ export default StyleSheet.create({
     height: 200,
     flex: 1,
     resizeMode: 'cover',
+  },
+  floatingButton: {
+    borderWidth: 1,
+    borderColor: colors.gray200,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    height: 40,
+    backgroundColor: '#fff',
+    borderRadius: 40,
+  },
+  iconFloatingButton: {
+    transform: [{ rotate: '270deg' }],
   },
 });

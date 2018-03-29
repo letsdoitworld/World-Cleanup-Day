@@ -52,42 +52,37 @@
 .EventDetails-timing,
 .EventDetails-coordinator-part,
 .EventDetails-attend-part,
-.EventDetails-creator-part,
-.EventDetails-trashpoints-plot {
+.EventDetails-creator-part {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
 }
 
-.EventDetails-trashpoints {
-  padding: 20px 0 20px 30px !important;
-}
-
-.EventDetails-trashpoints-plot {
-  overflow-x: auto;
-}
-
-.EventDetails-trashpoints-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .EventDetails-trashpoints-item-img {
-  margin-right: 20px !important;
-  width: 120px;
+  width: 130px;
   height: 80px;
   border-radius: 2px;
+  margin-bottom: 6px;
 }
 
 .EventDetails-trashpoints-item-title {
   font-size: 12px;
-  margin: 10px 0;
   color: #282633;
 }
 
 .EventDetails-coordinator-part {
   margin: 18px auto;
+}
+
+.swiper-wrapper {
+  height: 130px;
+}
+
+.swiper-pagination-bullet-active {
+  color: #3e8ede !important;
+}
+
+.swiper-pagination {
 }
 
 .EventDetails-report {

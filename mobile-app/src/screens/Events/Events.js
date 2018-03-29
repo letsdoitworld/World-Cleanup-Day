@@ -92,6 +92,8 @@ class Events extends Component {
         const {onSearchEventsAction} = this.props;
         if (userCoord && userCoord !== null) {
             onSearchEventsAction(this.query, page, PAGE_SIZE, {latitude: userCoord.lat, longitude: userCoord.long});
+        } else {
+            onSearchEventsAction(this.query, page, PAGE_SIZE);
         }
     }
 
@@ -206,9 +208,7 @@ class Events extends Component {
     }
 
     componentDidMount() {
-        this.loadEvents(0);
-        // const { onLoadMapEventsAction } = this.props;
-        // onLoadMapEventsAction()
+            this.loadEvents(0)
     }
 
     // componentWillUnmount() {

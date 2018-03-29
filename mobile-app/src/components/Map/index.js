@@ -13,7 +13,7 @@ class Map extends Component {
     const { markers = [], handleOnMarkerPress } = this.props;
     return markers
             .filter(marker => marker !== undefined)
-            .map((marker) => {
+            .map((marker, index) => {
               return (
                 <Marker
                   marker={marker}

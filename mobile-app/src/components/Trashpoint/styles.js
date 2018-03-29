@@ -9,7 +9,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: getWidthPercentage(15),
+    paddingVertical: getWidthPercentage(15),
     marginTop: 3,
     backgroundColor: colors.white,
   },
@@ -21,9 +21,12 @@ export default StyleSheet.create({
   },
   content: {
     flexDirection: 'row',
+    alignItems: 'center',
     flex: 1,
   },
   locationText: {
     flex: 1,
+    fontSize: 15,
+    fontFamily: 'Lato',
   },
 });

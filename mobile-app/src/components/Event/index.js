@@ -16,14 +16,14 @@ const Event = ({
   img,
   title,
   coordinator,
-    address,
-  location,
+  address,
   date,
   maxParticipants,
   participants,
   onPress,
 }) => {
   const photo = img ? { uri: img } : Icons.PlaceHolderAvatar;
+
   const handleRenderParticipants = () => {
     if (!isNil(maxParticipants) && !isNil(participants)) {
       return (
@@ -78,10 +78,10 @@ const Event = ({
 };
 
 Event.propTypes = {
-  img: PropTypes.number,
+  img: PropTypes.string,
   title: PropTypes.string,
   coordinator: PropTypes.string,
-  location: PropTypes.string,
+  address: PropTypes.string,
   date: PropTypes.string,
   maxParticipants: PropTypes.number,
   participants: PropTypes.number,

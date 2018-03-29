@@ -268,16 +268,14 @@ class TrashPoints extends Component {
         });
         const {width, height, data, path } = image;
         const uri = path.substring('file://'.length);
-        //
+
         // const thumbnailBase64 = await ImageService.getResizedImageBase64({
         //     uri,
         //     width,
         //     height
         // });
-        //
-        // console.warn(thumbnailBase64)
 
-        const coords = await getCurrentPosition({
+        const { coords } = await getCurrentPosition({
             enableHighAccuracy: false,
             timeout: 10 * 1000,
             maximumAge: 60 * 1000
@@ -285,17 +283,12 @@ class TrashPoints extends Component {
 
         this.props.navigator.push({
             screen: CREATE_MARKER,
-           // title: strings.label_add_trashPoints,
+            title: strings.label_button_createTP_confirm_create,
             passProps: {
                 photos: [{ uri, thumbnail: { base64: data },  base64: data}],
                 coords,
             }
         });
-      //  this.props.navigation.push('CreateMarker')
-       // const { navigation, userLocation } = this.props;
-
-
-
 
         // const {isAuthenticated, isPrivateProfile} = this.props;
         //

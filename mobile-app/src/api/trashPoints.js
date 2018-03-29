@@ -17,7 +17,7 @@ export async function searchTrashPointsRequest(query, page, pageSize, location) 
         if (!response || !response.data) {
             throw {error: 'Could not load trashpoins'};
         }
-       // console.log(response)
+        console.log(response)
         return response;
     } catch (ex) {
         throw ex

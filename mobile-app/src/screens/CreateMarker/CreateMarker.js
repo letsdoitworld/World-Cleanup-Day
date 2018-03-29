@@ -25,8 +25,8 @@ import ImageService from '../../services/Image';
 import {withLoadingScreen} from '../../services/Loading';
 import {operations as locationOperations} from '../../reducers/location/operations';
 import {Button} from '../../components/Button';
-import {LocationPicker} from './components/LocationPicker';
-import {StatusPicker} from './components/StatusPicker';
+import LocationPicker from './components/LocationPicker/LocationPicker';
+import StatusPicker from './components/StatusPicker/StatusPicker';
 import {PhotoPicker} from '../../components/PhotoPicker';
 import {Divider} from '../../components';
 import {getWidthPercentage, getHeightPercentage, handleSentryError} from '../../shared/helpers';
@@ -40,7 +40,8 @@ import {
     AMOUNT_HASH,
 } from '../../shared/constants';
 import {
-    operations as trashpileOperations,
+   // operations as trashpileOperations,
+    createMarker
 } from '../../reducers/trashpile/operations';
 import {
 
@@ -76,12 +77,12 @@ const PADDING_SIZE20 = getWidthPercentage(20);
 const HEIGHT_SIZE15 = getHeightPercentage(15);
 const HEIGHT_SIZE20 = getHeightPercentage(20);
 
-export default class CreateMarker extends React.Component {
-    static propTypes = {
-        navigation: PropTypes.object.isRequired,
-        createMarker: PropTypes.func.isRequired,
-        takePhotoAsync: PropTypes.func.isRequired,
-    };
+class CreateMarker extends React.Component {
+    // static propTypes = {
+    //     navigation: PropTypes.object.isRequired,
+    //     createMarker: PropTypes.func.isRequired,
+    //     takePhotoAsync: PropTypes.func.isRequired,
+    // };
 
     constructor(props) {
         super(props);
@@ -142,7 +143,6 @@ export default class CreateMarker extends React.Component {
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
     }
-
 
     componentWillReceiveProps(nextProps) {
         const {isConnected: wasConnected} = this.props;
@@ -264,7 +264,7 @@ export default class CreateMarker extends React.Component {
             photos.length === 0 ||
             !trashCompositionTypes.find(type => type.selected)
         ) {
-            this.showValidation(this.props.t('label_error_saveTP_pic_and_type'));
+            this.showValidation(strings.label_error_saveTP_pic_and_type);
             return false;
         }
         return true;
@@ -428,16 +428,18 @@ export default class CreateMarker extends React.Component {
                     onOverlayPress={this.hideValidation}
                     />
 
-                    {/*<LocationPicker*/}
-                        {/*onEditLocationPress={this.handleEditLocationPress}*/}
-                        {/*value={editableLocation}*/}
-                        {/*address={address}*/}
-                        {/*status={status}*/}
-                    {/*/>*/}
+                    <LocationPicker
+                        onEditLocationPress={this.handleEditLocationPress}
+                        value={editableLocation}
+                        address={address}
+                        status={status}
+                    />
                     <Divider/>
-                    {/*<StatusPicker value={status} onChange={this.handleStatusChanged}/>*/}
+                    <StatusPicker
+                        value={status}
+                        onChange={this.handleStatusChanged}
+                    />
                     <Divider/>
-
                     <View>
                         <PhotoPicker
                             maxPhotos={3}
@@ -446,7 +448,7 @@ export default class CreateMarker extends React.Component {
                             onAddPress={this.handlePhotoAdd}
                         />
                     </View>
-                    {/*<Divider />*/}
+                    <Divider />
                     <View style={{padding: getWidthPercentage(20)}}>
                         <Text style={{fontSize: 16}}>
                             {strings.label_text_createTP_select_amount}
@@ -563,16 +565,17 @@ export default class CreateMarker extends React.Component {
     }
 }
 //
-// const mapDispatch = {
-//  // createMarker: trashpileOperations.createMarker,
-//  // setErrorMessage: appOps.setErrorMessage,
-// };
-//
-// const mapStateToProps = state => ({
-//  // isConnected: appSels.isConnected(state),
-//  // loading: trashpileSelectors.isLoading(state),
-// });
-//
+const mapDispatch = {
+  createMarker: createMarker,
+ // setErrorMessage: appOps.setErrorMessage,
+};
+
+const mapStateToProps = state => ({
+ // isConnected: appSels.isConnected(state),
+ // loading: trashpileSelectors.isLoading(state),
+});
+
+export default connect(mapStateToProps, mapDispatch)(CreateMarker);
 // export default compose(
 //   connect(mapStateToProps, mapDispatch),
 //  // withNavigationHelpers(),

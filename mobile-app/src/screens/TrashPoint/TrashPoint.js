@@ -172,7 +172,7 @@ export default class CreateEvent extends Component {
                             {strings.label_trash_amount}
                         </Text>
                     </View>
-                    <TrashAmountLevel
+                    <TrashAmountLxevel
                         level={amount}
                         paddingHorizontal={20}
                     />

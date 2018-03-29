@@ -12,70 +12,123 @@ const getFullAddress = ({ subLocality, locality, country }) => {
   return [subLocality, locality, country].filter(x => !!x).join(', ');
 };
 
-const LocationPicker = ({
-  value: { latitude, longitude },
-  address: { streetAddress = '', locality = '', country = '', streetNumber = '', subLocality = '' },
-  onEditLocationPress,
-  status,
-  t,
-}) => {
-  const latitudeDelta = DEFAULT_ZOOM;
-  const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
-  const marker = {
-    latlng: { latitude, longitude },
-    status,
-  };
+export default class LocationPicker extends React.Component {
+    render() {
+        const {value: { latitude, longitude }} = this.props;
+        const {address: { streetAddress = '', locality = '', country = '', streetNumber = '', subLocality = '' }} = this.props;
+        const { onEditLocationPress, status} = this.props;
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.mapContainer}>
-        <Map
-          markers={[marker]}
-          scrollEnabled={false}
-          zoomEnabled={false}
-          pitchEnabled={false}
-          rotateEnabled={false}
-          region={{
-            latitudeDelta,
-            longitudeDelta,
-            latitude,
-            longitude,
-          }}
-          liteMode
-        />
-      </View>
-      <Text style={styles.streetContainer}>
-        {`${streetAddress} ${streetNumber}`}
-      </Text>
-      <View style={styles.bottomContainer}>
-        <View style={styles.iconContainer}>
-          <Image source={require('../../../../assets/images/icLocationPinActive.png')}/>
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>
-            {`${getFullAddress({ subLocality, locality, country })} | ${latitude.toFixed(
-              6,
-            )}, ${longitude.toFixed(6)}`}
-          </Text>
-        </View>
-      </View>
-      <TouchableOpacity onPress={onEditLocationPress} style={styles.editLocationContainer}>
-        <Text style={styles.editLocation}>{strings.label_button_createTP_editloc}</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+        const latitudeDelta = DEFAULT_ZOOM;
+        const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
+        const marker = {
+            latlng: { latitude, longitude },
+            status,
+        };
+        return (
+            <View style={styles.container}>
+                <View style={styles.mapContainer}>
+                    <Map
+                        markers={[marker]}
+                        scrollEnabled={false}
+                        zoomEnabled={false}
+                        pitchEnabled={false}
+                        rotateEnabled={false}
+                        region={{
+                            latitudeDelta,
+                            longitudeDelta,
+                            latitude,
+                            longitude,
+                        }}
+                        liteMode
+                    />
+                </View>
+                <Text style={styles.streetContainer}>
+                    {`${streetAddress} ${streetNumber}`}
+                </Text>
+                <View style={styles.bottomContainer}>
+                    <View style={styles.iconContainer}>
+                        <Image source={require('../../../../assets/images/icLocationPinActive.png')}/>
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>
+                            {`${getFullAddress({ subLocality, locality, country })} | ${latitude.toFixed(
+                                6,
+                            )}, ${longitude.toFixed(6)}`}
+                        </Text>
+                    </View>
+                </View>
+                <TouchableOpacity onPress={onEditLocationPress} style={styles.editLocationContainer}>
+                    <Text style={styles.editLocation}>{strings.label_button_createTP_editloc}</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
 //
-// LocationPicker.defaultProps = {
-//   value: undefined,
-//   onEditLocationPress: undefined,
+// const LocationPicker = ({
+//   value: { latitude, longitude },
+//   address: { streetAddress = '', locality = '', country = '', streetNumber = '', subLocality = '' },
+//   onEditLocationPress,
+//   status,
+//   t,
+// }) => {
+//   const latitudeDelta = DEFAULT_ZOOM;
+//   const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
+//   const marker = {
+//     latlng: { latitude, longitude },
+//     status,
+//   };
+//
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.mapContainer}>
+//         <Map
+//           markers={[marker]}
+//           scrollEnabled={false}
+//           zoomEnabled={false}
+//           pitchEnabled={false}
+//           rotateEnabled={false}
+//           region={{
+//             latitudeDelta,
+//             longitudeDelta,
+//             latitude,
+//             longitude,
+//           }}
+//           liteMode
+//         />
+//       </View>
+//       <Text style={styles.streetContainer}>
+//         {`${streetAddress} ${streetNumber}`}
+//       </Text>
+//       <View style={styles.bottomContainer}>
+//         <View style={styles.iconContainer}>
+//           <Image source={require('../../../../assets/images/icLocationPinActive.png')}/>
+//         </View>
+//         <View style={styles.textContainer}>
+//           <Text style={styles.text}>
+//             {`${getFullAddress({ subLocality, locality, country })} | ${latitude.toFixed(
+//               6,
+//             )}, ${longitude.toFixed(6)}`}
+//           </Text>
+//         </View>
+//       </View>
+//       <TouchableOpacity onPress={onEditLocationPress} style={styles.editLocationContainer}>
+//         <Text style={styles.editLocation}>{strings.label_button_createTP_editloc}</Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
 // };
-// LocationPicker.propTypes = {
-//   value: PropTypes.shape({
-//     latitude: PropTypes.number,
-//     longitude: PropTypes.number,
-//   }),
-//   address: PropTypes.any,
-//   onEditLocationPress: PropTypes.func,
-// };
-// export default translate()(LocationPicker);
+// //
+// // LocationPicker.defaultProps = {
+// //   value: undefined,
+// //   onEditLocationPress: undefined,
+// // };
+// // LocationPicker.propTypes = {
+// //   value: PropTypes.shape({
+// //     latitude: PropTypes.number,
+// //     longitude: PropTypes.number,
+// //   }),
+// //   address: PropTypes.any,
+// //   onEditLocationPress: PropTypes.func,
+// // };
+// // export default translate()(LocationPicker);

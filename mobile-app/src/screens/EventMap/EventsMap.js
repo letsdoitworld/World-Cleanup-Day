@@ -221,17 +221,11 @@ export default class EventsMap extends Component {
         const { selectedItem, mapEvents } = this.state;
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
-        // let markers = [];
-        // if (this.props.mapEvents) {
-        //     markers = this.props.mapEvents;
-        // }
+
         let listEvents = [];
         if (mapEvents) {
             listEvents = mapEvents.filter((event) => event.count === undefined);
         }
-
-
-        console.log("Render map", mapEvents);
 
         const { initialRegion } = this.props;
 

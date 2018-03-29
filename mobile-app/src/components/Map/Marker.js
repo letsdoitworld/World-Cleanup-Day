@@ -71,8 +71,6 @@ export default class Marker extends Component {
             }
         }
 
-        console.log("Render Marker", marker);
-
         return (
             <MapView.Marker
                 coordinate={marker.location}

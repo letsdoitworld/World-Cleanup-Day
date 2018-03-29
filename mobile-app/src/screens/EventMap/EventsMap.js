@@ -1,24 +1,10 @@
 import React, {Component} from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Text, ScrollView,
-    TextInput,
-    Image,
-    Dimensions,
-    LayoutAnimation,
-    UIManager,
-    FlatList,
-    KeyboardAvoidingView
-} from 'react-native';
+import {FlatList, UIManager, View} from 'react-native';
 import styles from './styles'
- import {Map as MapView} from '../../components/Map/Map';
- import {DEFAULT_ZOOM, MIN_ZOOM} from "../../shared/constants";
+import {Map as MapView} from '../../components/Map/Map';
+import {MIN_ZOOM} from "../../shared/constants";
 import {renderItem} from '../Events/List/ListItem/ListItem';
-import colors from '../../config/colors';
-import {toRadians} from "../../shared/helpers";
-import Button from "../../components/Button/Button";
- import { HorizontalEvent } from "../../components/index";
+import {HorizontalEvent} from "../../components/index";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -215,6 +201,8 @@ export default class EventsMap extends Component {
         // if (this.props.mapEvents) {
         //     markers = this.props.mapEvents;
         // }
+
+        console.log("Render map", this.props.mapEvents);
 
         const { initialRegion } = this.props;
 

@@ -1,9 +1,7 @@
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Marker from './Marker';
-import styles from './styles';
 
 import MapView from 'react-native-maps';
 
@@ -176,6 +174,7 @@ export class Map extends Component {
         return markers
             .filter((marker) => marker !== undefined)
             .map((marker) => {
+                console.log("Marker", marker);
                 return (
                     <Marker
                         marker={marker}

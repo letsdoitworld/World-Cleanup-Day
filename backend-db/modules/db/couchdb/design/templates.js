@@ -93,7 +93,7 @@ module.exports = {
                 };
             }
             function clusterStatus(data, statExtractor) {
-                var states = ['threat', 'regular', 'cleaned', 'outdated'];
+                var states = ['urgent', 'regular', 'cleaned', 'outdated'];
                 var priorities = states.reduce(function (red, val, idx) {
                     red[val] = idx;
                     return red;
@@ -143,11 +143,7 @@ module.exports = {
           emit([
             doc.datasetId,
             gridCoords,
-          ], {
-            _id: doc._id,
-            location: doc.location,
-            status: doc.status,
-          });
+          ], doc);
         },
         reduce: function (keys, values) {
           // XXX: the logic for reduce and rereduce is the same.
@@ -219,7 +215,7 @@ module.exports = {
         }
 
         function clusterStatus(data, statExtractor) {
-          var states = ['threat', 'regular', 'cleaned', 'outdated'];
+          var states = ['urgent', 'regular', 'cleaned', 'outdated'];
           var priorities = states.reduce(function (red, val, idx) {
             red[val] = idx;
             return red;

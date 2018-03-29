@@ -1,29 +1,22 @@
-import React, { Component } from 'react';
-import { View, Text, FlatList, Alert } from 'react-native';
+import React, {Component} from 'react';
+import {Alert, FlatList, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 
-import { SceneMap } from 'react-native-tab-view';
+import {SceneMap} from 'react-native-tab-view';
 
 import toString from 'lodash/toString';
 import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
 
-import { SETTINGS_SCREEN, EVENT_DETAILS_SCREEN } from '../index';
+import {EVENT_DETAILS_SCREEN, SETTINGS_SCREEN} from '../index';
 import strings from '../../config/strings';
-import { Icons } from '../../assets/images';
-import {
-    Avatar,
-    Icon,
-    Divider,
-    Tabs,
-    Event,
-    Trashpoint,
-    Button,
-} from '../../components';
+import {Icons} from '../../assets/images';
+import {Avatar, Button, Divider, Event, Icon, Tabs, Trashpoint,} from '../../components';
 
 import styles from './styles';
 
-import { navigatorStyle } from './config';
+import {navigatorStyle} from './config';
+import isEmpty from 'lodash/isEmpty';
 
 class Profile extends Component {
 
@@ -203,7 +196,7 @@ class Profile extends Component {
     const { eventsPageSize, myEvents, onLoadMyEvents } = this.props;
     let { eventsPageNumber } = this.props;
 
-    if (myEvents && !myEvents.length) return;
+    if (isEmpty(myEvents)) return;
 
     if (!this.state.isEndEventsReached && !(myEvents.length % eventsPageSize)) {
       onLoadMyEvents(eventsPageSize, ++eventsPageNumber);
@@ -215,7 +208,7 @@ class Profile extends Component {
     const { trashpointsPageSize, myTrashPoints, onLoadMyTrashPoints } = this.props;
     let { trashpointsPageNumber } = this.props;
 
-    if (myTrashPoints && !myTrashPoints.length) return;
+      if (isEmpty(myTrashPoints)) return;
 
     if (!this.state.isEndTrashpointReached && !(myTrashPoints.length % trashpointsPageSize)) {
       console.warn('In')

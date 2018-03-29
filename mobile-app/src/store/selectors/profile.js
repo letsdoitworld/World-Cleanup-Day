@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 import moment from 'moment';
 
@@ -23,7 +23,7 @@ export const isPrivateProfile = createSelector(
 export const loadMyEventsEntity = createSelector(
     profileSelector,
     profile =>
-        profile.myEvents && profile.myEvents.listMyEvents.sort(
+        profile.myEvents && profile.myEvents.listMyEvents && profile.myEvents.listMyEvents.sort(
             (a, b) => moment(b.createDate).diff(moment(a.createDate)),
         ),
 );

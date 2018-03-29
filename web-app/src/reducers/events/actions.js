@@ -128,63 +128,30 @@ const fetchAllEventMarkers = (
     type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
     markers,
   });
+};
+
+const fetchEventsList = (pageSize, pageNumber, query) =>
+async (dispatch, getState) => {
+  const response = await ApiService.get('events',
+    {
+      params: {
+        pageSize,
+        pageNumber,
+        name: query || '',
+      },
+    },
+    {
+      withToken: false,
+    });
+  if (!response) {
+    dispatch({ type: TYPES.FETCH_ALL_EVENTS_FAIL });
+    return false;
+  }
   dispatch({
     type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
-    events: list.data,
+    events: response.data.records,
   });
 };
-
-const fetchEventsList = ({
-  cellSize,
-  coordinates,
-  clusterId,
-}) => async (dispatch, getState) => {
-  try {
-    let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
-    const markers = getAllEventMarkers(getState());
-
-    if (!datasetId) {
-      try {
-        await dispatch(appActions.fetchDatasets());
-        datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
-      } catch (ex) {
-        return dispatch({ type: TYPES.FETCH_ALL_EVENTS_FAILED });
-      }
-    }
-
-    const body = {
-      datasetId,
-      cellSize,
-      coordinates,
-    };
-    const response = await ApiService.post(
-      API_ENDPOINTS.FETCH_EVENTS,
-      body,
-    );
-
-    if (response && response.data && Array.isArray(response.data)) {
-      const angleBetweenPoints = 360 / response.data.length;
-      dispatch({
-        type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
-        markers: [
-          ...markers.filter(({ id }) => id !== clusterId),
-          ...response.data.map((marker, index) => ({
-            ...marker,
-            position: destinationPoint(
-              marker.location,
-              3,
-              index * angleBetweenPoints,
-            ),
-            isTrashpile: true,
-          })),
-        ],
-      });
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 
 const fetchEventTitle = (id) => ({
   type: TYPES.FETCH_EVENT_TITLE,

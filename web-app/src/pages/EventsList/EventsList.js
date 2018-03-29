@@ -11,6 +11,9 @@ import { List } from '../../components/EventsList';
 class EventsList extends Component {
   componentWillMount() {
     this.props.setActiveTab('events');
+    if (!this.props.eventId) {
+      this.props.fetchEventsList(50, 1);
+    }
     if (this.props.eventId) {
       this.props.fetchEventDetails(this.props.eventId);
     }
@@ -20,6 +23,7 @@ class EventsList extends Component {
     if (nextProps.eventId && nextProps.eventId !== this.props.eventId) {
       this.props.fetchEventDetails(nextProps.eventId);
     }
+    document.getElementsByClassName('EventsList-plot')[0].scrollTop = 0;
   }
 
   render() {
@@ -31,6 +35,7 @@ class EventsList extends Component {
 
 EventsList.propTypes = {
   setActiveTab: PropTypes.func.isRequired,
+  fetchEventsList: PropTypes.func.isRequired,
   fetchEventDetails: PropTypes.func.isRequired,
   eventId: PropTypes.string,
 };

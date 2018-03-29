@@ -7,6 +7,7 @@ const EventListHeader = ({
   onMinimizeClick,
   eventId,
   eventTitle,
+  onSearch,
   history,
 }) => {
 
@@ -28,12 +29,13 @@ const EventListHeader = ({
             className="EventsList-header-searchbar"
             type="text"
             placeholder="Search location"
+            onChange={(ev) => onSearch(50, 1, ev.target.value)}
           /> :
           <span className="EventsList-header-title">{eventTitle}</span>
       }
       <div
         className="EventsList-header-minimize"
-        onClick={() => onMinimizeClick()}
+        onClick={onMinimizeClick}
       >
         <MinimizeIcon />
       </div>

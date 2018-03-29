@@ -83,13 +83,12 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width, 10),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    if (this.props.tabActive === 'trashpoints') {
-      this.props.fetchAllTrashpoints(nw, se, mapSize);
-    }
-    if (this.props.tabActive === 'events') {
-      console.log('fetch');
-      this.props.fetchAllEventMarkers(nw, se, mapSize);
-    }
+    // if (this.props.tabActive === 'trashpoints') {
+    this.props.fetchAllTrashpoints(nw, se, mapSize);
+    // }
+    // if (this.props.tabActive === 'events') {
+    this.props.fetchAllEventMarkers(nw, se, mapSize);
+    // }
   };
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {

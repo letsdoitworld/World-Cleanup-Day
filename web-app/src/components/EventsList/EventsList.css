@@ -28,7 +28,7 @@
   width: 100%;
   transition: all 0.3s ease-in-out;
   overflow-y: auto;
-  max-height: calc(100vh - 230px);
+  height: calc(100vh - 230px);
 }
 
 .visible {
@@ -70,4 +70,9 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
+}
+
+.no-events-holder {
+  width: 380px;
+  height: 117px;
 }

@@ -22,12 +22,14 @@ class EventsList extends Component {
       history,
       isOpened,
       fetchEventDetails,
+      fetchEventsList,
     } = this.props;
 
     return (
       <div className="EventsList-container">
         <EventListHeader
           onMinimizeClick={() => toggleEventWindow()}
+          onSearch={fetchEventsList}
           history={history}
           eventId={eventId}
         />
@@ -35,7 +37,9 @@ class EventsList extends Component {
           {
             eventDetails.id && eventId ?
             <EventDetails eventId={eventId} eventDetails={eventDetails} /> :
+            events ?
             events.map((ev) => {
+              console.log(ev);
               return (
                 <NavLink key={ev.id} to={`/event/${ev.id}`}>
                   <Event
@@ -43,14 +47,17 @@ class EventsList extends Component {
                     avatar={ev.photos[0]}
                     title={ev.name}
                     author={ev.createdByName}
-                    date={ev.startDate}
+                    date={ev.startTime}
                     location={ev.address}
                     maxNumberOfParticipants={ev.maxPeopleAmount || 20}
                     numberOfParticipants={ev.peopleAmount}
                   />
                 </NavLink>
               );
-            })
+            }) :
+            <div className="no-events-holder">
+              The list is empty
+            </div>
           }
         </div>
       </div>

@@ -1,9 +1,7 @@
 import React from 'react';
-
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { LocationService } from '../../services';
 import MapView from '../MapView';
 import {
   selectors as trashpileSelectors,
@@ -23,7 +21,6 @@ class MarkersMap extends React.Component {
   static defaultProps = {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
-    fetchClusterEvents: null,
     tabOpened: ''
   };
 
@@ -34,7 +31,6 @@ class MarkersMap extends React.Component {
     onMarkerClick: PropTypes.func,
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
-    fetchClusterEvents: PropTypes.func,
     isUserLoggedIn: PropTypes.bool.isRequired,
   };
 
@@ -87,11 +83,12 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width, 10),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    this.props.fetchAllEventMarkers({
-      latitude: this.props.currentLocation.lat,
-      longitude: this.props.currentLocation.lng,
-    }, 5);
-    this.props.fetchAllTrashpoints(nw, se, mapSize);
+    if (this.props.tabActive === 'trashpoints') {
+      this.props.fetchAllTrashpoints(nw, se, mapSize);
+    }
+    if (this.props.tabActive === 'events') {
+      this.props.fetchAllEventMarkers(nw, se, mapSize);
+    }
   };
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {
@@ -178,6 +175,5 @@ const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
-  fetchClusterEvents: trashpileActions.fetchClusterEvents,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

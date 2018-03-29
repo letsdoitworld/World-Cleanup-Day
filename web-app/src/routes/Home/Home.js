@@ -60,7 +60,7 @@ class Home extends React.Component {
         <Route path="/users" exact component={UserList} />
         <Route path="/areas" exact component={AreaList} />
         <Route
-          path="/events/:id?"
+          path="/event/:id?"
           render={
             ({ match }) =>
               <EventsList eventId={match.params.id} history={history} />}
@@ -90,7 +90,7 @@ class Home extends React.Component {
       return this.renderTerms();
     }
     const HEADER_LINKS = [
-      { title: 'Events', url: '/events', image: <EventsIcon /> },
+      { title: 'Events', url: '/event', image: <EventsIcon /> },
       { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> }
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {

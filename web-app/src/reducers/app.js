@@ -21,7 +21,7 @@ const appReducer = (
     showModal: false,
     showLoginPopover: false,
     showLockedModal: false,
-    currentTabActive: '',
+    currentTabActive: 'events',
     currentLocation: {},
   },
   action,

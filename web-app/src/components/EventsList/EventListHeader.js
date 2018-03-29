@@ -17,7 +17,7 @@ const EventListHeader = ({
           <LocationIcon /> :
           <button
             className="EventsList-header-back"
-            onClick={() => history.push('/events')}
+            onClick={() => history.push('/event')}
           >
             <BackIcon />
           </button>

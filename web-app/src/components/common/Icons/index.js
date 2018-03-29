@@ -73,4 +73,5 @@ export {
   locationPinActive,
   locationPinInactive,
   clusterIcon,
+  userpicHolder,
 };

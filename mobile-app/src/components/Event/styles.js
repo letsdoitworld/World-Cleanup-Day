@@ -30,6 +30,9 @@ export default StyleSheet.create({
   },
   image: {
     marginRight: 10,
+    width: 84,
+    height: 84,
+    borderRadius: 8,
   },
   middleColumn: {
     justifyContent: 'space-between',

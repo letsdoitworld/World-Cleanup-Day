@@ -32,12 +32,12 @@ function googleLogin() {
       return GoogleSignin.signIn();
     })
     .catch((error) => {
-        console.log("Google error", error);
       throw error;
     });
 }
 
 function facebookLogin() {
+  // LoginManager.logOut();
   return LoginManager.logInWithReadPermissions(['public_profile'])
         .then((result) => {
           if (result.isCancelled) {

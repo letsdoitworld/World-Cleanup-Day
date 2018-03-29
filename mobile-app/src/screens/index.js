@@ -18,7 +18,7 @@ import EventsList from './Events/List/List'
 
 import TrashPoints from './TrashPoints/TrashPoints'
 import TrashPoint from "./TrashPoint/TrashPoint";
-import CreateMarker from "./CreateMarker/CreateMarker";
+import CreateMarker from "./CreateMarker";
 
 export const PROFILE_SCREEN = "PROFILE_SCREEN";
 export const MY_ACTIVITY_SCREEN = "MY_ACTIVITY_SCREEN";

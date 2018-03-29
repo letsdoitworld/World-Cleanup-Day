@@ -50,6 +50,10 @@ import {
 import _ from 'lodash';
 import styles from './styles';
 import CongratsModal from "./components/CongratsModal/CongratsModal";
+import {createTrashPointAction} from "../../store/actions/trashPoints";
+import {createStructuredSelector} from "reselect";
+import {getTrashPointsEntity, isLoading} from "../../store/selectors";
+import AddTrashPoints from "../AddTrashPoints/AddTrashPoints";
 //import { NavigationActions } from 'react-navigation'
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
@@ -152,6 +156,18 @@ class CreateMarker extends React.Component {
             (!address || !address.completeAddress)) {
             this.fetchAddressAsync();
         }
+
+        if (this.props.createTrashPoint.success) {
+            this.props.navigator.pop()
+        }
+
+        // if (this.props.createTrashPoint.success) {
+        //     this.props.navigation.pop()
+        // }
+
+        //    console.log(this.props.createTrashPoint)
+        //    console.log('this.props.createTrashPoint')
+
     }
 
     fetchAddressAsync = async (coords) => {
@@ -271,7 +287,7 @@ class CreateMarker extends React.Component {
     }
 
     handleTrashpointCreate = () => {
-        const {createMarker, navigation, setErrorMessage, t} = this.props;
+       // const {createMarker, navigation, setErrorMessage, t} = this.props;
         const {
             photos,
             trashCompositionTypes,
@@ -286,30 +302,19 @@ class CreateMarker extends React.Component {
         }
 
         this.setState({disableCreateTrashpointButton: true}, () => {
-            createMarker({
-                location: this.state.editableLocation,
-                status,
-                photos,
-                composition: [
-                    ...trashCompositionTypes.filter(t => t.selected).map(t => t.type),
-                ],
-                hashtags: [...hashtags.map(t => t.label)],
-                amount: AMOUNT_STATUSES[amount],
-                address: completeAddress,
-                name: `${streetAddress} ${streetNumber}`,
-            }).then(
-                (res) => {
-                    if (res) {
-                        if (!res.photoStatus) {
-                            setErrorMessage(t('label_create_marker_missing_photos'));
-                        }
-                        navigation.resetTo('Tabs');
-                        setTimeout(this.showSuccessAlert);
-                    }
-                },
-                () => {
-                },
-            );
+            console.log(" " + status + "  " + amount + ' ' + this.state.editableLocation + "  " + completeAddress)
+
+                this.props.createTrashPointAction(
+                        [...hashtags.map(t => t.label)],
+                        [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
+                        this.state.editableLocation,
+                        status,
+                        "dsdsdssd",
+                        AMOUNT_STATUSES[amount],
+                        "dsssd",
+                        photos,
+                );
+
         });
     };
 
@@ -564,22 +569,6 @@ class CreateMarker extends React.Component {
         );
     }
 }
-//
-const mapDispatch = {
-  createMarker: createMarker,
- // setErrorMessage: appOps.setErrorMessage,
-};
 
-const mapStateToProps = state => ({
- // isConnected: appSels.isConnected(state),
- // loading: trashpileSelectors.isLoading(state),
-});
+export default CreateMarker
 
-export default connect(mapStateToProps, mapDispatch)(CreateMarker);
-// export default compose(
-//   connect(mapStateToProps, mapDispatch),
-//  // withNavigationHelpers(),
-//  // withLoadingScreen(props => props.loading, { compact: false }),
-//   withCameraActions(),
-//   translate(),
-// )(CreateMarker);

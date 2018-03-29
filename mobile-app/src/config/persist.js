@@ -2,7 +2,7 @@ import { persistStore } from 'redux-persist';
 import { createFilter } from 'redux-persist-transform-filter';
 
 const appFilter = createFilter('app', ['popover']);
-const userFilter = createFilter('user', ['auth']);
+const userFilter = createFilter('user', ['auth', 'profile']);
 
 export const persistStoreAsync = ({ store, storage }) => {
   return new Promise((resolve, reject) => {

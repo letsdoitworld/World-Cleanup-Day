@@ -176,9 +176,9 @@ class Profile extends Component {
       return (
         <View>
           <View style={styles.additionalInfoContainer}>
-              <Icon path={Icons.Email} />
-              <Text style={styles.additionalInfoText}>{profile.email}</Text>
-            </View>
+            <Icon path={Icons.Email} />
+            <Text style={styles.additionalInfoText}>{profile.email}</Text>
+          </View>
           <Divider />
         </View>
       );
@@ -203,30 +203,33 @@ class Profile extends Component {
     const { eventsPageSize, myEvents, onLoadMyEvents } = this.props;
     let { eventsPageNumber } = this.props;
 
-    if (!this.state.isEndEventsReached) {
-      if(!!(myEvents && (myEvents.length % eventsPageSize))) return;
+    if (myEvents && !myEvents.length) return;
 
+    if (!this.state.isEndEventsReached && !(myEvents.length % eventsPageSize)) {
       onLoadMyEvents(eventsPageSize, ++eventsPageNumber);
       this.setState({ isEndEventsReached: true });
     }
   }
 
   handleTrashpointsPagination = () => {
-    const { trashpointsPageSize, myEvents, onLoadMyTrashPoints } = this.props;
+    const { trashpointsPageSize, myTrashPoints, onLoadMyTrashPoints } = this.props;
     let { trashpointsPageNumber } = this.props;
 
-    if (!this.state.isEndTrashpointReached) {
-      if(!!(myEvents && (myEvents.length % trashpointsPageSize))) return;
+    if (myTrashPoints && !myTrashPoints.length) return;
 
+    if (!this.state.isEndTrashpointReached && !(myTrashPoints.length % trashpointsPageSize)) {
+      console.warn('In')
       onLoadMyTrashPoints(trashpointsPageSize, ++trashpointsPageNumber);
       this.setState({ isEndTrashpointReached: true });
     }
   };
 
   handleRenderEvents(event) {
+    const coverPhoto = event.photos && event.photos[0];
+
     return (
       <Event
-        img={event.photo}
+        img={coverPhoto}
         title={event.name}
         coordinator={event.coordinator}
         address={event.address}
@@ -320,12 +323,12 @@ class Profile extends Component {
       <View style={styles.container}>
         <View style={styles.infoContainer}>
           <View style={styles.avatarContainer}>
-              <Avatar path={profile && profile.pictureURL} />
-              <View style={styles.userNameContainer}>
-                  <Text style={styles.userNameText}>{profile && profile.name}</Text>
-                  {this.handleRenderLocation()}
-                </View>
-            </View>
+            <Avatar path={profile && profile.pictureURL} />
+            <View style={styles.userNameContainer}>
+                <Text style={styles.userNameText}>{profile && profile.name}</Text>
+                {this.handleRenderLocation()}
+              </View>
+          </View>
         </View>
         <Divider />
         {this.handleRenderPhoneNumber()}

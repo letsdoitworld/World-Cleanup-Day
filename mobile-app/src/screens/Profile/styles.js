@@ -60,7 +60,7 @@ export default StyleSheet.create({
   },
   tabContent: {
     flex: 1,
-    backgroundColor: colors.grey200,
+    backgroundColor: colors.gray200,
   },
   guestContainer: {
     flex: 1,
@@ -71,13 +71,13 @@ export default StyleSheet.create({
   imgPlaceholder: {
     width: Dimensions.get('window').width * 0.9,
     height: 300,
-    backgroundColor: colors.grey200,
+    backgroundColor: colors.gray200,
     marginHorizontal: getHeightPercentage(20),
   },
   trashpointContainer: {
     paddingHorizontal: getWidthPercentage(15),
     backgroundColor: colors.white,
     borderTopWidth: 2,
-    borderColor: colors.grey200,
+    borderColor: colors.gray200,
   },
 });

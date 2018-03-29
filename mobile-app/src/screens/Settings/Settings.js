@@ -36,7 +36,6 @@ export class Settings extends Component {
   constructor(props) {
     super(props);
 
-    console.log("isPrivateProfile ", props.isPrivateProfile);
     this.state = {
         value: props.isPrivateProfile,
         showCountryModal: false,

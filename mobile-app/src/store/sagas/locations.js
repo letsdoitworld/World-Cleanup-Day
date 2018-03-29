@@ -12,10 +12,8 @@ import {
 
 import Api from '../../api';
 
-function* loadLocation() {
+function* loadLocation(payload) {
   try {
-    const { payload } = yield take(FETCH_USER_LOCATION);
-
     const response = yield call(Api.locations.fetchAddress, payload);
 
     const userLocation = {
@@ -32,9 +30,8 @@ function* loadLocation() {
 
 export function* loadLocationFlow() {
   while (true) {
-    // yield take(FETCH_LOCATION);
-    // yield* takeEvery(FETCH_LOCATION, loadLocation);
-    yield call(loadLocation);
+    const { payload } = yield take(FETCH_USER_LOCATION);
+    yield call(loadLocation, payload);
   }
 }
 

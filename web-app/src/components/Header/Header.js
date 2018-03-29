@@ -29,13 +29,13 @@ class Header extends Component {
               <Logo />
             </Link>
           </div>
-          {
-            links ?
-              <div className="Header-links-container">
-                {links.map((link, index) => <HeaderItem {...link} key={index} />)}
-              </div> :
+          <div className="Header-links-container">
+            {
+              links ?
+              links.map((link, index) => <HeaderItem {...link} key={index} />) :
               null
-          }
+            }
+          </div>
           {
             authUser ?
               <User authUser={authUser} onLogout={onLogout} /> :

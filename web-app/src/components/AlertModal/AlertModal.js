@@ -2,16 +2,22 @@ import React from 'react';
 import Modal from 'react-modal';
 
 import { SHARED_MODAL_STYLES } from '../../shared/constants';
-import closeButton from '../../assets/closeButton.png';
-import googlePlayImage from '../../assets/google-play-badge.png';
-import iosAppStoreImage from '../../assets/Download_on_the_App_Store_Badge_US-UK_135x40.svg';
+import { CloseIcon } from '../common/Icons';
 
 import './AlertModal.css';
 
 const AlertModal = ({ message, isOpen, onClick }) =>
   (<Modal isOpen={isOpen} style={SHARED_MODAL_STYLES} contentLabel="">
+    <div>
+      <button
+        className="CreateTrashpoint-close-button"
+        onClick={this.handleCloseClick}
+      >
+        <CloseIcon />
+      </button>
+    </div>
     <button className="Shared-modal-close-button" onClick={onClick}>
-      <img src={closeButton} alt="" />
+      <CloseIcon />
     </button>
     <div>
       <div className="NoAuthorization-modal">

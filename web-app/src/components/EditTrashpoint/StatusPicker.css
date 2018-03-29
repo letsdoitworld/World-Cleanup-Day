@@ -1,20 +1,21 @@
 .StatusPicker {
-  background: #eee;
-  padding: 10px 20px;
   display: flex;
   flex-direction: column;
 }
 
 .StatusPicker-title {
-  font-size: 15px;
-  color: #2b2b2b;
+  font-size: 14px;
+  color: #4a90e2;
   font-weight: 700;
   margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .StatusPicker-subtitle {
-  font-size: 13px;
-  color: #2b2b2b;
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 1.43;
+  color: #282633;
 }
 
 .Status-statuses-container {
@@ -39,6 +40,16 @@
 .StatusPicker-status-container > div {
   display:flex;
   flex-direction: column;
+}
+
+.StatusPicker-status-text {
+  font-size: 14px;
+  color: #282633;
+  font-weight: bold;
+}
+
+.selected {
+  color: #3e8ede;
 }
 
 .StatusPicker-img-container {

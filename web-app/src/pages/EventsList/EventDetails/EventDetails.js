@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Swiper from 'react-id-swiper';
 import './EventDetails.css';
 import { selectors } from '../../../reducers/events';
 import {
@@ -13,6 +14,16 @@ import {
   PhoneIcon,
 } from '../../../components/common/Icons';
 import demo from '../../../assets/demo.png';
+
+
+const swiperOptions = {
+  slidesPerView: 2,
+  spaceBetween: 40,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+};
 
 class EventDet extends Component {
 
@@ -62,24 +73,43 @@ class EventDet extends Component {
           </div>
           <div className="EventDetails-trashpoints EventDetails-infoblock">
             <h2 className="EventDetails-header">Trashpoints</h2>
-            <div className="EventDetails-trashpoints-plot">
+            <Swiper {...swiperOptions}>
               <div className="EventDetails-trashpoints-item">
                 <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-                  <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-              </div>
-              <div className="EventDetails-trashpoints-item">
-                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-                  <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-              </div>
-              <div className="EventDetails-trashpoints-item">
-                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-                  <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-              </div>
-              <div className="EventDetails-trashpoints-item">
-                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
+                <br />
                 <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
               </div>
-            </div>
+              <div className="EventDetails-trashpoints-item">
+                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
+                <br />
+                <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
+              </div>
+              <div className="EventDetails-trashpoints-item">
+                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
+                <br />
+                <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
+              </div>
+              <div className="EventDetails-trashpoints-item">
+                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
+                <br />
+                <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
+              </div>
+              <div className="EventDetails-trashpoints-item">
+                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
+                <br />
+                <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
+              </div>
+              <div className="EventDetails-trashpoints-item">
+                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
+                <br />
+                <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
+              </div>
+              <div className="EventDetails-trashpoints-item">
+                <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
+                <br />
+                <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
+              </div>
+            </Swiper>
           </div>
           <div className="EventDetails-descr EventDetails-infoblock">
             <h2 className="EventDetails-header">Description</h2>

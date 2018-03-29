@@ -1,5 +1,5 @@
 import React from 'react';
-
+import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import PointMarker from './PointMarker';
 import { googleMapURL, DEFAULT_ZOOM_LEVEL } from '../../../shared/constants';
@@ -21,6 +21,7 @@ export default withGoogleMap(props => {
   const mapOptions = {
     mapTypeControl: false,
     streetViewControl: false,
+    scaleControl: true,
     minZoom: 3,
   };
   if (cursor) {
@@ -40,7 +41,11 @@ export default withGoogleMap(props => {
       onZoomChanged={onBoundsChanged}
     >
       {points.map(point => (
-        <PointMarker key={point.id} point={point} onPointClick={onPointClick} />
+        <PointMarker
+          key={point.id}
+          point={point}
+          onPointClick={onPointClick}
+        />
       ))}
     </GoogleMap>
   );

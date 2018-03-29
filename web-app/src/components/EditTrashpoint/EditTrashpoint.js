@@ -6,7 +6,7 @@ import {
   TrashAmount,
   TrashPhotos,
   StatusText,
-} from '../Details';
+} from '../TrashpointDetails';
 import { AlertModal } from '../../components/AlertModal';
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';

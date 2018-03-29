@@ -41,8 +41,8 @@
 .Popover-header {
   display: flex;
   justify-content: space-between;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
   width: 100%;
   background-color: #4a90e2;
   padding: 13px 24px 16px 24px;

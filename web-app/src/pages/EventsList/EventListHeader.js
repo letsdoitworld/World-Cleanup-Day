@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LocationIcon, MinimizeIcon } from '../../components/common/Icons';
+import { LocationIcon, MinimizeIcon, BackIcon } from '../../components/common/Icons';
 import { selectors } from '../../reducers/events';
 
 const EventListHeader = ({
@@ -19,7 +19,7 @@ const EventListHeader = ({
             className="EventsList-header-back"
             onClick={() => history.push('/events')}
           >
-            { '<' }
+            <BackIcon />
           </button>
       }
       {

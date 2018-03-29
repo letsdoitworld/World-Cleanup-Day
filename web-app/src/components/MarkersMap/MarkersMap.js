@@ -142,8 +142,8 @@ class MarkersMap extends React.Component {
   };
 
   render() {
-    const { markers, eventMarkers, isUserLoggedIn, tabOpened } = this.props;
-    const visiblePoints = tabOpened === '/trashpoints' ? markers : eventMarkers;
+    const { trashpointMarkers, eventMarkers, isUserLoggedIn, tabActive } = this.props;
+    const visiblePoints = tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
     return (
       <MapView
         isUserLoggedIn={isUserLoggedIn}
@@ -156,7 +156,7 @@ class MarkersMap extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  markers: trashpileSelectors.getAllMarkers(state),
+  trashpointMarkers: trashpileSelectors.getAllMarkers(state),
   eventMarkers: eventSelectors.getAllEventMarkers(state),
   currentEventMarker: eventSelectors.getCurrentMarkerID(state),
   gridValue: trashpileSelectors.getGridValue(state),

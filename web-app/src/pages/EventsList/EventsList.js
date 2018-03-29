@@ -1,16 +1,21 @@
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import classnames from 'classnames';
 import EventListHeader from './EventListHeader';
 import { EventDetails } from './EventDetails';
 import { Event } from './Event';
 import './EventsList.css';
 import { actions, selectors } from '../../reducers/events';
+import {
+  actions as appActions,
+} from '../../reducers/app';
 
 class EventsList extends Component {
 
   componentWillMount() {
-    this.props.fetchAllEvents()
+    this.props.fetchAllEvents();
+    this.props.setActiveTab('events');
   }
 
   render() {
@@ -30,7 +35,7 @@ class EventsList extends Component {
           history={history}
           eventId={eventId}
         />
-        <div className={`EventsList-plot ${isOpened ? 'visible' : ''}`}>
+      <div className={classnames('EventsList-plot', { 'visible': isOpened }) }>
           {
             !eventId ?
             events.map((ev) => {
@@ -66,6 +71,7 @@ const mapDispatchToProps = {
   toggleEventWindow: actions.toggleEventWindow,
   fetchAllEvents: actions.fetchAllEvents,
   fetchEventDetails: actions.fetchEventDetails,
+  setActiveTab: appActions.setActiveTab,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsList);

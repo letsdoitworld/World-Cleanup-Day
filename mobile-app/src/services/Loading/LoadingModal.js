@@ -46,15 +46,19 @@ const styles = EStyleSheet.create({
   },
 });
 
-const LoadingModal = ({ t }) => {
-  return (
-    <View style={styles.container}>
-      <Image resizeMode="contain" style={styles.image} source={image} />
-      <Text style={styles.imageText}>{t('label_loading_image_text')}</Text>
-      <View style={styles.textContainer}>
-        <Text style={styles.subtext}>{t('label_loading_image_subtext')}</Text>
-      </View>
-    </View>
-  );
+export default class LoadingModal extends React.Component {
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Image resizeMode="contain" style={styles.image} source={image} />
+                <Text style={styles.imageText}>{strings.label_loading_image_text}</Text>
+                <View style={styles.textContainer}>
+                    <Text style={styles.subtext}>{strings.label_loading_image_subtext}</Text>
+                </View>
+            </View>
+        );
+    }
+
 };
-export default translate()(LoadingModal);
+// export default translate()(LoadingModal);

@@ -4,26 +4,24 @@ DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
 import { Api } from '../../services';
 import axios from 'axios';
-//import { selectors as appSelectors, operations as appOps } from '../app';
-//import { selectors as trashpileSelectors } from '../trashpile';
+import { selectors as appSelectors, operations as appOps } from '../app/selectors';
+//import { selectors as trashpileSelectors } from 'selectors';
 import {
   convertToByteArray,
   guid,
   destinationPoint
 } from '../../shared/helpers';
 
-import actions from './actions';
-import selectors from './selectors';
+//import actions from 'actions';
+//import selectors from 'selectors';
 
 
 
-const fetchAllMarkers = (viewPortLeftTopCoordinate,
-  viewPortRightBottomCoordinate,
-  delta
-) => {
+export const fetchAllMarkers = (viewPortLeftTopCoordinate, viewPortRightBottomCoordinate, delta) => {
   return async (dispatch, getState) => {
     dispatch({ type: types.FETCH_ALL_MARKERS_REQUEST });
     let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+    console.warn(datasetId);
     if (!datasetId) {
       try {
         await dispatch(appOps.fetchDatasets());
@@ -400,7 +398,7 @@ export const uploadPhotosOnAzure = (photos) => {
               'x-ms-blob-type': 'BlockBlob',
             },
           }).catch((res) => {
-            handleSentryError(res);
+            //handleSentryError(res);
             return res;
           });
         });

@@ -19,10 +19,10 @@ import {
 import Api from '../../api';
 
 function* searchEvents(query, page, pageSize, location) {
-  try {
-      const response = yield call(Api.events.searchEventsRequest, query, page, pageSize, location);
-      if (response.status) {
-          yield put(searchEventsSuccessAction(response.events, page, pageSize));
+    try {
+        const response = yield call(Api.events.searchEventsRequest, query, page, pageSize, location);
+        if (response.data) {
+            yield put(searchEventsSuccessAction(response.data.records, page, pageSize));
         } else {
           setErrorMessage(String(response.error));
         }
@@ -53,7 +53,7 @@ function* loadEvent(id) {
         setErrorMessage(String(error));
       }
   }
-  
+
   export function* loadEventFlow() {
     while (true) {
         const { payload } = yield take(LOAD_EVENT);

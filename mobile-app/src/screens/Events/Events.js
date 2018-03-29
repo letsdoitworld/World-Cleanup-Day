@@ -103,7 +103,9 @@ class Events extends Component {
     loadEvents(page) {
         const {userCoord} = this.props;
         const {onSearchEventsAction} = this.props;
-        onSearchEventsAction(this.query, page, PAGE_SIZE, userCoord);
+        if (userCoord && userCoord !== null) {
+            onSearchEventsAction(this.query, page, PAGE_SIZE, {latitude: userCoord.lat, longitude: userCoord.long});
+        }
     }
 
     onNavigatorEvent(event) {
@@ -122,13 +124,10 @@ class Events extends Component {
             screen: SETTINGS_SCREEN,
             title: strings.label_settings_header,
         });
-    }
+    };
 
     handleFabPress = () => {
         const {isAuthenticated, isPrivateProfile} = this.props;
-
-
-
 
         if (isAuthenticated) {
             if(isPrivateProfile) {
@@ -162,7 +161,6 @@ class Events extends Component {
 
     };
 
-
     renderContent() {
         switch (this.state.mode) {
             case MODE.list: {
@@ -191,9 +189,7 @@ class Events extends Component {
     };
 
     isProgressEnabled() {
-        return false;
-        // const { isLoading } = this.props;
-        // return isLoading;
+        return this.props.isLoading;
     }
 
     renderProgress() {
@@ -217,10 +213,10 @@ class Events extends Component {
         this.loadEvents(0)
     }
 
-    componentWillUnmount() {
-        const {onClearEventsAction} = this.props;
-        onClearEventsAction();
-    }
+    // componentWillUnmount() {
+    //     const {onClearEventsAction} = this.props;
+    //     onClearEventsAction();
+    // }
 
     renderSearchBox() {
         if (this.isSearchFieldVisible()) {
@@ -273,6 +269,7 @@ class Events extends Component {
 Events.propTypes = {
     events: PropTypes.array,
     isLoading: PropTypes.bool,
+    userCoord: PropTypes.object,
     isAuthenticated: PropTypes.bool,
     onSearchEventsAction: PropTypes.func,
     onClearEventsAction: PropTypes.func,

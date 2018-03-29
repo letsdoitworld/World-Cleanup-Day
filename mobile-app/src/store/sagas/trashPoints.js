@@ -14,8 +14,8 @@ import Api from '../../api';
 function* searchTrashPoints(query, page, pageSize, location) {
     try {
         const response = yield call(Api.trashPoints.searchTrashPointsRequest, query, page, pageSize, location);
-        if (response.status) {
-            yield put(searchTrashPointsSuccessAction(response.trashPoints, page, pageSize));
+        if (response.data) {
+            yield put(searchTrashPointsSuccessAction(response.data.records, page, pageSize));
         } else {
             setErrorMessage(String(response.error));
         }
@@ -32,3 +32,4 @@ export function* searchTrashPointsFlow() {
         yield put(controlProgress(false));
     }
 }
+

@@ -319,7 +319,13 @@ export default class CreateEvent extends ImmutableComponent {
                                 <View style={styles.locationContainerStyle}>
                                     <Image source={require('../../../assets/images/ic_trashpoints.png')}
                                            style={styles.imageTrashStyle}/>
-                                    <Text style={styles.textTrashStyle}>{strings.label_add_trashPoints}</Text>
+                                    <Text style={styles.textTrashStyle}>
+                                        {
+                                            this.trashPoints.size > 0
+                                                ? strings.label_add_trashPoints_included
+                                                : strings.label_add_trashPoints
+                                        }
+                                        </Text>
                                     {this.renderTrashPointsCount()}
                                 </View>
                             </TouchableOpacity>

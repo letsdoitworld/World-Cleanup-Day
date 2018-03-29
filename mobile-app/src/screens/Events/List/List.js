@@ -39,8 +39,7 @@ export default class EventsList extends ImmutableComponent {
     }
 
     getEventsFromProps() {
-        const {events} = this.props;
-        return events;
+        return this.props.events;
     }
 
     //noinspection JSMethodCanBeStatic
@@ -55,7 +54,7 @@ export default class EventsList extends ImmutableComponent {
                 keyExtractor={this.keyExtractor.bind(this)}
                 renderItem={this.renderItem.bind(this)}
                 onEndReached={this.handleLoadMore.bind(this)}
-                onEndReachedThreshold={0}
+                onEndReachedThreshold={3}
             />
         );
     }
@@ -89,7 +88,7 @@ export default class EventsList extends ImmutableComponent {
                 </View>
             )
         } else {
-            return (<View style={styles.listDivider}/>)
+            return <View style={styles.listDivider}/>
         }
     };
 
@@ -97,7 +96,7 @@ export default class EventsList extends ImmutableComponent {
         if (this.isProgressEnabled() && this.page === 0 || this.isEventsListEmpty()) {
             return null
         } else {
-            return (<View style={styles.listDivider}/>)
+            return <View style={styles.listDivider}/>
         }
     };
 

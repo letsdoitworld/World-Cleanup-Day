@@ -25,9 +25,9 @@ const AddPhoto = ({ onPress }) => {
     </View>
   );
 };
-AddPhoto.propTypes = {
-  onPress: PropTypes.func.isRequired,
-};
+// AddPhoto.propTypes = {
+//   onPress: PropTypes.func.isRequired,
+// };
 
 class Photo extends React.Component {
   constructor(props) {
@@ -38,11 +38,11 @@ class Photo extends React.Component {
 
     this.buttons = [
       {
-        text: props.t('label_button_cancel'),
+        text: strings.label_button_cancel,
         onPress: this.handleModalClosed,
       },
       {
-        text: props.t('label_button_delete'),
+        text: strings.label_button_delete,
         onPress: this.handleModalConfirmed,
         style: styles.deleteButton,
       },
@@ -85,81 +85,130 @@ class Photo extends React.Component {
             visible={showingConfirm}
             buttons={this.buttons}
             onOverlayPress={this.handleModalClosed}
-            title={this.props.t('label_delete_photo_title')}
-            subtitle={this.props.t('label_delete_photo_subtitle')}
+            title={strings.label_delete_photo_title}
+            subtitle={strings.label_delete_photo_subtitle}
           />
         </View>
       </LazyImage>
     );
   }
 }
-Photo.defaultProps = {
-  onPress: undefined,
-};
-Photo.propTypes = {
-  photo: PropTypes.string.isRequired,
-  onPress: PropTypes.func,
-};
+// Photo.defaultProps = {
+//   onPress: undefined,
+// };
+// Photo.propTypes = {
+//   photo: PropTypes.string.isRequired,
+//   onPress: PropTypes.func,
+// };
 
-const PhotoComponent = translate()(Photo);
+//const PhotoComponent = translate()(Photo);
 
-const PhotoPicker = ({
-  maxPhotos = undefined,
-  title,
-  photos,
-  onDeletePress,
-  onAddPress,
-  t,
-}) => {
-  const hasAdd = !!onAddPress;
-  const hasDelete = !!onDeletePress;
-  const hasPhotos = !!photos;
-  const couldAddMorePhotos =
-    maxPhotos && hasPhotos && photos.length < maxPhotos;
+export default class PhotoPicker extends React.Component {
+  render() {
+      const {maxPhotos,
+          title,
+          photos,
+          onDeletePress,
+          onAddPress } = this.props;
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        {title || t('label_text_createTP_add_photos')}
-      </Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.photoContainer}
-        style={styles.photoContainer}
-      >
-        {hasPhotos &&
-          photos.map((uri, index) => {
-            const onDeletePhotoPress = hasDelete
-              ? () => onDeletePress(index)
-              : undefined;
-            return (
-              <PhotoComponent
-                key={uri}
-                photo={uri}
-                onPress={onDeletePhotoPress}
-              />
-            );
-          })}
+      const hasAdd = !!onAddPress;
+      const hasDelete = !!onDeletePress;
+      const hasPhotos = !!photos;
+      const couldAddMorePhotos =
+          maxPhotos && hasPhotos && photos.length < maxPhotos;
+      return (
+          <View style={styles.container}>
+              <Text style={styles.title}>
+                  {title || strings.label_text_createTP_add_photos}
+              </Text>
+              <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.photoContainer}
+                  style={styles.photoContainer}
+              >
+                  {hasPhotos &&
+                  photos.map((uri, index) => {
+                      const onDeletePhotoPress = hasDelete
+                          ? () => onDeletePress(index)
+                          : undefined;
+                      // return (
+                      //     <PhotoComponent
+                      //         key={uri}
+                      //         photo={uri}
+                      //         onPress={onDeletePhotoPress}
+                      //     />
+                      // );
+                  })}
 
-        {hasAdd &&
-          couldAddMorePhotos &&
-          <AddPhoto key="add_photo" onPress={onAddPress} />}
+                  {/*{hasAdd &&*/}
+                  {/*couldAddMorePhotos &&*/}
+                  {/*<AddPhoto key="add_photo" onPress={onAddPress} />}*/}
 
-      </ScrollView>
-    </View>
-  );
-};
-PhotoPicker.defaultProps = {
-  maxPhotos: undefined,
-  onDeletePress: undefined,
-  onAddPress: undefined,
-};
-PhotoPicker.propTypes = {
-  photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  onDeletePress: PropTypes.func,
-  onAddPress: PropTypes.func,
-  maxPhotos: PropTypes.number,
-};
-export default translate()(PhotoPicker);
+              </ScrollView>
+          </View>
+      );
+  }
+}
+//
+// const PhotoPicker = ({
+//   maxPhotos = undefined,
+//   title,
+//   photos,
+//   onDeletePress,
+//   onAddPress,
+//   t,
+// }) => {
+//   const hasAdd = !!onAddPress;
+//   const hasDelete = !!onDeletePress;
+//   const hasPhotos = !!photos;
+//   const couldAddMorePhotos =
+//     maxPhotos && hasPhotos && photos.length < maxPhotos;
+//
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.title}>
+//         {title || strings.label_text_createTP_add_photos}
+//       </Text>
+//       <ScrollView
+//         horizontal
+//         showsHorizontalScrollIndicator={false}
+//         showsVerticalScrollIndicator={false}
+//         contentContainerStyle={styles.photoContainer}
+//         style={styles.photoContainer}
+//       >
+//         {hasPhotos &&
+//           photos.map((uri, index) => {
+//             const onDeletePhotoPress = hasDelete
+//               ? () => onDeletePress(index)
+//               : undefined;
+//             return (
+//               <PhotoComponent
+//                 key={uri}
+//                 photo={uri}
+//                 onPress={onDeletePhotoPress}
+//               />
+//             );
+//           })}
+//
+//         {hasAdd &&
+//           couldAddMorePhotos &&
+//           <AddPhoto key="add_photo" onPress={onAddPress} />}
+//
+//       </ScrollView>
+//     </View>
+//   );
+// };
+// PhotoPicker.defaultProps = {
+//   maxPhotos: undefined,
+//   onDeletePress: undefined,
+//   onAddPress: undefined,
+// };
+// PhotoPicker.propTypes = {
+//   photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+//   onDeletePress: PropTypes.func,
+//   onAddPress: PropTypes.func,
+//   maxPhotos: PropTypes.number,
+// };
+// export default translate()(PhotoPicker);

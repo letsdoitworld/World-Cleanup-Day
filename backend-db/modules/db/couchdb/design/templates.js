@@ -172,11 +172,7 @@ module.exports = {
           emit([
             doc.datasetId,
             gridCoords,
-          ], {
-            _id: doc._id,
-            location: doc.location,
-            status: doc.status,
-          });
+          ], doc);
         },
     },
 

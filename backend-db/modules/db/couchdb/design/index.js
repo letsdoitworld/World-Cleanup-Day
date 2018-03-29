@@ -553,7 +553,7 @@ designDocs.events = Object.assign(
 );
 designDocs.events = Object.assign(
   designDocs.events,
-  tools.makeGridScaleDesignDocs(9, 'byGridCell', templates.eventsByGridCell),
+  tools.makeGridScaleDesignDocs(10, 'byGridCell', templates.eventsByGridCell),
 );
 
 

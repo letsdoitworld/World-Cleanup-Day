@@ -19,6 +19,7 @@ import {
   selectors as trashSels,
   operations as trashOps,
 } from '../../reducers/trashpile';
+import { selectors as appSelectors } from '../../reducers/app';
 import ActivityListItem from './components/ActivityListItem';
 import { Divider } from '../../components/Divider';
 import { EmptyStateScreen } from '../../components/EmptyStateScreen';
@@ -110,13 +111,13 @@ class MyActivity extends PureComponent {
   };
 
   render() {
-    const { loading, error, initialLoad, refreshing } = this.props;
+    const { loading, error, initialLoad, refreshing, isConnected } = this.props;
 
-    if (!initialLoad && error) {
+    if (!initialLoad && error && isConnected) {
       return this.displayRetry();
     }
 
-    if (!initialLoad && loading && !refreshing) {
+    if (!initialLoad && loading && !refreshing || !isConnected) {
       return this.displayLoading();
     }
 
@@ -132,6 +133,7 @@ MyActivity.propTypes = {
   canLoadMore: PropTypes.bool.isRequired,
   refreshing: PropTypes.bool.isRequired,
   fetchUserTrashpoints: PropTypes.func.isRequired,
+  isConnected: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -141,6 +143,7 @@ const mapStateToProps = state => ({
   initialLoad: trashSels.userTrashpointsInitialLoaded(state),
   canLoadMore: trashSels.userTrashpointsCanLoadMore(state),
   refreshing: trashSels.userTrashpointsRefreshing(state),
+  isConnected: appSelectors.isConnected(state),
 });
 const mapDispatch = {
   fetchUserTrashpoints: trashOps.fetchUserTrashpoints,

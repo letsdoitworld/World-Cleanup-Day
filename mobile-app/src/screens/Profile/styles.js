@@ -42,4 +42,9 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(20),
     alignItems: 'center',
   },
+  displayLoadingView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

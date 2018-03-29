@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
 import { Divider } from '../../components/Divider';
 import { selectors as userSelectors } from '../../reducers/user';
+import { selectors as appSelectors } from '../../reducers/app';
 import { withNavigationHelpers } from '../../services/Navigation';
 import styles from './styles';
 
+
 class Profile extends Component {
+  displayLoading = () => {
+    return (
+      <View style={styles.displayLoadingView}>
+        <ActivityIndicator />
+      </View>
+    );
+  };
   renderProfilePicture = (profile) => {
     const img = profile && profile.pictureURL
       ? { uri: profile.pictureURL }
@@ -16,7 +25,10 @@ class Profile extends Component {
     return <Image source={img} style={styles.usernameImage} />;
   };
   render() {
-    const { profile, country } = this.props;
+    const { profile, country, isConnected } = this.props;
+    if(!isConnected) {
+      return this.displayLoading();
+    }
     return (
       <View style={styles.container}>
         <View style={styles.infoContainer}>
@@ -50,6 +62,7 @@ const mapStateToProps = (state) => {
   return {
     profile: userSelectors.getProfile(state),
     country: userSelectors.getProfileCountry(state),
+    isConnected: appSelectors.isConnected(state),
   };
 };
 

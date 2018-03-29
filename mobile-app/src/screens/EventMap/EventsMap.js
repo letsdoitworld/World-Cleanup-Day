@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import styles from './styles'
  import {Map as MapView} from '../../components/Map/Map';
- import {DEFAULT_ZOOM} from "../../shared/constants";
+ import {DEFAULT_ZOOM, MIN_ZOOM} from "../../shared/constants";
 import {renderItem} from '../Events/List/ListItem/ListItem';
 import colors from '../../config/colors';
 import {toRadians} from "../../shared/helpers";
@@ -33,7 +33,7 @@ export default class EventsMap extends Component {
 
     constructor(props) {
         super(props);
-        const {location, onLoadMapEventsAction, mapEvents} = props;
+        const {location, onLoadMapEventsAction, mapEvents } = props;
          let userLocation;
         if (location === undefined || location === null) {
             //TODO fix me!! Random location?
@@ -55,19 +55,14 @@ export default class EventsMap extends Component {
             updateRegion: true,
         };
 
-        this.initialRegion = {
-            latitude: userLocation.latitude,
-            longitude: userLocation.longitude,
-            latitudeDelta: DEFAULT_ZOOM,
-            longitudeDelta: DEFAULT_ZOOM,
-        };
-
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
-    calculateZoom(latitude) {
-        const zoom = Math.abs((this.state.radius / (2 * 3.14 * Math.cos(latitude) * 63710000)) * 360) * 4;
-        return zoom;
+    shouldComponentUpdate(nextProps) {
+        const locationChanged = this.props.userLocation !== nextProps.userLocation;
+        return (
+            locationChanged
+        );
     }
 
     componentDidMount() {
@@ -108,6 +103,42 @@ export default class EventsMap extends Component {
             }
         })
     }
+
+    onPressMarker = event => {
+        const marker = this.props.markers.find(
+            marker => marker.id === event.nativeEvent.id,
+        );
+
+        if (!marker.isTrashpile) {
+            return;
+        }
+
+        if (marker && !marker.count) {
+            this.props.navigation.navigate('Details', {
+                markerId: event.nativeEvent.id,
+                latlng: marker.latlng,
+            });
+        } else {
+            if (this.map && _.has(this.props, 'delta.latitudeDelta')) {
+                if (this.props.delta.latitudeDelta === MIN_ZOOM) {
+                    return this.setState({
+                        updateRegion: false
+                    }, () => {
+                        this.props.fetchClusterTrashpoints(
+                            this.props.delta.cellSize,
+                            marker.coordinates,
+                            marker.id
+                        );
+                    });
+                }
+                const region = {
+                    ...this.props.delta,
+                    ...marker.latlng,
+                };
+                this.map.animateToRegion(region, 100);
+            }
+        }
+    };
 
     handleOnRegionChangeComplete = center => {
         if (!this.state.updateRegion) {
@@ -160,7 +191,6 @@ export default class EventsMap extends Component {
     keyExtractor = (item, index) => item.id.toString();
 
     renderItem(event) {
-        console.log("renderItem", event);
         return (
             <HorizontalEvent
                 img={event.photo}
@@ -178,50 +208,24 @@ export default class EventsMap extends Component {
 
     render() {
 
-        const {selectedItem, radius} = this.state;
-        // let markers;
-        // if (this.props.mapEvents !== undefined) {
-        //     markers = this.props.mapEvents.map((event) => {
-        //         return {
-        //             id: event.id,
-        //             latlng: event.location,
-        //             item: event
-        //         }
-        //     });
-        // }
-
-
-        this.circle = {
-            radius: radius,
-            borderColor: colors.$mainBlue,
-            fillColor: 'rgba(0, 143, 223, 0.2)',
-            center: {
-                latitude: this.state.userLocation.latitude,
-                longitude: this.state.userLocation.longitude,
-            },
-            borderWidth: 1
-        };
-
-        this.regionWIthMarkers = {
-            ...this.initialRegion,
-            longitudeDelta: this.calculateZoom(this.state.userLocation.latitude),
-        };
+        const { selectedItem } = this.state;
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
-        console.log("Render", this.props.mapEvents);
-        let markers = [];
-        if (this.props.mapEvents) {
-            markers = this.props.mapEvents;
-        }
+        // let markers = [];
+        // if (this.props.mapEvents) {
+        //     markers = this.props.mapEvents;
+        // }
+
+        const { initialRegion } = this.props;
 
         return (
             <View style={styles.container}>
                 <MapView
                 onRegionChangeComplete={this.handleOnRegionChangeComplete}
-                markers={markers}
-                initialRegion={this.initialRegion}
+                markers={this.props.mapEvents}
+                initialRegion={initialRegion}
                 style={styles.map}
-                handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
+                handleOnMarkerPress={this.onPressMarker}
                 getRef={(map) => this.map = map}>
 
                 </MapView>
@@ -245,14 +249,14 @@ export default class EventsMap extends Component {
         );
     }
 
-    handleOnMarkerPress(marker) {
-        this.setState(previousState => {
-            return {
-                ...previousState,
-                selectedItem: marker.item
-            };
-        });
-    }
+    // handleOnMarkerPress(marker) {
+    //     this.setState(previousState => {
+    //         return {
+    //             ...previousState,
+    //             selectedItem: marker.item
+    //         };
+    //     });
+    // }
 
     renderSelectedItem(selectedItem, checked) {
 

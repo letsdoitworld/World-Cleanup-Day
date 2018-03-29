@@ -226,7 +226,7 @@ export class Map extends Component {
     };
 
     render() {
-
+        console.log("render map");
         const outerStyle = this.props.style;
         const containerStyle = {
             flex: 1,

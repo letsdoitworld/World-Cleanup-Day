@@ -1,3 +1,7 @@
+const FBSDK = require('react-native-fbsdk');
+
+const { LoginManager } = FBSDK;
+
 import { call, put, take, select } from 'redux-saga/effects';
 
 import {
@@ -79,7 +83,6 @@ export function* loginGoogleFlow() {
 function* loginFacebook() {
   try {
     const res = yield call(Api.auth.facebookLogin);
-
     const accessToken = res.token.accessToken;
     const cleanUpToken = yield call(login, BACKEND_LOGIN_SOURCES.FACEBOOK, accessToken);
     yield put(setToken(cleanUpToken));
@@ -116,7 +119,7 @@ export function* loginFacebookFlow() {
 function* logoutUser() {
   try {
     yield call(Api.auth.logout);
-
+    yield call(LoginManager.logOut);
     yield put(logout());
   } catch (error) {
     setErrorMessage(String(error));

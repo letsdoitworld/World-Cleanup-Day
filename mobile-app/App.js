@@ -6,7 +6,6 @@ import isNil from 'lodash/isNil';
 
 import {
     LOGIN_SCREEN,
-    MY_ACTIVITY_SCREEN,
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
     EVENTS,
@@ -84,7 +83,7 @@ export default class App extends PureComponent {
                 },
                 {
                     screen: EVENTS,
-                    label: 'Activity',
+                    label: 'Events',
                     icon: Icons.Event,
                     selectedIcon: Icons.EventActive,
                     title: '',

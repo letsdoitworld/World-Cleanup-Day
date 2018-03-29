@@ -92,7 +92,8 @@ class CreateMarker extends Component {
       congratsShown: false,
       trashCompositionTypes: TRASH_COMPOSITION_TYPE_LIST.map(
         trashCompositionType => ({
-          ...trashCompositionType,
+          trashCompositionType.type,
+          props.t(trashCompositionType.label),
           selected: false,
         }),
       ),

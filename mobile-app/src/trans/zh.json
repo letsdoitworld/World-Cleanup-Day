@@ -111,7 +111,7 @@
   "label_location_off_warning": "位置服務已關閉。請在您的設置中啟用 GPS 以使用該應用程式。",
   "label_location_modal_title": "啟用位置",
   "label_network_off_warning_title": "無網路連接",
-  "label_network_off_warning": "移動資料被禁用。請啟用移動資料或將手機連接到 wi-fi 以使用該應用程式。",
+  "label_network_off_warning": "移動資料被禁用。啟用移動資料或將手機連接到 wi-fi 以使用該應用程式。",
   "label_loading_image_text": "很快完成...",
   "label_loading_image_subtext": "請稍候, 我們保存您的操作。",
   "label_create_marker_missing_photos": "無法上載標記的照片。請重試",

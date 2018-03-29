@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import types from './types';
+import i18n from '../../config/i18n';
 
 const popoverInitialState = {
   shown: false,
-  message: 'Join other people who are mapping trash!',
+  message: i18n.t('label_text_popover_subtitle'),
 };
 const errorInitialState = {
   visible: false,

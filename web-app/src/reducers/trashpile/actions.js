@@ -262,6 +262,11 @@ export const fetchAdminTrashpoints = (
 export const resetAdminTrashpoints = () => ({
   type: TYPES.RESET_ADMIN_TRASHPOINTS,
 });
+
+const toggleDetailsWindow = () => ({
+  type: TYPES.TOGGLE_TP_DETAILS_WINDOW,
+});
+
 const fetchMarkerDetails = markerId => async dispatch => {
   dispatch({ type: TYPES.FETCH_MARKER_DETAILS_REQUEST });
   const [imagesResponse, detailsResponse] = await Promise.all([
@@ -504,6 +509,7 @@ export default {
   fetchAllMarkers,
   fetchClusterTrashpoints,
   fetchAdminTrashpoints,
+  toggleDetailsWindow,
   fetchMarkerDetails,
   deleteImage,
   resetAdminTrashpoints,

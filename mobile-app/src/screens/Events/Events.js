@@ -1,18 +1,7 @@
 import React, {Component} from 'react';
-import {
-    View,
-    TextInput,
-    UIManager,
-    Animation,
-    LayoutAnimation,
-    ActivityIndicator,
-    Alert
-} from 'react-native';
+import {ActivityIndicator, Alert, Animation, LayoutAnimation, TextInput, View} from 'react-native';
 import styles from './styles';
-import {
-    CREATE_EVENT,
-    EVENTS_NAV_BAR,
-} from '../index';
+import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN,} from '../index';
 import strings from '../../assets/strings';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
@@ -20,9 +9,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
-import Profile from '../Profile/Profile';
-
-import { SETTINGS_SCREEN } from '../index';
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -105,6 +91,8 @@ class Events extends Component {
         const {onSearchEventsAction} = this.props;
         if (userCoord && userCoord !== null) {
             onSearchEventsAction(this.query, page, PAGE_SIZE, {latitude: userCoord.lat, longitude: userCoord.long});
+        } else {
+            onSearchEventsAction(this.query, page, PAGE_SIZE);
         }
     }
 
@@ -210,7 +198,7 @@ class Events extends Component {
     }
 
     componentDidMount() {
-        this.loadEvents(0)
+            this.loadEvents(0)
     }
 
     // componentWillUnmount() {

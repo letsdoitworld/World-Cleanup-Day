@@ -1,13 +1,45 @@
-.EditLocationInput-text{
-  height: 35px;
-  border: 1px solid #D9D9D9;
-  background-color: #FFFFFF;
-  -webkit-box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 50px;
-  -ms-flex: 1 1 0%;
-  flex: 1 1 0%;
+.EditLocationInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.EditLocationInput-text {
+  height: 30px;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+  border-radius: 3px;
+  flex: 1;
   outline: none;
-  padding-left: 20px;
+  padding-left: 10px;
   padding-right: 25px;
+  box-sizing: border-box;
+}
+
+.EditLocation-btn {
+  cursor: pointer;
+  position: relative;
+  background-color: #3e8ede;
+  border: 1px solid #dcdcdc;
+  width: 114px;
+  left: -5px;
+  border-radius: 2px;
+  height: 30px;
+  flex: -1;
+  padding: 10px;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.EditLocation-btn-text {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
 }

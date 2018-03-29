@@ -1,4 +1,3 @@
-import axios from "axios/index";
 import Api from "../services/Api";
 
 async function loadEvent(id) {
@@ -18,7 +17,7 @@ async function loadEvent(id) {
 
 export async function searchEventsRequest(query, page, pageSize, location) {
     try {
-        const response = await Api.get('events',
+        const response = await Api.get('/events',
             {
                 params: {
                     pageSize: pageSize,

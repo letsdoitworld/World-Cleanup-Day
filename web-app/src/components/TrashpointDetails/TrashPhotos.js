@@ -1,35 +1,29 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-
 import { noop } from '../../shared/helpers';
+import { CloseIcon } from '../common/Icons';
 import './TrashPhotos.css';
 
 const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
   (<div className="TrashPhotos">
     <span className="TrashPhotos-title">Trash photos</span>
     <div className="TrashPhotos-images-container">
-      {photos.map((photo, index) =>
-        (<div key={index} className="TrashPhotos-img-container">
-          <img src={photo} alt="" key={index} />
-          {canEdit &&
-            <button onClick={() => onDeleteClick(index)}>X</button>}
-        </div>),
-      )}
       {onAddClick &&
         <div
           style={{
             cursor: 'pointer',
-            marginLeft: photos.length > 0 ? '5px' : '0px',
           }}
         >
           <Dropzone
             style={{
-              width: '85px',
-              height: '70px',
-              backgroundColor: '#d8d8d8',
+              width: '125px',
+              height: '90px',
+              border: '2px dashed #a4c7f0',
+              backgroundColor: '#f6f8f9',
               display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: 'flex-start',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: '10px',
             }}
             multiple={false}
             onDrop={onAddClick}
@@ -37,11 +31,8 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
           >
             <div
               style={{
-                height: '20px',
-                width: '20px',
-                fontSize: '16px',
-                color: 'white',
-                backgroundColor: '#4aa5ff',
+                fontSize: '14px',
+                color: '#a4c7f0',
                 margin: '5px',
                 display: 'flex',
                 alignItems: 'center',
@@ -49,10 +40,19 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
                 borderRadius: '2px',
               }}
             >
-              <p style={{ textAlign: 'center' }}>+</p>
+              <p style={{ textAlign: 'center' }}>Add photos</p>
             </div>
           </Dropzone>
         </div>}
+      {photos.map((photo, index) =>
+        (<div key={index} className="TrashPhotos-img-container">
+          <img src={photo} alt="" key={index} />
+          {canEdit &&
+            <button onClick={() => onDeleteClick(index)}>
+              <CloseIcon />
+            </button>}
+        </div>),
+      )}
     </div>
   </div>);
 

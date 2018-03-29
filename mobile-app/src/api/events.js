@@ -1,10 +1,6 @@
-import axios from "axios/index";
 import Api from "../services/Api";
 import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH} from "../shared/constants";
-import { datasetUUID } from "../store/selectors";
-import { fetchDatasetUIIDAction } from "../store/actions/app";
-import { guid, getDistanceBetweenPointsInMeters, getGridValue } from "../shared/helpers";
-import types from "../reducers/trashpile/types";
+import {guid} from "../shared/helpers";
 
 async function loadEvent(id) {
     try {
@@ -44,23 +40,6 @@ export async function searchEventsRequest(query, page, pageSize, location) {
     }
 }
 
-// async function loadMapEvents(location, radius) {
-//     try {
-//         const response = await Api.get(API_ENDPOINTS.FETCH_MAP_EVENTS,
-//             {
-//                 params: {
-//                     location,
-//                     radius,
-//                 },
-//             },);
-//         //console.log("==> loadMapEvents ", response.data);
-//         return response.data
-//     } catch (ex) {
-//         //console.log("==> loadMapEvents ex ", ex);
-//         throw ex;
-//     }
-// }
-
 async function fetchAllEventMarkers(
     viewPortLeftTopCoordinate,
     viewPortRightBottomCoordinate,
@@ -68,28 +47,7 @@ async function fetchAllEventMarkers(
     datasetId) {
     try {
 
-    // dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_REQUEST });
-    // let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
-    //
-    // if (!datasetId) {
-    //     try {
-    //         await dispatch(appActions.fetchDatasets());
-    //         datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
-    //     } catch (ex) {
-    //         return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
-    //     }
-    // }
-
-    // const diagonaleInMeters = getDistanceBetweenPointsInMeters(
-    //     viewPortLeftTopCoordinate.latitude,
-    //     viewPortLeftTopCoordinate.longitude,
-    //     viewPortRightBottomCoordinate.latitude,
-    //     viewPortRightBottomCoordinate.longitude,
-    // );
-    // const grid = getGridValue(diagonaleInMeters);
         const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
-
-   // dispatch(actions.setLastDelta(newDelta));
 
     const body = {
         datasetId,
@@ -114,10 +72,6 @@ async function fetchAllEventMarkers(
             },
         ),
     ]);
-
-    // const list = await Api.post(API_ENDPOINTS.FETCH_EVENTS, body, {
-    //     withToken: false,
-    // });
 
     let markers = [];
 
@@ -148,20 +102,7 @@ async function fetchAllEventMarkers(
             })),
         ];
     }
-
-    // if (!markersRes && !clustersRes) {
-    //     return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
-    // }
-    //
-    // dispatch({
-    //     type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
-    //     markers,
-    // });
-    // dispatch({
-    //     type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
-    //     events: list.data,
-    // });
-        console.log("fetchAllEventMarkers", markers);
+        //console.log("fetchAllEventMarkers", markers);
         return markers;
     } catch (ex) {
         throw ex;

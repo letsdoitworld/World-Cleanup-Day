@@ -1,18 +1,7 @@
 import React, {Component} from 'react';
-import {
-    View,
-    TextInput,
-    UIManager,
-    Animation,
-    LayoutAnimation,
-    ActivityIndicator,
-    Alert
-} from 'react-native';
+import {ActivityIndicator, Alert, Animation, LayoutAnimation, TextInput, View} from 'react-native';
 import styles from './styles';
-import {
-    CREATE_EVENT,
-    EVENTS_NAV_BAR,
-} from '../index';
+import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN,} from '../index';
 import strings from '../../assets/strings';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
@@ -20,10 +9,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
-import Profile from '../Profile/Profile';
 import EventsMap from '../EventMap/EventsMap';
-
-import { SETTINGS_SCREEN } from '../index';
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -182,6 +168,7 @@ class Events extends Component {
                     //events={this.props.events}
                     location={this.props.userCoord}
                     mapEvents={mapEvents}
+                    navigator={this.props.navigator}
                     onLoadMapEventsAction={this.props.onLoadMapEventsAction}
                     datasetUUIDSelector={this.props.datasetUUIDSelector}
                     onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}

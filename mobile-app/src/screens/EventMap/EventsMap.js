@@ -5,6 +5,8 @@ import {Map as MapView} from '../../components/Map/Map';
 import {MIN_ZOOM} from "../../shared/constants";
 import {renderItem} from '../Events/List/ListItem/ListItem';
 import {HorizontalEvent} from "../../components/index";
+import strings from "../../config/strings";
+import {EVENT_DETAILS_SCREEN} from "../index";
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -44,17 +46,39 @@ export default class EventsMap extends Component {
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
-    shouldComponentUpdate(nextProps) {
-        const locationChanged = this.props.userLocation !== nextProps.userLocation;
-        return (
-            locationChanged
-        );
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     const locationChanged = this.props.userLocation !== nextProps.userLocation;
+    //     return (
+    //         locationChanged
+    //     );
+    // }
+
+    handleEventPress = (event) => {
+        this.props.navigator.showModal({
+            screen: EVENT_DETAILS_SCREEN,
+            title: strings.label_event,
+            passProps: {
+                eventId: event.id,
+            },
+        });
+    };
 
     componentDidMount() {
         if (!this.props.datasetUUIDSelector) {
             this.props.onFetchDatasetUUIDAction();
         }
+    }
+
+
+
+    componentWillReceiveProps (nextProps) {
+        console.log("componentWillReceiveProps", nextProps.mapEvents);
+
+            this.setState(previousState => {
+                return {
+                    mapEvents: nextProps.mapEvents,
+                }
+            })
     }
 
     onCheckedChanged(checked, item) {
@@ -91,8 +115,8 @@ export default class EventsMap extends Component {
     }
 
     onPressMarker = event => {
-        const marker = this.props.markers.find(
-            marker => marker.id === event.nativeEvent.id,
+        const marker = this.state.mapEvents.find(
+            marker => marker.id === event.id,
         );
 
         if (!marker.isTrashpile) {
@@ -100,21 +124,19 @@ export default class EventsMap extends Component {
         }
 
         if (marker && !marker.count) {
-            this.props.navigation.navigate('Details', {
-                markerId: event.nativeEvent.id,
-                latlng: marker.latlng,
-            });
+            //TODO add smooth animation to scroll
+            this.flatListRef.scrollToItem({animated: false, item: marker})
         } else {
             if (this.map && _.has(this.props, 'delta.latitudeDelta')) {
                 if (this.props.delta.latitudeDelta === MIN_ZOOM) {
                     return this.setState({
                         updateRegion: false
                     }, () => {
-                        this.props.fetchClusterTrashpoints(
-                            this.props.delta.cellSize,
-                            marker.coordinates,
-                            marker.id
-                        );
+                        // this.props.fetchClusterTrashpoints(
+                        //     this.props.delta.cellSize,
+                        //     marker.coordinates,
+                        //     marker.id
+                        // );
                     });
                 }
                 const region = {
@@ -184,7 +206,9 @@ export default class EventsMap extends Component {
                 coordinator={event.coordinator}
                 date={event.createDate}
                 maxParticipants={event.maxPeopleAmount}
-                participants={event.peopleAmount}/>
+                participants={event.peopleAmount}
+                onPress={() => this.handleEventPress(event)}
+            />
         );
     }
 
@@ -194,15 +218,20 @@ export default class EventsMap extends Component {
 
     render() {
 
-        const { selectedItem } = this.state;
+        const { selectedItem, mapEvents } = this.state;
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
         // let markers = [];
         // if (this.props.mapEvents) {
         //     markers = this.props.mapEvents;
         // }
+        let listEvents = [];
+        if (mapEvents) {
+            listEvents = mapEvents.filter((event) => event.count === undefined);
+        }
 
-        console.log("Render map", this.props.mapEvents);
+
+        console.log("Render map", mapEvents);
 
         const { initialRegion } = this.props;
 
@@ -210,7 +239,7 @@ export default class EventsMap extends Component {
             <View style={styles.container}>
                 <MapView
                 onRegionChangeComplete={this.handleOnRegionChangeComplete}
-                markers={this.props.mapEvents}
+                markers={mapEvents}
                 initialRegion={initialRegion}
                 style={styles.map}
                 handleOnMarkerPress={this.onPressMarker}
@@ -224,10 +253,11 @@ export default class EventsMap extends Component {
                 {/*onPress={() => this.loadMapEventsWithMoreRadius()}/>*/}
 
                 <FlatList
+                    ref={(ref) => { this.flatListRef = ref; }}
                     style={styles.list}
                     contentContainerStyle={styles.listContainer}
                     ListHeaderComponent={this.renderHeader.bind(this)}
-                    data={this.props.mapEvents}
+                    data={listEvents}
                     horizontal
                     keyExtractor={this.keyExtractor.bind(this)}
                     renderItem={({ item }) =>this.renderItem(item)}

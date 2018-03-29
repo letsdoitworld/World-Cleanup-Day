@@ -97,7 +97,8 @@ export const withNetworkGuard = () => (WrappedComponent) => {
     }
     handleCloseAlertModal() {
       this.props.updateLackConnMessStatus(!0);
-      resetTo(rootNav, 'Tabs');
+      const defaultOfflineScreen = 'Tabs';
+      resetTo(rootNav, defaultOfflineScreen);
     }
     checkConnection = async () => {
       let isConnected = await NetInfo.isConnected.fetch();

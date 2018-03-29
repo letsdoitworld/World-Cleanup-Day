@@ -27,7 +27,6 @@ function* searchEvents(query, page, pageSize, location) {
           setErrorMessage(String(response.error));
         }
     } catch (error) {
-      console.log(error);
       setErrorMessage(String(error));
     }
 }
@@ -46,7 +45,7 @@ export function* searchEventsFlow() {
 function* loadEvent(id) {
     try {
         const response = yield call(Api.events.loadEvent, id);
-        console.log('Responce', response);
+
         yield put(loadEventSuccess(response));
 
       } catch (error) {
@@ -57,9 +56,7 @@ function* loadEvent(id) {
   
   export function* loadEventFlow() {
     while (true) {
-        console.log('in')
         const { payload } = yield take(LOAD_EVENT);
-        console.log('Id', payload);
         yield call(loadEvent, payload);
       }
   }

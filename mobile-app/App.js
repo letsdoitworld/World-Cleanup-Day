@@ -83,7 +83,7 @@ export default class App extends PureComponent {
                 },
                 {
                     screen: EVENTS,
-                    label: 'Activity',
+                    label: 'Events',
                     icon: Icons.Event,
                     selectedIcon: Icons.EventActive,
                     title: '',

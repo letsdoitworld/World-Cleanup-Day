@@ -31,7 +31,7 @@ export const EventDetails = (props) => {
     <div className="EventDetails">
       <div className="EventDetails-cover">
         <img
-          src={eventDetails.avatar || userpicHolder}
+          src={eventDetails.photos[0] || userpicHolder}
           alt="demo"
         />
       </div>
@@ -40,12 +40,12 @@ export const EventDetails = (props) => {
           <div className="EventDetails-width-60">
             <DateIcon />
             <span className="EventDetails-date">
-              {moment(eventDetails.createDate).format('l')}
+              {moment(eventDetails.startTime).format('L')}
             </span>
           </div>
           <div className="EventDetails-width-40">
             <span className="EventDetails-period">
-              {`${eventDetails.event_start_time} - ${eventDetails.event_end_time}`}
+              {`${moment(eventDetails.startTime).format('LT')} - ${moment(eventDetails.endTime).format('LT')}`}
             </span>
           </div>
         </div>

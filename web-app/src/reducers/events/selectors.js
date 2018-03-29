@@ -30,7 +30,7 @@ export const getCurrentMarkerID = createSelector(
 
 export const getEventTitle = createSelector(
   detailsSel,
-  state => get(state, 'event.title', 'Unknown title'),
+  state => get(state, 'event.name', 'Unknown title'),
 );
 
 export default {

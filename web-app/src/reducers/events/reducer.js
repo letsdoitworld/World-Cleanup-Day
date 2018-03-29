@@ -20,6 +20,21 @@ const EVENT_DETAILS_INITIAL_STATE = {
   error: false,
 };
 
+const GRID_INITIAL_STATE = {
+  gridValue: undefined,
+  gridValueToZoom: undefined,
+  maxZoomedIn: false,
+};
+
+const gridReducer = (state = GRID_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case TYPES.SET_GRID_VALUE:
+      return action.gridValue;
+    default:
+      return state;
+  }
+};
+
 const eventMarkersReducer = (state = EVENTS_MARKERS_INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPES.FETCH_ALL_EVENT_MARKERS_REQUEST:
@@ -63,4 +78,5 @@ export default combineReducers({
   markers: eventMarkersReducer,
   events: eventsReducer,
   details: eventDetailsReducer,
+  grid: gridReducer,
 });

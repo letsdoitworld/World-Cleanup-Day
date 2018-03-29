@@ -39,12 +39,11 @@ class EventsList extends Component {
               return (
                 <NavLink key={ev.id} to={`/event/${ev.id}`}>
                   <Event
-                    onClick={fetchEventDetails}
                     eventId={ev.id}
-                    avatar={ev.avatar}
+                    avatar={ev.photos[0]}
                     title={ev.name}
-                    author={ev.email}
-                    date={ev.startTime}
+                    author={ev.createdByName}
+                    date={ev.startDate}
                     location={ev.address}
                     maxNumberOfParticipants={ev.maxPeopleAmount || 20}
                     numberOfParticipants={ev.peopleAmount}

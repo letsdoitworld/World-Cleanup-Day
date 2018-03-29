@@ -54,7 +54,7 @@ class MarkersMap extends React.Component {
           south: latitude + 0.0001,
           west: longitude - 0.0001,
           east: longitude + 0.0001,
-        }
+        };
         this.map.fitBounds(bounds);
       }
     }
@@ -87,6 +87,7 @@ class MarkersMap extends React.Component {
       this.props.fetchAllTrashpoints(nw, se, mapSize);
     }
     if (this.props.tabActive === 'events') {
+      console.log('fetch');
       this.props.fetchAllEventMarkers(nw, se, mapSize);
     }
   };
@@ -112,7 +113,6 @@ class MarkersMap extends React.Component {
           west: lng - (longitudeDelta / 16),
           east: lng + (longitudeDelta / 16),
         };
-
         this.map.fitBounds(bounds);
       } else {
         this.setState(

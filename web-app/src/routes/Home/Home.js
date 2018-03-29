@@ -25,6 +25,13 @@ import { Terms } from '../../components/Terms';
 import { Privacy } from '../../components/Privacy';
 
 class Home extends React.Component {
+
+  componentWillMount() {
+    if (this.props.history.location.pathname === '/') {
+      this.props.history.replace('/trashpoints');
+    }
+  }
+
   handleLogout = () => {
     this.props.history.push('/');
     this.props.logout();
@@ -90,8 +97,8 @@ class Home extends React.Component {
       return this.renderTerms();
     }
     const HEADER_LINKS = [
+      { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> },
       { title: 'Events', url: '/event', image: <EventsIcon /> },
-      { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> }
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       HEADER_LINKS.push({

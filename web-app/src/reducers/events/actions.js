@@ -11,6 +11,8 @@ import {
 import { API_ENDPOINTS } from '../../shared/constants';
 import { actions as appActions, selectors as appSelectors } from '../app';
 
+const setGridValue = gridValue => ({ type: TYPES.SET_GRID_VALUE, gridValue });
+
 const toggleEventWindow = () => ({
   type: TYPES.TOGGLE_EVENT_WINDOW,
 });
@@ -39,6 +41,7 @@ const fetchAllEventMarkers = (
     viewPortRightBottomCoordinate.longitude,
   );
   const grid = getGridValue(diagonaleInMeters);
+  dispatch(setGridValue(grid));
   let cellSize = 0;
   if (
     viewPortRightBottomCoordinate.longitude >

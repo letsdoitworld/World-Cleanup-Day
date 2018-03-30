@@ -1,6 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LocationIcon, MinimizeIcon, BackIcon } from '../../components/common/Icons';
+import {
+  LocationIcon,
+  MinimizeIcon,
+  BackIcon,
+  CollapseIcon,
+  ExpandIcon
+} from '../../components/common/Icons';
 import { selectors } from '../../reducers/events';
 
 const EventListHeader = ({
@@ -9,8 +15,8 @@ const EventListHeader = ({
   eventTitle,
   onSearch,
   history,
+  listState,
 }) => {
-
   return (
     <div className="EventsList-header">
       {
@@ -31,13 +37,20 @@ const EventListHeader = ({
             placeholder="Search location"
             onChange={(ev) => onSearch(50, 1, ev.target.value)}
           /> :
-          <span className="EventsList-header-title">{eventTitle}</span>
+          <span className="EventsList-header-title">
+            {eventTitle}
+          </span>
       }
       <div
+        role="button"
         className="EventsList-header-minimize"
         onClick={onMinimizeClick}
       >
-        <MinimizeIcon />
+        {
+          listState ?
+            <CollapseIcon /> :
+            <ExpandIcon />
+        }
       </div>
     </div>
   );
@@ -45,6 +58,7 @@ const EventListHeader = ({
 
 const mapStateToProps = (state) => ({
   eventTitle: selectors.getEventTitle(state),
+  listState: selectors.getShowEventWindow(state),
 });
 
 export default connect(mapStateToProps)(EventListHeader);

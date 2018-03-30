@@ -32,8 +32,8 @@ class TrashDetails extends React.Component {
     }
   }
 
-  componentWillReceiveProps = nextProps => {
-    if (this.props.trashpointId !== nextProps.trashpointId) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.trashpointId && this.props.trashpointId !== nextProps.trashpointId) {
       this.fetchMarkerDetails({
         id: nextProps.trashpointId,
         focusMap: !!querystring.parse(nextProps.history.location.search).focus,

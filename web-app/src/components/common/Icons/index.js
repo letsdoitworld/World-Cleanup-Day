@@ -21,6 +21,8 @@ import email from '../../../assets/ic-email.png';
 import phone from '../../../assets/ic-phone.png';
 import userpicHolder from '../../../assets/placeholder-userpic.png';
 import back from '../../../assets/ic-back.png';
+import collapse from '../../../assets/collapse.png';
+import expand from '../../../assets/expand.png';
 
 import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
 import activeInToxicTP from '../../../assets/trashpoints/icActiveInactiveToxicTrashpointMap.png';
@@ -55,6 +57,8 @@ export const Userpic = () => <img src={userpicHolder} alt="userpic" />;
 export const EmailIcon = () => <img src={email} alt="email" />;
 export const PhoneIcon = () => <img src={phone} alt="phone" />;
 export const BackIcon = () => <img src={back} alt="back" />;
+export const CollapseIcon = () => <img src={collapse} alt="collapse" />;
+export const ExpandIcon = () => <img src={expand} alt="expand" />;
 
 export const TrashpointIcons = {
   activeRegularTp: activeRegularTP,

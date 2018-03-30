@@ -36,6 +36,9 @@
 .Tpdetails-header-title {
   width: 90%;
   margin: 0 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   color: #fff;
   font-size: 14px;
   letter-spacing: 0.2px;

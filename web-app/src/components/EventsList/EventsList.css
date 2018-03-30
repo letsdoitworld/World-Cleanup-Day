@@ -47,6 +47,7 @@
 
 .EventsList-header-title {
   width: 90%;
+  height: 20px;
   margin: 0 16px;
   color: #fff;
   font-size: 14px;
@@ -70,6 +71,12 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
+}
+
+.EventsList-header-minimize img {
+  width: 18px;
+  height: 18px;
+  filter: invert(1);
 }
 
 .no-events-holder {

@@ -39,7 +39,6 @@ class EventsList extends Component {
             <EventDetails eventId={eventId} eventDetails={eventDetails} /> :
             events ?
             events.map((ev) => {
-              console.log(ev);
               return (
                 <NavLink key={ev.id} to={`/event/${ev.id}`}>
                   <Event

@@ -23,6 +23,9 @@ class EventsList extends Component {
     if (nextProps.eventId && nextProps.eventId !== this.props.eventId) {
       this.props.fetchEventDetails(nextProps.eventId);
     }
+    if (!nextProps.eventId && nextProps.eventId !== this.props.eventId) {
+      this.props.fetchEventsList(50, 1);
+    }
     document.getElementsByClassName('EventsList-plot')[0].scrollTop = 0;
   }
 

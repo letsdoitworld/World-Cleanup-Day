@@ -20,6 +20,9 @@ const styles = EStyleSheet.create({
   modal: {
     backgroundColor: '#d8d8d8',
   },
+  image: {
+    flex: 1,
+  },
 });
 
 export default styles;

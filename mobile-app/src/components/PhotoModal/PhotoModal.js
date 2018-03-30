@@ -13,13 +13,11 @@ const PhotoModal = ({ visible, onRequestClose, photoUrl }) => {
   return (
     <Modal
       visible={visible}
-      onRequestClose={onRequestClose}
+      onRequestClose={this.onRequestClose.bind(this)}
       style={styles.modal}
     >
       <Image
-        style={{
-          flex: 1,
-        }}
+        style={styles.image}
         resizeMode="contain"
         source={{ uri: photoUrl }}
       >

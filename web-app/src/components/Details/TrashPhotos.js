@@ -36,7 +36,11 @@ class TrashPhotos extends Component {
     } = this.props;
     return (
       <div className="TrashPhotos">
-        <PhotoModal photoUrl={this.state.zoomedPhotoUrl} isOpen={this.state.showZoomedPhoto} onClose={this.handlePhotoModalClose} />
+        <PhotoModal
+           photoUrl={this.state.zoomedPhotoUrl}
+           isOpen={this.state.showZoomedPhoto}
+           onClose={this.handlePhotoModalClose.bind(this)}
+        />
         <span className="TrashPhotos-title">Trash photos</span>
         <div className="TrashPhotos-images-container">
           {photos.map((photo, index) =>

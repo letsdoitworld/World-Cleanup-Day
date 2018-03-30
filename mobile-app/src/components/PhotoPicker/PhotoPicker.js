@@ -93,21 +93,21 @@ class Photo extends React.Component {
     const { photo, onDeletePress } = this.props;
     const { showingConfirm } = this.state;
     return (
-      <TouchableOpacity onPress={this.openZoomedPhoto}>
+      <TouchableOpacity onPress={this.openZoomedPhoto.bind(this)}>
         <LazyImage
           key={photo}
-          style={[styles.photo]}
+          style={styles.photo}
           source={{ uri: photo.thumbnailUrl }}
         >
           <PhotoModal
             visible={this.state.showZoomedPhoto}
-            onRequestClose={this.closeZoomedPhoto}
+            onRequestClose={this.closeZoomedPhoto.bind(this)}
             photoUrl={this.state.zoomedPhotoUrl}
           />
           <View>
             {onDeletePress &&
               <TouchableOpacity
-                onPress={this.handlePhotoDeletePress}
+                onPress={this.handlePhotoDeletePress.bind(this)}
                 style={styles.photoButtonContainer}
               >
                 <Ionicons
@@ -120,7 +120,7 @@ class Photo extends React.Component {
             <AlertModal
               visible={showingConfirm}
               buttons={this.buttons}
-              onOverlayPress={this.handleModalClosed}
+              onOverlayPress={this.handleModalClosed.bind(this)}
               title={this.props.t('label_delete_photo_title')}
               subtitle={this.props.t('label_delete_photo_subtitle')}
             />
@@ -180,7 +180,7 @@ const PhotoPicker = ({
               <PhotoComponent
                 key={photo.thumbnailUrl}
                 photo={photo}
-                onDeletePress={onDeletePhotoPress}
+                onDeletePress={this.onDeletePhotoPress.bind(this)}
               />
             );
           })}

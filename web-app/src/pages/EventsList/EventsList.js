@@ -20,6 +20,9 @@ class EventsList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!this.props.isOpened) {
+      this.props.expandEventWindow();
+    }
     if (nextProps.eventId && nextProps.eventId !== this.props.eventId) {
       this.props.fetchEventDetails(nextProps.eventId);
     }
@@ -56,6 +59,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   toggleEventWindow: actions.toggleEventWindow,
+  expandEventWindow: actions.expandEventWindow,
   fetchEventsList: actions.fetchEventsList,
   fetchEventDetails: actions.fetchEventDetails,
   setActiveTab: appActions.setActiveTab,

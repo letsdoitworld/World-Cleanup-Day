@@ -17,6 +17,10 @@ const toggleEventWindow = () => ({
   type: TYPES.TOGGLE_EVENT_WINDOW,
 });
 
+const expandEventWindow = () => ({
+  type: TYPES.EXPAND_EVENT_WINDOW,
+});
+
 const fetchAllEventMarkers = (
   viewPortLeftTopCoordinate,
   viewPortRightBottomCoordinate,
@@ -175,6 +179,7 @@ const fetchEventDetails = eventId => async dispatch => {
 
 export default {
   toggleEventWindow,
+  expandEventWindow,
   fetchAllEventMarkers,
   fetchEventsList,
   fetchEventTitle,

@@ -56,6 +56,8 @@ const eventsReducer = (state = EVENTS_INITIAL_STATE, action) => {
       return { ...state, events: action.events, loading: false };
     case TYPES.TOGGLE_EVENT_WINDOW:
       return { ...state, showEventWindow: !state.showEventWindow };
+    case TYPES.EXPAND_EVENT_WINDOW:
+      return { ...state, showEventWindow: true };
     default:
       return state;
   }

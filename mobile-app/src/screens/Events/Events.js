@@ -44,7 +44,6 @@ class Events extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-
     onModeChanged(index) {
         this.setState((previousState) => {
             return {mode: index};
@@ -121,9 +120,7 @@ class Events extends Component {
         if (isAuthenticated) {
             if(isPrivateProfile) {
                 Alert.alert(
-                    'Update your privacy settings!',
-                    'Your profile should be public\n' +
-                    'in order to post event.',
+                    strings.label_private_profile_wor,
                     [
                         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                         {text: 'Settings', onPress: this.handleSettingsPress},
@@ -138,9 +135,7 @@ class Events extends Component {
             });
         } else {
             Alert.alert(
-                'Oh no!',
-                'You need to be a registrated user\n' +
-                'in order to create events.',
+                strings.label_private_auth_wor,
                 [
                     {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                     {text: 'Register', onPress: this.handleLogInPress},
@@ -149,7 +144,6 @@ class Events extends Component {
         }
 
     };
-
 
     renderContent(mapEvents) {
         switch (this.state.mode) {

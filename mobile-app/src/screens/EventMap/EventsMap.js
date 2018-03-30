@@ -230,11 +230,6 @@ export default class EventsMap extends Component {
                 getRef={(map) => this.map = map}>
 
                 </MapView>
-                {/*{this.renderSelectedItem(selectedItem, checked)}*/}
-
-                {/*<Button style={styles.buttonStyle}*/}
-                {/*text={"Load"}*/}
-                {/*onPress={() => this.loadMapEventsWithMoreRadius()}/>*/}
 
                 <FlatList
                     ref={(ref) => { this.flatListRef = ref; }}

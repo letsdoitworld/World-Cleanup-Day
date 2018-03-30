@@ -215,6 +215,8 @@ module.exports = new LocalizedStrings({
         label_invalid_attendees: "Invalid attendees",
         label_invalid_location: " is required",
         label_no_location: "Choose your location",
+        label_private_profile_wor: 'Update your privacy settings!\nYour profile should be public\nin order to post event.',
+        label_private_auth_wor: 'Oh no!\nYou need to be a registrated user\nin order to create events.',
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

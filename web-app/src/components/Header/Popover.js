@@ -103,7 +103,10 @@ class Popover extends Component {
                 clientId="701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com"
                 onSuccess={this.handleGoogleLoginSuccess}
                 onFailure={this.handleGoogleLoginFailure}
-                style={{ background: 'none', width: '100%' }}
+                style={{
+                  background: 'none',
+                  width: '100%',
+                } }
               >
                 <div className="Google-login-btn Popover-login-item">
                   <GoogleIcon />

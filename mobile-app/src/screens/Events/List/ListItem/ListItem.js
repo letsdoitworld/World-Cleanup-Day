@@ -1,60 +1,60 @@
-import React, {PureComponent} from "react";
+import React, { PureComponent } from 'react';
 import {
     Image,
-    Platform,
     Text,
     TouchableHighlight,
     View,
-} from "react-native";
-import styles from "./styles"
-import strings from '../../../../assets/strings'
+} from 'react-native';
+import styles from './styles';
+import strings from '../../../../assets/strings';
+
+import { EVENT_DETAILS_SCREEN } from '../../../index';
 
 export default class ListItem extends PureComponent {
 
-    constructor(props) {
-        super(props);
-
-    }
-
-    onPress = () => {
-        // this.props.navigator.push({
-        //     screen: consts.DISCOVER_SCREEN,
-        //     passProps: {
-        //         school: this.props.item
-        //     }
-        // })
+  onPress = () => {
+      this.props.navigator.showModal({
+          screen: EVENT_DETAILS_SCREEN,
+          title: strings.label_event,
+          passProps: {
+              eventId: this.props.id,
+            },
+        });
     };
 
-    render() {
+  render() {
+      const { item } = this.props;
 
-        const item = this.props.item;
-
-        return (
-            <TouchableHighlight
-                underlayColor="rgb(232, 232, 232)"
-                onPress={this.onPress.bind(this)}
-                style={item.participant ? styles.itemTouchParticipant : styles.itemTouch}>
-                <View style={styles.itemContent}>
-                    {   item.photos[0]
-                        ? <Image
-                            style={styles.image}
-                            source={{uri: item.photos[0]}}/>
-                        : <View style={[styles.image, {backgroundColor: 'grey'}]}/>
-                    }
-                    <View style={styles.titleContainer}>
-                        <Text
-                            numberOfLines={2}
-                            style={styles.title}>
-                            {item.name}
+      return (
+          <TouchableHighlight
+              underlayColor="rgb(232, 232, 232)"
+              onPress={this.onPress}
+              style={item.participant ? styles.itemTouchParticipant : styles.itemTouch}
+            >
+              <View style={styles.itemContent}>
+                  {   item.photos[0]
+                      ? <Image
+                          style={styles.image}
+                          source={{uri: item.photos[0]}}/>
+                      : <View style={[styles.image, {backgroundColor: 'grey'}]}/>
+                  }
+                  <View style={styles.titleContainer}>
+                      <Text
+                          numberOfLines={2}
+                          style={styles.title}
+                        >
+                          {item.name}
                         </Text>
-                        <View style={styles.organizationRow}>
-                            <Image
-                                style={styles.organizationIcon}
-                                source={require('./images/icGroupBlack24Px.png')}/>
-                            <Text
-                                numberOfLines={1}
-                                style={styles.organizationText}>
-                                {item.description}
+                      <View style={styles.organizationRow}>
+                          <Image
+                              style={styles.organizationIcon}
+                              source={require('./images/icGroupBlack24Px.png')}
+                            />
+                          <Text
+                              numberOfLines={1}
+                              style={styles.organizationText}
+                            >
+                              {item.description}
                             </Text>
                         </View>
                         <View style={styles.placeRow}>
@@ -74,12 +74,12 @@ export default class ListItem extends PureComponent {
                         <Text style={item.participant ? styles.availableParticipant : styles.available}>
                             {`${item.peopleAmount}/${item.maxPeopleAmount}`}
                         </Text>
-                        <Text style={styles.date}>
-                            {item.date}
+                      <Text style={styles.date}>
+                          {item.date}
                         </Text>
                     </View>
                 </View>
             </TouchableHighlight>
-        )
+        );
     }
 }

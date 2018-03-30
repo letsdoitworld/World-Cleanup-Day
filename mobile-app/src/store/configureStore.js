@@ -8,6 +8,8 @@ import createSagaMiddleware from 'redux-saga';
 import Reactotron from 'reactotron-react-native';
 import { reactotronRedux } from 'reactotron-redux';
 
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import reducers from './reducers';
 
 import {
@@ -22,39 +24,30 @@ import {
     loadLocationFlow,
     autoRegidrateFlow,
     loadMyEventsFlow,
-    loadMyTrashPointsFlow, createTrashPointFlow,
+    loadMyTrashPointsFlow,
+    createTrashPointFlow,
+    loadEventFlow,
 } from './sagas';
 
 
 export default function configureStore() {
-  let store;
+  let enhancer;
   const sagaMiddleware = createSagaMiddleware();
-  const enhancer = compose(
-    applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
-    autoRehydrate({ log: true }),
-  );
 
 
   if (__DEV__) {
-    Reactotron.configure({ name: 'CleanUp' })
-        .use(reactotronRedux())
-        .connect();
-
-    const yeOldeConsoleLog = console.log;
-    console.log = (...args) => {
-      yeOldeConsoleLog(...args);
-      Reactotron.display({
-        name: 'CONSOLE.LOG',
-        value: args,
-        preview: args.length > 0 && typeof args[0] === 'string' ? args[0] : null,
-      });
-    };
-
-    store = Reactotron.createStore(reducers, enhancer);
+    enhancer = composeWithDevTools(
+      applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
+      autoRehydrate({ log: true }),
+    );
   } else {
-    store = createStore(reducers, enhancer);
+    enhancer = compose(
+      applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
+      autoRehydrate({ log: true }),
+    );
   }
 
+  const store = createStore(reducers, enhancer);
 
   persistStore(
         store,
@@ -80,6 +73,7 @@ export default function configureStore() {
       sagaMiddleware.run(loadMyEventsFlow),
       sagaMiddleware.run(loadMyTrashPointsFlow),
       sagaMiddleware.run(createTrashPointFlow),
+      sagaMiddleware.run(loadEventFlow),
     ],
   };
 }

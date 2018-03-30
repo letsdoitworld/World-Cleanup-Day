@@ -1,9 +1,23 @@
-import axios from "axios/index";
 import Api from "../services/Api";
+
+async function loadEvent(id) {
+    try {
+        const response = await Api.get(`/event/${id}`,
+            {
+                withToken: true,
+            });
+        if (!response || !response.data) {
+            throw { error: 'Could not load my events' };
+        }
+        return response.data;
+    } catch (ex) {
+        throw ex;
+    }
+}
 
 export async function searchEventsRequest(query, page, pageSize, location) {
     try {
-        const response = await Api.get('events',
+        const response = await Api.get('/events',
             {
                 params: {
                     pageSize: pageSize,
@@ -25,5 +39,6 @@ export async function searchEventsRequest(query, page, pageSize, location) {
 }
 
 export default {
-    searchEventsRequest,
-}
+  searchEventsRequest,
+  loadEvent,
+};

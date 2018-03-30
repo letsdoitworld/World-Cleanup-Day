@@ -22,6 +22,8 @@ import {
 
 let _ = require('lodash');
 
+import { Icons } from '../../assets/images';
+
 const cancelId = 'cancelId';
 const saveId = 'saveId';
 const mapId = 'mapId';
@@ -37,7 +39,7 @@ class AddTrashPoints extends Component {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../src/assets/images/ic_back.png'),
+                icon: Icons.Back,
                 id: cancelId,
             }
         ]
@@ -129,7 +131,10 @@ class AddTrashPoints extends Component {
 
         if (this.marked.size === 0) {
             this.setState(previousState => {
-                return {trashPoints: receivedTrashPointsList}
+                return {
+                    trashPoints: receivedTrashPointsList,
+                    count: this.marked.size
+                }
             });
         } else {
             if (this.page === 0) {
@@ -141,11 +146,17 @@ class AddTrashPoints extends Component {
                 const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
 
                 this.setState(previousState => {
-                    return {trashPoints: trashPoints}
+                    return {
+                        trashPoints: trashPoints,
+                        count: this.marked.size
+                    }
                 });
             } else {
                 this.setState(previousState => {
-                    return {trashPoints: receivedTrashPointsList}
+                    return {
+                        trashPoints: receivedTrashPointsList,
+                        count: this.marked.size
+                    }
                 });
             }
         }
@@ -153,7 +164,7 @@ class AddTrashPoints extends Component {
         this.props.navigator.setButtons({
             leftButtons: [
                 {
-                    icon: require('../../../src/assets/images/ic_back.png'),
+                    icon: Icons.Back,
                     id: cancelId,
                 }
             ],

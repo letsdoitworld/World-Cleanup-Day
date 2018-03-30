@@ -1,44 +1,19 @@
 import React, {Component} from 'react';
-import {
-    LayoutAnimation,
-    StatusBar,
-    View,
-    TextInput,
-    Alert,
-    UIManager, ActivityIndicator
-} from 'react-native';
-import {connect} from 'react-redux';
-import {compose} from 'recompose';
+import {ActivityIndicator, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
 
-import {Map as MapView} from '../../components/Map/Map';
-
-import {
-    operations as trashpileOperations,
-} from '../../reducers/trashpile/operations';
-import {
-    selectors as trashpileSelectors,
-    markersSelector
-} from '../../reducers/trashpile/selectors'
-import {selectors as locationSelectors} from '../../reducers/location/selectors';
-import {selectors as appSelectors} from '../../reducers/app/selectors';
-import {
-    DEFAULT_ZOOM,
-    DELTA_HASH,
-    GRID_HASH,
-    MIN_ZOOM,
-    SCREENS
-} from '../../shared/constants';
+import {Map as MapView} from '../../components/Map';
+import {MIN_ZOOM} from '../../shared/constants';
 import _ from 'lodash';
-import {fetchAllMarkers} from "../../reducers/trashpile/operations";
-import {ADD_TRASH_POINTS, CREATE_EVENT, CREATE_MARKER, EVENTS_NAV_BAR} from "../index";
+import {CREATE_MARKER, EVENTS_NAV_BAR} from "../index";
 import styles from "../Events/styles";
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import {debounce} from "../../shared/util";
 import strings from "../../assets/strings";
 import ImagePicker from 'react-native-image-crop-picker';
-import ImageService from "../../services/Image";
 import {getCurrentPosition} from "../../shared/geo";
+import PropTypes from 'prop-types';
+//import styles from './styles';
 
 const MODE = {
     list: 0,
@@ -116,6 +91,26 @@ class TrashPoints extends Component {
             }
         }
     }
+
+    componentDidMount() {
+        setTimeout(() => {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    this.getLocation(position);
+                },
+                error => console.log('Error', error),
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+            );
+        }, 1000);
+    }
+
+    getLocation = position => {
+        const { onFetchLocation } = this.props;
+        onFetchLocation({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+        });
+    };
 
     // shouldComponentUpdate(nextProps) {
     //     const locationChanged = this.props.userLocation !== nextProps.userLocation;
@@ -229,7 +224,7 @@ class TrashPoints extends Component {
                         iconTextComponent={<Icon name="plus"/>}
                     />
                 </View>
-                {this.renderProgress()}
+                {/*{this.renderProgress()}*/}
             </View>
         );
     }
@@ -370,6 +365,11 @@ class TrashPoints extends Component {
     }, 1000);
 }
 
+TrashPoints.propTypes = {
+    country: PropTypes.string,
+    onFetchLocation: PropTypes.func,
+};
+
 const mapStateToProps = state => {
 //  console.log(state)
 //  const mapMarkers = trashpileSelectors.markersSelector(state);
@@ -410,7 +410,8 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
+// export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
+export default TrashPoints;
 
 // export default compose(
 //   connect(mapStateToProps, mapDispatchToProps),

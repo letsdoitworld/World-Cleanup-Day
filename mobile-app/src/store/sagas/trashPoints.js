@@ -22,7 +22,6 @@ function* searchTrashPoints(query, page, pageSize, location) {
             setErrorMessage(String(response.error));
         }
     } catch (error) {
-        console.log(error);
         setErrorMessage(String(error));
     }
 }

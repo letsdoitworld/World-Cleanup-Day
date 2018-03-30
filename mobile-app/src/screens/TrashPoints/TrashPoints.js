@@ -366,7 +366,7 @@ class TrashPoints extends Component {
 }
 
 TrashPoints.propTypes = {
-    country: PropTypes.string,
+    country: PropTypes.object,
     onFetchLocation: PropTypes.func,
 };
 

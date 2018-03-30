@@ -104,16 +104,6 @@ export default class EventsMap extends Component {
 
     };
 
-    loadMapEventsWithMoreRadius() {
-        const newRadius = this.state.radius + DEFAULT_RADIUS_M;
-        this.props.onLoadMapEventsAction({location: this.state.userLocation, radius: (newRadius / 1000)});
-        this.setState(previousState => {
-            return {
-                radius: newRadius,
-            }
-        })
-    }
-
     onPressMarker = event => {
         const marker = this.state.mapEvents.find(
             marker => marker.id === event.id,

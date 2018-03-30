@@ -102,7 +102,7 @@ class CreateMarker extends React.Component {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../src/assets/images/ic_back.png'),
+                icon: require('../../../src/assets/images/icons/ic_back.png'),
                 id: cancelId,
             }
         ]

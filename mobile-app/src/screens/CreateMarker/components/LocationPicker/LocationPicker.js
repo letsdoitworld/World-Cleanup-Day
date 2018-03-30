@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 
-import {Map} from '../../../../components/Map/Map';
+import {Map} from '../../../../components/Map';
 import {SCREEN_WIDTH, DEFAULT_ZOOM} from '../../../../shared/constants';
 
 import styles from './styles';

@@ -5,13 +5,14 @@ import {getHeightPercentage, getWidthPercentage} from '../../shared/helpers';
 export default EStyleSheet.create({
     $headerTopMargin: '$statusBarHeight',
     bottomContainer: {
-        height: getHeightPercentage(75),
+        height: 75,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
     },
     createButton: {
         alignSelf: 'center',
+        height: 75,
     },
     hashtagInput: {
         height: getHeightPercentage(35),

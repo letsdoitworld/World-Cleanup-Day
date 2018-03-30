@@ -214,6 +214,7 @@ module.exports = new LocalizedStrings({
         label_invalid_email: "Invalid email",
         label_invalid_attendees: "Invalid attendees",
         label_invalid_location: " is required",
+        label_no_location: "Choose your location",
     },
     ach: {
         label_text_app_subtitle: "crwdns10:0crwdne10:0",

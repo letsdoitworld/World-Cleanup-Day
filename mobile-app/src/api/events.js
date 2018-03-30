@@ -1,4 +1,6 @@
 import Api from "../services/Api";
+import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH} from "../shared/constants";
+import {guid} from "../shared/helpers";
 
 async function loadEvent(id) {
     try {
@@ -38,7 +40,142 @@ export async function searchEventsRequest(query, page, pageSize, location) {
     }
 }
 
+async function fetchAllEventMarkers(
+    viewPortLeftTopCoordinate,
+    viewPortRightBottomCoordinate,
+    delta,
+    datasetId) {
+    try {
+
+        const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+    const body = {
+        datasetId,
+        rectangle: {
+            nw: viewPortLeftTopCoordinate,
+            se: viewPortRightBottomCoordinate,
+        },
+        cellSize,
+    };
+
+    const [markersRes, clustersRes] = await Promise.all([
+        Api.post(API_ENDPOINTS.FETCH_EVENTS, body, {
+            withToken: false,
+        }),
+        Api.post(
+            API_ENDPOINTS.FETCH_OVERVIEW_EVENT_CLUSTERS,
+            {
+                ...body,
+            },
+            {
+                withToken: false,
+            },
+        ),
+    ]);
+
+    let markers = [];
+
+    if (markersRes && markersRes.data && Array.isArray(markersRes.data)) {
+        markers = [
+            ...markersRes.data.map(marker => ({
+                ...marker,
+                position: {
+                    lat: marker.location.latitude,
+                    lng: marker.location.longitude,
+                },
+                isTrashpile: true,
+            })),
+        ];
+    }
+
+    if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
+        markers = [
+            ...markers,
+            ...clustersRes.data.map(cluster => ({
+                ...cluster,
+                position: {
+                    lat: cluster.location.latitude,
+                    lng: cluster.location.longitude,
+                },
+                isTrashpile: true,
+                id: guid(),
+            })),
+        ];
+    }
+        //console.log("fetchAllEventMarkers", markers);
+        return markers;
+    } catch (ex) {
+        throw ex;
+    }
+};
+
+function calculateCell(viewPortLeftTopCoordinate,
+                       viewPortRightBottomCoordinate,) {
+    let cellSize = 0;
+    if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
+        cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) /  SCREEN_WIDTH;
+    } else {
+        cellSize =(180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 /  SCREEN_WIDTH;
+    }
+    return cellSize
+}
+
+function calculateDelta(viewPortLeftTopCoordinate,
+                        viewPortRightBottomCoordinate,
+                        delta) {
+    const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+    const latitudeDelta = delta.latitudeDelta / 3;
+    const longitudeDelta = delta.latitudeDelta / 3;
+    const newDelta = {
+        latitudeDelta: latitudeDelta < MIN_ZOOM ? MIN_ZOOM : latitudeDelta,
+        longitudeDelta: longitudeDelta < MIN_ZOOM ? MIN_ZOOM : longitudeDelta,
+        cellSize
+    };
+    return newDelta;
+}
+
+async function fetchClustersList({
+                             cellSize,
+                             coordinates,
+                             clusterId,
+                            datasetId
+                         }) {
+    try {
+
+        const body = {
+            datasetId,
+            cellSize,
+            coordinates,
+        };
+        const response = await Api.post( API_ENDPOINTS.FETCH_EVENTS, body, );
+
+        if (response && response.data && Array.isArray(response.data)) {
+            const angleBetweenPoints = 360 / response.data.length;
+            dispatch({
+                type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
+                markers: [
+                    ...markers.filter(({ id }) => id !== clusterId),
+                    ...response.data.map((marker, index) => ({
+                        ...marker,
+                        position: destinationPoint(
+                            marker.location,
+                            3,
+                            index * angleBetweenPoints,
+                        ),
+                        isTrashpile: true,
+                    })),
+                ],
+            });
+        }
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 export default {
   searchEventsRequest,
   loadEvent,
+    fetchAllEventMarkers,
+    calculateDelta,
 };

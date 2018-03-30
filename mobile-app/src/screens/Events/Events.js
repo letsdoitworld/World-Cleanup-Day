@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
+import EventsMap from '../EventMap/EventsMap';
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -149,7 +150,8 @@ class Events extends Component {
 
     };
 
-    renderContent() {
+
+    renderContent(mapEvents) {
         switch (this.state.mode) {
             case MODE.list: {
                 return (
@@ -164,7 +166,15 @@ class Events extends Component {
                 );
             }
             case MODE.map: {
-                return null;
+                return (<EventsMap
+                    //events={this.props.events}
+                    location={this.props.userCoord}
+                    mapEvents={mapEvents}
+                    navigator={this.props.navigator}
+                    onLoadMapEventsAction={this.props.onLoadMapEventsAction}
+                    datasetUUIDSelector={this.props.datasetUUIDSelector}
+                    onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}
+                />);
             }
             default:
                 return null;
@@ -234,11 +244,12 @@ class Events extends Component {
 
 
     render() {
+        const events = this.props.mapEvents;
         return (
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
                     {this.renderSearchBox()}
-                    {this.renderContent()}
+                    {this.renderContent(events)}
                     <FAB
                         buttonColor="rgb(225, 18, 131)"
                         iconTextColor="white"
@@ -256,12 +267,16 @@ class Events extends Component {
 
 Events.propTypes = {
     events: PropTypes.array,
+    mapEvents: PropTypes.array,
     isLoading: PropTypes.bool,
     userCoord: PropTypes.object,
     isAuthenticated: PropTypes.bool,
+    datasetUUIDSelector: PropTypes.string,
     onSearchEventsAction: PropTypes.func,
     onClearEventsAction: PropTypes.func,
     onGuestLogIn: PropTypes.func,
+    onLoadMapEventsAction: PropTypes.func,
+    onFetchDatasetUUIDAction: PropTypes.func,
 };
 
 export default Events;

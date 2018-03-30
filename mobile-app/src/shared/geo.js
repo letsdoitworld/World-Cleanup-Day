@@ -7,7 +7,6 @@ export async function geocodeCoordinates(coordinates) {
     const response = await fetch(requestUrl);
     const data = await response.json();
     const location = data.results[0];
-
     return {
         id: location.place_id,
         mainText: location.formatted_address,

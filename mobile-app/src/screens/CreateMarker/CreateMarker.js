@@ -37,7 +37,7 @@ import {CustomSlider} from '../../components/CustomSlider';
 import {
     TRASH_COMPOSITION_TYPE_LIST,
     MARKER_STATUSES,
-    AMOUNT_HASH,
+    AMOUNT_HASH, DEFAULT_ZOOM,
 } from '../../shared/constants';
 import {
    // operations as trashpileOperations,
@@ -54,6 +54,9 @@ import {createTrashPointAction} from "../../store/actions/trashPoints";
 import {createStructuredSelector} from "reselect";
 import {getTrashPointsEntity, isLoading} from "../../store/selectors";
 import AddTrashPoints from "../AddTrashPoints/AddTrashPoints";
+import {geocodeCoordinates, getCurrentPosition} from "../../shared/geo";
+import {ADD_LOCATION} from "../index";
+import ImagePicker from "react-native-image-crop-picker";
 //import { NavigationActions } from 'react-navigation'
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
@@ -81,12 +84,30 @@ const PADDING_SIZE20 = getWidthPercentage(20);
 const HEIGHT_SIZE15 = getHeightPercentage(15);
 const HEIGHT_SIZE20 = getHeightPercentage(20);
 
+const cancelId = 'cancelId';
+
 class CreateMarker extends React.Component {
-    // static propTypes = {
-    //     navigation: PropTypes.object.isRequired,
-    //     createMarker: PropTypes.func.isRequired,
-    //     takePhotoAsync: PropTypes.func.isRequired,
-    // };
+
+    static navigatorStyle = {
+        tabBarHidden: true,
+        navBarTitleTextCentered: true,
+        navBarBackgroundColor: 'white',
+        navBarTextColor: '$textColor',
+        navBarTextFontSize: 17,
+        navBarTextFontFamily: 'Lato-Bold',
+        statusBarColor: 'white',
+        statusBarTextColorScheme: 'dark',
+    };
+
+    static navigatorButtons = {
+        leftButtons: [
+            {
+                icon: require('../../../src/assets/images/ic_back.png'),
+                id: cancelId,
+            }
+        ]
+
+    };
 
     constructor(props) {
         super(props);
@@ -136,6 +157,19 @@ class CreateMarker extends React.Component {
                 trailing: false,
             },
         );
+
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent(event) {
+        if (event.type === 'NavBarButtonPress') {
+            switch (event.id) {
+                case cancelId: {
+                    this.props.navigator.pop();
+                    break;
+                }
+            }
+        }
     }
 
     async componentWillMount() {
@@ -171,10 +205,13 @@ class CreateMarker extends React.Component {
     }
 
     fetchAddressAsync = async (coords) => {
-        const address = await locationOperations.fetchAddress(
-            coords || this.state.initialLocation,
-        );
-        this.setState({address});
+        const place = await geocodeCoordinates(coords || this.state.initialLocation);
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                address: place.mainText
+            };
+        });
     };
 
     showValidation = (text) => {
@@ -200,49 +237,51 @@ class CreateMarker extends React.Component {
 
     handleEditLocationPress = () => {
         const {initialLocation, status, address} = this.state;
-        this.props.navigation.navigate('EditLocation', {
-            status,
-            initialLocation,
-            address,
-            onGoBack: (coords) => {
-                this.setState(
-                    {editableLocation: coords},
-                    async () => {
-                        this.setState({locationSetByUser: true});
-                        await this.fetchAddressAsync(coords);
-                    },
-                );
-            },
+        this.props.navigator.push({
+            screen: ADD_LOCATION,
+            title: strings.label_header_edit_loc,
+            passProps: {
+                initialLocation,
+                onLocationSelected: this.onLocationSelected.bind(this),
+            }
         });
     };
 
-    handlePhotoAdd = () => {
-        this.props
-            .takePhotoAsync({quality: 0.2, base64: true})
-            .then(async (response) => {
-                if (!response) {
-                    return;
-                }
-                const {cancelled, uri, base64, width, height} = response;
+    onLocationSelected(location) {
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                editableLocation: {
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                },
+                address: location.place
+            };
+        });
+    }
 
-                if (cancelled) {
-                    return;
-                }
+    handlePhotoAdd = async () => {
 
-                const {photos} = this.state;
-                const thumbnailBase64 = await ImageService.getResizedImageBase64({
-                    uri,
-                    width,
-                    height,
-                });
-                this.setState({
-                    photos: [
-                        ...photos,
-                        {uri, base64, thumbnail: {base64: thumbnailBase64}},
-                    ],
-                });
-            })
-            .catch((err) => handleSentryError(err));
+        const image = await ImagePicker.openCamera({
+            compressImageQuality: 0.2,
+            cropping: true,
+            includeBase64: true
+        });
+        const {width, height, data, path } = image;
+        const uri = path.substring('file://'.length);
+
+        // const thumbnailBase64 = await ImageService.getResizedImageBase64({
+        //     uri,
+        //     width,
+        //     height
+        // });
+
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                photos: [...previousState.photos, {uri, data, thumbnail: {base64: data}},],
+            };
+        });
     };
 
     handlePhotoDelete = (index) => {
@@ -294,7 +333,7 @@ class CreateMarker extends React.Component {
             hashtags,
             status = MARKER_STATUSES.REGULAR,
             amount,
-            address: {completeAddress = '', streetAddress = '', streetNumber = ''},
+            address,
         } = this.state;
 
         if (!this.validate()) {
@@ -302,16 +341,16 @@ class CreateMarker extends React.Component {
         }
 
         this.setState({disableCreateTrashpointButton: true}, () => {
-            console.log(" " + status + "  " + amount + ' ' + this.state.editableLocation + "  " + completeAddress)
+           // console.log(" " + status + "  " + amount + ' ' + this.state.editableLocation + "  " + completeAddress)
 
                 this.props.createTrashPointAction(
                         [...hashtags.map(t => t.label)],
                         [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
                         this.state.editableLocation,
                         status,
-                        "dsdsdssd",
+                        address,
                         AMOUNT_STATUSES[amount],
-                        "dsssd",
+                        address,
                         photos,
                 );
 
@@ -388,8 +427,11 @@ class CreateMarker extends React.Component {
     };
 
     markCongratsShown = () => {
-        this.setState({
-            congratsShown: true,
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                congratsShown: true,
+            };
         });
         if (this.congratsTimeout) {
             clearTimeout(this.congratsTimeout);
@@ -418,7 +460,7 @@ class CreateMarker extends React.Component {
             addHashtagTextStyle.color = GRADIENT_COLORS[1];
         }
         if (!congratsShown) {
-          return <CongratsModal onContinuePress={this.markCongratsShown} />;
+          return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)} />;
         }
 
         return (
@@ -439,25 +481,16 @@ class CreateMarker extends React.Component {
                         address={address}
                         status={status}
                     />
-                    <Divider/>
+                    {this.renderSectionHeader(strings.label_point_status_header)}
                     <StatusPicker
                         value={status}
                         onChange={this.handleStatusChanged}
                     />
-                    <Divider/>
-                    <View>
-                        <PhotoPicker
-                            maxPhotos={3}
-                            photos={photos.map(({uri}) => uri)}
-                            onDeletePress={this.handlePhotoDelete}
-                            onAddPress={this.handlePhotoAdd}
-                        />
-                    </View>
-                    <Divider />
-                    <View style={{padding: getWidthPercentage(20)}}>
-                        <Text style={{fontSize: 16}}>
-                            {strings.label_text_createTP_select_amount}
-                        </Text>
+                    {this.renderSectionHeader(strings.label_text_select_trash_amount)}
+                    <View style={{
+                        backgroundColor: 'rgb(216, 216, 216)',
+                        padding: getWidthPercentage(20)
+                    }}>
                         <View style={{flexDirection: 'column', alignItems: 'center',}}>
                             <CustomSlider
                                 width={getWidthPercentage(264)}
@@ -482,24 +515,33 @@ class CreateMarker extends React.Component {
                                         : TRUCKLOAD_IMAGE_DATA.default,
                                 }]}
                             />
-                            <View
-                                style={{
-                                    paddingTop: HEIGHT_SIZE20,
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        color: '#3E8EDE',
-                                        // fontFamily: 'noto-sans-bold',
-                                        fontSize: 13,
-                                    }}
-                                >
-                                    {'amount'.toUpperCase()}
-                                </Text>
-                            </View>
+                            {/*<View*/}
+                                {/*style={{*/}
+                                    {/*paddingTop: HEIGHT_SIZE20,*/}
+                                    {/*alignItems: 'center',*/}
+                                {/*}}*/}
+                            {/*>*/}
+                                {/*<Text*/}
+                                    {/*style={{*/}
+                                        {/*color: '#3E8EDE',*/}
+                                        {/*// fontFamily: 'noto-sans-bold',*/}
+                                        {/*fontSize: 13,*/}
+                                    {/*}}*/}
+                                {/*>*/}
+                                    {/*{'amount'.toUpperCase()}*/}
+                                {/*</Text>*/}
+                            {/*</View>*/}
                         </View>
                     </View>
+                    <View>
+                        <PhotoPicker
+                            maxPhotos={3}
+                            photos={photos.map(({uri}) => uri)}
+                            onDeletePress={this.handlePhotoDelete}
+                            onAddPress={this.handlePhotoAdd}
+                        />
+                    </View>
+                    <Divider />
                     <Divider/>
                     <View style={styles.tagsContainer}>
                         <Text style={styles.trashtypesText}>
@@ -566,6 +608,14 @@ class CreateMarker extends React.Component {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
+        );
+    }
+
+    renderSectionHeader(text) {
+        return(
+          <Text style={styles.headerSection}>
+              {text}
+          </Text>
         );
     }
 }

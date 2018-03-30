@@ -79,31 +79,45 @@ const layer = {
       }, false);
     },
 
-  getEventsByTrashpoint: async (trashpointId) => {
-    return await adapter.getEntities(
-      'Event',
-      '_design/byTrashpoint/_view/view',
-      {
-        key: trashpointId
-      });
-  },
+    getEventsByTrashpoint: async (trashpointId) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byTrashpoint/_view/view',
+        {
+          key: trashpointId
+        });
+    },
 
+    getOverviewEvents: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await layer.getOverview('Event', `_design/isolated${scale}/_view/view`,
+        datasetId, scale, nwLat, nwLong, seLat, seLong);
+      return ret.filter(row => adapter.rawDocToEntity('Event', row));
+    },
 
-  getOverviewEvents: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
-    const scale = grid.getScaleForCellSize(cellSize);
-    const ret = await layer.getOverview('Event', `_design/isolated${scale}/_view/view`,
-      datasetId, scale, nwLat, nwLong, seLat, seLong);
-    return ret.filter(row => adapter.rawDocToEntity('Event', row));
-  },
+    getGridCellEvents: async (datasetId, cellSize, gridCoord) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await adapter.getEntities(
+        'Event',
+        `_design/byGridCell${scale}/_view/view`,
+        {
+          startkey: [datasetId, gridCoord],
+          endkey: [datasetId, gridCoord],
+          'inclusive_end': true,
+          sorted: false,
+        }
+      );
+      return ret.filter(val => val !== null);
+    },
 
-  getEventsOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
-    const scale = grid.getScaleForCellSize(cellSize);
-    const ret = await layer.getOverview('Event', `_design/clusters${scale}/_view/view`,
-      datasetId, scale, nwLat, nwLong, seLat, seLong, {
-        'group_level': 2,
-      });
-    return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
-  },
+    getEventsOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await layer.getOverview('Event', `_design/clusters${scale}/_view/view`,
+        datasetId, scale, nwLat, nwLong, seLat, seLong, {
+          'group_level': 2,
+        });
+      return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
+    },
 
     getEventsByLocation: async (minLocation, maxLocation) => {
       return await adapter.getEntities(

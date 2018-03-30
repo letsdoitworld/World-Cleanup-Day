@@ -10,7 +10,7 @@ export async function fetchTrashPointsDataSets() {
         if (!response || !response.data) {
             throw {error: 'Could not load trashPointsDatasets'};
         }
-        return response;
+        return response.data.find((dataset)=> dataset.type === 'trashpoints').id
     } catch (ex) {
         throw ex
     }

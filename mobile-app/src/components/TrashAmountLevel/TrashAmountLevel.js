@@ -24,7 +24,6 @@ export const LEVEL = {
     TRUCK: 'truck'
 };
 
-
 const blueDot = {
     width: 10,
     height: 10,

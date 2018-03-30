@@ -201,13 +201,9 @@ module.exports = function () {
     return connector.input(args)
       .connect(connectVerifyDataset)
       .use(async function (dataset, responder) {
-        const events = await db.getGridCellEvents(
-          dataset.id,
-          args.cellSize,
-          args.coordinates
-        );
-        const filtered = events.map(e => _.pick(e, ['id', 'location']));
-        return responder.success(filtered);
+        const events = await db.getGridCellEvents(dataset.id, args.cellSize, args.coordinates);
+        const records = await Promise.all(events.map(mapEvent));
+        return responder.success(records);
       })
   });
 

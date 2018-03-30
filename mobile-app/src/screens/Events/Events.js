@@ -211,10 +211,10 @@ class Events extends Component {
             this.loadEvents(0)
     }
 
-    // componentWillUnmount() {
-    //     const {onClearEventsAction} = this.props;
-    //     onClearEventsAction();
-    // }
+    componentWillUnmount() {
+        const {onClearEventsAction} = this.props;
+        onClearEventsAction();
+    }
 
     renderSearchBox() {
         if (this.isSearchFieldVisible()) {

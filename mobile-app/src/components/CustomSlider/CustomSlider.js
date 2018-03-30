@@ -52,6 +52,7 @@ const CustomSlider = (props) => {
   return (
     <View
       style={{
+        backgroundColor: 'rgb(216, 216, 216)',
         marginTop: 30,
         height: getWidthPercentage(62),
         flexDirection: 'row',

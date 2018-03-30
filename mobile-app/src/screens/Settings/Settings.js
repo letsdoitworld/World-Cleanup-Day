@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
@@ -20,6 +20,7 @@ import styles, {
   downRightIcon,
   defaultRightIcon,
 } from './styles';
+import {selectors as appSelectors} from '../../reducers/app';
 
 class Settings extends Component {
   constructor(props) {
@@ -103,18 +104,31 @@ class Settings extends Component {
     );
   };
 
+  displayLoading = () => {
+    return (
+      <View style={styles.displayLoadingView}>
+        <ActivityIndicator />
+      </View>
+    );
+  };
+
   render() {
-    const { country } = this.props;
+    const { country, isConnected } = this.props;
+    if(!isConnected) {
+      return this.displayLoading();
+    }
+
     const countrySubtitle = country
       ? country.name
       : this.props.t('label_country_picker_placeholder');
+
     return (
       <View>
         <View style={styles.listContainer}>
           <List containerStyle={[styles.separator, styles.list]}>
             <ListItem
               {...listItemProps}
-              title="Country"
+              title={this.props.t('label_text_country')}
               subtitle={countrySubtitle}
               onPress={this.handleCountryItemPress}
             />
@@ -124,13 +138,13 @@ class Settings extends Component {
               {...listItemProps}
               subtitleStyle={[styles.subtitle]}
               onPress={this.handleTermsPress}
-              subtitle="Terms and Conditions"
+              subtitle={this.props.t('label_button_tc')}
             />
             <ListItem
               {...listItemProps}
               subtitleStyle={[styles.subtitle]}
               onPress={this.handlePrivacyPress}
-              subtitle="Privacy Policy"
+              subtitle={this.props.t('label_privacy_policy_header')}
             />
           </List>
           <List containerStyle={[styles.separator, styles.list]}>
@@ -138,14 +152,14 @@ class Settings extends Component {
             {...listItemProps}
               subtitleStyle={[styles.subtitle]}
               onPress={this.handleAboutPress}
-              subtitle="About"
+              subtitle={this.props.t('label_about_header')}
             />
           </List>
           <List containerStyle={[styles.separator, styles.list]}>
             <ListItem
               subtitleStyle={[styles.subtitle, styles.logout]}
               onPress={this.handleLogoutPress}
-              subtitle="Log out"
+              subtitle={this.props.t('label_button_logout')}
               hideChevron
             />
           </List>
@@ -157,11 +171,13 @@ class Settings extends Component {
     );
   }
 }
+
 const mapState = (state) => {
   return {
     profile: userSels.getProfile(state),
     country: userSels.getProfileCountry(state),
     isProfileUpdating: userSels.isProfileUpdating(state),
+    isConnected: appSelectors.isConnected(state),
   };
 };
 const mapDispatch = {

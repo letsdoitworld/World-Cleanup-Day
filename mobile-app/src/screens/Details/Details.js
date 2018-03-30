@@ -51,6 +51,8 @@ import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';
 import { withLoadingScreen } from '../../services/Loading';
 
+import { AMOUNT_HASH } from '../../shared/constants';
+
 const ALERT_CHECK_IMG = require('../CreateMarker/alert_check.png');
 
 const SIZE_WIDTH135 = getWidthPercentage(135);
@@ -286,7 +288,9 @@ class Details extends Component {
     if (marker && marker.name) {
       return marker.name;
     }
-    return '';
+
+    const { initialLocation: { longitude, latitude } } = this.state;
+    return `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
   };
   renderStreetDetails = () => {
     const { address } = this.state;
@@ -306,7 +310,7 @@ class Details extends Component {
     // {`${this.renderStreetDetails()} | ${latitude.toFixed(
     //             6,
     //           )}, ${longitude.toFixed(6)}`}
-    const streetDetails = this.renderStreetDetails();
+    const streetDetails = this.renderStreetDetails().trim();
     const gpsCoords = this.renderMarkerCoords();
     if (streetDetails && gpsCoords) {
       return `${streetDetails} | ${gpsCoords}`;
@@ -396,7 +400,7 @@ class Details extends Component {
           {/* </View>*/}
         </View>
         <View>
-          <PhotoPicker maxPhotos={3} photos={photos} title="Trash photos" />
+          <PhotoPicker maxPhotos={3} photos={photos} title={this.props.t('label_text_detailsTP_photos')} />
         </View>
         <Divider />
         <View style={{ padding: getWidthPercentage(20) }}>
@@ -417,7 +421,7 @@ class Details extends Component {
                 fontSize: 13,
               }}
             >
-              {marker.amount.toUpperCase()}
+              {this.props.t(AMOUNT_HASH[marker.amount]).toUpperCase()}
             </Text>
           </View>
         </View>

@@ -4,10 +4,10 @@ import { getHeightPercentage, getWidthPercentage } from '../../shared/helpers';
 export default EStyleSheet.create({
   container: {
     backgroundColor: '$white',
-    marginVertical: getHeightPercentage(178),
+    marginVertical: getHeightPercentage(168),
     marginHorizontal: getWidthPercentage(20),
     borderRadius: 8,
-    height: getHeightPercentage(212),
+    height: getHeightPercentage(232),
     width: getWidthPercentage(280),
     alignItems: 'center',
   },

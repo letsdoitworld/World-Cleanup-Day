@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { FormInput } from 'react-native-elements';
+import { translate } from 'react-i18next';
 
 import {
   TouchableOpacity,
@@ -49,12 +50,12 @@ class CountryModal extends Component {
         <View style={{ flex: 1 }}>
           <Header
             onPressLeftButton={onClose}
-            title="Select a country"
-            titleLeftButton="Cancel"
+            title={this.props.t('label_header_select_country')}
+            titleLeftButton={this.props.t('label_button_cancel')}
           />
           <FormInput
             containerStyle={styles.inputContainer}
-            placeholder="Search"
+            placeholder={this.props.t('label_text_select_country_hint')}
             value={search}
             onChangeText={onSearchChange}
           />
@@ -93,4 +94,4 @@ CountryModal.propTypes = {
   onClose: PropTypes.func,
 };
 
-export default CountryModal;
+export default translate()(CountryModal);

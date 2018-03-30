@@ -33,6 +33,7 @@ import { Tags } from '../../components/Tags';
 import { AmountPicker, AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { CongratsModal } from './components/CongratsModal';
 import { AlertModal } from '../../components/AlertModal';
+import { CustomSlider } from '../../components/CustomSlider';
 import {
   TRASH_COMPOSITION_TYPE_LIST,
   MARKER_STATUSES,
@@ -47,6 +48,23 @@ import styles from './styles';
 import { NavigationActions } from 'react-navigation'
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
+
+const HANDFUL_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_handful_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_handful_blue_fill.png'),
+};
+const BAGFUL_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_bagful_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_bagful_blue_fill.png'),
+};
+const CARTLOAD_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_cartload_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_cartload_blue_fill.png'),
+};
+const TRUCKLOAD_IMAGE_DATA = {
+  default: require('../../components/AmountPicker/images/icon_truck_blue_outline.png'),
+  active: require('../../components/AmountPicker/images/icon_truck_blue_fill.png'),
+};
 
 const MAX_HASHTAGS_NO = 15;
 const GRADIENT_COLORS = ['#FFFFFF', '#F1F1F1'];
@@ -74,7 +92,8 @@ class CreateMarker extends Component {
       congratsShown: false,
       trashCompositionTypes: TRASH_COMPOSITION_TYPE_LIST.map(
         trashCompositionType => ({
-          ...trashCompositionType,
+          trashCompositionType.type,
+          props.t(trashCompositionType.label),
           selected: false,
         }),
       ),
@@ -327,26 +346,24 @@ class CreateMarker extends Component {
       return;
     }
 
-    let label = temporaryHashtag.replace(/[^0-9a-z]/gi, '');
+    let labels = temporaryHashtag.replace(/[^0-9a-z,]/gi, '').split(',');
 
-    if (!label) {
+    if (labels.length === 1 && labels[0] === '') {
       return;
     }
 
-    label = `#${label}`;
+    labels = labels.map(label => `#${label}`);
 
-    const hashtagAlreadyExists = hashtags.find(
-      hashtag => hashtag.label === label,
-    );
+    labels = _.difference(labels, hashtags.map(hashtag => hashtag.label));
 
-    if (hashtagAlreadyExists) {
+    if (labels.length === 0) {
       return this.setState({
         temporaryHashtag: '',
       });
     }
 
     this.setState({
-      hashtags: [...hashtags, { label }],
+      hashtags: [...hashtags, ...labels.map(label => ({ label }))],
       temporaryHashtag: '',
     });
   };
@@ -357,7 +374,7 @@ class CreateMarker extends Component {
 
   handleAmountSelect = (amount) => {
     this.setState({
-      amount: AMOUNT_STATUSES[amount],
+      amount,
     });
   };
 
@@ -431,22 +448,46 @@ class CreateMarker extends Component {
             <Text style={{ fontFamily: 'noto-sans-bold', fontSize: 16 }}>
               {this.props.t('label_text_createTP_select_amount')}
             </Text>
-            <AmountPicker amount={amount} onSelect={this.handleAmountSelect} />
-            <View
-              style={{
-                paddingTop: HEIGHT_SIZE20,
-                alignItems: 'center',
-              }}
-            >
-              <Text
+            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+              <CustomSlider
+                width={getWidthPercentage(264)}
+                maximumValue={3}
+                step={1}
+                onValueChange={this.handleAmountSelect}
+                gradationData={[{
+                  position: getWidthPercentage(10.5),
+                  image: this.state.amount >= 0 ? HANDFUL_IMAGE_DATA.active
+                                                : HANDFUL_IMAGE_DATA.default,
+                }, {
+                  position: getWidthPercentage(91.2),
+                  image: this.state.amount >= 1 ? BAGFUL_IMAGE_DATA.active
+                                                : BAGFUL_IMAGE_DATA.default,
+                }, {
+                  position: getWidthPercentage(172),
+                  image: this.state.amount >= 2 ? CARTLOAD_IMAGE_DATA.active
+                                                : CARTLOAD_IMAGE_DATA.default,
+                }, {
+                  position: getWidthPercentage(253.2),
+                  image: this.state.amount >= 3 ? TRUCKLOAD_IMAGE_DATA.active
+                                                : TRUCKLOAD_IMAGE_DATA.default,
+                }]}
+              />
+              <View
                 style={{
-                  color: '#3E8EDE',
-                  fontFamily: 'noto-sans-bold',
-                  fontSize: 13,
+                  paddingTop: HEIGHT_SIZE20,
+                  alignItems: 'center',
                 }}
               >
-                {AMOUNT_HASH[AMOUNT_STATUSES[amount]]}
-              </Text>
+                <Text
+                  style={{
+                    color: '#3E8EDE',
+                    fontFamily: 'noto-sans-bold',
+                    fontSize: 13,
+                  }}
+                >
+                  {this.props.t(AMOUNT_HASH[AMOUNT_STATUSES[amount]]).toUpperCase()}
+                </Text>
+              </View>
             </View>
           </View>
           <Divider />

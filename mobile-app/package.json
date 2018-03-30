@@ -56,6 +56,7 @@
     "react-native-message-bar": "^1.6.0",
     "react-native-popover": "^0.2.0",
     "react-native-sentry": "^0.24.0",
+    "react-native-slider": "^0.11.0",
     "react-native-vector-icons": "4.2.0",
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "5.0.5",

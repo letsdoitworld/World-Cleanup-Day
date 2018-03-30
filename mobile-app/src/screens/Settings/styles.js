@@ -34,6 +34,11 @@ const styles = EStyleSheet.create({
     marginBottom: 0,
     fontSize: 20,
   },
+  displayLoadingView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 export default styles;
 export const rightIcon = {

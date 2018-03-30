@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, View } from 'react-native';
+import { StatusBar, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
@@ -14,6 +14,8 @@ import { selectors as appSelectors } from '../reducers/app';
 import { SCREENS } from '../shared/constants';
 import { DELTA_HASH, GRID_HASH, MIN_ZOOM } from '../shared/constants';
 import _ from 'lodash';
+import {translate} from 'react-i18next';
+import styles from './styles';
 
 class Home extends Component {
   state = {
@@ -34,7 +36,7 @@ class Home extends Component {
       marker => marker.id === event.nativeEvent.id,
     );
 
-    if (!marker.isTrashpile) {
+    if (!marker || !marker.isTrashpile) {
       return;
     }
 
@@ -105,9 +107,29 @@ class Home extends Component {
     });
   };
 
-  render() {
-    const { markers, initialRegion } = this.props;
+  displayNoConnected = (latitude,  longitude) => {
+    return (
+      <View style={styles.noConnectedView}>
+        <Text style={styles.noConnectedHeader}>
+          {this.props.t('label_network_off_warning_title')}
+        </Text>
+        <Text style={styles.noConnectedText}>
+          {this.props.t('label_no_connection_note')}
+        </Text>
+        <Text style={styles.noConnectedText}>
+          {this.props.t('label_your_coordinates')}
+          {`: ${latitude.toFixed(2)}, ${longitude.toFixed(2)}`}
+        </Text>
+      </View>
+    );
+  };
 
+  render() {
+    const { markers, initialRegion, isConnected, userLocation: { longitude, latitude } } = this.props;
+
+    if (!isConnected) {
+      return this.displayNoConnected(latitude,  longitude);
+    }
     return (
       <View style={{ flex: 1 }}>
         <StatusBar translucent={false} barStyle="default" />
@@ -135,6 +157,7 @@ const mapStateToProps = state => {
     activeScreen: appSelectors.getActiveScreen(state),
     userLocation: locationSelectors.userLocationSelector(state),
     delta: trashpileSelectors.getLastDeltaValue(state),
+    isConnected: appSelectors.isConnected(state),
   };
 };
 
@@ -164,4 +187,5 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withNavigationHelpers(),
+  translate(),
 )(Home);

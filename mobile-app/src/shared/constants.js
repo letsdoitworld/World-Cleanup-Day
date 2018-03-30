@@ -62,22 +62,22 @@ export const TRASH_COMPOSITION_TYPES_HASH = {
 };
 
 export const TRASH_COMPOSITION_TYPE_LIST = [
-  { type: 'plastic', label: 'Plastic' },
-  { type: 'metal', label: 'Metal' },
-  { type: 'glass', label: 'Glass' },
-  { type: 'electronics', label: 'Electronics' },
-  { type: 'paper', label: 'Paper/Wood' },
-  { type: 'tyres', label: 'Tyres' },
-  { type: 'domestic waste', label: 'Domestic waste' },
-  { type: 'furniture', label: 'Furniture' },
-  { type: 'organic waste', label: 'Organic waste' },
+  { type: 'plastic', label: 'label_trash_type_plastic' },
+  { type: 'metal', label: 'label_trash_type_metal' },
+  { type: 'glass', label: 'label_trash_type_glass' },
+  { type: 'electronics', label: 'label_trash_type_electro' },
+  { type: 'paper', label: 'label_trash_type_paper' },
+  { type: 'tyres', label: 'label_trash_type_tyres' },
+  { type: 'domestic waste', label: 'label_trash_type_dom_waste' },
+  { type: 'furniture', label: 'label_trash_type_furniture' },
+  { type: 'organic waste', label: 'label_trash_type_org_waste' },
 ];
 
 export const AMOUNT_HASH = {
-  handful: 'HANDFUL',
-  bagful: 'BAGFUL',
-  cartload: 'CARTLOAD',
-  truckload: 'TRUCKLOAD',
+  handful: 'label_trash_amount_handful',
+  bagful: 'label_trash_amount_bagful',
+  cartload: 'label_trash_amount_cartloadl',
+  truckload: 'label_trash_amount_truckload',
 };
 
 export const ERRORS = {

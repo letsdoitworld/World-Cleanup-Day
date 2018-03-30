@@ -19,8 +19,10 @@ export default withGoogleMap(props => {
   } = props;
 
   const mapOptions = {
-    mapTypeControl: false,
+    mapTypeControl: true,
+    mapTypeControlOptions: { position: 3 /* TOP_RIGHT */ },
     streetViewControl: false,
+    scaleControl: true,
     minZoom: 3,
   };
   if (cursor) {

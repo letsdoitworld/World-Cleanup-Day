@@ -23,8 +23,8 @@ export default EStyleSheet.create({
   },
   header: {
     width: getWidthPercentage(148),
-    height: getHeightPercentage(41),
-    marginTop: getHeightPercentage(30),
+    height: getHeightPercentage(80),
+    marginTop: getHeightPercentage(15),
     fontFamily: '$boldFont',
     fontSize: 30,
     textAlign: 'center',

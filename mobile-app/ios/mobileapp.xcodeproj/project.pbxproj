@@ -2054,7 +2054,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
-				PROVISIONING_PROFILE = "85ef4af8-cd9b-4f69-bd0d-4f3628186f78";
+				PROVISIONING_PROFILE = "3c50d6d3-454d-4f5e-9e79-19424f87b4a2";
 				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2104,7 +2104,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
-				PROVISIONING_PROFILE = "85ef4af8-cd9b-4f69-bd0d-4f3628186f78";
+				PROVISIONING_PROFILE = "3c50d6d3-454d-4f5e-9e79-19424f87b4a2";
 				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

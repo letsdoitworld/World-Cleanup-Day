@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {getHeightPercentage, getWidthPercentage} from '../../shared/helpers';
+import dimens from "../../config/dimens";
 
 export default EStyleSheet.create({
     $headerTopMargin: '$statusBarHeight',
@@ -109,5 +110,23 @@ export default EStyleSheet.create({
         letterSpacing: -0.1,
         textAlign: 'left',
         fontFamily: 'Lato-Bold'
-    }
+    },
+    confirmButton: {
+        position: 'absolute',
+        bottom: 0,
+        width: Dimensions.get('window').width - dimens.margin_medium * 2,
+        marginHorizontal: dimens.margin_medium,
+        marginBottom: dimens.margin_medium,
+        backgroundColor: 'rgb(0, 143, 223)',
+        height: 44,
+        justifyContent: 'center',
+        borderRadius: 4,
+    },
+    confirmButtonText: {
+        alignSelf: 'center',
+        color: 'white',
+        fontFamily: 'Lato-Bold',
+        fontSize: 17,
+        lineHeight: 21,
+    },
 });

@@ -10,7 +10,7 @@ import {
     KeyboardAvoidingView,
     Platform,
     //   LinearGradient,
-    TouchableHighlight,
+    TouchableHighlight, TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -598,14 +598,22 @@ class CreateMarker extends React.Component {
                         </View>
                     </View>
                     <Divider/>
-                    <View style={styles.bottomContainer}>
-                        <Button
-                            style={styles.createButton}
-                            text={strings.label_button_createTP_confirm_create}
-                            onPress={this.handleTrashpointCreate}
-                            disabled={disableCreateTrashpointButton}
-                        />
-                    </View>
+                    {/*<View style={styles.bottomContainer}>*/}
+                        {/*<Button*/}
+                            {/*style={styles.createButton}*/}
+                            {/*text={strings.label_button_createTP_confirm_create}*/}
+                            {/*onPress={this.handleTrashpointCreate}*/}
+                            {/*disabled={disableCreateTrashpointButton}*/}
+                        {/*/>*/}
+                    {/*</View>*/}
+                    <TouchableOpacity
+                        onPress={this.handleTrashpointCreate.bind(this)}
+                        style={styles.confirmButton}
+                    >
+                        <Text style={styles.confirmButtonText}>
+                            {strings.label_button_createTP_confirm_create}
+                        </Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </KeyboardAvoidingView>
         );

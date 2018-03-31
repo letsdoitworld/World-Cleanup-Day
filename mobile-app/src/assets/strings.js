@@ -59,6 +59,7 @@ module.exports = new LocalizedStrings({
         label_truck: 'TRUCK',
         label_about_creator: "ABOUT CREATOR",
         label_point_status_header: "POINT STATUS",
+        label_text_select_trash_amount: "SELECT TRASH AMOUNT",
         label_last_update: "Last update",
         label_trash_amount: "TRASH AMOUNT",
         label_trash_type: "TRASH TYPE",

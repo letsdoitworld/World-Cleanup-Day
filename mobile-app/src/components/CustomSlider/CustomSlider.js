@@ -1,118 +1,166 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
+    StyleSheet,
+    View,
+    Text,
+    Image, Dimensions,
 } from 'react-native';
 import Slider from 'react-native-slider';
-import { getWidthPercentage } from '../../shared/helpers';
+
+const {height, width} = Dimensions.get('window');
+import {getWidthPercentage} from '../../shared/helpers';
 
 const GradationLine = (props) => (
-  <View
-    style={{
-      width: 2,
-      height: getWidthPercentage(15),
-      backgroundColor: "#4AA5FF",
-    }}
-  />
+    <View
+        style={{
+            width: 2,
+            height: getWidthPercentage(15),
+            backgroundColor: "#4AA5FF",
+        }}
+    />
 );
 
 const Gradation = (props) => (
-  <View 
-    style={{
-      position: 'absolute',
-      left: props.position - props.imageSize / 2,
-      top: 0,
-      flexDirection: 'column',
-      alignItems: 'center',
-    }}
-  >
-    <Image
-      source={props.image}
-      resizeMode="contain"
-      style={{
-        marginBottom: 10,
-        width: props.imageSize,
-        height: props.imageSize,
-      }}
-    />
-    <GradationLine />
-  </View>
+    <View
+        style={{
+            width: 65,
+            position: 'absolute',
+            left: props.position,
+            top: 40,
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}
+    >
+        <Image
+            source={props.image}
+            resizeMode="contain"
+            style={{
+                marginBottom: 10,
+                width: props.imageSize,
+                height: props.imageSize,
+            }}
+        />
+        {props.text}
+    </View>
 );
 Gradation.defaultProps = {
-  imageSize: getWidthPercentage(23),
+    imageSize: getWidthPercentage(23),
 };
 Gradation.propTypes = {
-  imageSize: PropTypes.number,
+    imageSize: PropTypes.number,
+    text: PropTypes.object
 };
 
 const CustomSlider = (props) => {
-  return (
-    <View
-      style={{
-        backgroundColor: 'rgb(216, 216, 216)',
-        marginTop: 30,
-        height: getWidthPercentage(62),
-        flexDirection: 'row',
-        width: props.width,
-      }}
-    >
-      {props.gradationData.map(data => (
-        <Gradation
-          position={data.position}
-          image={data.image}
-        />
-      ))}
 
-      <Slider
-        width={props.width}
-        maximumValue={props.maximumValue}
-        step={props.step}
-        onValueChange={props.onValueChange}
-        trackStyle={{
-          height: props.trackHeight,
-          backgroundColor: '#F7F7F7',
-          borderRadius: props.trackHeight,
-        }}
-        thumbStyle={{
-          height: props.knobSize,
-          width: props.knobSize,
-          borderRadius: props.knobSize,
-          borderColor: '#FFFFFF',
-          borderWidth: props.knobSize - props.innerKnobSize,
-          backgroundColor: '#4AA5FF',
-        }}
-        style={{
-          position: 'absolute',
-          bottom: 0,
-        }}
-        minimumTrackTintColor="#4AA5FF"
-        maximumTrackTintColor="#4AA5FF"
-      />
-    </View>
-  );
+    this.componentWidth = width - props.paddingHorizontal * 4;
+
+    this.one_to_eight = (this.componentWidth / 3) + (props.knobSize / 2) - 20;
+
+    this.gradationPosition = props.paddingHorizontal * 2 + props.knobSize / 2 - 32.5;
+
+    return (
+        <View
+            style={{
+                backgroundColor: 'rgb(216, 216, 216)',
+                height: 130,
+                flexDirection: 'column',
+                width: width,
+                flex: 1,
+                justifyContent: 'flex-start',
+                alignItems: 'center'
+            }}
+        >
+
+            <View
+                style={{
+                    alignSelf: 'flex-start',
+                    position: 'absolute',
+                    top: 14,
+                    left: props.paddingHorizontal,
+                    height: props.trackHeight,
+                    backgroundColor: '#4AA5FF',
+                    borderRadius: props.trackHeight,
+                    width: width - props.paddingHorizontal * 3,
+                }}
+            />
+
+            <View
+                style={{
+                    alignSelf: 'flex-start',
+                    position: 'absolute',
+                    top: 14,
+                    right: props.paddingHorizontal,
+                    height: props.trackHeight,
+                    backgroundColor: '#F7F7F7',
+                    borderRadius: props.trackHeight,
+                    width: width - props.paddingHorizontal * 3,
+                }}
+            />
+
+            <Slider
+                width={width - props.paddingHorizontal * 4}
+                maximumValue={props.maximumValue}
+                step={props.step}
+                onValueChange={props.onValueChange}
+                trackStyle={{
+                    height: props.trackHeight,
+                    backgroundColor: '#F7F7F7',
+                    borderRadius: props.trackHeight,
+                    width: width - props.paddingHorizontal * 3,
+                }}
+                thumbStyle={{
+                    height: props.knobSize,
+                    width: props.knobSize,
+                    borderRadius: props.knobSize,
+                    borderColor: '#FFFFFF',
+                    borderWidth: props.knobSize - props.innerKnobSize,
+                    backgroundColor: '#4AA5FF',
+                }}
+                style={{
+                    // paddingHorizontal: 30
+                    // position: 'absolute',
+                    // bottom: 0,
+                }}
+                minimumTrackTintColor="#4AA5FF"
+                maximumTrackTintColor="#4AA5FF"
+            />
+
+            {
+                props.gradationData.map(data => {
+                    const view = <Gradation
+                        position={this.gradationPosition}
+                        image={data.image}
+                        text={data.text}
+                    />;
+                    this.gradationPosition += this.one_to_eight;
+                    return view;
+                })
+            }
+        </View>
+    );
 };
 
 CustomSlider.defaultProps = {
-  knobSize: getWidthPercentage(20),
-  innerKnobSize: getWidthPercentage(15),
-  trackHeight: getWidthPercentage(9),
+    knobSize: getWidthPercentage(20),
+    innerKnobSize: getWidthPercentage(15),
+    trackHeight: getWidthPercentage(9),
 };
 
 CustomSlider.propTypes = {
-  width: PropTypes.number.isRequired,
-  step: PropTypes.number.isRequired,
-  maximumValue: PropTypes.number.isRequired,
-  onValueChange: PropTypes.func,
-  knobSize: PropTypes.number,
-  innerKnobSize: PropTypes.number,
-  trackHeight: PropTypes.number,
-  gradationData: PropTypes.shape({
-    position: PropTypes.number.isRequired,
-    image: PropTypes.object,
-  }),
+    paddingHorizontal: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    step: PropTypes.number.isRequired,
+    maximumValue: PropTypes.number.isRequired,
+    onValueChange: PropTypes.func,
+    knobSize: PropTypes.number,
+    innerKnobSize: PropTypes.number,
+    trackHeight: PropTypes.number,
+    gradationData: PropTypes.shape({
+        position: PropTypes.number.isRequired,
+        image: PropTypes.object,
+    })
 };
 
 export default CustomSlider;

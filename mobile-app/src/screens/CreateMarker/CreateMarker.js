@@ -40,7 +40,7 @@ import {
     AMOUNT_HASH, DEFAULT_ZOOM,
 } from '../../shared/constants';
 import {
-   // operations as trashpileOperations,
+    // operations as trashpileOperations,
     createMarker
 } from '../../reducers/trashpile/operations';
 import {
@@ -57,6 +57,7 @@ import AddTrashPoints from "../AddTrashPoints/AddTrashPoints";
 import {geocodeCoordinates, getCurrentPosition} from "../../shared/geo";
 import {ADD_LOCATION} from "../index";
 import ImagePicker from "react-native-image-crop-picker";
+import TrashAmountLevel from "../../components/TrashAmountLevel/TrashAmountLevel";
 //import { NavigationActions } from 'react-navigation'
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
@@ -267,7 +268,7 @@ class CreateMarker extends React.Component {
             cropping: true,
             includeBase64: true
         });
-        const {width, height, data, path } = image;
+        const {width, height, data, path} = image;
         const uri = path.substring('file://'.length);
 
         // const thumbnailBase64 = await ImageService.getResizedImageBase64({
@@ -326,7 +327,7 @@ class CreateMarker extends React.Component {
     }
 
     handleTrashpointCreate = () => {
-       // const {createMarker, navigation, setErrorMessage, t} = this.props;
+        // const {createMarker, navigation, setErrorMessage, t} = this.props;
         const {
             photos,
             trashCompositionTypes,
@@ -341,18 +342,18 @@ class CreateMarker extends React.Component {
         }
 
         this.setState({disableCreateTrashpointButton: true}, () => {
-           // console.log(" " + status + "  " + amount + ' ' + this.state.editableLocation + "  " + completeAddress)
+            // console.log(" " + status + "  " + amount + ' ' + this.state.editableLocation + "  " + completeAddress)
 
-                this.props.createTrashPointAction(
-                        [...hashtags.map(t => t.label)],
-                        [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
-                        this.state.editableLocation,
-                        status,
-                        address,
-                        AMOUNT_STATUSES[amount],
-                        address,
-                        photos,
-                );
+            this.props.createTrashPointAction(
+                [...hashtags.map(t => t.label)],
+                [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
+                this.state.editableLocation,
+                status,
+                address,
+                AMOUNT_STATUSES[amount],
+                address,
+                photos,
+            );
 
         });
     };
@@ -460,19 +461,27 @@ class CreateMarker extends React.Component {
             addHashtagTextStyle.color = GRADIENT_COLORS[1];
         }
         if (!congratsShown) {
-          return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)} />;
+            return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)}/>;
         }
+
+        const label = {
+            textAlign: 'center',
+            fontFamily: 'Lato-Bold',
+            fontSize: 12,
+            color: 'rgb(123, 125, 128)',
+            letterSpacing: 0.4
+        };
 
         return (
             <KeyboardAvoidingView behavior="position">
-                <ScrollView style={{backgroundColor: '#eeeeee'}}>
+                <ScrollView style={{backgroundColor: 'white'}}>
 
                     <AlertModal
-                    visible={validation}
-                    title={strings.label_error_saveTP_subtitle}
-                    subtitle={validationText}
-                    buttons={[this.closeValidationButton]}
-                    onOverlayPress={this.hideValidation}
+                        visible={validation}
+                        title={strings.label_error_saveTP_subtitle}
+                        subtitle={validationText}
+                        buttons={[this.closeValidationButton]}
+                        onOverlayPress={this.hideValidation}
                     />
 
                     <LocationPicker
@@ -488,50 +497,51 @@ class CreateMarker extends React.Component {
                     />
                     {this.renderSectionHeader(strings.label_text_select_trash_amount)}
                     <View style={{
+                        height: 130,
                         backgroundColor: 'rgb(216, 216, 216)',
-                        padding: getWidthPercentage(20)
+                        flexDirection: 'row',
+                        justifyContent: 'center',
                     }}>
-                        <View style={{flexDirection: 'column', alignItems: 'center',}}>
+
                             <CustomSlider
-                                width={getWidthPercentage(264)}
+                                paddingHorizontal={20}
                                 maximumValue={3}
                                 step={1}
                                 onValueChange={this.handleAmountSelect}
                                 gradationData={[{
-                                    position: getWidthPercentage(10.5),
-                                    image: this.state.amount >= 0 ? HANDFUL_IMAGE_DATA.active
+                                    image: amount >= 0
+                                        ? HANDFUL_IMAGE_DATA.active
                                         : HANDFUL_IMAGE_DATA.default,
+                                    text:
+                                        <Text style={[label,  amount >= 0 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                         {strings.label_handful}
+                                        </Text>
                                 }, {
-                                    position: getWidthPercentage(91.2),
-                                    image: this.state.amount >= 1 ? BAGFUL_IMAGE_DATA.active
+                                    image: amount >= 1
+                                        ? BAGFUL_IMAGE_DATA.active
                                         : BAGFUL_IMAGE_DATA.default,
+                                    text:
+                                        <Text style={[label,  amount >= 1 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                            {strings.label_bagful}
+                                        </Text>
                                 }, {
-                                    position: getWidthPercentage(172),
-                                    image: this.state.amount >= 2 ? CARTLOAD_IMAGE_DATA.active
+                                    image: amount >= 2
+                                        ? CARTLOAD_IMAGE_DATA.active
                                         : CARTLOAD_IMAGE_DATA.default,
+                                    text:
+                                        <Text style={[label,  amount >= 2 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                            {strings.label_cartload}
+                                        </Text>
                                 }, {
-                                    position: getWidthPercentage(253.2),
-                                    image: this.state.amount >= 3 ? TRUCKLOAD_IMAGE_DATA.active
+                                    image: amount >= 3
+                                        ? TRUCKLOAD_IMAGE_DATA.active
                                         : TRUCKLOAD_IMAGE_DATA.default,
+                                    text:
+                                        <Text style={[label,  amount >= 3 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                            {strings.label_truck}
+                                        </Text>
                                 }]}
                             />
-                            {/*<View*/}
-                                {/*style={{*/}
-                                    {/*paddingTop: HEIGHT_SIZE20,*/}
-                                    {/*alignItems: 'center',*/}
-                                {/*}}*/}
-                            {/*>*/}
-                                {/*<Text*/}
-                                    {/*style={{*/}
-                                        {/*color: '#3E8EDE',*/}
-                                        {/*// fontFamily: 'noto-sans-bold',*/}
-                                        {/*fontSize: 13,*/}
-                                    {/*}}*/}
-                                {/*>*/}
-                                    {/*{'amount'.toUpperCase()}*/}
-                                {/*</Text>*/}
-                            {/*</View>*/}
-                        </View>
                     </View>
                     <View>
                         <PhotoPicker
@@ -541,7 +551,7 @@ class CreateMarker extends React.Component {
                             onAddPress={this.handlePhotoAdd}
                         />
                     </View>
-                    <Divider />
+                    <Divider/>
                     <Divider/>
                     <View style={styles.tagsContainer}>
                         <Text style={styles.trashtypesText}>
@@ -599,12 +609,12 @@ class CreateMarker extends React.Component {
                     </View>
                     <Divider/>
                     {/*<View style={styles.bottomContainer}>*/}
-                        {/*<Button*/}
-                            {/*style={styles.createButton}*/}
-                            {/*text={strings.label_button_createTP_confirm_create}*/}
-                            {/*onPress={this.handleTrashpointCreate}*/}
-                            {/*disabled={disableCreateTrashpointButton}*/}
-                        {/*/>*/}
+                    {/*<Button*/}
+                    {/*style={styles.createButton}*/}
+                    {/*text={strings.label_button_createTP_confirm_create}*/}
+                    {/*onPress={this.handleTrashpointCreate}*/}
+                    {/*disabled={disableCreateTrashpointButton}*/}
+                    {/*/>*/}
                     {/*</View>*/}
                     <TouchableOpacity
                         onPress={this.handleTrashpointCreate.bind(this)}
@@ -620,10 +630,10 @@ class CreateMarker extends React.Component {
     }
 
     renderSectionHeader(text) {
-        return(
-          <Text style={styles.headerSection}>
-              {text}
-          </Text>
+        return (
+            <Text style={styles.headerSection}>
+                {text}
+            </Text>
         );
     }
 }

@@ -269,7 +269,7 @@ class CreateMarker extends React.Component {
             includeBase64: true
         });
         const {width, height, data, path} = image;
-        const uri = `file://${path}`;
+        const uri = path;
 
         const thumbnailBase64 = await ImageService.getResizedImageBase64({
             uri,
@@ -280,7 +280,7 @@ class CreateMarker extends React.Component {
         this.setState(previousState => {
             return {
                 ...previousState,
-                photos: [...previousState.photos, {uri, data, thumbnail: {base64: thumbnailBase64}},],
+                photos: [...previousState.photos, {uri, base64: data, thumbnail: {base64: thumbnailBase64}},],
             };
         });
     };

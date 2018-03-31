@@ -66,14 +66,13 @@ class PhotoComponent extends React.Component {
     const { photo, onPress } = this.props;
     const { showingConfirm } = this.state;
 
-    console.log(photo)
-
     return(
         <View
             key={photo}
             style={[styles.photo]}
         >
             <LazyImage
+                resizeMode='cover'
                 style={[styles.photo]}
                 source={{ uri: photo }}
             />

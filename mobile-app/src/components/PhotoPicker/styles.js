@@ -23,19 +23,19 @@ export default EStyleSheet.create({
     backgroundColor: '#d8d8d8',
   },
   photo: {
-    marginLeft: getWidthPercentage(10),
-    width: getWidthPercentage(180),
-    height: getHeightPercentage(135),
+    marginLeft: 10,
+    width: 235,
+    height: 147,
   },
   photoDivider: {
-    // marginLeft: getWidthPercentage(10),
+     //marginLeft: getWidthPercentage(10),
   },
   $photoSize: getWidthPercentage(22),
   photoButtonContainer: {
-    marginTop: getHeightPercentage(100),
-    marginLeft: getWidthPercentage(4),
-    width: getWidthPercentage(30),
-    height: getHeightPercentage(30),
+    marginBottom: 8,
+    marginLeft: 18,
+    width: 24,
+    height: 24,
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
@@ -43,6 +43,10 @@ export default EStyleSheet.create({
   },
   photoButtonPlaceholder: {
     backgroundColor: '#4aa5ff',
+      bottom: 0,
+      left: 0,
+      marginLeft: 8,
+      position: 'absolute'
   },
   photoButton: {
     textAlign: 'center',

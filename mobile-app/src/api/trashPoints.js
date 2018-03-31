@@ -64,6 +64,9 @@ export async function createTrashPointRequest(
             console.log(error)
         }
 
+        console.log(uploadStatus)
+        console.log('uploadStatus')
+
         return {
             data: {
                 trashpoint: {...createMarkerResponse.data},

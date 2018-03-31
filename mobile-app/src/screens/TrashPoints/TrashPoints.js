@@ -263,7 +263,8 @@ class TrashPoints extends Component {
             includeBase64: true
         });
         const {width, height, data, path } = image;
-        const uri = `file://${path}`;
+        const uri = path;
+        const base64 = data;
 
         const thumbnailBase64 = await ImageService.getResizedImageBase64({
             uri,
@@ -281,7 +282,7 @@ class TrashPoints extends Component {
             screen: CREATE_MARKER,
             title: strings.label_button_createTP_confirm_create,
             passProps: {
-                photos: [{ uri, thumbnail: { base64: thumbnailBase64 },  base64: data}],
+                photos: [{ uri, thumbnail: { base64: thumbnailBase64 },  base64}],
                 coords,
             }
         });

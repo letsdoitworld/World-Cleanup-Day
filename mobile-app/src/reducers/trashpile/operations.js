@@ -11,7 +11,7 @@ import {
   guid,
   destinationPoint
 } from '../../shared/helpers';
-
+import FileSystem from 'react-native-filesystem';
 //import actions from 'actions';
 //import selectors from 'selectors';
 
@@ -198,6 +198,9 @@ export const handleUpload = async ({ photos, markerId }) => {
     backendConfirmed: false,
   };
 
+  console.log("1")
+  console.log(photosResponse)
+
   if (photosResponse) {
     const thumbnailsPhotos = photosResponse.data
       .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
@@ -210,20 +213,34 @@ export const handleUpload = async ({ photos, markerId }) => {
         };
       });
 
-    const mediumPhotos = photosResponse.data
-      .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
-      .map(({ permission: { token, resourceId } }, index) => {
-        const { base64 } = photos[index];
-        return {
-          url: token,
-          id: resourceId,
-          blob: convertToByteArray(base64),
-        };
-      });
+      console.log("2")
+      console.log(thumbnailsPhotos)
+      let mediumPhotos = [];
+      try {
+
+          mediumPhotos = photosResponse.data
+              .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
+              .map(({permission: {token, resourceId}}, index) => {
+                  const {base64} = photos[index];
+                  return {
+                      url: token,
+                      id: resourceId,
+                      blob: convertToByteArray(base64),
+                  };
+              });
+      } catch (e) {
+          console.error(e)
+      }
+
+      console.log("3")
+      console.log(mediumPhotos)
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
 
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
+
+      console.log("4")
+      console.log(uploadedPhotosResponses)
 
     if (uploadedPhotosResponses) {
       uploadedPhotosResponses.forEach(({ status }, index) => {
@@ -232,7 +249,11 @@ export const handleUpload = async ({ photos, markerId }) => {
       });
       const upRes = await confirmUploadedPhotos(markerId, uploadedPhotosIds);
 
-      if (upRes && upRes.status === 200) {
+        console.log("5")
+        console.log(upRes)
+
+
+        if (upRes && upRes.status === 200) {
         uploadedPhotosIds.backendConfirmed = true;
       }
     }
@@ -243,13 +264,15 @@ export const handleUpload = async ({ photos, markerId }) => {
     });
   }
 
-  await Promise.all(
-    photos.map((photo) => {
-      return FileSystem.deleteAsync(photo.uri, {
-        idempotent: true,
-      });
-    }),
-  );
+    console.log("6")
+
+  for(const photo in photos) {
+      await FileSystem.delete(photo.uri, {
+          idempotent: true
+      })
+  }
+
+    console.log("7")
 
   return (
     uploadedPhotosIds.confirmed.length > 0 &&

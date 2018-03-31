@@ -7,6 +7,8 @@ module.exports = new LocalizedStrings({
         label_nav_bar_list: "List",
         label_nav_bar_map: "Map",
         label_add: "Add",
+        label_thank_you_for_contr: "Thank you for contribution!",
+        label_add_more_trashpoints: "Add more trashpoints to the app.",
         label_edit: "Edit",
         label_included_into_another_event: "Included into another event",
         label_save: "Save",

@@ -10,26 +10,21 @@ import {
     KeyboardAvoidingView,
     Platform,
     //   LinearGradient,
-    TouchableHighlight, TouchableOpacity,
+    TouchableHighlight,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
 import strings from '../../assets/strings';
 
-import {operations as appOps, selectors as appSels} from '../../reducers/app/operations';
-
-
-import {withCameraActions} from '../../services/Camera';
 import ImageService from '../../services/Image';
-import {withLoadingScreen} from '../../services/Loading';
-import {operations as locationOperations} from '../../reducers/location/operations';
-import {Button} from '../../components/Button';
 import LocationPicker from './components/LocationPicker/LocationPicker';
 import StatusPicker from './components/StatusPicker/StatusPicker';
 import {PhotoPicker} from '../../components/PhotoPicker';
-import {Divider} from '../../components';
-import {getWidthPercentage, getHeightPercentage, handleSentryError} from '../../shared/helpers';
+import {getWidthPercentage, getHeightPercentage} from '../../shared/helpers';
 import {Tags} from '../../components/Tags';
 import {AmountPicker, AMOUNT_STATUSES} from '../../components/AmountPicker';
 import {AlertModal} from '../../components/AlertModal';
@@ -50,15 +45,9 @@ import {
 import _ from 'lodash';
 import styles from './styles';
 import CongratsModal from "./components/CongratsModal/CongratsModal";
-import {createTrashPointAction} from "../../store/actions/trashPoints";
-import {createStructuredSelector} from "reselect";
-import {getTrashPointsEntity, isLoading} from "../../store/selectors";
-import AddTrashPoints from "../AddTrashPoints/AddTrashPoints";
-import {geocodeCoordinates, getCurrentPosition} from "../../shared/geo";
-import {ADD_LOCATION} from "../index";
+import {geocodeCoordinates} from "../../shared/geo";
 import ImagePicker from "react-native-image-crop-picker";
-import TrashAmountLevel from "../../components/TrashAmountLevel/TrashAmountLevel";
-//import { NavigationActions } from 'react-navigation'
+import {CREATE_MARKER} from "../index";
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
 
@@ -81,9 +70,6 @@ const TRUCKLOAD_IMAGE_DATA = {
 
 const MAX_HASHTAGS_NO = 15;
 const GRADIENT_COLORS = ['#FFFFFF', '#F1F1F1'];
-const PADDING_SIZE20 = getWidthPercentage(20);
-const HEIGHT_SIZE15 = getHeightPercentage(15);
-const HEIGHT_SIZE20 = getHeightPercentage(20);
 
 const cancelId = 'cancelId';
 
@@ -140,6 +126,9 @@ class CreateMarker extends React.Component {
         this.closeValidationButton = {
             text: strings.label_button_acknowledge,
             onPress: this.hideValidation,
+            style: {
+                marginHorizontal: 30
+            }
         };
 
         this.congratsTimeout = setTimeout(() => {
@@ -189,20 +178,32 @@ class CreateMarker extends React.Component {
         const {address, locationSetByUser} = this.state;
         if (!wasConnected && isConnected && !locationSetByUser &&
             (!address || !address.completeAddress)) {
-            this.fetchAddressAsync();
+            this.fetchAddressAsync().catch()
         }
 
         if (this.props.createTrashPoint.success) {
-            this.props.navigator.pop()
+            Alert.alert(
+                strings.label_thank_you_for_contr,
+                strings.label_add_more_trashpoints,
+                [
+                    {text: strings.label_button_cancel, onPress: () => {this.props.navigator.pop()}, style: 'cancel'},
+                    {text: strings.label_add, onPress: () => {
+                        this.props.navigator.resetTo({
+                            screen: CREATE_MARKER,
+                            title: strings.label_button_createTP_confirm_create,
+                            passProps: {
+                                photos: this.props.photos,
+                                coords: this.props.coords,
+                            }
+                        })}},
+                ],
+                { cancelable: false }
+           )
         }
 
-        // if (this.props.createTrashPoint.success) {
-        //     this.props.navigation.pop()
-        // }
-
-        //    console.log(this.props.createTrashPoint)
-        //    console.log('this.props.createTrashPoint')
-
+        if (this.props.createTrashPoint.error) {
+            alert(this.props.createTrashPoint.error)
+        }
     }
 
     fetchAddressAsync = async (coords) => {
@@ -327,7 +328,6 @@ class CreateMarker extends React.Component {
     }
 
     handleTrashpointCreate = () => {
-        // const {createMarker, navigation, setErrorMessage, t} = this.props;
         const {
             photos,
             trashCompositionTypes,
@@ -342,8 +342,6 @@ class CreateMarker extends React.Component {
         }
 
         this.setState({disableCreateTrashpointButton: true}, () => {
-            // console.log(" " + status + "  " + amount + ' ' + this.state.editableLocation + "  " + completeAddress)
-
             this.props.createTrashPointAction(
                 [...hashtags.map(t => t.label)],
                 [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
@@ -360,7 +358,7 @@ class CreateMarker extends React.Component {
 
     showSuccessAlert = () => {
         MessageBarManager.showAlert({
-            title: this.props.t('label_alert_createTP_success'),
+            title: strings.label_alert_createTP_success,
             alertType: 'success',
             avatar: ALERT_CHECK_IMG,
             duration: 4000,
@@ -472,7 +470,9 @@ class CreateMarker extends React.Component {
             letterSpacing: 0.4
         };
         return (
-            <ScrollView style={{backgroundColor: 'white'}}>
+            <ScrollView
+                pointerEvents={this.isProgressEnabled() ? 'none' : 'auto'}
+                style={{backgroundColor: 'white'}}>
                 <AlertModal
                     visible={validation}
                     title={strings.label_error_saveTP_subtitle}
@@ -566,8 +566,14 @@ class CreateMarker extends React.Component {
                         value={temporaryHashtag}
                         underlineColorAndroid="transparent"
                         maxLength={25}
-                        onSubmitEditing={this.handleAddHahstag.bind(this)}
                     />
+                    <TouchableOpacity
+                        disabled={this.state.temporaryHashtag.length === 0}
+                        onPress={this.handleAddHahstag.bind(this)}>
+                        <Text style={[styles.addButton, this.state.temporaryHashtag.length > 0 ? {} : {color: 'rgb(126, 124, 132)' }]}>
+                            {strings.label_add}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 {this.renderSectionHeader(strings.label_text_createTP_add_photos.toLocaleUpperCase())}
                 <View>
@@ -578,15 +584,41 @@ class CreateMarker extends React.Component {
                         onAddPress={this.handlePhotoAdd.bind(this)}
                     />
                 </View>
-                <TouchableOpacity
-                    onPress={this.handleTrashpointCreate.bind(this)}
-                    style={styles.confirmButton}
-                >
-                    <Text style={styles.confirmButtonText}>
-                        {strings.label_button_createTP_confirm_create}
-                    </Text>
-                </TouchableOpacity>
+                <View style={{
+                    flex: 1,
+                    backgroundColor: '#eeeeee'
+                }}>
+                    <TouchableOpacity
+                        onPress={this.handleTrashpointCreate.bind(this)}
+                        style={styles.confirmButton}
+                    >
+                        <Text style={styles.confirmButtonText}>
+                            {strings.label_button_createTP_confirm_create}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
+        );
+    }
+
+    isProgressEnabled() {
+        return this.props.isLoading;
+    }
+
+    renderProgress() {
+        if (this.isProgressEnabled()) {
+            return this.spinner();
+        }
+        return null;
+    }
+
+    spinner() {
+        return (
+            <ActivityIndicator
+                style={styles.spinner}
+                size="large"
+                color="rgb(0, 143, 223)"
+            />
         );
     }
 

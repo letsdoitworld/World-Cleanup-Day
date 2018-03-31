@@ -28,7 +28,8 @@ export default EStyleSheet.create({
         lineHeight: 24,
         color: 'rgb(40, 38, 51)',
         letterSpacing: 0.4,
-        marginLeft: 16
+        marginLeft: 16,
+        flex: 1
     },
     hashtagInputPlaceholder: {
         color: '#7D7D7D',
@@ -138,5 +139,24 @@ export default EStyleSheet.create({
         fontFamily: 'Lato-Bold',
         fontSize: 17,
         lineHeight: 21,
+    },
+    addButton: {
+        textAlign: 'left',
+        color: 'rgb(0, 143, 223)',
+        fontFamily: 'Lato-Bold',
+        fontSize: 17,
+        lineHeight: 24,
+        letterSpacing: -0.4,
+        marginRight: 16
+    },
+    spinner: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    containerContent: {
+        flex: 1,
+        justifyContent: 'center'
     },
 });

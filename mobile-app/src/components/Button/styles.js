@@ -13,7 +13,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     height: getHeightPercentage(35),
     width: getWidthPercentage(280),
-    marginVertical: getWidthPercentage(10),
+    margin: getWidthPercentage(10),
   },
   textStyles: {
     fontSize: 17,

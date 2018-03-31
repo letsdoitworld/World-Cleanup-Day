@@ -23,6 +23,7 @@ const GradationLine = (props) => (
 
 const Gradation = (props) => (
     <View
+        key={props.text}
         style={{
             width: 65,
             position: 'absolute',
@@ -50,6 +51,17 @@ Gradation.defaultProps = {
 Gradation.propTypes = {
     imageSize: PropTypes.number,
     text: PropTypes.object
+};
+
+const blueDot = {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    overflow: 'hidden',
+    backgroundColor: '#4AA5FF',
+    position: 'absolute',
+    top: 15,
+    zIndex: 10
 };
 
 const CustomSlider = (props) => {
@@ -98,6 +110,10 @@ const CustomSlider = (props) => {
                     width: width - props.paddingHorizontal * 3,
                 }}
             />
+
+            <View style={[blueDot, { left: props.paddingHorizontal * 2 + 5 + this.one_to_eight}]}/>
+            <View style={[blueDot, { left: props.paddingHorizontal * 2 + 5 + this.one_to_eight * 2}]}/>
+            <View style={[blueDot, { left: props.paddingHorizontal * 2 + 5 + this.one_to_eight * 3}]}/>
 
             <Slider
                 width={width - props.paddingHorizontal * 4}
@@ -158,10 +174,10 @@ CustomSlider.propTypes = {
     knobSize: PropTypes.number,
     innerKnobSize: PropTypes.number,
     trackHeight: PropTypes.number,
-    gradationData: PropTypes.shape({
-        position: PropTypes.number.isRequired,
-        image: PropTypes.object,
-    })
+    // gradationData: PropTypes.shape({
+    //     position: PropTypes.number.isRequired,
+    //     image: PropTypes.object,
+    // })
 };
 
 export default CustomSlider;

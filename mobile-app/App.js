@@ -9,7 +9,8 @@ import {
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
     EVENTS,
-    registerScreens, TRASH_POINTS,
+    registerScreens,
+    TRASH_POINTS,
 } from './src/screens';
 
 import './src/config/styles';

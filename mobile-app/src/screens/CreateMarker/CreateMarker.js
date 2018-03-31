@@ -47,7 +47,7 @@ import styles from './styles';
 import CongratsModal from "./components/CongratsModal/CongratsModal";
 import {geocodeCoordinates} from "../../shared/geo";
 import ImagePicker from "react-native-image-crop-picker";
-import {CREATE_MARKER} from "../index";
+import {ADD_LOCATION, CREATE_MARKER} from "../index";
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
 
@@ -410,9 +410,9 @@ class CreateMarker extends React.Component {
         }
 
         this.setState({
-            //  hashtags: [...hashtags, ...labels.map(label => ({label}))],
+            hashtags: [...hashtags, ...labels.map(label => ({label}))],
             temporaryHashtag: '',
-            trashCompositionTypes: [...trashCompositionTypes, ...labels.map(label => ({label, selected: true}))]
+            // trashCompositionTypes: [...trashCompositionTypes, ...labels.map(label => ({label, selected: true}))]
         });
     };
 

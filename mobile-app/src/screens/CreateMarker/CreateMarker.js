@@ -269,18 +269,18 @@ class CreateMarker extends React.Component {
             includeBase64: true
         });
         const {width, height, data, path} = image;
-        const uri = path.substring('file://'.length);
+        const uri = `file://${path}`;
 
-        // const thumbnailBase64 = await ImageService.getResizedImageBase64({
-        //     uri,
-        //     width,
-        //     height
-        // });
+        const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height
+        });
 
         this.setState(previousState => {
             return {
                 ...previousState,
-                photos: [...previousState.photos, {uri, data, thumbnail: {base64: data}},],
+                photos: [...previousState.photos, {uri, data, thumbnail: {base64: thumbnailBase64}},],
             };
         });
     };
@@ -389,7 +389,7 @@ class CreateMarker extends React.Component {
     };
 
     handleAddHahstag = () => {
-        const {hashtags, temporaryHashtag} = this.state;
+        const {hashtags, temporaryHashtag, trashCompositionTypes} = this.state;
 
         if (hashtags.length === MAX_HASHTAGS_NO) {
             return;
@@ -412,8 +412,9 @@ class CreateMarker extends React.Component {
         }
 
         this.setState({
-            hashtags: [...hashtags, ...labels.map(label => ({label}))],
+            //  hashtags: [...hashtags, ...labels.map(label => ({label}))],
             temporaryHashtag: '',
+            trashCompositionTypes: [...trashCompositionTypes, ...labels.map(label => ({label, selected: true}))]
         });
     };
 
@@ -463,7 +464,6 @@ class CreateMarker extends React.Component {
         if (!congratsShown) {
             return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)}/>;
         }
-
         const label = {
             textAlign: 'center',
             fontFamily: 'Lato-Bold',
@@ -471,161 +471,122 @@ class CreateMarker extends React.Component {
             color: 'rgb(123, 125, 128)',
             letterSpacing: 0.4
         };
-
         return (
-            <KeyboardAvoidingView behavior="position">
-                <ScrollView style={{backgroundColor: 'white'}}>
-
-                    <AlertModal
-                        visible={validation}
-                        title={strings.label_error_saveTP_subtitle}
-                        subtitle={validationText}
-                        buttons={[this.closeValidationButton]}
-                        onOverlayPress={this.hideValidation}
+            <ScrollView style={{backgroundColor: 'white'}}>
+                <AlertModal
+                    visible={validation}
+                    title={strings.label_error_saveTP_subtitle}
+                    subtitle={validationText}
+                    buttons={[this.closeValidationButton]}
+                    onOverlayPress={this.hideValidation}
+                />
+                <LocationPicker
+                    onEditLocationPress={this.handleEditLocationPress}
+                    value={editableLocation}
+                    address={address}
+                    status={status}
+                />
+                {this.renderSectionHeader(strings.label_point_status_header)}
+                <StatusPicker
+                    value={status}
+                    onChange={this.handleStatusChanged}
+                />
+                {this.renderSectionHeader(strings.label_text_select_trash_amount)}
+                <View style={{
+                    height: 110,
+                    backgroundColor: 'rgb(216, 216, 216)',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                }}>
+                    <CustomSlider
+                        paddingHorizontal={20}
+                        maximumValue={3}
+                        step={1}
+                        onValueChange={this.handleAmountSelect}
+                        gradationData={[{
+                            image: amount >= 0
+                                ? HANDFUL_IMAGE_DATA.active
+                                : HANDFUL_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_handful}
+                                    style={[label, amount >= 0 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_handful}
+                                </Text>
+                        }, {
+                            image: amount >= 1
+                                ? BAGFUL_IMAGE_DATA.active
+                                : BAGFUL_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_bagful}
+                                    style={[label, amount >= 1 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_bagful}
+                                </Text>
+                        }, {
+                            image: amount >= 2
+                                ? CARTLOAD_IMAGE_DATA.active
+                                : CARTLOAD_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_cartload}
+                                    style={[label, amount >= 2 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_cartload}
+                                </Text>
+                        }, {
+                            image: amount >= 3
+                                ? TRUCKLOAD_IMAGE_DATA.active
+                                : TRUCKLOAD_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_truck}
+                                    style={[label, amount >= 3 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_truck}
+                                </Text>
+                        }]}
                     />
-
-                    <LocationPicker
-                        onEditLocationPress={this.handleEditLocationPress}
-                        value={editableLocation}
-                        address={address}
-                        status={status}
+                </View>
+                {this.renderSectionHeader(strings.label_select_trash_type)}
+                <Tags
+                    tags={trashCompositionTypes}
+                    onTagSelect={this.handleTrashCompositionTypeSelect.bind(this)}
+                />
+                {this.renderSectionHeader(strings.label_add_additional_tags)}
+                <View style={{
+                    height: 44,
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                }}>
+                    <TextInput
+                        style={styles.hashtagInput}
+                        placeholderStyle={styles.hashtagInputPlaceholder}
+                        placeholder={strings.label_text_createTP_add_hashtags_hint}
+                        onChangeText={this.handleChangeHashtagText.bind(this)}
+                        value={temporaryHashtag}
+                        underlineColorAndroid="transparent"
+                        maxLength={25}
+                        onSubmitEditing={this.handleAddHahstag.bind(this)}
                     />
-                    {this.renderSectionHeader(strings.label_point_status_header)}
-                    <StatusPicker
-                        value={status}
-                        onChange={this.handleStatusChanged}
+                </View>
+                {this.renderSectionHeader(strings.label_text_createTP_add_photos.toLocaleUpperCase())}
+                <View>
+                    <PhotoPicker
+                        maxPhotos={3}
+                        photos={photos.map(({uri}) => uri)}
+                        onDeletePress={this.handlePhotoDelete.bind(this)}
+                        onAddPress={this.handlePhotoAdd.bind(this)}
                     />
-                    {this.renderSectionHeader(strings.label_text_select_trash_amount)}
-                    <View style={{
-                        height: 130,
-                        backgroundColor: 'rgb(216, 216, 216)',
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                    }}>
-
-                            <CustomSlider
-                                paddingHorizontal={20}
-                                maximumValue={3}
-                                step={1}
-                                onValueChange={this.handleAmountSelect}
-                                gradationData={[{
-                                    image: amount >= 0
-                                        ? HANDFUL_IMAGE_DATA.active
-                                        : HANDFUL_IMAGE_DATA.default,
-                                    text:
-                                        <Text style={[label,  amount >= 0 ? {color: 'rgb(0, 143, 223)'} : {}]}>
-                                         {strings.label_handful}
-                                        </Text>
-                                }, {
-                                    image: amount >= 1
-                                        ? BAGFUL_IMAGE_DATA.active
-                                        : BAGFUL_IMAGE_DATA.default,
-                                    text:
-                                        <Text style={[label,  amount >= 1 ? {color: 'rgb(0, 143, 223)'} : {}]}>
-                                            {strings.label_bagful}
-                                        </Text>
-                                }, {
-                                    image: amount >= 2
-                                        ? CARTLOAD_IMAGE_DATA.active
-                                        : CARTLOAD_IMAGE_DATA.default,
-                                    text:
-                                        <Text style={[label,  amount >= 2 ? {color: 'rgb(0, 143, 223)'} : {}]}>
-                                            {strings.label_cartload}
-                                        </Text>
-                                }, {
-                                    image: amount >= 3
-                                        ? TRUCKLOAD_IMAGE_DATA.active
-                                        : TRUCKLOAD_IMAGE_DATA.default,
-                                    text:
-                                        <Text style={[label,  amount >= 3 ? {color: 'rgb(0, 143, 223)'} : {}]}>
-                                            {strings.label_truck}
-                                        </Text>
-                                }]}
-                            />
-                    </View>
-                    <View>
-                        <PhotoPicker
-                            maxPhotos={3}
-                            photos={photos.map(({uri}) => uri)}
-                            onDeletePress={this.handlePhotoDelete}
-                            onAddPress={this.handlePhotoAdd}
-                        />
-                    </View>
-                    <Divider/>
-                    <Divider/>
-                    <View style={styles.tagsContainer}>
-                        <Text style={styles.trashtypesText}>
-                            {strings.label_text_createTP_select_type}
-                        </Text>
-                        <Tags
-                            tags={trashCompositionTypes}
-                            onTagSelect={this.handleTrashCompositionTypeSelect}
-                        />
-                        <Text style={[styles.trashtypesText, {marginTop: HEIGHT_SIZE15}]}>
-                            {strings.label_text_createTP_add_hashtags}
-                        </Text>
-                        <Tags tags={hashtags} onTagDelete={this.handleHashtagDelete}/>
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.hashtagInput}
-                                placeholderStyle={styles.hashtagInputPlaceholder}
-                                placeholder={strings.label_text_createTP_add_hashtags_hint}
-                                onChangeText={this.handleChangeHashtagText}
-                                value={temporaryHashtag}
-                                underlineColorAndroid="transparent"
-                                maxLength={25}
-                                onSubmitEditing={this.handleAddHahstag}
-                            />
-                        </View>
-                    </View>
-                    <Divider/>
-                    <View style={{padding: PADDING_SIZE20}}>
-                        <Text style={styles.trashtypesText}>
-                            Something extra to report
-                        </Text>
-                        <Text style={styles.notesText}>
-                            Is this garbage in a difficult place to reach, a recurring dumping
-                            zone or something else?
-                        </Text>
-                        <View style={styles.containerBtnNote}>
-                            <TouchableHighlight
-                                onPress={() => {
-                                }}
-                                underlayColor="transparent"
-                                activeOpacity={1}
-                            >
-                                <View style={[styles.addTagContainer]}>
-                                    {/*<LinearGradient*/}
-                                    {/*style={styles.addReportLinearGradient}*/}
-                                    {/*colors={GRADIENT_COLORS}*/}
-                                    {/*>*/}
-                                    {/*<Text style={styles.addTagText}>*/}
-                                    {/*Leave a note*/}
-                                    {/*</Text>*/}
-                                    {/*</LinearGradient>*/}
-                                </View>
-                            </TouchableHighlight>
-                        </View>
-                    </View>
-                    <Divider/>
-                    {/*<View style={styles.bottomContainer}>*/}
-                    {/*<Button*/}
-                    {/*style={styles.createButton}*/}
-                    {/*text={strings.label_button_createTP_confirm_create}*/}
-                    {/*onPress={this.handleTrashpointCreate}*/}
-                    {/*disabled={disableCreateTrashpointButton}*/}
-                    {/*/>*/}
-                    {/*</View>*/}
-                    <TouchableOpacity
-                        onPress={this.handleTrashpointCreate.bind(this)}
-                        style={styles.confirmButton}
-                    >
-                        <Text style={styles.confirmButtonText}>
-                            {strings.label_button_createTP_confirm_create}
-                        </Text>
-                    </TouchableOpacity>
-                </ScrollView>
-            </KeyboardAvoidingView>
+                </View>
+                <TouchableOpacity
+                    onPress={this.handleTrashpointCreate.bind(this)}
+                    style={styles.confirmButton}
+                >
+                    <Text style={styles.confirmButtonText}>
+                        {strings.label_button_createTP_confirm_create}
+                    </Text>
+                </TouchableOpacity>
+            </ScrollView>
         );
     }
 

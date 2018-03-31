@@ -118,9 +118,6 @@ export default class PhotoPicker extends React.Component {
           maxPhotos && hasPhotos && photos.length < maxPhotos;
       return (
           <View style={styles.container}>
-              <Text style={styles.title}>
-                  {title || strings.label_text_createTP_add_photos}
-              </Text>
               <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}

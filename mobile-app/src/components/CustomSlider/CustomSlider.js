@@ -63,8 +63,8 @@ const CustomSlider = (props) => {
     return (
         <View
             style={{
-                backgroundColor: 'rgb(216, 216, 216)',
-                height: 130,
+                backgroundColor: '#eeeeee',
+                height: 110,
                 flexDirection: 'column',
                 width: width,
                 flex: 1,
@@ -130,6 +130,7 @@ const CustomSlider = (props) => {
             {
                 props.gradationData.map(data => {
                     const view = <Gradation
+                        key={data.text}
                         position={this.gradationPosition}
                         image={data.image}
                         text={data.text}
@@ -150,7 +151,7 @@ CustomSlider.defaultProps = {
 
 CustomSlider.propTypes = {
     paddingHorizontal: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
+   // width: PropTypes.number.isRequired,
     step: PropTypes.number.isRequired,
     maximumValue: PropTypes.number.isRequired,
     onValueChange: PropTypes.func,

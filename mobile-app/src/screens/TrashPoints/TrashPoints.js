@@ -13,6 +13,7 @@ import strings from "../../assets/strings";
 import ImagePicker from 'react-native-image-crop-picker';
 import {getCurrentPosition} from "../../shared/geo";
 import PropTypes from 'prop-types';
+import ImageService from "../../services/Image";
 //import styles from './styles';
 
 const MODE = {
@@ -262,13 +263,13 @@ class TrashPoints extends Component {
             includeBase64: true
         });
         const {width, height, data, path } = image;
-        const uri = path.substring('file://'.length);
+        const uri = `file://${path}`;
 
-        // const thumbnailBase64 = await ImageService.getResizedImageBase64({
-        //     uri,
-        //     width,
-        //     height
-        // });
+        const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height
+        });
 
         const { coords } = await getCurrentPosition({
             enableHighAccuracy: false,
@@ -280,7 +281,7 @@ class TrashPoints extends Component {
             screen: CREATE_MARKER,
             title: strings.label_button_createTP_confirm_create,
             passProps: {
-                photos: [{ uri, thumbnail: { base64: data },  base64: data}],
+                photos: [{ uri, thumbnail: { base64: thumbnailBase64 },  base64: data}],
                 coords,
             }
         });

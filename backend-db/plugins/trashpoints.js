@@ -89,8 +89,18 @@ module.exports = function () {
               return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
             }
           }
-          const { data: {rows, total_rows: total} } = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location);
-          const records = await Promise.all(rows.map(async r => {
+          return responder.success(location);
+        })
+        .set('location')
+        .get(['location'])
+        .input(({location}) => location || {})
+        .request('role:geo,cmd:resolveLocation')
+        .set('areas')
+        .get(['location', 'areas'])
+        .use(async function ({ areas, location }, responder) {
+            const {pageSize, pageNumber, name} = args;
+            const { data: {rows, total_rows: total} } = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location, areas[0]);
+            const records = await Promise.all(rows.map(async r => {
               const trashpoint = r.value;
               if (trashpoint.createdBy) {
                   const createdByUser = await db.getAccount(trashpoint.createdBy);
@@ -109,8 +119,8 @@ module.exports = function () {
               trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
               trashpoint.photos = trashpoint.photos.map(p => p.url);
               return trashpoint;
-          }));
-          return responder.success({total, pageSize, pageNumber, records});
+            }));
+            return responder.success({total, pageSize, pageNumber, records});
         })
     });
 

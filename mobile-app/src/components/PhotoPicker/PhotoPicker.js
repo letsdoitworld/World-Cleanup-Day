@@ -3,33 +3,32 @@ import PropTypes from 'prop-types';
 import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import _ from 'lodash';
 import strings  from '../../assets/strings';
-
 import { AlertModal } from '../AlertModal';
 import { LazyImage } from './components/LazyImage';
-
 import styles from './styles';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const AddPhoto = ({ onPress }) => {
-  return (
-    <View style={[styles.photo, styles.photoPlaceholder]}>
-      <TouchableOpacity
-        onPress={onPress}
-        style={[styles.photoButtonContainer, styles.photoButtonPlaceholder]}
-      >
-        <Ionicons
-          size={styles.$photoSize}
-          name="md-add"
-          style={styles.photoButton}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-};
-// AddPhoto.propTypes = {
-//   onPress: PropTypes.func.isRequired,
-// };
 
-class Photo extends React.Component {
+class AddPhoto extends React.Component {
+    render() {
+        return (
+            <View style={[styles.photo, styles.photoPlaceholder]}>
+                <TouchableOpacity
+                    onPress={this.props.onPress}
+                    style={[styles.photoButtonContainer, styles.photoButtonPlaceholder]}
+                >
+                    <Ionicons
+                        size={styles.$photoSize}
+                        name="md-add"
+                        style={styles.photoButton}
+                    />
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+
+class PhotoComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,50 +65,51 @@ class Photo extends React.Component {
   render() {
     const { photo, onPress } = this.props;
     const { showingConfirm } = this.state;
-    return (
-      <LazyImage key={photo} style={[styles.photo]} source={{ uri: photo }}>
-        <View>
-          {onPress &&
-            <TouchableOpacity
-              onPress={this.handlePhotoDeletePress}
-              style={styles.photoButtonContainer}
-            >
-              <Ionicons
-                size={styles.$photoSize}
-                name="md-close"
-                style={styles.photoButton}
-              />
-            </TouchableOpacity>}
 
-          <AlertModal
-            visible={showingConfirm}
-            buttons={this.buttons}
-            onOverlayPress={this.handleModalClosed}
-            title={strings.label_delete_photo_title}
-            subtitle={strings.label_delete_photo_subtitle}
-          />
+    console.log(photo)
+
+    return(
+        <View
+            key={photo}
+            style={[styles.photo]}
+        >
+            <LazyImage
+                style={[styles.photo]}
+                source={{ uri: photo }}
+            />
+            {onPress &&
+            <TouchableOpacity
+                onPress={this.handlePhotoDeletePress}
+                style={styles.photoButtonContainer}
+            >
+                <Ionicons
+                    size={styles.$photoSize}
+                    name="md-close"
+                    style={styles.photoButton}
+                />
+            </TouchableOpacity>
+            }
+            <AlertModal
+                visible={showingConfirm}
+                buttons={this.buttons}
+                onOverlayPress={this.handleModalClosed}
+                title={strings.label_delete_photo_title}
+                subtitle={strings.label_delete_photo_subtitle}
+            />
         </View>
-      </LazyImage>
     );
   }
 }
-// Photo.defaultProps = {
-//   onPress: undefined,
-// };
-// Photo.propTypes = {
-//   photo: PropTypes.string.isRequired,
-//   onPress: PropTypes.func,
-// };
-
-//const PhotoComponent = translate()(Photo);
 
 export default class PhotoPicker extends React.Component {
   render() {
-      const {maxPhotos,
+      const {
+          maxPhotos,
           title,
           photos,
           onDeletePress,
-          onAddPress } = this.props;
+          onAddPress
+      } = this.props;
 
       const hasAdd = !!onAddPress;
       const hasDelete = !!onDeletePress;
@@ -133,82 +133,21 @@ export default class PhotoPicker extends React.Component {
                       const onDeletePhotoPress = hasDelete
                           ? () => onDeletePress(index)
                           : undefined;
-                      // return (
-                      //     <PhotoComponent
-                      //         key={uri}
-                      //         photo={uri}
-                      //         onPress={onDeletePhotoPress}
-                      //     />
-                      // );
+                      return (
+                          <PhotoComponent
+                              key={uri}
+                              photo={uri}
+                              onPress={onDeletePhotoPress}
+                          />
+                      );
                   })}
 
-                  {/*{hasAdd &&*/}
-                  {/*couldAddMorePhotos &&*/}
-                  {/*<AddPhoto key="add_photo" onPress={onAddPress} />}*/}
+                  {hasAdd &&
+                  couldAddMorePhotos &&
+                  <AddPhoto key="add_photo" onPress={onAddPress} />}
 
               </ScrollView>
           </View>
       );
   }
 }
-//
-// const PhotoPicker = ({
-//   maxPhotos = undefined,
-//   title,
-//   photos,
-//   onDeletePress,
-//   onAddPress,
-//   t,
-// }) => {
-//   const hasAdd = !!onAddPress;
-//   const hasDelete = !!onDeletePress;
-//   const hasPhotos = !!photos;
-//   const couldAddMorePhotos =
-//     maxPhotos && hasPhotos && photos.length < maxPhotos;
-//
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>
-//         {title || strings.label_text_createTP_add_photos}
-//       </Text>
-//       <ScrollView
-//         horizontal
-//         showsHorizontalScrollIndicator={false}
-//         showsVerticalScrollIndicator={false}
-//         contentContainerStyle={styles.photoContainer}
-//         style={styles.photoContainer}
-//       >
-//         {hasPhotos &&
-//           photos.map((uri, index) => {
-//             const onDeletePhotoPress = hasDelete
-//               ? () => onDeletePress(index)
-//               : undefined;
-//             return (
-//               <PhotoComponent
-//                 key={uri}
-//                 photo={uri}
-//                 onPress={onDeletePhotoPress}
-//               />
-//             );
-//           })}
-//
-//         {hasAdd &&
-//           couldAddMorePhotos &&
-//           <AddPhoto key="add_photo" onPress={onAddPress} />}
-//
-//       </ScrollView>
-//     </View>
-//   );
-// };
-// PhotoPicker.defaultProps = {
-//   maxPhotos: undefined,
-//   onDeletePress: undefined,
-//   onAddPress: undefined,
-// };
-// PhotoPicker.propTypes = {
-//   photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-//   onDeletePress: PropTypes.func,
-//   onAddPress: PropTypes.func,
-//   maxPhotos: PropTypes.number,
-// };
-// export default translate()(PhotoPicker);

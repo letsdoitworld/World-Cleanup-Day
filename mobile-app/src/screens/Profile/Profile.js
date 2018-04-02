@@ -44,10 +44,6 @@ class Profile extends Component {
         onLoadMyTrashPoints,
     } = this.props;
 
-    onFetchProfile();
-    onLoadMyEvents(15, 1);
-    onLoadMyTrashPoints(15, 1);
-
     if (!isAuthenticated && isGuestSession) {
       this.props.navigator.setButtons({
         rightButtons: [],
@@ -61,6 +57,10 @@ class Profile extends Component {
 
       return;
     }
+
+    onFetchProfile();
+    onLoadMyEvents(15, 1);
+    onLoadMyTrashPoints(15, 1);
 
     this.props.navigator.setButtons({
       rightButtons: [

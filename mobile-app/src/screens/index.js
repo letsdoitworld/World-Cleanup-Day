@@ -19,7 +19,7 @@ import EventsNavBar from './Events/NavBar/NavBar';
 
 import TrashPoints from './TrashPoints'
 import TrashPoint from "./TrashPoint/TrashPoint";
-import CreateMarker from "./CreateMarker/CreateMarker";
+import CreateMarker from "./CreateMarker";
 import HomeScreen from './Home';
 
 export const PROFILE_SCREEN = "PROFILE_SCREEN";

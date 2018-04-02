@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text} from 'react-native';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {Text, View} from 'react-native';
 
 import MapView from 'react-native-maps';
 
@@ -34,6 +32,7 @@ const MARKER_OFFSET = {
 export default class Marker extends Component {
 
     render() {
+
 
         const {marker, onMarkerPress} = this.props;
 
@@ -74,7 +73,7 @@ export default class Marker extends Component {
 
         return (
             <MapView.Marker
-                coordinate={marker.latlng}
+                coordinate={marker.location}
                 onPress={onMarkerPress}
                 style={!marker.isTrashpile ? {zIndex: 2} : null}
                 image={markerImage}

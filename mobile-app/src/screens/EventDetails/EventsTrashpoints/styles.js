@@ -18,4 +18,16 @@ export default StyleSheet.create({
     borderColor: colors.gray100,
     paddingHorizontal: getWidthPercentage(15),
   },
+  emptyTrashpointsContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    top: -30,
+  },
+  textEmptyTrashpoint: {
+    fontSize: 18,
+    fontFamily: 'Lato-Bold',
+    padding: dm.margin_medium,
+  },
 });

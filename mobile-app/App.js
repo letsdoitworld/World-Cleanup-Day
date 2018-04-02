@@ -75,8 +75,6 @@ export default class App extends PureComponent {
     }
 
     static mainScreen() {
-        if (this.isMainScreenOpened) return;
-        this.isMainScreenOpened = true;
         Navigation.startTabBasedApp({
             tabs: [
                 {

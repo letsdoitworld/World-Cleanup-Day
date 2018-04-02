@@ -8,11 +8,13 @@ import {
 import {
   getEventEntity,
   getErrorEvent,
+  getProfileEntity,
 } from '../../store/selectors';
 
 import Component from './EventDetails';
 
 const selector = createStructuredSelector({
+  profile: getProfileEntity,
   event: getEventEntity,
   error: getErrorEvent,
 });

@@ -110,16 +110,22 @@ class EventDetails extends PureComponent {
   }
 
   handleRenderButton() {
-    return (
-      <View style={styles.buttonContainer}>
-        <MainButton
-          isValid
-          text={strings.lable_join_event}
-          style={styles.button}
-          onPress={this.handleEventJoin}
-        />
-      </View>
-    );
+    const { event, profile } = this.props;
+
+    if (!profile) return;
+
+    if (event.createdBy === profile.id) {
+      return (
+        <View style={styles.buttonContainer}>
+          <MainButton
+            isValid
+            text={strings.lable_join_event}
+            style={styles.button}
+            onPress={this.handleEventJoin}
+          />
+        </View>
+      );
+    }
   }
 
   handleRenderDate() {
@@ -151,7 +157,7 @@ class EventDetails extends PureComponent {
 
     const marker = {
       id: event.location.latitude,
-      latlng: {
+      location: {
         latitude: event.location.latitude,
         longitude: event.location.longitude,
       },
@@ -193,13 +199,10 @@ class EventDetails extends PureComponent {
   }
 
   handleRenderTrashpoints() {
-    const { event } = this.props;
-
-    const Wrapper = isEmpty(event.trashpoints) ? View : TouchableOpacity;
     const navigation = { type: trashpoints };
 
     return (
-      <Wrapper
+      <TouchableOpacity
         onPress={this.onNavigatorEvent.bind(this, navigation)}
         style={styles.trashpointsContainer}
       >
@@ -209,7 +212,7 @@ class EventDetails extends PureComponent {
           {this.handleRenderCircle()}
           <Icon path={Icons.Back} iconStyle={styles.arrowIcon} />
         </View>
-      </Wrapper>
+      </TouchableOpacity>
     );
   }
 
@@ -339,7 +342,6 @@ class EventDetails extends PureComponent {
           ref={ref => this.scrollView = ref}
           scrollEventThrottle={800}
           onScroll={this.handleScroll}
-          onContentSizeChange={(contentWidth, contentHeight) => console.log('contentWidth', contentWidth, 'contentHeight', contentHeight)}
         >
           <View style={styles.container}>
             {this.handleRenderImage()}
@@ -376,6 +378,7 @@ class EventDetails extends PureComponent {
 }
 
 EventDetails.propTypes = {
+  profile: PropTypes.object,
   event: PropTypes.object,
   error: PropTypes.object,
   eventId: PropTypes.string,

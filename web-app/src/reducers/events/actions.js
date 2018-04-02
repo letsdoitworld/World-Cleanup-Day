@@ -90,10 +90,6 @@ const fetchAllEventMarkers = (
     ),
   ]);
 
-  const list = await ApiService.post(API_ENDPOINTS.FETCH_EVENTS, body, {
-    withToken: false,
-  });
-
   let markers = [];
 
   if (markersRes && markersRes.data && Array.isArray(markersRes.data)) {

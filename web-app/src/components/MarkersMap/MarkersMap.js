@@ -41,7 +41,10 @@ class MarkersMap extends React.Component {
     };
   }
 
-  componentWillReceiveProps = nextProps => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tabActive !== this.props.tabActive) {
+      this.loadMarkers(nextProps.tabActive);
+    }
     if (
       this.props.focusedLocation !== nextProps.focusedLocation &&
       nextProps.focusedLocation
@@ -58,22 +61,21 @@ class MarkersMap extends React.Component {
         this.map.fitBounds(bounds);
       }
     }
-  };
-
+  }
 
   handleSetMapComponent = map => {
     this.map = map;
     if (map) {
-      this.loadMarkers();
+      this.loadMarkers(this.props.tabActive);
     }
   };
   handleBoundsChanged = () => {
     if (this.map) {
-      this.loadMarkers();
+      this.loadMarkers(this.props.tabActive);
     }
   };
 
-  loadMarkers = () => {
+  loadMarkers = (markersType) => {
     if (!this.state.updateRegion) {
       return this.setState({ updateRegion: true });
     }
@@ -83,13 +85,14 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width, 10),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    // if (this.props.tabActive === 'trashpoints') {
-    this.props.fetchAllTrashpoints(nw, se, mapSize);
-    // }
-    // if (this.props.tabActive === 'events') {
-    this.props.fetchAllEventMarkers(nw, se, mapSize);
-    // }
+    if (markersType === 'trashpoints') {
+      this.props.fetchAllTrashpoints(nw, se, mapSize);
+    }
+    if (markersType === 'events') {
+      this.props.fetchAllEventMarkers(nw, se, mapSize);
+    }
   };
+
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {
       return;

@@ -45,6 +45,13 @@ class MarkersMap extends React.Component {
     if (nextProps.tabActive !== this.props.tabActive) {
       this.loadMarkers(nextProps.tabActive);
     }
+    if (this.props.currentEventLocation.latitude && nextProps.currentEventLocation !== this.props.currentEventLocation) {
+      this.map.panTo({
+        lat: nextProps.currentEventLocation.latitude,
+        lng: nextProps.currentEventLocation.longitude,
+      });
+      this.loadMarkers(nextProps.tabActive);
+    }
     if (
       this.props.focusedLocation !== nextProps.focusedLocation &&
       nextProps.focusedLocation
@@ -169,6 +176,7 @@ const mapStateToProps = state => ({
   trashpointMarkers: trashpileSelectors.getAllMarkers(state),
   eventMarkers: eventSelectors.getAllEventMarkers(state),
   currentEventMarker: eventSelectors.getCurrentMarkerID(state),
+  currentEventLocation: eventSelectors.getCurrentMarkerLocation(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
   currentLocation: appSelectors.getCurrentLocation(state),

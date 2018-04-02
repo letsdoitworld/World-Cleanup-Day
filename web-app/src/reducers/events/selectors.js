@@ -28,6 +28,11 @@ export const getCurrentMarkerID = createSelector(
   state => get(state, 'event.id', 'Unknown ID'),
 );
 
+const getCurrentMarkerLocation = createSelector(
+ detailsSel,
+ state => get(state, 'event.location', 'Unknown location'),
+);
+
 export const getEventTitle = createSelector(
   detailsSel,
   state => get(state, 'event.name', 'Unknown title'),
@@ -39,5 +44,6 @@ export default {
   getShowEventWindow,
   getEventTitle,
   getCurrentMarkerID,
+  getCurrentMarkerLocation,
   getEventDetails,
 };

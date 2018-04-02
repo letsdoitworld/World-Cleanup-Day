@@ -33,13 +33,16 @@ class Home extends React.Component {
   }
 
   handleLogout = () => {
-    this.props.history.push('/');
+    this.props.history.push('/trashpoints');
     this.props.logout();
   };
 
   handleTermsAccept = () => {
     this.props.agreeToTerms();
   };
+
+  isUserAllowedAddingTrashpoints =
+  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0;
 
   renderTerms = () =>
     (<div className="Home">
@@ -79,7 +82,7 @@ class Home extends React.Component {
           render={
             ({ match }) =>
               (<TrashpointDetails
-                isUserLoggedIn={!!this.props.userProfile.role}
+                isUserAllowedAdding={this.isUserAllowedAddingTrashpoints}
                 trashpointId={match.params.id}
                 history={history}
               />)

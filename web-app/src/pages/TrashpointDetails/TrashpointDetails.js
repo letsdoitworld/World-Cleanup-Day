@@ -123,7 +123,7 @@ class TrashDetails extends React.Component {
         isOpened={this.props.isOpened}
         toggleDetailsWindow={this.props.toggleDetailsWindow}
         trashpointId={this.props.trashpointId}
-        isUserLoggedIn={this.props.isUserLoggedIn}
+        isUserAllowedAdding={this.props.isUserAllowedAdding}
         history={this.props.history}
         actions={this.actions}
         canEdit={this.canUserEditTrashPoint()}

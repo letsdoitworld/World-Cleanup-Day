@@ -1,24 +1,28 @@
-import { Icons } from '../../assets/images';
+import {Icons} from '../../assets/images';
 
 export const navigatorStyle = {
-  navBarTextColor: '#000000',
-  navBarTextFontSize: 18,
-  orientation: 'portrait',
-  navBarTitleTextCentered: true,
+    orientation: 'portrait',
+    navBarTitleTextCentered: true,
+    statusBarColor: 'white',
+    statusBarTextColorScheme: 'dark',
+    navBarBackgroundColor: 'white',
+    navBarTextColor: 'black',
+    navBarTextFontSize: 17,
+    navBarTextFontFamily: 'Lato-Bold',
     //  navBarTextFontFamily: 'font-name',
 };
 
 export const navigatorButtons = {
-  rightButtons: [
-    {
-      icon: Icons.Settings,
-      id: 'settings',
-    },
-  ],
-  leftButtons: [
-    {
-      icon: Icons.Notification,
-      id: 'notification',
-    },
-  ],
+    rightButtons: [
+        {
+            icon: Icons.Settings,
+            id: 'settings',
+        },
+    ],
+    leftButtons: [
+        {
+            icon: Icons.Notification,
+            id: 'notification',
+        },
+    ],
 };

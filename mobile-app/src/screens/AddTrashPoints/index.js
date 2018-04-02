@@ -3,7 +3,8 @@ import { createStructuredSelector } from 'reselect';
 
 import {
     searchTrashPointsAction,
-    clearTrashPointsAction } from '../../store/actions/trashPoints';
+    clearTrashPointsAction
+} from '../../store/actions/trashPoints';
 
 import {
     getTrashPointsEntity,

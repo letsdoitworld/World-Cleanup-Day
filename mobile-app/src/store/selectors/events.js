@@ -23,3 +23,9 @@ export const getErrorEvent = createSelector(
     eventsSelector,
     events => events.errors && events.errors.errorEvent,
 );
+
+
+export const getMapEventsEntity = createSelector(
+    eventsSelector,
+    events => events.mapEvents,
+);

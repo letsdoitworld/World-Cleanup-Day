@@ -275,7 +275,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/OverviewEvent"
+              $ref: "#/definitions/Event"
         "default":
           $ref: "#/responses/ErrorSet"
 
@@ -1101,15 +1101,6 @@ definitions:
       coordinates:
         $ref: "#/definitions/GridCoordinates"
 
-  OverviewEvent:
-    description: Simplified version of event, used when listing event overviews.
-    type: object
-    required: [id, location]
-    properties:
-      id:
-        $ref: "#/definitions/UUID"
-      location:
-        $ref: "#/definitions/GeoPoint"
   #-----------------------------------------------------------------------------
   # Trashpoints as paginated sets.
   #-----------------------------------------------------------------------------
@@ -1361,7 +1352,7 @@ definitions:
   Event:
     description: A collection of data objects with a common internal structure.
     type: object
-    required: [id]
+    required: [id, datasetId, location, name, address, phonenumber, description, whatToBring, maxPeopleAmount]
     properties:
       id:
         description: UUID field, representing the identificator of the event

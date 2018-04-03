@@ -1,34 +1,32 @@
-import { autoRehydrate, persistStore } from 'redux-persist-immutable';
+import {autoRehydrate, persistStore} from 'redux-persist-immutable';
 import createActionBuffer from 'redux-action-buffer';
-import { REHYDRATE } from 'redux-persist/constants';
-import { applyMiddleware, compose, createStore } from 'redux';
-import { AsyncStorage } from 'react-native';
+import {REHYDRATE} from 'redux-persist/constants';
+import {applyMiddleware, compose, createStore} from 'redux';
+import {AsyncStorage} from 'react-native';
 import createSagaMiddleware from 'redux-saga';
 
-import Reactotron from 'reactotron-react-native';
-import { reactotronRedux } from 'reactotron-redux';
-
-import { composeWithDevTools } from 'redux-devtools-extension';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 import reducers from './reducers';
 
 import {
-    loginGoogleFlow,
-    loginFacebookFlow,
-    updateProfileStatusFlow,
-    loadProfileFlow,
-    logoutFlow,
-    createEventFlow,
-    searchTrashPointsFlow,
-    searchEventsFlow,
-    loadLocationFlow,
     autoRegidrateFlow,
+    createEventFlow,
+    createTrashPointFlow,
+    fetchDataFromOneClusterFlow,
+    fetchDatasetFlow,
     getMapEventsFlow,
+    loadEventFlow,
+    loadLocationFlow,
     loadMyEventsFlow,
     loadMyTrashPointsFlow,
-    createTrashPointFlow,
-    fetchDatasetFlow,
-    loadEventFlow,
+    loadProfileFlow,
+    loginFacebookFlow,
+    loginGoogleFlow,
+    logoutFlow,
+    searchEventsFlow,
+    searchTrashPointsFlow,
+    updateProfileStatusFlow,
 } from './sagas';
 
 
@@ -78,6 +76,7 @@ export default function configureStore() {
       sagaMiddleware.run(loadEventFlow),
       sagaMiddleware.run(getMapEventsFlow),
         sagaMiddleware.run(fetchDatasetFlow),
+        sagaMiddleware.run(fetchDataFromOneClusterFlow),
     ],
   };
 }

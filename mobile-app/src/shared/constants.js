@@ -112,6 +112,7 @@ export const API_ENDPOINTS = {
     EVENT: '/event',
     FETCH_EVENTS: '/overview/events',
     FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
+    FETCH_CLUSTER_EVENTS: '/overview/events/grid',
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {

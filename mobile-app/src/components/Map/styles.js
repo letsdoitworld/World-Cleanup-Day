@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -14,14 +14,19 @@ export default StyleSheet.create({
     // fontFamily: 'noto-sans-bold',
     fontSize: 10,
     backgroundColor: 'transparent',
+      alignSelf: 'center',
   },
   labelContainer: {
     borderRadius: 100,
     backgroundColor: 'white',
-    paddingRight: 2,
-    paddingLeft: 2,
+    width: 26,
+    height: 26,
     position: 'absolute',
-    left: 14,
+    left: 4,
+    top: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
 });
 

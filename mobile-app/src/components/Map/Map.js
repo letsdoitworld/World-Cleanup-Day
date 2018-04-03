@@ -12,11 +12,9 @@ export class Map extends Component {
     displayMarkers = () => {
         console.log('Innn')
         const {markers = [], handleOnMarkerPress} = this.props;
-        console.log("displayMarkers", markers);
         return markers
             .filter((marker) => marker !== undefined)
             .map((marker) => {
-                console.log("Marker", marker);
                 return (
                     <Marker
                         marker={marker}

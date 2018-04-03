@@ -10,8 +10,7 @@ import styles, { grayMapStyle } from './styles';
 class Map extends Component {
 
   displayMarkers = () => {
-    const { markers = [], handleOnMarkerPress } = this.props;
-
+    const { markers = [] ,selectedItem, handleOnMarkerPress } = this.props;
     return markers
             .filter(marker => marker !== undefined)
             .map((marker, index) => {
@@ -19,6 +18,7 @@ class Map extends Component {
                 <Marker
                   marker={marker}
                   key={marker.id}
+                  selectedItem={selectedItem}
                   onMarkerPress={(obj) => {
                     handleOnMarkerPress(marker);
                   }}

@@ -1,9 +1,4 @@
-import {
-    LOAD_EVENT,
-    LOAD_EVENT_SUCCESS,
-    LOAD_EVENTS_ERROR,
-    CLEAN_EVENT,
-} from '../types/events';
+import {CLEAN_EVENT, LOAD_EVENT, LOAD_EVENT_SUCCESS, LOAD_EVENTS_ERROR,} from '../types/events';
 
 export const SEARCH_EVENTS_ACTION = 'SEARCH_EVENTS_ACTION';
 export const SEARCH_EVENTS_SUCCESS_ACTION = 'SEARCH_EVENTS_SUCCESS_ACTION';
@@ -67,7 +62,7 @@ export const loadEventsForMapSuccess = mapEvents => ({
 
 export const SHOW_NEW_DELTA = 'SHOW_NEW_DELTA';
 export const showNewDeltaAction = newDelts => ({
-    type: LOAD_EVENTS_FOR_MAP_SUCCESS,
+    type: SHOW_NEW_DELTA,
     payload: newDelts
 });
 
@@ -75,4 +70,10 @@ export const LOAD_EVENTS_FOR_MAP_ERROR = 'LOAD_EVENTS_FOR_MAP_ERROR';
 export const loadEventsForMapError = error => ({
     type: LOAD_EVENTS_FOR_MAP_ERROR,
     payload: error
+});
+
+export const LOAD_EVENTS_FROM_CLUSTER_ACTION = 'LOAD_EVENTS_FROM_CLUSTER_ACTION';
+export const loadEventsFromClusterAction = parameters => ({
+    type: LOAD_EVENTS_FROM_CLUSTER_ACTION,
+    payload: parameters
 });

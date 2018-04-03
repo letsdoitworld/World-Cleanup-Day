@@ -1,20 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
-import {
-    View, Text, Alert
-} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import styles from "./styles";
 import strings from "../../../assets/strings";
 import InputField from '../../../components/InputFields/InputField';
 import MainButton from '../../../components/Buttons/MainButton';
 import * as Immutable from "immutable/dist/immutable";
 import PropTypes from 'prop-types';
-import {EVENTS, HOME_SCREEN} from "../../index";
-import {Navigation} from "react-native-navigation";
-import {createEventError} from "../../../store/actions/createEvent";
-import { AlertModal } from '../../../components/AlertModal';
 
-import { Icons } from '../../../assets/images';
+import {Icons} from '../../../assets/images';
 
 const cancelId = 'cancelId';
 
@@ -72,7 +66,7 @@ class AddPeopleToEvent extends ImmutableComponent {
     componentDidUpdate() {
         const { createdEvent, errorEvent } = this.props;
         if (createdEvent !== null && createdEvent !== undefined) {
-            Navigation.dismissModal()
+            //Navigation.dismissModal()
         }
         if (errorEvent !== null && errorEvent !== undefined) {
             Alert.alert(

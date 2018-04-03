@@ -7,6 +7,7 @@ import {API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES} from "../shared/constants";
 
 async function createEvent(event) {
     try {
+        //TODO ask artem about validation!!
         const newEvent = {
             datasetId: event.datasetId,
             name: event.name,
@@ -17,8 +18,10 @@ async function createEvent(event) {
             description: event.description,
             whatToBring: event.whatToBring,
             email: event.email,
+            coordinatorName: event.coordinatorName,
             phonenumber: event.phonenumber,
             maxPeopleAmount: event.maxPeopleAmount,
+            //trashpoints: event.trashpoints,
         };
         const photos = event.photos;
         const createEventResponse = await Api.put(API_ENDPOINTS.EVENT, newEvent);

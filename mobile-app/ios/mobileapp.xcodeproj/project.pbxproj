@@ -315,7 +315,7 @@
 			remoteGlobalIDString = 89A35BA14C12156A2D4B03E67729AC9D;
 			remoteInfo = "Pods-mobileapp";
 		};
-		15A8B1E62073758E00E94FE3 /* PBXContainerItemProxy */ = {
+		15A8B2562073CACD00E94FE3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B4820635DEC14B738EEB49CB /* RNFileSystem.xcodeproj */;
 			proxyType = 2;
@@ -818,10 +818,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		15A8B1E32073758E00E94FE3 /* Products */ = {
+		15A8B2532073CACD00E94FE3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				15A8B1E72073758E00E94FE3 /* libRNFileSystem.a */,
+				15A8B2572073CACD00E94FE3 /* libRNFileSystem.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1201,7 +1201,6 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = R7JGNRV2SS;
 						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -1292,7 +1291,7 @@
 					ProjectRef = 02C8DF3D1286499B821FB98B /* ReactNativeNavigation.xcodeproj */;
 				},
 				{
-					ProductGroup = 15A8B1E32073758E00E94FE3 /* Products */;
+					ProductGroup = 15A8B2532073CACD00E94FE3 /* Products */;
 					ProjectRef = B4820635DEC14B738EEB49CB /* RNFileSystem.xcodeproj */;
 				},
 				{
@@ -1508,11 +1507,11 @@
 			remoteRef = 1595D3712059526000F67A9B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		15A8B1E72073758E00E94FE3 /* libRNFileSystem.a */ = {
+		15A8B2572073CACD00E94FE3 /* libRNFileSystem.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNFileSystem.a;
-			remoteRef = 15A8B1E62073758E00E94FE3 /* PBXContainerItemProxy */;
+			remoteRef = 15A8B2562073CACD00E94FE3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2EACEF60203FF52C0035A33E /* libfishhook.a */ = {
@@ -2054,7 +2053,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = R7JGNRV2SS;
+				DEVELOPMENT_TEAM = KN4AF35L36;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2091,8 +2090,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
-				PROVISIONING_PROFILE = "3c50d6d3-454d-4f5e-9e79-19424f87b4a2";
-				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
+				PROVISIONING_PROFILE = "139d9d05-c629-4b19-bc04-3fa75a306560";
+				PROVISIONING_PROFILE_SPECIFIER = clean_up;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -2105,7 +2104,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R7JGNRV2SS;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2142,8 +2141,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
-				PROVISIONING_PROFILE = "3c50d6d3-454d-4f5e-9e79-19424f87b4a2";
-				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

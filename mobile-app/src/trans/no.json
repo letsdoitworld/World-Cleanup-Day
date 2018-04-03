@@ -126,5 +126,7 @@
   "label_text_about_4": "Estisk produkt, sponset av landet og regjeringen",
   "label_text_about_5": "Sponsorer: det estiske miljøverndepartementet, utenriksdepartementet av Republikken Estland, Republikken Estlands 100-program",
   "label_button_editTP_delete": "Slett søppelpunkt",
-  "label_locked_account_warning": "Kontoen din er låst. For detaljer, ta kontakt med en administrator."
+  "label_locked_account_warning": "Kontoen din er låst. For detaljer, ta kontakt med en administrator.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

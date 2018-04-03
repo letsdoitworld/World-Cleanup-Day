@@ -214,6 +214,11 @@ paths:
           in: query
           required: false
           type: string
+        - name: address
+          description: Address.
+          in: query
+          required: false
+          type: string
         - name: area
           description: Area code.
           in: query

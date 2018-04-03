@@ -10,16 +10,7 @@ import Slider from 'react-native-slider';
 
 const {height, width} = Dimensions.get('window');
 import {getWidthPercentage} from '../../shared/helpers';
-
-const GradationLine = (props) => (
-    <View
-        style={{
-            width: 2,
-            height: getWidthPercentage(15),
-            backgroundColor: "#4AA5FF",
-        }}
-    />
-);
+import styles from "./styles";
 
 const Gradation = (props) => (
     <View
@@ -53,16 +44,6 @@ Gradation.propTypes = {
     text: PropTypes.object
 };
 
-const blueDot = {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    overflow: 'hidden',
-    backgroundColor: '#4AA5FF',
-    position: 'absolute',
-    top: 15,
-    zIndex: 10
-};
 
 const CustomSlider = (props) => {
 
@@ -72,48 +53,36 @@ const CustomSlider = (props) => {
 
     this.gradationPosition = props.paddingHorizontal * 2 + props.knobSize / 2 - 32.5;
 
+    const blueBackgroundLine = {
+        alignSelf: 'flex-start',
+        position: 'absolute',
+        top: 14,
+        left: props.paddingHorizontal,
+        height: props.trackHeight,
+        backgroundColor: '#4AA5FF',
+        borderRadius: props.trackHeight,
+        width: width - props.paddingHorizontal * 3,
+    };
+    const whiteBackgroundLine = {
+        alignSelf: 'flex-start',
+        position: 'absolute',
+        top: 14,
+        right: props.paddingHorizontal,
+        height: props.trackHeight,
+        backgroundColor: '#F7F7F7',
+        borderRadius: props.trackHeight,
+        width: width - props.paddingHorizontal * 3,
+    };
+
     return (
-        <View
-            style={{
-                backgroundColor: '#eeeeee',
-                height: 110,
-                flexDirection: 'column',
-                width: width,
-                flex: 1,
-                justifyContent: 'flex-start',
-                alignItems: 'center'
-            }}
-        >
+        <View style={styles.mainContainer}>
 
-            <View
-                style={{
-                    alignSelf: 'flex-start',
-                    position: 'absolute',
-                    top: 14,
-                    left: props.paddingHorizontal,
-                    height: props.trackHeight,
-                    backgroundColor: '#4AA5FF',
-                    borderRadius: props.trackHeight,
-                    width: width - props.paddingHorizontal * 3,
-                }}
-            />
+            <View style={blueBackgroundLine}/>
+            <View style={whiteBackgroundLine}/>
 
-            <View
-                style={{
-                    alignSelf: 'flex-start',
-                    position: 'absolute',
-                    top: 14,
-                    right: props.paddingHorizontal,
-                    height: props.trackHeight,
-                    backgroundColor: '#F7F7F7',
-                    borderRadius: props.trackHeight,
-                    width: width - props.paddingHorizontal * 3,
-                }}
-            />
-
-            <View style={[blueDot, { left: props.paddingHorizontal * 2 + 5 + this.one_to_eight}]}/>
-            <View style={[blueDot, { left: props.paddingHorizontal * 2 + 5 + this.one_to_eight * 2}]}/>
-            <View style={[blueDot, { left: props.paddingHorizontal * 2 + 5 + this.one_to_eight * 3}]}/>
+            <View style={[styles.blueDot, {left: props.paddingHorizontal * 2 + 5 + this.one_to_eight}]}/>
+            <View style={[styles.blueDot, {left: props.paddingHorizontal * 2 + 5 + this.one_to_eight * 2}]}/>
+            <View style={[styles.blueDot, {left: props.paddingHorizontal * 2 + 5 + this.one_to_eight * 3}]}/>
 
             <Slider
                 width={width - props.paddingHorizontal * 4}
@@ -133,11 +102,6 @@ const CustomSlider = (props) => {
                     borderColor: '#FFFFFF',
                     borderWidth: props.knobSize - props.innerKnobSize,
                     backgroundColor: '#4AA5FF',
-                }}
-                style={{
-                    // paddingHorizontal: 30
-                    // position: 'absolute',
-                    // bottom: 0,
                 }}
                 minimumTrackTintColor="#4AA5FF"
                 maximumTrackTintColor="#4AA5FF"
@@ -167,17 +131,18 @@ CustomSlider.defaultProps = {
 
 CustomSlider.propTypes = {
     paddingHorizontal: PropTypes.number.isRequired,
-   // width: PropTypes.number.isRequired,
     step: PropTypes.number.isRequired,
     maximumValue: PropTypes.number.isRequired,
     onValueChange: PropTypes.func,
     knobSize: PropTypes.number,
     innerKnobSize: PropTypes.number,
     trackHeight: PropTypes.number,
-    // gradationData: PropTypes.shape({
-    //     position: PropTypes.number.isRequired,
-    //     image: PropTypes.object,
-    // })
+    gradationData: PropTypes.arrayOf(
+        PropTypes.shape({
+            text: PropTypes.object.isRequired,
+            image: PropTypes.number,
+        }),
+    )
 };
 
 export default CustomSlider;

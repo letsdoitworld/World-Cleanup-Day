@@ -137,8 +137,6 @@ class CreateMarker extends React.Component {
             }
             this.congratsTimeout = undefined;
         }, 4000);
-
-        this.handleBackPress = this.handleBackPress.bind(this);
         this.handleTrashpointCreate = _.debounce(
             this.handleTrashpointCreate,
             2000,
@@ -228,15 +226,6 @@ class CreateMarker extends React.Component {
         });
     };
 
-    handleBackPress() {
-        // const { navigation } = this.props;
-        // navigation.dispatch(NavigationActions.reset({
-        //   index: 0,
-        //   actions: [NavigationActions.navigate({ routeName: 'Tabs' })]
-        // }));
-        return true;
-    }
-
     handleEditLocationPress = () => {
         const {initialLocation, status, address} = this.state;
         this.props.navigator.push({
@@ -316,10 +305,9 @@ class CreateMarker extends React.Component {
 
     validate() {
         const {photos, trashCompositionTypes} = this.state;
-        if (
-            !photos ||
-            photos.length === 0 ||
-            !trashCompositionTypes.find(type => type.selected)
+        if (!photos
+            || photos.length === 0
+            || !trashCompositionTypes.find(type => type.selected)
         ) {
             this.showValidation(strings.label_error_saveTP_pic_and_type);
             return false;
@@ -353,30 +341,6 @@ class CreateMarker extends React.Component {
                 photos,
             );
 
-        });
-    };
-
-    showSuccessAlert = () => {
-        MessageBarManager.showAlert({
-            title: strings.label_alert_createTP_success,
-            alertType: 'success',
-            avatar: ALERT_CHECK_IMG,
-            duration: 4000,
-            viewTopInset: Platform.select({
-                android: StatusBar.currentHeight,
-                ios: 15,
-            }),
-            stylesheetSuccess: {
-                strokeColor: 'transparent',
-                backgroundColor: '#3e8ede',
-                width: getWidthPercentage(320),
-                height: getHeightPercentage(50),
-            },
-            titleStyle: {
-                color: 'white',
-                fontSize: 15,
-                // fontFamily: 'noto-sans-bold',
-            },
         });
     };
 
@@ -462,17 +426,10 @@ class CreateMarker extends React.Component {
         if (!congratsShown) {
             return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)}/>;
         }
-        const label = {
-            textAlign: 'center',
-            fontFamily: 'Lato-Bold',
-            fontSize: 12,
-            color: 'rgb(123, 125, 128)',
-            letterSpacing: 0.4
-        };
         return (
             <ScrollView
                 pointerEvents={this.isProgressEnabled() ? 'none' : 'auto'}
-                style={{backgroundColor: 'white'}}>
+                style={styles.scrollView}>
                 <AlertModal
                     visible={validation}
                     title={strings.label_error_saveTP_subtitle}
@@ -492,12 +449,7 @@ class CreateMarker extends React.Component {
                     onChange={this.handleStatusChanged}
                 />
                 {this.renderSectionHeader(strings.label_text_select_trash_amount)}
-                <View style={{
-                    height: 110,
-                    backgroundColor: 'rgb(216, 216, 216)',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                }}>
+                <View style={styles.selectTrashPointTypeContainer}>
                     <CustomSlider
                         paddingHorizontal={20}
                         maximumValue={3}
@@ -510,7 +462,7 @@ class CreateMarker extends React.Component {
                             text:
                                 <Text
                                     key={strings.label_handful}
-                                    style={[label, amount >= 0 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    style={[styles.label, amount >= 0 ? {color: 'rgb(0, 143, 223)'} : {}]}>
                                     {strings.label_handful}
                                 </Text>
                         }, {
@@ -520,7 +472,7 @@ class CreateMarker extends React.Component {
                             text:
                                 <Text
                                     key={strings.label_bagful}
-                                    style={[label, amount >= 1 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    style={[styles.label, amount >= 1 ? {color: 'rgb(0, 143, 223)'} : {}]}>
                                     {strings.label_bagful}
                                 </Text>
                         }, {
@@ -530,7 +482,7 @@ class CreateMarker extends React.Component {
                             text:
                                 <Text
                                     key={strings.label_cartload}
-                                    style={[label, amount >= 2 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    style={[styles.label, amount >= 2 ? {color: 'rgb(0, 143, 223)'} : {}]}>
                                     {strings.label_cartload}
                                 </Text>
                         }, {
@@ -540,7 +492,7 @@ class CreateMarker extends React.Component {
                             text:
                                 <Text
                                     key={strings.label_truck}
-                                    style={[label, amount >= 3 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    style={[styles.label, amount >= 3 ? {color: 'rgb(0, 143, 223)'} : {}]}>
                                     {strings.label_truck}
                                 </Text>
                         }]}
@@ -552,12 +504,7 @@ class CreateMarker extends React.Component {
                     onTagSelect={this.handleTrashCompositionTypeSelect.bind(this)}
                 />
                 {this.renderSectionHeader(strings.label_add_additional_tags)}
-                <View style={{
-                    height: 44,
-                    flex: 1,
-                    flexDirection: 'row',
-                    alignItems: 'center'
-                }}>
+                <View style={styles.additionalTagsContainer}>
                     <TextInput
                         style={styles.hashtagInput}
                         placeholderStyle={styles.hashtagInputPlaceholder}
@@ -584,10 +531,7 @@ class CreateMarker extends React.Component {
                         onAddPress={this.handlePhotoAdd.bind(this)}
                     />
                 </View>
-                <View style={{
-                    flex: 1,
-                    backgroundColor: '#eeeeee'
-                }}>
+                <View style={styles.createTrashPointButtonContainer}>
                     <TouchableOpacity
                         onPress={this.handleTrashpointCreate.bind(this)}
                         style={styles.confirmButton}

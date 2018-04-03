@@ -159,4 +159,30 @@ export default EStyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
+    selectTrashPointTypeContainer: {
+        height: 110,
+        backgroundColor: 'rgb(216, 216, 216)',
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    additionalTagsContainer: {
+        height: 44,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    createTrashPointButtonContainer: {
+        flex: 1,
+        backgroundColor: '#eeeeee'
+    },
+    label: {
+        textAlign: 'center',
+        fontFamily: 'Lato-Bold',
+        fontSize: 12,
+        color: 'rgb(123, 125, 128)',
+        letterSpacing: 0.4
+    },
+    scrollView: {
+        backgroundColor: 'white'
+    }
 });

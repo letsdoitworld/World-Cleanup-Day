@@ -1,27 +1,21 @@
-import { call, put, take } from 'redux-saga/effects';
-import {
-    LOAD_EVENT,
-} from '../types/events';
+import {call, put, take} from 'redux-saga/effects';
+import {LOAD_EVENT,} from '../types/events';
 
-import {SEARCH_EVENTS_ACTION, LOAD_EVENTS_FOR_MAP_ACTION} from '../actions/events';
 import {
-    controlProgress,
-    setErrorMessage,
-    fetchDatasetUIIDAction,
-} from '../actions/app';
-import {
-    searchEventsAction,
-    searchEventsErrorAction,
-    searchEventsSuccessAction,
-    loadEventSuccess,
+    LOAD_EVENTS_FOR_MAP_ACTION,
+    LOAD_EVENTS_FROM_CLUSTER_ACTION,
     loadEventError,
-    loadEventsForMapSuccess,
     loadEventsForMapError,
-    showNewDeltaAction,
+    loadEventsForMapSuccess,
+    loadEventSuccess,
+    SEARCH_EVENTS_ACTION,
+    searchEventsSuccessAction,
+    SET_NEW_DELAY,
+    showNewDeltaAction
 } from '../actions/events';
+import {controlProgress, setErrorMessage,} from '../actions/app';
 
 import Api from '../../api';
-import {datasetUUID} from "../selectors";
 
 function* searchEvents(query, page, pageSize, location) {
     try {
@@ -73,9 +67,26 @@ export function* getMapEventsFlow() {
         try {
             const newDelta = yield call(Api.events.calculateDelta, payload.viewPortLeftTopCoordinate,
                 payload.viewPortRightBottomCoordinate, payload.delta);
+            console.log("Delta getMapEventsFlow", payload.delta);
+            yield put(showNewDeltaAction(newDelta));
             const response = yield call(Api.events.fetchAllEventMarkers, payload.viewPortLeftTopCoordinate,
                 payload.viewPortRightBottomCoordinate, payload.delta, payload.datasetId);
-            //yield put(showNewDeltaAction(newDelta));
+            yield put(loadEventsForMapSuccess(response))
+        } catch (error) {
+            console.log("getMapEventsFlow error", error);
+            yield put(loadEventsForMapError(error));
+        }
+
+
+    }
+}
+
+export function* fetchDataFromOneClusterFlow() {
+    while (true) {
+        const { payload } = yield take(LOAD_EVENTS_FROM_CLUSTER_ACTION);
+        try {
+            const response = yield call(Api.events.fetchClustersList, payload.cellSize,
+                payload.coordinates, payload.clusterId, payload.datasetId, payload.markers);
             yield put(loadEventsForMapSuccess(response))
         } catch (error) {
             console.log("getMapEventsFlow error", error);

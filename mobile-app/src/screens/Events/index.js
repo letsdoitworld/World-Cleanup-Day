@@ -2,23 +2,23 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 
 import {
-    searchEventsAction,
     clearEventsAction,
     loadEventsForMapAction,
+    loadEventsFromClusterAction,
+    searchEventsAction,
 } from '../../store/actions/events';
 
-import {
-    fetchDatasetUIIDAction,
-} from '../../store/actions/app';
+import {fetchDatasetUIIDAction,} from '../../store/actions/app';
 
 import {
-    getEventsEntity,
+    datasetUUID,
     getCoordUser,
+    getEventsEntity,
+    getMapEventsEntity,
     isAuthenticated,
     isLoading,
     isPrivateProfile,
-    getMapEventsEntity,
-    datasetUUID,
+    showNewDeltaEntity,
 } from '../../store/selectors';
 
 import Component from './Events';
@@ -28,6 +28,7 @@ const selector = createStructuredSelector({
     events: getEventsEntity,
     userCoord: getCoordUser,
     mapEvents: getMapEventsEntity,
+    delta: showNewDeltaEntity,
     isAuthenticated,
     isLoading,
     isPrivateProfile,
@@ -40,6 +41,7 @@ const actions = {
     onGuestLogIn: guestLogIn,
     onLoadMapEventsAction: loadEventsForMapAction,
     onFetchDatasetUUIDAction: fetchDatasetUIIDAction,
+    onLoadEventsFromClusterAction: loadEventsFromClusterAction,
 };
 
 export default connect(selector, actions)(Component);

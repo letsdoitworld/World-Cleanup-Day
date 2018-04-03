@@ -163,6 +163,7 @@
     <orderEntry type="module" module-name="react-native-navigation" exported="" />
     <orderEntry type="module" module-name="react-native-fbsdk" exported="" />
     <orderEntry type="module" module-name="react-native-localization" exported="" />
+    <orderEntry type="module" module-name="react-native-filesystem" exported="" />
     <orderEntry type="module" module-name="react-native-image-crop-picker" exported="" />
     <orderEntry type="module" module-name="react-native-maps" exported="" />
     <orderEntry type="module" module-name="react-native-vector-icons" exported="" />

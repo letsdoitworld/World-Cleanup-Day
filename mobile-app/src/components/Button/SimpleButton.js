@@ -1,18 +1,20 @@
 import React from 'react';
-import { TouchableHighlight, Text } from 'react-native';
+import {TouchableHighlight, Text, View} from 'react-native';
 
 import styles from './styles';
 
 export const SimpleButton = ({onPress, text, textStyles = {}}) => {
   return (
-    <TouchableHighlight
-      style={styles.container}
-      onPress={onPress}
-      underlayColor='transparent'>
-      <Text style={[styles.text, textStyles]}>
-        {text}
-      </Text>
-    </TouchableHighlight>
+      <View>
+        <TouchableHighlight
+          style={styles.container}
+          onPress={onPress}
+          underlayColor='transparent'>
+          <Text style={[styles.text, textStyles]}>
+            {text}
+          </Text>
+        </TouchableHighlight>
+      </View>
   );
 };
 

@@ -158,6 +158,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-filesystem')
     compile project(':react-native-vector-icons')
     compile project(':react-native-navigation')
     compile project(':react-native-localization')

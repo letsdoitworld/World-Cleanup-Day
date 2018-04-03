@@ -71,10 +71,9 @@ export default class Marker extends Component {
                 }
             }
         }
-
         return (
             <MapView.Marker
-                coordinate={marker.location}
+                coordinate={marker.latlng}
                 onPress={onMarkerPress}
                 style={!marker.isTrashpile ? {zIndex: 2} : null}
                 image={markerImage}

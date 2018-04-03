@@ -13,6 +13,7 @@ const declareConstants = (obj, constants) => {
 const declareStatusConstants = (c) => declareConstants(c, {
     STATUS_REGULAR: 'regular',
     STATUS_URGENT: 'urgent',
+    STATUS_THREAT: 'threat',
     STATUS_CLEANED: 'cleaned',
     STATUS_OUTDATED: 'outdated',
 });
@@ -153,7 +154,7 @@ declareConstants(Trashpoint, {
     AMOUNT_HANDFUL: 'handful',
     AMOUNT_BAGFUL: 'bagful',
     AMOUNT_CARTLOAD: 'cartload',
-    AMOUNT_TRUCK: 'truck',
+    AMOUNT_TRUCKLOAD: 'truckload',
 });
 declareConstants(Trashpoint, {
     COMPOSITION_GLASS: 'glass',

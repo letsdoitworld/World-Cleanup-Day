@@ -1,13 +1,5 @@
-import React, { PureComponent } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  ActivityIndicator,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import React, {PureComponent} from 'react';
+import {ActivityIndicator, Image, Linking, ScrollView, Text, TouchableOpacity, View,} from 'react-native';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
@@ -16,30 +8,18 @@ import toUpper from 'lodash/toUpper';
 import isEmpty from 'lodash/isEmpty';
 
 import strings from '../../assets/strings';
-import { Icons } from '../../assets/images';
-import {
-    Icon,
-    Map,
-    ReadMore,
-    Button,
-} from '../../components';
+import {Icons} from '../../assets/images';
+import {Button, Icon, Map, ReadMore,} from '../../components';
 
-import { DEFAULT_ZOOM } from '../../shared/constants';
+import {DEFAULT_ZOOM} from '../../shared/constants';
 
 import MainButton from '../../components/Buttons/MainButton';
 
-import { EVENTS_TRASHPOINTS_SCREEN } from '../index';
+import {EVENTS_TRASHPOINTS_SCREEN} from '../index';
 
 import styles from './styles';
 
-import {
-  navigatorStyle,
-  navigatorButtons,
-  calendarConfig,
-  trashpoints,
-  backId,
-  placeholder,
-} from './config';
+import {backId, calendarConfig, navigatorButtons, navigatorStyle, placeholder, trashpoints,} from './config';
 
 class EventDetails extends PureComponent {
 
@@ -110,16 +90,22 @@ class EventDetails extends PureComponent {
   }
 
   handleRenderButton() {
-    return (
-      <View style={styles.buttonContainer}>
-        <MainButton
-          isValid
-          text={strings.lable_join_event}
-          style={styles.button}
-          onPress={this.handleEventJoin}
-        />
-      </View>
-    );
+    const { event, profile } = this.props;
+
+    if (!profile) return;
+
+    if (event.createdBy === profile.id) {
+      return (
+        <View style={styles.buttonContainer}>
+          <MainButton
+            isValid
+            text={strings.lable_join_event}
+            style={styles.button}
+            onPress={this.handleEventJoin}
+          />
+        </View>
+      );
+    }
   }
 
   handleRenderDate() {
@@ -152,6 +138,10 @@ class EventDetails extends PureComponent {
     const marker = {
       id: event.location.latitude,
       latlng: {
+            latitude: event.location.latitude,
+            longitude: event.location.longitude,
+      },
+      location: {
         latitude: event.location.latitude,
         longitude: event.location.longitude,
       },
@@ -193,13 +183,10 @@ class EventDetails extends PureComponent {
   }
 
   handleRenderTrashpoints() {
-    const { event } = this.props;
-
-    const Wrapper = isEmpty(event.trashpoints) ? View : TouchableOpacity;
     const navigation = { type: trashpoints };
 
     return (
-      <Wrapper
+      <TouchableOpacity
         onPress={this.onNavigatorEvent.bind(this, navigation)}
         style={styles.trashpointsContainer}
       >
@@ -209,7 +196,7 @@ class EventDetails extends PureComponent {
           {this.handleRenderCircle()}
           <Icon path={Icons.Back} iconStyle={styles.arrowIcon} />
         </View>
-      </Wrapper>
+      </TouchableOpacity>
     );
   }
 
@@ -339,7 +326,6 @@ class EventDetails extends PureComponent {
           ref={ref => this.scrollView = ref}
           scrollEventThrottle={800}
           onScroll={this.handleScroll}
-          onContentSizeChange={(contentWidth, contentHeight) => console.log('contentWidth', contentWidth, 'contentHeight', contentHeight)}
         >
           <View style={styles.container}>
             {this.handleRenderImage()}
@@ -376,6 +362,7 @@ class EventDetails extends PureComponent {
 }
 
 EventDetails.propTypes = {
+  profile: PropTypes.object,
   event: PropTypes.object,
   error: PropTypes.object,
   eventId: PropTypes.string,

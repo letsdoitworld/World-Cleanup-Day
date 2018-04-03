@@ -214,6 +214,11 @@ paths:
           in: query
           required: false
           type: string
+        - name: address
+          description: Address.
+          in: query
+          required: false
+          type: string
         - name: area
           description: Area code.
           in: query
@@ -1143,6 +1148,8 @@ definitions:
         statusCounts:
           type: object
           properties:
+            threat:
+              $ref: "#/definitions/Count"
             urgent:
               $ref: "#/definitions/Count"
             regular:
@@ -1216,15 +1223,15 @@ definitions:
   TrashStatus:
     type: string
     description: The current status of this trashpoint. If it's a cluster, the status is determined by the majority of trashpoints in it.
-    enum: [urgent, regular, cleaned, outdated]
+    enum: [threat, urgent, regular, cleaned, outdated]
   TrashCreateStatus:
     type: string
     description: The initial status of a newly created trashpoint.
-    enum: [urgent, regular]
+    enum: [threat, urgent, regular]
   TrashModifyStatus:
     type: string
     description: Change the status of the trashpoint.
-    enum: [urgent, regular, cleaned]
+    enum: [threat, urgent, regular, cleaned]
   TrashAreas:
     description: Under what geographical areas this trashpoint falls.
     type: array
@@ -1244,7 +1251,7 @@ definitions:
     description: The amount of trash.
     type: string
     minItems: 1
-    enum: [handful, bagful, cartload, truck]
+    enum: [handful, bagful, cartload, truckload]
   TrashName:
     type: string
     minLength: 1

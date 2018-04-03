@@ -16,18 +16,31 @@ export default EStyleSheet.create({
         height: 75,
     },
     hashtagInput: {
-        height: getHeightPercentage(35),
-        width: getWidthPercentage(280),
-        borderWidth: 1,
-        borderColor: '#D9D9D9',
-        borderRadius: getWidthPercentage(17),
-        paddingLeft: 20,
-        backgroundColor: '#FFFFFF',
+     //   height: 35,
+    //    width: getWidthPercentage(280),
+     //   borderRadius: getWidthPercentage(17),
+    //    paddingLeft: 20,
+     //   backgroundColor: '#FFFFFF',
+
+        textAlign: 'left',
+        fontFamily: 'Lato-Regular',
+        fontSize: 17,
+        lineHeight: 24,
+        color: 'rgb(40, 38, 51)',
+        letterSpacing: 0.4,
+        marginLeft: 16,
+        flex: 1
     },
     hashtagInputPlaceholder: {
         color: '#7D7D7D',
         // fontFamily: 'noto-sans-regular',
-        fontSize: 13,
+       // fontSize: 13,
+        textAlign: 'left',
+        fontFamily: 'Lato-Regular',
+        fontSize: 17,
+        lineHeight: 24,
+        letterSpacing: 0.4,
+        marginLeft: 16
     },
     trashtypesText: {
         // fontFamily: 'noto-sans-bold',
@@ -101,7 +114,7 @@ export default EStyleSheet.create({
     headerSection: {
         height: 38.5,
         flex: 1,
-        backgroundColor: 'rgb(216, 216, 216)',
+        backgroundColor: '#eeeeee',
         paddingLeft: 16,
         paddingTop: 16.5,
         color: 'rgb(126, 124, 132)',
@@ -112,8 +125,6 @@ export default EStyleSheet.create({
         fontFamily: 'Lato-Bold'
     },
     confirmButton: {
-        position: 'absolute',
-        bottom: 0,
         width: Dimensions.get('window').width - dimens.margin_medium * 2,
         marginHorizontal: dimens.margin_medium,
         marginBottom: dimens.margin_medium,
@@ -128,5 +139,24 @@ export default EStyleSheet.create({
         fontFamily: 'Lato-Bold',
         fontSize: 17,
         lineHeight: 21,
+    },
+    addButton: {
+        textAlign: 'left',
+        color: 'rgb(0, 143, 223)',
+        fontFamily: 'Lato-Bold',
+        fontSize: 17,
+        lineHeight: 24,
+        letterSpacing: -0.4,
+        marginRight: 16
+    },
+    spinner: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    containerContent: {
+        flex: 1,
+        justifyContent: 'center'
     },
 });

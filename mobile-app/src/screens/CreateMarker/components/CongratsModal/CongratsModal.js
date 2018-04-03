@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, View, Text, Image } from 'react-native';
+import {Modal, View, Text, Image, TouchableOpacity} from 'react-native';
 import { Button } from '../../../../components/Button';
 
 import styles from './styles';
@@ -23,11 +23,14 @@ export default class CongratsModal extends React.Component {
                     <Text style={styles.subHeader}>
                         {strings.label_text_congrats_text}
                     </Text>
-                    <Button
-                        onPress={() => {}}
-                        style={styles.button}
-                        text={strings.label_button_continue}
-                    />
+                    <TouchableOpacity
+                        onPress={this.props.onContinuePress}
+                        style={styles.confirmButton}
+                    >
+                        <Text style={styles.confirmButtonText}>
+                            {strings.label_button_continue}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </Modal>
         );

@@ -1,13 +1,5 @@
-import React, { PureComponent } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  ActivityIndicator,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import React, {PureComponent} from 'react';
+import {ActivityIndicator, Image, Linking, ScrollView, Text, TouchableOpacity, View,} from 'react-native';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
@@ -16,30 +8,18 @@ import toUpper from 'lodash/toUpper';
 import isEmpty from 'lodash/isEmpty';
 
 import strings from '../../assets/strings';
-import { Icons } from '../../assets/images';
-import {
-    Icon,
-    Map,
-    ReadMore,
-    Button,
-} from '../../components';
+import {Icons} from '../../assets/images';
+import {Button, Icon, Map, ReadMore,} from '../../components';
 
-import { DEFAULT_ZOOM } from '../../shared/constants';
+import {DEFAULT_ZOOM} from '../../shared/constants';
 
 import MainButton from '../../components/Buttons/MainButton';
 
-import { EVENTS_TRASHPOINTS_SCREEN } from '../index';
+import {EVENTS_TRASHPOINTS_SCREEN} from '../index';
 
 import styles from './styles';
 
-import {
-  navigatorStyle,
-  navigatorButtons,
-  calendarConfig,
-  trashpoints,
-  backId,
-  placeholder,
-} from './config';
+import {backId, calendarConfig, navigatorButtons, navigatorStyle, placeholder, trashpoints,} from './config';
 
 class EventDetails extends PureComponent {
 
@@ -157,6 +137,10 @@ class EventDetails extends PureComponent {
 
     const marker = {
       id: event.location.latitude,
+      latlng: {
+            latitude: event.location.latitude,
+            longitude: event.location.longitude,
+      },
       location: {
         latitude: event.location.latitude,
         longitude: event.location.longitude,

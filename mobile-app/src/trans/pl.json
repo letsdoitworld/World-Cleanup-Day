@@ -126,5 +126,7 @@
   "label_text_about_4": "Produkt Estoński, sponsorowany przez kraj i rząd",
   "label_text_about_5": "Fundatorzy: Estońskie Ministerstwo Środowiska, Ministerstwo Spraw Zagranicznych Republiki Estonii, program Republiki Estońskiej \"Estonia100\"",
   "label_button_editTP_delete": "Usuń zaśmiecone miejsce",
-  "label_locked_account_warning": "Twoje konto zostało zablokowane. Po szczegóły skontaktuj się z administratorem."
+  "label_locked_account_warning": "Twoje konto zostało zablokowane. Po szczegóły skontaktuj się z administratorem.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

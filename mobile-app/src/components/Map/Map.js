@@ -170,15 +170,14 @@ export class Map extends Component {
 
     displayMarkers = () => {
         const {markers = [], handleOnMarkerPress} = this.props;
-        console.log("displayMarkers", markers);
         return markers
             .filter((marker) => marker !== undefined)
             .map((marker) => {
-                console.log("Marker", marker);
                 return (
                     <Marker
                         marker={marker}
                         key={marker.id}
+                        selectedItem={this.props.selectedItem.id}
                         onMarkerPress={(obj) => {
                             handleOnMarkerPress(marker)
                         }}/>

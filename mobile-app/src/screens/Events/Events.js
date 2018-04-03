@@ -161,13 +161,14 @@ class Events extends Component {
             }
             case MODE.map: {
                 return (<EventsMap
-                    //events={this.props.events}
                     location={this.props.userCoord}
                     mapEvents={mapEvents}
                     navigator={this.props.navigator}
                     onLoadMapEventsAction={this.props.onLoadMapEventsAction}
                     datasetUUIDSelector={this.props.datasetUUIDSelector}
                     onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}
+                    onLoadEventsFromClusterAction={this.props.onLoadEventsFromClusterAction}
+                    delta={this.props.delta}
                 />);
             }
             default:
@@ -264,6 +265,7 @@ Events.propTypes = {
     mapEvents: PropTypes.array,
     isLoading: PropTypes.bool,
     userCoord: PropTypes.object,
+    delta: PropTypes.array,
     isAuthenticated: PropTypes.bool,
     datasetUUIDSelector: PropTypes.string,
     onSearchEventsAction: PropTypes.func,
@@ -271,6 +273,7 @@ Events.propTypes = {
     onGuestLogIn: PropTypes.func,
     onLoadMapEventsAction: PropTypes.func,
     onFetchDatasetUUIDAction: PropTypes.func,
+    onLoadEventsFromClusterAction: PropTypes.func,
 };
 
 export default Events;

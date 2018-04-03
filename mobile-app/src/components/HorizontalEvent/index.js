@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableWithoutFeedback, View} from 'react-native';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
@@ -23,7 +23,7 @@ const HorizontalEvent = ({
                              onPress,
                              containerStyle,
                          }) => {
-    const photo = img ? {uri: img} : Icons.PlaceHolderAvatar;
+    const photo = img ? {uri: img} : Icons.PlaceHolderPhoto;
     const handleRenderParticipants = () => {
         if (!isNil(maxParticipants) && !isNil(participants)) {
             return (
@@ -47,28 +47,30 @@ const HorizontalEvent = ({
         }
     };
 
-    const TouchableWrapper = onPress ? TouchableOpacity : View;
+    const TouchableWrapper = onPress ? TouchableWithoutFeedback : View;
 
     return (
         <TouchableWrapper onPress={onPress} style={styles.container}>
-            <Image source={photo} style={styles.image}/>
-            <View style={styles.middleColumn}>
-                <Text style={styles.title}>{title}</Text>
-                <View>
-                    {coordinator &&
-                    <View style={styles.coordinatorContainer}>
-                        <Icon path={Icons.GroupPeople} containerStyle={styles.icon}/>
-                        <Text style={styles.coordinatorText}>{coordinator}</Text>
+            <View style={styles.container}>
+                <Image source={photo} style={styles.image}/>
+                <View style={styles.middleColumn}>
+                    <Text style={styles.title}>{title}</Text>
+                    <View>
+                        {coordinator &&
+                        <View style={styles.coordinatorContainer}>
+                            <Icon path={Icons.GroupPeople} containerStyle={styles.icon}/>
+                            <Text style={styles.coordinatorText}>{coordinator}</Text>
+                        </View>
+                        }
+                        {handleRenderCountry()}
                     </View>
-                    }
-                    {handleRenderCountry()}
                 </View>
-            </View>
-            <View style={styles.rightColumn}>
-                {handleRenderParticipants()}
-                <Text style={styles.dateText}>
-                    {moment(date).format('DD.MM.YYYY')}
-                </Text>
+                <View style={styles.rightColumn}>
+                    {handleRenderParticipants()}
+                    <Text style={styles.dateText}>
+                        {moment(date).format('DD.MM.YYYY')}
+                    </Text>
+                </View>
             </View>
         </TouchableWrapper>
     );

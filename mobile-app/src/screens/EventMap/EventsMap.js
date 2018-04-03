@@ -7,6 +7,7 @@ import {renderItem} from '../Events/List/ListItem/ListItem';
 import {HorizontalEvent} from "../../components/index";
 import strings from "../../config/strings";
 import {EVENT_DETAILS_SCREEN} from "../index";
+import _ from 'lodash';
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -17,7 +18,6 @@ export default class EventsMap extends Component {
     static navigatorStyle = styles.navigatorStyle;
 
     marked = new Map();
-
 
     constructor(props) {
         super(props);
@@ -69,10 +69,8 @@ export default class EventsMap extends Component {
         }
     }
 
-
-
     componentWillReceiveProps (nextProps) {
-        console.log("componentWillReceiveProps", nextProps.mapEvents);
+        //console.log("componentWillReceiveProps", nextProps.mapEvents);
 
             this.setState(previousState => {
                 return {
@@ -82,16 +80,16 @@ export default class EventsMap extends Component {
     }
 
     onCheckedChanged(checked, item) {
-        if (checked) {
-            this.marked.set(item.id, item)
-        } else {
-            this.marked.delete(item.id)
-        }
+        // if (checked) {
+        //     this.marked.set(item.id, item)
+        // } else {
+        //     this.marked.delete(item.id)
+        // }
 
         const markers = this.props.mapEvents.map((mapEvents) => {
             return {
                 id: mapEvents.id,
-                latlng: mapEvents.location,
+                location: mapEvents.location,
                 item: mapEvents
             }
         });
@@ -109,6 +107,12 @@ export default class EventsMap extends Component {
             marker => marker.id === event.id,
         );
 
+        this.setState(previousState => {
+            return {
+                selectedItem: marker
+            };
+        });
+
         if (!marker.isTrashpile) {
             return;
         }
@@ -122,16 +126,18 @@ export default class EventsMap extends Component {
                     return this.setState({
                         updateRegion: false
                     }, () => {
-                        // this.props.fetchClusterTrashpoints(
-                        //     this.props.delta.cellSize,
-                        //     marker.coordinates,
-                        //     marker.id
-                        // );
+                        this.props.onLoadEventsFromClusterAction({
+                            cellSize: this.props.delta.cellSize,
+                            coordinates: marker.coordinates,
+                            clusterId: marker.id,
+                            datasetId: this.props.datasetUUIDSelector,
+                            markers: this.props.mapEvents
+                        });
                     });
                 }
                 const region = {
                     ...this.props.delta,
-                    ...marker.latlng,
+                    ...marker.location,
                 };
                 this.map.animateToRegion(region, 100);
             }
@@ -213,7 +219,7 @@ export default class EventsMap extends Component {
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
 
         let listEvents = [];
-        if (mapEvents) {
+        if (mapEvents && mapEvents !== undefined) {
             listEvents = mapEvents.filter((event) => event.count === undefined);
         }
 
@@ -227,6 +233,7 @@ export default class EventsMap extends Component {
                 initialRegion={initialRegion}
                 style={styles.map}
                 handleOnMarkerPress={this.onPressMarker}
+                selectedItem={selectedItem.id}
                 getRef={(map) => this.map = map}>
 
                 </MapView>

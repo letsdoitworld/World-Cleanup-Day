@@ -50,7 +50,7 @@ export default class Marker extends Component {
 
         let markerImage;
         if (marker.status === undefined || marker.status === null) {
-            if (marker.isMarked === true || marker.isMarked === undefined) {
+            if (marker.isMarked === true || this.props.selectedItem === marker.id || marker.isMarked === undefined) {
                 markerImage = require('../../assets/images/icLocationPinActive.png')
             } else {
                 markerImage = require('../../assets/images/icLocationPinInactive.png')

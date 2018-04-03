@@ -66,14 +66,13 @@ class PhotoComponent extends React.Component {
     const { photo, onPress } = this.props;
     const { showingConfirm } = this.state;
 
-    console.log(photo)
-
     return(
         <View
             key={photo}
             style={[styles.photo]}
         >
             <LazyImage
+                resizeMode='cover'
                 style={[styles.photo]}
                 source={{ uri: photo }}
             />
@@ -118,9 +117,6 @@ export default class PhotoPicker extends React.Component {
           maxPhotos && hasPhotos && photos.length < maxPhotos;
       return (
           <View style={styles.container}>
-              <Text style={styles.title}>
-                  {title || strings.label_text_createTP_add_photos}
-              </Text>
               <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}

@@ -18,6 +18,7 @@ export default class LocationPicker extends React.Component {
         const latitudeDelta = DEFAULT_ZOOM;
         const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
         const marker = {
+            id: 0,
             latlng: {latitude, longitude},
             status,
         };

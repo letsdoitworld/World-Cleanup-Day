@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { FlatList, UIManager, View } from 'react-native';
+import React, {Component} from 'react';
+import {FlatList, UIManager, View} from 'react-native';
 import styles from './styles';
-import { Map as MapView } from '../../components';
-import { MIN_ZOOM } from '../../shared/constants';
-import { renderItem } from '../Events/List/ListItem/ListItem';
-import { HorizontalEvent } from '../../components/index';
+import {Map as MapView} from '../../components';
+import {MIN_ZOOM} from '../../shared/constants';
+import {renderItem} from '../Events/List/ListItem/ListItem';
+import {HorizontalEvent} from '../../components/index';
 import strings from '../../config/strings';
-import { EVENT_DETAILS_SCREEN } from '../index';
+import {EVENT_DETAILS_SCREEN} from '../index';
 
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
@@ -94,7 +94,7 @@ export default class EventsMap extends Component {
     const markers = this.props.mapEvents.map((mapEvents) => {
       return {
         id: mapEvents.id,
-        location: mapEvents.location,
+        latlng: mapEvents.location,
         item: mapEvents,
       };
     });
@@ -107,7 +107,7 @@ export default class EventsMap extends Component {
   }
 
   onPressMarker = (event) => {
-      console.log('Event', event)
+      //console.log('Event', event)
     const marker = this.state.mapEvents.find(
             marker => marker.id === event.id,
         );
@@ -198,9 +198,10 @@ export default class EventsMap extends Component {
   keyExtractor = (item, index) => item.id.toString();
 
   renderItem(event) {
+      const coverPhoto = event.photos && event.photos[0];
     return (
       <HorizontalEvent
-        img={event.photo}
+        img={coverPhoto}
         title={event.name}
         coordinator={event.coordinator}
         date={event.createDate}
@@ -230,19 +231,27 @@ export default class EventsMap extends Component {
   render() {
     const { initialRegion } = this.props;
     const { selectedItem, mapEvents } = this.state;
+    //console.log("Render map events ", mapEvents);
 
     const checked = this.handleSelectStatus(selectedItem);
 
     let listEvents = [];
+    let markers = [];
     if (mapEvents && mapEvents !== undefined) {
       listEvents = mapEvents.filter(event => event.count === undefined);
+        markers  = mapEvents.map((mapEvents) => {
+            return {
+                ...mapEvents,
+                latlng: mapEvents.location,
+            };
+        });
     }
 
     return (
       <View style={styles.container}>
         <MapView
           onRegionChangeComplete={this.handleOnRegionChangeComplete}
-          markers={mapEvents}
+          markers={markers}
           initialRegion={initialRegion}
           style={styles.map}
           handleOnMarkerPress={this.onPressMarker}

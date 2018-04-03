@@ -45,7 +45,7 @@ import {
 import _ from 'lodash';
 import styles from './styles';
 import CongratsModal from "./components/CongratsModal/CongratsModal";
-import {geocodeCoordinates} from "../../shared/geo";
+import {geocodeCoordinates, getCurrentPosition} from "../../shared/geo";
 import ImagePicker from "react-native-image-crop-picker";
 import {ADD_LOCATION, CREATE_MARKER} from "../index";
 
@@ -119,16 +119,23 @@ class CreateMarker extends React.Component {
             address: {},
             disableCreateTrashpointButton: false,
             locationSetByUser: false,
+            isCreateButtonPressed: false
         };
 
         this.state = state;
 
         this.closeValidationButton = {
             text: strings.label_button_acknowledge,
-            onPress: this.hideValidation,
-            style: {
-                marginHorizontal: 30
-            }
+            onPress: this.hideValidation
+        };
+
+        this.successCancelButton = {
+            text: strings.label_button_cancel,
+            onPress: this.successCancel.bind(this)
+        };
+        this.successAddButton = {
+            text: strings.label_add,
+            onPress: this.successAddAnotherTrashPoint.bind(this)
         };
 
         this.congratsTimeout = setTimeout(() => {
@@ -160,6 +167,44 @@ class CreateMarker extends React.Component {
         }
     }
 
+    async successAddAnotherTrashPoint() {
+        const image = await ImagePicker.openCamera({
+            compressImageQuality: 0.2,
+            cropping: true,
+            includeBase64: true
+        });
+        const {width, height, data, path } = image;
+        const uri = path;
+        const base64 = data;
+
+        const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height
+        });
+
+        const { coords } = await getCurrentPosition({
+            enableHighAccuracy: false,
+            timeout: 10 * 1000,
+            maximumAge: 60 * 1000
+        });
+
+        this.props.navigator.pop();
+
+        this.props.navigator.push({
+            screen: CREATE_MARKER,
+            title: strings.label_button_createTP_confirm_create,
+            passProps: {
+                photos: [{ uri, thumbnail: { base64: thumbnailBase64 },  base64}],
+                coords: coords,
+            }
+        })
+    }
+
+    successCancel() {
+        this.props.navigator.pop()
+    }
+
     async componentWillMount() {
         await this.fetchAddressAsync();
 
@@ -179,28 +224,34 @@ class CreateMarker extends React.Component {
             this.fetchAddressAsync().catch()
         }
 
-        if (this.props.createTrashPoint.success) {
-            Alert.alert(
-                strings.label_thank_you_for_contr,
-                strings.label_add_more_trashpoints,
-                [
-                    {text: strings.label_button_cancel, onPress: () => {this.props.navigator.pop()}, style: 'cancel'},
-                    {text: strings.label_add, onPress: () => {
-                        this.props.navigator.resetTo({
-                            screen: CREATE_MARKER,
-                            title: strings.label_button_createTP_confirm_create,
-                            passProps: {
-                                photos: this.props.photos,
-                                coords: this.props.coords,
-                            }
-                        })}},
-                ],
-                { cancelable: false }
-           )
-        }
+        // if (this.props.createTrashPoint.success) {
+        //     Alert.alert(
+        //         strings.label_thank_you_for_contr,
+        //         strings.label_add_more_trashpoints,
+        //         [
+        //             {text: strings.label_button_cancel, onPress: () => {this.props.navigator.pop()}, style: 'cancel'},
+        //             {text: strings.label_add, onPress: () => {
+        //                 this.props.navigator.resetTo({
+        //                     screen: CREATE_MARKER,
+        //                     title: strings.label_button_createTP_confirm_create,
+        //                     passProps: {
+        //                         photos: this.props.photos,
+        //                         coords: this.props.coords,
+        //                     }
+        //                 })}},
+        //         ],
+        //         { cancelable: false }
+        //    )
+        // }
 
         if (this.props.createTrashPoint.error) {
-            alert(this.props.createTrashPoint.error)
+            alert(this.props.createTrashPoint.error);
+            this.setState(previousState => {
+                return {
+                    ...previousState,
+                    isCreateButtonPressed: false
+                };
+            });
         }
     }
 
@@ -329,7 +380,13 @@ class CreateMarker extends React.Component {
             return;
         }
 
-        this.setState({disableCreateTrashpointButton: true}, () => {
+        this.setState(previousState => {
+            return {
+                ...previousState,
+                disableCreateTrashpointButton: true,
+                isCreateButtonPressed: true
+            }
+        }, () => {
             this.props.createTrashPointAction(
                 [...hashtags.map(t => t.label)],
                 [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
@@ -338,9 +395,8 @@ class CreateMarker extends React.Component {
                 address,
                 AMOUNT_STATUSES[amount],
                 address,
-                photos,
+                photos
             );
-
         });
     };
 
@@ -427,6 +483,7 @@ class CreateMarker extends React.Component {
             return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)}/>;
         }
         return (
+            <View>
             <ScrollView
                 pointerEvents={this.isProgressEnabled() ? 'none' : 'auto'}
                 style={styles.scrollView}>
@@ -437,6 +494,16 @@ class CreateMarker extends React.Component {
                     buttons={[this.closeValidationButton]}
                     onOverlayPress={this.hideValidation}
                 />
+                {
+                    this.props.createTrashPoint.success && this.state.isCreateButtonPressed &&
+                    <AlertModal
+                        isImageInvisible={false}
+                        visible
+                        title={strings.label_thank_you_for_contr}
+                        subtitle={strings.label_add_more_trashpoints}
+                        buttons={[this.successCancelButton, this.successAddButton]}
+                    />
+                }
                 <LocationPicker
                     onEditLocationPress={this.handleEditLocationPress}
                     value={editableLocation}
@@ -542,18 +609,18 @@ class CreateMarker extends React.Component {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+                {
+                    this.isProgressEnabled() &&
+                    <View style={styles.progressViewContainer}>
+                        {this.spinner()}
+                    </View>
+                }
+            </View>
         );
     }
 
     isProgressEnabled() {
         return this.props.isLoading;
-    }
-
-    renderProgress() {
-        if (this.isProgressEnabled()) {
-            return this.spinner();
-        }
-        return null;
     }
 
     spinner() {

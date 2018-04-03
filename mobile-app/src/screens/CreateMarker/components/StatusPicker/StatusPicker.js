@@ -40,12 +40,6 @@ export default class StatusPicker extends React.Component {
 
         return (
         <View style={styles.container}>
-            {/*<Text style={styles.header}>*/}
-                {/*{strings.label_text_createTP_status_subtitle}*/}
-            {/*</Text>*/}
-            {/*<Text style={styles.subHeader}>*/}
-                {/*{strings.label_text_createTP_status_text}*/}
-            {/*</Text>*/}
             <View style={styles.optionsContainer}>
                 {display.map(prop => {
                     const option = options[prop];

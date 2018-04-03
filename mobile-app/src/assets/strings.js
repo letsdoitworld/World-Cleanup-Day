@@ -4,6 +4,7 @@ module.exports = new LocalizedStrings({
     en: {
         trashPoints_counter: '{0} trashpoints selected',
         label_no_trashpoints_selected: 'No trashpoints selected',
+        label_no_trashpoints: 'No trashpoints',
         label_nav_bar_list: "List",
         label_nav_bar_map: "Map",
         label_add: "Add",

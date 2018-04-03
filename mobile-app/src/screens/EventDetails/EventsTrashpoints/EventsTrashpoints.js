@@ -3,12 +3,16 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
 import toString from 'lodash/toString';
+import isEmpty from 'lodash/isEmpty';
 
-import { Icons } from '../../../assets/images';
+import strings from '../../../assets/strings';
+
+import { Icons, Backgrounds } from '../../../assets/images';
 import {
     Icon,
     Trashpoint,
@@ -69,17 +73,31 @@ class EventsTrshpoints extends PureComponent {
 
   handleKeyExtractor = item => toString(item.id);
 
+  handleRenderEmptyList() {
+    return (
+      <View style={styles.emptyTrashpointsContainer}>
+        <Icon path={Backgrounds.EmptyTrashpoints} />
+        <Text style={styles.textEmptyTrashpoint}>{strings.label_no_trashpoints}</Text>
+      </View>
+    );
+  }
+
   onRenderTrashPoints = () => {
     const { trashpoints } = this.props;
-    return (
-      <FlatList
-        data={trashpoints}
-        renderItem={({ item }) => this.handleRenderTrashpoint(item)}
-        keyExtractor={this.handleKeyExtractor}
-        onEndReachedThreshold={0.5}
-        onEndReached={this.handleTrashpointsPagination}
-      />
-    );
+   
+    if (!isEmpty(trashpoints)) {
+      return (
+        <FlatList
+          data={trashpoints}
+          renderItem={({ item }) => this.handleRenderTrashpoint(item)}
+          keyExtractor={this.handleKeyExtractor}
+          onEndReachedThreshold={0.5}
+          onEndReached={this.handleTrashpointsPagination}
+        />
+      );
+    }
+  
+    return this.handleRenderEmptyList();
   };
 
   render() {

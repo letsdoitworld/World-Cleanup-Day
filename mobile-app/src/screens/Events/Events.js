@@ -245,6 +245,7 @@ class Events extends Component {
 
     render() {
         const events = this.props.mapEvents;
+        //console.log("render events", events);
         return (
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>

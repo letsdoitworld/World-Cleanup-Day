@@ -217,13 +217,21 @@ export default class EventsMap extends Component {
             listEvents = mapEvents.filter((event) => event.count === undefined);
         }
 
+        const markers = this.props.mapEvents.map((mapEvents) => {
+            return {
+                id: mapEvents.id,
+                latlng: mapEvents.location,
+                item: mapEvents
+            }
+        });
+
         const { initialRegion } = this.props;
 
         return (
             <View style={styles.container}>
                 <MapView
                 onRegionChangeComplete={this.handleOnRegionChangeComplete}
-                markers={mapEvents}
+                markers={markers}
                 initialRegion={initialRegion}
                 style={styles.map}
                 handleOnMarkerPress={this.onPressMarker}

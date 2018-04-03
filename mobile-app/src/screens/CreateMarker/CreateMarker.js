@@ -10,26 +10,21 @@ import {
     KeyboardAvoidingView,
     Platform,
     //   LinearGradient,
-    TouchableHighlight, TouchableOpacity,
+    TouchableHighlight,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
 import strings from '../../assets/strings';
 
-import {operations as appOps, selectors as appSels} from '../../reducers/app/operations';
-
-
-import {withCameraActions} from '../../services/Camera';
 import ImageService from '../../services/Image';
-import {withLoadingScreen} from '../../services/Loading';
-import {operations as locationOperations} from '../../reducers/location/operations';
-import {Button} from '../../components/Button';
 import LocationPicker from './components/LocationPicker/LocationPicker';
 import StatusPicker from './components/StatusPicker/StatusPicker';
 import {PhotoPicker} from '../../components/PhotoPicker';
-import {Divider} from '../../components';
-import {getWidthPercentage, getHeightPercentage, handleSentryError} from '../../shared/helpers';
+import {getWidthPercentage, getHeightPercentage} from '../../shared/helpers';
 import {Tags} from '../../components/Tags';
 import {AmountPicker, AMOUNT_STATUSES} from '../../components/AmountPicker';
 import {AlertModal} from '../../components/AlertModal';
@@ -40,7 +35,7 @@ import {
     AMOUNT_HASH, DEFAULT_ZOOM,
 } from '../../shared/constants';
 import {
-   // operations as trashpileOperations,
+    // operations as trashpileOperations,
     createMarker
 } from '../../reducers/trashpile/operations';
 import {
@@ -50,14 +45,9 @@ import {
 import _ from 'lodash';
 import styles from './styles';
 import CongratsModal from "./components/CongratsModal/CongratsModal";
-import {createTrashPointAction} from "../../store/actions/trashPoints";
-import {createStructuredSelector} from "reselect";
-import {getTrashPointsEntity, isLoading} from "../../store/selectors";
-import AddTrashPoints from "../AddTrashPoints/AddTrashPoints";
-import {geocodeCoordinates, getCurrentPosition} from "../../shared/geo";
-import {ADD_LOCATION} from "../index";
+import {geocodeCoordinates} from "../../shared/geo";
 import ImagePicker from "react-native-image-crop-picker";
-//import { NavigationActions } from 'react-navigation'
+import {ADD_LOCATION, CREATE_MARKER} from "../index";
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
 
@@ -80,9 +70,6 @@ const TRUCKLOAD_IMAGE_DATA = {
 
 const MAX_HASHTAGS_NO = 15;
 const GRADIENT_COLORS = ['#FFFFFF', '#F1F1F1'];
-const PADDING_SIZE20 = getWidthPercentage(20);
-const HEIGHT_SIZE15 = getHeightPercentage(15);
-const HEIGHT_SIZE20 = getHeightPercentage(20);
 
 const cancelId = 'cancelId';
 
@@ -139,6 +126,9 @@ class CreateMarker extends React.Component {
         this.closeValidationButton = {
             text: strings.label_button_acknowledge,
             onPress: this.hideValidation,
+            style: {
+                marginHorizontal: 30
+            }
         };
 
         this.congratsTimeout = setTimeout(() => {
@@ -188,20 +178,32 @@ class CreateMarker extends React.Component {
         const {address, locationSetByUser} = this.state;
         if (!wasConnected && isConnected && !locationSetByUser &&
             (!address || !address.completeAddress)) {
-            this.fetchAddressAsync();
+            this.fetchAddressAsync().catch()
         }
 
         if (this.props.createTrashPoint.success) {
-            this.props.navigator.pop()
+            Alert.alert(
+                strings.label_thank_you_for_contr,
+                strings.label_add_more_trashpoints,
+                [
+                    {text: strings.label_button_cancel, onPress: () => {this.props.navigator.pop()}, style: 'cancel'},
+                    {text: strings.label_add, onPress: () => {
+                        this.props.navigator.resetTo({
+                            screen: CREATE_MARKER,
+                            title: strings.label_button_createTP_confirm_create,
+                            passProps: {
+                                photos: this.props.photos,
+                                coords: this.props.coords,
+                            }
+                        })}},
+                ],
+                { cancelable: false }
+           )
         }
 
-        // if (this.props.createTrashPoint.success) {
-        //     this.props.navigation.pop()
-        // }
-
-        //    console.log(this.props.createTrashPoint)
-        //    console.log('this.props.createTrashPoint')
-
+        if (this.props.createTrashPoint.error) {
+            alert(this.props.createTrashPoint.error)
+        }
     }
 
     fetchAddressAsync = async (coords) => {
@@ -267,19 +269,19 @@ class CreateMarker extends React.Component {
             cropping: true,
             includeBase64: true
         });
-        const {width, height, data, path } = image;
-        const uri = path.substring('file://'.length);
+        const {width, height, data, path} = image;
+        const uri = path;
 
-        // const thumbnailBase64 = await ImageService.getResizedImageBase64({
-        //     uri,
-        //     width,
-        //     height
-        // });
+        const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height
+        });
 
         this.setState(previousState => {
             return {
                 ...previousState,
-                photos: [...previousState.photos, {uri, data, thumbnail: {base64: data}},],
+                photos: [...previousState.photos, {uri, base64: data, thumbnail: {base64: thumbnailBase64}},],
             };
         });
     };
@@ -326,7 +328,6 @@ class CreateMarker extends React.Component {
     }
 
     handleTrashpointCreate = () => {
-       // const {createMarker, navigation, setErrorMessage, t} = this.props;
         const {
             photos,
             trashCompositionTypes,
@@ -341,25 +342,23 @@ class CreateMarker extends React.Component {
         }
 
         this.setState({disableCreateTrashpointButton: true}, () => {
-           // console.log(" " + status + "  " + amount + ' ' + this.state.editableLocation + "  " + completeAddress)
-
-                this.props.createTrashPointAction(
-                        [...hashtags.map(t => t.label)],
-                        [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
-                        this.state.editableLocation,
-                        status,
-                        address,
-                        AMOUNT_STATUSES[amount],
-                        address,
-                        photos,
-                );
+            this.props.createTrashPointAction(
+                [...hashtags.map(t => t.label)],
+                [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
+                this.state.editableLocation,
+                status,
+                address,
+                AMOUNT_STATUSES[amount],
+                address,
+                photos,
+            );
 
         });
     };
 
     showSuccessAlert = () => {
         MessageBarManager.showAlert({
-            title: this.props.t('label_alert_createTP_success'),
+            title: strings.label_alert_createTP_success,
             alertType: 'success',
             avatar: ALERT_CHECK_IMG,
             duration: 4000,
@@ -388,7 +387,7 @@ class CreateMarker extends React.Component {
     };
 
     handleAddHahstag = () => {
-        const {hashtags, temporaryHashtag} = this.state;
+        const {hashtags, temporaryHashtag, trashCompositionTypes} = this.state;
 
         if (hashtags.length === MAX_HASHTAGS_NO) {
             return;
@@ -413,6 +412,7 @@ class CreateMarker extends React.Component {
         this.setState({
             hashtags: [...hashtags, ...labels.map(label => ({label}))],
             temporaryHashtag: '',
+            // trashCompositionTypes: [...trashCompositionTypes, ...labels.map(label => ({label, selected: true}))]
         });
     };
 
@@ -460,152 +460,134 @@ class CreateMarker extends React.Component {
             addHashtagTextStyle.color = GRADIENT_COLORS[1];
         }
         if (!congratsShown) {
-          return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)} />;
+            return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)}/>;
         }
-
+        const label = {
+            textAlign: 'center',
+            fontFamily: 'Lato-Bold',
+            fontSize: 12,
+            color: 'rgb(123, 125, 128)',
+            letterSpacing: 0.4
+        };
         return (
-            <KeyboardAvoidingView behavior="position">
-                <ScrollView style={{backgroundColor: '#eeeeee'}}>
-
-                    <AlertModal
+            <ScrollView
+                pointerEvents={this.isProgressEnabled() ? 'none' : 'auto'}
+                style={{backgroundColor: 'white'}}>
+                <AlertModal
                     visible={validation}
                     title={strings.label_error_saveTP_subtitle}
                     subtitle={validationText}
                     buttons={[this.closeValidationButton]}
                     onOverlayPress={this.hideValidation}
+                />
+                <LocationPicker
+                    onEditLocationPress={this.handleEditLocationPress}
+                    value={editableLocation}
+                    address={address}
+                    status={status}
+                />
+                {this.renderSectionHeader(strings.label_point_status_header)}
+                <StatusPicker
+                    value={status}
+                    onChange={this.handleStatusChanged}
+                />
+                {this.renderSectionHeader(strings.label_text_select_trash_amount)}
+                <View style={{
+                    height: 110,
+                    backgroundColor: 'rgb(216, 216, 216)',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                }}>
+                    <CustomSlider
+                        paddingHorizontal={20}
+                        maximumValue={3}
+                        step={1}
+                        onValueChange={this.handleAmountSelect}
+                        gradationData={[{
+                            image: amount >= 0
+                                ? HANDFUL_IMAGE_DATA.active
+                                : HANDFUL_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_handful}
+                                    style={[label, amount >= 0 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_handful}
+                                </Text>
+                        }, {
+                            image: amount >= 1
+                                ? BAGFUL_IMAGE_DATA.active
+                                : BAGFUL_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_bagful}
+                                    style={[label, amount >= 1 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_bagful}
+                                </Text>
+                        }, {
+                            image: amount >= 2
+                                ? CARTLOAD_IMAGE_DATA.active
+                                : CARTLOAD_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_cartload}
+                                    style={[label, amount >= 2 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_cartload}
+                                </Text>
+                        }, {
+                            image: amount >= 3
+                                ? TRUCKLOAD_IMAGE_DATA.active
+                                : TRUCKLOAD_IMAGE_DATA.default,
+                            text:
+                                <Text
+                                    key={strings.label_truck}
+                                    style={[label, amount >= 3 ? {color: 'rgb(0, 143, 223)'} : {}]}>
+                                    {strings.label_truck}
+                                </Text>
+                        }]}
                     />
-
-                    <LocationPicker
-                        onEditLocationPress={this.handleEditLocationPress}
-                        value={editableLocation}
-                        address={address}
-                        status={status}
+                </View>
+                {this.renderSectionHeader(strings.label_select_trash_type)}
+                <Tags
+                    tags={trashCompositionTypes}
+                    onTagSelect={this.handleTrashCompositionTypeSelect.bind(this)}
+                />
+                {this.renderSectionHeader(strings.label_add_additional_tags)}
+                <View style={{
+                    height: 44,
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                }}>
+                    <TextInput
+                        style={styles.hashtagInput}
+                        placeholderStyle={styles.hashtagInputPlaceholder}
+                        placeholder={strings.label_text_createTP_add_hashtags_hint}
+                        onChangeText={this.handleChangeHashtagText.bind(this)}
+                        value={temporaryHashtag}
+                        underlineColorAndroid="transparent"
+                        maxLength={25}
                     />
-                    {this.renderSectionHeader(strings.label_point_status_header)}
-                    <StatusPicker
-                        value={status}
-                        onChange={this.handleStatusChanged}
+                    <TouchableOpacity
+                        disabled={this.state.temporaryHashtag.length === 0}
+                        onPress={this.handleAddHahstag.bind(this)}>
+                        <Text style={[styles.addButton, this.state.temporaryHashtag.length > 0 ? {} : {color: 'rgb(126, 124, 132)' }]}>
+                            {strings.label_add}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                {this.renderSectionHeader(strings.label_text_createTP_add_photos.toLocaleUpperCase())}
+                <View>
+                    <PhotoPicker
+                        maxPhotos={3}
+                        photos={photos.map(({uri}) => uri)}
+                        onDeletePress={this.handlePhotoDelete.bind(this)}
+                        onAddPress={this.handlePhotoAdd.bind(this)}
                     />
-                    {this.renderSectionHeader(strings.label_text_select_trash_amount)}
-                    <View style={{
-                        backgroundColor: 'rgb(216, 216, 216)',
-                        padding: getWidthPercentage(20)
-                    }}>
-                        <View style={{flexDirection: 'column', alignItems: 'center',}}>
-                            <CustomSlider
-                                width={getWidthPercentage(264)}
-                                maximumValue={3}
-                                step={1}
-                                onValueChange={this.handleAmountSelect}
-                                gradationData={[{
-                                    position: getWidthPercentage(10.5),
-                                    image: this.state.amount >= 0 ? HANDFUL_IMAGE_DATA.active
-                                        : HANDFUL_IMAGE_DATA.default,
-                                }, {
-                                    position: getWidthPercentage(91.2),
-                                    image: this.state.amount >= 1 ? BAGFUL_IMAGE_DATA.active
-                                        : BAGFUL_IMAGE_DATA.default,
-                                }, {
-                                    position: getWidthPercentage(172),
-                                    image: this.state.amount >= 2 ? CARTLOAD_IMAGE_DATA.active
-                                        : CARTLOAD_IMAGE_DATA.default,
-                                }, {
-                                    position: getWidthPercentage(253.2),
-                                    image: this.state.amount >= 3 ? TRUCKLOAD_IMAGE_DATA.active
-                                        : TRUCKLOAD_IMAGE_DATA.default,
-                                }]}
-                            />
-                            {/*<View*/}
-                                {/*style={{*/}
-                                    {/*paddingTop: HEIGHT_SIZE20,*/}
-                                    {/*alignItems: 'center',*/}
-                                {/*}}*/}
-                            {/*>*/}
-                                {/*<Text*/}
-                                    {/*style={{*/}
-                                        {/*color: '#3E8EDE',*/}
-                                        {/*// fontFamily: 'noto-sans-bold',*/}
-                                        {/*fontSize: 13,*/}
-                                    {/*}}*/}
-                                {/*>*/}
-                                    {/*{'amount'.toUpperCase()}*/}
-                                {/*</Text>*/}
-                            {/*</View>*/}
-                        </View>
-                    </View>
-                    <View>
-                        <PhotoPicker
-                            maxPhotos={3}
-                            photos={photos.map(({uri}) => uri)}
-                            onDeletePress={this.handlePhotoDelete}
-                            onAddPress={this.handlePhotoAdd}
-                        />
-                    </View>
-                    <Divider />
-                    <Divider/>
-                    <View style={styles.tagsContainer}>
-                        <Text style={styles.trashtypesText}>
-                            {strings.label_text_createTP_select_type}
-                        </Text>
-                        <Tags
-                            tags={trashCompositionTypes}
-                            onTagSelect={this.handleTrashCompositionTypeSelect}
-                        />
-                        <Text style={[styles.trashtypesText, {marginTop: HEIGHT_SIZE15}]}>
-                            {strings.label_text_createTP_add_hashtags}
-                        </Text>
-                        <Tags tags={hashtags} onTagDelete={this.handleHashtagDelete}/>
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.hashtagInput}
-                                placeholderStyle={styles.hashtagInputPlaceholder}
-                                placeholder={strings.label_text_createTP_add_hashtags_hint}
-                                onChangeText={this.handleChangeHashtagText}
-                                value={temporaryHashtag}
-                                underlineColorAndroid="transparent"
-                                maxLength={25}
-                                onSubmitEditing={this.handleAddHahstag}
-                            />
-                        </View>
-                    </View>
-                    <Divider/>
-                    <View style={{padding: PADDING_SIZE20}}>
-                        <Text style={styles.trashtypesText}>
-                            Something extra to report
-                        </Text>
-                        <Text style={styles.notesText}>
-                            Is this garbage in a difficult place to reach, a recurring dumping
-                            zone or something else?
-                        </Text>
-                        <View style={styles.containerBtnNote}>
-                            <TouchableHighlight
-                                onPress={() => {
-                                }}
-                                underlayColor="transparent"
-                                activeOpacity={1}
-                            >
-                                <View style={[styles.addTagContainer]}>
-                                    {/*<LinearGradient*/}
-                                    {/*style={styles.addReportLinearGradient}*/}
-                                    {/*colors={GRADIENT_COLORS}*/}
-                                    {/*>*/}
-                                    {/*<Text style={styles.addTagText}>*/}
-                                    {/*Leave a note*/}
-                                    {/*</Text>*/}
-                                    {/*</LinearGradient>*/}
-                                </View>
-                            </TouchableHighlight>
-                        </View>
-                    </View>
-                    <Divider/>
-                    {/*<View style={styles.bottomContainer}>*/}
-                        {/*<Button*/}
-                            {/*style={styles.createButton}*/}
-                            {/*text={strings.label_button_createTP_confirm_create}*/}
-                            {/*onPress={this.handleTrashpointCreate}*/}
-                            {/*disabled={disableCreateTrashpointButton}*/}
-                        {/*/>*/}
-                    {/*</View>*/}
+                </View>
+                <View style={{
+                    flex: 1,
+                    backgroundColor: '#eeeeee'
+                }}>
                     <TouchableOpacity
                         onPress={this.handleTrashpointCreate.bind(this)}
                         style={styles.confirmButton}
@@ -614,16 +596,37 @@ class CreateMarker extends React.Component {
                             {strings.label_button_createTP_confirm_create}
                         </Text>
                     </TouchableOpacity>
-                </ScrollView>
-            </KeyboardAvoidingView>
+                </View>
+            </ScrollView>
+        );
+    }
+
+    isProgressEnabled() {
+        return this.props.isLoading;
+    }
+
+    renderProgress() {
+        if (this.isProgressEnabled()) {
+            return this.spinner();
+        }
+        return null;
+    }
+
+    spinner() {
+        return (
+            <ActivityIndicator
+                style={styles.spinner}
+                size="large"
+                color="rgb(0, 143, 223)"
+            />
         );
     }
 
     renderSectionHeader(text) {
-        return(
-          <Text style={styles.headerSection}>
-              {text}
-          </Text>
+        return (
+            <Text style={styles.headerSection}>
+                {text}
+            </Text>
         );
     }
 }

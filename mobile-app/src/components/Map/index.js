@@ -11,6 +11,7 @@ class Map extends Component {
 
   displayMarkers = () => {
     const { markers = [], handleOnMarkerPress } = this.props;
+
     return markers
             .filter(marker => marker !== undefined)
             .map((marker, index) => {

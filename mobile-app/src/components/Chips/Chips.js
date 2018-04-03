@@ -23,7 +23,7 @@ const style = {
     padding: 10
 };
 
-export default class TrashAmountLevel extends Component {
+export default class Chips extends Component {
 
 
     render() {

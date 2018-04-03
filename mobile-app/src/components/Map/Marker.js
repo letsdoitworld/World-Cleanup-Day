@@ -70,7 +70,7 @@ export default class Marker extends Component {
                 }
             }
         }
-
+        console.log('Coordinate', marker.location)
         return (
             <MapView.Marker
                 coordinate={marker.location}

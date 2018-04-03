@@ -224,26 +224,6 @@ class CreateMarker extends React.Component {
             this.fetchAddressAsync().catch()
         }
 
-        // if (this.props.createTrashPoint.success) {
-        //     Alert.alert(
-        //         strings.label_thank_you_for_contr,
-        //         strings.label_add_more_trashpoints,
-        //         [
-        //             {text: strings.label_button_cancel, onPress: () => {this.props.navigator.pop()}, style: 'cancel'},
-        //             {text: strings.label_add, onPress: () => {
-        //                 this.props.navigator.resetTo({
-        //                     screen: CREATE_MARKER,
-        //                     title: strings.label_button_createTP_confirm_create,
-        //                     passProps: {
-        //                         photos: this.props.photos,
-        //                         coords: this.props.coords,
-        //                     }
-        //                 })}},
-        //         ],
-        //         { cancelable: false }
-        //    )
-        // }
-
         if (this.props.createTrashPoint.error) {
             alert(this.props.createTrashPoint.error);
             this.setState(previousState => {
@@ -497,7 +477,7 @@ class CreateMarker extends React.Component {
                 {
                     this.props.createTrashPoint.success && this.state.isCreateButtonPressed &&
                     <AlertModal
-                        isImageInvisible={false}
+                        isImageInvisible={true}
                         visible
                         title={strings.label_thank_you_for_contr}
                         subtitle={strings.label_add_more_trashpoints}

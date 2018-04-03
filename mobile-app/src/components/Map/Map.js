@@ -177,7 +177,6 @@ export class Map extends Component {
                     <Marker
                         marker={marker}
                         key={marker.id}
-                        selectedItem={this.props.selectedItem.id}
                         onMarkerPress={(obj) => {
                             handleOnMarkerPress(marker)
                         }}/>

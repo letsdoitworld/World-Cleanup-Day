@@ -50,10 +50,11 @@ export default class Marker extends Component {
 
         let markerImage;
         if (marker.status === undefined || marker.status === null) {
-            if (marker.isMarked === true || this.props.selectedItem === marker.id || marker.isMarked === undefined) {
-                markerImage = require('../../assets/images/icLocationPinActive.png')
+            console.log('Comparizon', this.props.selectedItem === marker.id, 'this.props.selectedItem', this.props.selectedItem, 'marker.id', marker.id)
+            if (this.props.selectedItem === marker.id) {
+                markerImage = require('../../assets/images/icLocationPinActive.png');
             } else {
-                markerImage = require('../../assets/images/icLocationPinInactive.png')
+                markerImage = require('../../assets/images/icLocationPinInactive.png');
             }
         } else {
             if (marker.isMarked) {

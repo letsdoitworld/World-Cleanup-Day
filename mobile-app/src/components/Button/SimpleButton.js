@@ -1,24 +1,23 @@
 import React from 'react';
-import {TouchableHighlight, Text, View} from 'react-native';
+import {TouchableHighlight, Text, View, TouchableOpacity} from 'react-native';
 
 import styles from './styles';
+import strings from "../../assets/strings";
 
 export const SimpleButton = ({onPress, text, textStyles = {}}) => {
-  return (
-      <View>
-        <TouchableHighlight
-          style={styles.container}
-          onPress={onPress}
-          underlayColor='transparent'>
-          <Text style={[styles.text, textStyles]}>
-            {text}
-          </Text>
-        </TouchableHighlight>
-      </View>
-  );
+    return (
+        <TouchableOpacity
+            onPress={onPress}
+            style={styles.confirmButton}
+        >
+            <Text style={styles.confirmButtonText}>
+                {text}
+            </Text>
+        </TouchableOpacity>
+    )
 };
 
 SimpleButton.defaultProps = {
-  onPress: () => {
-  }
+    onPress: () => {
+    }
 };

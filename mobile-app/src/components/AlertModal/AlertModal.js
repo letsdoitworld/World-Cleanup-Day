@@ -11,6 +11,7 @@ import {
 import { SimpleButton } from '../Button/SimpleButton';
 
 import styles from './styles';
+import {getHeightPercentage} from "../../shared/helpers";
 
 const image = require('./images/icon_notification_warning.png');
 
@@ -22,16 +23,6 @@ const AlertModal = ({
   onOverlayPress,
   onPress,
 }) => {
-  const buttonContainerStyles = [styles.buttonContainer];
-  const containerStyles = [styles.container];
-  if (buttons.length > 0) {
-    buttonContainerStyles.push({
-      justifyContent: buttons.length === 1 ? 'center' : 'space-between',
-    });
-  } else {
-    containerStyles.push(styles.noButtonsContainer);
-  }
-
   return (
     <Modal
       onRequestClose={onOverlayPress}
@@ -40,15 +31,10 @@ const AlertModal = ({
       animationType="fade"
     >
       <TouchableWithoutFeedback onPress={onOverlayPress}>
-        <View
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            flex: 1,
-          }}
-        >
-          <View style={{ flex: 1 }}>
+        <View style={styles.background}>
+          <View style={styles.fullSize}>
             <TouchableWithoutFeedback onPress={onPress}>
-              <View style={containerStyles}>
+              <View style={styles.mainContainer}>
                 <Image
                   source={image}
                   style={styles.image}
@@ -58,11 +44,9 @@ const AlertModal = ({
                 <Text style={styles.subHeader}>
                   {subtitle}
                 </Text>
-                {buttons &&
-                  buttons.length > 0 &&
-                  <View style={buttonContainerStyles}>
-                    {buttons.map(
-                      ({ text: buttonText, onPress, style }, index) => {
+                {buttons && buttons.length > 0 &&
+                  <View style={styles.buttonsContainer}>
+                    {buttons.map(({ text: buttonText, onPress, style }, index) => {
                         return (
                           <SimpleButton
                             key={index}
@@ -73,7 +57,8 @@ const AlertModal = ({
                         );
                       },
                     )}
-                  </View>}
+                  </View>
+                }
               </View>
             </TouchableWithoutFeedback>
           </View>

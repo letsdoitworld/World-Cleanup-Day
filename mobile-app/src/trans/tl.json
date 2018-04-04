@@ -126,5 +126,7 @@
   "label_text_about_4": "Produktong Estonian, tinaguyod ng bansa at gobyerno",
   "label_text_about_5": "Mga Nag-pondo: Ministro ng Kalikasan ng Bansang Estonia, Ministro ng Ugnayang Panlabas ng Republika ng Estonia, Repulika ng Estonia 100 programa",
   "label_button_editTP_delete": "Burahin ang trashpoint",
-  "label_locked_account_warning": "Nakalock ang iyong account. Para sa mga detalye, sumangguni sa administrador."
+  "label_locked_account_warning": "Nakalock ang iyong account. Para sa mga detalye, sumangguni sa administrador.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

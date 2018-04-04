@@ -126,5 +126,7 @@
   "label_text_about_4": "Észt termék által támogatott, az ország kormány",
   "label_text_about_5": "Támogató: észt Környezetvédelmi Minisztérium, A külügyminisztérium, az Észt Köztársaság, az észt Köztársaság, 100 program",
   "label_button_editTP_delete": "Törlés trashpoint",
-  "label_locked_account_warning": "A fiók le van zárva. Részletekért lépjen kapcsolatba egy adminisztrátorral."
+  "label_locked_account_warning": "A fiók le van zárva. Részletekért lépjen kapcsolatba egy adminisztrátorral.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

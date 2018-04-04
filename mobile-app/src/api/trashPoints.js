@@ -1,8 +1,9 @@
 import Api from "../services/Api";
 import types from "../reducers/trashpile/types";
-import {API_ENDPOINTS} from "../shared/constants";
+import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH} from "../shared/constants";
 import {handleUpload} from "../reducers/trashpile/operations";
 import {fetchTrashPointsDataSets} from "./datasets";
+import {guid} from "../shared/helpers";
 
 export async function searchTrashPointsRequest(query, page, pageSize, location) {
     try {
@@ -64,9 +65,6 @@ export async function createTrashPointRequest(
             console.log(error)
         }
 
-        console.log(uploadStatus)
-        console.log('uploadStatus')
-
         return {
             data: {
                 trashpoint: {...createMarkerResponse.data},
@@ -78,7 +76,145 @@ export async function createTrashPointRequest(
     }
 }
 
+async function fetchAllTrashPointsMarkers(viewPortLeftTopCoordinate,
+                                    viewPortRightBottomCoordinate,
+                                    delta,
+                                    datasetId) {
+    try {
+
+        const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+        const body = {
+            datasetId,
+            rectangle: {
+                nw: viewPortLeftTopCoordinate,
+                se: viewPortRightBottomCoordinate,
+            },
+            cellSize,
+        };
+
+        const [markersRes, clustersRes] = await Promise.all([
+            Api.post(API_ENDPOINTS.FETCH_OVERVIEW_TRASHPOINTS, body, {
+                withToken: false,
+            }),
+            Api.post(
+                API_ENDPOINTS.OVERVIEW_TRASHPOINTS_CLUSTERS,
+                {
+                    ...body,
+                },
+                {
+                    withToken: false,
+                },
+            ),
+        ]);
+
+        let markers = [];
+
+        if (markersRes && markersRes.data && Array.isArray(markersRes.data)) {
+            markers = [
+                ...markersRes.data.map(marker => ({
+                    ...marker,
+                    position: {
+                        lat: marker.location.latitude,
+                        lng: marker.location.longitude,
+                    },
+                    isTrashpile: true,
+                })),
+            ];
+        }
+
+        if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
+            markers = [
+                ...markers,
+                ...clustersRes.data.map(cluster => ({
+                    ...cluster,
+                    position: {
+                        lat: cluster.location.latitude,
+                        lng: cluster.location.longitude,
+                    },
+                    isTrashpile: true,
+                    id: guid(),
+                })),
+            ];
+        }
+        return markers;
+    } catch (ex) {
+        throw ex;
+    }
+};
+
+function calculateCell(viewPortLeftTopCoordinate,
+                       viewPortRightBottomCoordinate,) {
+    let cellSize = 0;
+    if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
+        cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) / SCREEN_WIDTH;
+    } else {
+        cellSize = (180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 / SCREEN_WIDTH;
+    }
+    return cellSize
+}
+
+function calculateDelta(viewPortLeftTopCoordinate,
+                        viewPortRightBottomCoordinate,
+                        delta) {
+    const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+    const latitudeDelta = delta.latitudeDelta / 3;
+    const longitudeDelta = delta.latitudeDelta / 3;
+    const newDelta = {
+        latitudeDelta: latitudeDelta < MIN_ZOOM ? MIN_ZOOM : latitudeDelta,
+        longitudeDelta: longitudeDelta < MIN_ZOOM ? MIN_ZOOM : longitudeDelta,
+        cellSize
+    };
+    return newDelta;
+}
+
+async function fetchClustersList({
+                                     cellSize,
+                                     coordinates,
+                                     clusterId,
+                                     datasetId,
+                                     markers
+                                 }) {
+    try {
+
+        const body = {
+            datasetId,
+            cellSize,
+            coordinates,
+        };
+        const response = await Api.post(
+            API_ENDPOINTS.FETCH_CLUSTER_TRASHPOINTS,
+            body,
+        );
+
+        let newMarkers = [];
+        if (response && response.data && Array.isArray(response.data)) {
+            const angleBetweenPoints = 360 / response.data.length;
+            newMarkers = [
+                ...markers.filter(({id}) => id !== clusterId),
+                ...response.data.map((marker, index) => ({
+                    ...marker,
+                    location: destinationPoint(
+                        marker.location,
+                        3,
+                        index * angleBetweenPoints,
+                    ),
+                    isTrashpile: true,
+                })),
+            ]
+        }
+        return newMarkers;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
 export default {
     searchTrashPointsRequest,
-    createTrashPointRequest
+    createTrashPointRequest,
+    fetchAllTrashPointsMarkers,
+    fetchClustersList,
+    calculateDelta,
 }

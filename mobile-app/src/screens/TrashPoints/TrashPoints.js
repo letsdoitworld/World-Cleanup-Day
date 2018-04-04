@@ -14,6 +14,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {getCurrentPosition} from "../../shared/geo";
 import PropTypes from 'prop-types';
 import ImageService from "../../services/Image";
+import Events from "../Events/Events";
 //import styles from './styles';
 
 const MODE = {
@@ -191,6 +192,20 @@ class TrashPoints extends Component {
             latitude: adjustLatitude(latitude - latitudeDelta / 2),
             longitude: adjustLongitude(longitude + longitudeDelta / 2),
         };
+
+        const delta = {
+            latitudeDelta,
+            longitudeDelta,
+        };
+
+        if (this.props.datasetUUIDSelector) {
+            this.props.loadTrashPointsForMapAction({
+                datasetId: this.props.datasetUUIDSelector,
+                viewPortLeftTopCoordinate: northWest,
+                viewPortRightBottomCoordinate: southEast,
+                delta,
+            });
+        }
 
         // this.props.fetchAllMarkers(northWest, southEast, {
         //   latitudeDelta,
@@ -370,52 +385,55 @@ class TrashPoints extends Component {
 TrashPoints.propTypes = {
     country: PropTypes.object,
     onFetchLocation: PropTypes.func,
+    loadTrashPointsForMapAction: PropTypes.func,
 };
-
-const mapStateToProps = state => {
-//  console.log(state)
-//  const mapMarkers = trashpileSelectors.markersSelector(state);
-//   const mapMarkers = markersSelector(state);
-//   const userMarker = locationSelectors.userMarkerSelector(state);
-//   const locationActive = locationSelectors.hasLocationActive(state);
 //
-//   const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
-    return {
-        // markers,
-        // initialRegion: locationSelectors.initialRegionSelector(state),
-        // activeScreen: appSelectors.getActiveScreen(state),
-        // userLocation: locationSelectors.userLocationSelector(state),
-        // delta: trashpileSelectors.getLastDeltaValue(state),
-    };
-};
+// const mapStateToProps = state => {
+// //  console.log(state)
+// //  const mapMarkers = trashpileSelectors.markersSelector(state);
+// //   const mapMarkers = markersSelector(state);
+// //   const userMarker = locationSelectors.userMarkerSelector(state);
+// //   const locationActive = locationSelectors.hasLocationActive(state);
+// //
+// //   const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
+//     return {
+//         // markers,
+//         // initialRegion: locationSelectors.initialRegionSelector(state),
+//         // activeScreen: appSelectors.getActiveScreen(state),
+//         // userLocation: locationSelectors.userLocationSelector(state),
+//         // delta: trashpileSelectors.getLastDeltaValue(state),
+//     };
+// };
+//
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         // fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
+//         //   dispatch(
+//         //     trashpileOperations.fetchAllMarkers(
+//         //       northWestViewPort,
+//         //       southEastViewPort,
+//         //       delta,
+//         //     ),
+//         //   );
+//         // },
+//         // fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
+//         //   dispatch(
+//         //     trashpileOperations.fetchClusterTrashpoints({
+//         //       cellSize,
+//         //       coordinates,
+//         //       clusterId,
+//         //     }),
+//         //   );
+//         // },
+//     };
+// };
+//
+// // export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
+// export default TrashPoints;
+//
+// // export default compose(
+// //   connect(mapStateToProps, mapDispatchToProps),
+// //   withNavigationHelpers(),
+// // )(Home);
 
-const mapDispatchToProps = dispatch => {
-    return {
-        // fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
-        //   dispatch(
-        //     trashpileOperations.fetchAllMarkers(
-        //       northWestViewPort,
-        //       southEastViewPort,
-        //       delta,
-        //     ),
-        //   );
-        // },
-        // fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
-        //   dispatch(
-        //     trashpileOperations.fetchClusterTrashpoints({
-        //       cellSize,
-        //       coordinates,
-        //       clusterId,
-        //     }),
-        //   );
-        // },
-    };
-};
-
-// export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
 export default TrashPoints;
-
-// export default compose(
-//   connect(mapStateToProps, mapDispatchToProps),
-//   withNavigationHelpers(),
-// )(Home);

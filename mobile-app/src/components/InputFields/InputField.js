@@ -1,4 +1,3 @@
-
 import React, {Component} from "react";
 import {
     LayoutAnimation,
@@ -61,12 +60,6 @@ export default class InputField extends ImmutableComponent {
 
         } = this.props;
 
-        // This is a reason of this issue
-        // https://github.com/react-navigation/react-navigation/issues/2571
-        // if (this.state.data.get('text') === '') {
-        //    this.setState({ text: value })
-        // }
-
         return (
             <View style={style}>
                 <TextInput
@@ -93,7 +86,7 @@ export default class InputField extends ImmutableComponent {
         );
     }
 
-    onChangeText = (text: String) => {
+    onChangeText = (text) => {
 
         this.setData(d => d.set('text', text));
         if (this.state.data.get('text') === '') {

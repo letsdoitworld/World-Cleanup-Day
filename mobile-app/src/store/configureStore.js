@@ -27,56 +27,60 @@ import {
     searchEventsFlow,
     searchTrashPointsFlow,
     updateProfileStatusFlow,
+    getMapTrashPointsFlow,
+    fetchTrashPointsDataFromOneClusterFlow
 } from './sagas';
 
 
 export default function configureStore() {
-  let enhancer;
-  const sagaMiddleware = createSagaMiddleware();
+    let enhancer;
+    const sagaMiddleware = createSagaMiddleware();
 
 
-  if (__DEV__) {
-    enhancer = composeWithDevTools(
-      applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
-      autoRehydrate({ log: true }),
-    );
-  } else {
-    enhancer = compose(
-      applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
-      autoRehydrate({ log: true }),
-    );
-  }
+    if (__DEV__) {
+        enhancer = composeWithDevTools(
+            applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
+            autoRehydrate({log: true}),
+        );
+    } else {
+        enhancer = compose(
+            applyMiddleware(sagaMiddleware, createActionBuffer(REHYDRATE)),
+            autoRehydrate({log: true}),
+        );
+    }
 
-  const store = createStore(reducers, enhancer);
+    const store = createStore(reducers, enhancer);
 
-  persistStore(
+    persistStore(
         store,
-    {
-      storage: AsyncStorage,
-      blacklist: ['trashPoints', 'events', 'myEvents', 'errorEvent', 'createTrashPoint'],
-    },
-  );
+        {
+            storage: AsyncStorage,
+            blacklist: ['trashPoints', 'events', 'myEvents', 'errorEvent', 'createTrashPoint'],
+        },
+    );
 
-  return {
-    ...store,
-    runSaga: [
-      sagaMiddleware.run(autoRegidrateFlow),
-      sagaMiddleware.run(loginGoogleFlow),
-      sagaMiddleware.run(loginFacebookFlow),
-      sagaMiddleware.run(updateProfileStatusFlow),
-      sagaMiddleware.run(loadProfileFlow),
-      sagaMiddleware.run(logoutFlow),
-      sagaMiddleware.run(createEventFlow),
-      sagaMiddleware.run(searchTrashPointsFlow),
-      sagaMiddleware.run(searchEventsFlow),
-      sagaMiddleware.run(loadLocationFlow),
-      sagaMiddleware.run(loadMyEventsFlow),
-      sagaMiddleware.run(loadMyTrashPointsFlow),
-      sagaMiddleware.run(createTrashPointFlow),
-      sagaMiddleware.run(loadEventFlow),
-      sagaMiddleware.run(getMapEventsFlow),
-        sagaMiddleware.run(fetchDatasetFlow),
-        sagaMiddleware.run(fetchDataFromOneClusterFlow),
-    ],
-  };
+    return {
+        ...store,
+        runSaga: [
+            sagaMiddleware.run(autoRegidrateFlow),
+            sagaMiddleware.run(loginGoogleFlow),
+            sagaMiddleware.run(loginFacebookFlow),
+            sagaMiddleware.run(updateProfileStatusFlow),
+            sagaMiddleware.run(loadProfileFlow),
+            sagaMiddleware.run(logoutFlow),
+            sagaMiddleware.run(createEventFlow),
+            sagaMiddleware.run(searchTrashPointsFlow),
+            sagaMiddleware.run(searchEventsFlow),
+            sagaMiddleware.run(loadLocationFlow),
+            sagaMiddleware.run(loadMyEventsFlow),
+            sagaMiddleware.run(loadMyTrashPointsFlow),
+            sagaMiddleware.run(createTrashPointFlow),
+            sagaMiddleware.run(loadEventFlow),
+            sagaMiddleware.run(getMapEventsFlow),
+            sagaMiddleware.run(fetchDatasetFlow),
+            sagaMiddleware.run(fetchDataFromOneClusterFlow),
+            sagaMiddleware.run(getMapTrashPointsFlow),
+            sagaMiddleware.run(fetchTrashPointsDataFromOneClusterFlow),
+        ],
+    };
 }

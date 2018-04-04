@@ -126,5 +126,7 @@
   "label_text_about_4": "crwdns28426:0crwdne28426:0",
   "label_text_about_5": "crwdns28427:0crwdne28427:0",
   "label_button_editTP_delete": "crwdns28428:0crwdne28428:0",
-  "label_locked_account_warning": "crwdns28429:0crwdne28429:0"
+  "label_locked_account_warning": "crwdns28429:0crwdne28429:0",
+  "label_no_connection_note": "crwdns28486:0crwdne28486:0",
+  "label_your_coordinates": "crwdns28487:0crwdne28487:0"
 }

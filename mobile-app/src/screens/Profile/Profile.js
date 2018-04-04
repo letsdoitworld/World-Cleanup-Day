@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
-import {Alert, FlatList, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Alert, FlatList, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-import {SceneMap} from 'react-native-tab-view';
+import { SceneMap } from 'react-native-tab-view';
 
 import toString from 'lodash/toString';
 import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
 
-import {EVENT_DETAILS_SCREEN, SETTINGS_SCREEN} from '../index';
+import { EVENT_DETAILS_SCREEN, SETTINGS_SCREEN } from '../index';
 import strings from '../../config/strings';
-import {Icons} from '../../assets/images';
-import {Avatar, Button, Divider, Event, Icon, Tabs, Trashpoint,} from '../../components';
+import { Icons } from '../../assets/images';
+import { Avatar, Button, Divider, Event, Icon, Tabs, Trashpoint } from '../../components';
 
 import styles from './styles';
 
-import {navigatorStyle} from './config';
+import { navigatorStyle } from './config';
 import isEmpty from 'lodash/isEmpty';
 
 class Profile extends Component {
@@ -208,10 +208,10 @@ class Profile extends Component {
     const { trashpointsPageSize, myTrashPoints, onLoadMyTrashPoints } = this.props;
     let { trashpointsPageNumber } = this.props;
 
-      if (isEmpty(myTrashPoints)) return;
+    if (isEmpty(myTrashPoints)) return;
 
     if (!this.state.isEndTrashpointReached && !(myTrashPoints.length % trashpointsPageSize)) {
-      console.warn('In')
+      console.warn('In');
       onLoadMyTrashPoints(trashpointsPageSize, ++trashpointsPageNumber);
       this.setState({ isEndTrashpointReached: true });
     }
@@ -318,9 +318,9 @@ class Profile extends Component {
           <View style={styles.avatarContainer}>
             <Avatar path={profile && profile.pictureURL} />
             <View style={styles.userNameContainer}>
-                <Text style={styles.userNameText}>{profile && profile.name}</Text>
-                {this.handleRenderLocation()}
-              </View>
+              <Text style={styles.userNameText}>{profile && profile.name}</Text>
+              {this.handleRenderLocation()}
+            </View>
           </View>
         </View>
         <Divider />

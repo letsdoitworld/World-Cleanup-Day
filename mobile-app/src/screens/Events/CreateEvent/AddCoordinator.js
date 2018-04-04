@@ -1,18 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
-import {
-    View, TouchableOpacity, Text, ScrollView,
-    TextInput, Image, TouchableHighlight
-} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import styles from "./styles";
 import strings from "../../../assets/strings";
 import InputField from '../../../components/InputFields/InputField';
 import MainButton from '../../../components/Buttons/MainButton';
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
-import {ADD_COORDINATOR, ADD_PEOPLE_TO_EVENT} from "../../index";
+import {ADD_PEOPLE_TO_EVENT} from "../../index";
 
-import { Icons } from '../../../assets/images';
+import {Icons} from '../../../assets/images';
+import isEmpty from 'lodash/isEmpty'
 
 
 const cancelId = 'cancelId';
@@ -41,11 +39,11 @@ export default class AddCoordinator extends ImmutableComponent {
         super(props);
         this.state = {
             data: Immutable.Map({
-                isUserNameValid: false,
+                isUserNameValid: true,
                 isUserNameTextChanged: false,
                 isPhoneNumberValid: false,
                 isPhoneNumberTextChanged: false,
-                isEmailValid: false,
+                isEmailValid: true,
                 isEmailTextChanged: false,
             })
         };
@@ -73,7 +71,8 @@ export default class AddCoordinator extends ImmutableComponent {
     renderUserNameTitle() {
         const isUserNameValid = this.state.data.get('isUserNameValid');
         const isUserNameTextChanged = this.state.data.get('isUserNameTextChanged');
-        const style = (isUserNameValid && isUserNameTextChanged) || (!isUserNameValid && !isUserNameTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        const style = (isUserNameValid && isUserNameTextChanged) || (!isUserNameValid && !isUserNameTextChanged
+        || (isUserNameValid && !isUserNameTextChanged)) ? styles.titleTextStyle : styles.titleErrorTextStyle;
         return  <View style={styles.titleStyle}>
             <Text style={style}>{strings.label_coordinator.toUpperCase()}</Text>
         </View>
@@ -85,7 +84,9 @@ export default class AddCoordinator extends ImmutableComponent {
         const isEmailValid = this.state.data.get('isEmailValid');
         const isEmailTextChanged = this.state.data.get('isEmailTextChanged');
         const style = (isPhoneNumberValid && isPhoneNumberTextChanged && isEmailValid && isEmailTextChanged)
-        || (!isPhoneNumberValid && !isPhoneNumberTextChanged && !isEmailValid && !isEmailTextChanged) ? styles.titleTextStyle : styles.titleErrorTextStyle;
+        || (!isPhoneNumberValid && !isPhoneNumberTextChanged && !isEmailValid && !isEmailTextChanged)
+            || (!isPhoneNumberValid && !isPhoneNumberTextChanged && isEmailValid && !isEmailTextChanged)
+        || ( isPhoneNumberValid && isPhoneNumberTextChanged && isEmailValid && !isEmailTextChanged)? styles.titleTextStyle : styles.titleErrorTextStyle;
         return  <View style={styles.titleStyle}>
             <Text style={style}>{strings.label_contact_details.toUpperCase()}</Text>
         </View>
@@ -188,7 +189,7 @@ export default class AddCoordinator extends ImmutableComponent {
     };
 
     validateUserName = (text: String): boolean => {
-        let isValid = constants.TITLE_REGEX.test(text);
+        let isValid = constants.COORDINATOR_REGEX.test(text);
         this.setData(d => d.set('isUserNameValid', isValid));
         return isValid
     };
@@ -200,7 +201,12 @@ export default class AddCoordinator extends ImmutableComponent {
     };
 
     validateEmail = (text: String): boolean => {
-        let isValid = constants.EMAIL_REGEX.test(text);
+        let isValid;
+        if (isEmpty(text)) {
+            isValid = true;
+        } else {
+           isValid = constants.EMAIL_REGEX.test(text);
+        }
         this.setData(d => d.set('isEmailValid', isValid));
         return isValid
     };
@@ -217,15 +223,16 @@ export default class AddCoordinator extends ImmutableComponent {
                         datasetId: this.props.event.datasetId,
                         name: this.props.event.name,
                         address: this.props.event.address,
-                        startTime: this.props.event.startDate,
-                        endTime: this.props.event.endDate,
+                        startTime: this.props.event.startTime,
+                        endTime: this.props.event.endTime,
                         location: this.props.event.location,
                         description: this.props.event.description,
                         whatToBring: this.props.event.whatToBring,
                         photos: this.props.event.photos,
-                        // coordinatorName: this.userName,
+                        coordinatorName: this.userName,
                         phonenumber: this.phoneNumber,
                         email: this.email,
+                        trashpoints: this.props.event.trashpoints,
                     },
                 }
             });

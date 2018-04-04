@@ -47,10 +47,11 @@ export default class Marker extends Component {
         }
 
         let showLabel = marker.isTrashpile && marker.count > 0;
+        console.log("marker ", marker);
 
         let markerImage;
         if (marker.status === undefined || marker.status === null) {
-            console.log('Comparizon', this.props.selectedItem === marker.id, 'this.props.selectedItem', this.props.selectedItem, 'marker.id', marker.id)
+            //console.log('Comparizon', this.props.selectedItem === marker.id, 'this.props.selectedItem', this.props.selectedItem, 'marker.id', marker.id)
             if (this.props.selectedItem === marker.id) {
                 markerImage = require('../../assets/images/icLocationPinActive.png');
             } else {

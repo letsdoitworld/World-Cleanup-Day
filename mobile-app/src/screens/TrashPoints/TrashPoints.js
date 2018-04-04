@@ -23,6 +23,7 @@ const MODE = {
 };
 
 const searchId = 'searchId';
+const DEFAULT_RADIUS_M = 10000;
 
 class TrashPoints extends Component {
 
@@ -40,7 +41,24 @@ class TrashPoints extends Component {
             },
         });
 
+        const { location, onLoadMapEventsAction, mapTrashPoints } = props;
+        let userLocation;
+        if (location === undefined || location === null) {
+            // TODO fix me!! Random location?
+            // alert(strings.label_no_location);
+            // userLocation = {
+            //     latitude: 48.8152937,
+            //     longitude: 2.4597668
+            // }
+        } else {
+            userLocation = location;
+        }
+
         this.state = {
+            radius: DEFAULT_RADIUS_M,
+            markers: undefined,
+            mapTrashPoints,
+            userLocation,
             mode: MODE.map,
             isSearchFieldVisible: false,
             updateRegion: true,
@@ -94,25 +112,25 @@ class TrashPoints extends Component {
         }
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.getLocation(position);
-                },
-                error => console.log('Error', error),
-                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-            );
-        }, 1000);
-    }
+    // componentDidMount() {
+    //     setTimeout(() => {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (position) => {
+    //                 this.getLocation(position);
+    //             },
+    //             error => console.log('Error', error),
+    //             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    //         );
+    //     }, 1000);
+  //  }
 
-    getLocation = position => {
-        const { onFetchLocation } = this.props;
-        onFetchLocation({
-            lat: position.coords.latitude,
-            long: position.coords.longitude,
-        });
-    };
+    // getLocation = position => {
+    //     const { onFetchLocation } = this.props;
+    //     onFetchLocation({
+    //         lat: position.coords.latitude,
+    //         long: position.coords.longitude,
+    //     });
+    // };
 
     // shouldComponentUpdate(nextProps) {
     //     const locationChanged = this.props.userLocation !== nextProps.userLocation;
@@ -122,6 +140,21 @@ class TrashPoints extends Component {
     //         locationChanged
     //     );
     // }
+
+    componentDidMount() {
+        if (!this.props.datasetUUIDSelector) {
+            this.props.onFetchDatasetUUIDAction();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState((previousState) => {
+            return {
+                ...previousState,
+                mapTrashPoints: nextProps.mapTrashPoints,
+            };
+        });
+    }
 
     onPressMarker = event => {
         const marker = this.props.markers.find(
@@ -246,8 +279,21 @@ class TrashPoints extends Component {
     }
 
     renderContent() {
+        const { initialRegion } = this.props;
+        const { selectedItem, mapTrashPoints } = this.state;
+        // const {markers, initialRegion} = this.props;
 
-        const {markers, initialRegion} = this.props;
+        let listEvents = [];
+        let markers = [];
+        if (mapTrashPoints) {
+           // listEvents = mapEvents.filter(event => event.count === undefined);
+            markers = mapTrashPoints.map((mapTrashPoint) => {
+                return {
+                    ...mapTrashPoint,
+                    latlng: mapTrashPoint.location,
+                };
+            });
+        }
 
         switch (this.state.mode) {
             case MODE.list: {

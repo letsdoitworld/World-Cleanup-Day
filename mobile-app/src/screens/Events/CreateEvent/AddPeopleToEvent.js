@@ -66,7 +66,7 @@ class AddPeopleToEvent extends ImmutableComponent {
     componentDidUpdate() {
         const { createdEvent, errorEvent } = this.props;
         if (createdEvent !== null && createdEvent !== undefined) {
-            //Navigation.dismissModal()
+            Navigation.dismissModal()
         }
         if (errorEvent !== null && errorEvent !== undefined) {
             Alert.alert(

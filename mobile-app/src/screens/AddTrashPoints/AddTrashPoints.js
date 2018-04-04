@@ -1,28 +1,14 @@
 import React, {Component} from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Text,
-    ScrollView,
-    TextInput,
-    Image,
-    TouchableHighlight,
-    ActivityIndicator,
-    FlatList, UIManager, LayoutAnimation
-} from 'react-native';
+import {ActivityIndicator, FlatList, LayoutAnimation, Text, TextInput, UIManager, View} from 'react-native';
 import styles from './styles'
 import strings from '../../assets/strings'
 import ListItem from "./Item/ListItem";
 import PropTypes from "prop-types";
 import Profile from "../Profile/Profile";
-import {isLoading} from "../../store/selectors";
-import {
-    ADD_TRASH_POINTS_MAP
-} from "../index";
+import {ADD_TRASH_POINTS_MAP} from "../index";
+import {Icons} from '../../assets/images';
 
 let _ = require('lodash');
-
-import { Icons } from '../../assets/images';
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -79,6 +65,7 @@ class AddTrashPoints extends Component {
                     break;
                 }
                 case saveId: {
+                    console.warn(this.marked);
                     this.props.onTrashPointsSelected(this.marked);
                     this.props.navigator.pop();
                     break;

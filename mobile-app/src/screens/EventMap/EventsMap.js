@@ -107,7 +107,6 @@ export default class EventsMap extends Component {
   }
 
   onPressMarker = (event) => {
-      //console.log('Event', event)
     const marker = this.state.mapEvents.find(
             marker => marker.id === event.id,
         );
@@ -231,7 +230,6 @@ export default class EventsMap extends Component {
   render() {
     const { initialRegion } = this.props;
     const { selectedItem, mapEvents } = this.state;
-    //console.log("Render map events ", mapEvents);
 
     const checked = this.handleSelectStatus(selectedItem);
 

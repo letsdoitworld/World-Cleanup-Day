@@ -126,5 +126,7 @@
   "label_text_about_4": "Estonian product, itinataguyod ng bansa at pamahalaan",
   "label_text_about_5": "Mga Natatag: Ministro ng Kapaligiran ng Estonia, Ministro ng Panglabas na Pikikipagugnayan ng Republika ng Estonia, Programa ng Republika ng Estonia 100",
   "label_button_editTP_delete": "Burahin ang trashpoint",
-  "label_locked_account_warning": "Naka-lock ang account mo. Para sa mga detalye makipag-ugnayan sa administrator."
+  "label_locked_account_warning": "Naka-lock ang account mo. Para sa mga detalye makipag-ugnayan sa administrator.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

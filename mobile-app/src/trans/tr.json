@@ -126,5 +126,7 @@
   "label_text_about_4": "Estonya ürünü, ülke ve hükümet sponsorluğunda",
   "label_text_about_5": "Kaynaklar: Estonya Çevre Bakanlığı, Estonya Cumhuriyeti Dışişleri Bakanlığı, Estonya Cumhuriyeti 100 programı",
   "label_button_editTP_delete": "Çöp kutusunu sil",
-  "label_locked_account_warning": "Hesabınız kilitli. Ayrıntılar için yönetici ile iletişime geçin."
+  "label_locked_account_warning": "Hesabınız kilitli. Ayrıntılar için yönetici ile iletişime geçin.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

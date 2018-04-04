@@ -126,5 +126,7 @@
   "label_text_about_4": "Эстонскі прадукт, створаны пры падтрымцы краіны ды ураду",
   "label_text_about_5": "Фундатары: Міністэрства аховы навакольнага асяроддзя Эстоніі, Міністэрства замежных спраў Эстонскай Рэспублікі, праграма \"Эстонскай Рэспубліцы 100\"",
   "label_button_editTP_delete": "Выдаліць засмечаную кропку",
-  "label_locked_account_warning": "Ваш акаўнт заблакаваны. За падрабязнасцямі звярніцеся да адміністратара."
+  "label_locked_account_warning": "Ваш акаўнт заблакаваны. За падрабязнасцямі звярніцеся да адміністратара.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

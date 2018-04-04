@@ -65,7 +65,6 @@ class AddTrashPoints extends Component {
                     break;
                 }
                 case saveId: {
-                    console.warn(this.marked);
                     this.props.onTrashPointsSelected(this.marked);
                     this.props.navigator.pop();
                     break;

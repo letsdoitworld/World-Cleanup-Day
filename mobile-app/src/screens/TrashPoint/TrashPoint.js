@@ -9,7 +9,10 @@ import {
     Image,
     TouchableHighlight,
     ActivityIndicator,
-    FlatList, UIManager, LayoutAnimation, Dimensions,
+    FlatList,
+    UIManager,
+    LayoutAnimation,
+    Dimensions,
 } from 'react-native';
 import { ADD_TRASH_POINTS_MAP } from '../index';
 import strings from '../../assets/strings';
@@ -20,7 +23,6 @@ import Chips from '../../components/Chips/Chips';
 import Swiper from 'react-native-page-swiper';
 import PageControl from 'react-native-page-control';
 
-const { height, width } = Dimensions.get('window');
 
 const moment = require('moment');
 
@@ -275,6 +277,4 @@ export default class CreateEvent extends Component {
           longitudeDelta: DEFAULT_ZOOM,
         };
     }
-
-
 }

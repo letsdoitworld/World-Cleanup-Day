@@ -144,7 +144,7 @@ async function fetchAllTrashPointsMarkers(viewPortLeftTopCoordinate,
 };
 
 function calculateCell(viewPortLeftTopCoordinate,
-                       viewPortRightBottomCoordinate,) {
+                       viewPortRightBottomCoordinate) {
     let cellSize = 0;
     if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
         cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) / SCREEN_WIDTH;
@@ -217,4 +217,5 @@ export default {
     fetchAllTrashPointsMarkers,
     fetchClustersList,
     calculateDelta,
+    calculateCell
 }

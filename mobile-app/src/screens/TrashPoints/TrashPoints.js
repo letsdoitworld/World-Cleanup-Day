@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {ActivityIndicator, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
 
 import {Map as MapView} from '../../components/Map';
-import {MIN_ZOOM} from '../../shared/constants';
+import {DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
 import _ from 'lodash';
-import {CREATE_MARKER, EVENTS_NAV_BAR} from "../index";
+import {CREATE_MARKER, EVENTS_NAV_BAR, TRASH_POINT} from "../index";
 import styles from "../Events/styles";
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
@@ -14,6 +14,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {getCurrentPosition} from "../../shared/geo";
 import PropTypes from 'prop-types';
 import ImageService from "../../services/Image";
+import Api from '../../api';
 import Events from "../Events/Events";
 //import styles from './styles';
 
@@ -41,27 +42,33 @@ class TrashPoints extends Component {
             },
         });
 
-        const { location, onLoadMapEventsAction, mapTrashPoints } = props;
-        let userLocation;
-        if (location === undefined || location === null) {
-            // TODO fix me!! Random location?
-            // alert(strings.label_no_location);
-            // userLocation = {
-            //     latitude: 48.8152937,
-            //     longitude: 2.4597668
-            // }
-        } else {
-            userLocation = location;
-        }
+        const { location, onLoadMapEventsAction, mapTrashPoints, userCoord } = props;
+        // let userLocation;
+        // if (location === undefined || location === null) {
+        //     // TODO fix me!! Random location?
+        //     // alert(strings.label_no_location);
+        //     // userLocation = {
+        //     //     latitude: 48.8152937,
+        //     //     longitude: 2.4597668
+        //     // }
+        // } else {
+        //     userLocation = location;
+        // }
 
         this.state = {
             radius: DEFAULT_RADIUS_M,
             markers: undefined,
             mapTrashPoints,
-            userLocation,
+           // userLocation,
             mode: MODE.map,
             isSearchFieldVisible: false,
             updateRegion: true,
+            region: {
+                latitude: userCoord.latitude,
+                longitude: userCoord.longitude,
+                latitudeDelta: DEFAULT_ZOOM,
+                longitudeDelta: DEFAULT_ZOOM,
+            }
         };
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -69,7 +76,10 @@ class TrashPoints extends Component {
 
     onModeChanged(index) {
         this.setState((previousState) => {
-            return {mode: index};
+            return {
+                ...previousState,
+                mode: index
+            };
         });
     }
 
@@ -156,74 +166,98 @@ class TrashPoints extends Component {
         });
     }
 
-    onPressMarker = event => {
-        const marker = this.props.markers.find(
-            marker => marker.id === event.nativeEvent.id,
-        );
-
-        if (!marker.isTrashpile) {
-            return;
-        }
-
+    onMarkerPress(marker) {
         if (marker && !marker.count) {
-            this.props.navigation.navigate('Details', {
-                markerId: event.nativeEvent.id,
-                latlng: marker.latlng,
-            });
+            this.props.navigator.push({
+                screen: TRASH_POINT,
+                title: strings.label_trashpoint,
+                passProps: {
+                    trashPoint: marker
+                }
+            })
         } else {
-            if (this.map && _.has(this.props, 'delta.latitudeDelta')) {
-                if (this.props.delta.latitudeDelta === MIN_ZOOM) {
+            if (this.map) {
+
+                const {latitude, longitude, latitudeDelta, longitudeDelta} = this.state.region;
+                const northWest = {
+                    latitude: this.adjustLatitude(latitude + latitudeDelta / 2),
+                    longitude: this.adjustLongitude(longitude - longitudeDelta / 2),
+                };
+                const southEast = {
+                    latitude: this.adjustLatitude(latitude - latitudeDelta / 2),
+                    longitude: this.adjustLongitude(longitude + longitudeDelta / 2),
+                };
+
+                const cell = Api.trashPoints.calculateCell(northWest, southEast);
+                const delta = Api.trashPoints.calculateDelta(northWest, southEast, this.state.region);
+                if (this.state.region.latitudeDelta === MIN_ZOOM) {
                     return this.setState({
                         updateRegion: false
                     }, () => {
-                        this.props.fetchClusterTrashpoints(
-                            this.props.delta.cellSize,
+                        this.props.loadTrashPointsFromClusterAction(
+                            cell,
                             marker.coordinates,
-                            marker.id
+                            marker.id,
+                            this.props.datasetUUIDSelector,
+                            this.props.mapTrashPoints
                         );
                     });
                 }
                 const region = {
-                    ...this.props.delta,
+                    ...delta,
                     ...marker.latlng,
                 };
-                this.map.animateToRegion(region, 100);
+                this.map.animateToRegion(region, 300);
             }
         }
     };
 
     getMapObject = map => (this.map = map);
 
+    adjustLongitude = n => {
+        if (n < -180) {
+            return 360 + n;
+        }
+        if (n > 180) {
+            return n - 360;
+        }
+        return n;
+    };
+    adjustLatitude = n => {
+        const signMultiplier = n > 0 ? 1 : -1;
+        if (Math.abs(n) > 90) {
+            return signMultiplier * 89.999;
+        }
+
+        return n;
+    };
+
     handleOnRegionChangeComplete = center => {
         if (!this.state.updateRegion) {
-            return this.setState({updateRegion: true});
+            this.setState((previousState) => {
+                return {
+                    ...previousState,
+                    updateRegion: true,
+                    region: center
+                };
+            });
+        } else {
+            this.setState((previousState) => {
+                return {
+                    ...previousState,
+                    region: center
+                };
+            });
         }
-        const adjustLongitude = n => {
-            if (n < -180) {
-                return 360 + n;
-            }
-            if (n > 180) {
-                return n - 360;
-            }
-            return n;
-        };
-        const adjustLatitude = n => {
-            const signMultiplier = n > 0 ? 1 : -1;
-            if (Math.abs(n) > 90) {
-                return signMultiplier * 89.999;
-            }
-
-            return n;
-        };
 
         const {latitude, longitude, latitudeDelta, longitudeDelta} = center;
         const northWest = {
-            latitude: adjustLatitude(latitude + latitudeDelta / 2),
-            longitude: adjustLongitude(longitude - longitudeDelta / 2),
+            latitude: this.adjustLatitude(latitude + latitudeDelta / 2),
+            longitude: this.adjustLongitude(longitude - longitudeDelta / 2),
         };
         const southEast = {
-            latitude: adjustLatitude(latitude - latitudeDelta / 2),
-            longitude: adjustLongitude(longitude + longitudeDelta / 2),
+            latitude: this.adjustLatitude(latitude - latitudeDelta / 2),
+            longitude: this.adjustLongitude(longitude + longitudeDelta / 2),
         };
 
         const delta = {
@@ -239,11 +273,6 @@ class TrashPoints extends Component {
                 delta,
             });
         }
-
-        // this.props.fetchAllMarkers(northWest, southEast, {
-        //   latitudeDelta,
-        //   longitudeDelta,
-        // });
     };
 
     render() {
@@ -273,14 +302,15 @@ class TrashPoints extends Component {
                         iconTextComponent={<Icon name="plus"/>}
                     />
                 </View>
-                {/*{this.renderProgress()}*/}
+                {this.renderProgress()}
             </View>
         );
     }
 
     renderContent() {
-        const { initialRegion } = this.props;
-        const { selectedItem, mapTrashPoints } = this.state;
+        const { userCoord } = this.props;
+
+        const { selectedItem, mapTrashPoints, region } = this.state;
         // const {markers, initialRegion} = this.props;
 
         let listEvents = [];
@@ -302,11 +332,12 @@ class TrashPoints extends Component {
             case MODE.map: {
                 return (
                     <MapView
-                        onRegionChangeComplete={this.handleOnRegionChangeComplete}
+                        handleOnMarkerPress={this.onMarkerPress.bind(this)}
+                        onRegionChangeComplete={this.handleOnRegionChangeComplete.bind(this)}
                         markers={markers}
-                        initialRegion={initialRegion}
-                        handleOnMarkerPress={this.onPressMarker}
-                        getRef={this.getMapObject}/>
+                        initialRegion={region}
+                        region={region}
+                        getRef={this.getMapObject.bind(this)}/>
                 );
             }
             default:
@@ -347,39 +378,6 @@ class TrashPoints extends Component {
                 coords,
             }
         });
-
-        // const {isAuthenticated, isPrivateProfile} = this.props;
-        //
-        // if (isAuthenticated) {
-        //     if(isPrivateProfile) {
-        //         Alert.alert(
-        //             'Update your privacy settings!',
-        //             'Your profile should be public\n' +
-        //             'in order to post event.',
-        //             [
-        //                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        //                 {text: 'Settings', onPress: this.handleSettingsPress},
-        //             ],
-        //         );
-        //
-        //         return;
-        //     }
-        //     this.props.navigator.showModal({
-        //         screen: CREATE_EVENT,
-        //         title: strings.label_create_events_step_one
-        //     });
-        // } else {
-        //     Alert.alert(
-        //         'Oh no!',
-        //         'You need to be a registrated user\n' +
-        //         'in order to create events.',
-        //         [
-        //             {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        //             {text: 'Register', onPress: this.handleLogInPress},
-        //         ],
-        //     )
-        // }
-
     };
 
     isProgressEnabled() {

@@ -1,6 +1,7 @@
 import {call, put, take} from "redux-saga/effects";
 import {
-    CREATE_TRASH_POINT_ACTION, LOAD_TRASH_POINT_FROM_CLUSTER_ACTION,
+    CREATE_TRASH_POINT_ACTION,
+    LOAD_TRASH_POINT_FROM_CLUSTER_ACTION,
     REQUEST_TRASH_POINTS_MAP_ACTION,
     SEARCH_TRASH_POINTS_ACTION
 } from '../types/trashPoints';

@@ -16,10 +16,12 @@ import {
 } from '../../store/selectors';
 
 import Component from './TrashPoints';
-import {fetchDatasetUIIDAction} from "../../store/actions/app";
+import {
+    fetchDatasetUIIDAction
+} from "../../store/actions/app";
 import {
     loadTrashPointsForMapAction,
-    loadTrashPointsFromClusterAction
+    loadTrashPointsFromClusterAction,
 } from "../../store/actions/trashPoints";
 
 const selector = createStructuredSelector({

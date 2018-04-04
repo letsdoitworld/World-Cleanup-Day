@@ -52,17 +52,16 @@ export default StyleSheet.create({
     fontSize: 12,
   },
   icon: {
-    width: 25,
     alignItems: 'center',
+    paddingRight: 5,
   },
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 3,
   },
   rightColumn: {
     justifyContent: 'space-between',
-    flex: 1,
+    flex: 1.5,
   },
   dateText: {
     fontSize: 12,

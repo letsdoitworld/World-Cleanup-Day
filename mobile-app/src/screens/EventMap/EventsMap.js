@@ -1,15 +1,19 @@
-import React, {Component} from 'react';
-import {FlatList, UIManager, View} from 'react-native';
-import styles from './styles';
-import {Map as MapView} from '../../components';
-import {MIN_ZOOM} from '../../shared/constants';
-import {renderItem} from '../Events/List/ListItem/ListItem';
-import {HorizontalEvent} from '../../components/index';
-import strings from '../../config/strings';
-import {EVENT_DETAILS_SCREEN} from '../index';
+import React, { Component } from 'react';
+import { FlatList, UIManager, View } from 'react-native';
+
 
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
+import debounce from 'lodash/debounce';
+
+import { Map as MapView } from '../../components';
+import { MIN_ZOOM } from '../../shared/constants';
+import { renderItem } from '../Events/List/ListItem/ListItem';
+import { Event } from '../../components/index';
+import strings from '../../config/strings';
+import { EVENT_DETAILS_SCREEN } from '../index';
+
+import styles from './styles';
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -45,7 +49,7 @@ export default class EventsMap extends Component {
       updateRegion: true,
     };
 
-    this.handleVisibleChange = this.getVisibleRows;
+    this.handleVisibleChange = debounce(this.getVisibleRows, 200);
     this.viewabilityConfig = { viewAreaCoveragePercentThreshold: 70 };
 
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -75,8 +79,6 @@ export default class EventsMap extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-        // console.log("componentWillReceiveProps", nextProps.mapEvents);
-
     this.setState((previousState) => {
       return {
         mapEvents: nextProps.mapEvents,
@@ -107,7 +109,6 @@ export default class EventsMap extends Component {
   }
 
   onPressMarker = (event) => {
-      //console.log('Event', event)
     const marker = this.state.mapEvents.find(
             marker => marker.id === event.id,
         );
@@ -124,19 +125,19 @@ export default class EventsMap extends Component {
 
     if (marker && !marker.count) {
             // TODO add smooth animation to scroll
-      this.flatListRef.scrollToItem({ animated: false, item: marker });
+      this.flatListRef.scrollToItem({ animated: true, item: marker });
     } else if (this.map && has(this.props, 'delta.latitudeDelta')) {
       if (this.props.delta.latitudeDelta === MIN_ZOOM) {
         return this.setState({
           updateRegion: false,
         }, () => {
           this.props.onLoadEventsFromClusterAction({
-              cellSize: this.props.delta.cellSize,
-              coordinates: marker.coordinates,
-              clusterId: marker.id,
-              datasetId: this.props.datasetUUIDSelector,
-              markers: this.props.mapEvents,
-            });
+            cellSize: this.props.delta.cellSize,
+            coordinates: marker.coordinates,
+            clusterId: marker.id,
+            datasetId: this.props.datasetUUIDSelector,
+            markers: this.props.mapEvents,
+          });
         });
       }
       const region = {
@@ -198,15 +199,18 @@ export default class EventsMap extends Component {
   keyExtractor = (item, index) => item.id.toString();
 
   renderItem(event) {
-      const coverPhoto = event.photos && event.photos[0];
+    const coverPhoto = event.photos && event.photos[0];
     return (
-      <HorizontalEvent
+      <Event
         img={coverPhoto}
         title={event.name}
         coordinator={event.coordinator}
         date={event.createDate}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}
+        containerStyle={styles.eventContainer}
+        imageStyle={styles.eventImage}
+        feedBackType="withoutFeedBack"
         onPress={() => this.handleEventPress(event)}
       />
     );
@@ -228,10 +232,32 @@ export default class EventsMap extends Component {
     }
   }
 
+    // handleOnMarkerPress(marker) {
+    //     this.setState(previousState => {
+    //         return {
+    //             ...previousState,
+    //             selectedItem: marker.item
+    //         };
+    //     });
+    // }
+
+  renderSelectedItem(selectedItem, checked) {
+    if (checked === undefined) return null;
+
+    if (selectedItem) {
+      return renderItem(
+                  selectedItem,
+                  checked,
+                  styles.trashPointItem,
+                  this.onCheckedChanged.bind(this),
+              );
+    }
+    return null;
+  }
+
   render() {
     const { initialRegion } = this.props;
     const { selectedItem, mapEvents } = this.state;
-    //console.log("Render map events ", mapEvents);
 
     const checked = this.handleSelectStatus(selectedItem);
 
@@ -239,12 +265,12 @@ export default class EventsMap extends Component {
     let markers = [];
     if (mapEvents && mapEvents !== undefined) {
       listEvents = mapEvents.filter(event => event.count === undefined);
-        markers  = mapEvents.map((mapEvents) => {
-            return {
-                ...mapEvents,
-                latlng: mapEvents.location,
-            };
-        });
+      markers = mapEvents.map((mapEvents) => {
+        return {
+          ...mapEvents,
+          latlng: mapEvents.location,
+        };
+      });
     }
 
     return (
@@ -275,33 +301,4 @@ export default class EventsMap extends Component {
       </View>
     );
   }
-
-    // handleOnMarkerPress(marker) {
-    //     this.setState(previousState => {
-    //         return {
-    //             ...previousState,
-    //             selectedItem: marker.item
-    //         };
-    //     });
-    // }
-
-  renderSelectedItem(selectedItem, checked) {
-    if (checked === undefined) return null;
-
-    if (selectedItem) {
-      const onPress = () => {
-
-      };
-
-      return renderItem(
-                selectedItem,
-                checked,
-                styles.trashPointItem,
-                onPress,
-                this.onCheckedChanged.bind(this),
-            );
-    }
-    return null;
-  }
-
 }

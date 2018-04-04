@@ -7,5 +7,4 @@ export * from './Trashpoint';
 export * from './Button';
 export * from './Map';
 export * from './ReadMore';
-export * from './HorizontalEvent';
 

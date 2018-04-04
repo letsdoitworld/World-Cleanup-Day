@@ -126,5 +126,7 @@
   "label_text_about_4": "Là sản phẩm của Estonia, được tài trợ bởi các quốc gia và chính phủ",
   "label_text_about_5": "Nhà tài trợ: Bộ tài nguyên và môi trường Estonia, Bộ ngoại giao của cộng hòa Estonia, 100 chương trình của cộng hòa Estonia",
   "label_button_editTP_delete": "Xóa điểm đổ rác",
-  "label_locked_account_warning": "Tài khoản của bạn bị khóa. Để biết chi tiết xin liên hệ với quản trị viên."
+  "label_locked_account_warning": "Tài khoản của bạn bị khóa. Để biết chi tiết xin liên hệ với quản trị viên.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

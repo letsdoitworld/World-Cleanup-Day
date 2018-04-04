@@ -141,9 +141,7 @@ module.exports = function () {
                 if (event.trashpoints) {
                   for (let trashpointId of event.trashpoints) {
                     let trashpoint = await db.getTrashpoint(trashpointId);
-                    if (trashpoint) {
-                      filteredTrashpoints.push(trashpoint);
-                    }
+                    if (trashpoint) filteredTrashpoints.push(trashpointId);
                   }
                 }
                 event.trashpoints = filteredTrashpoints;

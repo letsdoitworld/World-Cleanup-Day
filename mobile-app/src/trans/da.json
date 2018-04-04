@@ -126,5 +126,7 @@
   "label_text_about_4": "Estisk produkt, som er sponsoreret af landet og regeringen",
   "label_text_about_5": "Finansieringskilder: Estisk Ministeriet for miljø, Udenrigsministeriet af Republikken Estland, Estisk Republik 100 program",
   "label_button_editTP_delete": "Slet affaldspoint",
-  "label_locked_account_warning": "Din konto er låst. Kontakt en administrator for flere detaljer."
+  "label_locked_account_warning": "Din konto er låst. Kontakt en administrator for flere detaljer.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

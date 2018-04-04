@@ -126,5 +126,7 @@
   "label_text_about_4": "एस्टोनियाई उत्पाद, देश और सरकार द्वारा प्रायोजित किया हुआ",
   "label_text_about_5": "निधि कारक: एस्टोनियाई पर्यावरण मंत्रालय, एस्टोनियों गणराज्य के विदेश मामलों के मंत्रालय, एस्टोनियन गणराज्य 100 प्रोग्राम",
   "label_button_editTP_delete": "कचरे का स्थल को हटाए",
-  "label_locked_account_warning": "आपका खाता लॉक किया गया है| विवरण के लिए किसी व्यवस्थापक के साथ सम्पर्क स्थापित करें|"
+  "label_locked_account_warning": "आपका खाता लॉक किया गया है| विवरण के लिए किसी व्यवस्थापक के साथ सम्पर्क स्थापित करें|",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

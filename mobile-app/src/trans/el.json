@@ -126,5 +126,7 @@
   "label_text_about_4": "Δημιουργήθηκε στην Εσθονία και χρηματοδοτείται από τη χώρα και την κυβέρνηση",
   "label_text_about_5": "Χρηματοδότες: το Υπουργείο Περιβάλλοντος της Εσθονίας, το Υπουργείο Εξωτερικών της Δημοκρατίας της Εσθονίας, η Δημοκρατία της Εσθονίας με 100 πρόγραμμα",
   "label_button_editTP_delete": "Διαγραφή σημείου απορριμμάτων",
-  "label_locked_account_warning": "Ο λογαριασμός σας κλειδώθηκε. Για λεπτομέρειες επικοινωνήστε με ένα διαχειριστή."
+  "label_locked_account_warning": "Ο λογαριασμός σας κλειδώθηκε. Για λεπτομέρειες επικοινωνήστε με ένα διαχειριστή.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

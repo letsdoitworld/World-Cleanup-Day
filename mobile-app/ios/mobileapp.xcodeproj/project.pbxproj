@@ -1201,6 +1201,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = R7JGNRV2SS;
 						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -2053,7 +2054,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = KN4AF35L36;
+				DEVELOPMENT_TEAM = R7JGNRV2SS;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2090,8 +2091,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
-				PROVISIONING_PROFILE = "139d9d05-c629-4b19-bc04-3fa75a306560";
-				PROVISIONING_PROFILE_SPECIFIER = clean_up;
+				PROVISIONING_PROFILE = "3c50d6d3-454d-4f5e-9e79-19424f87b4a2";
+				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -2104,7 +2105,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = R7JGNRV2SS;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2141,8 +2142,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3c50d6d3-454d-4f5e-9e79-19424f87b4a2";
+				PROVISIONING_PROFILE_SPECIFIER = "Fesenko Development *";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

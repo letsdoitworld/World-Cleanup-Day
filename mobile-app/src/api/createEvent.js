@@ -21,7 +21,7 @@ async function createEvent(event) {
             coordinatorName: event.coordinatorName,
             phonenumber: event.phonenumber,
             maxPeopleAmount: event.maxPeopleAmount,
-            //trashpoints: event.trashpoints,
+            trashpoints: event.trashpoints,
         };
         const photos = event.photos;
         const createEventResponse = await Api.put(API_ENDPOINTS.EVENT, newEvent);

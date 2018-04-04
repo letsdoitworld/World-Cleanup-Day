@@ -126,5 +126,7 @@
   "label_text_about_4": "Produkto sa Estonia, ki-isponsoran sa nasod ug sa gobyerno",
   "label_text_about_5": "Gipondohan sa: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
   "label_button_editTP_delete": "Papha ang trashpoint",
-  "label_locked_account_warning": "Kitrangkahan ang imong account. Kontaka ang administrador para sa detalye."
+  "label_locked_account_warning": "Kitrangkahan ang imong account. Kontaka ang administrador para sa detalye.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

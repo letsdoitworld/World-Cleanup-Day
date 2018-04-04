@@ -10,18 +10,16 @@ import styles, { grayMapStyle } from './styles';
 class Map extends Component {
 
   displayMarkers = () => {
-    const { markers = [], handleOnMarkerPress } = this.props;
-
+    const { markers = [], selectedItem, handleOnMarkerPress } = this.props;
     return markers
             .filter(marker => marker !== undefined)
-            .map((marker, index) => {
+            .map((marker) => {
               return (
                 <Marker
                   marker={marker}
                   key={marker.id}
-                  onMarkerPress={(obj) => {
-                    handleOnMarkerPress(marker);
-                  }}
+                  selectedItem={selectedItem}
+                  onMarkerPress={handleOnMarkerPress && handleOnMarkerPress.bind(this, marker)}
                 />
               );
             });

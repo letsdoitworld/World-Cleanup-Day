@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  ScrollView,
   ActivityIndicator,
-  TouchableOpacity,
+  Image,
   Linking,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -14,15 +14,11 @@ import moment from 'moment';
 
 import toUpper from 'lodash/toUpper';
 import isEmpty from 'lodash/isEmpty';
+import has from 'lodash/has';
 
 import strings from '../../assets/strings';
 import { Icons } from '../../assets/images';
-import {
-    Icon,
-    Map,
-    ReadMore,
-    Button,
-} from '../../components';
+import { Button, Icon, Map, ReadMore  } from '../../components';
 
 import { DEFAULT_ZOOM } from '../../shared/constants';
 
@@ -32,14 +28,7 @@ import { EVENTS_TRASHPOINTS_SCREEN } from '../index';
 
 import styles from './styles';
 
-import {
-  navigatorStyle,
-  navigatorButtons,
-  calendarConfig,
-  trashpoints,
-  backId,
-  placeholder,
-} from './config';
+import { backId, calendarConfig, navigatorButtons, navigatorStyle, placeholder, trashpoints } from './config';
 
 class EventDetails extends PureComponent {
 
@@ -111,10 +100,10 @@ class EventDetails extends PureComponent {
 
   handleRenderButton() {
     const { event, profile } = this.props;
-
+  
     if (!profile) return;
 
-    if (event.createdBy === profile.id) {
+    if (event.createdBy !== profile.id) {
       return (
         <View style={styles.buttonContainer}>
           <MainButton
@@ -130,13 +119,19 @@ class EventDetails extends PureComponent {
 
   handleRenderDate() {
     const { event } = this.props;
-    const formatedDate = moment(event.createDate).format('DD MMMM, HH:mm');
-    const calendarTime = moment(event.createDate).calendar(null, calendarConfig);
+    
+    const isToTime = has(event, 'endTime');
+
+    const formatedDate = moment(event.startTime).format('DD MMMM, HH:mm');
+    const fromatedToTime = isToTime && moment(event.endTime).format('HH:mm');
+    const calendarTime = moment(event.startTime).calendar(null, calendarConfig);
+
+    const timeToStart = isToTime ? `${formatedDate} - ${fromatedToTime}` : formatedDate;
     return (
       <View style={styles.dateContainer}>
         <Icon path={Icons.Time} />
         <View style={styles.timeContainer}>
-          <Text style={styles.timeText}>{formatedDate}</Text>
+          <Text style={styles.timeText}>{timeToStart}</Text>
           <Text style={styles.calendarText}>{calendarTime}</Text>
         </View>
       </View>
@@ -157,6 +152,10 @@ class EventDetails extends PureComponent {
 
     const marker = {
       id: event.location.latitude,
+      latlng: {
+        latitude: event.location.latitude,
+        longitude: event.location.longitude,
+      },
       location: {
         latitude: event.location.latitude,
         longitude: event.location.longitude,

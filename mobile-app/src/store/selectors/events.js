@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 const getState = state => state.toJS();
 
@@ -24,8 +24,12 @@ export const getErrorEvent = createSelector(
     events => events.errors && events.errors.errorEvent,
 );
 
-
 export const getMapEventsEntity = createSelector(
+    eventsSelector,
+    events => events.mapEvents,
+);
+
+export const showNewDeltaEntity = createSelector(
     eventsSelector,
     events => events.mapEvents,
 );

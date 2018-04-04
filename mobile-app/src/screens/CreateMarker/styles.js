@@ -159,4 +159,42 @@ export default EStyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
+    selectTrashPointTypeContainer: {
+        height: 110,
+        backgroundColor: 'rgb(216, 216, 216)',
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    additionalTagsContainer: {
+        height: 44,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    createTrashPointButtonContainer: {
+        flex: 1,
+        backgroundColor: '#eeeeee'
+    },
+    label: {
+        textAlign: 'center',
+        fontFamily: 'Lato-Bold',
+        fontSize: 12,
+        color: 'rgb(123, 125, 128)',
+        letterSpacing: 0.4
+    },
+    scrollView: {
+        backgroundColor: 'white'
+    },
+    progressViewContainer: {
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

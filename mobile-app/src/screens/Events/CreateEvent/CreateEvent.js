@@ -1,7 +1,5 @@
-import React, {Component} from 'react';
-import {
-    View, TouchableOpacity, Text, ScrollView, Image, Alert, ImageStore
-} from 'react-native';
+import React from 'react';
+import {Alert, Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import styles from './styles'
 import strings from '../../../assets/strings'
 import MainButton from '../../../components/Buttons/MainButton'
@@ -9,7 +7,7 @@ import InputField from '../../../components/InputFields/InputField'
 import constants from "../../../shared/constants";
 import * as Immutable from "../../../../node_modules/immutable/dist/immutable";
 
-import {ADD_TRASH_POINTS, ADD_COORDINATOR, ADD_LOCATION, CREATE_EVENT} from "../../index";
+import {ADD_COORDINATOR, ADD_LOCATION, ADD_TRASH_POINTS} from "../../index";
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
@@ -67,7 +65,8 @@ export default class CreateEvent extends ImmutableComponent {
                 startDate: this.calculateMinDate(),
                 endDate: this.calculateMinDate(),
                 selectedLocation: undefined,
-                trashPointsCount: 0
+                trashPointsCount: 0,
+                trashPoints: [],
             })
         };
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -470,6 +469,8 @@ export default class CreateEvent extends ImmutableComponent {
     onTrashPointsSelected(trashPoints) {
         this.trashPoints = trashPoints;
         this.setData(d => d.set('trashPointsCount', this.trashPoints.size));
+        console.warn("onTrashPointsSelected", trashPoints._mapData[0]);
+        this.setData(d => d.set('trashPoints', trashPoints._mapData[0]));
     }
 
     onLocationSelected(location) {
@@ -534,6 +535,8 @@ export default class CreateEvent extends ImmutableComponent {
                 longitude: selectedLocation.longitude,
             };
             const address = selectedLocation.place;
+            const startTime = Moment(this.state.data.get('startDate'), "DD-MM-YYYY HH:mm").toDate();
+            const endTime = Moment(this.state.data.get('endDate'), "DD-MM-YYYY HH:mm").toDate();
             this.props.navigator.push({
                 screen: ADD_COORDINATOR,
                 title: strings.label_create_events_step_two,
@@ -542,12 +545,13 @@ export default class CreateEvent extends ImmutableComponent {
                         datasetId: '8a4a0ed2-d85a-45af-a318-d418427ccc06',
                         name: this.title,
                         address: address,
-                        startTime: this.state.data.get('startDate'),
-                        endTime: this.state.data.get('endDate'),
+                        startTime: startTime,
+                        endTime: endTime,
                         location: location,
                         description: this.description,
                         whatToBring: this.whatToBring,
                         photos: this.state.photos,
+                        trashpoints: this.state.data.get('trashPoints'),
                     },
                 }
             });

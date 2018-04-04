@@ -47,13 +47,15 @@ export default class Marker extends Component {
         }
 
         let showLabel = marker.isTrashpile && marker.count > 0;
+        console.log("marker ", marker);
 
         let markerImage;
         if (marker.status === undefined || marker.status === null) {
-            if (marker.isMarked === true || marker.isMarked === undefined) {
-                markerImage = require('../../assets/images/icLocationPinActive.png')
+            //console.log('Comparizon', this.props.selectedItem === marker.id, 'this.props.selectedItem', this.props.selectedItem, 'marker.id', marker.id)
+            if (this.props.selectedItem === marker.id) {
+                markerImage = require('../../assets/images/icLocationPinActive.png');
             } else {
-                markerImage = require('../../assets/images/icLocationPinInactive.png')
+                markerImage = require('../../assets/images/icLocationPinInactive.png');
             }
         } else {
             if (marker.isMarked) {
@@ -70,10 +72,9 @@ export default class Marker extends Component {
                 }
             }
         }
-        console.log('Coordinate', marker.location)
         return (
             <MapView.Marker
-                coordinate={marker.location}
+                coordinate={marker.latlng}
                 onPress={onMarkerPress}
                 style={!marker.isTrashpile ? {zIndex: 2} : null}
                 image={markerImage}

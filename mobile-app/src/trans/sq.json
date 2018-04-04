@@ -126,5 +126,7 @@
   "label_text_about_4": "Estonian product, e sponsorizuar nga qeveria",
   "label_text_about_5": "Financuesit: Ministria e Mjedisit në Estoni, Ministria e Punëve të Jashtme e Republikës së Estonisë, Republika e Estonisë 100 programe",
   "label_button_editTP_delete": "Fshini vendndodhjen e mbeturinave",
-  "label_locked_account_warning": "Llogaria juaj është kyçur. Për më shumë holllësi kontaktoni administratorin."
+  "label_locked_account_warning": "Llogaria juaj është kyçur. Për më shumë holllësi kontaktoni administratorin.",
+  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_your_coordinates": "Your coordinates"
 }

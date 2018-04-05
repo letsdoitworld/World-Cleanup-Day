@@ -36,6 +36,11 @@ import inactiveRegularTP from '../../../assets/trashpoints/icInactiveRegularTras
 import inactiveToxicTP from '../../../assets/trashpoints/icInactiveToxicTrashpointMap.png';
 import clusterIcon from '../../../assets/trashpoints/cluster.png';
 
+import regular from '../../../assets/trashpoint_icons/icRegularTrashpoint@2x.png';
+import threat from '../../../assets/trashpoint_icons/icToxicTrashpoint@2x.png';
+import cleaned from '../../../assets/trashpoint_icons/icCleanedTrashpoint@2x.png';
+import outdated from '../../../assets/trashpoint_icons/icRegularTrashpointInactive@2x.png';
+
 export const BinIcon = () => <img src={bin} alt="bin-icon" />;
 export const ArrowDownIcon = () => <img src={arrowDown} alt="arrowdown-icon" />;
 export const EventsIcon = () => <img src={events} alt="events-icon" />;
@@ -60,7 +65,7 @@ export const BackIcon = () => <img src={back} alt="back" />;
 export const CollapseIcon = () => <img src={collapse} alt="collapse" />;
 export const ExpandIcon = () => <img src={expand} alt="expand" />;
 
-export const TrashpointIcons = {
+export const TrashpointPins = {
   activeRegularTp: activeRegularTP,
   inactiveRegularTp: inactiveRegularTP,
   activeInRegularTp: activeInTrashpointTP,
@@ -71,6 +76,13 @@ export const TrashpointIcons = {
   inactiveCleanedTp: inactiveCleanedTP,
   activeInToxicTp: activeInToxicTP,
   inactiveInToxicTp: inactiveInToxicTP,
+};
+
+export const TrashpointIcons = {
+  regular,
+  threat,
+  cleaned,
+  outdated,
 };
 
 export {

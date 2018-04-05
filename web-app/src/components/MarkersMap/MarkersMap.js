@@ -106,12 +106,10 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width, 10),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    if (markersType === 'trashpoints') {
-      this.props.fetchAllTrashpoints(nw, se, mapSize);
-    }
-    if (markersType === 'events') {
-      this.props.fetchAllEventMarkers(nw, se, mapSize);
-    }
+    const action = markersType === 'trashpoints'
+       ? 'fetchAllTrashpoints'
+       : 'fetchAllEventMarkers';
+    this.props[action](nw, se, mapSize);
   };
 
   handleMarkerClick = marker => {

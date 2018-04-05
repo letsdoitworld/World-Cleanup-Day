@@ -6,7 +6,7 @@ import { selectors as appSelectors } from '../../../reducers/app';
 import userIcon from '../../../assets/location_pointer.png';
 import changeLocationIcon from '../../../assets/change_location_pin.png';
 import {
-  TrashpointIcons,
+  TrashpointPins,
   locationPinInactive,
   locationPinActive,
   clusterIcon,
@@ -19,19 +19,19 @@ import {
 } from '../../../reducers/events';
 
 const TRASHPOINT_INACTIVE_MARKER_STATUS_IMAGES = {
-  cleaned: TrashpointIcons.inactiveCleanedTp,
-  outdated: TrashpointIcons.inactiveInRegularTp,
-  regular: TrashpointIcons.inactiveRegularTp,
-  threat: TrashpointIcons.inactiveToxicTp,
+  cleaned: TrashpointPins.inactiveCleanedTp,
+  outdated: TrashpointPins.inactiveInRegularTp,
+  regular: TrashpointPins.inactiveRegularTp,
+  threat: TrashpointPins.inactiveToxicTp,
   user: userIcon,
   changeLocation: changeLocationIcon,
 };
 
 const TRASHPOINT_ACTIVE_MARKER_STATUS_IMAGES = {
-  cleaned: TrashpointIcons.activeCleanedTp,
-  outdated: TrashpointIcons.activeInRegularTp,
-  regular: TrashpointIcons.activeRegularTp,
-  threat: TrashpointIcons.activeToxicTp,
+  cleaned: TrashpointPins.activeCleanedTp,
+  outdated: TrashpointPins.activeInRegularTp,
+  regular: TrashpointPins.activeRegularTp,
+  threat: TrashpointPins.activeToxicTp,
   user: userIcon,
   changeLocation: changeLocationIcon,
 };

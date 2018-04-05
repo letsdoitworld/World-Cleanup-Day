@@ -469,7 +469,13 @@ export default class CreateEvent extends ImmutableComponent {
     onTrashPointsSelected(trashPoints) {
         this.trashPoints = trashPoints;
         this.setData(d => d.set('trashPointsCount', this.trashPoints.size));
-        this.setData(d => d.set('trashPoints', trashPoints._mapData[0]));
+        let trashpointsList = [];
+        this.trashPoints
+            .forEach(function(item, i, arr) {
+            trashpointsList.push(item.id)
+        });
+
+        this.setData(d => d.set('trashPoints', trashpointsList));
     }
 
     onLocationSelected(location) {

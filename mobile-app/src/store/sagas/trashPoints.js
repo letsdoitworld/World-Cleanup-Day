@@ -122,7 +122,6 @@ export function* getMapTrashPointsFlow() {
                 payload.viewPortRightBottomCoordinate,
                 payload.delta
             );
-            console.log("Delta getMapTrashPointsFlow", payload.delta);
             yield put(showNewTrashPointsDeltaAction(newDelta));
             const response = yield call(
                 Api.trashPoints.fetchAllTrashPointsMarkers,
@@ -133,7 +132,6 @@ export function* getMapTrashPointsFlow() {
             );
             yield put(loadTrashPointsForMapSuccess(response))
         } catch (error) {
-            console.log("getMapTrashPointsFlow error", error);
             yield put(loadTrashPointsForMapError(error));
         }
     }
@@ -153,7 +151,6 @@ export function* fetchTrashPointsDataFromOneClusterFlow() {
             );
             yield put(loadTrashPointsForMapSuccess(response))
         } catch (error) {
-            console.log("fetchTrashPointsDataFromOneClusterFlow error", error);
             yield put(loadTrashPointsForMapError(error));
         }
     }

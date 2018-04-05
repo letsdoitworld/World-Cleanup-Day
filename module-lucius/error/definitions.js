@@ -1,11 +1,17 @@
 'use strict';
 
 module.exports = {
+    INVALID_TYPE: {
+        message: ({parameter}) => `Parameter (${parameter}) is not a valid.`,
+    },
     API_UNEXPECTED_ERROR: {
         message: () => `An unexpected error has occured.`,
     },
     AUTH_UNKNOWN_REMOTE_AUTHORITY: {
         message: ({authority}) => `Unknown remote authority '${authority}'.`,
+    },
+    AUTH_NO_PERMISSIONS: {
+        message: () => `You have no permissions for getting this data.`,
     },
     AUTH_REMOTE_ERROR: {
         message: ({message}) => `An error has occured while querying a remote authority: ${message}`,
@@ -52,6 +58,9 @@ module.exports = {
     },
     TRASHPOINT_NOT_FOUND: {
         message: ({id}) => `Trashpoint does not exist: '${id}'.`,
+    },
+    EVENT_NOT_FOUND: {
+        message: ({id}) => `Event does not exist: '${id}'.`,
     },
     IMAGE_NOT_FOUND: {
         message: ({id}) => `Image does not exist: '${id}'.`,

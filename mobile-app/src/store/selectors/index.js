@@ -5,4 +5,5 @@ export * from './events';
 export * from './trashPoints';
 export * from './locations';
 export * from './app';
+export * from './createTrashPoint';
 

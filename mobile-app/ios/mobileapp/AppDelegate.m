@@ -33,7 +33,8 @@
 {
   [Fabric with:@[[Crashlytics class]]];
   NSURL *jsCodeLocation;
-  [GMSServices provideAPIKey:@"AIzaSyBw9FEyL4dCJJwO2YTl4s5VRztz2mplLrs"];
+  [GMSServices provideAPIKey:@"AIzaSyAuiO0DurwBFj9CZU_OqUlJlWo3dVZG314"];
+ // [GMSPlacesClient provideAPIKey:@"AIzaSyAuiO0DurwBFj9CZU_OqUlJlWo3dVZG314"];
   
   [FIRApp configure];
   

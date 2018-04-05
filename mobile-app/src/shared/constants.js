@@ -1,4 +1,4 @@
-import { Platform, Dimensions, StatusBar, PixelRatio } from 'react-native';
+import {Dimensions, PixelRatio, Platform, StatusBar} from 'react-native';
 
 const window = Dimensions.get('window');
 
@@ -106,6 +106,13 @@ export const API_ENDPOINTS = {
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
+  FETCH_MAP_EVENTS: '/events/overview',
+    FETCH_EVENT_IMAGES: eventId =>
+        `/event/${eventId}/images`,
+    EVENT: '/event',
+    FETCH_EVENTS: '/overview/events',
+    FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
+    FETCH_CLUSTER_EVENTS: '/overview/events/grid',
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {
@@ -125,10 +132,11 @@ export default {
         'Content-Type': 'application/json',
     },
     TITLE_REGEX: /[\S\s]{1,70}$/,
+    COORDINATOR_REGEX: /[\S\s]{0,70}$/,
     DESCRIPTION_REGEX: /[\S\s]{1,500}$/,
     EMAIL_REGEX: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 
-    PHONE_NUMBER: /\d{9,12}$/
+    PHONE_NUMBER: /^[+]*\d{6,20}$/
 
 }
 

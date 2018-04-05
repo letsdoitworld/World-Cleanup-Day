@@ -22,7 +22,7 @@ const TYPE_TO_DB_MAP = {
     'Session': 'sessions',
     'Area': 'areas',
     'Event': 'events'
-}
+};
 
 const cdb = require('./driver');
 const types =  require('../types');
@@ -95,6 +95,16 @@ const adapter = {
         }
         await cdb.deleteDoc(TYPE_TO_DB_MAP[datatype], id, doc._rev);
         return true;
+    },
+    executeTemporaryView: async (datatype, view, options = {}, mapValues = true) => {
+        const ret = await cdb.temporaryView(TYPE_TO_DB_MAP[datatype], view, options);
+        if (!mapValues) {
+            return ret;
+        }
+        if (!ret) {
+            return [];
+        }
+        return ret.data.rows.map(row => row.value);
     },
     getRawDocs: async (datatype, view, options = {}, mapValues = true) => {
         const ret = await cdb.getURI(

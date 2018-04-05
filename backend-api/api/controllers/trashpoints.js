@@ -3,6 +3,15 @@ const senecaRequestMw = require('../../modules/swagger-setup/middleware/seneca')
 const filters = require('./filters');
 
 module.exports = {
+    getTrashpoints: senecaRequestMw(
+      'role:db,cmd:getTrashpoints',
+      req => ({
+        pageSize: req.swagger.params.pageSize.value,
+        pageNumber: req.swagger.params.pageNumber.value,
+        name: req.swagger.params.name.value,
+        location: req.swagger.params.location.value
+      })
+    ),
     createTrashpoint: senecaRequestMw(
         'role:db,cmd:createTrashpoint',
         req => ({

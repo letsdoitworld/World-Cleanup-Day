@@ -1,234 +1,84 @@
+import Api from "../services/Api";
+import types from "../reducers/trashpile/types";
+import {API_ENDPOINTS} from "../shared/constants";
+import {handleUpload} from "../reducers/trashpile/operations";
+import {fetchTrashPointsDataSets} from "./datasets";
 
-export function searchTrashPointsRequest(query, page, pageSize, location) {
-    return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            resolve(
-                {
-                    status: true,
-                    trashPoints: [
-                        {
-                            id: 0,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 1,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 2,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 3,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 4,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 5,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 6,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 7,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 8,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 9,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 10,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 11,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 12,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 13,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 14,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 15,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 16,
-                            isIncluded: true,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 17,
-                            isIncluded: true,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 18,
-                            isIncluded: true,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 19,
-                            isIncluded: true,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        },
-                        {
-                            id: 20,
-                            isIncluded: false,
-                            status: 'threat',
-                            location: {
-                                longitude: 49,
-                                lantitude: 35,
-                            },
-                            title: "fdfdffd",
-                        }
-                    ]
-                        .filter((trashPoint) => query === undefined || query === null || trashPoint.title.startsWith(query))
-                        .slice(page * pageSize, page * pageSize + pageSize)
-                }
-            );
-        }, 3000)
-    }).then((response) => {
-        return response
-    }).catch((error) => {
-        console.log(error)
-    })
+export async function searchTrashPointsRequest(query, page, pageSize, location) {
+    try {
+        const response = await Api.get('trashpoints',
+            {
+                params: {
+                    pageSize: pageSize,
+                    pageNumber: page + 1,
+                    location: location,
+                    name: query
+                },
+            },
+            {
+                withToken: true,
+            },);
+        if (!response || !response.data) {
+            throw {error: 'Could not load trashpoins'};
+        }
+        return response;
+    } catch (ex) {
+        throw ex
+    }
+}
+
+export async function createTrashPointRequest(
+    hashtags,
+    composition,
+    location,
+    status,
+    address,
+    amount,
+    name,
+    photos,
+) {
+    try {
+        const datasetId = await fetchTrashPointsDataSets();
+        const newMarker = {
+            hashtags,
+            composition,
+            location,
+            status,
+            name: name,
+            address,
+            amount,
+            datasetId: datasetId
+        };
+
+        const url = API_ENDPOINTS.CREATE_TRASHPOINT;
+
+        const createMarkerResponse = await Api.put(url, newMarker);
+
+        let uploadStatus;
+        try {
+            uploadStatus = await handleUpload({
+                photos,
+                markerId: createMarkerResponse.data.id,
+            });
+        } catch (error) {
+            console.log(error)
+        }
+
+        console.log(uploadStatus)
+        console.log('uploadStatus')
+
+        return {
+            data: {
+                trashpoint: {...createMarkerResponse.data},
+                photoStatus: uploadStatus ? uploadStatus : true
+            }
+        };
+    } catch (error) {
+        throw error
+    }
 }
 
 export default {
-    searchTrashPointsRequest
+    searchTrashPointsRequest,
+    createTrashPointRequest
 }

@@ -111,12 +111,26 @@ paths:
           $ref: "#/responses/ErrorSet"
 
   #-----------------------------------------------------------------------------
+  /event/{id}:
+    x-swagger-router-controller: events
+    get:
+      description: Fetch event details by ID.
+      operationId: getEventById
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: List of images.
+          schema:
+            "type": "object"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /event:
     x-swagger-router-controller: events
-    x-security: [bearer]
     put:
       description: Create new event, needed to organize people to clean garbage.
       operationId: createEvent
+      x-security: [bearer]
       parameters:
         - $ref: "#/parameters/CreateEvent"
       responses:
@@ -126,6 +140,165 @@ paths:
               "type": "object"
           "default":
             $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  /event/{id}/images:
+    x-swagger-router-controller: images
+    get:
+      description: Fetch the images associated with a specific event ID.
+      operationId: getEventImages
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: List of images.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventImage"
+        "default":
+          $ref: "#/responses/ErrorSet"
+    put:
+      description: Allocate a new image associated with a specific event ID.
+      operationId: allocateEventImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/ImageAllocate"
+      responses:
+        "200":
+          $ref: "#/responses/StorageAuth"
+        "default":
+          $ref: "#/responses/ErrorSet"
+    post:
+      description: Confirm the upload of an image.
+      operationId: confirmEventImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/ImageConfirm"
+      responses:
+        "200":
+          description: All indicated images were processed successfully.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /event/{id}/images/{id2}:
+    x-swagger-router-controller: images
+    delete:
+      description: Delete an image. The 1st ID indicates the event, the 2nd the image.
+      operationId: deleteEventImages
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/UUID2"
+      responses:
+        "200":
+          description: The indicated image and their dependent images were deleted.
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+  #-----------------------------------------------------------------------------
+  /events:
+    x-swagger-router-controller: events
+    get:
+      description: Fetch full information about events.
+      operationId: getEvents
+      parameters:
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+        - name: location
+          in: query
+          required: false
+          type: string
+        - name: name
+          description: Event name.
+          in: query
+          required: false
+          type: string
+        - name: address
+          description: Address.
+          in: query
+          required: false
+          type: string
+        - name: area
+          description: Area code.
+          in: query
+          required: false
+          type: string
+          minLength: 2
+          maxLength: 2
+      responses:
+        "200":
+          $ref: "#/definitions/PaginatedEvents"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+  /overview/events:
+    x-swagger-router-controller: events
+    post:
+      description: Fetch isolated (ie. with no neighbors nearby) location events from a specific dataset, within a certain rectangular area, and for a certain grid scale.
+      operationId: getEventsOverview
+      parameters:
+        - $ref: "#/parameters/MapQuery"
+      responses:
+        "200":
+          description: List of simplified event data.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Event"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+
+  /overview/events/clusters:
+    x-swagger-router-controller: events
+    post:
+      description: Fetch clustered events from a specific dataset, within a certain rectangular area, and for a certain grid scale.
+      operationId: getEventsClustersOverview
+      parameters:
+        - $ref: "#/parameters/MapQuery"
+      responses:
+        "200":
+          description: List of event clusters.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventCluster"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+  /overview/events/grid:
+    x-swagger-router-controller: trashpoints
+    post:
+      description: Fetch isolated (ie. with no neighbors nearby) location events from a specific dataset, within a certain grid slot, for a certain grid scale.
+      operationId: getEventsInGridCell
+      parameters:
+        - $ref: "#/parameters/MapQueryGrid"
+      responses:
+        "200":
+          description: List of simplified event data.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Event"
+        "default":
+          $ref: "#/responses/ErrorSet"
+
+  #-----------------------------------------------------------------------------
+  /events/user:
+    x-swagger-router-controller: events
+    get:
+      description: Fetch full information about events associated to the authenticated user.
+      operationId: getUserOwnEvents
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+      responses:
+        "200":
+          $ref: "#/definitions/PaginatedEvents"
+        "default":
+          $ref: "#/responses/ErrorSet"
 
   #-----------------------------------------------------------------------------
   /datasets:
@@ -393,6 +566,26 @@ paths:
   #-----------------------------------------------------------------------------
   /trashpoints:
     x-swagger-router-controller: trashpoints
+    get:
+      description: Fetch full information about trashpoints.
+      operationId: getTrashpoints
+      parameters:
+        - $ref: "#/parameters/PageSize"
+        - $ref: "#/parameters/PageNumber"
+        - name: location
+          in: query
+          required: false
+          type: string
+        - name: name
+          description: Trashpoint name.
+          in: query
+          required: false
+          type: string
+      responses:
+        "200":
+          $ref: "#/responses/Trashpoints"
+        "default":
+          $ref: "#/responses/ErrorSet"
     put:
       description: Create a new trashpoint in a certain dataset ID.
       operationId: createTrashpoint
@@ -514,6 +707,7 @@ paths:
           description: The indicated image and their dependent images were deleted.
         "default":
           $ref: "#/responses/ErrorSet"
+
 
 ################################################################################
 parameters:
@@ -657,7 +851,7 @@ parameters:
     required: true
     schema:
       type: object
-      required: [datasetId, location, name, address, description, whatToBring]
+      required: [datasetId, location, name, address, phonenumber, description, whatToBring, maxPeopleAmount]
       properties:
         datasetId:
           $ref: "#/definitions/UUID"
@@ -690,7 +884,13 @@ parameters:
         email:
           description: Email address of contact permission
           type: string
-        records:
+        phonenumber:
+          description: Phone number of contact permission
+          type: string
+        maxPeopleAmount:
+          description: Max amount of people
+          type: number
+        trashpoints:
          type: array
          items:
            type: string
@@ -779,6 +979,12 @@ responses:
           type:
             description: The type of resource.
             $ref: "#/definitions/TrashImageType"
+
+  Trashpoints:
+    description: List of trashpoints.
+    schema:
+      $ref: "#/definitions/PaginatedTrashpoints"
+
   ErrorSet:
     description: Contains errors.
     schema:
@@ -882,6 +1088,24 @@ definitions:
         $ref: "#/definitions/GeoPoint"
       coordinates:
         $ref: "#/definitions/GridCoordinates"
+
+  #-----------------------------------------------------------------------------
+  # Event characteristics.
+  #-----------------------------------------------------------------------------
+  EventCluster:
+    description: If not present, this object is a event. If present, this object is a cluster and this property contains cluster-specific properties.
+    type: object
+    required: [count, location, coordinates]
+    properties:
+      count:
+        type: number
+        format: int32
+        minimum: 1
+      location:
+        $ref: "#/definitions/GeoPoint"
+      coordinates:
+        $ref: "#/definitions/GridCoordinates"
+
   #-----------------------------------------------------------------------------
   # Trashpoints as paginated sets.
   #-----------------------------------------------------------------------------
@@ -899,6 +1123,22 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/BriefTrashpoint"
+
+  PaginatedEvents:
+    type: object
+    required: [total, pageSize, pageNumber, records]
+    properties:
+      total:
+        $ref: "#/definitions/PageTotal"
+      pageSize:
+        $ref: "#/definitions/PageSize"
+      pageNumber:
+        $ref: "#/definitions/PageNumber"
+      records:
+        type: array
+        items:
+          $ref: "#/definitions/Event"
+
   PaginatedAreaTrashpoints:
     allOf:
     - $ref: "#/definitions/PaginatedTrashpoints"
@@ -909,6 +1149,8 @@ definitions:
           type: object
           properties:
             threat:
+              $ref: "#/definitions/Count"
+            urgent:
               $ref: "#/definitions/Count"
             regular:
               $ref: "#/definitions/Count"
@@ -981,15 +1223,15 @@ definitions:
   TrashStatus:
     type: string
     description: The current status of this trashpoint. If it's a cluster, the status is determined by the majority of trashpoints in it.
-    enum: [threat, regular, cleaned, outdated]
+    enum: [threat, urgent, regular, cleaned, outdated]
   TrashCreateStatus:
     type: string
     description: The initial status of a newly created trashpoint.
-    enum: [threat, regular]
+    enum: [threat, urgent, regular]
   TrashModifyStatus:
     type: string
     description: Change the status of the trashpoint.
-    enum: [threat, regular, cleaned]
+    enum: [threat, urgent, regular, cleaned]
   TrashAreas:
     description: Under what geographical areas this trashpoint falls.
     type: array
@@ -1073,6 +1315,30 @@ definitions:
     minLength: 1
     maxLength: 250
   #-----------------------------------------------------------------------------
+  # Event image characteristics.
+  #-----------------------------------------------------------------------------
+  EventImage:
+    type: object
+    required: [id, eventId, type]
+    properties:
+      id:
+        description: The unique identifier for this image.
+        $ref: "#/definitions/UUID"
+      eventId:
+        description: The identifier of the event this image is associated with.
+        $ref: "#/definitions/UUID"
+      type:
+        $ref: "#/definitions/EventImageType"
+      url:
+        description: The URL at which the image is available. Not present when the status is not "ready".
+        type: string
+      parentId:
+        description: Depending on the type, some images are related to another.
+        $ref: "#/definitions/UUID"
+  EventImageType:
+    type: string
+    enum: [medium, thumbnail]
+  #-----------------------------------------------------------------------------
   # Dataset characteristics.
   #-----------------------------------------------------------------------------
   Dataset:
@@ -1086,6 +1352,68 @@ definitions:
         description: The type of objects contained in this dataset.
         type: string
         enum: [trashpoints]
+
+  #-----------------------------------------------------------------------------
+  # Event characteristics.
+  #-----------------------------------------------------------------------------
+  Event:
+    description: A collection of data objects with a common internal structure.
+    type: object
+    required: [id, datasetId, location, name, address, phonenumber, description, whatToBring, maxPeopleAmount]
+    properties:
+      id:
+        description: UUID field, representing the identificator of the event
+        $ref: "#/definitions/UUID"
+      datasetId:
+        description: UUID field, representing the identificator of the dataset
+        $ref: "#/definitions/UUID"
+      name:
+        description: Text field, representing the name of the event
+        $ref: "#/definitions/EventName"
+      address:
+        description: Text field, representing the address of the event
+        $ref: "#/definitions/EventAddress"
+      location:
+        description: Event location.
+        $ref: "#/definitions/GeoPoint"
+      description:
+        description: Description of the event.
+        $ref: "#/definitions/EventDescription"
+      whatToBring:
+        description: Text field which says what to bring on the event.
+        $ref: "#/definitions/EventWhatToBring"
+      createDate:
+        description: When the event was created.
+        $ref: "#/definitions/ISOTimestamp"
+      updateDate:
+        description: When the event was modified.
+        $ref: "#/definitions/ISOTimestamp"
+      startTime:
+        description: When event is planned to start.
+        $ref: "#/definitions/ISOTimestamp"
+      endTime:
+        description: When event is planned to start.
+        $ref: "#/definitions/ISOTimestamp"
+      email:
+        description: Email address of contact permission
+        type: string
+      phonenumber:
+        description: Phone number of contact permission
+        type: string
+      maxPeopleAmount:
+        description: Max amount of people
+        type: number
+      trashpoints:
+        description: Trashpoints list
+        type: array
+        items:
+          $ref: "#/definitions/Trashpoint"
+      peoples:
+        description: Peoples list
+        type: array
+        items:
+          $ref: "#/definitions/Account"
+
   #-----------------------------------------------------------------------------
   # Grid data.
   #-----------------------------------------------------------------------------

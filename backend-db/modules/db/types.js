@@ -12,6 +12,7 @@ const declareConstants = (obj, constants) => {
 
 const declareStatusConstants = (c) => declareConstants(c, {
     STATUS_REGULAR: 'regular',
+    STATUS_URGENT: 'urgent',
     STATUS_THREAT: 'threat',
     STATUS_CLEANED: 'cleaned',
     STATUS_OUTDATED: 'outdated',
@@ -99,7 +100,11 @@ class Event extends Type {
             datasetId: true,
             name: true,
             address: true,
-            location: true,
+            location: {
+                latitude: true,
+                longitude: true,
+            },
+            areas: true,
             description: true,
             whatToBring: true,
             createDate: true,
@@ -107,7 +112,12 @@ class Event extends Type {
             startTime: true,
             endTime: true,
             email: true,
-            trashpoints: true
+            phonenumber: true,
+            trashpoints: true,
+            maxPeopleAmount: true,
+            peoples: true,
+            createdBy: true,
+            updatedBy: true,
         });
     }
 }
@@ -169,6 +179,7 @@ class Image extends Type {
             url: true,
             server: true,
             trashpointId: true,
+            eventId: true,
             parentId: true,
             createdAt: true,
             createdBy: true,

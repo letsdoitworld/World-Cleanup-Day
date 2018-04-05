@@ -1,9 +1,15 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { searchTrashPointsAction, clearTrashPointsAction } from '../../store/actions/trashPoints';
+import {
+    searchTrashPointsAction,
+    clearTrashPointsAction
+} from '../../store/actions/trashPoints';
 
-import { getTrashPointsEntity, isLoading } from '../../store/selectors';
+import {
+    getTrashPointsEntity,
+    isLoading
+} from '../../store/selectors';
 
 import Component from './AddTrashPoints';
 

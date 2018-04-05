@@ -33,7 +33,7 @@ export default {
         height: 86,
     },
     list: {
-        flex: 1,
+        flex: 1
     },
     spinner: {
         flex: 1,

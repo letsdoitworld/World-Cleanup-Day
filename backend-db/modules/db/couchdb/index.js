@@ -43,14 +43,141 @@ const layer = {
     //========================================================
     // Events
     //========================================================
-    createEvent: async (event) => {
+    createEvent: async (userId, event) => {
         const id = util.uuid.random();
-        await adapter.createDocument('Event', id, event);
+        await adapter.createDocument('Event', id, event, {
+          createDate: util.time.getNowUTC(),
+          createdBy: userId,
+          peoples: []
+        });
         return await layer.getEvent(id);
     },
 
     getEvent: async id => {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
+    },
+
+    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, address, location, area) => {
+      return await adapter.executeTemporaryView('Event', {
+        map: `function(doc) {
+            function distanceBetweenPoints (p1, p2) {
+              return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
+                      + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
+            }
+            if (
+              doc.$doctype === 'event' 
+              ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''} 
+              ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}
+              ${address ? ` && doc.address.indexOf('${address}') !== -1` : ''}
+            ) {
+              ${location ? `
+                emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
+              ` : `
+                emit(doc._id, doc)
+              `}
+            }
+          }`
+      }, {
+        sorted: true,
+        limit: pageSize,
+        skip: pageSize * (pageNumber - 1),
+      }, false);
+    },
+
+    getEventsByTrashpoint: async (trashpointId) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byTrashpoint/_view/view',
+        {
+          key: trashpointId
+        });
+    },
+
+    getOverviewEvents: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await layer.getOverview('Event', `_design/isolated${scale}/_view/view`,
+        datasetId, scale, nwLat, nwLong, seLat, seLong);
+      return ret.filter(row => adapter.rawDocToEntity('Event', row));
+    },
+
+    getGridCellEvents: async (datasetId, cellSize, gridCoord) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await adapter.getEntities(
+        'Event',
+        `_design/byGridCell${scale}/_view/view`,
+        {
+          startkey: [datasetId, gridCoord],
+          endkey: [datasetId, gridCoord],
+          'inclusive_end': true,
+          sorted: false,
+        }
+      );
+      return ret.filter(val => val !== null);
+    },
+
+    getEventsOverviewClusters: async (datasetId, cellSize, nwLat, nwLong, seLat, seLong) => {
+      const scale = grid.getScaleForCellSize(cellSize);
+      const ret = await layer.getOverview('Event', `_design/clusters${scale}/_view/view`,
+        datasetId, scale, nwLat, nwLong, seLat, seLong, {
+          'group_level': 2,
+        });
+      return ret.filter(row => adapter.rawDocToEntity('Cluster', row));
+    },
+
+    getEventsByLocation: async (minLocation, maxLocation) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byLocation/_view/view',
+        {
+          startkey: maxLocation ? [minLocation.latitude, minLocation.longitude] : [],
+          endkey: minLocation ? [maxLocation.latitude, maxLocation.longitude, {}] : [{}],
+        });
+    },
+
+    getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
+      return await adapter.getEntities(
+        'Event',
+        '_design/byCreatingUser/_view/view',
+        {
+          sorted: true,
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          startkey: [userId, {}],
+          endkey: [userId],
+          limit: pageSize,
+          skip: pageSize * (pageNumber - 1),
+        });
+    },
+
+    countEvents: async () => {
+      const ret = await adapter.getRawDocs('Event', '_design/countAll/_view/view');
+      if (!ret.length) return 0;
+      return parseInt(ret.pop());
+    },
+
+    countUserEvents: async userId => {
+      const ret = await adapter.getRawDocs('Event', '_design/countByCreatingUser/_view/view', { key: userId });
+      if (!ret.length) return 0;
+      return parseInt(ret.pop());
+    },
+
+    touchEvent: async (id, who) => {
+        return await layer.modifyEvent(id, who, {});
+    },
+
+    modifyEvent: async (id, who, update, rawEventDoc = null) => {
+        return await adapter.modifyDocument(
+            'Event',
+            rawEventDoc || await layer.getRawEventDoc(id),
+            update,
+            {
+                updatedAt: util.time.getNowUTC(),
+                updatedBy: who,
+            }
+        );
+    },
+
+    getRawEventDoc: async id => {
+        return await adapter.getOneRawDocById('Event', '_design/all/_view/view', id);
     },
 
     //========================================================
@@ -287,6 +414,27 @@ const layer = {
     getTrashpoint: async id => {
         return await adapter.getOneEntityById('Trashpoint', '_design/all/_view/view', id);
     },
+    getTrashpointsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, location, area) => {
+      return await adapter.executeTemporaryView('Trashpoint', {
+        map: `function(doc) {
+          function distanceBetweenPoints (p1, p2) {
+            return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
+                    + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
+          }
+          if (doc.$doctype === 'trashpoint' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''} ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}) {
+            ${location ? `
+              emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
+            ` : `
+              emit(doc._id, doc)
+            `}
+          }
+        }`
+      }, {
+        sorted: true,
+        limit: pageSize,
+        skip: pageSize * (pageNumber - 1),
+      }, false);
+    },
     getRawTrashpointDoc: async id => {
         return await adapter.getOneRawDocById('Trashpoint', '_design/all/_view/view', id);
     },
@@ -452,19 +600,29 @@ const layer = {
     getImage: async id => {
         return await adapter.getOneEntityById('Image', '_design/all/_view/view', id);
     },
-    allocateImage: async (type, trashpointId, who, parentId = undefined) => {
+    allocateImage: async (type, trashpointId, eventId, who, parentId = undefined) => {
         const id = util.uuid.random();
-        await adapter.createDocument('Image', id, {
-            type,
-            status: types.Image.STATUS_PENDING,
-            trashpointId,
-            parentId,
-        }, {
+        const imgData = trashpointId ?
+            {
+                type,
+                status: types.Image.STATUS_PENDING,
+                trashpointId,
+                parentId,
+            }
+            :
+            {
+                type,
+                status: types.Image.STATUS_PENDING,
+                eventId,
+                parentId,
+            };
+        const imgDate = {
             updatedAt: util.time.getNowUTC(),
             updatedBy: who,
             createdAt: util.time.getNowUTC(),
             createdBy: who,
-        });
+        };
+        await adapter.createDocument('Image', id, imgData, imgDate);
 
         return await layer.getImage(id);
     },
@@ -495,17 +653,72 @@ const layer = {
         );
         return ret;
     },
-    getChildImages: async (parentId, trashpointId) => {
+    getTrashpointImagesByType: async (trashpointId, type, status = null) => {
+      const ret = await adapter.getEntities(
+        'Image',
+        '_design/byTrashpointAndTypeAndStatusAndCreation/_view/view',
+        {
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          startkey: status ? [trashpointId, type, status, {}] : [trashpointId, type, {}],
+          endkey: status ? [trashpointId, type, status] : [trashpointId, type],
+          sorted: true,
+        }
+      );
+      return ret;
+    },
+    getEventImagesByType: async (eventId, type, status = null) => {
+      const ret = await adapter.getEntities(
+        'Image',
+        '_design/byEventAndTypeAndStatusAndCreation/_view/view',
+        {
+          descending: true, //XXX: when desc=true, startkey and endkey are reversed
+          startkey: status ? [eventId, type, status, {}] : [eventId, type, {}],
+          endkey: status ? [eventId, type, status] : [eventId, type],
+          sorted: true,
+        }
+      );
+      return ret;
+    },
+    getEventImages: async (eventId, status = null) => {
         const ret = await adapter.getEntities(
             'Image',
-            '_design/byTrashpointAndParent/_view/view',
+            '_design/byEventAndStatusAndCreation/_view/view',
             {
-                keys: [
-                    [trashpointId, parentId],
-                ],
-                sorted: false,
+                descending: true, //XXX: when desc=true, startkey and endkey are reversed
+                startkey: status ? [eventId, status, {}] : [eventId, {}],
+                endkey: status ? [eventId, status] : [eventId],
+                sorted: true,
             }
         );
+        return ret;
+    },
+    getChildImages: async (parentId, trashpointId, eventId) => {
+        let ret = null;
+        if (trashpointId) {
+            ret = await adapter.getEntities(
+                'Image',
+                '_design/byTrashpointAndParent/_view/view',
+                {
+                    keys: [
+                        [trashpointId, parentId],
+                    ],
+                    sorted: false,
+                }
+            );
+        }
+        if (eventId) {
+            ret = await adapter.getEntities(
+                'Image',
+                '_design/byEventAndParent/_view/view',
+                {
+                    keys: [
+                        [eventId, parentId],
+                    ],
+                    sorted: false,
+                }
+            );
+        }
+
         return ret;
     },
 

@@ -51,7 +51,7 @@ export default EStyleSheet.create({
     },
     inputTextStyle: {
         width: '100%',
-        marginLeft: getWidthPercentage(10),
+        marginLeft: getWidthPercentage(14),
         alignSelf: 'center',
     },
     dateAndTimeContainerStyle: {
@@ -105,8 +105,7 @@ export default EStyleSheet.create({
     trashpointTipStyle: {
         backgroundColor: colors.$deepGreyTransparent,
         height: getHeightPercentage(35),
-        width: '100%',
-        justifyContent: 'center',
+        alignItems: 'center',
         flexDirection: 'row',
     },
     imageTrashStyle: {
@@ -114,22 +113,20 @@ export default EStyleSheet.create({
         height: 24,
         marginLeft: getWidthPercentage(10),
         alignSelf: 'center',
-        left: 0,
         resizeMode: 'contain'
     },
     textTrashStyle: {
-        flex: 1,
         fontSize: 17,
         marginLeft: getWidthPercentage(10),
         color: colors.$blackTransparent,
         alignSelf: 'center',
-        fontFamily: 'Lato-Regular'
+        fontFamily: 'Lato-Regular',
+        flex: 1
     },
     locationContainerStyle: {
         backgroundColor: colors.$white,
         height: getHeightPercentage(35),
-        width: '100%',
-        justifyContent: 'center',
+        alignItems: 'center',
         flexDirection: 'row',
     },
     descriptionContainerStyle: {
@@ -192,7 +189,24 @@ export default EStyleSheet.create({
     },
     inputUserDataStyle: {
         width: '90%',
-            marginLeft: getWidthPercentage(10),
-            alignSelf: 'center',
+        marginLeft: getWidthPercentage(10),
+        alignSelf: 'center',
+    },
+    trashPointCircle: {
+        width: 30,
+        height: 30,
+        backgroundColor: 'rgb(225, 18, 131)',
+        borderRadius: 15,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: dimens.margin_medium
+    },
+    trashPointCount: {
+        fontSize: 17,
+        fontFamily: 'Lato-Bold',
+        color: 'white'
     }
+
 });

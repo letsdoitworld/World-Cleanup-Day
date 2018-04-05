@@ -39,8 +39,7 @@ export default class EventsList extends ImmutableComponent {
     }
 
     getEventsFromProps() {
-        const {events} = this.props;
-        return events;
+        return this.props.events;
     }
 
     //noinspection JSMethodCanBeStatic
@@ -54,13 +53,14 @@ export default class EventsList extends ImmutableComponent {
                 data={this.getEventsFromProps()}
                 keyExtractor={this.keyExtractor.bind(this)}
                 renderItem={this.renderItem.bind(this)}
-                onEndReached={this.handleLoadMore.bind(this)}/>
+                onEndReached={this.handleLoadMore.bind(this)}
+                onEndReachedThreshold={3}
+            />
         );
     }
 
     isProgressEnabled() {
-        return false;
-        //return this.props.app.get('progress');
+        return this.props.isLoading;
     }
 
     renderSeparator = () => {
@@ -88,7 +88,7 @@ export default class EventsList extends ImmutableComponent {
                 </View>
             )
         } else {
-            return (<View style={styles.listDivider}/>)
+            return <View style={styles.listDivider}/>
         }
     };
 
@@ -96,7 +96,7 @@ export default class EventsList extends ImmutableComponent {
         if (this.isProgressEnabled() && this.page === 0 || this.isEventsListEmpty()) {
             return null
         } else {
-            return (<View style={styles.listDivider}/>)
+            return <View style={styles.listDivider}/>
         }
     };
 

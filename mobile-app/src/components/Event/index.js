@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
+
+import isNil from 'lodash/isNil';
 
 import { Icon } from '../Icon';
 
@@ -14,14 +16,19 @@ const Event = ({
   img,
   title,
   coordinator,
-  location,
+  address,
   date,
   maxParticipants,
   participants,
+  containerStyle,
+  imageStyle,
+  feedBackType,
   onPress,
 }) => {
+  const photo = img ? { uri: img } : Icons.PlaceHolderAvatar;
+
   const handleRenderParticipants = () => {
-    if (maxParticipants && participants) {
+    if (!isNil(maxParticipants) && !isNil(participants)) {
       return (
         <View style={styles.participantsContainer}>
           <Text>{participants}/{maxParticipants}</Text>
@@ -30,43 +37,67 @@ const Event = ({
     }
   };
 
-  const TouchableWrapper = onPress ? TouchableOpacity : View;
+  const handleRenderCountry = () => {
+    if (address) {
+      return (
+        <View style={styles.locationContainer}>
+          <Icon path={Icons.Location} containerStyle={styles.icon} />
+          <Text style={styles.locationText}>
+            {address}
+          </Text>
+        </View>
+      );
+    }
+  };
+
+  const handleRenderFeedBack = () => {
+    switch (true) {
+      case feedBackType === 'withoutFeedBack':
+        return TouchableWithoutFeedback;
+      case !!onPress:
+        return TouchableOpacity;
+      default:
+        return View;
+    }
+  };
+
+  const TouchableWrapper = handleRenderFeedBack();
 
   return (
-    <TouchableWrapper onPress={onPress} style={styles.container}>
-      <Image source={img} style={styles.image} />
+    <TouchableWrapper onPress={onPress}>
+      <View style={!containerStyle ? styles.container : containerStyle}>
+        <Image source={photo} style={!imageStyle ? styles.image : imageStyle} />
 
-      <View style={styles.middleColumn}>
-        <Text style={styles.title}>{title}</Text>
-        <View>
-          {coordinator &&
-            <View style={styles.coordinatorContainer}>
-              <Icon path={Icons.GroupPeople} containerStyle={styles.icon} />
-              <Text style={styles.coordinatorText}>{coordinator}</Text>
-            </View>
-          }
-          <View style={styles.locationContainer}>
-            <Icon path={Icons.Location} containerStyle={styles.icon} />
-            <Text style={styles.locationText}>{location}</Text>
+        <View style={styles.middleColumn}>
+          <Text style={styles.title}>{title}</Text>
+          <View>
+            {coordinator &&
+              <View style={styles.coordinatorContainer}>
+                <Icon path={Icons.GroupPeople} containerStyle={styles.icon} />
+                <Text style={styles.coordinatorText}>{coordinator}</Text>
+              </View>
+            }
+
+            {handleRenderCountry()}
           </View>
         </View>
-      </View>
 
-      <View style={styles.rightColumn}>
-        {handleRenderParticipants()}
-        <Text style={styles.dateText}>
-          {moment(date).format('DD.MM.YYYY')}
-        </Text>
+        <View style={styles.rightColumn}>
+          {handleRenderParticipants()}
+          <Text style={styles.dateText}>
+            {moment(date).format('DD.MM.YYYY')}
+          </Text>
+        </View>
       </View>
     </TouchableWrapper>
   );
 };
 
 Event.propTypes = {
-  img: PropTypes.number,
+  img: PropTypes.string,
   title: PropTypes.string,
   coordinator: PropTypes.string,
-  location: PropTypes.string,
+  address: PropTypes.string,
   date: PropTypes.string,
   maxParticipants: PropTypes.number,
   participants: PropTypes.number,

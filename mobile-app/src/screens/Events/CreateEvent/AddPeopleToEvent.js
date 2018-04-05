@@ -94,7 +94,6 @@ class AddPeopleToEvent extends ImmutableComponent {
         </View>
     }
 
-
     renderNumberAttendeesError() {
         const isNumberAttendeesValid = this.state.data.get('isNumberAttendeesValid');
         const isNumberAttendeesTextChanged = this.state.data.get('isNumberAttendeesTextChanged');

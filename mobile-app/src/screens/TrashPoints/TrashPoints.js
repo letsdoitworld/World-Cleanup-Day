@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
+import {
+    ActivityIndicator,
+    LayoutAnimation,
+    Text,
+    TextInput,
+    UIManager,
+    View,
+    Dimensions
+} from 'react-native';
 
 import {Map as MapView} from '../../components/Map';
 import {DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
@@ -17,8 +25,12 @@ import ImageService from "../../services/Image";
 import Api from '../../api';
 import Events from "../Events/Events";
 import {autocompleteStyle} from "../AddLocation/AddLocation";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 //import styles from './styles';
+import Carousel from 'react-native-snap-carousel';
+import {renderItem} from "../AddTrashPoints/Item/ListItem";
+
+const {width} = Dimensions.get('window');
 
 const MODE = {
     list: 0,
@@ -45,7 +57,7 @@ class TrashPoints extends Component {
             },
         });
 
-        const { mapTrashPoints, userCoord } = props;
+        const {mapTrashPoints, userCoord} = props;
 
         const region = {
             latitude: userCoord.latitude,
@@ -61,8 +73,10 @@ class TrashPoints extends Component {
             mode: MODE.map,
             isSearchFieldVisible: false,
             updateRegion: true,
+            selectedItem: undefined,
             region,
-            initialRegion: region
+            initialRegion: region,
+            listTrashPoints: undefined
         };
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -129,14 +143,18 @@ class TrashPoints extends Component {
             return
         }
 
-        let listEvents = [];
-      //  let markers = [];
+        let count = 0;
+
         if (nextProps.mapTrashPoints) {
-            // listEvents = mapEvents.filter(event => event.count === undefined);
+            const listTrashPoints = nextProps.mapTrashPoints.filter(event => event.count === undefined);
             const markers = nextProps.mapTrashPoints.map((mapTrashPoint) => {
                 return {
                     ...mapTrashPoint,
                     latlng: mapTrashPoint.location,
+                    listTrashPoints,
+                    isSelected: this.state.selectedItem
+                        ? this.state.selectedItem.location.latitude === mapTrashPoint.location.latitude
+                        : count++ === 1
                 };
             });
 
@@ -260,9 +278,63 @@ class TrashPoints extends Component {
                     <View style={{
                         flex: 1
                     }}>
-                    {this.renderContent()}
-                    {this.renderSearchBox()}
-                    </View>
+                        {this.renderContent()}
+                        {this.renderSearchBox()}
+                        { this.state.mode === MODE.map &&
+                            <Carousel
+                                containerCustomStyle={{
+                                    position: 'absolute',
+                                    bottom: 8,
+                                    left: 0,
+                                    right: 0,
+                                    flex: 1,
+                                    height: 82,
+                                    width
+                                }}
+                                ref={(c) => {
+                                    this._carousel = c;
+                                }}
+                                data={this.state.mapTrashPoints ? this.state.mapTrashPoints : []}
+                                renderItem={this.renderCarouselItem}
+                                inactiveSlideScale={0.85}
+                                inactiveSlideOpacity={0.7}
+                                sliderWidth={width}
+                                itemWidth={width - 37 * 2}
+                                onSnapToItem={(index) =>  {
+
+
+                                    const markers = this.props.mapTrashPoints.map((mapTrashPoint) => {
+                                        return {
+                                            ...mapTrashPoint,
+                                            latlng: mapTrashPoint.location,
+                                            isSelected: this.state.mapTrashPoints[index].location.latitude === mapTrashPoint.location.latitude
+                                        };
+                                    });
+
+                                    this.setState((previousState) => {
+                                        return {
+                                            ...previousState,
+                                            selectedItem: this.state.mapTrashPoints[index],
+                                            markers: markers,
+                                        };
+                                    });
+
+                                    const region = {
+                                        latitudeDelta: DEFAULT_ZOOM,
+                                        longitudeDelta: DEFAULT_ZOOM,
+                                        latitude: this.state.mapTrashPoints[index].location.latitude,
+                                        longitude: this.state.mapTrashPoints[index].location.longitude
+                                    };
+
+
+                                    this.map.animateToRegion(region, 300);
+
+
+                                }}
+                            />
+
+                        }
+                        </View>
                     <FAB
                         buttonColor="rgb(225, 18, 131)"
                         iconTextColor="white"
@@ -276,10 +348,24 @@ class TrashPoints extends Component {
         );
     }
 
-    renderContent() {
-        const { userCoord } = this.props;
+    renderCarouselItem({item, index}) {
+        return renderItem(
+            item,
+            false,
+            {
+                backgroundColor: 'white',
+                height: 82,
+                width: width - 37 * 2
+            },
+            undefined,
+            undefined,
+            true);
+    }
 
-        const { selectedItem, mapTrashPoints, markers, region, initialRegion } = this.state;
+    renderContent() {
+        const {userCoord} = this.props;
+
+        const {selectedItem, mapTrashPoints, markers, region, initialRegion} = this.state;
 
 
         switch (this.state.mode) {
@@ -289,19 +375,17 @@ class TrashPoints extends Component {
             case MODE.map: {
                 return (
                     <MapView
-                        style={{
-                            marginTop: this.isSearchFieldVisible() ? 44 : 0
-                        }}
                         handleOnMarkerPress={this.onMarkerPress.bind(this)}
                         onRegionChangeComplete={this.handleOnRegionChangeComplete.bind(this)}
                         markers={markers}
                         initialRegion={initialRegion}
                         region={region === initialRegion && this.state.updateRegion === false ? region : undefined}
-                        getRef={this.getMapObject.bind(this)}/>
+                        getRef={this.getMapObject.bind(this)}
+                    />
                 );
             }
             default:
-                return null;
+                return null
         }
     }
 
@@ -314,7 +398,7 @@ class TrashPoints extends Component {
             cropping: true,
             includeBase64: true
         });
-        const {width, height, data, path } = image;
+        const {width, height, data, path} = image;
         const uri = path;
         const base64 = data;
 
@@ -324,7 +408,7 @@ class TrashPoints extends Component {
             height
         });
 
-        const { coords } = await getCurrentPosition({
+        const {coords} = await getCurrentPosition({
             enableHighAccuracy: false,
             timeout: 10 * 1000,
             maximumAge: 60 * 1000
@@ -334,7 +418,7 @@ class TrashPoints extends Component {
             screen: CREATE_MARKER,
             title: strings.label_button_createTP_confirm_create,
             passProps: {
-                photos: [{ uri, thumbnail: { base64: thumbnailBase64 },  base64}],
+                photos: [{uri, thumbnail: {base64: thumbnailBase64}, base64}],
                 coords,
             }
         });

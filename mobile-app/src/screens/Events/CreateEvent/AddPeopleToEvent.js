@@ -1,18 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
-import {
-    View, Text, Alert
-} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import styles from "./styles";
 import strings from "../../../assets/strings";
 import InputField from '../../../components/InputFields/InputField';
 import MainButton from '../../../components/Buttons/MainButton';
 import * as Immutable from "immutable/dist/immutable";
 import PropTypes from 'prop-types';
-import {EVENTS, HOME_SCREEN} from "../../index";
-import {Navigation} from "react-native-navigation";
-import {createEventError} from "../../../store/actions/createEvent";
-import { AlertModal } from '../../../components/AlertModal';
+
+import {Icons} from '../../../assets/images';
 
 const cancelId = 'cancelId';
 
@@ -26,7 +22,7 @@ class AddPeopleToEvent extends ImmutableComponent {
     static navigatorButtons = {
         leftButtons: [
             {
-                icon: require('../../../../src/assets/images/ic_back.png'),
+                icon: Icons.Back,
                 id: cancelId,
             }
         ],
@@ -98,7 +94,6 @@ class AddPeopleToEvent extends ImmutableComponent {
         </View>
     }
 
-
     renderNumberAttendeesError() {
         const isNumberAttendeesValid = this.state.data.get('isNumberAttendeesValid');
         const isNumberAttendeesTextChanged = this.state.data.get('isNumberAttendeesTextChanged');
@@ -146,8 +141,8 @@ class AddPeopleToEvent extends ImmutableComponent {
     onCreateEventClick = (isValid) => {
         if (isValid) {
             const {requestCreateEvent} = this.props;
-            //this.event['numberAttendees'] = this.numberAttendees;
-            requestCreateEvent(this.event)
+            const event ={...this.event,...{maxPeopleAmount: parseInt(this.numberAttendees)}};
+            requestCreateEvent(event)
         } else {
             this.showValidationErrors()
         }
@@ -161,7 +156,7 @@ class AddPeopleToEvent extends ImmutableComponent {
 
 AddPeopleToEvent.propTypes = {
     createdEvent: PropTypes.object,
-    errorEvent: PropTypes.object,
+    errorEvent: PropTypes.string,
     requestCreateEvent: PropTypes.func,
     requestCreateEventDone: PropTypes.func,
     requestCreateEventError: PropTypes.func,

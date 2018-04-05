@@ -4,26 +4,24 @@ DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
 import { Api } from '../../services';
 import axios from 'axios';
-//import { selectors as appSelectors, operations as appOps } from '../app';
-//import { selectors as trashpileSelectors } from '../trashpile';
+import { selectors as appSelectors, operations as appOps } from '../app/selectors';
+//import { selectors as trashpileSelectors } from 'selectors';
 import {
   convertToByteArray,
   guid,
   destinationPoint
 } from '../../shared/helpers';
+import FileSystem from 'react-native-filesystem';
+//import actions from 'actions';
+//import selectors from 'selectors';
 
-import actions from './actions';
-import selectors from './selectors';
 
 
-
-const fetchAllMarkers = (viewPortLeftTopCoordinate,
-  viewPortRightBottomCoordinate,
-  delta
-) => {
+export const fetchAllMarkers = (viewPortLeftTopCoordinate, viewPortRightBottomCoordinate, delta) => {
   return async (dispatch, getState) => {
     dispatch({ type: types.FETCH_ALL_MARKERS_REQUEST });
     let datasetId = appSelectors.trashpointsDatasetUUIDSelector(getState());
+    console.warn(datasetId);
     if (!datasetId) {
       try {
         await dispatch(appOps.fetchDatasets());
@@ -200,6 +198,9 @@ export const handleUpload = async ({ photos, markerId }) => {
     backendConfirmed: false,
   };
 
+  console.log("1")
+  console.log(photosResponse)
+
   if (photosResponse) {
     const thumbnailsPhotos = photosResponse.data
       .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
@@ -212,20 +213,34 @@ export const handleUpload = async ({ photos, markerId }) => {
         };
       });
 
-    const mediumPhotos = photosResponse.data
-      .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
-      .map(({ permission: { token, resourceId } }, index) => {
-        const { base64 } = photos[index];
-        return {
-          url: token,
-          id: resourceId,
-          blob: convertToByteArray(base64),
-        };
-      });
+      console.log("2")
+      console.log(thumbnailsPhotos)
+      let mediumPhotos = [];
+      try {
+
+          mediumPhotos = photosResponse.data
+              .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
+              .map(({permission: {token, resourceId}}, index) => {
+                  const {base64} = photos[index];
+                  return {
+                      url: token,
+                      id: resourceId,
+                      blob: convertToByteArray(base64),
+                  };
+              });
+      } catch (e) {
+          console.error(e)
+      }
+
+      console.log("3")
+      console.log(mediumPhotos)
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
 
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
+
+      console.log("4")
+      console.log(uploadedPhotosResponses)
 
     if (uploadedPhotosResponses) {
       uploadedPhotosResponses.forEach(({ status }, index) => {
@@ -234,7 +249,11 @@ export const handleUpload = async ({ photos, markerId }) => {
       });
       const upRes = await confirmUploadedPhotos(markerId, uploadedPhotosIds);
 
-      if (upRes && upRes.status === 200) {
+        console.log("5")
+        console.log(upRes)
+
+
+        if (upRes && upRes.status === 200) {
         uploadedPhotosIds.backendConfirmed = true;
       }
     }
@@ -245,13 +264,15 @@ export const handleUpload = async ({ photos, markerId }) => {
     });
   }
 
-  await Promise.all(
-    photos.map((photo) => {
-      return FileSystem.deleteAsync(photo.uri, {
-        idempotent: true,
-      });
-    }),
-  );
+    console.log("6")
+
+  for(const photo in photos) {
+      await FileSystem.delete(photo.uri, {
+          idempotent: true
+      })
+  }
+
+    console.log("7")
 
   return (
     uploadedPhotosIds.confirmed.length > 0 &&
@@ -400,7 +421,7 @@ export const uploadPhotosOnAzure = (photos) => {
               'x-ms-blob-type': 'BlockBlob',
             },
           }).catch((res) => {
-            handleSentryError(res);
+            //handleSentryError(res);
             return res;
           });
         });

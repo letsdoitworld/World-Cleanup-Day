@@ -63,5 +63,17 @@ export default {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    counterContainer: {
+        width: '100%',
+        height: 30,
+        backgroundColor: 'rgb(0, 143, 223)',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    counter: {
+        fontFamily: 'Lato-Bold',
+        fontSize: 15,
+        color: 'white',
     }
 }

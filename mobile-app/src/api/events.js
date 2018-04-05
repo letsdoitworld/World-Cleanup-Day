@@ -1,422 +1,186 @@
-export function searchEventsRequest(query, page, pageSize, location) {
-    return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            resolve(
-                {
-                    status: true,
-                    events: [
-                        {
-                            id: 0,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: true,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 1,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 2,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 3,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 4,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 5,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 6,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 7,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 8,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 9,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 10,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 11,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 12,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 13,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 14,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 15,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 16,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 17,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 18,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 19,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        },
-                        {
-                            id: 20,
-                            organization_name: "dsdsdsd",
-                            date: '11.02.2018',
-                            cover_picture: "https://www.rbc.ua/static/img/u/k/ukraine_hotel_kiev_01_650x410_1_650x410.jpg",
-                            available: 3,
-                            all: 20,
-                            place: {
-                                location: {
-                                    longitude: 49,
-                                    lantitude: 35,
-                                },
-                                distance: 4,
-                                city: 'Dnipro',
-                                country: 'Ukraine'
-                            },
-                            participant: false,
-                            title: "fdfdffdjkkjdfjdkjkdfjkfdjdfjkdfjdfdfjjkdfjkdfjkdfjkdfjkdfjkdfjjkdffd",
-                        }
-                    ]
-                        .filter((trashPoint) => query === undefined || query === null || trashPoint.title.startsWith(query))
-                        .slice(page * pageSize, page * pageSize + pageSize)
-                }
-            );
-        }, 3000)
-    }).then((response) => {
-        return response
-    }).catch((error) => {
-        console.log(error)
-    })
+import Api from "../services/Api";
+import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH} from "../shared/constants";
+import {destinationPoint, guid} from "../shared/helpers";
+
+async function loadEvent(id) {
+    try {
+        const response = await Api.get(`/event/${id}`,
+            {
+                withToken: true,
+            });
+        if (!response || !response.data) {
+            throw {error: 'Could not load my events'};
+        }
+        return response.data;
+    } catch (ex) {
+        throw ex;
+    }
 }
+
+export async function searchEventsRequest(query, page, pageSize, location) {
+    try {
+        const response = await Api.get('/events',
+            {
+                params: {
+                    pageSize: pageSize,
+                    pageNumber: page + 1,
+                    location: location,
+                    name: query
+                },
+            },
+            {
+                withToken: false,
+            },);
+        console.log("Events request ", response);
+        if (!response || !response.data) {
+            throw {error: 'Could not load my events'};
+        }
+        return response;
+    } catch (ex) {
+        console.log("Events request ex ", ex);
+        throw ex
+    }
+}
+
+async function fetchAllEventMarkers(viewPortLeftTopCoordinate,
+                                    viewPortRightBottomCoordinate,
+                                    delta,
+                                    datasetId) {
+    try {
+
+        const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+        const body = {
+            datasetId,
+            rectangle: {
+                nw: viewPortLeftTopCoordinate,
+                se: viewPortRightBottomCoordinate,
+            },
+            cellSize,
+        };
+
+        const [markersRes, clustersRes] = await Promise.all([
+            Api.post(API_ENDPOINTS.FETCH_EVENTS, body, {
+                withToken: false,
+            }),
+            Api.post(
+                API_ENDPOINTS.FETCH_OVERVIEW_EVENT_CLUSTERS,
+                {
+                    ...body,
+                },
+                {
+                    withToken: false,
+                },
+            ),
+        ]);
+
+        let markers = [];
+
+        if (markersRes && markersRes.data && Array.isArray(markersRes.data)) {
+            markers = [
+                ...markersRes.data.map(marker => ({
+                    ...marker,
+                    position: {
+                        lat: marker.location.latitude,
+                        lng: marker.location.longitude,
+                    },
+                    isTrashpile: true,
+                })),
+            ];
+        }
+
+        if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
+            markers = [
+                ...markers,
+                ...clustersRes.data.map(cluster => ({
+                    ...cluster,
+                    position: {
+                        lat: cluster.location.latitude,
+                        lng: cluster.location.longitude,
+                    },
+                    isTrashpile: true,
+                    id: guid(),
+                })),
+            ];
+        }
+        return markers;
+    } catch (ex) {
+        throw ex;
+    }
+};
+
+function calculateCell(viewPortLeftTopCoordinate,
+                       viewPortRightBottomCoordinate,) {
+    let cellSize = 0;
+    if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
+        cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) / SCREEN_WIDTH;
+    } else {
+        cellSize = (180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 / SCREEN_WIDTH;
+    }
+    return cellSize
+}
+
+function calculateDelta(viewPortLeftTopCoordinate,
+                        viewPortRightBottomCoordinate,
+                        delta) {
+    const cellSize = calculateCell(viewPortLeftTopCoordinate, viewPortRightBottomCoordinate);
+
+    const latitudeDelta = delta.latitudeDelta / 3;
+    const longitudeDelta = delta.latitudeDelta / 3;
+    const newDelta = {
+        latitudeDelta: latitudeDelta < MIN_ZOOM ? MIN_ZOOM : latitudeDelta,
+        longitudeDelta: longitudeDelta < MIN_ZOOM ? MIN_ZOOM : longitudeDelta,
+        cellSize
+    };
+    return newDelta;
+}
+
+async function fetchClustersList({
+                                     cellSize,
+                                     coordinates,
+                                     clusterId,
+                                     datasetId,
+                                     markers
+                                 }) {
+    try {
+
+        const body = {
+            datasetId,
+            cellSize,
+            coordinates,
+        };
+        const response = await Api.post(
+            API_ENDPOINTS.FETCH_CLUSTER_EVENTS,
+            body,
+        );
+
+        let newMarkers = [];
+        if (response && response.data && Array.isArray(response.data)) {
+            const angleBetweenPoints = 360 / response.data.length;
+            newMarkers = [
+                ...markers.filter(({id}) => id !== clusterId),
+                ...response.data.map((marker, index) => ({
+                    ...marker,
+                    location: destinationPoint(
+                        marker.location,
+                        3,
+                        index * angleBetweenPoints,
+                    ),
+                    isTrashpile: true,
+                })),
+            ]
+        }
+        return newMarkers;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
 
 export default {
     searchEventsRequest,
-}
+    loadEvent,
+    fetchAllEventMarkers,
+    calculateDelta,
+    fetchClustersList,
+};

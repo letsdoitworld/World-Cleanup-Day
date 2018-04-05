@@ -6,11 +6,11 @@ import isNil from 'lodash/isNil';
 
 import {
     LOGIN_SCREEN,
-    MY_ACTIVITY_SCREEN,
     NOTIFICATIONS_SCREEN,
     PROFILE_SCREEN,
     EVENTS,
     registerScreens,
+    TRASH_POINTS,
 } from './src/screens';
 
 import './src/config/styles';
@@ -24,7 +24,10 @@ const store = configureStore();
 
 registerScreens(store, Provider);
 
+
 export default class App extends PureComponent {
+
+    isMainScreenOpened = false;
 
     constructor() {
         super();
@@ -35,6 +38,7 @@ export default class App extends PureComponent {
     onStoreUpdate() {
         const auth = store.getState().get('auth');
         const token = auth.get('token');
+
         const isGuestSession = auth.get('isGuestSession');
 
         if (this.currentToken !== token) {
@@ -75,15 +79,15 @@ export default class App extends PureComponent {
         Navigation.startTabBasedApp({
             tabs: [
                 {
-                    screen: NOTIFICATIONS_SCREEN,
-                    label: 'Notifications',
+                    screen: TRASH_POINTS,
+                    label: 'Trashpoints',
                     icon: Icons.Trashpoints,
                     selectedIcon: Icons.TrashpointsActive,
-                    title: strings.label_header_notific,
+                    title: '',
                 },
                 {
                     screen: EVENTS,
-                    label: 'Activity',
+                    label: 'Events',
                     icon: Icons.Event,
                     selectedIcon: Icons.EventActive,
                     title: '',

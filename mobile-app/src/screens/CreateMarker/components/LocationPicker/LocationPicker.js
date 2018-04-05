@@ -1,80 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 
-import { Map } from '../../../../components/Map';
-import { SCREEN_WIDTH, DEFAULT_ZOOM } from '../../../../shared/constants';
+import {Map} from '../../../../components/Map';
+import {SCREEN_WIDTH, DEFAULT_ZOOM} from '../../../../shared/constants';
 
 import styles from './styles';
+import strings from '../../../../assets/strings'
 
-const getFullAddress = ({ subLocality, locality, country }) => {
-  return [subLocality, locality, country].filter(x => !!x).join(', ');
-};
 
-const LocationPicker = ({
-  value: { latitude, longitude },
-  address: { streetAddress = '', locality = '', country = '', streetNumber = '', subLocality = '' },
-  onEditLocationPress,
-  status,
-  t,
-}) => {
-  const latitudeDelta = DEFAULT_ZOOM;
-  const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
-  const marker = {
-    latlng: { latitude, longitude },
-    status,
-  };
+export default class LocationPicker extends React.Component {
+    render() {
+        const {value: {latitude, longitude}} = this.props;
+        const {address} = this.props;
+        const {onEditLocationPress, status} = this.props;
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.mapContainer}>
-        <Map
-          markers={[marker]}
-          scrollEnabled={false}
-          zoomEnabled={false}
-          pitchEnabled={false}
-          rotateEnabled={false}
-          region={{
-            latitudeDelta,
-            longitudeDelta,
-            latitude,
-            longitude,
-          }}
-          liteMode
-        />
-      </View>
-      <Text style={styles.streetContainer}>
-        {`${streetAddress} ${streetNumber}`}
-      </Text>
-      <View style={styles.bottomContainer}>
-        <View style={styles.iconContainer}>
-          <Image source={require('../../../../assets/images/icon_location.png')}/>
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>
-            {`${getFullAddress({ subLocality, locality, country })} | ${latitude.toFixed(
-              6,
-            )}, ${longitude.toFixed(6)}`}
-          </Text>
-        </View>
-      </View>
-      <TouchableOpacity onPress={onEditLocationPress} style={styles.editLocationContainer}>
-        <Text style={styles.editLocation}>{t('label_button_createTP_editloc')}</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-LocationPicker.defaultProps = {
-  value: undefined,
-  onEditLocationPress: undefined,
-};
-LocationPicker.propTypes = {
-  value: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
-  }),
-  address: PropTypes.any,
-  onEditLocationPress: PropTypes.func,
-};
-export default translate()(LocationPicker);
+        const latitudeDelta = DEFAULT_ZOOM;
+        const longitudeDelta = latitudeDelta * SCREEN_WIDTH / styles.$mapContainerHeight;
+        const marker = {
+            id: 0,
+            latlng: {latitude, longitude},
+            status,
+        };
+        return (
+            <View style={styles.container}>
+                <Map
+                    style={{
+                        height: 198,
+                        flex: 1
+                    }}
+                    markers={[marker]}
+                    scrollEnabled={false}
+                    zoomEnabled={false}
+                    pitchEnabled={false}
+                    rotateEnabled={false}
+                    region={{
+                        latitudeDelta,
+                        longitudeDelta,
+                        latitude,
+                        longitude,
+                    }}
+                    liteMode
+                />
+                <View style={styles.row}>
+                    <Image
+                        source={require('../../../../assets/images/icTrashpointAddress.png')}/>
+                    <Text style={styles.address}>
+                        {address}
+                    </Text>
+                    <TouchableOpacity onPress={onEditLocationPress} style={styles.editLocationContainer}>
+                        <Text style={styles.editLocation}>{strings.label_edit}</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
+}

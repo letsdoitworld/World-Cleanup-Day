@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {PureComponent, Component} from "react";
 import {
     Image,
     Platform,
@@ -9,21 +9,43 @@ import {
 import styles from "./styles"
 import Checkbox from '../../../components/Checkbox/Checkbox'
 import strings from '../../../assets/strings'
+import {TRASH_POINT} from "../../index";
 
-export default class ListItem extends Component {
+export const STATUS_IMAGES = {
+    cleaned: require('../../../assets/images/icCleanedTrashpoint.png'),
+    outdated: require('../../../assets/images/icRegularTrashpointInactive.png'),
+    regular: require('../../../assets/images/icRegularTrashpoint.png'),
+    urgent: require('../../../assets/images/icToxicTrashpoint.png'),
+};
+
+export default class ListItem extends PureComponent {
 
     constructor(props) {
         super(props);
         this.state = {checked: props.checked};
     }
 
-    onPress = () => {
-        // this.props.navigator.push({
-        //     screen: consts.DISCOVER_SCREEN,
-        //     passProps: {
-        //         school: this.props.item
-        //     }
-        // })
+    onPress() {
+        this.props.navigator.push({
+            screen: TRASH_POINT,
+            title: strings.label_trashpoint,
+            passProps: {
+                onCheckedChanged: this.onCheckedChanged.bind(this),
+                trashPoint: this.props.item,
+                isChecked: this.state.checked
+            }
+        })
+    };
+
+    // onAddedPress() {
+    //     this.onCheckedChanged(true)
+    // };
+
+    onCheckedChanged = (checked) => {
+        this.setState(previousState => {
+            return {checked: checked};
+        });
+        this.props.onCheckedChanged(checked, this.props.item)
     };
 
     render() {
@@ -31,56 +53,53 @@ export default class ListItem extends Component {
         const item = this.props.item;
         const checked = this.state.checked;
 
-        const pin = checked ? require('./images/icSmallLocationPinActive.png') : require('./images/icSmallLocationPinInactive.png');
+        return renderItem(item, checked, this.props.style, this.onPress.bind(this), this.onCheckedChanged)
+    }
+}
 
-        return (
-            <TouchableHighlight
-                underlayColor="rgb(232, 232, 232)"
-                onPress={this.onPress.bind(this)}
-                style={item.isIncluded ? styles.itemTouchIncluded : styles.itemTouch}>
-                <View style={styles.itemContent}>
-                    <Image
-                        style={styles.status}
-                        source={require('../../../assets/images/icCleanedTrashpoint.png')}/>
-                    <Image
-                        style={styles.pin}
-                        resizeMode={'center'}
-                        source={pin}/>
-                    <View style={styles.titleContainer}>
-                        <Text
-                            numberOfLines={1}
-                            style={checked ? styles.title : styles.titleBlack}>
-                            {item.title}
-                        </Text>
-                        {
-                            item.isIncluded ?
-                                (
-                                    <Text
-                                        numberOfLines={1}
-                                        style={styles.includedText}>
-                                        {strings.label_included_into_another_event}
-                                    </Text>
-                                )
-                                : null
-                        }
-                    </View>
+export function renderItem(item, checked, style, onPress, onCheckedChanged) {
+    return (
+        <TouchableHighlight
+            underlayColor="rgb(232, 232, 232)"
+            onPress={onPress}
+            style={[item.isIncluded ? styles.itemTouchIncluded : styles.itemTouch, style]}>
+            <View style={styles.itemContent}>
+                <Image
+                    style={styles.status}
+                    source={STATUS_IMAGES[item.status]}/>
+                <Image
+                    style={styles.pin}
+                    resizeMode={'contain'}
+                    source={require('./images/icSmallLocationPinInactive.png')}/>
+                <View style={styles.titleContainer}>
+                    <Text
+                        numberOfLines={1}
+                        style={styles.titleBlack}>
+                        {item.name}
+                    </Text>
                     {
-                        !item.isIncluded ?
+                        item.isIncluded ?
                             (
-                                <Checkbox
-                                    checked={checked}
-                                    onCheckedChanged={(checked) => {
-                                        this.setState(previousState => {
-                                            return {checked: checked};
-                                        });
-                                        this.props.onCheckedChanged(checked, item)
-                                    }}
-                                    style={styles.checkbox}/>
+                                <Text
+                                    numberOfLines={1}
+                                    style={styles.includedText}>
+                                    {strings.label_included_into_another_event}
+                                </Text>
                             )
                             : null
                     }
                 </View>
-            </TouchableHighlight>
-        )
-    }
+                {
+                    !item.isIncluded ?
+                        (
+                            <Checkbox
+                                checked={checked}
+                                onCheckedChanged={(checked) => onCheckedChanged(checked, item)}
+                                style={styles.checkbox}/>
+                        )
+                        : null
+                }
+            </View>
+        </TouchableHighlight>
+    )
 }

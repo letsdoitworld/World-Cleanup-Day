@@ -12,11 +12,15 @@ const COUCHDB_PASSWORD = process.env.COUCHDB_PASSWORD;
 const COUCHDB_HOST = process.env.COUCHDB_HOST || 'couchdb';
 const COUCHDB_PROTOCOL = process.env.COUCHDB_PROTOCOL || 'http';
 const COUCHDB_PORT = process.env.COUCHDB_PORT || 5984;
+const COUCHDB_URL = `${COUCHDB_PROTOCOL}://${COUCHDB_USER}:${COUCHDB_PASSWORD}@${COUCHDB_HOST}:${COUCHDB_PORT}`;
+const COUCHDB_REDUCE_LIMIT = process.env.COUCHDB_REDUCE_LIMIT || "false";
 
 const caught = require('caught');
 const logger = require('module-logger');
 const designDefs = require('./design');
 const NodeCouchDb = require('node-couchdb');
+const request = require('request-promise');
+const _ = require('lodash');
 
 const couch = new NodeCouchDb({
     host: COUCHDB_HOST,
@@ -27,6 +31,17 @@ const couch = new NodeCouchDb({
         pass: COUCHDB_PASSWORD,
     },
 });
+
+const stringifyFuncs = o => {
+  Object.getOwnPropertyNames(o).forEach(prop => {
+    if (typeof o[prop] === 'function') {
+      o[prop] = o[prop].toString();
+    } else if (typeof o[prop] === 'object') {
+      o[prop] = stringifyFuncs(o[prop]);
+    }
+  });
+  return o;
+};
 
 const getURI = async (db, uri, options = {}) => {
     try {
@@ -43,19 +58,25 @@ const insertDoc = async (db, doc) => await couch.insert(db, doc);
 
 const updateDoc = async (db, doc) => {
     return await couch.update(db, doc);
-}
+};
 
 const deleteDoc = async (db, id, rev) => await couch.del(db, id, rev);
 
-const stringifyFuncs = o => {
-    Object.getOwnPropertyNames(o).forEach(prop => {
-        if (typeof o[prop] === 'function') {
-            o[prop] = o[prop].toString();
-        } else if (typeof o[prop] === 'object') {
-            o[prop] = stringifyFuncs(o[prop]);
-        }
-    });
-    return o;
+const temporaryView = async (db, view, options = {}) => {
+  const data = await request.post({
+    uri: `${COUCHDB_URL}/${db}/_temp_view`,
+    method: 'POST',
+    json: stringifyFuncs(view),
+    qs: options
+  });
+  if (data) {
+    data.rows = data.rows.map(r => {
+      r.value.id = r.id;
+      r.value = _.omit(r.value, ['_id', '_rev', '$doctype']);
+      return r;
+    })
+  }
+  return { data };
 };
 
 const checkDatabases = async () => {
@@ -75,6 +96,14 @@ const checkDatabases = async () => {
             logger.debug(`Couch: database '${dbName}' found.`);
         }
     }
+};
+
+const configDatabases = async () => {
+    await request({
+        uri: `${COUCHDB_URL}/_config/query_server_config/reduce_limit`,
+        method: 'PUT',
+        json: stringifyFuncs(COUCHDB_REDUCE_LIMIT),
+    });
 };
 
 // update views if missing/not latest version
@@ -129,6 +158,7 @@ const checkViews = async () => {
 const SERVER_READY = caught(new Promise(async function (resolve, reject) {
     try {
         await checkDatabases();
+        await configDatabases();
         await checkViews();
         resolve();
     } catch (e) {
@@ -142,4 +172,5 @@ module.exports = {
     insertDoc,
     updateDoc,
     deleteDoc,
+    temporaryView,
 };

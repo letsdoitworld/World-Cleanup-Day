@@ -256,6 +256,56 @@ const designDocs = {
                 },
             },
         },
+        byTrashpointAndTypeAndStatusAndCreation: {
+          $version: 1,
+          views: {
+            view: {
+              map: function (doc) {
+                if (doc.$doctype === 'image') {
+                  emit([
+                    doc.trashpointId,
+                    doc.type,
+                    doc.status,
+                    doc.createdAt,
+                  ], doc);
+                }
+              },
+            },
+          },
+        },
+        byEventAndTypeAndStatusAndCreation: {
+          $version: 1,
+          views: {
+            view: {
+              map: function (doc) {
+                if (doc.$doctype === 'image') {
+                  emit([
+                    doc.eventId,
+                    doc.type,
+                    doc.status,
+                    doc.createdAt,
+                  ], doc);
+                }
+              },
+            },
+          },
+        },
+        byEventAndStatusAndCreation: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'image') {
+                            emit([
+                                doc.eventId,
+                                doc.status,
+                                doc.createdAt,
+                            ], doc);
+                        }
+                    },
+                },
+            },
+        },
         byTrashpointAndParent: {
             $version: 1,
             views: {
@@ -264,6 +314,21 @@ const designDocs = {
                         if (doc.$doctype === 'image') {
                             emit([
                                 doc.trashpointId,
+                                doc.parentId,
+                            ], doc);
+                        }
+                    },
+                },
+            },
+        },
+        byEventAndParent: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'image') {
+                            emit([
+                                doc.eventId,
                                 doc.parentId,
                             ], doc);
                         }
@@ -284,7 +349,71 @@ const designDocs = {
                   },
               },
           },
-      }
+      },
+      countAll: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit(doc._id, doc);
+              }
+            },
+            reduce: '_count',
+          },
+        },
+      },
+      byTrashpoint: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event' && doc.trashpoints) {
+                doc.trashpoints.forEach(function(trashpoint) {
+                  emit(trashpoint, doc);
+                })
+              }
+            },
+          },
+        },
+      },
+      byLocation: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.location.latitude, doc.location.longitude], doc);
+              }
+            },
+          },
+        },
+      },
+      byCreatingUser: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit([doc.createdBy, doc.createdAt], doc);
+              }
+            },
+          },
+        },
+      },
+      countByCreatingUser: {
+        $version: 1,
+        views: {
+          view: {
+            map: function (doc) {
+              if (doc.$doctype === 'event') {
+                emit(doc.createdBy, null);
+              }
+            },
+            reduce: '_count',
+          },
+        },
+      },
     },
     trashpoints: {
         all: {
@@ -404,15 +533,28 @@ const designDocs = {
  */
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(8, 'isolated', templates.isolatedTrashpoints),
+    tools.makeGridScaleDesignDocs(9, 'isolated', templates.isolatedTrashpoints),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(8, 'clusters', templates.trashpointClusters),
+    tools.makeGridScaleDesignDocs(9, 'clusters', templates.trashpointClusters),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(8, 'byGridCell', templates.trashpointsByGridCell),
+    tools.makeGridScaleDesignDocs(9, 'byGridCell', templates.trashpointsByGridCell),
 );
+designDocs.events = Object.assign(
+  designDocs.events,
+  tools.makeGridScaleDesignDocs(9, 'isolated', templates.isolatedEvents),
+);
+designDocs.events = Object.assign(
+  designDocs.events,
+  tools.makeGridScaleDesignDocs(9, 'clusters', templates.eventClusters),
+);
+designDocs.events = Object.assign(
+  designDocs.events,
+  tools.makeGridScaleDesignDocs(10, 'byGridCell', templates.eventsByGridCell),
+);
+
 
 module.exports = designDocs;

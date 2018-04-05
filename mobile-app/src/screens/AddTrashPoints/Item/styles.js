@@ -3,10 +3,11 @@ import dimens from "../../../config/dimens";
 export default {
     itemTouch: {
         height: 79,
+        backgroundColor: "white"
     },
     itemTouchIncluded: {
         height: 79,
-        backgroundColor: "rgb(255, 255, 255)"
+        backgroundColor: "rgb(232, 232, 232)"
     },
     itemContent: {
         flexDirection: 'row',

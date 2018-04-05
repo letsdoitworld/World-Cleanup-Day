@@ -6,29 +6,37 @@ import _ from 'lodash';
 import Tag from './Tag';
 import styles from './styles';
 
-const Tags = ({ tags, onTagSelect = _.noop, onTagDelete, tagCustomStyles }) => {
-  return (
-    <View style={styles.container}>
-      {tags.map((tag, index) => {
-        let onSelect = onTagSelect(index);
-        let onDelete = undefined;
-        if (onTagDelete) {
-          onDelete = onTagDelete(index);
-        }
+class Tags extends React.Component {
+    render() {
+        const {
+            tags,
+            onTagSelect = _.noop,
+            onTagDelete,
+            tagCustomStyles
+        } = this.props;
 
         return (
-          <Tag
-            onSelect={onSelect}
-            {...tag}
-            key={index}
-            onDelete={onDelete}
-            customStyles={tagCustomStyles}
-          />
+            <View style={styles.container}>
+                {tags.map((tag, index) => {
+                    let onSelect = onTagSelect(index);
+                    let onDelete = undefined;
+                    if (onTagDelete) {
+                        onDelete = onTagDelete(index);
+                    }
+                    return (
+                        <Tag
+                            onSelect={onSelect}
+                            {...tag}
+                            key={index}
+                            onDelete={onDelete}
+                            customStyles={tagCustomStyles}
+                        />
+                    );
+                })}
+            </View>
         );
-      })}
-    </View>
-  );
-};
+    }
+}
 
 Tags.propTypes = {
   tags: PropTypes.arrayOf(

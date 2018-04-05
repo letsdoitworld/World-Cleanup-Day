@@ -1,4 +1,6 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
+
+import moment from 'moment';
 
 //import { selectors as trashpileSelector } from '../trashpile';
 
@@ -15,54 +17,49 @@ export const getProfileEntity = createSelector(
 
 export const isPrivateProfile = createSelector(
   getProfileEntity,
-  entity => !!entity.public)
-;
+  entity => entity && !entity.public,
+);
 
-// export const isProfileLoading = createSelector(
-//   profileSelector,
-//   profile => profile.loading,
-// );
+export const loadMyEventsEntity = createSelector(
+    profileSelector,
+    profile =>
+        profile.myEvents && profile.myEvents.listMyEvents && profile.myEvents.listMyEvents.sort(
+            (a, b) => moment(b.createDate).diff(moment(a.createDate)),
+        ),
+);
 
-// export const getProfileError = createSelector(
-//   profileSelector,
-//   profile => profile.error,
-// );
+export const getMyEventsPageSize = createSelector(
+    profileSelector,
+    profile => profile.myEvents && profile.myEvents.pageSize,
+);
 
-// export const isProfileUpdating = createSelector(
-//   profileSelector,
-//   profile => profile.updating,
-// );
+export const getMyEventsPageNumber = createSelector(
+    profileSelector,
+    profile => profile.myEvents && profile.myEvents.pageNumber,
+);
 
-// export const getUserProfileId = createSelector(
-//   getProfile,
-//   profile => (profile ? profile.id : undefined),
-// );
+export const loadMyEventsErrorEntity = createSelector(
+    profileSelector,
+    profile => profile.myEventsError,
+);
 
-// export const isOwnTrashpoint = createSelector(
-//   getUserProfileId,
-//   // trashpileSelector.getMarkerCreatorId,
-//   (userProfileId, markerCreatorId) => userProfileId === markerCreatorId,
-// );
+export const loadMyTrashPointsEntity = createSelector(
+    profileSelector,
+    profile => profile.myTrashPoints && profile.myTrashPoints.listMyTrashPoints,
+);
 
-// export const getProfileCountry = createSelector(getProfile, (profile) => {
-//   if (!profile || !profile.country) {
-//     return undefined;
-//   }
-//   return COUNTRY_LIST.find(c => c.code === profile.country);
-// });
+export const getMyTrashpointsPageSize = createSelector(
+    profileSelector,
+    profile => profile.myTrashPoints && profile.myTrashPoints.pageSize,
+);
 
-// export const getRole = createSelector(getProfile, (profile) => {
-//   if (!profile) {
-//     return undefined;
-//   }
-//   return profile.role;
-// });
+export const getMyTrashpointsPageNumber = createSelector(
+    profileSelector,
+    profile => profile.myTrashPoints && profile.myTrashPoints.pageNumber,
+);
 
-// export const isLeader = createSelector(getRole, role => role === USER_ROLES.LEADER);
 
-// export const isSuperAdmin = createSelector(
-//   getRole,
-//   role => role === USER_ROLES.SUPERADMIN,
-// );
-
-// export const getCachedLocation = () => undefined;
+export const loadMyTrashPointsErrorEntity = createSelector(
+    profileSelector,
+    profile => profile.myTrashPointsError,
+);

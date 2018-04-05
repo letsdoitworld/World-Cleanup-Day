@@ -26,10 +26,13 @@ export default StyleSheet.create({
   locationText: {
     flex: 1,
     fontSize: 12,
-    color: colors.grey,
+    color: colors.textColorDivider,
   },
   image: {
     marginRight: 10,
+    width: 84,
+    height: 84,
+    borderRadius: 8,
   },
   middleColumn: {
     justifyContent: 'space-between',
@@ -49,17 +52,16 @@ export default StyleSheet.create({
     fontSize: 12,
   },
   icon: {
-    width: 25,
     alignItems: 'center',
+    paddingRight: 5,
   },
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 3,
   },
   rightColumn: {
     justifyContent: 'space-between',
-    flex: 1,
+    flex: 1.5,
   },
   dateText: {
     fontSize: 12,

@@ -90,10 +90,6 @@ export default class AddTrashPointsMap extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    // componentDidUpdate() {
-    //
-    // }
-
     onNavigatorEvent(event) {
         if (event.type === 'NavBarButtonPress') {
             switch (event.id) {

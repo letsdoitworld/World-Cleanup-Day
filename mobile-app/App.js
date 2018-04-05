@@ -87,7 +87,7 @@ export default class App extends PureComponent {
                     label: 'Trashpoints',
                     icon: Icons.Trashpoints,
                     selectedIcon: Icons.TrashpointsActive,
-                    title: '',
+                    title: 'Trashpoints',
                 },
                 {
                     screen: EVENTS,

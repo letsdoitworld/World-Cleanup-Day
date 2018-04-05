@@ -47,14 +47,21 @@ class TrashPoints extends Component {
         super(props);
 
         this.props.navigator.setStyle({
-            navBarCustomView: EVENTS_NAV_BAR,
+            // navBarCustomView: EVENTS_NAV_BAR,
+           // statusBarColor: 'white',
+          //  statusBarTextColorScheme: 'dark',
+          //  navBarBackgroundColor: 'white',
+            // navBarCustomViewInitialProps: {
+            //     index: MODE.map,
+            //     handleIndexChange: this.onModeChanged.bind(this),
+            // },
+            navBarTitleTextCentered: true,
+            navBarBackgroundColor: 'white',
+            navBarTextColor: '$textColor',
+            navBarTextFontSize: 17,
+            navBarTextFontFamily: 'Lato-Bold',
             statusBarColor: 'white',
             statusBarTextColorScheme: 'dark',
-            navBarBackgroundColor: 'white',
-            navBarCustomViewInitialProps: {
-                index: MODE.map,
-                handleIndexChange: this.onModeChanged.bind(this),
-            },
         });
 
         const {mapTrashPoints, userCoord} = props;

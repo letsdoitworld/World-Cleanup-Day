@@ -25,6 +25,8 @@ const store = configureStore();
 registerScreens(store, Provider);
 
 
+isMainScreenOpened = false;
+
 export default class App extends PureComponent {
 
     isMainScreenOpened = false;
@@ -76,6 +78,8 @@ export default class App extends PureComponent {
     }
 
     static mainScreen() {
+        if (isMainScreenOpened) return;
+        isMainScreenOpened = true;
         Navigation.startTabBasedApp({
             tabs: [
                 {

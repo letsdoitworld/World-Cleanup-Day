@@ -1,6 +1,9 @@
 import {
     SEARCH_TRASH_POINTS_SUCCESS_ACTION,
-    CLEAR_TRASH_POINTS_ACTION
+    CLEAR_TRASH_POINTS_ACTION,
+    SHOW_NEW_DELTA_TRASH_POINTS_MAP_ACTION,
+    LOAD_TRASH_POINTS_FOR_MAP_SUCCESS_ACTION,
+    LOAD_TRASH_POINTS_FOR_MAP_ERROR_ACTION
 } from "../types/trashPoints";
 
 import {createReducer} from '../helpers/createReducer';
@@ -12,6 +15,8 @@ export const initialState = Immutable.Map(
         pageSize: undefined,
         trashPoints: undefined,
         error: undefined,
+        mapTrashPoints: undefined,
+        newDelta: undefined,
     });
 
 const handlers = {
@@ -33,6 +38,18 @@ const handlers = {
         return state.withMutations(mState => mState
             .set('trashPoints', undefined)
         );
+    },
+    [LOAD_TRASH_POINTS_FOR_MAP_SUCCESS_ACTION]: (state, { payload }) => {
+        return state.withMutations(mState => mState
+            .set('mapTrashPoints', payload));
+    },
+    [LOAD_TRASH_POINTS_FOR_MAP_ERROR_ACTION]: (state, { payload }) => {
+        return state.withMutations(mState => mState
+            .set('error', payload));
+    },
+    [SHOW_NEW_DELTA_TRASH_POINTS_MAP_ACTION]: (state, { payload }) => {
+        return state.withMutations(mState => mState
+            .set('newDelta', payload));
     },
 };
 

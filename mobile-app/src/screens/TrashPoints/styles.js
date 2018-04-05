@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import dimens from "../../config/dimens";
+import {Dimensions} from "react-native";
+const {width} = Dimensions.get('window');
 
 export default {
     container: {
@@ -45,4 +47,13 @@ export default {
     vertical: {
         flexDirection: 'column',
     },
+    carousel: {
+        position: 'absolute',
+        bottom: 8,
+        left: 0,
+        right: 0,
+        flex: 1,
+        height: 82,
+        width
+    }
 }

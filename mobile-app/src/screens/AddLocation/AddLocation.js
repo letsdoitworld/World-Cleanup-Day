@@ -24,7 +24,7 @@ import { Icons } from '../../assets/images';
 
 const cancelId = 'cancelId';
 
-const autocompleteStyle = {
+export const autocompleteStyle = {
   listView: styles.searchListView,
   container: styles.searchContainer,
   textInputContainer: styles.searchTextInputContainer,

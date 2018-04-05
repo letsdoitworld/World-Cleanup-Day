@@ -1,3 +1,5 @@
-import EventsList from './EventsList'
+import EventsList from './EventsList';
 
-export { EventsList }
+export {
+  EventsList,
+};

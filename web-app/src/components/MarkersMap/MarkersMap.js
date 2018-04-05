@@ -1,9 +1,7 @@
 import React from 'react';
-
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import MapView from '../MapView';
 import {
   selectors as trashpileSelectors,
@@ -13,14 +11,21 @@ import {
   selectors as eventSelectors,
   actions as eventActions,
 } from '../../reducers/events';
+import {
+  selectors as appSelectors,
+} from '../../reducers/app';
 import { getViewportPoints } from '../../shared/helpers';
-import { GRID_HASH, DELTA_HASH, GRID_MIN_VALUE } from '../../shared/constants';
+import {
+  GRID_HASH,
+  DELTA_HASH,
+  GRID_MIN_VALUE,
+  FOCUS_EVENT_ZOOM_LEVEL,
+} from '../../shared/constants';
 
 class MarkersMap extends React.Component {
   static defaultProps = {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
-    fetchClusterEvents: null,
     tabOpened: ''
   };
 
@@ -29,10 +34,8 @@ class MarkersMap extends React.Component {
     fetchAllTrashpoints: PropTypes.func.isRequired,
     fetchAllEventMarkers: PropTypes.func,
     onMarkerClick: PropTypes.func,
-    markers: PropTypes.array.isRequired,
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
-    fetchClusterEvents: PropTypes.func,
     isUserLoggedIn: PropTypes.bool.isRequired,
   };
 
@@ -43,7 +46,26 @@ class MarkersMap extends React.Component {
     };
   }
 
-  componentWillReceiveProps = nextProps => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tabActive !== this.props.tabActive) {
+      this.loadMarkers(nextProps.tabActive);
+    }
+    if (this.props.currentEventLocation.latitude && nextProps.currentEventLocation !== this.props.currentEventLocation) {
+      this.map.panTo({
+        lat: nextProps.currentEventLocation.latitude,
+        lng: nextProps.currentEventLocation.longitude,
+      });
+      if (this.map.getZoom() < FOCUS_EVENT_ZOOM_LEVEL) {
+        this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
+        /*
+        the only way to setZoom in this library
+        expected this.map.setZoom returns 'not a function'
+        strange, but just dealing with it
+        https://github.com/tomchentw/react-google-maps/issues/188
+        */
+      }
+      this.loadMarkers(nextProps.tabActive);
+    }
     if (
       this.props.focusedLocation !== nextProps.focusedLocation &&
       nextProps.focusedLocation
@@ -56,26 +78,25 @@ class MarkersMap extends React.Component {
           south: latitude + 0.0001,
           west: longitude - 0.0001,
           east: longitude + 0.0001,
-        }
+        };
         this.map.fitBounds(bounds);
       }
     }
-  };
-
+  }
 
   handleSetMapComponent = map => {
     this.map = map;
     if (map) {
-      this.loadMarkers();
+      this.loadMarkers(this.props.tabActive);
     }
   };
   handleBoundsChanged = () => {
     if (this.map) {
-      this.loadMarkers();
+      this.loadMarkers(this.props.tabActive);
     }
   };
 
-  loadMarkers = () => {
+  loadMarkers = (markersType) => {
     if (!this.state.updateRegion) {
       return this.setState({ updateRegion: true });
     }
@@ -85,9 +106,12 @@ class MarkersMap extends React.Component {
       width: parseInt(getComputedStyle(mapElContainer).width, 10),
     };
     const { nw, se } = getViewportPoints(this.map.getBounds());
-    this.props.fetchAllEventMarkers(nw, se, mapSize);
-    this.props.fetchAllTrashpoints(nw, se, mapSize);
+    const action = markersType === 'trashpoints'
+       ? 'fetchAllTrashpoints'
+       : 'fetchAllEventMarkers';
+    this.props[action](nw, se, mapSize);
   };
+
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {
       return;
@@ -110,7 +134,6 @@ class MarkersMap extends React.Component {
           west: lng - (longitudeDelta / 16),
           east: lng + (longitudeDelta / 16),
         };
-
         this.map.fitBounds(bounds);
       } else {
         this.setState(
@@ -142,8 +165,14 @@ class MarkersMap extends React.Component {
   };
 
   render() {
-    const { trashpointMarkers, eventMarkers, isUserLoggedIn, tabActive } = this.props;
-    const visiblePoints = tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
+    const {
+      trashpointMarkers,
+      eventMarkers,
+      isUserLoggedIn,
+      tabActive
+    } = this.props;
+    const visiblePoints =
+      tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
     return (
       <MapView
         isUserLoggedIn={isUserLoggedIn}
@@ -159,13 +188,14 @@ const mapStateToProps = state => ({
   trashpointMarkers: trashpileSelectors.getAllMarkers(state),
   eventMarkers: eventSelectors.getAllEventMarkers(state),
   currentEventMarker: eventSelectors.getCurrentMarkerID(state),
+  currentEventLocation: eventSelectors.getCurrentMarkerLocation(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
+  currentLocation: appSelectors.getCurrentLocation(state),
 });
 const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
-  fetchClusterEvents: trashpileActions.fetchClusterEvents,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

@@ -1,17 +1,22 @@
 import {call, put, take} from "redux-saga/effects";
-import {CREATE_TRASH_POINT_ACTION, SEARCH_TRASH_POINTS_ACTION} from '../types/trashPoints';
 import {
-    controlProgress,
-    setErrorMessage
-} from "../actions/app";
+    CREATE_TRASH_POINT_ACTION,
+    LOAD_TRASH_POINT_FROM_CLUSTER_ACTION,
+    REQUEST_TRASH_POINTS_MAP_ACTION,
+    SEARCH_TRASH_POINTS_ACTION
+} from '../types/trashPoints';
+import {controlProgress, setErrorMessage} from "../actions/app";
 import {
     createTrashPointErrorAction,
     createTrashPointSuccessAction,
-    searchTrashPointsAction,
-    searchTrashPointsErrorAction,
-    searchTrashPointsSuccessAction
+    loadTrashPointsForMapError,
+    loadTrashPointsForMapSuccess,
+    searchTrashPointsSuccessAction,
+    showNewTrashPointsDeltaAction
 } from "../actions/trashPoints";
 import Api from '../../api';
+
+//import {LOAD_EVENTS_FOR_MAP_ACTION, loadEventsForMapSuccess, showNewDeltaAction} from "../actions/events";
 
 function* searchTrashPoints(query, page, pageSize, location) {
     try {
@@ -101,4 +106,51 @@ export function* createTrashPointFlow() {
         yield put(controlProgress(false));
     }
 }
+
+///// map
+export function* getMapTrashPointsFlow() {
+    while (true) {
+        const { payload } = yield take(REQUEST_TRASH_POINTS_MAP_ACTION);
+        try {
+            const newDelta = yield call(
+                Api.events.calculateDelta,
+                payload.viewPortLeftTopCoordinate,
+                payload.viewPortRightBottomCoordinate,
+                payload.delta
+            );
+            yield put(showNewTrashPointsDeltaAction(newDelta));
+            const response = yield call(
+                Api.trashPoints.fetchAllTrashPointsMarkers,
+                payload.viewPortLeftTopCoordinate,
+                payload.viewPortRightBottomCoordinate,
+                payload.delta,
+                payload.datasetId
+            );
+            yield put(loadTrashPointsForMapSuccess(response))
+        } catch (error) {
+            yield put(loadTrashPointsForMapError(error));
+        }
+    }
+}
+
+export function* fetchTrashPointsDataFromOneClusterFlow() {
+    while (true) {
+        const { payload } = yield take(LOAD_TRASH_POINT_FROM_CLUSTER_ACTION);
+        try {
+            const response = yield call(
+                Api.events.fetchClustersList,
+                payload.cellSize,
+                payload.coordinates,
+                payload.clusterId,
+                payload.datasetId,
+                payload.markers
+            );
+            yield put(loadTrashPointsForMapSuccess(response))
+        } catch (error) {
+            yield put(loadTrashPointsForMapError(error));
+        }
+    }
+}
+
+
 

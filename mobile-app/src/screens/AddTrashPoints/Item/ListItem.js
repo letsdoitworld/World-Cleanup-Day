@@ -57,9 +57,10 @@ export default class ListItem extends PureComponent {
     }
 }
 
-export function renderItem(item, checked, style, onPress, onCheckedChanged) {
+export function renderItem(item, checked, style, onPress, onCheckedChanged, isNotCheckable = false) {
     return (
         <TouchableHighlight
+            disabled={onPress === undefined}
             underlayColor="rgb(232, 232, 232)"
             onPress={onPress}
             style={[item.isIncluded ? styles.itemTouchIncluded : styles.itemTouch, style]}>
@@ -90,7 +91,7 @@ export function renderItem(item, checked, style, onPress, onCheckedChanged) {
                     }
                 </View>
                 {
-                    !item.isIncluded ?
+                    !item.isIncluded && !isNotCheckable?
                         (
                             <Checkbox
                                 checked={checked}

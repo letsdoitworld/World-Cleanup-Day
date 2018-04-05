@@ -183,4 +183,5 @@ export default {
     fetchAllEventMarkers,
     calculateDelta,
     fetchClustersList,
+    calculateCell
 };

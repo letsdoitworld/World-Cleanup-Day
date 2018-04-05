@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
+import {ActivityIndicator, Dimensions, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
 
 import {Map as MapView} from '../../components/Map';
-import {MIN_ZOOM} from '../../shared/constants';
-import _ from 'lodash';
-import {CREATE_MARKER, EVENTS_NAV_BAR} from "../index";
+import {DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
+import {CREATE_MARKER, TRASH_POINT} from "../index";
 import styles from "../Events/styles";
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
@@ -14,7 +13,14 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {getCurrentPosition} from "../../shared/geo";
 import PropTypes from 'prop-types';
 import ImageService from "../../services/Image";
+import Api from '../../api';
+import {autocompleteStyle} from "../AddLocation/AddLocation";
+import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 //import styles from './styles';
+import Carousel from 'react-native-snap-carousel';
+import {renderItem} from "../AddTrashPoints/Item/ListItem";
+
+const {width} = Dimensions.get('window');
 
 const MODE = {
     list: 0,
@@ -22,6 +28,8 @@ const MODE = {
 };
 
 const searchId = 'searchId';
+const DEFAULT_RADIUS_M = 10000;
+
 
 class TrashPoints extends Component {
 
@@ -29,20 +37,43 @@ class TrashPoints extends Component {
         super(props);
 
         this.props.navigator.setStyle({
-            navBarCustomView: EVENTS_NAV_BAR,
+            // navBarCustomView: EVENTS_NAV_BAR,
+           // statusBarColor: 'white',
+          //  statusBarTextColorScheme: 'dark',
+          //  navBarBackgroundColor: 'white',
+            // navBarCustomViewInitialProps: {
+            //     index: MODE.map,
+            //     handleIndexChange: this.onModeChanged.bind(this),
+            // },
+            navBarTitleTextCentered: true,
+            navBarBackgroundColor: 'white',
+            navBarTextColor: '$textColor',
+            navBarTextFontSize: 17,
+            navBarTextFontFamily: 'Lato-Bold',
             statusBarColor: 'white',
             statusBarTextColorScheme: 'dark',
-            navBarBackgroundColor: 'white',
-            navBarCustomViewInitialProps: {
-                index: MODE.map,
-                handleIndexChange: this.onModeChanged.bind(this),
-            },
         });
 
+        const {mapTrashPoints, userCoord} = props;
+
+        const region = {
+            latitude: (userCoord !== null) ? userCoord.latitude : undefined,
+            longitude: (userCoord !== null) ? userCoord.longitude : undefined,
+            latitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+        };
+
         this.state = {
+            radius: DEFAULT_RADIUS_M,
+            markers: undefined,
+            mapTrashPoints,
             mode: MODE.map,
             isSearchFieldVisible: false,
             updateRegion: true,
+            selectedItem: undefined,
+            region : this.props.userCoord,
+            initialRegion: this.props.userCoord,
+            listTrashPoints: undefined
         };
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -50,7 +81,10 @@ class TrashPoints extends Component {
 
     onModeChanged(index) {
         this.setState((previousState) => {
-            return {mode: index};
+            return {
+                ...previousState,
+                mode: index
+            };
         });
     }
 
@@ -103,6 +137,9 @@ class TrashPoints extends Component {
                 { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
             );
         }, 1000);
+        if (!this.props.datasetUUIDSelector) {
+            this.props.onFetchDatasetUUIDAction();
+        }
     }
 
     getLocation = position => {
@@ -113,110 +150,205 @@ class TrashPoints extends Component {
         });
     };
 
-    // shouldComponentUpdate(nextProps) {
-    //     const locationChanged = this.props.userLocation !== nextProps.userLocation;
-    //     return (
-    //         nextProps.activeScreen === SCREENS.HOME ||
-    //         nextProps.activeScreen === SCREENS.PUBLIC_HOME ||
-    //         locationChanged
-    //     );
-    // }
+    componentWillReceiveProps(nextProps) {
 
-    onPressMarker = event => {
-        const marker = this.props.markers.find(
-            marker => marker.id === event.nativeEvent.id,
-        );
-
-        if (!marker.isTrashpile) {
-            return;
+        if (nextProps.mapTrashPoints && this.props.mapTrashPoints
+            && nextProps.mapTrashPoints.join('') === this.props.mapTrashPoints.join('')) {
+            return
         }
 
-        if (marker && !marker.count) {
-            this.props.navigation.navigate('Details', {
-                markerId: event.nativeEvent.id,
-                latlng: marker.latlng,
+        let count = 0;
+
+        if (nextProps.mapTrashPoints) {
+            const listTrashPoints = nextProps.mapTrashPoints.filter(event => event.count === undefined);
+            const markers = nextProps.mapTrashPoints.map((mapTrashPoint) => {
+                return {
+                    ...mapTrashPoint,
+                    latlng: mapTrashPoint.location,
+                    listTrashPoints,
+                    isSelected: this.state.selectedItem
+                        ? this.state.selectedItem.location.latitude === mapTrashPoint.location.latitude
+                        : count++ === 1
+                };
             });
+
+            this.setState((previousState) => {
+                return {
+                    ...previousState,
+                    mapTrashPoints: nextProps.mapTrashPoints,
+                    markers
+                };
+            });
+        }
+    }
+
+    onMarkerPress(marker) {
+        if (marker && !marker.count) {
+            this.props.navigator.push({
+                screen: TRASH_POINT,
+                title: strings.label_trashpoint,
+                passProps: {
+                    trashPoint: marker
+                }
+            })
         } else {
-            if (this.map && _.has(this.props, 'delta.latitudeDelta')) {
-                if (this.props.delta.latitudeDelta === MIN_ZOOM) {
+            if (this.map) {
+
+                const {latitude, longitude, latitudeDelta, longitudeDelta} = this.state.region;
+                const northWest = {
+                    latitude: this.adjustLatitude(latitude + latitudeDelta / 2),
+                    longitude: this.adjustLongitude(longitude - longitudeDelta / 2),
+                };
+                const southEast = {
+                    latitude: this.adjustLatitude(latitude - latitudeDelta / 2),
+                    longitude: this.adjustLongitude(longitude + longitudeDelta / 2),
+                };
+
+                const cell = Api.trashPoints.calculateCell(northWest, southEast);
+                const delta = Api.trashPoints.calculateDelta(northWest, southEast, this.state.region);
+                if (this.state.region.latitudeDelta === MIN_ZOOM) {
                     return this.setState({
                         updateRegion: false
                     }, () => {
-                        this.props.fetchClusterTrashpoints(
-                            this.props.delta.cellSize,
+                        this.props.loadTrashPointsFromClusterAction(
+                            cell,
                             marker.coordinates,
-                            marker.id
+                            marker.id,
+                            this.props.datasetUUIDSelector,
+                            this.props.mapTrashPoints
                         );
                     });
                 }
                 const region = {
-                    ...this.props.delta,
                     ...marker.latlng,
+                    ...delta
                 };
-                this.map.animateToRegion(region, 100);
+                this.map.animateToRegion(region, 300);
             }
         }
     };
 
     getMapObject = map => (this.map = map);
 
-    handleOnRegionChangeComplete = center => {
-        if (!this.state.updateRegion) {
-            return this.setState({updateRegion: true});
+    adjustLongitude = n => {
+        if (n < -180) {
+            return 360 + n;
         }
-        const adjustLongitude = n => {
-            if (n < -180) {
-                return 360 + n;
-            }
-            if (n > 180) {
-                return n - 360;
-            }
-            return n;
-        };
-        const adjustLatitude = n => {
-            const signMultiplier = n > 0 ? 1 : -1;
-            if (Math.abs(n) > 90) {
-                return signMultiplier * 89.999;
-            }
+        if (n > 180) {
+            return n - 360;
+        }
+        return n;
+    };
+    adjustLatitude = n => {
+        const signMultiplier = n > 0 ? 1 : -1;
+        if (Math.abs(n) > 90) {
+            return signMultiplier * 89.999;
+        }
 
-            return n;
-        };
+        return n;
+    };
+
+    handleOnRegionChangeComplete = center => {
+
+        if (!this.state.updateRegion) {
+            this.setState((previousState) => {
+                return {
+                    ...previousState,
+                    updateRegion: true,
+                    region: center
+                };
+            });
+        }
 
         const {latitude, longitude, latitudeDelta, longitudeDelta} = center;
         const northWest = {
-            latitude: adjustLatitude(latitude + latitudeDelta / 2),
-            longitude: adjustLongitude(longitude - longitudeDelta / 2),
+            latitude: this.adjustLatitude(latitude + latitudeDelta / 2),
+            longitude: this.adjustLongitude(longitude - longitudeDelta / 2),
         };
         const southEast = {
-            latitude: adjustLatitude(latitude - latitudeDelta / 2),
-            longitude: adjustLongitude(longitude + longitudeDelta / 2),
+            latitude: this.adjustLatitude(latitude - latitudeDelta / 2),
+            longitude: this.adjustLongitude(longitude + longitudeDelta / 2),
         };
 
-        // this.props.fetchAllMarkers(northWest, southEast, {
-        //   latitudeDelta,
-        //   longitudeDelta,
-        // });
+        const delta = {
+            latitudeDelta,
+            longitudeDelta,
+        };
+
+        if (this.props.datasetUUIDSelector) {
+            this.props.loadTrashPointsForMapAction({
+                datasetId: this.props.datasetUUIDSelector,
+                viewPortLeftTopCoordinate: northWest,
+                viewPortRightBottomCoordinate: southEast,
+                delta,
+            });
+        }
     };
 
     render() {
-
-        // return (
-        //     <View style={{flex: 1}}>
-        //         <StatusBar translucent={false} barStyle="default"/>
-        //         <MapView
-        //             onRegionChangeComplete={this.handleOnRegionChangeComplete}
-        //             markers={markers}
-        //             initialRegion={initialRegion}
-        //             handleOnMarkerPress={this.onPressMarker}
-        //             getRef={this.getMapObject}/>
-        //     </View>
-        // );
-
         return (
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
-                    {this.renderSearchBox()}
-                    {this.renderContent()}
+                    <View style={{
+                        flex: 1
+                    }}>
+                        {this.renderContent()}
+                        {this.renderSearchBox()}
+                        { this.state.mode === MODE.map &&
+                            <Carousel
+                                containerCustomStyle={{
+                                    position: 'absolute',
+                                    bottom: 8,
+                                    left: 0,
+                                    right: 0,
+                                    flex: 1,
+                                    height: 82,
+                                    width
+                                }}
+                                ref={(c) => {
+                                    this._carousel = c;
+                                }}
+                                data={this.state.mapTrashPoints ? this.state.mapTrashPoints : []}
+                                renderItem={this.renderCarouselItem}
+                                inactiveSlideScale={0.85}
+                                inactiveSlideOpacity={0.7}
+                                sliderWidth={width}
+                                itemWidth={width - 37 * 2}
+                                onSnapToItem={(index) =>  {
+
+
+                                    const markers = this.props.mapTrashPoints.map((mapTrashPoint) => {
+                                        return {
+                                            ...mapTrashPoint,
+                                            latlng: mapTrashPoint.location,
+                                            isSelected: this.state.mapTrashPoints[index].location.latitude === mapTrashPoint.location.latitude
+                                        };
+                                    });
+
+                                    this.setState((previousState) => {
+                                        return {
+                                            ...previousState,
+                                            selectedItem: this.state.mapTrashPoints[index],
+                                            markers: markers,
+                                        };
+                                    });
+
+                                    const region = {
+                                        latitudeDelta: DEFAULT_ZOOM,
+                                        longitudeDelta: DEFAULT_ZOOM,
+                                        latitude: this.state.mapTrashPoints[index].location.latitude,
+                                        longitude: this.state.mapTrashPoints[index].location.longitude
+                                    };
+
+
+                                    this.map.animateToRegion(region, 300);
+
+
+                                }}
+                            />
+
+                        }
+                        </View>
                     <FAB
                         buttonColor="rgb(225, 18, 131)"
                         iconTextColor="white"
@@ -225,14 +357,30 @@ class TrashPoints extends Component {
                         iconTextComponent={<Icon name="plus"/>}
                     />
                 </View>
-                {/*{this.renderProgress()}*/}
+                {this.renderProgress()}
             </View>
         );
     }
 
-    renderContent() {
+    renderCarouselItem({item, index}) {
+        return renderItem(
+            item,
+            false,
+            {
+                backgroundColor: 'white',
+                height: 82,
+                width: width - 37 * 2
+            },
+            undefined,
+            undefined,
+            true);
+    }
 
-        const {markers, initialRegion} = this.props;
+    renderContent() {
+        const {userCoord} = this.props;
+
+        const {selectedItem, mapTrashPoints, markers, region, initialRegion} = this.state;
+
 
         switch (this.state.mode) {
             case MODE.list: {
@@ -241,15 +389,17 @@ class TrashPoints extends Component {
             case MODE.map: {
                 return (
                     <MapView
-                        onRegionChangeComplete={this.handleOnRegionChangeComplete}
+                        handleOnMarkerPress={this.onMarkerPress.bind(this)}
+                        onRegionChangeComplete={this.handleOnRegionChangeComplete.bind(this)}
                         markers={markers}
                         initialRegion={initialRegion}
-                        handleOnMarkerPress={this.onPressMarker}
-                        getRef={this.getMapObject}/>
+                        region={region === initialRegion && this.state.updateRegion === false ? region : undefined}
+                        getRef={this.getMapObject.bind(this)}
+                    />
                 );
             }
             default:
-                return null;
+                return null
         }
     }
 
@@ -262,7 +412,7 @@ class TrashPoints extends Component {
             cropping: true,
             includeBase64: true
         });
-        const {width, height, data, path } = image;
+        const {width, height, data, path} = image;
         const uri = path;
         const base64 = data;
 
@@ -272,7 +422,7 @@ class TrashPoints extends Component {
             height
         });
 
-        const { coords } = await getCurrentPosition({
+        const {coords} = await getCurrentPosition({
             enableHighAccuracy: false,
             timeout: 10 * 1000,
             maximumAge: 60 * 1000
@@ -282,43 +432,10 @@ class TrashPoints extends Component {
             screen: CREATE_MARKER,
             title: strings.label_button_createTP_confirm_create,
             passProps: {
-                photos: [{ uri, thumbnail: { base64: thumbnailBase64 },  base64}],
+                photos: [{uri, thumbnail: {base64: thumbnailBase64}, base64}],
                 coords,
             }
         });
-
-        // const {isAuthenticated, isPrivateProfile} = this.props;
-        //
-        // if (isAuthenticated) {
-        //     if(isPrivateProfile) {
-        //         Alert.alert(
-        //             'Update your privacy settings!',
-        //             'Your profile should be public\n' +
-        //             'in order to post event.',
-        //             [
-        //                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        //                 {text: 'Settings', onPress: this.handleSettingsPress},
-        //             ],
-        //         );
-        //
-        //         return;
-        //     }
-        //     this.props.navigator.showModal({
-        //         screen: CREATE_EVENT,
-        //         title: strings.label_create_events_step_one
-        //     });
-        // } else {
-        //     Alert.alert(
-        //         'Oh no!',
-        //         'You need to be a registrated user\n' +
-        //         'in order to create events.',
-        //         [
-        //             {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        //             {text: 'Register', onPress: this.handleLogInPress},
-        //         ],
-        //     )
-        // }
-
     };
 
     isProgressEnabled() {
@@ -344,78 +461,86 @@ class TrashPoints extends Component {
 
     renderSearchBox() {
         if (this.isSearchFieldVisible()) {
-            return (
-                <View style={[styles.horizontal, styles.searchContainerStyle]}>
-                    <TextInput
-                        placeholderTextColor={'rgb(41, 127, 202)'}
-                        style={styles.searchField}
-                        ref="input"
-                        onChangeText={this.onQueryChange.bind(this)}
-                        placeholder={strings.label_text_select_country_hint}
-                        underlineColorAndroid={'transparent'}
-                    />
-                </View>
-            );
+
+            switch (this.state.mode) {
+                case MODE.list: {
+                    return (
+                        <View style={[styles.horizontal, styles.searchContainerStyle]}>
+                            <TextInput
+                                placeholderTextColor={'rgb(41, 127, 202)'}
+                                style={styles.searchField}
+                                ref="input"
+                                onChangeText={this.onQueryChange.bind(this)}
+                                placeholder={strings.label_text_select_country_hint}
+                                underlineColorAndroid={'transparent'}
+                            />
+                        </View>
+                    );
+                }
+                case MODE.map: {
+                    return (
+                        <GooglePlacesAutocomplete
+                            placeholder={strings.label_text_select_country_hint}
+                            minLength={2}
+                            autoFocus={false}
+                            returnKeyType={'search'}
+                            listViewDisplayed="auto"
+                            fetchDetails
+                            renderDescription={row => row.description}
+                            onPress={(data, details = null) => {
+                                const latitude = details.geometry.location.lat;
+                                const longitude = details.geometry.location.lng;
+
+
+                                const region = {
+                                    latitudeDelta: DEFAULT_ZOOM,
+                                    longitudeDelta: DEFAULT_ZOOM,
+                                    latitude,
+                                    longitude
+                                };
+
+
+                                this.map.animateToRegion(region, 300);
+                            }}
+                            getDefaultValue={() => ''}
+                            query={{
+                                // available options: https://developers.google.com/places/web-service/autocomplete
+                                key: 'AIzaSyDsL-LeucaFuq26bdOQUmjOLGQ1Eu-ibdg',
+                                language: 'en', // language of the results
+                                types: '(cities)', // default: 'geocode'
+                            }}
+                            styles={autocompleteStyle}
+                            nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                            GoogleReverseGeocodingQuery={{
+                                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+                            }}
+                            GooglePlacesSearchQuery={{
+                                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                                rankby: 'distance',
+                                types: 'food',
+                            }}
+                            filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                            debounce={200}
+                        />
+                    );
+                }
+                default:
+                    return null;
+            }
         }
         return null;
     }
 
     onQueryChange = debounce(function (text) {
         this.query = text;
-
-
     }, 1000);
 }
 
 TrashPoints.propTypes = {
+    userCoord: PropTypes.object,
     country: PropTypes.object,
     onFetchLocation: PropTypes.func,
+    loadTrashPointsForMapAction: PropTypes.func,
 };
 
-const mapStateToProps = state => {
-//  console.log(state)
-//  const mapMarkers = trashpileSelectors.markersSelector(state);
-//   const mapMarkers = markersSelector(state);
-//   const userMarker = locationSelectors.userMarkerSelector(state);
-//   const locationActive = locationSelectors.hasLocationActive(state);
-//
-//   const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
-    return {
-        // markers,
-        // initialRegion: locationSelectors.initialRegionSelector(state),
-        // activeScreen: appSelectors.getActiveScreen(state),
-        // userLocation: locationSelectors.userLocationSelector(state),
-        // delta: trashpileSelectors.getLastDeltaValue(state),
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        // fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
-        //   dispatch(
-        //     trashpileOperations.fetchAllMarkers(
-        //       northWestViewPort,
-        //       southEastViewPort,
-        //       delta,
-        //     ),
-        //   );
-        // },
-        // fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
-        //   dispatch(
-        //     trashpileOperations.fetchClusterTrashpoints({
-        //       cellSize,
-        //       coordinates,
-        //       clusterId,
-        //     }),
-        //   );
-        // },
-    };
-};
-
-// export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
 export default TrashPoints;
-
-// export default compose(
-//   connect(mapStateToProps, mapDispatchToProps),
-//   withNavigationHelpers(),
-// )(Home);

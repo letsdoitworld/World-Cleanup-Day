@@ -11,7 +11,8 @@ import {
     CLEAR_EVENTS_ACTION,
     LOAD_EVENTS_FOR_MAP_ACTION,
     LOAD_EVENTS_FOR_MAP_SUCCESS,
-    LOAD_EVENTS_FOR_MAP_ERROR, SHOW_NEW_DELTA
+    LOAD_EVENTS_FOR_MAP_ERROR,
+    SHOW_NEW_DELTA
 } from "../actions/events";
 
 import { LOGOUT } from '../actions/auth';

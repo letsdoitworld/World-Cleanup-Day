@@ -1,8 +1,18 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import Swiper from 'react-id-swiper';
 import { noop } from '../../shared/helpers';
 import { CloseIcon } from '../common/Icons';
 import './TrashPhotos.css';
+
+const swiperOptions = {
+  slidesPerView: 2,
+  spaceBetween: 40,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+};
 
 const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
   (<div className="TrashPhotos">
@@ -44,15 +54,17 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
             </div>
           </Dropzone>
         </div>}
-      {photos.map((photo, index) =>
-        (<div key={index} className="TrashPhotos-img-container">
-          <img src={photo} alt="" key={index} />
-          {canEdit &&
-            <button onClick={() => onDeleteClick(index)}>
-              <CloseIcon />
-            </button>}
-        </div>),
-      )}
+      <Swiper {...swiperOptions}>
+        {photos.map((photo, index) =>
+          (<div key={photo} className="TrashPhotos-img-container">
+            <img src={photo} alt="" />
+            {canEdit &&
+              <button onClick={() => onDeleteClick(index)}>
+                <CloseIcon />
+              </button>}
+          </div>),
+        )}
+      </Swiper>
     </div>
   </div>);
 

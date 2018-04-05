@@ -129,11 +129,13 @@
 .Fb-login-btn {
   background-color: rgba(155, 155, 155, 0.1);
   color: #9b9b9b;
+  border-bottom-left-radius: 10px;
 }
 
 .Google-login-btn {
   background-color: rgba(155, 155, 155, 0.3);
   color: #4a4a4a;
+  border-bottom-right-radius: 10px;
 }
 
 .Popover-login-item img {

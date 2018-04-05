@@ -21,6 +21,8 @@ import email from '../../../assets/ic-email.png';
 import phone from '../../../assets/ic-phone.png';
 import userpicHolder from '../../../assets/placeholder-userpic.png';
 import back from '../../../assets/ic-back.png';
+import collapse from '../../../assets/collapse.png';
+import expand from '../../../assets/expand.png';
 
 import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
 import activeInToxicTP from '../../../assets/trashpoints/icActiveInactiveToxicTrashpointMap.png';
@@ -33,6 +35,11 @@ import inactiveInTrashpointTP from '../../../assets/trashpoints/icInactiveInacti
 import inactiveRegularTP from '../../../assets/trashpoints/icInactiveRegularTrashpointMap.png';
 import inactiveToxicTP from '../../../assets/trashpoints/icInactiveToxicTrashpointMap.png';
 import clusterIcon from '../../../assets/trashpoints/cluster.png';
+
+import regular from '../../../assets/trashpoint_icons/icRegularTrashpoint@2x.png';
+import threat from '../../../assets/trashpoint_icons/icToxicTrashpoint@2x.png';
+import cleaned from '../../../assets/trashpoint_icons/icCleanedTrashpoint@2x.png';
+import outdated from '../../../assets/trashpoint_icons/icRegularTrashpointInactive@2x.png';
 
 export const BinIcon = () => <img src={bin} alt="bin-icon" />;
 export const ArrowDownIcon = () => <img src={arrowDown} alt="arrowdown-icon" />;
@@ -55,8 +62,10 @@ export const Userpic = () => <img src={userpicHolder} alt="userpic" />;
 export const EmailIcon = () => <img src={email} alt="email" />;
 export const PhoneIcon = () => <img src={phone} alt="phone" />;
 export const BackIcon = () => <img src={back} alt="back" />;
+export const CollapseIcon = () => <img src={collapse} alt="collapse" />;
+export const ExpandIcon = () => <img src={expand} alt="expand" />;
 
-export const TrashpointIcons = {
+export const TrashpointPins = {
   activeRegularTp: activeRegularTP,
   inactiveRegularTp: inactiveRegularTP,
   activeInRegularTp: activeInTrashpointTP,
@@ -69,8 +78,16 @@ export const TrashpointIcons = {
   inactiveInToxicTp: inactiveInToxicTP,
 };
 
+export const TrashpointIcons = {
+  regular,
+  threat,
+  cleaned,
+  outdated,
+};
+
 export {
   locationPinActive,
   locationPinInactive,
   clusterIcon,
+  userpicHolder,
 };

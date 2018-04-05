@@ -16,7 +16,7 @@ const getShowEventWindow = createSelector(
   state => state.showEventWindow,
 );
 
-const getAllEventMarkers = createSelector(markersSel, state => state.markers);
+export const getAllEventMarkers = createSelector(markersSel, state => state.markers);
 
 export const getEventDetails = createSelector(
   detailsSel,
@@ -25,12 +25,17 @@ export const getEventDetails = createSelector(
 
 export const getCurrentMarkerID = createSelector(
   detailsSel,
-  state => get(state, 'event.datasetId', 'Unknown ID'),
+  state => get(state, 'event.id', 'Unknown ID'),
+);
+
+const getCurrentMarkerLocation = createSelector(
+ detailsSel,
+ state => get(state, 'event.location', 'Unknown location'),
 );
 
 export const getEventTitle = createSelector(
   detailsSel,
-  state => get(state, 'event.title', 'Unknown title'),
+  state => get(state, 'event.name', 'Unknown title'),
 );
 
 export default {
@@ -39,5 +44,6 @@ export default {
   getShowEventWindow,
   getEventTitle,
   getCurrentMarkerID,
+  getCurrentMarkerLocation,
   getEventDetails,
 };

@@ -5,21 +5,17 @@ import {
     REQUEST_TRASH_POINTS_MAP_ACTION,
     SEARCH_TRASH_POINTS_ACTION
 } from '../types/trashPoints';
-import {
-    controlProgress,
-    setErrorMessage
-} from "../actions/app";
+import {controlProgress, setErrorMessage} from "../actions/app";
 import {
     createTrashPointErrorAction,
     createTrashPointSuccessAction,
     loadTrashPointsForMapError,
     loadTrashPointsForMapSuccess,
-    searchTrashPointsAction,
-    searchTrashPointsErrorAction,
     searchTrashPointsSuccessAction,
     showNewTrashPointsDeltaAction
 } from "../actions/trashPoints";
 import Api from '../../api';
+
 //import {LOAD_EVENTS_FOR_MAP_ACTION, loadEventsForMapSuccess, showNewDeltaAction} from "../actions/events";
 
 function* searchTrashPoints(query, page, pageSize, location) {
@@ -122,7 +118,6 @@ export function* getMapTrashPointsFlow() {
                 payload.viewPortRightBottomCoordinate,
                 payload.delta
             );
-            console.log("Delta getMapTrashPointsFlow", payload.delta);
             yield put(showNewTrashPointsDeltaAction(newDelta));
             const response = yield call(
                 Api.trashPoints.fetchAllTrashPointsMarkers,
@@ -133,7 +128,6 @@ export function* getMapTrashPointsFlow() {
             );
             yield put(loadTrashPointsForMapSuccess(response))
         } catch (error) {
-            console.log("getMapTrashPointsFlow error", error);
             yield put(loadTrashPointsForMapError(error));
         }
     }
@@ -153,7 +147,6 @@ export function* fetchTrashPointsDataFromOneClusterFlow() {
             );
             yield put(loadTrashPointsForMapSuccess(response))
         } catch (error) {
-            console.log("fetchTrashPointsDataFromOneClusterFlow error", error);
             yield put(loadTrashPointsForMapError(error));
         }
     }

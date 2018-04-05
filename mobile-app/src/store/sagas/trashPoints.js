@@ -5,21 +5,17 @@ import {
     REQUEST_TRASH_POINTS_MAP_ACTION,
     SEARCH_TRASH_POINTS_ACTION
 } from '../types/trashPoints';
-import {
-    controlProgress,
-    setErrorMessage
-} from "../actions/app";
+import {controlProgress, setErrorMessage} from "../actions/app";
 import {
     createTrashPointErrorAction,
     createTrashPointSuccessAction,
     loadTrashPointsForMapError,
     loadTrashPointsForMapSuccess,
-    searchTrashPointsAction,
-    searchTrashPointsErrorAction,
     searchTrashPointsSuccessAction,
     showNewTrashPointsDeltaAction
 } from "../actions/trashPoints";
 import Api from '../../api';
+
 //import {LOAD_EVENTS_FOR_MAP_ACTION, loadEventsForMapSuccess, showNewDeltaAction} from "../actions/events";
 
 function* searchTrashPoints(query, page, pageSize, location) {

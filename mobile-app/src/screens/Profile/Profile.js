@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { Alert, FlatList, Text, View } from 'react-native';
+import React, {Component} from 'react';
+import {Alert, FlatList, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 
-import { SceneMap } from 'react-native-tab-view';
+import {SceneMap} from 'react-native-tab-view';
 
 import toString from 'lodash/toString';
 import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
 
-import { EVENT_DETAILS_SCREEN, SETTINGS_SCREEN } from '../index';
+import {EVENT_DETAILS_SCREEN, SETTINGS_SCREEN} from '../index';
 import strings from '../../config/strings';
-import { Icons } from '../../assets/images';
-import { Avatar, Button, Divider, Event, Icon, Tabs, Trashpoint } from '../../components';
+import {Icons} from '../../assets/images';
+import {Avatar, Button, Divider, Event, Icon, Tabs, Trashpoint} from '../../components';
 
 import styles from './styles';
 
-import { navigatorStyle } from './config';
+import {navigatorStyle} from './config';
 import isEmpty from 'lodash/isEmpty';
 
 class Profile extends Component {
@@ -202,7 +202,7 @@ class Profile extends Component {
       onLoadMyEvents(eventsPageSize, ++eventsPageNumber);
       this.setState({ isEndEventsReached: true });
     }
-  }
+  };
 
   handleTrashpointsPagination = () => {
     const { trashpointsPageSize, myTrashPoints, onLoadMyTrashPoints } = this.props;

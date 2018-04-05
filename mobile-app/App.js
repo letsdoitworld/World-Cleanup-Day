@@ -1,21 +1,14 @@
-import React, { PureComponent } from 'react';
-import { Provider } from 'react-redux';
-import { Navigation } from 'react-native-navigation';
+import React, {PureComponent} from 'react';
+import {Provider} from 'react-redux';
+import {Navigation} from 'react-native-navigation';
 
 import isNil from 'lodash/isNil';
 
-import {
-    LOGIN_SCREEN,
-    NOTIFICATIONS_SCREEN,
-    PROFILE_SCREEN,
-    EVENTS,
-    registerScreens,
-    TRASH_POINTS,
-} from './src/screens';
+import {EVENTS, LOGIN_SCREEN, PROFILE_SCREEN, registerScreens, TRASH_POINTS,} from './src/screens';
 
 import './src/config/styles';
 
-import { Icons } from './src/assets/images';
+import {Icons} from './src/assets/images';
 
 import strings from './src/assets/strings';
 import configureStore from './src/store/configureStore';

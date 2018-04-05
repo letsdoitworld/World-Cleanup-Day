@@ -394,7 +394,7 @@ export default class CreateEvent extends ImmutableComponent {
             'Add photo',
             'Add photo to event!',
             [
-                {text: 'Cancel', onPress: () => console.log('OK Pressed'), style: 'cancel'},
+                {text: 'Cancel', onPress: () => {}, style: 'cancel'},
                 {text: 'Take photo', onPress: () => this.openCamera()},
                 {text: 'From Gallery', onPress: () => this.openGallery()},
             ],
@@ -469,7 +469,6 @@ export default class CreateEvent extends ImmutableComponent {
     onTrashPointsSelected(trashPoints) {
         this.trashPoints = trashPoints;
         this.setData(d => d.set('trashPointsCount', this.trashPoints.size));
-        console.warn("onTrashPointsSelected", trashPoints._mapData[0]);
         this.setData(d => d.set('trashPoints', trashPoints._mapData[0]));
     }
 

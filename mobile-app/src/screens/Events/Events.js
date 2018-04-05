@@ -122,11 +122,11 @@ class Events extends Component {
                 Alert.alert(
                     strings.label_private_profile_wor,
                     [
-                        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                        {text: 'Settings', onPress: this.handleSettingsPress},
+                       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                       {text: 'Settings', onPress: this.handleSettingsPress},
                     ],
+                    { cancelable: false }
                 );
-
                 return;
             }
             this.props.navigator.showModal({
@@ -137,7 +137,7 @@ class Events extends Component {
             Alert.alert(
                 strings.label_private_auth_wor,
                 [
-                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'Cancel', onPress: () => {}, style: 'cancel'},
                     {text: 'Register', onPress: this.handleLogInPress},
                 ],
             );

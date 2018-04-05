@@ -16,6 +16,8 @@ import PropTypes from 'prop-types';
 import ImageService from "../../services/Image";
 import Api from '../../api';
 import Events from "../Events/Events";
+import {autocompleteStyle} from "../AddLocation/AddLocation";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 //import styles from './styles';
 
 const MODE = {
@@ -25,6 +27,7 @@ const MODE = {
 
 const searchId = 'searchId';
 const DEFAULT_RADIUS_M = 10000;
+
 
 class TrashPoints extends Component {
 
@@ -42,33 +45,24 @@ class TrashPoints extends Component {
             },
         });
 
-        const { location, onLoadMapEventsAction, mapTrashPoints, userCoord } = props;
-        // let userLocation;
-        // if (location === undefined || location === null) {
-        //     // TODO fix me!! Random location?
-        //     // alert(strings.label_no_location);
-        //     // userLocation = {
-        //     //     latitude: 48.8152937,
-        //     //     longitude: 2.4597668
-        //     // }
-        // } else {
-        //     userLocation = location;
-        // }
+        const { mapTrashPoints, userCoord } = props;
+
+        const region = {
+            latitude: userCoord.latitude,
+            longitude: userCoord.longitude,
+            latitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+        };
 
         this.state = {
             radius: DEFAULT_RADIUS_M,
             markers: undefined,
             mapTrashPoints,
-           // userLocation,
             mode: MODE.map,
             isSearchFieldVisible: false,
             updateRegion: true,
-            region: {
-                latitude: userCoord.latitude,
-                longitude: userCoord.longitude,
-                latitudeDelta: DEFAULT_ZOOM,
-                longitudeDelta: DEFAULT_ZOOM,
-            }
+            region,
+            initialRegion: region
         };
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -122,35 +116,6 @@ class TrashPoints extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     setTimeout(() => {
-    //         navigator.geolocation.getCurrentPosition(
-    //             (position) => {
-    //                 this.getLocation(position);
-    //             },
-    //             error => console.log('Error', error),
-    //             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    //         );
-    //     }, 1000);
-  //  }
-
-    // getLocation = position => {
-    //     const { onFetchLocation } = this.props;
-    //     onFetchLocation({
-    //         lat: position.coords.latitude,
-    //         long: position.coords.longitude,
-    //     });
-    // };
-
-    // shouldComponentUpdate(nextProps) {
-    //     const locationChanged = this.props.userLocation !== nextProps.userLocation;
-    //     return (
-    //         nextProps.activeScreen === SCREENS.HOME ||
-    //         nextProps.activeScreen === SCREENS.PUBLIC_HOME ||
-    //         locationChanged
-    //     );
-    // }
-
     componentDidMount() {
         if (!this.props.datasetUUIDSelector) {
             this.props.onFetchDatasetUUIDAction();
@@ -158,12 +123,31 @@ class TrashPoints extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState((previousState) => {
-            return {
-                ...previousState,
-                mapTrashPoints: nextProps.mapTrashPoints,
-            };
-        });
+
+        if (nextProps.mapTrashPoints && this.props.mapTrashPoints
+            && nextProps.mapTrashPoints.join('') === this.props.mapTrashPoints.join('')) {
+            return
+        }
+
+        let listEvents = [];
+      //  let markers = [];
+        if (nextProps.mapTrashPoints) {
+            // listEvents = mapEvents.filter(event => event.count === undefined);
+            const markers = nextProps.mapTrashPoints.map((mapTrashPoint) => {
+                return {
+                    ...mapTrashPoint,
+                    latlng: mapTrashPoint.location,
+                };
+            });
+
+            this.setState((previousState) => {
+                return {
+                    ...previousState,
+                    mapTrashPoints: nextProps.mapTrashPoints,
+                    markers
+                };
+            });
+        }
     }
 
     onMarkerPress(marker) {
@@ -204,8 +188,8 @@ class TrashPoints extends Component {
                     });
                 }
                 const region = {
-                    ...delta,
                     ...marker.latlng,
+                    ...delta
                 };
                 this.map.animateToRegion(region, 300);
             }
@@ -233,18 +217,12 @@ class TrashPoints extends Component {
     };
 
     handleOnRegionChangeComplete = center => {
+
         if (!this.state.updateRegion) {
             this.setState((previousState) => {
                 return {
                     ...previousState,
                     updateRegion: true,
-                    region: center
-                };
-            });
-        } else {
-            this.setState((previousState) => {
-                return {
-                    ...previousState,
                     region: center
                 };
             });
@@ -276,24 +254,15 @@ class TrashPoints extends Component {
     };
 
     render() {
-
-        // return (
-        //     <View style={{flex: 1}}>
-        //         <StatusBar translucent={false} barStyle="default"/>
-        //         <MapView
-        //             onRegionChangeComplete={this.handleOnRegionChangeComplete}
-        //             markers={markers}
-        //             initialRegion={initialRegion}
-        //             handleOnMarkerPress={this.onPressMarker}
-        //             getRef={this.getMapObject}/>
-        //     </View>
-        // );
-
         return (
             <View style={[styles.containerContent]}>
                 <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
-                    {this.renderSearchBox()}
+                    <View style={{
+                        flex: 1
+                    }}>
                     {this.renderContent()}
+                    {this.renderSearchBox()}
+                    </View>
                     <FAB
                         buttonColor="rgb(225, 18, 131)"
                         iconTextColor="white"
@@ -310,20 +279,8 @@ class TrashPoints extends Component {
     renderContent() {
         const { userCoord } = this.props;
 
-        const { selectedItem, mapTrashPoints, region } = this.state;
-        // const {markers, initialRegion} = this.props;
+        const { selectedItem, mapTrashPoints, markers, region, initialRegion } = this.state;
 
-        let listEvents = [];
-        let markers = [];
-        if (mapTrashPoints) {
-           // listEvents = mapEvents.filter(event => event.count === undefined);
-            markers = mapTrashPoints.map((mapTrashPoint) => {
-                return {
-                    ...mapTrashPoint,
-                    latlng: mapTrashPoint.location,
-                };
-            });
-        }
 
         switch (this.state.mode) {
             case MODE.list: {
@@ -332,11 +289,14 @@ class TrashPoints extends Component {
             case MODE.map: {
                 return (
                     <MapView
+                        style={{
+                            marginTop: this.isSearchFieldVisible() ? 44 : 0
+                        }}
                         handleOnMarkerPress={this.onMarkerPress.bind(this)}
                         onRegionChangeComplete={this.handleOnRegionChangeComplete.bind(this)}
                         markers={markers}
-                        initialRegion={region}
-                        region={region}
+                        initialRegion={initialRegion}
+                        region={region === initialRegion && this.state.updateRegion === false ? region : undefined}
                         getRef={this.getMapObject.bind(this)}/>
                 );
             }
@@ -403,26 +363,78 @@ class TrashPoints extends Component {
 
     renderSearchBox() {
         if (this.isSearchFieldVisible()) {
-            return (
-                <View style={[styles.horizontal, styles.searchContainerStyle]}>
-                    <TextInput
-                        placeholderTextColor={'rgb(41, 127, 202)'}
-                        style={styles.searchField}
-                        ref="input"
-                        onChangeText={this.onQueryChange.bind(this)}
-                        placeholder={strings.label_text_select_country_hint}
-                        underlineColorAndroid={'transparent'}
-                    />
-                </View>
-            );
+
+            switch (this.state.mode) {
+                case MODE.list: {
+                    return (
+                        <View style={[styles.horizontal, styles.searchContainerStyle]}>
+                            <TextInput
+                                placeholderTextColor={'rgb(41, 127, 202)'}
+                                style={styles.searchField}
+                                ref="input"
+                                onChangeText={this.onQueryChange.bind(this)}
+                                placeholder={strings.label_text_select_country_hint}
+                                underlineColorAndroid={'transparent'}
+                            />
+                        </View>
+                    );
+                }
+                case MODE.map: {
+                    return (
+                        <GooglePlacesAutocomplete
+                            placeholder={strings.label_text_select_country_hint}
+                            minLength={2}
+                            autoFocus={false}
+                            returnKeyType={'search'}
+                            listViewDisplayed="auto"
+                            fetchDetails
+                            renderDescription={row => row.description}
+                            onPress={(data, details = null) => {
+                                const latitude = details.geometry.location.lat;
+                                const longitude = details.geometry.location.lng;
+
+
+                                const region = {
+                                    latitudeDelta: DEFAULT_ZOOM,
+                                    longitudeDelta: DEFAULT_ZOOM,
+                                    latitude,
+                                    longitude
+                                };
+
+
+                                this.map.animateToRegion(region, 300);
+                            }}
+                            getDefaultValue={() => ''}
+                            query={{
+                                // available options: https://developers.google.com/places/web-service/autocomplete
+                                key: 'AIzaSyDsL-LeucaFuq26bdOQUmjOLGQ1Eu-ibdg',
+                                language: 'en', // language of the results
+                                types: '(cities)', // default: 'geocode'
+                            }}
+                            styles={autocompleteStyle}
+                            nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                            GoogleReverseGeocodingQuery={{
+                                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+                            }}
+                            GooglePlacesSearchQuery={{
+                                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                                rankby: 'distance',
+                                types: 'food',
+                            }}
+                            filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                            debounce={200}
+                        />
+                    );
+                }
+                default:
+                    return null;
+            }
         }
         return null;
     }
 
     onQueryChange = debounce(function (text) {
         this.query = text;
-
-
     }, 1000);
 }
 
@@ -431,53 +443,5 @@ TrashPoints.propTypes = {
     onFetchLocation: PropTypes.func,
     loadTrashPointsForMapAction: PropTypes.func,
 };
-//
-// const mapStateToProps = state => {
-// //  console.log(state)
-// //  const mapMarkers = trashpileSelectors.markersSelector(state);
-// //   const mapMarkers = markersSelector(state);
-// //   const userMarker = locationSelectors.userMarkerSelector(state);
-// //   const locationActive = locationSelectors.hasLocationActive(state);
-// //
-// //   const markers = locationActive ? [...mapMarkers, userMarker] : mapMarkers;
-//     return {
-//         // markers,
-//         // initialRegion: locationSelectors.initialRegionSelector(state),
-//         // activeScreen: appSelectors.getActiveScreen(state),
-//         // userLocation: locationSelectors.userLocationSelector(state),
-//         // delta: trashpileSelectors.getLastDeltaValue(state),
-//     };
-// };
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         // fetchAllMarkers(northWestViewPort, southEastViewPort, delta) {
-//         //   dispatch(
-//         //     trashpileOperations.fetchAllMarkers(
-//         //       northWestViewPort,
-//         //       southEastViewPort,
-//         //       delta,
-//         //     ),
-//         //   );
-//         // },
-//         // fetchClusterTrashpoints(cellSize, coordinates, clusterId) {
-//         //   dispatch(
-//         //     trashpileOperations.fetchClusterTrashpoints({
-//         //       cellSize,
-//         //       coordinates,
-//         //       clusterId,
-//         //     }),
-//         //   );
-//         // },
-//     };
-// };
-//
-// // export default connect(mapStateToProps, mapDispatchToProps)(TrashPoints);
-// export default TrashPoints;
-//
-// // export default compose(
-// //   connect(mapStateToProps, mapDispatchToProps),
-// //   withNavigationHelpers(),
-// // )(Home);
 
 export default TrashPoints;

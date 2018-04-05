@@ -394,7 +394,7 @@ export default class CreateEvent extends ImmutableComponent {
             'Add photo',
             'Add photo to event!',
             [
-                {text: 'Cancel', onPress: () => console.log('OK Pressed'), style: 'cancel'},
+                {text: 'Cancel', onPress: () => {}, style: 'cancel'},
                 {text: 'Take photo', onPress: () => this.openCamera()},
                 {text: 'From Gallery', onPress: () => this.openGallery()},
             ],

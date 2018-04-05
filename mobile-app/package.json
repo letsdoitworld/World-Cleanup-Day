@@ -62,6 +62,7 @@
     "react-native-popover": "^0.2.0",
     "react-native-segmented-control-tab": "^3.2.2",
     "react-native-slider": "^0.11.0",
+    "react-native-snap-carousel": "^3.6.0",
     "react-native-tab-view": "^0.0.74",
     "react-native-vector-icons": "^4.5.0",
     "react-redux": "5.0.7",

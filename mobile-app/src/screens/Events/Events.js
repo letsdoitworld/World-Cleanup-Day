@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {ActivityIndicator, Alert, Animation, LayoutAnimation, TextInput, View} from 'react-native';
+import React, { Component } from 'react';
+import { ActivityIndicator, Alert, Animation, LayoutAnimation, TextInput, View } from 'react-native';
 import styles from './styles';
-import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN} from '../index';
+import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
 import strings from '../../assets/strings';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 
 import EventsList from './List/List';
-import {debounce} from '../../shared/util';
+import { debounce } from '../../shared/util';
 import PropTypes from 'prop-types';
 import EventsMap from '../EventMap/EventsMap';
 
@@ -52,7 +52,7 @@ class Events extends Component {
           onPress: this.successCancel.bind(this)
       };
 
-      // UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+       UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -148,10 +148,11 @@ class Events extends Component {
         Alert.alert(
             strings.label_private_profile_wor_title,
                     strings.label_private_profile_wor,
-          [
-                        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                        { text: 'Settings', onPress: this.handleSettingsPress },
-          ],
+                    [
+                       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                       {text: 'Settings', onPress: this.handleSettingsPress},
+                    ],
+                    { cancelable: false }
                 );
 
         return;
@@ -164,10 +165,10 @@ class Events extends Component {
       Alert.alert(
           strings.label_private_auth_wor_title,
                 strings.label_private_auth_wor,
-        [
-                    { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                    { text: 'Register', onPress: this.handleLogInPress },
-        ],
+                [
+                    {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+                    {text: 'Register', onPress: this.handleLogInPress},
+                ],
             );
     }
   };
@@ -191,16 +192,18 @@ class Events extends Component {
         );
       }
       case MODE.map: {
-        return (<EventsMap
-          initialRegion={this.props.userCoord}
-          mapEvents={mapEvents}
-          navigator={this.props.navigator}
-          onLoadMapEventsAction={this.props.onLoadMapEventsAction}
-          datasetUUIDSelector={this.props.datasetUUIDSelector}
-          onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}
-          onLoadEventsFromClusterAction={this.props.onLoadEventsFromClusterAction}
-          delta={this.props.delta}
-        />);
+        return (
+            <EventsMap
+                initialRegion={this.props.userCoord}
+                mapEvents={mapEvents}
+                navigator={this.props.navigator}
+                onLoadMapEventsAction={this.props.onLoadMapEventsAction}
+                datasetUUIDSelector={this.props.datasetUUIDSelector}
+                onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}
+                onLoadEventsFromClusterAction={this.props.onLoadEventsFromClusterAction}
+                delta={this.props.delta}
+            />
+        );
       }
       default:
         return null;
@@ -274,7 +277,7 @@ class Events extends Component {
     return (
       <View style={[styles.containerContent]}>
         <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
-            {this.renderSearchBox()}
+          {this.renderSearchBox()}
           {this.renderContent(events)}
           <FAB
               buttonColor="rgb(225, 18, 131)"

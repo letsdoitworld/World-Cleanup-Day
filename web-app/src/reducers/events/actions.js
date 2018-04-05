@@ -130,14 +130,14 @@ const fetchAllEventMarkers = (
   });
 };
 
-const fetchEventsList = (pageSize, pageNumber, query) =>
+const fetchEventsList = (pageSize, pageNumber, address) =>
 async (dispatch, getState) => {
   const response = await ApiService.get('events',
     {
       params: {
         pageSize,
         pageNumber,
-        name: query || '',
+        address,
       },
     },
     {

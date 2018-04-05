@@ -74,9 +74,8 @@
 }
 
 .EventsList-header-minimize img {
-  width: 18px;
-  height: 18px;
-  filter: invert(1);
+  width: 16px;
+  height: 9px;
 }
 
 .no-events-holder {

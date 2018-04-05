@@ -1,6 +1,7 @@
 import React from 'react';
 import Swiper from 'react-id-swiper';
 import * as moment from 'moment';
+import 'moment/locale/en-au';
 import './EventDetails.css';
 import {
   LocationIconEvent,
@@ -40,7 +41,7 @@ export const EventDetails = (props) => {
           <div className="EventDetails-width-60">
             <DateIcon />
             <span className="EventDetails-date">
-              {moment(eventDetails.startTime).format('L')}
+              {moment(eventDetails.startTime).format('ll')}
             </span>
           </div>
           <div className="EventDetails-width-40">
@@ -65,46 +66,37 @@ export const EventDetails = (props) => {
             <span className="EventDetails-share">Share</span>
           </div>
         </div>
-        <div className="EventDetails-trashpoints EventDetails-infoblock">
-          <h2 className="EventDetails-header">Trashpoints</h2>
-          <Swiper {...swiperOptions}>
-            <div className="EventDetails-trashpoints-item">
-              <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-              <br />
-              <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-            </div>
-            <div className="EventDetails-trashpoints-item">
-              <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-              <br />
-              <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-            </div>
-            <div className="EventDetails-trashpoints-item">
-              <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-              <br />
-              <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-            </div>
-            <div className="EventDetails-trashpoints-item">
-              <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-              <br />
-              <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-            </div>
-            <div className="EventDetails-trashpoints-item">
-              <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-              <br />
-              <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-            </div>
-            <div className="EventDetails-trashpoints-item">
-              <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-              <br />
-              <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-            </div>
-            <div className="EventDetails-trashpoints-item">
-              <img className="EventDetails-trashpoints-item-img" src={demo} alt="demo" />
-              <br />
-              <span className="EventDetails-trashpoints-item-title">Some trashpoint</span>
-            </div>
-          </Swiper>
-        </div>
+        {
+          /* we'll use this functionality in future, but for now it must
+          be commented
+          <div className="EventDetails-trashpoints EventDetails-infoblock">
+            <h2 className="EventDetails-header">Trashpoints</h2>
+            {
+              eventDetails.trashpoints.length ?
+                <Swiper {...swiperOptions}>
+                  {
+                    eventDetails.trashpoints.map(tp =>
+                      (<div key={tp.id} className="EventDetails-trashpoints-item">
+                        <img
+                          className="EventDetails-trashpoints-item-img"
+                          src={tp.image || demo}
+                          alt="demo"
+                        />
+                        <br />
+                        <span
+                          className="EventDetails-trashpoints-item-title"
+                        >
+                          {tp.name}
+                        </span>
+                      </div>),
+                    )
+                  }
+                </Swiper> :
+                <span />
+            }
+          </div>
+          */
+        }
         <div className="EventDetails-descr EventDetails-infoblock">
           <h2 className="EventDetails-header">Description</h2>
           <p>{eventDetails.description}</p>

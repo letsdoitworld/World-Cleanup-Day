@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as moment from 'moment';
+import 'moment/locale/uk';
 import classnames from 'classnames';
 import {
   LocationIcon24px,

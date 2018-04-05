@@ -15,7 +15,12 @@ import {
   selectors as appSelectors,
 } from '../../reducers/app';
 import { getViewportPoints } from '../../shared/helpers';
-import { GRID_HASH, DELTA_HASH, GRID_MIN_VALUE } from '../../shared/constants';
+import {
+  GRID_HASH,
+  DELTA_HASH,
+  GRID_MIN_VALUE,
+  FOCUS_EVENT_ZOOM_LEVEL,
+} from '../../shared/constants';
 
 class MarkersMap extends React.Component {
   static defaultProps = {
@@ -50,6 +55,15 @@ class MarkersMap extends React.Component {
         lat: nextProps.currentEventLocation.latitude,
         lng: nextProps.currentEventLocation.longitude,
       });
+      if (this.map.getZoom() < FOCUS_EVENT_ZOOM_LEVEL) {
+        this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
+        /*
+        the only way to setZoom in this library
+        expected this.map.setZoom returns 'not a function'
+        strange, but just dealing with it
+        https://github.com/tomchentw/react-google-maps/issues/188
+        */
+      }
       this.loadMarkers(nextProps.tabActive);
     }
     if (

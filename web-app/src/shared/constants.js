@@ -4,6 +4,7 @@ export const DEFAULT_ZOOM_LEVEL = 7;
 export const NO_PERMISSION_ZOOM_LEVEL = 8;
 export const ESTONIA_CENTER_COORDINATES = { lat: 48.5953, lng: 35.0136 };
 export const MARKER_DIAGONALE_IN_PX = 2 * Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2));
+export const FOCUS_EVENT_ZOOM_LEVEL = 14;
 const MAX_ZOOM_LEVEL = 22;
 export const DATASETS_TYPES = {
   EVENTS: 'events',

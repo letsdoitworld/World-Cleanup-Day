@@ -26,8 +26,39 @@ const swiperOptions = {
   },
 };
 
-export const EventDetails = (props) => {
-  const { eventDetails } = props;
+const attachedTrashpoints = (eventDetails) => {
+  return (
+    <div className="EventDetails-trashpoints EventDetails-infoblock">
+      <h2 className="EventDetails-header">Trashpoints</h2>
+      {
+        eventDetails.trashpoints.length ?
+          <Swiper {...swiperOptions}>
+            {
+              eventDetails.trashpoints.map(tp =>
+                (<div key={tp.id} className="EventDetails-trashpoints-item">
+                  <img
+                    className="EventDetails-trashpoints-item-img"
+                    src={tp.image || demo}
+                    alt="demo"
+                  />
+                  <br />
+                  <span
+                    className="EventDetails-trashpoints-item-title"
+                  >
+                    {tp.name}
+                  </span>
+                </div>),
+              )
+            }
+          </Swiper> :
+          <span />
+      }
+    </div>
+  );
+};
+
+export const EventDetails = ({ eventDetails }) => {
+  moment.locale('en-au');
   return (
     <div className="EventDetails">
       <div className="EventDetails-cover">
@@ -66,37 +97,6 @@ export const EventDetails = (props) => {
             <span className="EventDetails-share">Share</span>
           </div>
         </div>
-        {
-          /* we'll use this functionality in future, but for now it must
-          be commented
-          <div className="EventDetails-trashpoints EventDetails-infoblock">
-            <h2 className="EventDetails-header">Trashpoints</h2>
-            {
-              eventDetails.trashpoints.length ?
-                <Swiper {...swiperOptions}>
-                  {
-                    eventDetails.trashpoints.map(tp =>
-                      (<div key={tp.id} className="EventDetails-trashpoints-item">
-                        <img
-                          className="EventDetails-trashpoints-item-img"
-                          src={tp.image || demo}
-                          alt="demo"
-                        />
-                        <br />
-                        <span
-                          className="EventDetails-trashpoints-item-title"
-                        >
-                          {tp.name}
-                        </span>
-                      </div>),
-                    )
-                  }
-                </Swiper> :
-                <span />
-            }
-          </div>
-          */
-        }
         <div className="EventDetails-descr EventDetails-infoblock">
           <h2 className="EventDetails-header">Description</h2>
           <p>{eventDetails.description}</p>

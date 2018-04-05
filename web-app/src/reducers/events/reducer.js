@@ -21,8 +21,8 @@ const EVENT_DETAILS_INITIAL_STATE = {
 };
 
 const GRID_INITIAL_STATE = {
-  gridValue: undefined,
-  gridValueToZoom: undefined,
+  gridValue: null,
+  gridValueToZoom: null,
   maxZoomedIn: false,
 };
 

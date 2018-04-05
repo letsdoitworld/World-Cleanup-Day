@@ -27,7 +27,9 @@ class EventsList extends Component {
       this.props.fetchEventDetails(nextProps.eventId);
     }
     if (!nextProps.eventId && nextProps.eventId !== this.props.eventId) {
-      this.props.fetchEventsList(50, 1);
+      const itemsPerPage = 50;
+      const pageNumber = 1;
+      this.props.fetchEventsList(itemsPerPage, pageNumber);
     }
     document.getElementsByClassName('EventsList-plot')[0].scrollTop = 0;
   }

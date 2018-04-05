@@ -17,6 +17,8 @@ const EventListHeader = ({
   history,
   listState,
 }) => {
+  const itemsPerPage = 50;
+  const pageNumber = 1;
   return (
     <div className="EventsList-header">
       {
@@ -35,7 +37,7 @@ const EventListHeader = ({
             className="EventsList-header-searchbar"
             type="text"
             placeholder="Search location"
-            onChange={(ev) => onSearch(50, 1, ev.target.value)}
+            onChange={(ev) => onSearch(itemsPerPage, pageNumber, ev.target.value)}
           /> :
           <span className="EventsList-header-title">
             {eventTitle}

@@ -149,8 +149,8 @@ const markerDetailsReducer = (state = MARKER_DETAILS_STATE, action) => {
 };
 
 const GRID_INITIAL_STATE = {
-  gridValue: undefined,
-  gridValueToZoom: undefined,
+  gridValue: null,
+  gridValueToZoom: null,
   maxZoomedIn: false,
 };
 const gridReducer = (state = GRID_INITIAL_STATE, action) => {
@@ -163,13 +163,13 @@ const gridReducer = (state = GRID_INITIAL_STATE, action) => {
 };
 
 const MARKER_AREA_STATE = {
-  markers: undefined,
-  pageNumber: undefined,
+  markers: null,
+  pageNumber: null,
   pageSize: 15,
   loading: false,
   error: false,
   canLoadMore: true,
-  statusCounts: undefined,
+  statusCounts: null,
 };
 const markerAreaReducer = (state = MARKER_AREA_STATE, action) => {
   switch (action.type) {

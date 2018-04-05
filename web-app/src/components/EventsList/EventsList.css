@@ -22,6 +22,13 @@
   border-top-right-radius: 10px;
 }
 
+.EventsList-header span {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
 .EventsList-plot {
   display: none;
   flex-direction: column;

@@ -39,6 +39,10 @@
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 0.2px;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
 }
 
 .Event-creator {
@@ -88,6 +92,11 @@
   font-weight: bold;
   margin-left: auto;
   align-self: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 54px;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 
 .Event-date {

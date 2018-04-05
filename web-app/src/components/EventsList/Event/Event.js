@@ -23,6 +23,7 @@ export class Event extends Component {
     } = this.props;
     const eventStatus = moment(date).isBefore(moment()) ?
     'Past' : 'Upcoming';
+    moment.locale('uk');
     return (
       <div>
         <div className="Event-item">

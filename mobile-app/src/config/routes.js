@@ -8,8 +8,10 @@ import CreateMarker from '../screens/CreateMarker';
 import EditLocation from '../screens/EditLocation';
 import Details from '../screens/Details';
 import Profile from '../screens/Profile';
+import TeamProfile from '../screens/TeamProfile';
 import Settings from '../screens/Settings';
 import MyActivity from '../screens/MyActivity';
+import Teams from '../screens/Teams';
 import { Header, HEADER_BUTTONS_IMAGES } from '../components/Header';
 import { CreateMarkerButton } from '../screens/CreateMarkerButton';
 import {
@@ -116,7 +118,7 @@ const ProfileStack = StackNavigator({
 const MyActivityStack = StackNavigator({
   MyActivity: {
     screen: MyActivity,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       header: () => <Header title={i18n.t('label_header_activity')} />,
     }),
   },
@@ -125,7 +127,7 @@ const MyActivityStack = StackNavigator({
 const NotificationsStack = StackNavigator({
   Notifications: {
     screen: Notifications,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       header: () => <Header title={i18n.t('label_header_notific')} />,
     }),
   },
@@ -334,6 +336,29 @@ const AppNavigator = StackNavigator(
           <Header
             onPressLeftButton={() => navigation.goBack(null)}
             title={i18n.t('label_header_settings')}
+            leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
+          />,
+      }),
+    },
+    Teams: {
+      screen: Teams,
+      navigationOptions: ({ navigation }) => ({
+        header: () =>
+          <Header
+            onPressLeftButton={() => navigation.goBack(null)}
+            title={i18n.t('label_teams_header')}
+            leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
+            containerStyle={{borderBottomWidth: 0}}
+          />,
+      }),
+    },
+    TeamProfile: {
+      screen: TeamProfile,
+      navigationOptions: ({ navigation }) => ({
+        header: () =>
+          <Header
+            onPressLeftButton={() => navigation.goBack(null)}
+            title={i18n.t('label_header_team_profile')}
             leftButtonImage={HEADER_BUTTONS_IMAGES.arrowBack}
           />,
       }),

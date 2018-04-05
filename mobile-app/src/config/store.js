@@ -8,6 +8,7 @@ import {
   trashpileReducer,
   appReducer,
   userReducer,
+  teamsReducer,
 } from '../reducers';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   trashpile: trashpileReducer,
   app: appReducer,
   user: userReducer,
+  teams: teamsReducer,
 });
 
 const resetStateOnSignOutReducer = reducer => (state, action) => {
@@ -28,6 +30,7 @@ const resetStateOnSignOutReducer = reducer => (state, action) => {
     user: undefined,
     location: state.location,
     trashpile: state.trashpile,
+    teams: state.teams,
   };
   return reducer(stateWithoutSensitiveData, action);
 };

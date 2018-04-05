@@ -131,15 +131,15 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       }
       return (
         <View style={{ flex: 1 }}>
-          <AlertModal
-            visible={showUserWarning}
-            title={this.props.t('label_network_off_warning_title')}
-            subtitle={this.props.t('label_network_off_warning')}
-            buttons={[this.closeAlertModalButton]}
-          />
-          <WrappedComponent {...this.props} />
-        </View>
-      );
+    <AlertModal
+      visible={showUserWarning}
+      title={this.props.t('label_network_off_warning_title')}
+      subtitle={this.props.t('label_network_off_warning')}
+      buttons={[this.closeAlertModalButton]}
+      />
+      <WrappedComponent {...this.props} />
+      </View>
+    );
     }
   };
   return compose(

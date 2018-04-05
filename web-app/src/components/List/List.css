@@ -4,6 +4,16 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto!important;
+    overflow-x: hidden;
+}
+.Team-List{
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    flex: 1;
+}
+.TeamListItem-100{
+    width: 100%;
 }
 
 .padding-list {
@@ -26,6 +36,10 @@
     align-items: center;
     flex-direction: column;
     padding-top: 10px;
+}
+
+.Team {
+    display: block;
 }
 
 .List-search-input {

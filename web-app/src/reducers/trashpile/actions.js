@@ -365,7 +365,6 @@ export const handleUpload = async ({ photos, markerId }) => {
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
-
     if (uploadedPhotosResponses) {
       uploadedPhotosResponses.forEach(({ status }, index) => {
         const state = status === 201 ? 'confirmed' : 'failed';

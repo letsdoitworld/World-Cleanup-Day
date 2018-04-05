@@ -8,6 +8,8 @@
   "dependencies": {
     "bluebird": "=3.5.0",
     "caught": "=0.1.1",
+    "gravatar": "^1.6.0",
+    "lodash": "^4.17.5",
     "node-couchdb": "=1.1.1"
   }
 }

@@ -40,7 +40,9 @@ class List extends Component {
     return (
       <div className="List">
         {headerContent}
-        {items.map(item => item)}
+        <div className="Team-List">
+          {items.map(item => item)}
+          </div>
       </div>
     );
   }

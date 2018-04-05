@@ -1,0 +1,38 @@
+{
+  "list": [
+    {
+      "id": "3b61b794-2b8e-11e8-b467-0ed5f89f718b",
+      "name": "Friends of World Cleanup Day",
+      "teamDescription": "If you believe that World Cleanup Day is a wonderful initiative which you want to support, then this team is for you! Map the waste so we can end trash blindness once and for all!"
+
+    },
+    {
+      "id": "3b61bb86-2b8e-11e8-b467-0ed5f89f718a",
+      "name": "Going Zero Waste",
+      "teamDescription": "A future without waste and toxic pollution is not just a dream; it’s a necessity. Help us to locate trash piles in your country!"
+
+    },
+    {
+      "id": "3b61c0e0-2b8e-11e8-b467-0ed5f89f718c",
+      "name": "JCI Trash Hunters",
+      "teamDescription": "Hi, JCI family! It is time to declare the trash hunting season open! Join the JCI mapping team to show how young action-minded people make a difference!"
+
+    },
+    {
+      "id": "3b61c36a-2b8e-11e8-b467-0ed5f89f718d",
+      "name": "Let’s Do It! World",
+      "teamDescription": "Join us and let's map the world!  Let's Do It! World is an international movement that tackles environmental and social problems related to mismanaged waste, by mobilising millions of positive-minded, action-orientated people."
+    },
+    {
+      "id": "3b61c5cc-2b8e-11e8-b467-0ed5f89f718e",
+      "name": "Just Map It",
+      "teamDescription": "Running, hiking or just walking around your neighbourhood?! Join the Just Map It team and put your active spirit to good use!"
+
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718f",
+      "name": "Mapping for Peace",
+      "teamDescription": "Everyone who believes that sustainability and peace go hand in hand - join the Peace One day mapping team. Let's map the waste, and bring about peace of mind as well!"
+     }
+  ]
+}

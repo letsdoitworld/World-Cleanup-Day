@@ -33,7 +33,7 @@ export default class App extends PureComponent {
     onStoreUpdate() {
         const auth = store.getState().get('auth');
         const token = auth.get('token');
-        console.log("token", token);
+
         const isGuestSession = auth.get('isGuestSession');
 
         if (this.currentToken !== token) {

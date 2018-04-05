@@ -15,14 +15,7 @@ module.exports = {
                 [doc.location.longitude, doc.location.latitude],
                 LENGTH
             );
-            emit([
-                doc.datasetId,
-                gridCoords,
-            ], {
-                _id: doc._id,
-                location: doc.location,
-                status: doc.status,
-            });
+            emit([doc.datasetId, gridCoords], doc);
         },
         reduce: function (keys, values) {
             // XXX: the logic for reduce and rereduce is the same.
@@ -48,14 +41,7 @@ module.exports = {
                 [doc.location.longitude, doc.location.latitude],
                 LENGTH
             );
-            emit([
-                doc.datasetId,
-                gridCoords,
-            ], {
-                _id: doc._id,
-                location: doc.location,
-                status: doc.status,
-            });
+            emit([doc.datasetId, gridCoords], doc);
         },
     },
 

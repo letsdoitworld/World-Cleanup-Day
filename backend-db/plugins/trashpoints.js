@@ -12,10 +12,25 @@ const filterTrashpointsForAdmin = value => util.object.filter(
     {id:true, status: true, name: true, address: true, location: true}
 );
 
-const filterTrashpointsForOverview = value => util.object.filter(
-    value,
-    {id: true, status: true, location: true}
-);
+const mapTrashpoint = async trashpoint => {
+    if (trashpoint.createdBy) {
+        const createdByUser = await db.getAccount(trashpoint.createdBy);
+        trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+    }
+    if (trashpoint.updatedBy) {
+        if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
+            trashpoint.updater = trashpoint.creator;
+        } else {
+            const updatedByUser = await db.getAccount(trashpoint.updatedBy);
+            if (updatedByUser) {
+                trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+            }
+        }
+    }
+    trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
+    trashpoint.photos = trashpoint.photos.map(p => p.url);
+    return trashpoint;
+};
 
 const fetchRectangleMarkers = async (datasetId, cellSize, rectangle, fetcher) => {
     let markers = [];
@@ -187,42 +202,28 @@ module.exports = function () {
         .connect(connectVerifyDataset)
         // fetch clusters
         .use(async function (dataset, responder) {
-            const clusters = await fetchRectangleMarkers(
-                dataset.id, args.cellSize, args.rectangle, db.getOverviewClusters);
-            const filtered = clusters.map(value => util.object.filter(
-                value,
-                {count: true, status: true, location: true, coordinates: true}
-            ));
-            return responder.success(filtered);
+            const clusters = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getOverviewClusters);
+            return responder.success(clusters);
         })
     });
 
     lucius.register('role:db,cmd:getTrashpointsOverview', async function (connector, args) {
         return connector.input(args)
-        // verify that dataset exists and is the right type
         .connect(connectVerifyDataset)
-        // fetch trashpoints
         .use(async function (dataset, responder) {
-            const trashpoints = await fetchRectangleMarkers(
-                dataset.id, args.cellSize, args.rectangle, db.getOverviewTrashpoints);
-            const filtered = trashpoints.map(filterTrashpointsForOverview);
-            return responder.success(filtered);
+            const trashpoints = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getOverviewTrashpoints);
+            const records = await Promise.all(trashpoints.map(mapTrashpoint));
+            return responder.success(records);
         })
     });
 
     lucius.register('role:db,cmd:getTrashpointsInGridCell', async function (connector, args) {
         return connector.input(args)
-        // verify that dataset exists and is the right type
         .connect(connectVerifyDataset)
-        // fetch trashpoints
         .use(async function (dataset, responder) {
-            const trashpoints = await db.getGridCellTrashpoints(
-                dataset.id,
-                args.cellSize,
-                args.coordinates
-            );
-            const filtered = trashpoints.map(filterTrashpointsForOverview);
-            return responder.success(filtered);
+            const trashpoints = await db.getGridCellTrashpoints(dataset.id, args.cellSize, args.coordinates);
+            const records = await Promise.all(trashpoints.map(mapTrashpoint));
+            return responder.success(records);
         })
     });
 

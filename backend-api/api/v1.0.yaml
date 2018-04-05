@@ -544,7 +544,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/OverviewTrashpoint"
+              $ref: "#/definitions/Trashpoint"
         "default":
           $ref: "#/responses/ErrorSet"
   /overview/trashpoints/grid:
@@ -560,7 +560,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/OverviewTrashpoint"
+              $ref: "#/definitions/Trashpoint"
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------

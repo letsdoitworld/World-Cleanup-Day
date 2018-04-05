@@ -66,7 +66,7 @@ const layer = {
             }
             if (
               doc.$doctype === 'event' 
-              ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''} 
+              ${name ? ` && doc.name.toLowerCase().indexOf('${name.replace("'", "\\'").toLowerCase()}') !== -1` : ''} 
               ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}
               ${address ? ` && doc.address.toLowerCase().indexOf('${address.replace("'", "\\'").toLowerCase()}') !== -1` : ''}
             ) {

@@ -1,18 +1,9 @@
 import React, {Component} from 'react';
-import {
-    ActivityIndicator,
-    LayoutAnimation,
-    Text,
-    TextInput,
-    UIManager,
-    View,
-    Dimensions
-} from 'react-native';
+import {ActivityIndicator, Dimensions, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
 
 import {Map as MapView} from '../../components/Map';
 import {DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
-import _ from 'lodash';
-import {CREATE_MARKER, EVENTS_NAV_BAR, TRASH_POINT} from "../index";
+import {CREATE_MARKER, TRASH_POINT} from "../index";
 import styles from "../Events/styles";
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
@@ -23,7 +14,6 @@ import {getCurrentPosition} from "../../shared/geo";
 import PropTypes from 'prop-types';
 import ImageService from "../../services/Image";
 import Api from '../../api';
-import Events from "../Events/Events";
 import {autocompleteStyle} from "../AddLocation/AddLocation";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 //import styles from './styles';
@@ -67,8 +57,8 @@ class TrashPoints extends Component {
         const {mapTrashPoints, userCoord} = props;
 
         const region = {
-            latitude: userCoord.latitude,
-            longitude: userCoord.longitude,
+            latitude: (userCoord !== null) ? userCoord.latitude : undefined,
+            longitude: (userCoord !== null) ? userCoord.longitude : undefined,
             latitudeDelta: DEFAULT_ZOOM,
             longitudeDelta: DEFAULT_ZOOM,
         };
@@ -81,8 +71,8 @@ class TrashPoints extends Component {
             isSearchFieldVisible: false,
             updateRegion: true,
             selectedItem: undefined,
-            region,
-            initialRegion: region,
+            region : this.props.userCoord,
+            initialRegion: this.props.userCoord,
             listTrashPoints: undefined
         };
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -138,10 +128,27 @@ class TrashPoints extends Component {
     }
 
     componentDidMount() {
+        setTimeout(() => {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    this.getLocation(position);
+                },
+                error => console.log('Error', error),
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+            );
+        }, 1000);
         if (!this.props.datasetUUIDSelector) {
             this.props.onFetchDatasetUUIDAction();
         }
     }
+
+    getLocation = position => {
+        const { onFetchLocation } = this.props;
+        onFetchLocation({
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+        });
+    };
 
     componentWillReceiveProps(nextProps) {
 
@@ -530,6 +537,7 @@ class TrashPoints extends Component {
 }
 
 TrashPoints.propTypes = {
+    userCoord: PropTypes.object,
     country: PropTypes.object,
     onFetchLocation: PropTypes.func,
     loadTrashPointsForMapAction: PropTypes.func,

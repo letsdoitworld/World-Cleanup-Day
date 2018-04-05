@@ -22,13 +22,20 @@
   border-top-right-radius: 10px;
 }
 
+.EventsList-header span {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
 .EventsList-plot {
   display: none;
   flex-direction: column;
   width: 100%;
   transition: all 0.3s ease-in-out;
   overflow-y: auto;
-  max-height: calc(100vh - 230px);
+  height: calc(100vh - 230px);
 }
 
 .visible {
@@ -47,6 +54,7 @@
 
 .EventsList-header-title {
   width: 90%;
+  height: 20px;
   margin: 0 16px;
   color: #fff;
   font-size: 14px;
@@ -70,4 +78,14 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
+}
+
+.EventsList-header-minimize img {
+  width: 16px;
+  height: 9px;
+}
+
+.no-events-holder {
+  width: 380px;
+  height: 117px;
 }

@@ -29,13 +29,16 @@
 
 .Tpdetails-loader-container {
   width: 100%;
-  height: calc(100vh - 360px);
+  height: calc(100vh - 230px);
   transition: all 0.5s ease-in-out;
 }
 
 .Tpdetails-header-title {
   width: 90%;
   margin: 0 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   color: #fff;
   font-size: 14px;
   letter-spacing: 0.2px;
@@ -47,7 +50,7 @@
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
-  height: calc(100vh - 360px);
+  height: calc(100vh - 230px);
 }
 
 .visible {
@@ -58,6 +61,11 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
+}
+
+.Tpdetails-header-minimize img {
+  width: 12px;
+  height: 12px;
 }
 
 .Create-trashpoint {
@@ -113,14 +121,27 @@
 }
 
 .Details-address {
-  font-size: 13px;
-  color: #808080;
-  letter-spacing: 0;
+  font-size: 14px;
+  color: #282633;
+  letter-spacing: normal;
 }
 
 .Details-default-container {
-  padding: 20px;
+  padding: 20px 30px;
   border-top: 1px solid #D9D9D9;
+}
+
+.Details-creation-info-block {
+  margin: 20px 0 0 0;
+}
+
+.Details-creation-info-block img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.Details-creation-info-block span {
+  font-size: 14px;
 }
 
 .Details-trash-type-title {
@@ -138,13 +159,13 @@
 }
 
 .Details-composition-tag {
-  background: #d9d9d9;
+  background: #fff;
   flex: 1;
   max-width: 110px;
   height: 36px;
   box-sizing: border-box;
   border-radius: 18px;
-  color: #282633;
+  color: #3e8ede;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,6 +176,7 @@
   cursor: pointer;
   flex-wrap: wrap;
   overflow-wrap: break-word;
+  border: 1px solid #3e8ede;
 }
 
 .Tag-label {

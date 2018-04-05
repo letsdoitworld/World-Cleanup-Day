@@ -14,13 +14,13 @@ class AdminMap extends React.Component {
     if (marker && !marker.count) {
       switch (this.props.currentActiveTab) {
         case ('events'):
-          this.props.history.push(`/events/${marker.id}`);
+          this.props.history.push(`/event/${marker.id}`);
           break;
         case ('trashpoints'):
           this.props.history.push(`/trashpoints/${marker.id}`);
           break;
         default:
-          this.props.history.push(`/events/${marker.id}`);
+          this.props.history.push(`/event/${marker.id}`);
       }
     }
   };

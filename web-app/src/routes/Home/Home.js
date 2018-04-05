@@ -25,14 +25,24 @@ import { Terms } from '../../components/Terms';
 import { Privacy } from '../../components/Privacy';
 
 class Home extends React.Component {
+
+  componentWillMount() {
+    if (this.props.history.location.pathname === '/') {
+      this.props.history.replace('/trashpoints');
+    }
+  }
+
   handleLogout = () => {
-    this.props.history.push('/');
+    this.props.history.push('/trashpoints');
     this.props.logout();
   };
 
   handleTermsAccept = () => {
     this.props.agreeToTerms();
   };
+
+  isUserAllowedAddingTrashpoints =
+  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0;
 
   renderTerms = () =>
     (<div className="Home">
@@ -60,7 +70,7 @@ class Home extends React.Component {
         <Route path="/users" exact component={UserList} />
         <Route path="/areas" exact component={AreaList} />
         <Route
-          path="/events/:id?"
+          path="/event/:id?"
           render={
             ({ match }) =>
               <EventsList eventId={match.params.id} history={history} />}
@@ -71,11 +81,11 @@ class Home extends React.Component {
           path="/trashpoints/:id?"
           render={
             ({ match }) =>
-              <TrashpointDetails
-                isUserLoggedIn={!!this.props.userProfile.role}
+              (<TrashpointDetails
+                isUserAllowedAdding={this.isUserAllowedAddingTrashpoints}
                 trashpointId={match.params.id}
                 history={history}
-              />
+              />)
           }
         />
       </Switch>
@@ -90,8 +100,8 @@ class Home extends React.Component {
       return this.renderTerms();
     }
     const HEADER_LINKS = [
-      { title: 'Events', url: '/events', image: <EventsIcon /> },
-      { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> }
+      { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> },
+      { title: 'Events', url: '/event', image: <EventsIcon /> },
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       HEADER_LINKS.push({

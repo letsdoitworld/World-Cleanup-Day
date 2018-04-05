@@ -29,7 +29,7 @@
 }
 
 .completer.filled.disabled {
-  background-color: #7f7f7f;
+  background-color: #3e8ede;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -55,7 +55,7 @@
 }
 
 .BarContainer.BarContainer-disabled {
-  background-color: #7f7f7f;
+  background-color: #3e8ede;
 }
 
 .BarContainer-last {

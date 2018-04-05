@@ -34,7 +34,7 @@ export const AMOUNT_STATUSES = {
 
 const GradationBall = ({ flexValue, disabled = false }) => {
   const styles = {
-    backgroundColor: disabled ? '#d9d9d9' : '#3e8ede',
+    backgroundColor: '#3e8ede',
     width: '8px',
     height: '8px',
     borderRadius: '6px',
@@ -143,7 +143,7 @@ const AMOUNT_PICKER_IMAGES = {
 };
 
 const ImageToggle = ({ selected, type, disabled }) => {
-  const imageRef = `${type}_${disabled ? 'GREY' : 'BLUE'}_${selected
+  const imageRef = `${type}_${'BLUE'}_${selected
     ? 'FILL'
     : 'OUTLINE'}`;
 
@@ -299,7 +299,6 @@ class TrashAmount extends Component {
                   disabled={disabled}
                 />
                 {
-                  !disabled &&
                   step.lastSelected &&
                   <div className="SliderButton">
                     <div className="InsideSliderButton" />

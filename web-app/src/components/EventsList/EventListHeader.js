@@ -1,15 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LocationIcon, MinimizeIcon, BackIcon } from '../../components/common/Icons';
+import {
+  LocationIcon,
+  MinimizeIcon,
+  BackIcon,
+  CollapseIcon,
+  ExpandIcon
+} from '../../components/common/Icons';
 import { selectors } from '../../reducers/events';
 
 const EventListHeader = ({
   onMinimizeClick,
   eventId,
   eventTitle,
+  onSearch,
   history,
+  listState,
 }) => {
-
+  const itemsPerPage = 50;
+  const pageNumber = 1;
   return (
     <div className="EventsList-header">
       {
@@ -17,7 +26,7 @@ const EventListHeader = ({
           <LocationIcon /> :
           <button
             className="EventsList-header-back"
-            onClick={() => history.push('/events')}
+            onClick={() => history.push('/event')}
           >
             <BackIcon />
           </button>
@@ -28,14 +37,22 @@ const EventListHeader = ({
             className="EventsList-header-searchbar"
             type="text"
             placeholder="Search location"
+            onChange={(ev) => onSearch(itemsPerPage, pageNumber, ev.target.value)}
           /> :
-          <span className="EventsList-header-title">{eventTitle}</span>
+          <span className="EventsList-header-title">
+            {eventTitle}
+          </span>
       }
       <div
+        role="button"
         className="EventsList-header-minimize"
-        onClick={() => onMinimizeClick()}
+        onClick={onMinimizeClick}
       >
-        <MinimizeIcon />
+        {
+          listState ?
+            <CollapseIcon /> :
+            <ExpandIcon />
+        }
       </div>
     </div>
   );
@@ -43,6 +60,7 @@ const EventListHeader = ({
 
 const mapStateToProps = (state) => ({
   eventTitle: selectors.getEventTitle(state),
+  listState: selectors.getShowEventWindow(state),
 });
 
 export default connect(mapStateToProps)(EventListHeader);

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import 'moment/locale/en-ie';
 import classnames from 'classnames';
 import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import closeButton from '../../assets/closeButton.png';
-import imageLocation from '../../assets/icon_location@2x.png';
+import {
+  Userpic,
+  LocationIconEvent,
+} from '../common/Icons';
 import StatusText from './StatusText';
 import TrashpointDate from './TrashpointDate';
 import TrashPhotos from './TrashPhotos';
@@ -35,13 +40,14 @@ class Details extends Component {
       toggleDetailsWindow,
       canEdit,
       trashpointId,
-      isUserLoggedIn,
+      isUserAllowedAdding,
       history,
     } = this.props;
+    moment.locale('en-ie');
     return (
       <div className="Tpdetails">
         {
-          isUserLoggedIn &&
+          isUserAllowedAdding &&
           <div
             onClick={() => { history.push('/trashpoints/create') }}
             className="Create-trashpoint"
@@ -64,7 +70,7 @@ class Details extends Component {
               <div className="Details-default-container">
                 <div className="Details-address-container">
                   <div>
-                    <img src={imageLocation} alt="" />
+                    <LocationIconEvent />
                   </div>
                   <span className="Details-address">
                     {address} |
@@ -75,17 +81,35 @@ class Details extends Component {
                       : ''}
                   </span>
                 </div>
-                <br />
-                <StatusText status={status} />
-                <TrashpointDate
-                  createdDate={createdAt}
-                  updatedDate={updatedAt}
-                  createdBy={createdByName}
-                  updatedBy={updatedByName}
-                />
               </div>
-              <div className="Details-default-container">
-                <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
+              <div className="Details-default-container Details-creation-info">
+                <span className="Details-trash-type-title">
+                  Type of trashpoint
+                </span>
+                <br /><br />
+                <StatusText status={status} />
+              </div>
+              <div className="Details-default-container Details-creation-info">
+                <span className="Details-trash-type-title">About creator</span>
+                <p className="Details-creation-info-block">
+                  <Userpic />
+                  <span>{createdByName}</span>
+                </p>
+                <p className="Details-creation-info-block">
+                  <Userpic />
+                  <span>{moment(createdAt).format('L')}</span>
+                </p>
+              </div>
+              <div className="Details-default-container Details-creation-info">
+                <span className="Details-trash-type-title">Updates</span>
+                <p className="Details-creation-info-block">
+                  <Userpic />
+                  <span>{updatedByName}</span>
+                </p>
+                <p className="Details-creation-info-block">
+                  <Userpic />
+                  <span>{moment(updatedAt).format('L')}</span>
+                </p>
               </div>
               <div className="Details-default-container">
                 <TrashAmount disabled amount={amount} />
@@ -109,6 +133,9 @@ class Details extends Component {
                     );
                   })}
                 </div>
+              </div>
+              <div className="Details-default-container">
+                <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
               </div>
               <div className="Details-filler" />
               {canEdit &&

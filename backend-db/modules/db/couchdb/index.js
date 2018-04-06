@@ -14,6 +14,7 @@ const types = require('../types');
 const grid = require('../../geo/grid');
 const gravatar = require('gravatar');
 const _ = require('lodash');
+const COUNTRY_LIST = require('./countries');
 
 const RETRY_CONFLICTS = 3;
 
@@ -669,6 +670,22 @@ const layer = {
   //========================================================
   getTeam: id => adapter.getOneEntityById('Team', '_design/all/_view/view', id),
   getAllTeams: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: true}),
+  getAllTeamsByCountry: async (country, search) => {
+    const teams = await adapter.getEntities(
+      'Team',
+      '_design/all/_view/view',
+      {
+        sorted: true,
+      }
+    );
+    const filteredTeams = search ? teams.filter(team =>
+      team.name && team.name.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
+      team.teamDescription && team.teamDescription.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
+      COUNTRY_LIST[team.CC] && COUNTRY_LIST[team.CC].toUpperCase().indexOf(search.toUpperCase()) > -1
+    ) : teams;
+    const sortedTeamsByCountry = _.sortBy(filteredTeams, team => team.CC !== country);
+    return sortedTeamsByCountry
+  },
   getCountTeamsTrashpoints: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
   getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/all/_view/view', id),
   createTeam: async (id, who, create) => {

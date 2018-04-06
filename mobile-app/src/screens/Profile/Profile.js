@@ -32,9 +32,9 @@ class Profile extends Component {
   displayLoading = () => {
     return (
       <View style={styles.displayLoadingView}>
-  <ActivityIndicator />
-    </View>
-  );
+        <ActivityIndicator/>
+      </View>
+    );
   };
 
   renderProfilePicture = (profile) => {
@@ -46,7 +46,7 @@ class Profile extends Component {
 
   render() {
     const { t, profile, country, team, isConnected } = this.props;
-    if(!isConnected) {
+    if (!isConnected) {
       return this.displayLoading();
     }
     return (

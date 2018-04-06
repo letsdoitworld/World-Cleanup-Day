@@ -4,7 +4,6 @@ const db = require('../modules/db');
 const logger = require('module-logger');
 const {Team, Account} = require('../modules/db/types');
 const {list} = require('../teamList');
-const COUNTRY_LIST = require('./countries')
 const _ = require('lodash');
 
 const PLUGIN_NAME = 'teams';
@@ -31,15 +30,9 @@ module.exports = function () {
     lucius.register('role:db,cmd:getAllTeams', async function (connector, args) {
         return connector.input(args)
             .use(async function ({CC, search}, responder) {
-                const teams = await db.getAllTeams();
-                const filteredTeams = search ? teams.filter(team =>
-                    team.name && team.name.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
-                    team.teamDescription && team.teamDescription.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
-                    COUNTRY_LIST[team.CC] && COUNTRY_LIST[team.CC].toUpperCase().indexOf(search.toUpperCase()) > -1
-                ) : teams;
-                const sortedTeams = _.sortBy(filteredTeams, 'name');
-                const sortedTeamsByCountry = _.sortBy(sortedTeams, team => team.CC !== CC);
-                const teamsWithMembers = await Promise.all(sortedTeamsByCountry.map(async team => additionalTeamInfo(team, 4)));
+                const teams = await db.getAllTeamsByCountry(CC, search);
+                const AMOOUNT_OF_TEAMS = 4;
+                const teamsWithMembers = await Promise.all(teams.map(async team => additionalTeamInfo(team, AMOOUNT_OF_TEAMS)));
                 return responder.success(teamsWithMembers);
             });
     });
@@ -49,7 +42,6 @@ module.exports = function () {
             .use(async function ({CC, superadmin}, responder) {
                 const teams = await db.getAllTeams();
                 const filteredTeams = superadmin ? teams : teams.filter(team => team.CC === CC);
-                const sortedTeams = _.sortBy(filteredTeams, 'name');
                 return responder.success(sortedTeams);
             });
     });
@@ -58,11 +50,6 @@ module.exports = function () {
         return connector.input(args)
             .use(async function ({}, responder) {
                 let teams = await db.getAllTeams();
-                teams.sort((a, b) => {
-                    const nameA = a.name.toUpperCase();
-                    const nameB = b.name.toUpperCase();
-                    return (nameA > nameB) ? 1 : (nameA < nameB ? -1 : 0)
-                });
                 let i, len;
                 for (i = 0, len = teams.length; i < len; i++) {
                     teams[i]['trashpoints'] = await db.countTeamTrashpoints(teams[i].id);

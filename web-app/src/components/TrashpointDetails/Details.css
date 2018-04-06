@@ -197,13 +197,11 @@
 .Details-edit-container {
   height: 100px;
   padding: 20px;
-  background-color: #2672bd;
   text-align: center;
 }
 
 .Details-edit-container span {
   font-size: 13px;
-  color: #fff;
 }
 
 .Details-edit-container .buttons {

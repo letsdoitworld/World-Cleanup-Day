@@ -1,4 +1,7 @@
 .App {
   display: flex;
   flex: 1;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }

@@ -8,6 +8,7 @@ import closeButton from '../../assets/closeButton.png';
 import {
   Userpic,
   LocationIconEvent,
+  TimeIcon,
 } from '../common/Icons';
 import StatusText from './StatusText';
 import TrashpointDate from './TrashpointDate';
@@ -96,7 +97,7 @@ class Details extends Component {
                   <span>{createdByName}</span>
                 </p>
                 <p className="Details-creation-info-block">
-                  <Userpic />
+                  <TimeIcon />
                   <span>{moment(createdAt).format('L')}</span>
                 </p>
               </div>
@@ -107,7 +108,7 @@ class Details extends Component {
                   <span>{updatedByName}</span>
                 </p>
                 <p className="Details-creation-info-block">
-                  <Userpic />
+                  <TimeIcon />
                   <span>{moment(updatedAt).format('L')}</span>
                 </p>
               </div>
@@ -138,15 +139,14 @@ class Details extends Component {
                 <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
               </div>
               <div className="Details-filler" />
-              {canEdit &&
-                <div className="Details-edit-container">
-                  <span>
-                    Is this trashpoint information still correct and up to date?
-                  </span>
-                  <div className="buttons">
-                    <button onClick={actions.onEditTrashpointClick}>
-                      {"No, let's edit"}
-                    </button>
+              {
+                canEdit &&
+                <div className="Details-default-container">
+                  <div
+                    className="CreateTrashpoint-edit-button"
+                    onClick={actions.onEditTrashpointClick}
+                  >
+                    <p>Update trashpoint</p>
                   </div>
                 </div>}
             </div> :

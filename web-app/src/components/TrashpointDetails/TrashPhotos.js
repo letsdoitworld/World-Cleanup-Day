@@ -26,14 +26,15 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
         >
           <Dropzone
             style={{
-              width: '125px',
-              height: '90px',
+              width: '121px',
+              height: '86px',
               border: '2px dashed #a4c7f0',
               backgroundColor: '#f6f8f9',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               marginTop: '10px',
+              marginRight: '10px',
             }}
             multiple={false}
             onDrop={onAddClick}
@@ -54,17 +55,29 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
             </div>
           </Dropzone>
         </div>}
-      <Swiper {...swiperOptions}>
-        {photos.map((photo, index) =>
-          (<div key={photo} className="TrashPhotos-img-container">
+      {
+        onAddClick ?
+        photos.map((photo, index) =>
+          (<div key={photo} className="TrashPhotos-img-container-create">
             <img src={photo} alt="" />
             {canEdit &&
               <button onClick={() => onDeleteClick(index)}>
                 <CloseIcon />
               </button>}
           </div>),
-        )}
-      </Swiper>
+        ) :
+        <Swiper {...swiperOptions}>
+          {photos.map((photo, index) =>
+            (<div key={photo} className="TrashPhotos-img-container">
+              <img src={photo} alt="" />
+              {canEdit &&
+                <button onClick={() => onDeleteClick(index)}>
+                  <CloseIcon />
+                </button>}
+            </div>),
+          )}
+        </Swiper>
+      }
     </div>
   </div>);
 

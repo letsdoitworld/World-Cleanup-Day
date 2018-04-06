@@ -50,7 +50,7 @@ class MarkersMap extends React.Component {
     if (nextProps.tabActive !== this.props.tabActive) {
       this.loadMarkers(nextProps.tabActive);
     }
-    if (this.props.currentEventLocation.latitude && nextProps.currentEventLocation !== this.props.currentEventLocation) {
+    if (this.map && this.props.currentEventLocation.latitude && nextProps.currentEventLocation !== this.props.currentEventLocation) {
       this.map.panTo({
         lat: nextProps.currentEventLocation.latitude,
         lng: nextProps.currentEventLocation.longitude,
@@ -100,16 +100,18 @@ class MarkersMap extends React.Component {
     if (!this.state.updateRegion) {
       return this.setState({ updateRegion: true });
     }
-    const mapElContainer = this.map.getDiv();
-    const mapSize = {
-      height: parseInt(getComputedStyle(mapElContainer).height, 10),
-      width: parseInt(getComputedStyle(mapElContainer).width, 10),
-    };
-    const { nw, se } = getViewportPoints(this.map.getBounds());
-    const action = markersType === 'trashpoints'
-       ? 'fetchAllTrashpoints'
-       : 'fetchAllEventMarkers';
-    this.props[action](nw, se, mapSize);
+    if (this.map) {
+      const mapElContainer = this.map.getDiv();
+      const mapSize = {
+        height: parseInt(getComputedStyle(mapElContainer).height, 10),
+        width: parseInt(getComputedStyle(mapElContainer).width, 10),
+      };
+      const { nw, se } = getViewportPoints(this.map.getBounds());
+      const action = markersType === 'trashpoints'
+         ? 'fetchAllTrashpoints'
+         : 'fetchAllEventMarkers';
+      this.props[action](nw, se, mapSize);
+    }
   };
 
   handleMarkerClick = marker => {

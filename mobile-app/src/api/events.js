@@ -25,7 +25,7 @@ export async function searchEventsRequest(query, page, pageSize, location) {
                     pageSize: pageSize,
                     pageNumber: page + 1,
                     location: location,
-                    name: query
+                    address: query
                 },
             },
             {

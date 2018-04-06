@@ -356,14 +356,16 @@ export default class CreateEvent extends ImmutableComponent {
                     <View style={styles.titleStyle}>
                         <Text style={styles.titleTextStyle}>{strings.label_cover_photo.toUpperCase()}</Text>
                     </View>
+                    <TouchableOpacity
+                        style={styles.eventTouchAreaStyle}
+                        onPress={() => this.showChoosedDialog()}>
                     <View style={styles.eventPhotoContainerStyle}>
                         {this.renderImage(imagePath)}
-                        <TouchableOpacity onPress={() => this.showChoosedDialog()}>
                             <Image style={styles.addPhotoIconStyle}
                                    source={require('../../../assets/images/ic_add_photo.png')}/>
-                        </TouchableOpacity>
                         <Text style={styles.addPhotoTextStyle}>{strings.label_add_photo}</Text>
                     </View>
+                    </TouchableOpacity>
 
                     <MainButton
                         isValid={isValid}
@@ -404,8 +406,8 @@ export default class CreateEvent extends ImmutableComponent {
 
     openGallery() {
         ImagePicker.openPicker({
-            width: 300,
-            height: 400,
+            width: 500,
+            height: 350,
             cropping: true,
             includeBase64: true,
         }).then(async image => {
@@ -415,8 +417,8 @@ export default class CreateEvent extends ImmutableComponent {
 
     openCamera() {
         ImagePicker.openCamera({
-            width: 300,
-            height: 400,
+            width: 500,
+            height: 350,
             cropping: true,
             includeBase64: true,
         }).then(async image => {
@@ -442,11 +444,6 @@ export default class CreateEvent extends ImmutableComponent {
             screen: ADD_LOCATION,
             title: strings.label_add_location,
             passProps: {
-                //todo: pass some location. By default map will be positioned to current user's location
-                // initialLocation: {
-                //     latitude: 48.8152937,
-                //     longitude: 2.4597668,
-                // },
                 onLocationSelected: this.onLocationSelected.bind(this),
             }
         });

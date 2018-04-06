@@ -1,4 +1,4 @@
-import {getWidthPercentage, getHeightPercentage} from '../../../shared/helpers';
+import {getHeightPercentage, getWidthPercentage} from '../../../shared/helpers';
 import colors from "../../../config/colors";
 import dimens from "../../../config/dimens"
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -148,6 +148,12 @@ export default EStyleSheet.create({
         borderWidth: 2,
         borderColor: colors.$mainBlue,
         borderStyle: 'dashed'
+    },
+    eventTouchAreaStyle: {
+        borderRadius: 1,
+        height: 236,
+        width: '100%',
+        justifyContent: 'center',
     },
         addPhotoIconStyle: {
         height: 21,

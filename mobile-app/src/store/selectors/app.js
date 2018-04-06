@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 const stateSelector = state => state.toJS();
 
@@ -9,4 +9,9 @@ export const isLoading = createSelector(appSelector, app => app.progress);
 export const datasetUUID = createSelector(
     appSelector,
     app => app.datasetUUID,
+);
+
+export const errorHandle = createSelector(
+    appSelector,
+    app => app.error,
 );

@@ -10,6 +10,7 @@ import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
 import EventsMap from '../EventMap/EventsMap';
+import isNil from "lodash/isNil";
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -39,7 +40,6 @@ class Events extends Component {
     this.state = {
       mode: MODE.list,
       isSearchFieldVisible: false,
-        //isPrivatDialogShown
     };
 
       this.closeValidationButton = {
@@ -115,11 +115,12 @@ class Events extends Component {
   loadEvents(page) {
     const { userCoord } = this.props;
     const { onSearchEventsAction } = this.props;
-    if (userCoord && userCoord !== null) {
-      onSearchEventsAction(this.query, page, PAGE_SIZE, { latitude: userCoord.lat, longitude: userCoord.long });
-    } else {
-      onSearchEventsAction(this.query, page, PAGE_SIZE);
-    }
+        if (userCoord && userCoord !== null) {
+          onSearchEventsAction(this.query, page, PAGE_SIZE, { latitude: userCoord.latitude, longitude: userCoord.longitude });
+        } else {
+          onSearchEventsAction(this.query, page, PAGE_SIZE);
+        }
+
   }
 
   onNavigatorEvent(event) {
@@ -236,9 +237,26 @@ class Events extends Component {
     );
   }
 
+    showAlert(error) {
+        Alert.alert(
+            'Error',
+            error,
+            [
+                { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+        );
+    }
+
   componentDidMount() {
     this.loadEvents(0);
   }
+
+    componentDidUpdate() {
+        const { error } = this.props;
+        if (!isNil(error)) {
+            this.showAlert(error);
+        }
+    }
 
   componentWillUnmount() {
     const { onClearEventsAction } = this.props;
@@ -301,6 +319,7 @@ Events.propTypes = {
   userCoord: PropTypes.object,
   delta: PropTypes.array,
   isAuthenticated: PropTypes.bool,
+  error: PropTypes.object,
   datasetUUIDSelector: PropTypes.string,
   onSearchEventsAction: PropTypes.func,
   onClearEventsAction: PropTypes.func,

@@ -26,7 +26,8 @@ function* searchEvents(query, page, pageSize, location) {
           setErrorMessage(String(response.error));
         }
     } catch (error) {
-      setErrorMessage(String(error));
+        console.warn("Error event", error.message);
+      //setErrorMessage(error.message);
     }
 }
 

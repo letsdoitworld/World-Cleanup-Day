@@ -36,14 +36,41 @@
   width: 20px;
   height: 20px;
   background-color: #3e8ede;
-  right: 5px;
+  right: 12px;
   top: 15px;
 }
 
 .TrashPhotos-img-container button img {
   position: absolute;
   top: -6px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+}
+
+.TrashPhotos-img-container-create {
+  position: relative;
+}
+
+.TrashPhotos-img-container-create img {
+  width: 125px;
+  height: 90px;
+  margin: 10px;
+}
+
+.TrashPhotos-img-container-create button img {
+  position: absolute;
+  top: -6px;
   left: -6px;
   width: 12px;
   height: 12px;
+}
+
+.TrashPhotos-img-container-create button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #3e8ede;
+  right: 15px;
+  top: 15px;
 }

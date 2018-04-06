@@ -1,5 +1,4 @@
 import React from 'react';
-import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import PointMarker from './PointMarker';
 import { googleMapURL, DEFAULT_ZOOM_LEVEL } from '../../../shared/constants';

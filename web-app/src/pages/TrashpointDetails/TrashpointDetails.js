@@ -32,8 +32,8 @@ class TrashDetails extends React.Component {
     }
   }
 
-  componentWillReceiveProps = nextProps => {
-    if (this.props.trashpointId !== nextProps.trashpointId) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.trashpointId && this.props.trashpointId !== nextProps.trashpointId) {
       this.fetchMarkerDetails({
         id: nextProps.trashpointId,
         focusMap: !!querystring.parse(nextProps.history.location.search).focus,
@@ -123,7 +123,7 @@ class TrashDetails extends React.Component {
         isOpened={this.props.isOpened}
         toggleDetailsWindow={this.props.toggleDetailsWindow}
         trashpointId={this.props.trashpointId}
-        isUserLoggedIn={this.props.isUserLoggedIn}
+        isUserAllowedAdding={this.props.isUserAllowedAdding}
         history={this.props.history}
         actions={this.actions}
         canEdit={this.canUserEditTrashPoint()}

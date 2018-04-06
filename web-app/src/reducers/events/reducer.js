@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import TYPES from './types';
-import events from './events.json';
+// import events from './events.json';
 
 const EVENTS_MARKERS_INITIAL_STATE = {
   markers: [],
@@ -8,7 +8,7 @@ const EVENTS_MARKERS_INITIAL_STATE = {
 };
 
 const EVENTS_INITIAL_STATE = {
-  events,
+  events: [],
   loading: false,
   error: false,
   showEventWindow: true,
@@ -18,6 +18,21 @@ const EVENT_DETAILS_INITIAL_STATE = {
   event: {},
   loading: false,
   error: false,
+};
+
+const GRID_INITIAL_STATE = {
+  gridValue: null,
+  gridValueToZoom: null,
+  maxZoomedIn: false,
+};
+
+const gridReducer = (state = GRID_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case TYPES.SET_GRID_VALUE:
+      return action.gridValue;
+    default:
+      return state;
+  }
 };
 
 const eventMarkersReducer = (state = EVENTS_MARKERS_INITIAL_STATE, action) => {
@@ -41,6 +56,8 @@ const eventsReducer = (state = EVENTS_INITIAL_STATE, action) => {
       return { ...state, events: action.events, loading: false };
     case TYPES.TOGGLE_EVENT_WINDOW:
       return { ...state, showEventWindow: !state.showEventWindow };
+    case TYPES.EXPAND_EVENT_WINDOW:
+      return { ...state, showEventWindow: true };
     default:
       return state;
   }
@@ -63,4 +80,5 @@ export default combineReducers({
   markers: eventMarkersReducer,
   events: eventsReducer,
   details: eventDetailsReducer,
+  grid: gridReducer,
 });

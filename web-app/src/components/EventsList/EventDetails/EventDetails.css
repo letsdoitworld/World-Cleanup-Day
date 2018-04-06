@@ -47,6 +47,13 @@
   text-transform: uppercase;
 }
 
+.EventDetails-descr p, .EventDetails-descr p {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
 .EventDetails-location,
 .EventDetails-actions,
 .EventDetails-timing,

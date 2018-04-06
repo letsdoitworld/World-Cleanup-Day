@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap } from 'react-google-maps';
-
+import { connect } from 'react-redux';
 import { LocationService } from '../../services';
 import {
   DEFAULT_ZOOM_LEVEL,
@@ -9,6 +8,9 @@ import {
 } from '../../shared/constants';
 import GoogleMapView from './components/GoogleMap';
 import { Loader } from '../../components/Spinner';
+import {
+  actions as appActions,
+} from '../../reducers/app';
 import { noop } from '../../shared/helpers';
 
 class MapView extends Component {
@@ -30,12 +32,17 @@ class MapView extends Component {
       return;
     }
     LocationService.getLocation().then(
-      location => this.setState({ mapLocation: location, zoom: DEFAULT_ZOOM_LEVEL }),
-      () =>
+      location => {
+        this.props.setCurrentLocation(location);
+        this.setState({ mapLocation: location, zoom: DEFAULT_ZOOM_LEVEL });
+      },
+      () => {
+        this.props.setCurrentLocation(ESTONIA_CENTER_COORDINATES);
         this.setState({
           mapLocation: ESTONIA_CENTER_COORDINATES,
           zoom: NO_PERMISSION_ZOOM_LEVEL,
-        }),
+        });
+      },
     );
   }
 
@@ -94,4 +101,8 @@ MapView.defaultProps = {
   boundsChanged: noop,
 };
 
-export default MapView;
+const mapDispatchToProps = {
+  setCurrentLocation: appActions.setCurrentLocation,
+};
+
+export default connect(undefined, mapDispatchToProps)(MapView);

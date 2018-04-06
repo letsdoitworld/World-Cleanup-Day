@@ -25,9 +25,7 @@ class Header extends Component {
       <div className="Header">
         <div className="Header-main-nav">
           <div className="Header-logo-container">
-            <Link to="/">
-              <Logo />
-            </Link>
+            <Logo />
           </div>
           <div className="Header-links-container">
             {

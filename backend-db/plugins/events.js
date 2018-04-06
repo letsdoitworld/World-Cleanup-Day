@@ -140,8 +140,15 @@ module.exports = function () {
                 const filteredTrashpoints = [];
                 if (event.trashpoints) {
                   for (let trashpointId of event.trashpoints) {
-                    let trashpoint = await db.getTrashpoint(trashpointId);
-                    if (trashpoint) filteredTrashpoints.push(trashpointId);
+                      const trashpoint = await db.getTrashpoint(trashpointId);
+                      if (!trashpoint) {
+                          return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: trashpointId}));
+                      }
+                      const events = await db.getEventsByTrashpoint(trashpointId);
+                      if (events.length) {
+                          return responder.failure(new LuciusError(E.EVENT_TRASHPOINT_EXISTS, {eventId: events[0].id, trashpointId}));
+                      }
+                      if (trashpoint) filteredTrashpoints.push(trashpointId);
                   }
                 }
                 event.trashpoints = filteredTrashpoints;

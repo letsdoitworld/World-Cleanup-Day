@@ -5,9 +5,9 @@ import TrashPhotos from './TrashPhotos.js';
 import TrashpointDate from './TrashpointDate';
 
 export {
-    Details,
-    StatusText,
-    TrashAmount,
-    TrashPhotos,
-    TrashpointDate,
+  Details,
+  StatusText,
+  TrashAmount,
+  TrashPhotos,
+  TrashpointDate,
 };

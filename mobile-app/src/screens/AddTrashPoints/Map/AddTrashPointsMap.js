@@ -90,10 +90,6 @@ export default class AddTrashPointsMap extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    // componentDidUpdate() {
-    //
-    // }
-
     onNavigatorEvent(event) {
         if (event.type === 'NavBarButtonPress') {
             switch (event.id) {
@@ -137,8 +133,9 @@ export default class AddTrashPointsMap extends Component {
         });
     };
 
-    render() {
+    count = 0;
 
+    render() {
         const {selectedItem} = this.state;
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
@@ -150,7 +147,7 @@ export default class AddTrashPointsMap extends Component {
                     handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
                     markers={this.state.markers}
                     initialRegion={this.initialRegion}
-                    region={this.initialRegion}
+                    region={++this.count === 1 ? this.initialRegion : undefined}
                     style={styles.map}
                     getRef={(map) => this.map = map}/>
                 {this.renderSelectedItem(selectedItem, checked)}

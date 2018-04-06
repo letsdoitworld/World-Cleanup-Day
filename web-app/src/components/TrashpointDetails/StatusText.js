@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+  TrashpointIcons,
+} from '../common/Icons';
 import iconClean from '../../assets/icon_status_small_clean@2x.png';
 import iconOutdated from '../../assets/icon_status_small_outdated@2x.png';
 import iconRegular from '../../assets/icon_status_small_regular@2x.png';
@@ -8,28 +10,28 @@ import './StatusText.css';
 
 const STATUS_STATE = {
   threat: {
-    text: 'This point is a threat! ',
-    image: iconThreat,
+    text: 'Threat',
+    image: TrashpointIcons.threat,
     textStyle: { color: '#EB5757' },
-    imageStyle: { height: '15px' },
+    imageStyle: { height: '24px' },
   },
   cleaned: {
-    text: 'This point is cleaned! ',
-    image: iconClean,
+    text: 'Cleaned',
+    image: TrashpointIcons.cleaned,
     textStyle: { color: '#5EBB38' },
-    imageStyle: { height: '13px' },
+    imageStyle: { height: '24px' },
   },
   outdated: {
-    text: 'This point is outdated! ',
-    image: iconOutdated,
+    text: 'Outdated',
+    image: TrashpointIcons.outdated,
     textStyle: { color: '#808080' },
-    imageStyle: { height: '14px' },
+    imageStyle: { height: '24px' },
   },
   regular: {
-    text: 'This point is a regular trashpoint. ',
-    image: iconRegular,
-    textStyle: { color: '#FF7A00' },
-    imageStyle: { height: '14px' },
+    text: 'Regular trashpoint',
+    image: TrashpointIcons.regular,
+    textStyle: { color: '#FFA613' },
+    imageStyle: { height: '24px' },
   },
 };
 

@@ -217,7 +217,7 @@ export default class CreateEvent extends Component {
                         currentIndicatorStyle={styles.activeDotStyle}
                     />
                     {
-                        !isIncluded
+                        !isIncluded && this.props.onCheckedChanged
                             ? <TouchableOpacity
                                 style={styles.confirmButton}
                                 onPress={this.onSelectionConfirmed.bind(this)}>

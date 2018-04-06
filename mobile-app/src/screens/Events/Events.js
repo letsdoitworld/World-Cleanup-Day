@@ -116,7 +116,7 @@ class Events extends Component {
     const { userCoord } = this.props;
     const { onSearchEventsAction } = this.props;
     if (userCoord && userCoord !== null) {
-      onSearchEventsAction(this.query, page, PAGE_SIZE, { latitude: userCoord.lat, longitude: userCoord.long });
+      onSearchEventsAction(this.query, page, PAGE_SIZE, { latitude: userCoord.latitude, longitude: userCoord.longitude });
     } else {
       onSearchEventsAction(this.query, page, PAGE_SIZE);
     }

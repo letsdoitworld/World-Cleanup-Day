@@ -1,4 +1,4 @@
-import {Dimensions, PixelRatio, Platform, StatusBar} from 'react-native';
+import { Dimensions, PixelRatio, Platform, StatusBar } from 'react-native';
 
 const window = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ export const SCREEN_HEIGHT = window.height;
 export const DIAGONALE_IN_PX = Math.sqrt(Math.pow(SCREEN_WIDTH, 2) + Math.pow(SCREEN_HEIGHT, 2));
 
 const original = PixelRatio.getPixelSizeForLayoutSize(Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2)));
-export const MARKER_DIAGONALE_IN_PX =  2 * original;
+export const MARKER_DIAGONALE_IN_PX = 2 * original;
 export const PLATFORM_NAME = Platform.OS;
 export const ICON_COLOR = '#a1a1a1';
 export const WHITE_COLOR = '#fff';
@@ -33,6 +33,12 @@ export const DEFAULT_ZOOM = 0.002;
 export const MIN_ZOOM = 0.0004;
 export const NO_LOCATION_ZOOM = 30;
 export const EDIT_LOCATION_BOUND = 100; // meters
+export const DEFAULT_LOCATION = {
+  latitude: 6.555304973144366,
+  longitude: 21.518752723932273,
+  latitudeDelta: 134.0285375040523,
+  longitudeDelta: 144.64287400245667,
+};
 export const MARKER_STATUSES = {
   CLEANED: 'cleaned',
   OUTDATED: 'outdated',
@@ -99,7 +105,7 @@ export const API_ENDPOINTS = {
   FETCH_OVERVIEW_TRASHPOINTS: '/overview/trashpoints',
   CREATE_TRASHPOINT: '/trashpoints',
   UPDATE_TRASHPOINT: trashpointId => `/trashpoints/${trashpointId}`,
-  FETCH_USERS_TRASHPOINTS: `/trashpoints/user`,
+  FETCH_USERS_TRASHPOINTS: '/trashpoints/user',
   FETCH_TRASHPOINT_DETAILS: trashpointId => `/trashpoints/${trashpointId}`,
   FETCH_TRASHPOINT_IMAGES: trashpointId =>
     `/trashpoints/${trashpointId}/images`,
@@ -108,12 +114,12 @@ export const API_ENDPOINTS = {
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
   OVERVIEW_TRASHPOINTS_CLUSTERS: '/overview/clusters',
   FETCH_MAP_EVENTS: '/events/overview',
-    FETCH_EVENT_IMAGES: eventId =>
+  FETCH_EVENT_IMAGES: eventId =>
         `/event/${eventId}/images`,
-    EVENT: '/event',
-    FETCH_EVENTS: '/overview/events',
-    FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
-    FETCH_CLUSTER_EVENTS: '/overview/events/grid',
+  EVENT: '/event',
+  FETCH_EVENTS: '/overview/events',
+  FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
+  FETCH_CLUSTER_EVENTS: '/overview/events/grid',
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {
@@ -129,17 +135,17 @@ export const SCREENS = {
 };
 
 export default {
-    BASE_HEADER: {
-        'Content-Type': 'application/json',
+  BASE_HEADER: {
+      'Content-Type': 'application/json',
     },
-    TITLE_REGEX: /[\S\s]{1,70}$/,
-    COORDINATOR_REGEX: /[\S\s]{0,70}$/,
-    DESCRIPTION_REGEX: /[\S\s]{1,500}$/,
-    EMAIL_REGEX: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  TITLE_REGEX: /[\S\s]{1,70}$/,
+  COORDINATOR_REGEX: /[\S\s]{0,70}$/,
+  DESCRIPTION_REGEX: /[\S\s]{1,500}$/,
+  EMAIL_REGEX: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 
-    PHONE_NUMBER: /^[+]*\d{6,20}$/
+  PHONE_NUMBER: /^[+]*\d{6,20}$/,
 
-}
+};
 
 export const GRID_HASH = {
   50: '1m',
@@ -270,11 +276,11 @@ export const DELTA_HASH = {
   },
   480000: {
     latitudeDelta: 3.649570939221597,
-    longitudeDelta: 3.111969977617264
+    longitudeDelta: 3.111969977617264,
   },
   950000: { latitudeDelta: 7.438098893575727, longitudeDelta: 9.286720231175423 },
   1500000: { latitudeDelta: 11.71877894364489, longitudeDelta: 15.01618623733521 },
-  1750000: { latitudeDelta: 13.73698652411373, longitudeDelta: 16.42137944698334 }
+  1750000: { latitudeDelta: 13.73698652411373, longitudeDelta: 16.42137944698334 },
 };
 
 export const GRID_VALUES = [
@@ -300,7 +306,7 @@ export const GRID_VALUES = [
   480000,
   950000,
   1500000,
-  1750000
+  1750000,
 ];
 
 export const USER_ROLES = {

@@ -67,13 +67,11 @@ export function* getMapEventsFlow() {
         try {
             const newDelta = yield call(Api.events.calculateDelta, payload.viewPortLeftTopCoordinate,
                 payload.viewPortRightBottomCoordinate, payload.delta);
-            console.log("Delta getMapEventsFlow", payload.delta);
             yield put(showNewDeltaAction(newDelta));
             const response = yield call(Api.events.fetchAllEventMarkers, payload.viewPortLeftTopCoordinate,
                 payload.viewPortRightBottomCoordinate, payload.delta, payload.datasetId);
             yield put(loadEventsForMapSuccess(response))
         } catch (error) {
-            console.log("getMapEventsFlow error", error);
             yield put(loadEventsForMapError(error));
         }
 
@@ -89,7 +87,6 @@ export function* fetchDataFromOneClusterFlow() {
                 payload.coordinates, payload.clusterId, payload.datasetId, payload.markers);
             yield put(loadEventsForMapSuccess(response))
         } catch (error) {
-            console.log("getMapEventsFlow error", error);
             yield put(loadEventsForMapError(error));
         }
 

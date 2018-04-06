@@ -1,31 +1,26 @@
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
-import { guestLogIn } from '../../store/actions/auth';
+import {guestLogIn} from '../../store/actions/auth';
 
-import {
-    fetchProfile,
-    loadMyEvents,
-    loadMyTrashPoints,
-    loadMyTrashPointsError,
-    loadMyEventsError,
-} from '../../store/actions/profile';
+import {fetchProfile, loadMyEvents, loadMyTrashPoints, loadMyTrashPointsError,} from '../../store/actions/profile';
 
-import { fetchUserLocation } from '../../store/actions/locations';
+import {setErrorMessage} from '../../store/actions/app'
 
 import {
+    errorHandle,
+    getMyEventsPageNumber,
+    getMyEventsPageSize,
+    getMyTrashpointsPageNumber,
+    getMyTrashpointsPageSize,
     getProfileEntity,
+    getUserCountry,
     isAuthenticated,
     isGuestSession,
-    getUserCountry,
     loadMyEventsEntity,
     loadMyEventsErrorEntity,
     loadMyTrashPointsEntity,
     loadMyTrashPointsErrorEntity,
-    getMyEventsPageSize,
-    getMyEventsPageNumber,
-    getMyTrashpointsPageSize,
-    getMyTrashpointsPageNumber,
 } from '../../store/selectors';
 
 import Component from './Profile';
@@ -38,6 +33,7 @@ const selector = createStructuredSelector({
   trashpointsPageSize: getMyTrashpointsPageSize,
   trashpointsPageNumber: getMyTrashpointsPageNumber,
   myEvents: loadMyEventsEntity,
+  error: errorHandle,
   myEventsError: loadMyEventsErrorEntity,
   myTrashPoints: loadMyTrashPointsEntity,
   myTrashPointsError: loadMyTrashPointsErrorEntity,
@@ -51,7 +47,7 @@ const actions = {
   onLoadMyEvents: loadMyEvents,
   onLoadMyTrashPoints: loadMyTrashPoints,
   onLoadMyTrashPointsError: loadMyTrashPointsError,
-  onLoadMyEventsError: loadMyEventsError,
+  onSetError: setErrorMessage,
 };
 
 export default connect(selector, actions)(Component);

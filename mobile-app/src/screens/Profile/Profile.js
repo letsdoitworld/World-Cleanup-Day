@@ -22,6 +22,8 @@ class Profile extends Component {
 
   static navigatorStyle = navigatorStyle;
 
+  previousError = undefined;
+
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(
@@ -90,13 +92,13 @@ class Profile extends Component {
   }
 
   componentDidUpdate() {
-    const { myEventsError, myTrashPointsError } = this.props;
-    if (!isNil(myEventsError) && !isNil(myTrashPointsError)) {
-      this.showAlert(myEventsError);
+    const { error, onSetError } = this.props;
+    if (!isNil(error) && !isNil(error.message)) {
+
+      this.showAlert(error.message);
+        onSetError(null);
     }
-    if (!isNil(myTrashPointsError) && !isNil(myEventsError)) {
-      this.showAlert(myTrashPointsError);
-    }
+    this.previousError = error;
   }
 
   onNavigatorEvent(event) {
@@ -129,12 +131,6 @@ class Profile extends Component {
                 { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
       ],
         );
-  }
-
-  componentWillUnmount() {
-    const { onLoadMyEventsError, onLoadMyTrashPointsError } = this.props;
-    onLoadMyEventsError(null);
-    onLoadMyTrashPointsError(null);
   }
 
   handleRenderLocation() {
@@ -344,15 +340,14 @@ Profile.propTypes = {
   profile: PropTypes.object,
   navigator: PropTypes.object,
   myEvents: PropTypes.object,
-  myEventsError: PropTypes.object,
+  error: PropTypes.object,
   myTrashPoints: PropTypes.object,
-  myTrashPointsError: PropTypes.object,
   onFetchProfile: PropTypes.func,
   onGuestLogIn: PropTypes.func,
   onLoadMyEvents: PropTypes.func,
   onLoadMyTrashPoints: PropTypes.func,
   onLoadMyTrashPointsError: PropTypes.func,
-  onLoadMyEventsError: PropTypes.func,
+    onSetError: PropTypes.object,
 };
 
 export default Profile;

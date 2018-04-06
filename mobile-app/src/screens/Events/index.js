@@ -8,7 +8,7 @@ import {
     searchEventsAction,
 } from '../../store/actions/events';
 
-import {fetchDatasetUIIDAction,} from '../../store/actions/app';
+import {fetchDatasetUIIDAction, setErrorMessage,} from '../../store/actions/app';
 
 import {
     datasetUUID,
@@ -44,6 +44,7 @@ const actions = {
     onLoadMapEventsAction: loadEventsForMapAction,
     onFetchDatasetUUIDAction: fetchDatasetUIIDAction,
     onLoadEventsFromClusterAction: loadEventsFromClusterAction,
+    onSetError: setErrorMessage,
 };
 
 export default connect(selector, actions)(Component);

@@ -52,7 +52,7 @@ export class Event extends Component {
                 {`${numberOfParticipants}/${maxNumberOfParticipants}`}
               </p>
               <p className="Event-date Event-info">
-                {moment(date).format('l')}
+                {moment(date).format('L')}
               </p>
             </div>
           </div>

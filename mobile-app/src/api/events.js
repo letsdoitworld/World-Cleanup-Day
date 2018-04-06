@@ -31,14 +31,12 @@ export async function searchEventsRequest(query, page, pageSize, location) {
             {
                 withToken: false,
             },);
-        console.log("Events request ", response);
         if (!response || !response.data) {
             throw {error: 'Could not load my events'};
         }
         return response;
     } catch (ex) {
-        console.log("Events request ex ", ex);
-        throw ex
+        throw ex;
     }
 }
 

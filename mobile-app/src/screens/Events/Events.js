@@ -24,6 +24,8 @@ const MODE = {
 
 class Events extends Component {
 
+  previousError = undefined;
+
   constructor(props) {
     super(props);
 
@@ -253,9 +255,10 @@ class Events extends Component {
 
     componentDidUpdate() {
         const { error } = this.props;
-        if (!isNil(error)) {
+        if (!isNil(error) && error !== this.previousError) {
             this.showAlert(error);
         }
+        this.previousError = error;
     }
 
   componentWillUnmount() {

@@ -15,7 +15,7 @@ import Api from '../../api';
 function* loadLocation(payload) {
   try {
     const response = yield call(Api.locations.fetchAddress, payload);
-
+    
     const userLocation = {
       ...response,
       ...payload,

@@ -48,7 +48,6 @@ const selector = createStructuredSelector({
 const actions = {
   onFetchProfile: fetchProfile,
   onGuestLogIn: guestLogIn,
-  onFetchLocation: fetchUserLocation,
   onLoadMyEvents: loadMyEvents,
   onLoadMyTrashPoints: loadMyTrashPoints,
   onLoadMyTrashPointsError: loadMyTrashPointsError,

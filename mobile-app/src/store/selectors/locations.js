@@ -24,10 +24,10 @@ export const getCoordUser = createSelector(
     locations.userLocation
     &&
       {
-        latitude: locations.userLocation.lat,
-        longitude: locations.userLocation.long,
-        latitudeDelta: 100,
-        longitudeDelta: 100,
+        latitude: locations.userLocation.latitude,
+        longitude: locations.userLocation.longitude,
+        latitudeDelta: DEFAULT_ZOOM * 100,
+        longitudeDelta: DEFAULT_ZOOM * 100,
       },
 );
 

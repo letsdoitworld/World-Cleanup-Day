@@ -134,7 +134,8 @@
   "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
   "label_button_editTP_delete": "Delete trashpoint",
   "label_locked_account_warning": "Your account is locked. For details contact an administrator.",
-
+  "label_text_select_leave": "Do you really want to leave the team",
+  "label_text_select_join": "Do you really want to join the team",
   "label_button_join": "Join",
   "label_button_leave": "Leave",
   "label_text_my_team": "My Team",
@@ -149,6 +150,9 @@
   "label_text_work_together": "Work together with other people and create competings teams. The winner is the world!",
   "label_text_trashpoint": "Trashpoint",
   "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_your_coordinates": "Your coordinates",
+  "label_no": "No",
+  "label_yes": "Yes",
+  "label_cancel": "Cancel",
 
 }

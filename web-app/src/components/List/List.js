@@ -18,7 +18,7 @@ class List extends Component {
         <Infinite
           containerHeight={containerHeight}
           onInfiniteLoad={onInfiniteLoad}
-          className='List'
+          className="List"
           elementHeight={this.props.elementHeight}
           infiniteLoadBeginEdgeOffset={200}
         >

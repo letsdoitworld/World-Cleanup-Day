@@ -63,7 +63,6 @@ class Home extends React.Component {
         <Route path="/users/:id" exact component={UserDetails} />
         <Route path="/users" exact component={UserList} />
         <Route path="/teams" exact component={TeamsList} />
-        {/* <Route path="/areas/:id/trashpoints" exact render={TrashpointList} /> */}
         <Route path="/areas" exact component={AreaList} />
         <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
@@ -83,7 +82,6 @@ class Home extends React.Component {
 
   render() {
     const { userProfile } = this.props;
-    console.log({userProfile})
     if (!userProfile.termsAcceptedAt) {
       return this.renderTerms();
     }

@@ -71,9 +71,8 @@ class TrashPoints extends Component {
             isSearchFieldVisible: false,
             updateRegion: true,
             selectedItem: undefined,
-            region : this.props.userCoord,
-            initialRegion: this.props.userCoord,
-            listTrashPoints: undefined
+            region : region,
+            initialRegion: region
         };
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -157,18 +156,19 @@ class TrashPoints extends Component {
             return
         }
 
-        let count = 0;
-
         if (nextProps.mapTrashPoints) {
-            const listTrashPoints = nextProps.mapTrashPoints.filter(event => event.count === undefined);
+
+            const listTrashPoints = nextProps.mapTrashPoints.filter((trashPoint) => !trashPoint.count);
+            const firstId = listTrashPoints && listTrashPoints.length > 0
+                ? listTrashPoints[0].id
+                : -1;
+
             const markers = nextProps.mapTrashPoints.map((mapTrashPoint) => {
+
                 return {
                     ...mapTrashPoint,
                     latlng: mapTrashPoint.location,
-                    listTrashPoints,
-                    isSelected: this.state.selectedItem
-                        ? this.state.selectedItem.location.latitude === mapTrashPoint.location.latitude
-                        : count++ === 1
+                    isSelected: firstId === mapTrashPoint.id
                 };
             });
 
@@ -308,7 +308,7 @@ class TrashPoints extends Component {
                                 ref={(c) => {
                                     this._carousel = c;
                                 }}
-                                data={this.state.mapTrashPoints ? this.state.mapTrashPoints : []}
+                                data={this.state.mapTrashPoints ? this.state.mapTrashPoints.filter((trashPoint) => !trashPoint.count) : []}
                                 renderItem={this.renderCarouselItem}
                                 inactiveSlideScale={0.85}
                                 inactiveSlideOpacity={0.7}
@@ -321,7 +321,7 @@ class TrashPoints extends Component {
                                         return {
                                             ...mapTrashPoint,
                                             latlng: mapTrashPoint.location,
-                                            isSelected: this.state.mapTrashPoints[index].location.latitude === mapTrashPoint.location.latitude
+                                            isSelected: this.state.mapTrashPoints[index].id === mapTrashPoint.id
                                         };
                                     });
 
@@ -334,14 +334,14 @@ class TrashPoints extends Component {
                                     });
 
                                     const region = {
-                                        latitudeDelta: DEFAULT_ZOOM,
-                                        longitudeDelta: DEFAULT_ZOOM,
+                                        latitudeDelta: this.state.region.latitudeDelta,
+                                        longitudeDelta: this.state.region.longitudeDelta,
                                         latitude: this.state.mapTrashPoints[index].location.latitude,
                                         longitude: this.state.mapTrashPoints[index].location.longitude
                                     };
 
 
-                                    this.map.animateToRegion(region, 300);
+                                   // this.map.animateToRegion(region, 300);
 
 
                                 }}

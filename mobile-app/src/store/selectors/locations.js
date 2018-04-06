@@ -1,8 +1,8 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 import find from 'lodash/find';
 
-import { DEFAULT_ZOOM, COUNTRY_LIST } from '../../shared/constants';
+import {COUNTRY_LIST, DEFAULT_ZOOM} from '../../shared/constants';
 
 const getState = state => state.toJS();
 
@@ -26,8 +26,8 @@ export const getCoordUser = createSelector(
       {
         latitude: locations.userLocation.latitude,
         longitude: locations.userLocation.longitude,
-        latitudeDelta: DEFAULT_ZOOM * 100,
-        longitudeDelta: DEFAULT_ZOOM * 100,
+        latitudeDelta: DEFAULT_ZOOM,
+        longitudeDelta: DEFAULT_ZOOM,
       },
 );
 

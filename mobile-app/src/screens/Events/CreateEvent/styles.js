@@ -1,4 +1,4 @@
-import {getWidthPercentage, getHeightPercentage} from '../../../shared/helpers';
+import {getHeightPercentage, getWidthPercentage} from '../../../shared/helpers';
 import colors from "../../../config/colors";
 import dimens from "../../../config/dimens"
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -149,6 +149,12 @@ export default EStyleSheet.create({
         borderColor: colors.$mainBlue,
         borderStyle: 'dashed'
     },
+    eventTouchAreaStyle: {
+        borderRadius: 1,
+        height: 236,
+        width: '100%',
+        justifyContent: 'center',
+    },
         addPhotoIconStyle: {
         height: 21,
         width: 21,
@@ -207,6 +213,18 @@ export default EStyleSheet.create({
         fontSize: 17,
         fontFamily: 'Lato-Bold',
         color: 'white'
-    }
-
+    },
+    spinnerContainer: {
+        width: '100%',
+        height: '100%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: colors.$dividerColor
+    },
+    spinner: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });

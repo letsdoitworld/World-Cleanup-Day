@@ -96,7 +96,7 @@ export default class AddCoordinator extends ImmutableComponent {
         const isUserNameValid = this.state.data.get('isUserNameValid');
         const isUserNameTextChanged = this.state.data.get('isUserNameTextChanged');
         if (!isUserNameValid && isUserNameTextChanged) {
-            return <Text style={styles.textErrorStyle}>{strings.label_invalid_event_field}</Text>
+            return <Text style={styles.textErrorStyle}>{strings.label_invalid_coordinator_field}</Text>
         } else {
             return null
         }
@@ -189,7 +189,12 @@ export default class AddCoordinator extends ImmutableComponent {
     };
 
     validateUserName = (text: String): boolean => {
-        let isValid = constants.COORDINATOR_REGEX.test(text);
+        let isValid;
+        if (isEmpty(text)) {
+            isValid = true;
+        } else {
+            isValid = constants.COORDINATOR_REGEX.test(text);
+        }
         this.setData(d => d.set('isUserNameValid', isValid));
         return isValid
     };
@@ -220,7 +225,6 @@ export default class AddCoordinator extends ImmutableComponent {
                 title: strings.label_create_events_step_three,
                 passProps: {
                     event: {
-                        datasetId: this.props.event.datasetId,
                         name: this.props.event.name,
                         address: this.props.event.address,
                         startTime: this.props.event.startTime,

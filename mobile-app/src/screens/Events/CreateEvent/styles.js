@@ -213,6 +213,18 @@ export default EStyleSheet.create({
         fontSize: 17,
         fontFamily: 'Lato-Bold',
         color: 'white'
-    }
-
+    },
+    spinnerContainer: {
+        width: '100%',
+        height: '100%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: colors.$dividerColor
+    },
+    spinner: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });

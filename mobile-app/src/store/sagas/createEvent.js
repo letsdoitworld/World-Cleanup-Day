@@ -1,18 +1,10 @@
-import { call, put, take } from 'redux-saga/effects';
+import {call, put, take} from 'redux-saga/effects';
 
-import {
-    setErrorMessage,
-} from '../actions/app';
+import {controlProgress,} from '../actions/app';
 
-import {
-    CREATE_EVENT_ACTION,
-    createEventDone,
-    createEventError,
-} from '../actions/createEvent';
+import {CREATE_EVENT_ACTION, createEventDone, createEventError,} from '../actions/createEvent';
 
-import {
-    loadMyEventsSuccess,
-} from '../actions/profile';
+import {loadMyEventsSuccess,} from '../actions/profile';
 
 import Api from '../../api';
 
@@ -31,6 +23,7 @@ function* createNewEvent(event) {
     yield put(createEventDone(eventFromServer));
     yield put(loadMyEventsSuccess(events));
   } catch (error) {
+    yield put(controlProgress(false));
     yield put(createEventError(error.message));
   }
 }
@@ -38,6 +31,8 @@ function* createNewEvent(event) {
 export function* createEventFlow() {
   while (true) {
     const { localEvent } = yield take(CREATE_EVENT_ACTION);
+    yield put(controlProgress(true));
     yield call(createNewEvent, localEvent);
+    yield put(controlProgress(false));
   }
 }

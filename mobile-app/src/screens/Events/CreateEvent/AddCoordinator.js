@@ -194,7 +194,6 @@ export default class AddCoordinator extends ImmutableComponent {
             isValid = true;
         } else {
             isValid = constants.COORDINATOR_REGEX.test(text);
-            console.warn("Validation ", isValid)
         }
         this.setData(d => d.set('isUserNameValid', isValid));
         return isValid
@@ -226,7 +225,6 @@ export default class AddCoordinator extends ImmutableComponent {
                 title: strings.label_create_events_step_three,
                 passProps: {
                     event: {
-                        datasetId: this.props.event.datasetId,
                         name: this.props.event.name,
                         address: this.props.event.address,
                         startTime: this.props.event.startTime,

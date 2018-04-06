@@ -544,7 +544,6 @@ export default class CreateEvent extends ImmutableComponent {
                 title: strings.label_create_events_step_two,
                 passProps: {
                     event: {
-                        datasetId: '8a4a0ed2-d85a-45af-a318-d418427ccc06',
                         name: this.title,
                         address: address,
                         startTime: startTime,

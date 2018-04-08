@@ -127,6 +127,6 @@
   "label_text_about_5": "Rėmėjai: Estijos aplinkos ministerija, Estijos Respublikos užsienio reikalų ministerija, programa Estijos Respublikai 100",
   "label_button_editTP_delete": "Ištrinti šiukšlių tašką",
   "label_locked_account_warning": "Jūsų paskyra užblokuota. Susisiekite su administratoriumi.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_no_connection_note": "Be interneto ryšio galite tik pažymėti šiukšles. Žyma bus perkelta į serverį atnaujinus ryšį.",
+  "label_your_coordinates": "Jūsų koordinatės"
 }

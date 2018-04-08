@@ -127,6 +127,6 @@
   "label_text_about_5": "Фундатары: Міністэрства аховы навакольнага асяроддзя Эстоніі, Міністэрства замежных спраў Эстонскай Рэспублікі, праграма \"Эстонскай Рэспубліцы 100\"",
   "label_button_editTP_delete": "Выдаліць засмечаную кропку",
   "label_locked_account_warning": "Ваш акаўнт заблакаваны. За падрабязнасцямі звярніцеся да адміністратара.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_no_connection_note": "Без нтэрнэту вы можаце толькі пазначыць смецце. Гэтая пазнака будзе перададзена на сервер, калі падключэнне да інтэрнэту будзе адноўлена.",
+  "label_your_coordinates": "Вашы каардынаты"
 }

@@ -1,3 +1,7 @@
+.swiper-container {
+  margin: 0;
+}
+
 .TrashPhotos {
   display: flex;
   flex-direction: column;
@@ -26,7 +30,7 @@
 }
 
 .TrashPhotos-img-container img {
-  width: 125px;
+  width: 135px;
   height: 90px;
   margin-top: 10px;
 }

@@ -24,6 +24,7 @@ import back from '../../../assets/ic-back.png';
 import collapse from '../../../assets/collapse.png';
 import expand from '../../../assets/expand.png';
 import time from '../../../assets/ic-time.png';
+import logout from '../../../assets/logout.png';
 
 import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
 import activeInToxicTP from '../../../assets/trashpoints/icActiveInactiveToxicTrashpointMap.png';
@@ -59,13 +60,17 @@ export const ParticipantsIcon = () => <img src={participants} alt="participants-
 export const ReportIcon = () => <img src={report} alt="report-icon" />;
 export const CloseIcon = () => <img src={close} alt="close-icon" />;
 export const DateIcon = () => <img src={date} alt="date-icon" />;
-export const Userpic = () => <img src={userpicHolder} alt="userpic" />;
+export const Userpic = () => (<img
+  src={userpicHolder}
+  alt="userpic"
+/>);
 export const EmailIcon = () => <img src={email} alt="email" />;
 export const PhoneIcon = () => <img src={phone} alt="phone" />;
 export const BackIcon = () => <img src={back} alt="back" />;
 export const CollapseIcon = () => <img src={collapse} alt="collapse" />;
 export const ExpandIcon = () => <img src={expand} alt="expand" />;
 export const TimeIcon = () => <img src={time} alt="time" />;
+export const LogoutIcon = () => <img src={logout} alt="logout" />;
 
 export const TrashpointPins = {
   activeRegularTp: activeRegularTP,

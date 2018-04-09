@@ -54,7 +54,7 @@ const PointMarker = props => {
           text: String(point.count),
           color: '#fff',
           fontWeight: 'bold',
-          fontSize: '14px',
+          fontSize: '12px',
         }}
         icon={{
           url: clusterIcon,

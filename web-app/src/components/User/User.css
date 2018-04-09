@@ -32,23 +32,35 @@
 }
 
 .User-cred-container {
-  width: 320px;
-  height: 50px;
+  width: 240px;
   background-color: white;
   z-index: 9;
   position: absolute;
   right: 0px;
-  top: 70px;
+  top: 58px;
   transform: translateY(0);
   visibility: hidden;
   opacity: 0;
+  cursor: pointer;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+}
+
+.User-cred-container img {
+  padding: 14px 12px;
+  vertical-align: middle;
+}
+
+.User-cred-container span {
+  margin-left: 14px;
+  font-size: 14px;
+  color: rgba(0,0,0,0.87);
 }
 
 .Toggle-user-info {
   color: white;
   float: right;
   position: relative;
-  right: -15px;
+  right: -20px;
   font-size: 20px;
 }
 

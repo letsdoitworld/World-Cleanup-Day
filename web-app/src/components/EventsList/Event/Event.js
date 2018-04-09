@@ -9,6 +9,15 @@ import {
 } from '../../../components/common/Icons';
 import './Event.css';
 
+const organization = (author) => {
+  return (
+    <p className="Event-creator Event-info">
+      <GroupIcon24px />
+      <span>{author}</span>
+    </p>
+  );
+};
+
 export class Event extends Component {
 
   render() {
@@ -33,10 +42,6 @@ export class Event extends Component {
           <div className="Event-details">
             <div className="Event-details-part1">
               <p className="Event-title Event-info">{title}</p>
-              <p className="Event-creator Event-info">
-                <GroupIcon24px />
-                <span>{author}</span>
-              </p>
               <p className={
                 classnames('Event-status', 'Event-info', eventStatus)}
               >

@@ -109,7 +109,7 @@ android {
 
     defaultConfig {
         applicationId "com.teeme.ldi"
-        minSdkVersion 17
+        minSdkVersion 18
         targetSdkVersion 26
         versionCode 15
         versionName "1.0"

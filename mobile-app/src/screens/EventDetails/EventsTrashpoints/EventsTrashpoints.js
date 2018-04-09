@@ -12,107 +12,117 @@ import {Icon, Trashpoint,} from '../../../components';
 
 import styles from './styles';
 
-import {backId, navigatorButtons, navigatorStyle,} from './config';
+import {backId, navigatorStyle,} from './config';
 import {TRASH_POINT} from "../../index";
 
 class EventsTrshpoints extends PureComponent {
 
-  static navigatorStyle = navigatorStyle;
-  static navigatorButtons = navigatorButtons;
+    static navigatorStyle = navigatorStyle;
+    static navigatorButtons = {
+    leftButtons: [
+        {
+            icon: Icons.Back,
+            id: backId,
+        },
+        ],
+    };
 
-  constructor(props) {
+constructor(props)
+{
     super(props);
 
     props.navigator.setOnNavigatorEvent(
         this.onNavigatorEvent,
     );
-  }
+}
 
-  onNavigatorEvent = (event) => {
+onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress') {
-      switch (event.id) {
-        case backId: {
-          this.props.navigator.dismissModal();
-          break;
-        }
-      }
-    }
-  }
-
-  handleRenderTrashpoint(trashpoint) {
-    return (
-      <View style={styles.trashpointContainer}>
-        <Trashpoint
-          // type={trashpoint.type}
-          location={trashpoint.name}
-          onPress={() => this.handleTrashpointPress(trashpoint)}
-        />
-        <TouchableOpacity
-          onPress={this.handleTrashpointSelect}
-        >
-          <Icon path={Icons.BtnRemove} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  handleTrashpointSelect = () => console.log('Trashpoint select');
-
-  handleTrashpointsPagination = () => console.log('Pagination');
-
-  handleKeyExtractor = item => toString(item.id);
-
-  handleTrashpointPress = trashpoint => {
-      this.props.navigator.push({
-            screen: TRASH_POINT,
-            title: strings.label_trashpoint,
-            passProps: {
-                onCheckedChanged: false,
-                trashPoint: trashpoint,
-                isChecked: false
+        switch (event.id) {
+            case backId: {
+                this.props.navigator.dismissModal();
+                break;
             }
-        })
-  };
-
-  handleRenderEmptyList() {
-    return (
-      <View style={styles.emptyTrashpointsContainer}>
-        <Icon path={Backgrounds.EmptyTrashpoints} />
-        <Text style={styles.textEmptyTrashpoint}>{strings.label_no_trashpoints}</Text>
-      </View>
-    );
-  }
-
-  onRenderTrashPoints = () => {
-    const { trashpoints } = this.props;
-   
-    if (!isEmpty(trashpoints)) {
-      return (
-        <FlatList
-          data={trashpoints}
-          renderItem={({ item }) => this.handleRenderTrashpoint(item)}
-          keyExtractor={this.handleKeyExtractor}
-          onEndReachedThreshold={0.5}
-          onEndReached={this.handleTrashpointsPagination}
-        />
-      );
+        }
     }
-  
-    return this.handleRenderEmptyList();
-  };
+};
 
-  render() {
+handleRenderTrashpoint(trashpoint)
+{
     return (
-      <View style={styles.container}>
-        {this.onRenderTrashPoints()}
-      </View>
+        <View style={styles.trashpointContainer}>
+            <Trashpoint
+                location={trashpoint.name}
+                onPress={() => this.handleTrashpointPress(trashpoint)}
+            />
+            <TouchableOpacity
+                onPress={this.handleTrashpointSelect}
+            >
+                <Icon path={Icons.BtnRemove}/>
+            </TouchableOpacity>
+        </View>
     );
-  }
+}
+
+handleTrashpointSelect = () => console.log('Trashpoint select');
+
+handleTrashpointsPagination = () => console.log('Pagination');
+
+handleKeyExtractor = item => toString(item.id);
+
+handleTrashpointPress = trashpoint => {
+    this.props.navigator.push({
+        screen: TRASH_POINT,
+        title: strings.label_trashpoint,
+        passProps: {
+            onCheckedChanged: false,
+            trashPoint: trashpoint,
+            isChecked: false
+        }
+    })
+};
+
+handleRenderEmptyList()
+{
+    return (
+        <View style={styles.emptyTrashpointsContainer}>
+            <Icon path={Backgrounds.EmptyTrashpoints}/>
+            <Text style={styles.textEmptyTrashpoint}>{strings.label_no_trashpoints}</Text>
+        </View>
+    );
+}
+
+onRenderTrashPoints = () => {
+    const {trashpoints} = this.props;
+
+    if (!isEmpty(trashpoints)) {
+        return (
+            <FlatList
+                data={trashpoints}
+                renderItem={({item}) => this.handleRenderTrashpoint(item)}
+                keyExtractor={this.handleKeyExtractor}
+                onEndReachedThreshold={0.5}
+                onEndReached={this.handleTrashpointsPagination}
+            />
+        );
+    }
+
+    return this.handleRenderEmptyList();
+};
+
+render()
+{
+    return (
+        <View style={styles.container}>
+            {this.onRenderTrashPoints()}
+        </View>
+    );
+}
 }
 
 EventsTrshpoints.propTypes = {
-  trashpoints: PropTypes.array,
-  navigator: PropTypes.object,
+    trashpoints: PropTypes.array,
+    navigator: PropTypes.object,
 };
 
 export default EventsTrshpoints;

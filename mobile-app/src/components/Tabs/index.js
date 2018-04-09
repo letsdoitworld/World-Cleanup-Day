@@ -56,6 +56,7 @@ class Tabs extends Component {
         renderHeader={this.renderHeader}
         onIndexChange={this.handleIndexChange}
         initialLayout={initialLayout}
+        canJumpToTab={this.canJumpToTab}
       />
     );
   }

@@ -59,11 +59,11 @@ module.exports = {
     TRASHPOINT_NOT_FOUND: {
         message: ({id}) => `Trashpoint does not exist: '${id}'.`,
     },
+    TRASHPOINT_ALREADY_INCLUDED: {
+        message: ({trashpointId}) => `Trashpoint '${trashpointId}' already included.`,
+    },
     EVENT_NOT_FOUND: {
         message: ({id}) => `Event does not exist: '${id}'.`,
-    },
-    EVENT_TRASHPOINT_EXISTS: {
-        message: ({eventId, trashpointId}) => `Event '${eventId}' already has trashpoint '${trashpointId}'.`,
     },
     IMAGE_NOT_FOUND: {
         message: ({id}) => `Image does not exist: '${id}'.`,

@@ -66,9 +66,9 @@ const layer = {
             }
             if (
               doc.$doctype === 'event' 
-              ${name ? ` && doc.name.toLowerCase().indexOf('${name.replace("'", "\\'").toLowerCase()}') !== -1` : ''} 
+              ${name ? ` && doc.name.toLowerCase().indexOf('${name.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0').toLowerCase()}') !== -1` : ''} 
               ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}
-              ${address ? ` && doc.address.toLowerCase().indexOf('${address.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0')}') !== -1` : ''}
+              ${address ? ` && doc.address.toLowerCase().indexOf('${address.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0').toLowerCase()}') !== -1` : ''}
             ) {
               ${location ? `
                 emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);

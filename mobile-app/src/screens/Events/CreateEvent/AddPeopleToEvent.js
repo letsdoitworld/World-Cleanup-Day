@@ -1,6 +1,6 @@
 import React from 'react';
 import ImmutableComponent from "../../../components/InputFields/ImmutableComponent";
-import {Alert, Text, View} from 'react-native';
+import {ActivityIndicator, Alert, Text, View} from 'react-native';
 import styles from "./styles";
 import strings from "../../../assets/strings";
 import InputField from '../../../components/InputFields/InputField';
@@ -56,6 +56,29 @@ class AddPeopleToEvent extends ImmutableComponent {
         }
     }
 
+    isProgressEnabled() {
+        return this.props.isLoading;
+    }
+
+    renderProgress() {
+        if (this.isProgressEnabled()) {
+            return this.spinner()
+        } else {
+            return null;
+        }
+    }
+
+    spinner() {
+        return (
+            <View style={styles.spinnerContainer}>
+            <ActivityIndicator
+                style={styles.spinner}
+                size="large"
+                color="rgb(0, 143, 223)"/>
+            </View>
+        );
+    }
+
     back() {
         this.props.navigator.pop({
             animated: true,
@@ -66,7 +89,7 @@ class AddPeopleToEvent extends ImmutableComponent {
     componentDidUpdate() {
         const { createdEvent, errorEvent } = this.props;
         if (createdEvent !== null && createdEvent !== undefined) {
-            Navigation.dismissModal()
+            this.props.navigator.dismissModal()
         }
         if (errorEvent !== null && errorEvent !== undefined) {
             Alert.alert(
@@ -76,6 +99,12 @@ class AddPeopleToEvent extends ImmutableComponent {
                     {text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}
                 ],
             )
+        }
+    }
+
+    componentDidMount() {
+        if (!this.props.datasetUUIDSelector) {
+            this.props.onFetchDatasetUUIDAction();
         }
     }
 
@@ -124,6 +153,7 @@ class AddPeopleToEvent extends ImmutableComponent {
                     text={strings.label_create_event}
                     style={styles.coordinatorNext}
                     onPress={() => this.onCreateEventClick(isValid)}/>
+                {this.renderProgress()}
             </View>)
     }
 
@@ -141,7 +171,9 @@ class AddPeopleToEvent extends ImmutableComponent {
     onCreateEventClick = (isValid) => {
         if (isValid) {
             const {requestCreateEvent} = this.props;
-            const event ={...this.event,...{maxPeopleAmount: parseInt(this.numberAttendees)}};
+            const event ={...this.event,
+                ...{maxPeopleAmount: parseInt(this.numberAttendees),
+                    datasetId: this.props.datasetUUIDSelector}};
             requestCreateEvent(event)
         } else {
             this.showValidationErrors()
@@ -157,9 +189,12 @@ class AddPeopleToEvent extends ImmutableComponent {
 AddPeopleToEvent.propTypes = {
     createdEvent: PropTypes.object,
     errorEvent: PropTypes.string,
+    isLoading: PropTypes.bool,
+    datasetUUIDSelector: PropTypes.string,
     requestCreateEvent: PropTypes.func,
     requestCreateEventDone: PropTypes.func,
     requestCreateEventError: PropTypes.func,
+    onFetchDatasetUUIDAction: PropTypes.func,
 };
 
 export default AddPeopleToEvent

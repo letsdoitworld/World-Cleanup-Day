@@ -12,6 +12,7 @@ import {fetchDatasetUIIDAction,} from '../../store/actions/app';
 
 import {
     datasetUUID,
+    errorHandle,
     getCoordUser,
     getEventsEntity,
     getMapEventsEntity,
@@ -29,6 +30,7 @@ const selector = createStructuredSelector({
     userCoord: getCoordUser,
     mapEvents: getMapEventsEntity,
     delta: showNewDeltaEntity,
+    error: errorHandle,
     isAuthenticated,
     isLoading,
     isPrivateProfile,

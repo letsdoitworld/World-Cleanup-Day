@@ -1,10 +1,5 @@
-import {
-    PROGRESS_ACTION,
-} from "../types/app";
-import {
-    FETCH_DATASETS_SUCCESS,
-    FETCH_DATASETS_FAILED,
-} from "../actions/app";
+import {PROGRESS_ACTION,} from "../types/app";
+import {FETCH_DATASETS_FAILED, FETCH_DATASETS_SUCCESS, SET_ERROR_MESSAGE,} from "../actions/app";
 
 import {createReducer} from "../helpers/createReducer";
 import Immutable from "immutable";
@@ -31,7 +26,12 @@ const handlers = {
         return state.withMutations(state => state
             .set('error', error)
         );
-    }
+    },
+    [SET_ERROR_MESSAGE]: (state, { error }) => {
+        return state.withMutations(state => state
+            .set('error', error)
+        );
+    },
 };
 
 export default createReducer(initialState, handlers);

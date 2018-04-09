@@ -68,7 +68,7 @@ function facebookLogin() {
               });
           }
         })
-        .catch(error => error);
+        .catch(error => console.log('Error',error));
 }
 
 async function logout() {

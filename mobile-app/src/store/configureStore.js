@@ -15,7 +15,9 @@ import {
     createTrashPointFlow,
     fetchDataFromOneClusterFlow,
     fetchDatasetFlow,
+    fetchTrashPointsDataFromOneClusterFlow,
     getMapEventsFlow,
+    getMapTrashPointsFlow,
     loadEventFlow,
     loadLocationFlow,
     loadMyEventsFlow,
@@ -26,9 +28,7 @@ import {
     logoutFlow,
     searchEventsFlow,
     searchTrashPointsFlow,
-    updateProfileStatusFlow,
-    getMapTrashPointsFlow,
-    fetchTrashPointsDataFromOneClusterFlow
+    updateProfileStatusFlow
 } from './sagas';
 
 
@@ -55,7 +55,7 @@ export default function configureStore() {
         store,
         {
             storage: AsyncStorage,
-            blacklist: ['trashPoints', 'events', 'myEvents', 'errorEvent', 'createTrashPoint'],
+            blacklist: ['trashPoints', 'events', 'myEvents', 'errorEvent', 'createTrashPoint', 'error'],
         },
     );
 

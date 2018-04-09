@@ -10,6 +10,7 @@ import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
 import EventsMap from '../EventMap/EventsMap';
+import isNil from "lodash/isNil";
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -39,7 +40,6 @@ class Events extends Component {
     this.state = {
       mode: MODE.list,
       isSearchFieldVisible: false,
-        //isPrivatDialogShown
     };
 
       this.closeValidationButton = {
@@ -116,7 +116,7 @@ class Events extends Component {
     const { userCoord } = this.props;
     const { onSearchEventsAction } = this.props;
     if (userCoord && userCoord !== null) {
-      onSearchEventsAction(this.query, page, PAGE_SIZE, { latitude: userCoord.lat, longitude: userCoord.long });
+      onSearchEventsAction(this.query, page, PAGE_SIZE, { latitude: userCoord.latitude, longitude: userCoord.longitude });
     } else {
       onSearchEventsAction(this.query, page, PAGE_SIZE);
     }

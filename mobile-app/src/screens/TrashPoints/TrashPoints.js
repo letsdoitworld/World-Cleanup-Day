@@ -125,7 +125,7 @@ class TrashPoints extends Component {
     }
 
   componentDidMount() {
-      //This is workaround!! Think how normal fix this issue
+      //TODO This is workaround!! Think how normal fix this issue
       try {
           setTimeout(() => {
 

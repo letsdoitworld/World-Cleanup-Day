@@ -147,15 +147,19 @@ class Profile extends Component {
   }
 
   handleRenderPhoneNumber() {
-    return (
-      <View>
-        <View style={styles.additionalInfoContainer}>
-          <Icon path={Icons.Phone} />
-          <Text style={styles.additionalInfoText}>+3809500000000</Text>
-        </View>
-        <Divider />
-      </View>
-    );
+      const { profile } = this.props;
+
+      if (profile && profile.phoneNumber) {
+          return (
+              <View>
+                  <View style={styles.additionalInfoContainer}>
+                      <Icon path={Icons.Phone}/>
+                      <Text style={styles.additionalInfoText}>+3809500000000</Text>
+                  </View>
+                  <Divider/>
+              </View>
+          );
+      }
   }
 
   handleRenderEmail() {
@@ -290,11 +294,6 @@ class Profile extends Component {
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
     const { visible } = this.state;
-
-    // const scenes = {
-    //     [strings.label_events]: this.onRenderEvents,
-    //     [strings.label_trashpoints]: this.onRenderTrashPoints,
-    //   };
 
     const routes = [
         { key: strings.label_events, title: strings.label_events },

@@ -52,13 +52,6 @@ export default class EventsMap extends Component {
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-    // shouldComponentUpdate(nextProps) {
-    //     const locationChanged = this.props.userLocation !== nextProps.userLocation;
-    //     return (
-    //         locationChanged
-    //     );
-    // }
-
   handleEventPress = (event) => {
     this.props.navigator.showModal({
       screen: EVENT_DETAILS_SCREEN,
@@ -233,29 +226,6 @@ export default class EventsMap extends Component {
     if (!isEmpty(viewableItems)) {
       this.setState({ selectedItem: viewableItems[0].item });
     }
-  }
-
-    // handleOnMarkerPress(marker) {
-    //     this.setState(previousState => {
-    //         return {
-    //             ...previousState,
-    //             selectedItem: marker.item
-    //         };
-    //     });
-    // }
-
-  renderSelectedItem(selectedItem, checked) {
-    if (checked === undefined) return null;
-
-    if (selectedItem) {
-      return renderItem(
-                  selectedItem,
-                  checked,
-                  styles.trashPointItem,
-                  this.onCheckedChanged.bind(this),
-              );
-    }
-    return null;
   }
 
   render() {

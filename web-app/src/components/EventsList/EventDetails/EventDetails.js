@@ -13,6 +13,7 @@ import {
   EmailIcon,
   PhoneIcon,
   userpicHolder,
+  eventCoverBig,
 } from '../../../components/common/Icons';
 import demo from '../../../assets/demo.png';
 
@@ -63,7 +64,7 @@ export const EventDetails = ({ eventDetails }) => {
     <div className="EventDetails">
       <div className="EventDetails-cover">
         <img
-          src={eventDetails.photos[0] || userpicHolder}
+          src={eventDetails.photos[0] || eventCoverBig}
           alt="demo"
         />
       </div>

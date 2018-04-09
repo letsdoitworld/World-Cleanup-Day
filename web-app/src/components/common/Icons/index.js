@@ -26,6 +26,9 @@ import expand from '../../../assets/expand.png';
 import time from '../../../assets/ic-time.png';
 import logout from '../../../assets/logout.png';
 
+import eventCover from '../../../assets/img-event-cover-big-copy.png';
+import eventCoverBig from '../../../assets/img-event-cover-big.png';
+
 import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
 import activeInToxicTP from '../../../assets/trashpoints/icActiveInactiveToxicTrashpointMap.png';
 import activeInTrashpointTP from '../../../assets/trashpoints/icActiveInactiveTrashpointMap.png';
@@ -97,4 +100,6 @@ export {
   locationPinInactive,
   clusterIcon,
   userpicHolder,
+  eventCover,
+  eventCoverBig,
 };

@@ -1,7 +1,7 @@
 {
   "label_text_app_subtitle": "Lat okkum rudda heimin saman!",
-  "label_button_facebook": "Halt áfram við Facebook",
-  "label_button_google": "Halt áfram við Google",
+  "label_button_facebook": "Halt fram við Facebook",
+  "label_button_google": "Halt fram við Google",
   "label_button_try_app": "Royn appina uttan kontu",
   "label_button_acknowledge": "Ok, eg skilji!",
   "label_button_cancel": "Strika",
@@ -123,10 +123,10 @@
   "label_text_about_1": "Let's Do it World stendur fyri appini",
   "label_text_about_2": "Allar dátur verða savnaðar í einum altjóða ruskkorti. Tær verða startskotið til tiltøk 15 septembur 2018 í samband við World Cleanup Day,",
   "label_text_about_3": "Hendan appin er í samstarv við",
-  "label_text_about_4": "Estonian product, sponsored by the country and government",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
-  "label_button_editTP_delete": "Delete trashpoint",
-  "label_locked_account_warning": "Your account is locked. For details contact an administrator.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_text_about_4": "Estlendsk vøra, ið verður fíggja av landsins mynduleikum",
+  "label_text_about_5": "Stuðlar: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_button_editTP_delete": "Strika ruskpunkt",
+  "label_locked_account_warning": "Konta tín er stongd. Vinarliga set teg í samband við umsitaran.",
+  "label_no_connection_note": "Uttan samband til internetið ber ikki til at goyma ruskpunkt. Ruskunkt tíni verða flutt til ambætaran so skjótt, sum tú fær samband aftur.",
+  "label_your_coordinates": "Staðfesting tín"
 }

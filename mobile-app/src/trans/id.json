@@ -127,6 +127,6 @@
   "label_text_about_5": "Pendiri: Kementerian Lingkungan Hidup Estonia, Kementerian Luar Negeri Republik Estonia, program 100 Republik Estonia",
   "label_button_editTP_delete": "Hapus tempat sampah",
   "label_locked_account_warning": "Akun anda terkunci Untuk informasi lebih lanjut, hubungi administrator.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_no_connection_note": "Tanpa Internet, Anda hanya dapat menandai tempat sampah. Tanda ini akan ditransfer ke server bila sambungan ke Internet dipulihkan.",
+  "label_your_coordinates": "Koordinat Anda"
 }

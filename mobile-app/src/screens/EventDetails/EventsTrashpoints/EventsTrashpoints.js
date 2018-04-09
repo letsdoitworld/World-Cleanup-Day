@@ -45,7 +45,7 @@ class EventsTrshpoints extends PureComponent {
         <Trashpoint
           // type={trashpoint.type}
           location={trashpoint.name}
-          onPress={this.handleTrashpointPress(trashpoint)}
+          onPress={() => this.handleTrashpointPress(trashpoint)}
         />
         <TouchableOpacity
           onPress={this.handleTrashpointSelect}

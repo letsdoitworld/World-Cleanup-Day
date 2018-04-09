@@ -9,7 +9,7 @@ import styles from './styles';
 const Avatar = ({
     path,
 }) => {
-  const img =  Icons.PlaceHolderAvatar;
+  const img = path ? { uri: path } : Icons.PlaceHolderAvatar;
 
   return (
     <Image

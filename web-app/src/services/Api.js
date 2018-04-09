@@ -80,14 +80,15 @@ class ApiService {
 }
 const IS_PRODUCTION = window.location.host === 'app.worldcleanupday.com';
 
-export const BASE_URL =
-  process.env.NODE_ENV === 'development'
-    ? process.env.REACT_APP_LOCAL_API
-      ? process.env.REACT_APP_LOCAL_API
-      : 'https://api-qa.app.worldcleanupday.com/api/v1'
-    : IS_PRODUCTION
-    ? `${window.location.protocol}//api.${window.location.host}/api/v1`
-    : `${window.location.protocol}//api-${window.location.host}/api/v1`;
+export const BASE_URL = "http://server.noorsoft.ru:50000/api/v1"
+// export const BASE_URL =
+//   process.env.NODE_ENV === 'development'
+//     ? process.env.REACT_APP_LOCAL_API
+//       ? process.env.REACT_APP_LOCAL_API
+//       : 'https://api-qa.app.worldcleanupday.com/api/v1'
+//     : IS_PRODUCTION
+//     ? `${window.location.protocol}//api.${window.location.host}/api/v1`
+//     : `${window.location.protocol}//api-${window.location.host}/api/v1`;
 
 
 const apiService = new ApiService();

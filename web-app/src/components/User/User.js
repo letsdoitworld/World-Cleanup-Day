@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ArrowDownIcon } from '../common/Icons'
+import classnames from 'classnames';
+import { ArrowDownIcon, LogoutIcon } from '../common/Icons';
 import './User.css';
 
 class User extends Component {
@@ -21,18 +22,23 @@ class User extends Component {
           <span className="User-name">{authUser.name}</span>
           <button
             className="Toggle-user-info"
-            onClick={()=> this.setState({showDetails: !this.state.showDetails})}
+            onClick={
+              () => this.setState({ showDetails: !this.state.showDetails })
+            }
           >
             <ArrowDownIcon />
           </button>
         </div>
-        <div className={`User-cred-container ${this.state.showDetails ? 'is-open' : ''}`}>
-          <p>{authUser.email}</p>
-          <button onClick={()=> onLogout()}>Log out</button>
+        <div
+          className={classnames('User-cred-container', { 'is-open':  this.state.showDetails }) }
+          onClick={onLogout}
+        >
+          <LogoutIcon />
+          <span>Log out</span>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default User
+export default User;

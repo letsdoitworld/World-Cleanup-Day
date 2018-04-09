@@ -5,13 +5,29 @@ import { noop } from '../../shared/helpers';
 import { CloseIcon } from '../common/Icons';
 import './TrashPhotos.css';
 
-const swiperOptions = {
-  slidesPerView: 2,
-  spaceBetween: 40,
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
+const swiperOptions = (if1slide, if2slides) => {
+  if (if1slide) {
+    return {
+      slidesPerView: 1,
+      centeredSlides: true,
+    };
+  }
+  if (if2slides) {
+    return {
+      slidesPerView: 2,
+      centeredSlides: false,
+      spaceBetween: 40,
+    };
+  }
+  return {
+    slidesPerView: 2,
+    centeredSlides: false,
+    spaceBetween: 40,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  };
 };
 
 const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
@@ -66,7 +82,7 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
               </button>}
           </div>),
         ) :
-        <Swiper {...swiperOptions}>
+        <Swiper {...swiperOptions(photos.length === 1, photos.length === 2)}>
           {photos.map((photo, index) =>
             (<div key={photo} className="TrashPhotos-img-container">
               <img src={photo} alt="" />

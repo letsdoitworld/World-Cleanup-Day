@@ -1,11 +1,9 @@
-import { StyleSheet } from 'react-native';
-
-import { getWidthPercentage } from '../../shared/helpers';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   avatar: {
-    width: getWidthPercentage(80),
-    height: getWidthPercentage(80),
-    borderRadius: getWidthPercentage(40),
+    width: 80,
+    height: 80,
+    // borderRadius: getWidthPercentage(40),
   },
 });

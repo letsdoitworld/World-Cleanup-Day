@@ -1,15 +1,15 @@
 import React from 'react';
-import { Image } from 'react-native';
+import {Image} from 'react-native';
 import PropTypes from 'prop-types';
 
-import { Icons } from '../../assets/images';
+import {Icons} from '../../assets/images';
 
 import styles from './styles';
 
 const Avatar = ({
     path,
 }) => {
-  const img = path ? { uri: path } : Icons.PlaceHolderAvatar;
+  const img =  Icons.PlaceHolderAvatar;
 
   return (
     <Image

@@ -1,26 +1,16 @@
-import React, { Component } from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Text, ScrollView,
-    TextInput,
-    Image,
-    Dimensions,
-    LayoutAnimation,
-    UIManager,
-    KeyboardAvoidingView,
-} from 'react-native';
+import React, {Component} from 'react';
+import {LayoutAnimation, Text, TouchableOpacity, UIManager, View,} from 'react-native';
 import styles from './styles';
 import strings from '../../assets/strings';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { Map } from '../../components';
-import { DEFAULT_ZOOM } from '../../shared/constants';
-import { MARKER_STATUS_IMAGES } from '../../components/Map/Marker';
-import { connect } from 'react-redux';
-import { IGPSCoordinates } from 'NativeModules';
-import { geocodeCoordinates } from '../../shared/geo';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {Map} from '../../components';
+import {DEFAULT_ZOOM} from '../../shared/constants';
+import {MARKER_STATUS_IMAGES} from '../../components/Map/Marker';
+import {connect} from 'react-redux';
+import {IGPSCoordinates} from 'NativeModules';
+import {geocodeCoordinates} from '../../shared/geo';
 
-import { Icons } from '../../assets/images';
+import {Icons} from '../../assets/images';
 
 const cancelId = 'cancelId';
 
@@ -94,7 +84,9 @@ class AddLocation extends Component {
                   });
                 },
                 (error) => {
-                  alert(JSON.stringify(error));
+                    if (error.code === 1) {
+                        alert(strings.label_error_location_text);
+                    }
                 },
             );
       } catch (error) {

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { FlatList, UIManager, View } from 'react-native';
+import React, {Component} from 'react';
+import {FlatList, UIManager, View} from 'react-native';
 
 
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 
-import { Map as MapView } from '../../components';
-import { MIN_ZOOM } from '../../shared/constants';
-import { renderItem } from '../Events/List/ListItem/ListItem';
-import { Event } from '../../components/index';
+import {Map as MapView} from '../../components';
+import {DEFAULT_LOCATION, MIN_ZOOM} from '../../shared/constants';
+import {renderItem} from '../Events/List/ListItem/ListItem';
+import {Event} from '../../components/index';
 import strings from '../../config/strings';
-import { EVENT_DETAILS_SCREEN } from '../index';
+import {EVENT_DETAILS_SCREEN} from '../index';
 
 import styles from './styles';
 
@@ -30,15 +30,11 @@ export default class EventsMap extends Component {
     const { location, onLoadMapEventsAction, mapEvents } = props;
     let userLocation;
     if (location === undefined || location === null) {
-            // TODO fix me!! Random location?
-            // alert(strings.label_no_location);
-            // userLocation = {
-            //     latitude: 48.8152937,
-            //     longitude: 2.4597668
-            // }
+      userLocation = DEFAULT_LOCATION
     } else {
       userLocation = location;
     }
+      const region = { ...userLocation };
 
     this.state = {
       markers: undefined,
@@ -47,6 +43,7 @@ export default class EventsMap extends Component {
       radius: DEFAULT_RADIUS_M,
       selectedItem: undefined,
       updateRegion: true,
+        region
     };
 
     this.handleVisibleChange = debounce(this.getVisibleRows, 200);
@@ -54,13 +51,6 @@ export default class EventsMap extends Component {
 
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
-
-    // shouldComponentUpdate(nextProps) {
-    //     const locationChanged = this.props.userLocation !== nextProps.userLocation;
-    //     return (
-    //         locationChanged
-    //     );
-    // }
 
   handleEventPress = (event) => {
     this.props.navigator.showModal({
@@ -149,9 +139,15 @@ export default class EventsMap extends Component {
   };
 
   handleOnRegionChangeComplete = (center) => {
-    if (!this.state.updateRegion) {
-      return this.setState({ updateRegion: true });
-    }
+      if (!this.state.updateRegion) {
+          this.setState((previousState) => {
+              return {
+                  ...previousState,
+                  updateRegion: true,
+                  region: center,
+              };
+          });
+      }
     const adjustLongitude = (n) => {
       if (n < -180) {
         return 360 + n;
@@ -232,29 +228,6 @@ export default class EventsMap extends Component {
     }
   }
 
-    // handleOnMarkerPress(marker) {
-    //     this.setState(previousState => {
-    //         return {
-    //             ...previousState,
-    //             selectedItem: marker.item
-    //         };
-    //     });
-    // }
-
-  renderSelectedItem(selectedItem, checked) {
-    if (checked === undefined) return null;
-
-    if (selectedItem) {
-      return renderItem(
-                  selectedItem,
-                  checked,
-                  styles.trashPointItem,
-                  this.onCheckedChanged.bind(this),
-              );
-    }
-    return null;
-  }
-
   render() {
     const { initialRegion } = this.props;
     const { selectedItem, mapEvents } = this.state;
@@ -282,6 +255,7 @@ export default class EventsMap extends Component {
           style={styles.map}
           handleOnMarkerPress={this.onPressMarker}
           selectedItem={checked}
+          region={this.state.region === this.state.userLocation && this.state.updateRegion === false ? this.state.region : undefined}
           getRef={map => this.map = map}
         />
 

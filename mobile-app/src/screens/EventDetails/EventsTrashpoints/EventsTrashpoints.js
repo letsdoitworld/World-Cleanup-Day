@@ -1,10 +1,5 @@
-import React, { PureComponent } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  FlatList,
-  Text,
-} from 'react-native';
+import React, {PureComponent} from 'react';
+import {FlatList, Text, TouchableOpacity, View,} from 'react-native';
 import PropTypes from 'prop-types';
 
 import toString from 'lodash/toString';
@@ -12,19 +7,13 @@ import isEmpty from 'lodash/isEmpty';
 
 import strings from '../../../assets/strings';
 
-import { Icons, Backgrounds } from '../../../assets/images';
-import {
-    Icon,
-    Trashpoint,
-} from '../../../components';
+import {Backgrounds, Icons} from '../../../assets/images';
+import {Icon, Trashpoint,} from '../../../components';
 
 import styles from './styles';
 
-import {
-  navigatorStyle,
-  navigatorButtons,
-  backId,
-} from './config';
+import {backId, navigatorButtons, navigatorStyle,} from './config';
+import {TRASH_POINT} from "../../index";
 
 class EventsTrshpoints extends PureComponent {
 
@@ -56,7 +45,7 @@ class EventsTrshpoints extends PureComponent {
         <Trashpoint
           // type={trashpoint.type}
           location={trashpoint.name}
-          onPress={this.handleTrashpointPress}
+          onPress={this.handleTrashpointPress(trashpoint)}
         />
         <TouchableOpacity
           onPress={this.handleTrashpointSelect}
@@ -72,6 +61,18 @@ class EventsTrshpoints extends PureComponent {
   handleTrashpointsPagination = () => console.log('Pagination');
 
   handleKeyExtractor = item => toString(item.id);
+
+  handleTrashpointPress = trashpoint => {
+      this.props.navigator.push({
+            screen: TRASH_POINT,
+            title: strings.label_trashpoint,
+            passProps: {
+                onCheckedChanged: false,
+                trashPoint: trashpoint,
+                isChecked: false
+            }
+        })
+  };
 
   handleRenderEmptyList() {
     return (

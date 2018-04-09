@@ -22,6 +22,8 @@ class Profile extends Component {
 
   static navigatorStyle = navigatorStyle;
 
+  previousError = undefined;
+
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(
@@ -90,13 +92,13 @@ class Profile extends Component {
   }
 
   componentDidUpdate() {
-    const { myEventsError, myTrashPointsError } = this.props;
-    if (!isNil(myEventsError) && !isNil(myTrashPointsError)) {
-      this.showAlert(myEventsError);
+    const { error, onSetError } = this.props;
+    if (!isNil(error) && !isNil(error.message)) {
+
+      this.showAlert(error.message);
+        onSetError(null);
     }
-    if (!isNil(myTrashPointsError) && !isNil(myEventsError)) {
-      this.showAlert(myTrashPointsError);
-    }
+    this.previousError = error;
   }
 
   onNavigatorEvent(event) {
@@ -131,12 +133,6 @@ class Profile extends Component {
         );
   }
 
-  componentWillUnmount() {
-    const { onLoadMyEventsError, onLoadMyTrashPointsError } = this.props;
-    onLoadMyEventsError(null);
-    onLoadMyTrashPointsError(null);
-  }
-
   handleRenderLocation() {
     const { country } = this.props;
 
@@ -151,15 +147,19 @@ class Profile extends Component {
   }
 
   handleRenderPhoneNumber() {
-    return (
-      <View>
-        <View style={styles.additionalInfoContainer}>
-          <Icon path={Icons.Phone} />
-          <Text style={styles.additionalInfoText}>+3809500000000</Text>
-        </View>
-        <Divider />
-      </View>
-    );
+      const { profile } = this.props;
+
+      if (profile && profile.phoneNumber) {
+          return (
+              <View>
+                  <View style={styles.additionalInfoContainer}>
+                      <Icon path={Icons.Phone}/>
+                      <Text style={styles.additionalInfoText}>+3809500000000</Text>
+                  </View>
+                  <Divider/>
+              </View>
+          );
+      }
   }
 
   handleRenderEmail() {
@@ -295,11 +295,6 @@ class Profile extends Component {
     const { isAuthenticated, isGuestSession, profile } = this.props;
     const { visible } = this.state;
 
-    // const scenes = {
-    //     [strings.label_events]: this.onRenderEvents,
-    //     [strings.label_trashpoints]: this.onRenderTrashPoints,
-    //   };
-
     const routes = [
         { key: strings.label_events, title: strings.label_events },
         { key: strings.label_trashpoints, title: strings.label_trashpoints },
@@ -344,15 +339,14 @@ Profile.propTypes = {
   profile: PropTypes.object,
   navigator: PropTypes.object,
   myEvents: PropTypes.object,
-  myEventsError: PropTypes.object,
+  error: PropTypes.object,
   myTrashPoints: PropTypes.object,
-  myTrashPointsError: PropTypes.object,
   onFetchProfile: PropTypes.func,
   onGuestLogIn: PropTypes.func,
   onLoadMyEvents: PropTypes.func,
   onLoadMyTrashPoints: PropTypes.func,
   onLoadMyTrashPointsError: PropTypes.func,
-  onLoadMyEventsError: PropTypes.func,
+    onSetError: PropTypes.object,
 };
 
 export default Profile;

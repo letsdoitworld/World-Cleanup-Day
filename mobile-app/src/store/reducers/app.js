@@ -13,24 +13,28 @@ export const initialState = Immutable.Map(
 
 const handlers = {
     [PROGRESS_ACTION]: (state, {progress}) => {
-        return state.withMutations(state => state
+        return state.withMutations(mState => mState
             .set('progress', progress)
         );
     },
     [FETCH_DATASETS_SUCCESS]: (state, { payload }) => {
-        return state.withMutations(state => state
+        return state.withMutations(mState => mState
             .set('datasetUUID', payload)
         );
     },
     [FETCH_DATASETS_FAILED]: (state, { error }) => {
-        return state.withMutations(state => state
+        return state.withMutations(mState => mState
             .set('error', error)
         );
     },
-    [SET_ERROR_MESSAGE]: (state, { error }) => {
-        return state.withMutations(state => state
-            .set('error', error)
-        );
+    [SET_ERROR_MESSAGE]: (state, { payload }) => {
+        const currentError = state.get('error');
+        if (payload && currentError &&  currentError.message !== payload.message || payload && !currentError || !payload) {
+            return state.withMutations(mState => mState
+                .set('error', payload)
+            );
+        }
+        return state;
     },
 };
 

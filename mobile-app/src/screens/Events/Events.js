@@ -10,7 +10,6 @@ import EventsList from './List/List';
 import {debounce} from '../../shared/util';
 import PropTypes from 'prop-types';
 import EventsMap from '../EventMap/EventsMap';
-import isNil from "lodash/isNil";
 
 const filterId = 'filterId';
 const searchId = 'searchId';
@@ -23,6 +22,8 @@ const MODE = {
 };
 
 class Events extends Component {
+
+  previousError = undefined;
 
   constructor(props) {
     super(props);
@@ -236,6 +237,16 @@ class Events extends Component {
     );
   }
 
+    showAlert(error) {
+        Alert.alert(
+            'Error',
+            error,
+            [
+                { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+        );
+    }
+
   componentDidMount() {
     this.loadEvents(0);
   }
@@ -300,6 +311,7 @@ Events.propTypes = {
   isLoading: PropTypes.bool,
   userCoord: PropTypes.object,
   delta: PropTypes.array,
+  error: PropTypes.object,
   isAuthenticated: PropTypes.bool,
   datasetUUIDSelector: PropTypes.string,
   onSearchEventsAction: PropTypes.func,

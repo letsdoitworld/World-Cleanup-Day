@@ -1,23 +1,18 @@
-import { call, put, take } from 'redux-saga/effects';
+import {call, put, take} from 'redux-saga/effects';
+
+import {setErrorMessage,} from '../actions/app';
 
 import {
-    setErrorMessage,
-} from '../actions/app';
-
-import {
-    // CREATE_PROFILE_ACTION,
     FETCH_PROFILE,
-    UPDATE_PROFILE_STATUS_ACTION,
+    fetchProfileDone,
     LOAD_MY_EVENTS_ACTION,
     LOAD_MY_TRASH_POINTS_ACTION,
-    fetchProfileDone,
-    updateProfileStatusDone,
-    loadMyEventsSuccess,
-    loadMyEventsError,
-    loadMyTrashPointsSuccess,
-    loadMyTrashPointsError,
     loadMyEventsPaginationSuccess,
+    loadMyEventsSuccess,
     loadMyTrashPointsPaginationSuccess,
+    loadMyTrashPointsSuccess,
+    UPDATE_PROFILE_STATUS_ACTION,
+    updateProfileStatusDone,
 } from '../actions/profile';
 
 import Api from '../../api';
@@ -72,7 +67,7 @@ export function* loadMyEvents(pageSize, pageNumber) {
       yield put(loadMyEventsSuccess(events));
     }
   } catch (error) {
-    yield put(loadMyEventsError(error.message));
+      yield put(setErrorMessage(error.message));
   }
 }
 
@@ -98,7 +93,7 @@ export function* loadMyTrashPoints(pageSize, pageNumber) {
       yield put(loadMyTrashPointsSuccess(trashpoints));
     }
   } catch (error) {
-    yield put(loadMyTrashPointsError(error.message));
+      setErrorMessage(error.message);
   }
 }
 

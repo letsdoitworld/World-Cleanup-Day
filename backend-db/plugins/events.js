@@ -31,7 +31,8 @@ const mapEvent = async event => {
     event.photos = event.photos.map(p => p.url);
     if (event.trashpoints) {
       event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
-        await db.getTrashpoint(trashpointId)));
+        await db.getTrashpoint(trashpointId)))
+      event.trashpoints = event.trashpoints.filter(t => t);
       event.trashpoints = event.trashpoints.map(t => {
         if (t.location) {
           t.latitude = t.location.latitude;

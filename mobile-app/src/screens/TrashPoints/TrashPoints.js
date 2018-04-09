@@ -1,33 +1,25 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {
-    ActivityIndicator,
-    Dimensions,
-    LayoutAnimation,
-    TextInput,
-    UIManager,
-    View,
-} from 'react-native';
+import {ActivityIndicator, Dimensions, LayoutAnimation, TextInput, UIManager, View,} from 'react-native';
 
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
 
-import { Map as MapView } from '../../components/Map';
-import { DEFAULT_ZOOM, DEFAULT_LOCATION, MIN_ZOOM } from '../../shared/constants';
-import { CREATE_MARKER, TRASH_POINT } from '../index';
+import {Map as MapView} from '../../components/Map';
+import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
+import {CREATE_MARKER, TRASH_POINT} from '../index';
 import styles from '../Events/styles';
-import { debounce } from '../../shared/util';
+import {debounce} from '../../shared/util';
 import strings from '../../assets/strings';
-import { getCurrentPosition } from '../../shared/geo';
+import {getCurrentPosition} from '../../shared/geo';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import { autocompleteStyle } from '../AddLocation/AddLocation';
-
+import {autocompleteStyle} from '../AddLocation/AddLocation';
 // import styles from './styles';
-import { renderItem } from '../AddTrashPoints/Item/ListItem';
+import {renderItem} from '../AddTrashPoints/Item/ListItem';
 
 const { width } = Dimensions.get('window');
 
@@ -133,15 +125,22 @@ class TrashPoints extends Component {
     }
 
   componentDidMount() {
-      setTimeout(() => {
-          navigator.geolocation.getCurrentPosition(
-                (position) => {
-                  this.getLocation(position);
-                },
-                error => console.log('Error', error),
-                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-            );
-        }, 1000);
+      //This is workaround!! Think how normal fix this issue
+      try {
+          setTimeout(() => {
+
+              navigator.geolocation.getCurrentPosition(
+                  (position) => {
+                      this.getLocation(position);
+                  },
+                  error => console.log('Error', error),
+                  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+              );
+          }, 2000);
+      } catch (ex) {
+          console.log('Error', ex)
+      }
+
       if (!this.props.datasetUUIDSelector) {
           this.props.onFetchDatasetUUIDAction();
         }

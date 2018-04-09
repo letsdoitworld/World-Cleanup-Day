@@ -127,6 +127,6 @@
   "label_text_about_5": "Rahastajad: Keskkonnaministeerium, Välisministeerium, Eesti Vabariik 100",
   "label_button_editTP_delete": "Kustuta prügi leiukoht",
   "label_locked_account_warning": "Teie konto on lukustatud. Lisateabe saamiseks pöörduge administraatori poole.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_no_connection_note": "Interneti ühenduseta saab prügipunkte vaid luua. Prügipunkt kantakse kaardile kui ühendus internetiga on taastatud.",
   "label_your_coordinates": "Sinu koordinaadid"
 }

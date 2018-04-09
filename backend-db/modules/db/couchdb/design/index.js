@@ -171,7 +171,7 @@ const designDocs = {
                 view: {
                     map: function (doc) {
                         if (doc.$doctype === 'team') {
-                            emit(doc._id, doc);
+                            emit(doc.name, doc);
                         }
                     },
                 },

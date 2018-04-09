@@ -6,7 +6,7 @@ module.exports = {
         'role:db,cmd:getAllTeams',
         req => ({
             CC: req.swagger.params.country.value,
-            search: req.swagger.params.search && req.swagger.params.search.value,
+            search: req.swagger.params.search.value,
         }),
     ),
     getAllTeamsWeb: senecaRequestMw(

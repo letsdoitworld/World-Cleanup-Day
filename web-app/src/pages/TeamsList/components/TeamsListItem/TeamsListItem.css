@@ -10,7 +10,7 @@
 }
 
 .TeamsListItem:hover {
-  background-color: #D8EDFF!important;
+  background-color: #D8EDFF;
   cursor: pointer
 }
 

@@ -109,7 +109,6 @@ class TeamDetails extends Component {
           const count = statusCounts[key] || 0;
           return (
             <div className="StatusCount-container" key={key}>
-              {console.log({ status, count })}
               <div
                 className="StatusCount-circle"
                 style={{
@@ -147,34 +146,34 @@ class TeamDetails extends Component {
 
     return team.id === params.id ?
       <div className="AreaList">
-        <div className='AreaList-top-band'>
+        <div className="AreaList-top-band">
           <div
             onClick={this.handleBackClick}
-            className='AreaList-top-band-back'>
-            <div className='AreaList-top-band-left-arrow'/>
+            className="AreaList-top-band-back">
+            <div className="AreaList-top-band-left-arrow"/>
           </div>
           <div className="AreaList-top-band-area">{team.name}</div>
         </div>
-        < div className='TeamDetails-body'>
-          <div className='TeamDetails-logo'>
-            <img className='TeamDetails-logo' src={team.image}/>
+        < div className="TeamDetails-body">
+          <div className="TeamDetails-logo">
+            <img className="TeamDetails-logo" src={team.image}/>
           </div>
           <div>
             <div className="TeamDetails-members">
               <img className="TeamDetails-members-icon" src={imageLocation}/>
-              <p className='TeamDetails-members-p'>
+              <p className="TeamDetails-members-p">
                 {team.CC ? COUNTRIES_HASH[team.CC] : 'Global'}
               </p>
             </div>
             <div className="TeamDetails-members">
               <img className="TeamDetails-members-icon" src={imageMembers}/>
-              <p className='TeamDetails-members-p'>
+              <p className="TeamDetails-members-p">
                 {this.oneOrMany(team.members, 'member')}
               </p>
             </div>
           </div>
         </div>
-        <p className='TeamDetails-description-p'>{team.teamDescription}</p>
+        <p className="TeamDetails-description-p">{team.teamDescription}</p>
         <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
           <div style={{ flex: -1 }}>
             {this.renderStatusCounts()}

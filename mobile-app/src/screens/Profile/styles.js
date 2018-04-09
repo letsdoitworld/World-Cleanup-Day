@@ -56,7 +56,6 @@ export default EStyleSheet.create({
   teamIconImage: {
     width: getWidthPercentage(40),
     height: getWidthPercentage(40),
-    // borderRadius: getWidthPercentage(20),
   },
   teamContentContainer: {
     flexGrow: 1,

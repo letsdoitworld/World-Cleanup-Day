@@ -3,7 +3,7 @@
     align-self: stretch;
     display: flex;
     flex-direction: column;
-    overflow-y: auto!important;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 .Team-List{

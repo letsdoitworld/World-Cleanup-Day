@@ -9,6 +9,8 @@ import { Loader } from '../../components/Spinner';
 import { TeamsListItem } from './components/TeamsListItem';
 import './TeamsList.css';
 
+const LENGTH_SEARCH_START = 3;
+
 class TeamsList extends PureComponent {
   constructor(props) {
     super(props);
@@ -32,15 +34,14 @@ class TeamsList extends PureComponent {
   };
 
   handleSetSort = sortBy => {
-    this.setState({
-      sortBy: sortBy
-    });
+    this.setState({ sortBy });
   };
 
   getFilteredTeams = () => {
     const { search } = this.state;
     const { teams } = this.props;
-    if (!search || (search && search.length < 3)) {
+    if (!search || (
+      search && search.length < LENGTH_SEARCH_START)) {
       return teams;
     }
     return teams.filter(
@@ -131,7 +132,6 @@ class TeamsList extends PureComponent {
     const { search } = this.state;
     return (
       <List
-
         elementHeight={62}
         headerContent={this.renderHeaderContent()}
         items={this.renderItems()}

@@ -26,12 +26,13 @@ class TeamProfile extends Component {
   }
 
   alert = (join, onPress, team) => {
+    const { t } = this.props;
     Alert.alert(
-      `${join ? 'Join' : 'Leave'} a team`,
-      `Do you really want to ${join ? 'join' : 'leave'} the team ${team.name}?`,
+      join ? t('label_button_join_team') : t('label_button_leave_team'),
+      `${join ? t('label_text_select_join') : t('label_text_select_leave')} ${team.name}?`,
       [
-        { text: 'No', style: 'cancel' },
-        { text: 'Yes', onPress },
+        { text: t('label_no'), style: t('label_cancel') },
+        { text: t('label_yes'), onPress },
       ],
     );
   };

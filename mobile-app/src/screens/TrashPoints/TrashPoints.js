@@ -19,6 +19,7 @@ import Api from '../../api';
 import {autocompleteStyle} from '../AddLocation/AddLocation';
 // import styles from './styles';
 import {renderItem} from '../AddTrashPoints/Item/ListItem';
+import {getCurrentPosition} from "../../shared/geo";
 
 const { width } = Dimensions.get('window');
 
@@ -401,7 +402,8 @@ class TrashPoints extends Component {
 
   handleFabPress = async () => {
       const image = await ImagePicker.openCamera({
-          compressImageQuality: 0.2,
+          width: 500,
+          height: 350,
           cropping: true,
           includeBase64: true,
         });
@@ -416,24 +418,20 @@ class TrashPoints extends Component {
         });
 
       //TODO fix me as user expected!!
-      // const { coords } = await getCurrentPosition({
-      //     enableHighAccuracy: false,
-      //     timeout: 10 * 1000,
-      //     maximumAge: 60 * 1000,
-      //   });
+      const { coords } = await getCurrentPosition({
+          enableHighAccuracy: false,
+          timeout: 10 * 1000,
+          maximumAge: 60 * 1000,
+        });
 
-      if (this.props.userCoord && this.props.userCoord.latitude) {
           this.props.navigator.push({
               screen: CREATE_MARKER,
               title: strings.label_button_createTP_confirm_create,
               passProps: {
                   photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
-                  coords: this.props.userCoord,
+                  coords,
               },
           });
-      } else {
-          this.showAlert()
-      }
 
     };
 

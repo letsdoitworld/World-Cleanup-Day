@@ -99,6 +99,7 @@ export default class App extends PureComponent {
           title: strings.label_header_profile,
         },
       ],
+      orientation: 'portrait',
     }).done();
   }
 

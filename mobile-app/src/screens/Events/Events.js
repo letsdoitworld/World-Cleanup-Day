@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, Alert, Animation, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
+import {ActivityIndicator, Alert, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
 import styles from './styles';
 import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN} from '../index';
 import strings from '../../assets/strings';

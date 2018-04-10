@@ -208,7 +208,7 @@ class TrashPoints extends Component {
                     trashPoint: marker,
                 },
             });
-        } else if (this.map) {
+        } else if (this.map && marker.count) {
 
             const {latitude, longitude, latitudeDelta, longitudeDelta} = this.state.region;
             const northWest = {
@@ -239,7 +239,7 @@ class TrashPoints extends Component {
                 ...marker.latlng,
                 ...delta
             };
-            this.map.animateToRegion(region, 300);
+            this.map.animateToRegion(region, 1500);
         }
     }
 

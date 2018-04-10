@@ -869,6 +869,9 @@ parameters:
         whatToBring:
           description: Text field which says what to bring on the event.
           $ref: "#/definitions/EventWhatToBring"
+        coordinatorName:
+          description: Text field which says coordinator name on the event.
+          $ref: "#/definitions/EventCoordinatorName"
         createDate:
           description: When the event was created.
           $ref: "#/definitions/ISOTimestamp"
@@ -1314,6 +1317,10 @@ definitions:
     type: string
     minLength: 1
     maxLength: 500
+  EventCoordinatorName:
+    type: string
+    minLength: 1
+    maxLength: 500
   #-----------------------------------------------------------------------------
   # Event image characteristics.
   #-----------------------------------------------------------------------------
@@ -1382,6 +1389,9 @@ definitions:
       whatToBring:
         description: Text field which says what to bring on the event.
         $ref: "#/definitions/EventWhatToBring"
+      coordinatorName:
+        description: Text field which says coordinator name on the event.
+        $ref: "#/definitions/EventCoordinatorName"
       createDate:
         description: When the event was created.
         $ref: "#/definitions/ISOTimestamp"

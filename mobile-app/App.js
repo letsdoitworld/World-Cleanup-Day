@@ -99,7 +99,9 @@ export default class App extends PureComponent {
           title: strings.label_header_profile,
         },
       ],
-      orientation: 'portrait',
+      appStyle: {
+        orientation: 'portrait', // Sets a specific orientation to the entire app. Default: 'auto'. Supported values: 'auto', 'landscape', 'portrait'
+      },
     }).done();
   }
 

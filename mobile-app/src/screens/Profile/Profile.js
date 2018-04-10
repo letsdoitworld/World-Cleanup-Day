@@ -94,9 +94,8 @@ class Profile extends Component {
   componentDidUpdate() {
     const { error, onSetError } = this.props;
     if (!isNil(error) && !isNil(error.message)) {
-
       this.showAlert(error.message);
-        onSetError(null);
+      onSetError(null);
     }
     this.previousError = error;
   }
@@ -147,19 +146,19 @@ class Profile extends Component {
   }
 
   handleRenderPhoneNumber() {
-      const { profile } = this.props;
+    const { profile } = this.props;
 
-      if (profile && profile.phoneNumber) {
-          return (
-              <View>
-                  <View style={styles.additionalInfoContainer}>
-                      <Icon path={Icons.Phone}/>
-                      <Text style={styles.additionalInfoText}>+3809500000000</Text>
-                  </View>
-                  <Divider/>
-              </View>
-          );
-      }
+    if (profile && profile.phoneNumber) {
+      return (
+        <View>
+          <View style={styles.additionalInfoContainer}>
+            <Icon path={Icons.Phone} />
+            <Text style={styles.additionalInfoText}>+3809500000000</Text>
+          </View>
+          <Divider />
+        </View>
+      );
+    }
   }
 
   handleRenderEmail() {
@@ -343,7 +342,7 @@ Profile.propTypes = {
   onLoadMyEvents: PropTypes.func,
   onLoadMyTrashPoints: PropTypes.func,
   onLoadMyTrashPointsError: PropTypes.func,
-    onSetError: PropTypes.object,
+  onSetError: PropTypes.object,
 };
 
 export default Profile;

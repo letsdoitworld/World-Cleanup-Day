@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, Dimensions, LayoutAnimation, TextInput, UIManager, View,} from 'react-native';
+import {ActivityIndicator, Alert, Dimensions, LayoutAnimation, TextInput, UIManager, View,} from 'react-native';
 
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
@@ -14,7 +14,6 @@ import {CREATE_MARKER, TRASH_POINT} from '../index';
 import styles from '../Events/styles';
 import {debounce} from '../../shared/util';
 import strings from '../../assets/strings';
-import {getCurrentPosition} from '../../shared/geo';
 import ImageService from '../../services/Image';
 import Api from '../../api';
 import {autocompleteStyle} from '../AddLocation/AddLocation';
@@ -416,21 +415,37 @@ class TrashPoints extends Component {
           height,
         });
 
-      const { coords } = await getCurrentPosition({
-          enableHighAccuracy: false,
-          timeout: 10 * 1000,
-          maximumAge: 60 * 1000,
-        });
+      //TODO fix me as user expected!!
+      // const { coords } = await getCurrentPosition({
+      //     enableHighAccuracy: false,
+      //     timeout: 10 * 1000,
+      //     maximumAge: 60 * 1000,
+      //   });
 
-      this.props.navigator.push({
-          screen: CREATE_MARKER,
-          title: strings.label_button_createTP_confirm_create,
-          passProps: {
-              photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
-              coords,
-            },
-        });
+      if (this.props.userCoord && this.props.userCoord.latitude) {
+          this.props.navigator.push({
+              screen: CREATE_MARKER,
+              title: strings.label_button_createTP_confirm_create,
+              passProps: {
+                  photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
+                  coords: this.props.userCoord,
+              },
+          });
+      } else {
+          this.showAlert()
+      }
+
     };
+
+    showAlert() {
+        Alert.alert(
+            'Error',
+            strings.label_error_location_subtitle,
+            [
+                { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+        );
+    }
 
   isProgressEnabled() {
       return this.props.isLoading;

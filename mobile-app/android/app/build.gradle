@@ -109,9 +109,9 @@ android {
 
     defaultConfig {
         applicationId "com.teeme.ldi"
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 26
-        versionCode 15
+        versionCode 18
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"

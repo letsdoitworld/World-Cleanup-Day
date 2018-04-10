@@ -211,7 +211,6 @@ class Profile extends Component {
     if (isEmpty(myTrashPoints)) return;
 
     if (!this.state.isEndTrashpointReached && !(myTrashPoints.length % trashpointsPageSize)) {
-      console.warn('In');
       onLoadMyTrashPoints(trashpointsPageSize, ++trashpointsPageNumber);
       this.setState({ isEndTrashpointReached: true });
     }
@@ -306,7 +305,6 @@ class Profile extends Component {
     });
 
     if (!isAuthenticated && isGuestSession) return this.handleRenderGuestProfile();
-
     return (
       <View style={styles.container}>
         <View style={styles.infoContainer}>
@@ -319,7 +317,6 @@ class Profile extends Component {
           </View>
         </View>
         <Divider />
-        {this.handleRenderPhoneNumber()}
         {this.handleRenderEmail()}
         <Tabs
                 // scenes={scenes}

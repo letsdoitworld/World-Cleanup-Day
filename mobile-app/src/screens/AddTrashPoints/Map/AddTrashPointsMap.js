@@ -1,23 +1,13 @@
 import React, {Component} from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Text, ScrollView,
-    TextInput,
-    Image,
-    Dimensions,
-    LayoutAnimation,
-    UIManager,
-    KeyboardAvoidingView
-} from 'react-native';
+import {Text, UIManager, View} from 'react-native';
 import styles from './styles'
 import {Map as MapView} from '../../../components';
 import {DEFAULT_ZOOM} from "../../../shared/constants";
 import strings from "../../../assets/strings";
 import {renderItem} from '../Item/ListItem';
-import {ADD_TRASH_POINTS, TRASH_POINT} from "../../index";
+import {TRASH_POINT} from "../../index";
 
-import { Icons } from '../../../assets/images';
+import {Icons} from '../../../assets/images';
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -120,7 +110,7 @@ export default class AddTrashPointsMap extends Component {
                 status: trashPoint.status,
                 isMarked: this.marked.has(trashPoint.id),
                 item: trashPoint,
-                isSelected: this.state.selectedItem.id === trashPoint
+                isSelected: this.state.selectedItem.id === trashPoint.id
             }
         });
 
@@ -140,6 +130,16 @@ export default class AddTrashPointsMap extends Component {
 
         const checked = selectedItem ? this.marked.has(selectedItem.id) : undefined;
 
+        let selectedRegion;
+        if (selectedItem) {
+            selectedRegion = {
+                latitude: selectedItem.location.latitude,
+                longitude: selectedItem.location.longitude,
+                latitudeDelta: DEFAULT_ZOOM,
+                longitudeDelta: DEFAULT_ZOOM,
+            }
+        }
+
         return (
             <View style={styles.container}>
                 {this.renderCounter()}
@@ -147,7 +147,7 @@ export default class AddTrashPointsMap extends Component {
                     handleOnMarkerPress={this.handleOnMarkerPress.bind(this)}
                     markers={this.state.markers}
                     initialRegion={this.initialRegion}
-                    region={++this.count === 1 ? this.initialRegion : undefined}
+                    region={++this.count === 1 ? this.initialRegion : selectedRegion}
                     style={styles.map}
                     getRef={(map) => this.map = map}/>
                 {this.renderSelectedItem(selectedItem, checked)}

@@ -163,6 +163,12 @@ module.exports = function () {
         return connector.input(args)
         .use(async function ({update}, responder) {
             const id = __.user.id;
+            if (!update.value) {
+                const userEventsCount = await db.countUserEvents();
+                if (userEventsCount > 0) {
+                    return responder.failure(new LuciusError(E.ACCOUNT_HAS_ACTIVE_EVENTS, {id}))
+                }
+            }
             const account = await db.modifyOwnAccountPrivacy(id, id, update.value);
             if (!account) {
                 return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id}))

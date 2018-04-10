@@ -210,7 +210,7 @@ class TrashPoints extends Component {
             });
         } else if (this.map && marker.count) {
 
-            const {latitude, longitude, latitudeDelta, longitudeDelta} = this.state.region;
+            const {latitude, longitude, latitudeDelta, longitudeDelta} = this.region;
             const northWest = {
                 latitude: this.adjustLatitude(latitude + latitudeDelta / 2),
                 longitude: this.adjustLongitude(longitude - longitudeDelta / 2),
@@ -221,7 +221,7 @@ class TrashPoints extends Component {
             };
 
             const cell = Api.trashPoints.calculateCell(northWest, southEast);
-            const delta = Api.trashPoints.calculateDelta(northWest, southEast, this.state.region);
+            const delta = Api.trashPoints.calculateDelta(northWest, southEast, this.region);
             if (this.state.region.latitudeDelta === MIN_ZOOM) {
                 return this.setState({
                     updateRegion: false
@@ -239,7 +239,7 @@ class TrashPoints extends Component {
                 ...marker.latlng,
                 ...delta
             };
-            this.map.animateToRegion(region, 1500);
+            this.map.animateToRegion(region, 300);
         }
     }
 
@@ -266,6 +266,8 @@ class TrashPoints extends Component {
     };
 
     handleOnRegionChangeComplete = (center) => {
+
+        this.region = center;
 
         if (!this.state.updateRegion) {
             this.setState((previousState) => {

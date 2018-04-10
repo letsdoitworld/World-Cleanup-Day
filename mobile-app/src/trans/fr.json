@@ -127,6 +127,6 @@
   "label_text_about_5": "Donateurs : Ministère de l'Environnement Estonien, Ministère des Affaires Étrangères Estonien et le programme Estonien \"Estonia100\"",
   "label_button_editTP_delete": "Supprimer ce site de déchets",
   "label_locked_account_warning": "Votre compte est verrouillé. Pour plus d'informations, veuillez contacter un administrateur.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_no_connection_note": "Sans accès à internet, vous pouvez uniquement indiquer le site de déchets. Ce site de déchets sera ajouté au serveur quand la connexion internet sera rétablie.",
+  "label_your_coordinates": "Vos coordonnées GPS"
 }

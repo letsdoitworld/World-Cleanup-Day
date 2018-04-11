@@ -6,6 +6,7 @@ import MapView from 'react-native-maps';
 import Marker from './Marker';
 
 import styles, {grayMapStyle} from './styles';
+import {Platform} from "react-native";
 
 class Map extends Component {
 
@@ -63,7 +64,6 @@ class Map extends Component {
         }
     };
 
-
     render() {
         const outerStyle = this.props.style;
         const containerStyle = {
@@ -76,7 +76,7 @@ class Map extends Component {
                 rotateEnabled={false}
                 customMapStyle={grayMapStyle}
                 {...this.props}
-                ref={this.props.getRef}
+                ref={this.getMapObject}
                 style={containerStyle}
                 onRegionChangeComplete={this.onRegionChangeComplete}
                 provider="google"
@@ -85,6 +85,19 @@ class Map extends Component {
                 {this.displayCircle()}
             </MapView>
         );
+    }
+
+    getMapObject = map => {
+        this.map = map;
+       // console.warn(this.map);
+        this.props.getRef(this.map)
+        // if (this.map) {
+        //     if (Platform.OS === 'ios' && this.props.initialRegion) {
+        //         this.map.setNativeProps({ region: this.props.initialRegion });
+        //     } else if(Platform.OS === 'ios') {
+        //         this.map.setNativeProps({ region: this.props.region });
+        //     }
+        // }
     }
 }
 

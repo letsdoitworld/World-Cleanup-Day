@@ -4,7 +4,7 @@ import {Navigation} from 'react-native-navigation';
 
 import isNil from 'lodash/isNil';
 
-import {EVENTS, LOGIN_SCREEN, PROFILE_SCREEN, registerScreens, TRASH_POINTS,} from './src/screens';
+import {EVENTS, LOGIN_SCREEN, PROFILE_SCREEN, registerScreens, TRASH_POINTS} from './src/screens';
 
 import './src/config/styles';
 
@@ -22,84 +22,86 @@ isMainScreenOpened = false;
 
 export default class App extends PureComponent {
 
-    isMainScreenOpened = false;
+  isMainScreenOpened = false;
 
-    constructor() {
-        super();
-        store.subscribe(this.onStoreUpdate.bind(this));
-        this.currentToken = null;
+  constructor() {
+    super();
+    store.subscribe(this.onStoreUpdate.bind(this));
+    this.currentToken = null;
+  }
+
+  onStoreUpdate() {
+    const auth = store.getState().get('auth');
+    const token = auth.get('token');
+
+    const isGuestSession = auth.get('isGuestSession');
+
+    if (this.currentToken !== token) {
+      this.currentToken = token;
+      this.startApp(token, isGuestSession);
     }
 
-    onStoreUpdate() {
-        const auth = store.getState().get('auth');
-        const token = auth.get('token');
-        console.log("Token ", token);
+    if (this.isGuestSession !== isGuestSession) {
+      this.isGuestSession = isGuestSession;
+      this.startApp(token, isGuestSession);
+    }
+  }
 
-        const isGuestSession = auth.get('isGuestSession');
-
-        if (this.currentToken !== token) {
-            this.currentToken = token;
-            this.startApp(token, isGuestSession);
-        }
-
-        if (this.isGuestSession !== isGuestSession) {
-            this.isGuestSession = isGuestSession;
-            this.startApp(token, isGuestSession);
-        }
+  startApp(token, isGuestSession) {
+    if (isGuestSession) {
+      App.mainScreen();
+      return;
     }
 
-    startApp(token, isGuestSession) {
-        if (isGuestSession) {
-            App.mainScreen();
-            return;
-        }
-
-        if (isNil(token)) {
-            App.loginScreen();
-            return;
-        }
-
-        App.mainScreen();
+    if (isNil(token)) {
+      App.loginScreen();
+      return;
     }
 
-    static loginScreen() {
-            Navigation.startSingleScreenApp({
-                screen: {
-                    screen: LOGIN_SCREEN,
-                    animationType: 'slide-in',
-                }
-            });
-    }
+    App.mainScreen();
+  }
 
-    static mainScreen() {
-        if (this.isMainScreenOpened) return;
-        this.isMainScreenOpened = true;
-        Navigation.startTabBasedApp({
-            tabs: [
-                {
-                    screen: TRASH_POINTS,
-                    label: 'Trashpoints',
-                    icon: Icons.Trashpoints,
-                    selectedIcon: Icons.TrashpointsActive,
-                    title: 'Trashpoints',
-                },
-                {
-                    screen: EVENTS,
-                    label: 'Events',
-                    icon: Icons.Event,
-                    selectedIcon: Icons.EventActive,
-                    title: '',
-                },
-                {
-                    screen: PROFILE_SCREEN,
+  static loginScreen() {
+    Navigation.startSingleScreenApp({
+      screen: {
+        screen: LOGIN_SCREEN,
+        animationType: 'slide-in',
+      },
+    });
+  }
+
+  static mainScreen() {
+    if (this.isMainScreenOpened) return;
+    this.isMainScreenOpened = true;
+    Navigation.startTabBasedApp({
+      tabs: [
+        {
+          screen: TRASH_POINTS,
+          label: 'Trashpoints',
+          icon: Icons.Trashpoints,
+          selectedIcon: Icons.TrashpointsActive,
+          title: 'Trashpoints',
+        },
+        {
+          screen: EVENTS,
+          label: 'Events',
+          icon: Icons.Event,
+          selectedIcon: Icons.EventActive,
+          title: '',
+        },
+        {
+          screen: PROFILE_SCREEN,
                     // Todo add strings
-                    label: 'Profile',
-                    icon: Icons.Profile,
-                    selectedIcon: Icons.Profile,
-                    title: strings.label_header_profile,
-                },
-            ],
-        }).done();
-    }
+          label: 'Profile',
+          icon: Icons.Profile,
+          selectedIcon: Icons.Profile,
+          title: strings.label_header_profile,
+        },
+      ],
+      appStyle: {
+        orientation: 'portrait', // Sets a specific orientation to the entire app. Default: 'auto'. Supported values: 'auto', 'landscape', 'portrait'
+      },
+    }).done();
+  }
 
 }

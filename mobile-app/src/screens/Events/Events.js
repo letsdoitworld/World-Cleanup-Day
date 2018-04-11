@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, Alert, Animation, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
+import {ActivityIndicator, Alert, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
 import styles from './styles';
 import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN} from '../index';
 import strings from '../../assets/strings';
@@ -43,17 +43,17 @@ class Events extends Component {
       isSearchFieldVisible: false,
     };
 
-      this.closeValidationButton = {
-          text: strings.label_button_acknowledge,
-          onPress: this.handleSettingsPress
-      };
+    this.closeValidationButton = {
+      text: strings.label_button_acknowledge,
+      onPress: this.handleSettingsPress,
+    };
 
-      this.successCancelButton = {
-          text: strings.label_button_cancel,
-          onPress: this.successCancel.bind(this)
-      };
+    this.successCancelButton = {
+      text: strings.label_button_cancel,
+      onPress: this.successCancel.bind(this),
+    };
 
-       UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -61,20 +61,20 @@ class Events extends Component {
     this.setState((previousState) => {
       return { mode: index };
     });
-      this.props.navigator.setButtons({
-          leftButtons: [
-              {
-                  icon: require('../../../src/assets/images/icFilter.png'),
-                  id: filterId,
-              },
-          ],
-          rightButtons: index === 1 ? [] : [
-              {
-                  icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
-                  id: searchId,
-              },
-          ],
-      });
+    this.props.navigator.setButtons({
+      leftButtons: [
+        {
+          icon: require('../../../src/assets/images/icFilter.png'),
+          id: filterId,
+        },
+      ],
+      rightButtons: index === 1 ? [] : [
+        {
+          icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
+          id: searchId,
+        },
+      ],
+    });
   }
 
   isSearchFieldVisible() {
@@ -149,11 +149,11 @@ class Events extends Component {
         Alert.alert(
             strings.label_private_profile_wor_title,
                     strings.label_private_profile_wor,
-                    [
-                       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                       {text: 'Settings', onPress: this.handleSettingsPress},
-                    ],
-                    { cancelable: false }
+          [
+                       { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                       { text: strings.label_settings_header, onPress: this.handleSettingsPress.bind(this) },
+          ],
+                    { cancelable: false },
                 );
 
         return;
@@ -166,44 +166,44 @@ class Events extends Component {
       Alert.alert(
           strings.label_private_auth_wor_title,
                 strings.label_private_auth_wor,
-                [
-                    {text: 'Cancel', onPress: () => {}, style: 'cancel'},
-                    {text: 'Register', onPress: this.handleLogInPress},
-                ],
+        [
+                    { text: strings.label_button_cancel, onPress: () => {}, style: 'cancel' },
+                    { text: strings.label_register, onPress: this.handleLogInPress.bind(this) },
+        ],
             );
     }
   };
 
-    successCancel() {
-        this.props.navigator.pop()
-    }
+  successCancel() {
+    this.props.navigator.pop();
+  }
 
   renderContent(mapEvents) {
     switch (this.state.mode) {
       case MODE.list: {
         return (
           <EventsList
-              onRef={ref => (this.list = ref)}
-              navigator={this.props.navigator}
-              onPageChanged={this.loadEvents.bind(this)}
-              pageSize={PAGE_SIZE}
-              isLoading={this.props.isLoading}
-              events={this.props.events}
-            />
+            onRef={ref => (this.list = ref)}
+            navigator={this.props.navigator}
+            onPageChanged={this.loadEvents.bind(this)}
+            pageSize={PAGE_SIZE}
+            isLoading={this.props.isLoading}
+            events={this.props.events}
+          />
         );
       }
       case MODE.map: {
         return (
-            <EventsMap
-                initialRegion={this.props.userCoord}
-                mapEvents={mapEvents}
-                navigator={this.props.navigator}
-                onLoadMapEventsAction={this.props.onLoadMapEventsAction}
-                datasetUUIDSelector={this.props.datasetUUIDSelector}
-                onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}
-                onLoadEventsFromClusterAction={this.props.onLoadEventsFromClusterAction}
-                delta={this.props.delta}
-            />
+          <EventsMap
+            initialRegion={this.props.userCoord}
+            mapEvents={mapEvents}
+            navigator={this.props.navigator}
+            onLoadMapEventsAction={this.props.onLoadMapEventsAction}
+            datasetUUIDSelector={this.props.datasetUUIDSelector}
+            onFetchDatasetUUIDAction={this.props.onFetchDatasetUUIDAction}
+            onLoadEventsFromClusterAction={this.props.onLoadEventsFromClusterAction}
+            delta={this.props.delta}
+          />
         );
       }
       default:
@@ -237,15 +237,15 @@ class Events extends Component {
     );
   }
 
-    showAlert(error) {
-        Alert.alert(
+  showAlert(error) {
+    Alert.alert(
             'Error',
             error,
-            [
+      [
                 { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
+      ],
         );
-    }
+  }
 
   componentDidMount() {
     this.loadEvents(0);
@@ -261,13 +261,13 @@ class Events extends Component {
       return (
         <View style={[styles.horizontal, styles.searchContainerStyle]}>
           <TextInput
-              placeholderTextColor={'rgb(41, 127, 202)'}
-              style={styles.searchField}
-              ref="input"
-              onChangeText={this.onQueryChange.bind(this)}
-              placeholder={strings.label_text_select_country_hint}
-              underlineColorAndroid={'transparent'}
-            />
+            placeholderTextColor='rgb(41, 127, 202)'
+            style={styles.searchField}
+            ref="input"
+            onChangeText={this.onQueryChange.bind(this)}
+            placeholder={strings.label_text_select_country_hint}
+            underlineColorAndroid='transparent'
+          />
         </View>
       );
     }
@@ -291,12 +291,12 @@ class Events extends Component {
           {this.renderSearchBox()}
           {this.renderContent(events)}
           <FAB
-              buttonColor="rgb(225, 18, 131)"
-              iconTextColor="white"
-              onClickAction={this.handleFabPress.bind(this)}
-              visible
-              iconTextComponent={<Icon name="plus" />}
-            />
+            buttonColor="rgb(225, 18, 131)"
+            iconTextColor="white"
+            onClickAction={this.handleFabPress.bind(this)}
+            visible
+            iconTextComponent={<Icon name="plus" />}
+          />
         </View>
         {this.renderProgress()}
       </View>

@@ -8,7 +8,7 @@ import {
     searchEventsAction,
 } from '../../store/actions/events';
 
-import {fetchDatasetUIIDAction, setErrorMessage,} from '../../store/actions/app';
+import {fetchDatasetUIIDAction, setErrorMessage} from '../../store/actions/app';
 
 import {
     datasetUUID,
@@ -23,28 +23,28 @@ import {
 } from '../../store/selectors';
 
 import Component from './Events';
-import {guestLogIn} from "../../store/actions/auth";
+import {guestLogIn} from '../../store/actions/auth';
 
 const selector = createStructuredSelector({
-    events: getEventsEntity,
-    userCoord: getCoordUser,
-    mapEvents: getMapEventsEntity,
-    delta: showNewDeltaEntity,
-    error: errorHandle,
-    isAuthenticated,
-    isLoading,
-    isPrivateProfile,
-    datasetUUIDSelector: datasetUUID,
+  events: getEventsEntity,
+  userCoord: getCoordUser,
+  mapEvents: getMapEventsEntity,
+  delta: showNewDeltaEntity,
+  error: errorHandle,
+  isAuthenticated,
+  isLoading,
+  isPrivateProfile,
+  datasetUUIDSelector: datasetUUID,
 });
 
 const actions = {
-    onSearchEventsAction: searchEventsAction,
-    onClearEventsAction: clearEventsAction,
-    onGuestLogIn: guestLogIn,
-    onLoadMapEventsAction: loadEventsForMapAction,
-    onFetchDatasetUUIDAction: fetchDatasetUIIDAction,
-    onLoadEventsFromClusterAction: loadEventsFromClusterAction,
-    onSetError: setErrorMessage,
+  onSearchEventsAction: searchEventsAction,
+  onClearEventsAction: clearEventsAction,
+  onGuestLogIn: guestLogIn,
+  onLoadMapEventsAction: loadEventsForMapAction,
+  onFetchDatasetUUIDAction: fetchDatasetUIIDAction,
+  onLoadEventsFromClusterAction: loadEventsFromClusterAction,
+  onSetError: setErrorMessage,
 };
 
 export default connect(selector, actions)(Component);

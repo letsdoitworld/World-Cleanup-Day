@@ -14,11 +14,12 @@ export default StyleSheet.create({
     backgroundColor: colors.gray100,
   },
   nameContainer: {
-    height: getHeightPercentage(50),
+    paddingVertical: dm.margin_small,
     width: '100%',
     justifyContent: 'center',
     backgroundColor: colors.white,
     paddingHorizontal: dm.margin_medium,
+    flex: 1,
   },
   name: {
     flexWrap: 'wrap',

@@ -116,7 +116,7 @@ class EventDetails extends PureComponent {
 
   handleRenderButton() {
     const { event, profile } = this.props;
-  
+
     if (!profile) return;
 
     if (event.createdBy !== profile.id) {
@@ -222,7 +222,9 @@ class EventDetails extends PureComponent {
         style={styles.trashpointsContainer}
       >
         <Icon path={Icons.Trashpoints} />
-        <Text style={styles.locationText}>{strings.label_tap_to_preview_trashpoints}</Text>
+        <Text style={styles.locationText}>
+          {strings.label_tap_to_preview_trashpoints}
+        </Text>
         <View style={styles.trashpointsRightContainer}>
           {this.handleRenderCircle()}
           <Icon path={Icons.Back} iconStyle={styles.arrowIcon} />
@@ -413,7 +415,6 @@ EventDetails.propTypes = {
   profile: PropTypes.object,
   event: PropTypes.object,
   imageIndex: PropTypes.number,
-  error: PropTypes.object,
   eventId: PropTypes.string,
   navigator: PropTypes.object,
   onLoadEvent: PropTypes.func,

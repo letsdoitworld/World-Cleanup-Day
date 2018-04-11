@@ -1,4 +1,4 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
 const getState = state => state.toJS();
 
@@ -7,6 +7,11 @@ const eventsSelector = createSelector(getState, state => state.events);
 export const getEventsEntity = createSelector(
     eventsSelector,
     events => events.events,
+);
+
+export const getEmptyEventsEntity = createSelector(
+    eventsSelector,
+    events => events.events && events.events.map(event => {if(!event.photos[0]) return event}).filter(event => {return typeof event!== 'undefined'}),
 );
 
 export const getEventEntity = createSelector(

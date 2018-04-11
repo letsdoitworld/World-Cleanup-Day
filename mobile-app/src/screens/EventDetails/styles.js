@@ -14,7 +14,7 @@ export default StyleSheet.create({
     backgroundColor: colors.gray100,
   },
   nameContainer: {
-    height: getHeightPercentage(35),
+    height: getHeightPercentage(50),
     width: '100%',
     justifyContent: 'center',
     backgroundColor: colors.white,
@@ -154,6 +154,11 @@ export default StyleSheet.create({
     height: 200,
     flex: 1,
     resizeMode: 'cover',
+  },
+  emptyImage: {
+    height: 200,
+    flex: 1,
+    backgroundColor: colors.noImageColor,
   },
   floatingButton: {
     borderWidth: 1,

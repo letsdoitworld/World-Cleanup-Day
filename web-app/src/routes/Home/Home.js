@@ -52,6 +52,8 @@ class Home extends React.Component {
       <Terms onAccept={this.handleTermsAccept} />
     </div>);
 
+  renderTermsRoute = () => <Terms />;
+  renderPrivacyRoute = () => <Privacy />;
   renderNormalRoute = ({ history }) =>
     (<div
       className="Root-normal-route"
@@ -75,8 +77,6 @@ class Home extends React.Component {
         />
         <Route path="/user-areas" exact component={AreaList} />
         <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
-        <Route path="/terms" render={() => <Terms />} />
-        <Route path="/privacy" render={() => <Privacy />} />
         <Route
           path="/trashpoints/:id?"
           render={
@@ -118,6 +118,8 @@ class Home extends React.Component {
           authUser={userProfile.role ? userProfile : null}
         />
         <Switch>
+          <Route path="/terms" render={this.renderTermsRoute} />
+          <Route path="/privacy" render={this.renderPrivacyRoute} />
           <Route path="/" render={this.renderNormalRoute} />
         </Switch>
         <Footer />

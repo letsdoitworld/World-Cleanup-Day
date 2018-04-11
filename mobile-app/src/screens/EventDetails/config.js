@@ -2,7 +2,6 @@ import { Icons } from '../../assets/images';
 
 export const backId = 'back';
 export const trashpoints = 'trashpoints';
-export const placeholder = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
 
 export const navigatorStyle = {
   tabBarHidden: true,

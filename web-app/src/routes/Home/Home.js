@@ -53,6 +53,8 @@ class Home extends React.Component {
       <Terms onAccept={this.handleTermsAccept} />
     </div>);
 
+  renderTermsRoute = () => <Terms />;
+  renderPrivacyRoute = () => <Privacy />;
   renderNormalRoute = ({ history }) =>
     (<div
       className="Root-normal-route"

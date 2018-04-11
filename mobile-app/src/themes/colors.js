@@ -5,6 +5,7 @@ const colors = {
   gray100: 'rgb(240, 240, 240)',
   gray200: 'rgb(216, 216, 216)',
   blue: '#3683d9',
+  noImageColor: '#008fdf',
   red: '#FC515E',
   yellow: 'rgb(255, 216, 0)',
   iconColor: '#A1A1A1',

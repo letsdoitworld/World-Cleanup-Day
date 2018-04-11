@@ -1,5 +1,5 @@
-import {connect} from 'react-redux';
-import {createStructuredSelector} from 'reselect';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import {
     clearEventsAction,
@@ -8,13 +8,14 @@ import {
     searchEventsAction,
 } from '../../store/actions/events';
 
-import {fetchDatasetUIIDAction, setErrorMessage} from '../../store/actions/app';
+import { fetchDatasetUIIDAction, setErrorMessage } from '../../store/actions/app';
 
 import {
     datasetUUID,
     errorHandle,
     getCoordUser,
     getEventsEntity,
+    getEmptyEventsEntity,
     getMapEventsEntity,
     isAuthenticated,
     isLoading,
@@ -23,10 +24,11 @@ import {
 } from '../../store/selectors';
 
 import Component from './Events';
-import {guestLogIn} from '../../store/actions/auth';
+import { guestLogIn } from '../../store/actions/auth';
 
 const selector = createStructuredSelector({
   events: getEventsEntity,
+  emptyEvents: getEmptyEventsEntity,
   userCoord: getCoordUser,
   mapEvents: getMapEventsEntity,
   delta: showNewDeltaEntity,

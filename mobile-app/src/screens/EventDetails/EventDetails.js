@@ -17,8 +17,9 @@ import isEmpty from 'lodash/isEmpty';
 import has from 'lodash/has';
 
 import strings from '../../assets/strings';
-import { Icons } from '../../assets/images';
-import { Button, Icon, Map, ReadMore  } from '../../components';
+import { Icons, Backgrounds } from '../../assets/images';
+
+import { Button, Icon, Map, ReadMore } from '../../components';
 
 import { DEFAULT_ZOOM } from '../../shared/constants';
 
@@ -28,7 +29,14 @@ import { EVENTS_TRASHPOINTS_SCREEN } from '../index';
 
 import styles from './styles';
 
-import { backId, calendarConfig, navigatorButtons, navigatorStyle, placeholder, trashpoints } from './config';
+
+import {
+  backId,
+  calendarConfig,
+  navigatorButtons,
+  navigatorStyle,
+  trashpoints,
+} from './config';
 
 class EventDetails extends PureComponent {
 
@@ -71,6 +79,15 @@ class EventDetails extends PureComponent {
     }
   }
 
+  selectImage = () => {
+    const { imageIndex } = this.props;
+    switch (imageIndex) {
+      case 0: return Backgrounds.firstEmptyEventDetail;
+      case 1: return Backgrounds.secondEmptyEventDetail;
+      case 2: return Backgrounds.thirdEmptyEventDetail;
+    }
+  }
+
   handleEventJoin = () => console.log('Join Event');
 
   handlePhoneNumberOpen = (phoneNumber) => {
@@ -87,13 +104,12 @@ class EventDetails extends PureComponent {
   }
 
   handleRenderImage() {
-    const { event } = this.props;
-    const img = isEmpty(event.photos) ? { uri: placeholder } : { uri: event.photos[0] };
-
+    const { event, imageIndex } = this.props;
+    const bgImage = imageIndex === null ? { uri: event.photos[0] } : this.selectImage();
     return (
       <Image
         style={styles.coverImage}
-        source={img}
+        source={bgImage}
       />
     );
   }
@@ -248,11 +264,11 @@ class EventDetails extends PureComponent {
 
     return (
       <View>
-        {event.createdByName &&
+        {event.coordnatorName &&
           <View style={styles.coordinatorContainerItem}>
             <Icon path={Icons.Person} />
             <Text style={styles.coordinatorTextItem}>
-              {event.createdByName}
+              {event.coordnatorName}
             </Text>
           </View>
         }
@@ -282,6 +298,22 @@ class EventDetails extends PureComponent {
             <Icon path={Icons.Email} />
             <Text style={styles.coordinatorTextItem}>
               {event.email}
+            </Text>
+          </View>
+        }
+      </View>
+    );
+  }
+  handleRenderCreator() {
+    const { event } = this.props;
+
+    return (
+      <View>
+        {event.createdByName &&
+          <View style={styles.coordinatorContainerItem}>
+            <Icon path={Icons.Person} />
+            <Text style={styles.coordinatorTextItem}>
+              {event.createdByName}
             </Text>
           </View>
         }
@@ -330,7 +362,6 @@ class EventDetails extends PureComponent {
   render() {
     const { event } = this.props;
     const { isEndReached } = this.state;
-
     if (!event) return this.spinner();
 
     return (
@@ -345,7 +376,7 @@ class EventDetails extends PureComponent {
           <View style={styles.container}>
             {this.handleRenderImage()}
             <View style={styles.nameContainer}>
-              <Text style={styles.name}>{event.name}</Text>
+              <Text numberOfLines={2} style={styles.name}>{event.name}</Text>
             </View>
             {this.handleRenderButton()}
             <Text style={styles.title}>{toUpper(strings.lable_date_and_time)}</Text>
@@ -358,6 +389,8 @@ class EventDetails extends PureComponent {
             {this.handleRenderDescription()}
             <Text style={styles.title}>{toUpper(strings.label_what_to_bring)}</Text>
             {this.handleRenderWhatToBring()}
+            <Text style={styles.title}>{toUpper(strings.label_creator)}</Text>
+            {this.handleRenderCreator()}
             <Text style={styles.title}>{toUpper(strings.lable_coordinator)}</Text>
             {this.handleRenderCoordinator()}
             <Text style={styles.title}>{toUpper(strings.label_attendees)}</Text>
@@ -379,6 +412,7 @@ class EventDetails extends PureComponent {
 EventDetails.propTypes = {
   profile: PropTypes.object,
   event: PropTypes.object,
+  imageIndex: PropTypes.number,
   error: PropTypes.object,
   eventId: PropTypes.string,
   navigator: PropTypes.object,

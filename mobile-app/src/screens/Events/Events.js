@@ -1,13 +1,20 @@
-import React, {Component} from 'react';
-import {ActivityIndicator, Alert, LayoutAnimation, TextInput, UIManager, View} from 'react-native';
+import React, { Component } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  LayoutAnimation,
+  TextInput,
+  UIManager,
+  View,
+} from 'react-native';
 import styles from './styles';
-import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN} from '../index';
+import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
 import strings from '../../assets/strings';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 
 import EventsList from './List/List';
-import {debounce} from '../../shared/util';
+import { debounce } from '../../shared/util';
 import PropTypes from 'prop-types';
 import EventsMap from '../EventMap/EventsMap';
 
@@ -151,7 +158,7 @@ class Events extends Component {
                     strings.label_private_profile_wor,
           [
                        { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                       { text: strings.label_settings_header, onPress: this.handleSettingsPress.bind(this) },
+                       { text: strings.label_settings_header, onPress: this.handleSettingsPress },
           ],
                     { cancelable: false },
                 );
@@ -168,7 +175,7 @@ class Events extends Component {
                 strings.label_private_auth_wor,
         [
                     { text: strings.label_button_cancel, onPress: () => {}, style: 'cancel' },
-                    { text: strings.label_register, onPress: this.handleLogInPress.bind(this) },
+                    { text: strings.label_settings_header, onPress: this.handleLogInPress },
         ],
             );
     }
@@ -189,6 +196,7 @@ class Events extends Component {
             pageSize={PAGE_SIZE}
             isLoading={this.props.isLoading}
             events={this.props.events}
+            emptyEvents={this.props.emptyEvents}
           />
         );
       }
@@ -239,12 +247,12 @@ class Events extends Component {
 
   showAlert(error) {
     Alert.alert(
-            'Error',
-            error,
+      'Error',
+      error,
       [
-                { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+          { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
       ],
-        );
+    );
   }
 
   componentDidMount() {
@@ -261,12 +269,12 @@ class Events extends Component {
       return (
         <View style={[styles.horizontal, styles.searchContainerStyle]}>
           <TextInput
-            placeholderTextColor='rgb(41, 127, 202)'
+            placeholderTextColor="rgb(41, 127, 202)"
             style={styles.searchField}
             ref="input"
-            onChangeText={this.onQueryChange.bind(this)}
             placeholder={strings.label_text_select_country_hint}
-            underlineColorAndroid='transparent'
+            underlineColorAndroid="transparent"
+            onChangeText={this.onQueryChange.bind(this)}
           />
         </View>
       );
@@ -307,6 +315,7 @@ class Events extends Component {
 
 Events.propTypes = {
   events: PropTypes.array,
+  emptyEvents: PropTypes.array,
   mapEvents: PropTypes.array,
   isLoading: PropTypes.bool,
   userCoord: PropTypes.object,

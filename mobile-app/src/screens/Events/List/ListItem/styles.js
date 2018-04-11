@@ -1,4 +1,5 @@
 import dimens from "../../../../config/dimens";
+import { colors } from '../../../../themes';
 
 export default {
     itemTouch: {
@@ -20,6 +21,14 @@ export default {
         borderRadius: 4,
         overflow: 'hidden'
     },
+    noImage: {
+        width: 84,
+        height: 84,
+        margin: 10,
+        borderRadius: 84,
+        overflow: 'hidden',
+        backgroundColor: colors.noImageColor,
+    },
     titleContainer: {
         flex: 1,
         flexDirection: 'column',
@@ -27,7 +36,7 @@ export default {
     },
     title: {
         width: 144,
-        height: 36,
+        height: 38,
         fontFamily: "Lato-Heavy",
         color: 'rgb(40, 38, 51)',
         fontSize: 15,
@@ -71,6 +80,7 @@ export default {
         marginTop: dimens.margin_small,
         alignItems: 'center',
         flex: 1,
+        display: 'none',
     },
     statsContainer: {
         flexDirection: 'column',

@@ -13,10 +13,10 @@ export const searchEventsAction = (query, page, pageSize, location) => ({
 });
 
 export const searchEventsSuccessAction = (events, page, pageSize) => ({
-    type: SEARCH_EVENTS_SUCCESS_ACTION,
-    events,
-    page,
-    pageSize
+  type: SEARCH_EVENTS_SUCCESS_ACTION,
+  events,
+  page,
+  pageSize
 });
 
 export const searchEventsErrorAction = error => ({
@@ -50,30 +50,30 @@ export const loadEventError = err => ({
 
 export const LOAD_EVENTS_FOR_MAP_ACTION = 'LOAD_EVENTS_FOR_MAP_ACTION';
 export const loadEventsForMapAction = parameters => ({
-    type: LOAD_EVENTS_FOR_MAP_ACTION,
-    payload: parameters
+  type: LOAD_EVENTS_FOR_MAP_ACTION,
+  payload: parameters
 });
 
 export const LOAD_EVENTS_FOR_MAP_SUCCESS = 'LOAD_EVENTS_FOR_MAP_SUCCESS';
 export const loadEventsForMapSuccess = mapEvents => ({
-    type: LOAD_EVENTS_FOR_MAP_SUCCESS,
-    payload: mapEvents
+  type: LOAD_EVENTS_FOR_MAP_SUCCESS,
+  payload: mapEvents
 });
 
 export const SHOW_NEW_DELTA = 'SHOW_NEW_DELTA';
 export const showNewDeltaAction = newDelts => ({
-    type: SHOW_NEW_DELTA,
-    payload: newDelts
+  type: SHOW_NEW_DELTA,
+  payload: newDelts
 });
 
 export const LOAD_EVENTS_FOR_MAP_ERROR = 'LOAD_EVENTS_FOR_MAP_ERROR';
 export const loadEventsForMapError = error => ({
-    type: LOAD_EVENTS_FOR_MAP_ERROR,
-    payload: error
+  type: LOAD_EVENTS_FOR_MAP_ERROR,
+  payload: error
 });
 
 export const LOAD_EVENTS_FROM_CLUSTER_ACTION = 'LOAD_EVENTS_FROM_CLUSTER_ACTION';
 export const loadEventsFromClusterAction = parameters => ({
-    type: LOAD_EVENTS_FROM_CLUSTER_ACTION,
-    payload: parameters
+  type: LOAD_EVENTS_FROM_CLUSTER_ACTION,
+  payload: parameters
 });

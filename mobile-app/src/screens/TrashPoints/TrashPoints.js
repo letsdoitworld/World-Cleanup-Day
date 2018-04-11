@@ -442,7 +442,8 @@ class TrashPoints extends Component {
         }
 
         const image = await ImagePicker.openCamera({
-          compressImageQuality: 0.2,
+          width: 500,
+          height: 350,
           cropping: true,
           includeBase64: true,
         });

@@ -224,7 +224,7 @@ class Profile extends Component {
         title={event.name}
         coordinator={event.coordinator}
         address={event.address}
-        date={event.createDate}
+        date={event.startTime}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}
         onPress={() => this.handleEventPress(event)}

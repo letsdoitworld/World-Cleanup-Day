@@ -127,6 +127,6 @@
   "label_text_about_5": "Спонсори: Міністерство екології Естонії, Міністерство закордонних справ Республіки Естонія, Сто років Естонській Республіці",
   "label_button_editTP_delete": "Видалити забруднену точку",
   "label_locked_account_warning": "Ваш обліковий запис заблоковано. Для детальної інформації зв’яжіться з адміністратором.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+  "label_no_connection_note": "Якщо у вас відсутнє з'єднання до інтернету, то ви можете лише позначити сміття. Як тільки з'єднання буде відновлено, ваша позначка буде відправлена на сервер.",
   "label_your_coordinates": "Ваше місцезнаходження"
 }

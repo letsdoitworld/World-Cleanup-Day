@@ -153,7 +153,7 @@ class Profile extends Component {
         <View>
           <View style={styles.additionalInfoContainer}>
             <Icon path={Icons.Phone} />
-            <Text style={styles.additionalInfoText}>+3809500000000</Text>
+            <Text style={styles.additionalInfoText}>profile.phoneNumber</Text>
           </View>
           <Divider />
         </View>

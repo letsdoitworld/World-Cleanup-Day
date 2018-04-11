@@ -1,6 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, Alert, Dimensions, LayoutAnimation, TextInput, UIManager, View,} from 'react-native';
+import {
+    ActivityIndicator,
+    Alert,
+    Dimensions,
+    LayoutAnimation,
+    TextInput,
+    UIManager,
+    View,
+    PermissionsAndroid
+} from 'react-native';
 
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
@@ -60,7 +69,7 @@ class TrashPoints extends Component {
 
         const initialRegion = userCoord || DEFAULT_LOCATION;
 
-         const region = { ...initialRegion };
+        const region = {...initialRegion};
 
         this.state = {
             radius: DEFAULT_RADIUS_M,
@@ -135,7 +144,7 @@ class TrashPoints extends Component {
                     (position) => {
                         this.getLocation(position);
 
-                         const {latitude, longitude} = position.coords;
+                        const {latitude, longitude} = position.coords;
 
                         const initialRegion = {
                             longitude,
@@ -404,7 +413,7 @@ class TrashPoints extends Component {
                 return (
                     <MapView
                         initialRegion={initialRegion}
-                        onMapReady={()=> {
+                        onMapReady={() => {
                             this.isMapReady = true;
                             this.map.animateToRegion(initialRegion, 1500);
                         }}
@@ -422,41 +431,46 @@ class TrashPoints extends Component {
 
 
     handleFabPress = async () => {
-        const image = await ImagePicker.openCamera({
-            compressImageQuality: 0.2,
-            cropping: true,
-            includeBase64: true,
-        });
-        const {width, height, data, path} = image;
-        const uri = path;
-        const base64 = data;
+        try {
 
-        const thumbnailBase64 = await ImageService.getResizedImageBase64({
-            uri,
-            width,
-            height,
-        });
+            const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+            if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+                alert(strings.label_allow_access_to_camera);
+                return;
+            }
 
-        //TODO fix me as user expected!!
-        // const { coords } = await getCurrentPosition({
-        //     enableHighAccuracy: false,
-        //     timeout: 10 * 1000,
-        //     maximumAge: 60 * 1000,
-        //   });
-
-        if (this.props.userCoord && this.props.userCoord.latitude) {
-            this.props.navigator.push({
-                screen: CREATE_MARKER,
-                title: strings.label_button_createTP_confirm_create,
-                passProps: {
-                    photos: [{uri, thumbnail: {base64: thumbnailBase64}, base64}],
-                    coords: this.props.userCoord,
-                },
+            const image = await ImagePicker.openCamera({
+                compressImageQuality: 0.2,
+                cropping: true,
+                includeBase64: true,
             });
-        } else {
-            this.showAlert()
-        }
 
+            const {width, height, data, path} = image;
+            const uri = path;
+            const base64 = data;
+
+            const thumbnailBase64 = await ImageService.getResizedImageBase64({
+                uri,
+                width,
+                height,
+            });
+
+            if (this.props.userCoord && this.props.userCoord.latitude) {
+                this.props.navigator.push({
+                    screen: CREATE_MARKER,
+                    title: strings.label_button_createTP_confirm_create,
+                    passProps: {
+                        photos: [{uri, thumbnail: {base64: thumbnailBase64}, base64}],
+                        coords: this.props.userCoord,
+                    },
+                });
+            } else {
+                this.showAlert()
+            }
+
+        } catch (err) {
+            alert(strings.label_allow_access_to_camera)
+        }
     };
 
     showAlert() {

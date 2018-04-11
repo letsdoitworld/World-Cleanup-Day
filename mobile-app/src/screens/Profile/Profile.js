@@ -149,16 +149,16 @@ class Profile extends Component {
     const { profile } = this.props;
 
     if (profile && profile.phoneNumber) {
-        return (
-            <View>
-                <View style={styles.additionalInfoContainer}>
-                    <Icon path={Icons.Phone} />
-                    <Text style={styles.additionalInfoText}>+3809500000000</Text>
-                  </View>
-                <Divider />
-              </View>
-          );
-      }
+      return (
+        <View>
+          <View style={styles.additionalInfoContainer}>
+            <Icon path={Icons.Phone} />
+            <Text style={styles.additionalInfoText}>{profile.phoneNumber}</Text>
+          </View>
+          <Divider />
+        </View>
+      );
+    }
   }
 
   handleRenderEmail() {

@@ -157,8 +157,8 @@ class Events extends Component {
             strings.label_private_profile_wor_title,
                     strings.label_private_profile_wor,
           [
-                       { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                       { text: 'Settings', onPress: this.handleSettingsPress },
+                       { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                       { text: strings.label_settings_header, onPress: this.handleSettingsPress },
           ],
                     { cancelable: false },
                 );
@@ -174,15 +174,15 @@ class Events extends Component {
           strings.label_private_auth_wor_title,
                 strings.label_private_auth_wor,
         [
-                    { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-                    { text: 'Register', onPress: this.handleLogInPress },
+                    { text: strings.label_button_cancel, onPress: () => {}, style: 'cancel' },
+                    { text: strings.label_settings_header, onPress: this.handleLogInPress },
         ],
             );
     }
   };
 
   successCancel() {
-    this.props.navigator.pop()
+    this.props.navigator.pop();
   }
 
   renderContent(mapEvents) {
@@ -269,12 +269,12 @@ class Events extends Component {
       return (
         <View style={[styles.horizontal, styles.searchContainerStyle]}>
           <TextInput
-            placeholderTextColor={'rgb(41, 127, 202)'}
+            placeholderTextColor="rgb(41, 127, 202)"
             style={styles.searchField}
             ref="input"
-            onChangeText={this.onQueryChange.bind(this)}
             placeholder={strings.label_text_select_country_hint}
-            underlineColorAndroid={'transparent'}
+            underlineColorAndroid="transparent"
+            onChangeText={this.onQueryChange.bind(this)}
           />
         </View>
       );

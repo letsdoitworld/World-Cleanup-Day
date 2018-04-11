@@ -380,7 +380,7 @@ class TrashPoints extends Component {
 
     renderCarouselItem({item, index}) {
         return renderItem(
-            item,
+            {...item, isIncluded: false},
             false,
             {
                 backgroundColor: 'white',
@@ -393,17 +393,8 @@ class TrashPoints extends Component {
     }
 
     renderContent() {
-        const {userCoord} = this.props;
 
         const {selectedItem, mapTrashPoints, markers, region, initialRegion} = this.state;
-        
-        let props = {
-            initialRegion,
-            //region: initialRegion === region && this.state.updateRegion ? region : undefined
-             //region: !this.isMapReady ? region : undefined
-           //region: this.state.region === this.state.userCoord  ? region : undefined
-        };
-
 
         switch (this.state.mode) {
             case MODE.list: {

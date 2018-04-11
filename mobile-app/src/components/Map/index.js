@@ -76,7 +76,7 @@ class Map extends Component {
                 rotateEnabled={false}
                 customMapStyle={grayMapStyle}
                 {...this.props}
-                ref={this.getMapObject}
+                ref={this.props.getRef}
                 style={containerStyle}
                 onRegionChangeComplete={this.onRegionChangeComplete}
                 provider="google"
@@ -85,19 +85,6 @@ class Map extends Component {
                 {this.displayCircle()}
             </MapView>
         );
-    }
-
-    getMapObject = map => {
-        this.map = map;
-       // console.warn(this.map);
-        this.props.getRef(this.map)
-        // if (this.map) {
-        //     if (Platform.OS === 'ios' && this.props.initialRegion) {
-        //         this.map.setNativeProps({ region: this.props.initialRegion });
-        //     } else if(Platform.OS === 'ios') {
-        //         this.map.setNativeProps({ region: this.props.region });
-        //     }
-        // }
     }
 }
 

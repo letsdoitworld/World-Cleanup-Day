@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { BinIcon, EventsIcon } from '../../components/common/Icons';
+import ROUTES from '../../shared/routes';
 
 import {
   actions as userActions,
@@ -27,13 +28,13 @@ import { Privacy } from '../../components/Privacy';
 class Home extends React.Component {
 
   componentWillMount() {
-    if (this.props.history.location.pathname === '/') {
-      this.props.history.replace('/trashpoints');
+    if (this.props.history.location.pathname === ROUTES.ROOT) {
+      this.props.history.replace(ROUTES.TRASHPOINTS_ROOT);
     }
   }
 
   handleLogout = () => {
-    this.props.history.push('/trashpoints');
+    this.props.history.push(ROUTES.TRASHPOINTS_ROOT);
     this.props.logout();
   };
 
@@ -66,19 +67,25 @@ class Home extends React.Component {
       }}
     >
       <Switch>
-        <Route path="/users/:id" exact component={UserDetails} />
-        <Route path="/users" exact component={UserList} />
-        <Route path="/areas" exact component={AreaList} />
+        <Route path={ROUTES.USER_DETAILS} exact component={UserDetails} />
+        <Route path={ROUTES.USERLIST} exact component={UserList} />
+        <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route
-          path="/event/:id?"
+          path={ROUTES.EVENTS}
           render={
             ({ match }) =>
               <EventsList eventId={match.params.id} history={history} />}
         />
-        <Route path="/user-areas" exact component={AreaList} />
-        <Route path="/trashpoints/create" exact component={CreateTrashpoint} />
+        <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route
-          path="/trashpoints/:id?"
+          path={ROUTES.CREATE_TRASHPOINT}
+          exact
+          component={CreateTrashpoint}
+        />
+        <Route path={ROUTES.TERMS} render={() => <Terms />} />
+        <Route path={ROUTES.PRIVACY} render={() => <Privacy />} />
+        <Route
+          path={ROUTES.TRASHPOINT_DETAILS}
           render={
             ({ match }) =>
               (<TrashpointDetails
@@ -118,9 +125,7 @@ class Home extends React.Component {
           authUser={userProfile.role ? userProfile : null}
         />
         <Switch>
-          <Route path="/terms" render={this.renderTermsRoute} />
-          <Route path="/privacy" render={this.renderPrivacyRoute} />
-          <Route path="/" render={this.renderNormalRoute} />
+          <Route path={ROUTES.ROOT} render={this.renderNormalRoute} />
         </Switch>
         <Footer />
       </div>

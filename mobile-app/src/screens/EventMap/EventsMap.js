@@ -245,7 +245,6 @@ export default class EventsMap extends Component {
         };
       });
     }
-
     return (
       <View style={styles.container}>
         <MapView

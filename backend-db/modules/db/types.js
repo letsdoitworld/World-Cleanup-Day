@@ -107,6 +107,7 @@ class Event extends Type {
             areas: true,
             description: true,
             whatToBring: true,
+            coordinatorName: true,
             createDate: true,
             updateDate: true,
             startTime: true,

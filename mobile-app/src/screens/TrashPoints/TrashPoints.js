@@ -121,7 +121,7 @@ class TrashPoints extends Component {
                     this.getLocation(position);
                   },
                   error => console.log('Error', error),
-                  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+                  { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
               );
       }, 2000);
     } catch (ex) {
@@ -284,6 +284,7 @@ class TrashPoints extends Component {
   };
 
   render() {
+      console.warn("Render ");
     return (
       <View style={[styles.containerContent]}>
         <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>

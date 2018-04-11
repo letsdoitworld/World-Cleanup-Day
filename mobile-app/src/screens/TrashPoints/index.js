@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 
-import {fetchUserLocation,} from '../../store/actions/locations';
+import {fetchUserLocation} from '../../store/actions/locations';
 
 import {
     datasetUUID,
@@ -15,8 +15,8 @@ import {
 } from '../../store/selectors';
 
 import Component from './TrashPoints';
-import {fetchDatasetUIIDAction,} from '../../store/actions/app';
-import {loadTrashPointsForMapAction, loadTrashPointsFromClusterAction,} from '../../store/actions/trashPoints';
+import {fetchDatasetUIIDAction} from '../../store/actions/app';
+import {loadTrashPointsForMapAction, loadTrashPointsFromClusterAction} from '../../store/actions/trashPoints';
 import {guestLogIn} from '../../store/actions/auth';
 
 const selector = createStructuredSelector({

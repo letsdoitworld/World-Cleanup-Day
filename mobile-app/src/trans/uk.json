@@ -128,5 +128,5 @@
   "label_button_editTP_delete": "Видалити забруднену точку",
   "label_locked_account_warning": "Ваш обліковий запис заблоковано. Для детальної інформації зв’яжіться з адміністратором.",
   "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_your_coordinates": "Ваше місцезнаходження"
 }

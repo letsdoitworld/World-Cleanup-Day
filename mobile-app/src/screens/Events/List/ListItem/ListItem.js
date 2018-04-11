@@ -1,14 +1,10 @@
-import React, { PureComponent } from 'react';
-import {
-    Image,
-    Text,
-    TouchableHighlight,
-    View,
-} from 'react-native';
+import React, {PureComponent} from 'react';
+import {Image, Text, TouchableHighlight, View,} from 'react-native';
 import styles from './styles';
 import strings from '../../../../assets/strings';
 
-import { EVENT_DETAILS_SCREEN } from '../../../index';
+import {EVENT_DETAILS_SCREEN} from '../../../index';
+import moment from "moment/moment";
 
 export default class ListItem extends PureComponent {
 
@@ -75,7 +71,7 @@ export default class ListItem extends PureComponent {
                             {`${item.peopleAmount}/${item.maxPeopleAmount}`}
                         </Text>
                       <Text style={styles.date}>
-                          {item.date}
+                          {moment(item.startTime).format('DD.MM.YYYY')}
                         </Text>
                     </View>
                 </View>

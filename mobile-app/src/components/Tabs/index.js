@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {Text, View} from 'react-native';
-import {TabBar, TabViewAnimated} from 'react-native-tab-view';
+import React, { Component } from 'react';
+import { Text, View } from 'react-native';
+import { TabBar, TabViewAnimated } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 
 import toUpper from 'lodash/toUpper';
 
-import styles, {initialLayout} from './styles';
-import strings from "../../config/strings";
+import styles, { initialLayout } from './styles';
+import strings from '../../config/strings';
 
 class Tabs extends Component {
 
@@ -15,7 +15,7 @@ class Tabs extends Component {
     routes: this.props.routes,
   };
 
-  handleIndexChange = (index) => this.setState({ index });
+  handleIndexChange = index => this.setState({ index });
 
   handleRenderTab = ({ route, focused }) => {
     const textStyle = focused ? styles.labelFocused : styles.label;
@@ -35,15 +35,15 @@ class Tabs extends Component {
     />
   );
 
-    canJumpToTab = (route) => {
-      switch (route.key) {
-          case strings.label_events:
-            return (route.enabled);
-          case strings.label_trashpoints:
-            return false;
-      }
+  canJumpToTab = (route) => {
+    switch (route.key) {
+      case strings.label_events:
         return (route.enabled);
-    };
+      case strings.label_trashpoints:
+        return false;
+    }
+    return (route.enabled);
+  };
 
   // renderScene = SceneMap(this.props.scenes);
 

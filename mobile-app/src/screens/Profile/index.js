@@ -21,6 +21,7 @@ import {
     loadMyEventsErrorEntity,
     loadMyTrashPointsEntity,
     loadMyTrashPointsErrorEntity,
+    loadMyEmptyEventsEntity,
 } from '../../store/selectors';
 
 import Component from './Profile';
@@ -33,6 +34,7 @@ const selector = createStructuredSelector({
   trashpointsPageSize: getMyTrashpointsPageSize,
   trashpointsPageNumber: getMyTrashpointsPageNumber,
   myEvents: loadMyEventsEntity,
+  myEmptyEvents: loadMyEmptyEventsEntity,
   error: errorHandle,
   myEventsError: loadMyEventsErrorEntity,
   myTrashPoints: loadMyTrashPointsEntity,

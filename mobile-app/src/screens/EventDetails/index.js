@@ -3,6 +3,7 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   loadEvent,
+  cleanEvent,
 } from '../../store/actions/events';
 
 import {
@@ -21,6 +22,7 @@ const selector = createStructuredSelector({
 
 const actions = {
   onLoadEvent: loadEvent,
+  onCleanEvent: cleanEvent,
 };
 
 export default connect(selector, actions)(Component);

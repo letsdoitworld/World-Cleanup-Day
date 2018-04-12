@@ -34,7 +34,21 @@ const MODE = {
 class Events extends Component {
 
   previousError = undefined;
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        icon: require('../../../src/assets/images/icFilter.png'),
+        id: filterId,
+      },
+    ],
+    rightButtons: [
+      {
+        icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
+        id: searchId,
+      },
+    ],
 
+  };
   constructor(props) {
     super(props);
 
@@ -107,22 +121,6 @@ class Events extends Component {
 
   query = undefined;
 
-  static navigatorButtons = {
-    leftButtons: [
-      {
-        icon: require('../../../src/assets/images/icFilter.png'),
-        id: filterId,
-      },
-    ],
-    rightButtons: [
-      {
-        icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
-        id: searchId,
-      },
-    ],
-
-  };
-
   loadEvents(page) {
     const { userCoord } = this.props;
     const { onSearchEventsAction } = this.props;
@@ -160,8 +158,8 @@ class Events extends Component {
             strings.label_private_profile_wor_title,
                     strings.label_private_profile_wor,
           [
-                       { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                       { text: strings.label_settings_header, onPress: this.handleSettingsPress },
+                       { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                       { text: 'Settings', onPress: this.handleSettingsPress },
           ],
                     { cancelable: false },
                 );
@@ -177,15 +175,15 @@ class Events extends Component {
           strings.label_private_auth_wor_title,
                 strings.label_private_auth_wor,
         [
-                    { text: strings.label_button_cancel, onPress: () => {}, style: 'cancel' },
-                    { text: strings.label_settings_header, onPress: this.handleLogInPress },
+                    { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+                    { text: 'Register', onPress: this.handleLogInPress },
         ],
             );
     }
   };
 
   successCancel() {
-    this.props.navigator.pop();
+    this.props.navigator.pop()
   }
 
   renderContent(mapEvents) {

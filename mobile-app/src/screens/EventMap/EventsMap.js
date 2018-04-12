@@ -201,7 +201,7 @@ export default class EventsMap extends Component {
         img={coverPhoto}
         title={event.name}
         coordinator={event.coordinator}
-        date={event.createDate}
+        date={event.startTime}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}
         containerStyle={styles.eventContainer}

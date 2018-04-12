@@ -1,18 +1,13 @@
-import React, { PureComponent } from 'react';
-import {
-    Image,
-    Text,
-    TouchableHighlight,
-    View,
-} from 'react-native';
+import React, {PureComponent} from 'react';
+import {Image, Text, TouchableHighlight, View,} from 'react-native';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
 import styles from './styles';
 import strings from '../../../../assets/strings';
-import { Backgrounds } from '../../../../assets/images';
+import {Backgrounds} from '../../../../assets/images';
 
-import { EVENT_DETAILS_SCREEN } from '../../../index';
+import {EVENT_DETAILS_SCREEN} from '../../../index';
+import moment from "moment/moment";
 
 class ListItem extends PureComponent {
 
@@ -26,6 +21,7 @@ class ListItem extends PureComponent {
       },
     });
   };
+
   selectImage = () => {
     const { imageIndex } = this.props;
     switch (imageIndex) {
@@ -33,7 +29,8 @@ class ListItem extends PureComponent {
       case 1: return Backgrounds.secondEmptyEvent;
       case 2: return Backgrounds.thirdEmptyEvent;
     }
-  }
+  };
+
   render() {
     const { item, imageIndex } = this.props;
     const date = moment(item.startTime).format('DD.MM.YYYY');
@@ -88,7 +85,7 @@ class ListItem extends PureComponent {
               {`${item.peopleAmount}/${item.maxPeopleAmount}`}
             </Text>
             <Text style={styles.date}>
-              {date}
+                {moment(item.startTime).format('DD.MM.YYYY')}
             </Text>
           </View>
         </View>

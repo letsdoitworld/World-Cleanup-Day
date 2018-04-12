@@ -158,8 +158,8 @@ class Events extends Component {
             strings.label_private_profile_wor_title,
                     strings.label_private_profile_wor,
           [
-                       { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                       { text: 'Settings', onPress: this.handleSettingsPress },
+                       { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                       { text: strings.label_settings_header, onPress: this.handleSettingsPress },
           ],
                     { cancelable: false },
                 );
@@ -175,8 +175,8 @@ class Events extends Component {
           strings.label_private_auth_wor_title,
                 strings.label_private_auth_wor,
         [
-                    { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-                    { text: 'Register', onPress: this.handleLogInPress },
+                    { text: strings.label_button_cancel, onPress: () => {}, style: 'cancel' },
+                    { text: strings.label_settings_header, onPress: this.handleLogInPress },
         ],
             );
     }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
@@ -14,20 +14,20 @@ import {
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
 
-import {Map as MapView} from '../../components/Map';
-import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
-import {CREATE_MARKER, TRASH_POINT} from '../index';
+import { Map as MapView } from '../../components/Map';
+import { DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM } from '../../shared/constants';
+import { CREATE_MARKER, TRASH_POINT } from '../index';
 import styles from '../Events/styles';
-import {debounce} from '../../shared/util';
+import { debounce } from '../../shared/util';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import {autocompleteStyle} from '../AddLocation/AddLocation';
+import { autocompleteStyle } from '../AddLocation/AddLocation';
 // import styles from './styles';
-import {renderItem} from '../AddTrashPoints/Item/ListItem';
+import { renderItem } from '../AddTrashPoints/Item/ListItem';
 
 const { width } = Dimensions.get('window');
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 import {
-  TrashpointDate,
   TrashAmount,
   TrashPhotos,
   StatusText,
@@ -11,13 +10,17 @@ import { AlertModal } from '../../components/AlertModal';
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';
 import { actions as trashpileOperations } from '../../reducers/trashpile';
-
+import {
+  CloseIcon,
+  LocationIconEvent,
+  Userpic,
+  TimeIcon,
+} from '../common/Icons';
 import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from './components/Tags';
 import StatusPicker from './StatusPicker';
 import closeButton from '../../assets/closeButton.png';
-import imageLocation from '../../assets/icon_location@2x.png';
 
 import './EditTrashpoint.css';
 
@@ -215,6 +218,9 @@ class EditTrashpoint extends Component {
       validationMessage: false,
     });
   };
+  handleCloseClick = () => {
+    this.props.history.push('/trashpoints');
+  };
 
   render() {
     const {
@@ -246,92 +252,118 @@ class EditTrashpoint extends Component {
           visible={this.state.editLocation}
           status={status}
         />
-        <div style={{ padding: '20px' }}>
-          <span className="EditTrashpoint-name">{name}</span>
+        <div className="EditTrashpoint-header">
+          <span className="EditTrashpoint-title">
+            Edit trashpoint
+          </span>
           <button
             className="EditTrashpoint-close-button"
-            onClick={actions.onCloseEditClick}
+            onClick={actions.handleOnCloseEditClick}
           >
-            <img src={closeButton} alt="" />
+            <CloseIcon />
           </button>
-          <div className="EditTrashpoint-address-container">
-            <div>
-              <img src={imageLocation} alt="" />
+        </div>
+        <div className="EditTrashpoint-plot">
+          <div>
+            <div className="EditTrashpoint-default-container">
+              <div className="EditTrashpoint-address-container">
+                <span className="EditTrashpoint-address">
+                  {address} | {latitude.toFixed(6)}, {longitude.toFixed(6)}
+                </span>
+              </div>
+              <div className="EditTrashpoint-edit-location-container">
+                <LocationIconEvent />
+                <span
+                  onClick={this.handleEditLocationOpen}
+                  className="EditTrashpoint-edit-location-button"
+                >
+                  Edit location
+                </span>
+                <EditLocationInput onChange={this.handleLocationChanged} />
+              </div>
             </div>
-            <span className="EditTrashpoint-address">
-              {address} | {latitude.toFixed(6)}, {longitude.toFixed(6)}
-            </span>
           </div>
-          <div className="EditTrashpoint-edit-location-container">
-            <span
-              onClick={this.handleEditLocationOpen}
-              className="EditTrashpoint-edit-location-button"
+          <div className="Details-default-container Details-creation-info">
+            <span className="Details-trash-type-title">
+              Type of trashpoint
+            </span>
+            <br /><br />
+            <StatusText status={status} />
+          </div>
+          <div className="Details-default-container Details-creation-info">
+            <span className="Details-trash-type-title">About creator</span>
+            <p className="Details-creation-info-block">
+              <Userpic />
+              <span>{createdByName}</span>
+            </p>
+            <p className="Details-creation-info-block">
+              <TimeIcon />
+              <span>{moment(createdAt).format('L')}</span>
+            </p>
+          </div>
+          <div className="Details-default-container Details-creation-info">
+            <span className="Details-trash-type-title">Updates</span>
+            <p className="Details-creation-info-block">
+              <Userpic />
+              <span>{updatedByName}</span>
+            </p>
+            <p className="Details-creation-info-block">
+              <TimeIcon />
+              <span>{moment(updatedAt).format('L')}</span>
+            </p>
+          </div>
+          <div className="EditTrashpoint-default-container">
+            <StatusPicker
+              status={status}
+              onStatusChange={this.handleStatusChange}
+              showCleaned
+            />
+          </div>
+          <div className="EditTrashpoint-default-container">
+            <TrashPhotos
+              photos={this.getPhotos().map(p => {
+                if (p.url || p.uri) {
+                  return p.url || p.uri;
+                }
+                if (p.base64) {
+                  return `data:image/jpg;base64,${p.base64}`;
+                }
+              })}
+              onAddClick={this.handlePhotoAdd}
+              onDeleteClick={this.handlePhotoDelete}
+              canEdit
+            />
+          </div>
+          <div className="EditTrashpoint-default-container">
+            <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
+          </div>
+          <div className="EditTrashpoint-default-container">
+            <Tags
+              composition={composition}
+              tags={hashtags}
+              onCompositionSelect={this.handleCompositionSelect}
+              onTagSelect={this.handleTagSelect}
+              onTagAdd={this.handleTagAdd}
+              onTagDelete={this.handleTagDelete}
+            />
+          </div>
+          <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
+            <div
+              className="CreateTrashpoint-edit-button"
+              onClick={this.handleTrashpointUpdate}
             >
-              Edit location
-            </span>
+              <p>Save trashpoint changes</p>
+            </div>
+            <br />
+            <div
+              className="CreateTrashpoint-edit-button"
+              onClick={this.handleTrashpointDelete}
+            >
+              <p>Delete trashpoint</p>
+            </div>
           </div>
-          <div className="CreateTrashpoint-edit-location-text">
-            <EditLocationInput onChange={this.handleLocationChanged} />
-          </div>
-          <div className="EditTrashpoint-divider" />
-          <StatusText status={status} />
-          <TrashpointDate
-            createdDate={createdAt}
-            updatedDate={updatedAt}
-            createdBy={createdByName}
-            updatedBy={updatedByName}
-          />
+          <div className="EditTrashpoint-filler" />
         </div>
-        <div>
-          <StatusPicker
-            status={status}
-            onStatusChange={this.handleStatusChange}
-            showCleaned
-          />
-        </div>
-        <div className="EditTrashpoint-default-container">
-          <TrashPhotos
-            photos={this.getPhotos().map(p => {
-              if (p.url || p.uri) {
-                return p.url || p.uri;
-              }
-              if (p.base64) {
-                return `data:image/jpg;base64,${p.base64}`;
-              }
-            })}
-            onAddClick={this.handlePhotoAdd}
-            onDeleteClick={this.handlePhotoDelete}
-            canEdit
-          />
-        </div>
-        <div className="EditTrashpoint-default-container">
-          <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
-        </div>
-        <div className="EditTrashpoint-default-container">
-          <Tags
-            composition={composition}
-            tags={hashtags}
-            onCompositionSelect={this.handleCompositionSelect}
-            onTagSelect={this.handleTagSelect}
-            onTagAdd={this.handleTagAdd}
-            onTagDelete={this.handleTagDelete}
-          />
-        </div>
-        <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
-          <div
-            className="EditTrashpoint-edit-button"
-            onClick={this.handleTrashpointUpdate}
-          >
-            <p>Save trashpoint changes</p>
-          </div>
-          <div
-            className="EditTrashpoint-delete-button"
-            onClick={this.handleTrashpointDelete}
-          >
-            <p>Delete trashpoint</p>
-          </div>
-        </div>
-        <div className="EditTrashpoint-filler" />
       </div>
     );
   }

@@ -6,7 +6,6 @@ import MapView from 'react-native-maps';
 import Marker from './Marker';
 
 import styles, {grayMapStyle} from './styles';
-import {Platform} from "react-native";
 
 class Map extends Component {
 
@@ -63,6 +62,7 @@ class Map extends Component {
             });
         }
     };
+
 
     render() {
         const outerStyle = this.props.style;

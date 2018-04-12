@@ -62,10 +62,12 @@ export const EventDetails = ({ eventDetails }) => {
   moment.locale('en-au');
   return (
     <div className="EventDetails">
-      <div
-        className="EventDetails-cover"
-        style={{ backgroundImage: `url(${eventDetails.photos[0] || eventCoverBig})` }}
-      />
+      <div className="EventDetails-cover">
+        <img
+          src={eventDetails.photos[0] || eventCoverBig}
+          alt="demo"
+        />
+      </div>
       <div className="EventDetails-plot">
         <div className="EventDetails-timing EventDetails-infoblock">
           <div className="EventDetails-width-60">
@@ -142,10 +144,3 @@ export const EventDetails = ({ eventDetails }) => {
     </div>
   );
 };
-
-/*
-<img
-  src={eventDetails.photos[0] || eventCoverBig}
-  alt="demo"
-/>
-*/

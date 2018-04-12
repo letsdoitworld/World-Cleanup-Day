@@ -140,7 +140,7 @@ export const GRID_HASH = {
   '50km': 380000,
   '100km': 450000,
   '200km': 850000,
-  '500km': 900000
+  '500km': 900000,
 };
 
 export const DELTA_HASH = {
@@ -226,8 +226,8 @@ export const DELTA_HASH = {
   },
   900000: {
     latitudeDelta: 4.59693647594942,
-    longitudeDelta: 13.51318359375
-  }
+    longitudeDelta: 13.51318359375,
+  },
 };
 
 export const GRID_VALUES = [

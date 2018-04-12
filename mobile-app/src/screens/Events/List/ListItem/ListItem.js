@@ -1,18 +1,12 @@
-import React, { PureComponent } from 'react';
-import {
-    Image,
-    Text,
-    TouchableHighlight,
-    View,
-} from 'react-native';
+import React, {PureComponent} from 'react';
+import {Image, Text, TouchableHighlight, View,} from 'react-native';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
 import styles from './styles';
 import strings from '../../../../assets/strings';
-import { Backgrounds } from '../../../../assets/images';
+import {Backgrounds} from '../../../../assets/images';
 
-import { EVENT_DETAILS_SCREEN } from '../../../index';
+import {EVENT_DETAILS_SCREEN} from '../../../index';
 import moment from "moment/moment";
 
 class ListItem extends PureComponent {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
@@ -6,6 +6,7 @@ import {
     Dimensions,
     LayoutAnimation,
     PermissionsAndroid,
+    Platform,
     TextInput,
     UIManager,
     View,
@@ -14,20 +15,20 @@ import {
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
 
-import { Map as MapView } from '../../components/Map';
-import { DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM } from '../../shared/constants';
-import { CREATE_MARKER, TRASH_POINT } from '../index';
+import {Map as MapView} from '../../components/Map';
+import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
+import {CREATE_MARKER, TRASH_POINT} from '../index';
 import styles from '../Events/styles';
-import { debounce } from '../../shared/util';
+import {debounce} from '../../shared/util';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import { autocompleteStyle } from '../AddLocation/AddLocation';
+import {autocompleteStyle} from '../AddLocation/AddLocation';
 // import styles from './styles';
-import { renderItem } from '../AddTrashPoints/Item/ListItem';
+import {renderItem} from '../AddTrashPoints/Item/ListItem';
 
 const { width } = Dimensions.get('window');
 
@@ -136,37 +137,40 @@ class TrashPoints extends Component {
   }
 
   componentDidMount() {
-        // TODO This is workaround!! Think how normal fix this issue
     try {
-      setTimeout(() => {
-        navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                      this.getLocation(position);
-
-                      const { latitude, longitude } = position.coords;
-
-                      const initialRegion = {
-                        longitude,
-                        latitude,
-                        latitudeDelta: DEFAULT_ZOOM,
-                        longitudeDelta: DEFAULT_ZOOM,
-                      };
-
-                      if (this.isMapReady) {
-                        this.map.animateToRegion(initialRegion, 1500);
-                      }
-                    },
-                    error => console.log('Error', error),
-                    { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
-                );
+      setTimeout(async () => {
+        this.getPosition().bind(this);
       }, 2000);
     } catch (ex) {
-      console.log('Error', ex);
+      console.log('===> getPosition Error', ex);
     }
 
     if (!this.props.datasetUUIDSelector) {
       this.props.onFetchDatasetUUIDAction();
     }
+  }
+
+  async getPosition() {
+    await navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.getLocation(position);
+
+            const { latitude, longitude } = position.coords;
+
+            const initialRegion = {
+              longitude,
+              latitude,
+              latitudeDelta: DEFAULT_ZOOM,
+              longitudeDelta: DEFAULT_ZOOM,
+            };
+
+            if (this.isMapReady) {
+              this.map.animateToRegion(initialRegion, 1500);
+            }
+          },
+          error => console.log(' ===> getPosition Error', error),
+          { enableHighAccuracy: false, timeout: 600000 },
+      );
   }
 
   getLocation = (position) => {
@@ -431,45 +435,47 @@ class TrashPoints extends Component {
 
 
   handleFabPress = async () => {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, userCoord } = this.props;
 
     if (isAuthenticated) {
       try {
-        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
-        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          alert(strings.label_allow_access_to_camera);
-          return;
+        if (Platform.OS === 'android') {
+          const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+          if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+            alert(strings.label_allow_access_to_camera);
+            return;
+          }
         }
 
-        const image = await ImagePicker.openCamera({
+        ImagePicker.openCamera({
           width: 500,
           height: 350,
           cropping: true,
           includeBase64: true,
-        });
+        }).then(async (image) => {
+          const { width, height, data, path } = image;
+          const uri = path;
+          const base64 = data;
 
-        const { width, height, data, path } = image;
-        const uri = path;
-        const base64 = data;
-
-        const thumbnailBase64 = await ImageService.getResizedImageBase64({
-          uri,
-          width,
-          height,
-        });
-
-        if (this.props.userCoord && this.props.userCoord.latitude) {
-          this.props.navigator.push({
-            screen: CREATE_MARKER,
-            title: strings.label_button_createTP_confirm_create,
-            passProps: {
-              photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
-              coords: this.props.userCoord,
-            },
+          const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height,
           });
-        } else {
-          this.showAlert();
-        }
+
+          if (userCoord && userCoord.latitude) {
+            this.props.navigator.push({
+              screen: CREATE_MARKER,
+              title: strings.label_button_createTP_confirm_create,
+              passProps: {
+                photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
+                coords: userCoord,
+              },
+            });
+          } else {
+            this.showAlert();
+          }
+        });
       } catch (err) {
         alert(strings.label_allow_access_to_camera);
       }

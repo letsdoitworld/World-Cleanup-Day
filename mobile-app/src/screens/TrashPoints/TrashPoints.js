@@ -142,7 +142,7 @@ class TrashPoints extends Component {
         this.getPosition();
       }, 2000);
     } catch (ex) {
-      console.log('===> getCurrentPosition Error', ex);
+      console.log('Error', ex);
     }
 
     if (!this.props.datasetUUIDSelector) {
@@ -168,7 +168,7 @@ class TrashPoints extends Component {
               this.map.animateToRegion(initialRegion, 1500);
             }
           },
-          error => console.log('===> getCurrentPosition Error', error),
+          error => console.log('Error', error),
           { enableHighAccuracy: false, timeout: 600000 },
       );
   }
@@ -476,7 +476,6 @@ class TrashPoints extends Component {
           this.showAlert();
         }
       } catch (err) {
-        console.log('===> Fab error', err);
         alert(strings.label_allow_access_to_camera);
       }
     } else {

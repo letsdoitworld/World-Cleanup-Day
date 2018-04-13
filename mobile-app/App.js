@@ -17,12 +17,7 @@ const store = configureStore();
 
 registerScreens(store, Provider);
 
-
-// isMainScreenOpened = false;
-
 export default class App extends PureComponent {
-
-  // isMainScreenOpened = false;
 
   constructor() {
     super();

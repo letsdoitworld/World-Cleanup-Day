@@ -18,11 +18,11 @@ const store = configureStore();
 registerScreens(store, Provider);
 
 
-isMainScreenOpened = false;
+// isMainScreenOpened = false;
 
 export default class App extends PureComponent {
 
-  isMainScreenOpened = false;
+  // isMainScreenOpened = false;
 
   constructor() {
     super();
@@ -35,30 +35,19 @@ export default class App extends PureComponent {
     const token = auth.get('token');
 
     const isGuestSession = auth.get('isGuestSession');
-
-    if (this.currentToken !== token) {
+    if (this.currentToken !== token || this.isGuestSession !== isGuestSession) {
       this.currentToken = token;
-      this.startApp(token, isGuestSession);
-    }
-
-    if (this.isGuestSession !== isGuestSession) {
       this.isGuestSession = isGuestSession;
-      this.startApp(token, isGuestSession);
+      this.startApp(token);
     }
   }
 
-  startApp(token, isGuestSession) {
-    if (isGuestSession) {
-      App.mainScreen();
-      return;
-    }
-
+  startApp(token) {
     if (isNil(token)) {
       App.loginScreen();
-      return;
+    } else {
+      App.mainScreen();
     }
-
-    App.mainScreen();
   }
 
   static loginScreen() {
@@ -71,8 +60,8 @@ export default class App extends PureComponent {
   }
 
   static mainScreen() {
-    if (this.isMainScreenOpened) return;
-    this.isMainScreenOpened = true;
+    // if (this.isMainScreenOpened) return;
+    // this.isMainScreenOpened = true;
     Navigation.startTabBasedApp({
       tabs: [
         {

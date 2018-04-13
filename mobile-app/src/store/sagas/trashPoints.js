@@ -62,13 +62,14 @@ function* createTrashPoint(
             address,
             amount,
             name,
-            photos
+            photos,
         );
 
         if (response.data) {
+            console.log("==> createTrashPointRequest", response.data.trashpoint);
             yield put(createTrashPointSuccessAction(response.data.trashpoint));
         } else {
-            yield put(createTrashPointErrorAction(error));
+            yield put(createTrashPointErrorAction(response.error));
             setErrorMessage(String(response.error));
         }
 

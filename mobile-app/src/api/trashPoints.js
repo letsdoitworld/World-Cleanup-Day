@@ -1,5 +1,4 @@
 import Api from "../services/Api";
-import types from "../reducers/trashpile/types";
 import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH} from "../shared/constants";
 import {handleUpload} from "../reducers/trashpile/operations";
 import {fetchTrashPointsDataSets} from "./datasets";
@@ -48,7 +47,7 @@ export async function createTrashPointRequest(
             name: name,
             address,
             amount,
-            datasetId: datasetId
+            datasetId: datasetId,
         };
 
         const url = API_ENDPOINTS.CREATE_TRASHPOINT;
@@ -151,7 +150,7 @@ function calculateCell(viewPortLeftTopCoordinate,
     } else {
         cellSize = (180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 / SCREEN_WIDTH;
     }
-    return cellSize
+    return cellSize;
 }
 
 function calculateDelta(viewPortLeftTopCoordinate,

@@ -1,16 +1,11 @@
-import { ImageStore, PixelRatio } from 'react-native';
-import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES, DIAGONALE_IN_PX, MARKER_DIAGONALE_IN_PX, MIN_ZOOM,
-DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
+import {ImageStore} from 'react-native';
+import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH, TRASHPOINT_IMAGE_TYPES} from '../../shared/constants';
 import types from './types';
-import { Api } from '../../services';
+import {Api} from '../../services';
 import axios from 'axios';
-import { selectors as appSelectors, operations as appOps } from '../app/selectors';
+import {operations as appOps, selectors as appSelectors} from '../app/selectors';
 //import { selectors as trashpileSelectors } from 'selectors';
-import {
-  convertToByteArray,
-  guid,
-  destinationPoint
-} from '../../shared/helpers';
+import {convertToByteArray, destinationPoint, guid} from '../../shared/helpers';
 import FileSystem from 'react-native-filesystem';
 //import actions from 'actions';
 //import selectors from 'selectors';
@@ -229,7 +224,7 @@ export const handleUpload = async ({ photos, markerId }) => {
                   };
               });
       } catch (e) {
-          console.error(e)
+          console.error(e);
       }
 
       console.log("3")

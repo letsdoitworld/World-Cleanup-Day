@@ -468,7 +468,7 @@ class TrashPoints extends Component {
             screen: CREATE_MARKER,
             title: strings.label_button_createTP_confirm_create,
             passProps: {
-              photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
+              photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
               coords: userCoord,
             },
           });

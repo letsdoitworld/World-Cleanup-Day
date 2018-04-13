@@ -38,12 +38,12 @@ export default class App extends PureComponent {
     if (this.currentToken !== token || this.isGuestSession !== isGuestSession) {
       this.currentToken = token;
       this.isGuestSession = isGuestSession;
-      this.startApp(token);
+      this.startApp(token, isGuestSession);
     }
   }
 
-  startApp(token) {
-    if (isNil(token)) {
+  startApp(token, isGuestSession) {
+    if (isNil(token) && !isGuestSession) {
       App.loginScreen();
     } else {
       App.mainScreen();

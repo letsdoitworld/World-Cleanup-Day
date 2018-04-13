@@ -2,7 +2,6 @@ import axios from 'axios';
 import store from '../config/store';
 import {operations as appOperations} from '../reducers/app/operations';
 import {operations as userOps} from '../reducers/user/operations';
-import {GENERIC_SERVER_ERROR, ERRORS} from '../shared/constants';
 import {handleSentryError} from '../shared/helpers';
 
 const createAxiosInstance = ({authToken, baseURL}) => {
@@ -72,14 +71,15 @@ class ApiService {
     }
 
     async get(url, axiosOptions, options = {withToken: true}) {
-        // try {
+        try {
             return await this.getApiInstance(options.withToken).get(
                 url,
                 axiosOptions,
             );
-        // } catch (e) {
-        //     handleApiError(e);
-        // }
+        } catch (e) {
+            throw e;
+            //handleApiError(e);
+        }
     }
 
     async post(url, data, options = {withToken: true}, headers) {
@@ -90,20 +90,22 @@ class ApiService {
                 headers,
             );
         } catch (e) {
-            handleApiError(e);
+            throw e;
+            //handleApiError(e);
         }
     }
 
     async put(url, data, options = {withToken: true}, headers) {
-        // try {
+        try {
             return await this.getApiInstance(options.withToken).put(
                 url,
                 data,
                 headers,
             );
-        // } catch (e) {
-        //     handleApiError(e);
-        // }
+        } catch (e) {
+            console.warn("put ", e);
+            throw e;
+        }
     }
 
     async delete(url, {skipError = false} = {}) {

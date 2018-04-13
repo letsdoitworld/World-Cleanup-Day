@@ -81,7 +81,10 @@ class ListItem extends PureComponent {
             </View>
           </View>
           <View style={styles.statsContainer}>
-            <Text style={item.participant ? styles.availableParticipant : styles.available}>
+            <Text style={item.participant
+              ? styles.availableParticipant
+              : styles.available}
+            >
               {`${item.peopleAmount}/${item.maxPeopleAmount}`}
             </Text>
             <Text style={styles.date}>

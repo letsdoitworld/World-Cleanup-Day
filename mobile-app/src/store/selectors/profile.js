@@ -27,7 +27,14 @@ export const loadMyEventsEntity = createSelector(
             (a, b) => moment(b.createDate).diff(moment(a.createDate)),
         ),
 );
-
+export const loadMyEmptyEventsEntity = createSelector(
+    profileSelector,
+    profile => profile.myEvents
+    && profile.myEvents.listMyEvents
+    && profile.myEvents.listMyEvents.map(event => {
+      if (!event.photos[0]) return event 
+    }).filter(event => {return typeof event!== 'undefined'}),
+);
 export const getMyEventsPageSize = createSelector(
     profileSelector,
     profile => profile.myEvents && profile.myEvents.pageSize,

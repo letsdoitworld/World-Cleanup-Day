@@ -1,19 +1,13 @@
-import * as Immutable from '../../../../node_modules/immutable/dist/immutable';
-import ImmutableComponent from '../../../components/InputFields/ImmutableComponent';
-import React, {Component} from 'react';
+import React from 'react';
 import {
-    View,
-    TouchableOpacity,
-    Text,
-    ScrollView,
-    TextInput,
-    Image,
-    TouchableHighlight,
-    ActivityIndicator,
-    FlatList
+  View,
+  ActivityIndicator,
+  FlatList,
 } from 'react-native';
+
+import ImmutableComponent from '../../../components/InputFields/ImmutableComponent';
+
 import styles from './styles';
-import strings from '../../../assets/strings';
 import ListItem from './ListItem/ListItem';
 
 

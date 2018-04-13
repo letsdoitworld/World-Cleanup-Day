@@ -7,15 +7,18 @@ import {
   UIManager,
   View,
 } from 'react-native';
-import styles from './styles';
-import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
-import strings from '../../assets/strings';
+import PropTypes from 'prop-types';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 
+import styles from './styles';
+import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
+import strings from '../../assets/strings';
+
+
 import EventsList from './List/List';
 import { debounce } from '../../shared/util';
-import PropTypes from 'prop-types';
+
 import EventsMap from '../EventMap/EventsMap';
 
 const filterId = 'filterId';
@@ -31,7 +34,21 @@ const MODE = {
 class Events extends Component {
 
   previousError = undefined;
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        icon: require('../../../src/assets/images/icFilter.png'),
+        id: filterId,
+      },
+    ],
+    rightButtons: [
+      {
+        icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
+        id: searchId,
+      },
+    ],
 
+  };
   constructor(props) {
     super(props);
 
@@ -104,22 +121,6 @@ class Events extends Component {
 
   query = undefined;
 
-  static navigatorButtons = {
-    leftButtons: [
-      {
-        icon: require('../../../src/assets/images/icFilter.png'),
-        id: filterId,
-      },
-    ],
-    rightButtons: [
-      {
-        icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
-        id: searchId,
-      },
-    ],
-
-  };
-
   loadEvents(page) {
     const { userCoord } = this.props;
     const { onSearchEventsAction } = this.props;
@@ -182,7 +183,7 @@ class Events extends Component {
   };
 
   successCancel() {
-    this.props.navigator.pop();
+    this.props.navigator.pop()
   }
 
   renderContent(mapEvents) {
@@ -272,9 +273,9 @@ class Events extends Component {
             placeholderTextColor="rgb(41, 127, 202)"
             style={styles.searchField}
             ref="input"
+            onChangeText={this.onQueryChange.bind(this)}
             placeholder={strings.label_text_select_country_hint}
             underlineColorAndroid="transparent"
-            onChangeText={this.onQueryChange.bind(this)}
           />
         </View>
       );
@@ -319,6 +320,7 @@ Events.propTypes = {
   mapEvents: PropTypes.array,
   isLoading: PropTypes.bool,
   userCoord: PropTypes.object,
+  navigator: PropTypes.object,
   delta: PropTypes.array,
   error: PropTypes.object,
   isAuthenticated: PropTypes.bool,

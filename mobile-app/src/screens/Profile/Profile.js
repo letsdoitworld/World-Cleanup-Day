@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, FlatList, Text, View } from 'react-native';
+import { Alert, FlatList, Text, View, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { SceneMap } from 'react-native-tab-view';
@@ -7,16 +7,16 @@ import { SceneMap } from 'react-native-tab-view';
 import toString from 'lodash/toString';
 import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import { EVENT_DETAILS_SCREEN, SETTINGS_SCREEN } from '../index';
 import strings from '../../config/strings';
-import { Icons } from '../../assets/images';
+import { Icons, Backgrounds } from '../../assets/images';
 import { Avatar, Button, Divider, Event, Icon, Tabs, Trashpoint } from '../../components';
 
 import styles from './styles';
 
 import { navigatorStyle } from './config';
-import isEmpty from 'lodash/isEmpty';
 
 class Profile extends Component {
 
@@ -124,12 +124,12 @@ class Profile extends Component {
 
   showAlert(error) {
     Alert.alert(
-            'Error',
-            error,
+      'Error',
+      error,
       [
-                { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
       ],
-        );
+    );
   }
 
   handleRenderLocation() {
@@ -177,12 +177,13 @@ class Profile extends Component {
     }
   }
 
-  handleEventPress = (event) => {
+  handleEventPress = (event, imageIndex) => {
     this.props.navigator.showModal({
       screen: EVENT_DETAILS_SCREEN,
       title: strings.label_event,
       passProps: {
         eventId: event.id,
+        imageIndex,
       },
     });
   };
@@ -215,9 +216,22 @@ class Profile extends Component {
     }
   };
 
-  handleRenderEvents(event) {
-    const coverPhoto = event.photos && event.photos[0];
+  selectImage = (imageIndex) => {
+    switch (imageIndex) {
+      case 0: return Backgrounds.firstEmptyEvent;
+      case 1: return Backgrounds.secondEmptyEvent;
+      case 2: return Backgrounds.thirdEmptyEvent;
+    }
+  }
 
+  handleRenderEvents(event) {
+    const imageIndex = this.props.myEmptyEvents.indexOf(event) !== -1
+      ? this.props.myEmptyEvents.indexOf(event) % 3
+      : null;
+    console.log(imageIndex);
+    const coverPhoto = imageIndex !== null
+      ? this.selectImage(imageIndex)
+      : { uri: event.photos[0] };
     return (
       <Event
         img={coverPhoto}
@@ -227,7 +241,7 @@ class Profile extends Component {
         date={event.startTime}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}
-        onPress={() => this.handleEventPress(event)}
+        onPress={() => this.handleEventPress(event, imageIndex)}
       />
     );
   }
@@ -245,18 +259,33 @@ class Profile extends Component {
   }
 
   handleKeyExtractor = event => toString(event.id);
-
-
-  onRenderEvents = () => {
-    return (
-      <FlatList
-        style={styles.tabContent}
+  /*<FlatList
+    style={styles.tabContent}
         data={this.props.myEvents}
         renderItem={({ item }) => this.handleRenderEvents(item)}
         keyExtractor={this.handleKeyExtractor}
         onEndReachedThreshold={0.5}
-        onEndReached={this.handleEventPagination}
-      />
+    onEndReached={this.handleEventPagination}
+    />*/
+  isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    console.log(layoutMeasurement, contentOffset, contentSize)
+    const paddingToBottom = 20;
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom;
+  };
+  
+  onRenderEvents = () => {
+    return (
+      <ScrollView
+        onScroll={({nativeEvent}) => {
+          if (this.isCloseToBottom(nativeEvent)) {
+            this.handleEventPagination();
+          }
+        }}
+        scrollEventThrottle={400}
+      >
+        {this.props.myEvents && this.props.myEvents.map(item => this.handleRenderEvents(item))}
+      </ScrollView>
     );
   };
 
@@ -294,8 +323,8 @@ class Profile extends Component {
     const { visible } = this.state;
 
     const routes = [
-        { key: strings.label_events, title: strings.label_events },
-        { key: strings.label_trashpoints, title: strings.label_trashpoints },
+      { key: strings.label_events, title: strings.label_events },
+      { key: strings.label_trashpoints, title: strings.label_trashpoints },
     ];
 
     const renderSceneTab = SceneMap({
@@ -332,6 +361,11 @@ Profile.propTypes = {
   country: PropTypes.string,
   isAuthenticated: PropTypes.bool,
   isGuestSession: PropTypes.bool,
+  eventsPageNumber: PropTypes.number,
+  eventsPageSize: PropTypes.number,
+  trashpointsPageSize: PropTypes.number,
+  trashpointsPageNumber: PropTypes.number,
+  myEmptyEvents: PropTypes.object,
   profile: PropTypes.object,
   navigator: PropTypes.object,
   myEvents: PropTypes.object,
@@ -341,7 +375,6 @@ Profile.propTypes = {
   onGuestLogIn: PropTypes.func,
   onLoadMyEvents: PropTypes.func,
   onLoadMyTrashPoints: PropTypes.func,
-  onLoadMyTrashPointsError: PropTypes.func,
   onSetError: PropTypes.object,
 };
 

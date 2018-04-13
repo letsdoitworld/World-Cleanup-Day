@@ -1,5 +1,5 @@
 platform :ios, '8.0'
-
+install! 'cocoapods', :deterministic_uuids => false, :integrate_targets => false
 target 'mobileapp' do
 
     # this is very important to have!
@@ -22,7 +22,13 @@ target 'mobileapp' do
     ]
     
     pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
-
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
+    pod 'FBSDKShareKit'
+    pod 'Google/SignIn'
+    pod 'Fabric'
+    pod 'Crashlytics'
+    pod 'GoogleMaps'
 end
 
 # very important to have, unless you removed React dependencies for Libraries

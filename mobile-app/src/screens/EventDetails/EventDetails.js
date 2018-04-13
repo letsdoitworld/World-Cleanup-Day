@@ -60,6 +60,9 @@ class EventDetails extends PureComponent {
 
     onLoadEvent(eventId);
   }
+  componentWillUnmount() {
+    this.props.onCleanEvent()
+  }
 
   onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress') {
@@ -135,7 +138,7 @@ class EventDetails extends PureComponent {
 
   handleRenderDate() {
     const { event } = this.props;
-    
+
     const isToTime = has(event, 'endTime');
 
     const formatedDate = moment(event.startTime).format('DD MMMM, HH:mm');
@@ -263,7 +266,6 @@ class EventDetails extends PureComponent {
 
   handleRenderCoordinator() {
     const { event } = this.props;
-
     return (
       <View>
         {event.coordnatorName &&
@@ -274,14 +276,12 @@ class EventDetails extends PureComponent {
             </Text>
           </View>
         }
-
         <View style={styles.coordinatorContainerItem}>
           <Icon path={Icons.GroupPeople} />
           <Text style={styles.noOrganizationText}>
             {strings.label_no_organization}
           </Text>
         </View>
-
         {event.phonenumber &&
           <View style={styles.coordinatorContainerItem}>
             <Icon path={Icons.Phone} iconStyle={styles.phoneIconStyle} />
@@ -294,15 +294,14 @@ class EventDetails extends PureComponent {
             </TouchableOpacity>
           </View>
         }
-
-        {event.email &&
+        {!isEmpty(event.email) &&
           <View style={styles.coordinatorContainerItem}>
             <Icon path={Icons.Email} />
             <Text style={styles.coordinatorTextItem}>
               {event.email}
             </Text>
           </View>
-        }
+      }
       </View>
     );
   }
@@ -339,11 +338,13 @@ class EventDetails extends PureComponent {
 
   spinner() {
     return (
-      <ActivityIndicator
-        style={styles.spinner}
-        size="large"
-        color="rgb(0, 143, 223)"
-      />
+      <View style={{ backgroundColor: '#ffffff', flexDirection: 'column', width: '100%', height: '100%' }}>
+        <ActivityIndicator
+          style={[styles.spinner]}
+          size="large"
+          color="rgb(0, 143, 223)"
+        />
+      </View>
     );
   }
 
@@ -365,7 +366,6 @@ class EventDetails extends PureComponent {
     const { event } = this.props;
     const { isEndReached } = this.state;
     if (!event) return this.spinner();
-
     return (
       <View style={{ flex: 1 }}>
         <ScrollView
@@ -381,7 +381,7 @@ class EventDetails extends PureComponent {
               <Text numberOfLines={2} style={styles.name}>{event.name}</Text>
             </View>
             {this.handleRenderButton()}
-            <Text style={styles.title}>{toUpper(strings.lable_date_and_time)}</Text>
+            {<Text style={styles.title}>{toUpper(strings.lable_date_and_time)}</Text>}
             {this.handleRenderDate()}
             <Text style={styles.title}>{toUpper(strings.label_location)}</Text>
             {this.handleRenderLocation()}
@@ -418,6 +418,7 @@ EventDetails.propTypes = {
   eventId: PropTypes.string,
   navigator: PropTypes.object,
   onLoadEvent: PropTypes.func,
+  onCleanEvent: PropTypes.func,
 };
 
 export default EventDetails;

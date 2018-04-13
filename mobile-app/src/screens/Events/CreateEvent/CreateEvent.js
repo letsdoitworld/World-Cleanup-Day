@@ -1,5 +1,10 @@
 import React from 'react';
 import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+import DatePicker from 'react-native-datepicker';
+import Moment from 'moment';
+import { Navigation } from 'react-native-navigation';
+
 import styles from './styles';
 import strings from '../../../assets/strings';
 import MainButton from '../../../components/Buttons/MainButton';
@@ -9,10 +14,7 @@ import * as Immutable from '../../../../node_modules/immutable/dist/immutable';
 
 import { ADD_COORDINATOR, ADD_LOCATION, ADD_TRASH_POINTS } from '../../index';
 import ImmutableComponent from '../../../components/InputFields/ImmutableComponent';
-import ImagePicker from 'react-native-image-crop-picker';
-import DatePicker from 'react-native-datepicker';
-import Moment from 'moment';
-import { Navigation } from 'react-native-navigation';
+
 
 import { Icons } from '../../../assets/images';
 import ImageService from '../../../services/Image';

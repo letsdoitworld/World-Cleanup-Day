@@ -25,8 +25,6 @@ const Event = ({
   feedBackType,
   onPress,
 }) => {
-  const photo = img ? { uri: img } : Icons.PlaceHolderAvatar;
-
   const handleRenderParticipants = () => {
     if (!isNil(maxParticipants) && !isNil(participants)) {
       return (
@@ -66,7 +64,7 @@ const Event = ({
   return (
     <TouchableWrapper onPress={onPress}>
       <View style={!containerStyle ? styles.container : containerStyle}>
-        <Image source={photo} style={!imageStyle ? styles.image : imageStyle} />
+        <Image source={img} style={!imageStyle ? styles.image : imageStyle} />
 
         <View style={styles.middleColumn}>
           <Text style={styles.title}>{title}</Text>
@@ -94,7 +92,6 @@ const Event = ({
 };
 
 Event.propTypes = {
-  img: PropTypes.string,
   title: PropTypes.string,
   coordinator: PropTypes.string,
   address: PropTypes.string,

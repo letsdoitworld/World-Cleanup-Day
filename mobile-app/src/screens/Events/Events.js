@@ -34,7 +34,21 @@ const MODE = {
 class Events extends Component {
 
   previousError = undefined;
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        icon: require('../../../src/assets/images/icFilter.png'),
+        id: filterId,
+      },
+    ],
+    rightButtons: [
+      {
+        icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
+        id: searchId,
+      },
+    ],
 
+  };
   constructor(props) {
     super(props);
 
@@ -107,22 +121,6 @@ class Events extends Component {
 
   query = undefined;
 
-  static navigatorButtons = {
-    leftButtons: [
-      {
-        icon: require('../../../src/assets/images/icFilter.png'),
-        id: filterId,
-      },
-    ],
-    rightButtons: [
-      {
-        icon: require('../../../src/assets/images/icSearchBlack24Px.png'),
-        id: searchId,
-      },
-    ],
-
-  };
-
   loadEvents(page) {
     const { userCoord } = this.props;
     const { onSearchEventsAction } = this.props;
@@ -185,7 +183,7 @@ class Events extends Component {
   };
 
   successCancel() {
-    this.props.navigator.pop();
+    this.props.navigator.pop()
   }
 
   renderContent(mapEvents) {

@@ -7,15 +7,18 @@ import {
   UIManager,
   View,
 } from 'react-native';
-import styles from './styles';
-import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
-import strings from '../../assets/strings';
+import PropTypes from 'prop-types';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 
+import styles from './styles';
+import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
+import strings from '../../assets/strings';
+
+
 import EventsList from './List/List';
 import { debounce } from '../../shared/util';
-import PropTypes from 'prop-types';
+
 import EventsMap from '../EventMap/EventsMap';
 
 const filterId = 'filterId';
@@ -272,9 +275,9 @@ class Events extends Component {
             placeholderTextColor="rgb(41, 127, 202)"
             style={styles.searchField}
             ref="input"
+            onChangeText={this.onQueryChange.bind(this)}
             placeholder={strings.label_text_select_country_hint}
             underlineColorAndroid="transparent"
-            onChangeText={this.onQueryChange.bind(this)}
           />
         </View>
       );
@@ -319,6 +322,7 @@ Events.propTypes = {
   mapEvents: PropTypes.array,
   isLoading: PropTypes.bool,
   userCoord: PropTypes.object,
+  navigator: PropTypes.object,
   delta: PropTypes.array,
   error: PropTypes.object,
   isAuthenticated: PropTypes.bool,

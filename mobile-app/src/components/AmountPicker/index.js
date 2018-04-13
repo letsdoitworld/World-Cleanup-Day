@@ -1,3 +1,3 @@
-import AmountPicker, { AMOUNT_STATUSES } from './AmountPicker.js';
+import AmountPicker, { AMOUNT_STATUSES } from './AmountPicker';
 
 export { AmountPicker, AMOUNT_STATUSES };

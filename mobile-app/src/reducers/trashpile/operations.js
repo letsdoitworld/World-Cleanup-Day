@@ -1,14 +1,20 @@
-import {ImageStore} from 'react-native';
-import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH, TRASHPOINT_IMAGE_TYPES} from '../../shared/constants';
+import { ImageStore, PixelRatio } from 'react-native';
+import { API_ENDPOINTS, TRASHPOINT_IMAGE_TYPES, DIAGONALE_IN_PX, MARKER_DIAGONALE_IN_PX, MIN_ZOOM,
+DEFAULT_ZOOM, SCREEN_WIDTH} from '../../shared/constants';
 import types from './types';
-import {Api} from '../../services';
+import { Api } from '../../services';
 import axios from 'axios';
-import {operations as appOps, selectors as appSelectors} from '../app/selectors';
-// import { selectors as trashpileSelectors } from 'selectors';
-import {convertToByteArray, destinationPoint, guid} from '../../shared/helpers';
+import { selectors as appSelectors, operations as appOps } from '../app/selectors';
+//import { selectors as trashpileSelectors } from 'selectors';
+import {
+  convertToByteArray,
+  guid,
+  destinationPoint
+} from '../../shared/helpers';
 import FileSystem from 'react-native-filesystem';
-// import actions from 'actions';
-// import selectors from 'selectors';
+//import actions from 'actions';
+//import selectors from 'selectors';
+
 
 
 export const fetchAllMarkers = (viewPortLeftTopCoordinate, viewPortRightBottomCoordinate, delta) => {
@@ -27,16 +33,16 @@ export const fetchAllMarkers = (viewPortLeftTopCoordinate, viewPortRightBottomCo
 
     let cellSize = 0;
     if (viewPortRightBottomCoordinate.longitude > viewPortLeftTopCoordinate.longitude) {
-      cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) / SCREEN_WIDTH;
+      cellSize = 28 * (viewPortRightBottomCoordinate.longitude - viewPortLeftTopCoordinate.longitude) /  SCREEN_WIDTH;
     } else {
-      cellSize = (180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 / SCREEN_WIDTH;
+      cellSize =(180 - viewPortLeftTopCoordinate.longitude + viewPortRightBottomCoordinate.longitude + 180) * 28 /  SCREEN_WIDTH;
     }
     const latitudeDelta = delta.latitudeDelta / 3;
     const longitudeDelta = delta.latitudeDelta / 3;
     const newDelta = {
       latitudeDelta: latitudeDelta < MIN_ZOOM ? MIN_ZOOM : latitudeDelta,
       longitudeDelta: longitudeDelta < MIN_ZOOM ? MIN_ZOOM : longitudeDelta,
-      cellSize,
+      cellSize
     };
     dispatch(actions.setLastDelta(newDelta));
     const body = {
@@ -180,12 +186,6 @@ const fetchMarkerDetails = (markerId) => {
   };
 };
 
-export const getUploadURIsForPhotos = (photos, markerId) => {
-  return Api.put(API_ENDPOINTS.FETCH_TRASHPOINT_IMAGES(markerId), {
-    count: photos.length,
-  });
-};
-
 export const handleUpload = async ({ photos, markerId }) => {
   if ((photos || []).length === 0) {
     return true;
@@ -198,6 +198,8 @@ export const handleUpload = async ({ photos, markerId }) => {
     backendConfirmed: false,
   };
 
+  console.log("1")
+  console.log(photosResponse)
 
   if (photosResponse) {
     const thumbnailsPhotos = photosResponse.data
@@ -211,25 +213,34 @@ export const handleUpload = async ({ photos, markerId }) => {
         };
       });
 
-    let mediumPhotos = [];
-    try {
-      mediumPhotos = photosResponse.data
+      console.log("2")
+      console.log(thumbnailsPhotos)
+      let mediumPhotos = [];
+      try {
+
+          mediumPhotos = photosResponse.data
               .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
-              .map(({ permission: { token, resourceId } }, index) => {
-                const { base64 } = photos[index];
-                return {
-                  url: token,
-                  id: resourceId,
-                  blob: convertToByteArray(base64),
-                };
+              .map(({permission: {token, resourceId}}, index) => {
+                  const {base64} = photos[index];
+                  return {
+                      url: token,
+                      id: resourceId,
+                      blob: convertToByteArray(base64),
+                  };
               });
-    } catch (e) {
-      console.error(e);
-    }
+      } catch (e) {
+          console.error(e)
+      }
+
+      console.log("3")
+      console.log(mediumPhotos)
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
 
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
+
+      console.log("4")
+      console.log(uploadedPhotosResponses)
 
     if (uploadedPhotosResponses) {
       uploadedPhotosResponses.forEach(({ status }, index) => {
@@ -238,8 +249,11 @@ export const handleUpload = async ({ photos, markerId }) => {
       });
       const upRes = await confirmUploadedPhotos(markerId, uploadedPhotosIds);
 
+        console.log("5")
+        console.log(upRes)
 
-      if (upRes && upRes.status === 200) {
+
+        if (upRes && upRes.status === 200) {
         uploadedPhotosIds.backendConfirmed = true;
       }
     }
@@ -250,13 +264,15 @@ export const handleUpload = async ({ photos, markerId }) => {
     });
   }
 
-  for (const photo in photos) {
-    if (photo.uri) {
+    console.log("6")
+
+  for(const photo in photos) {
       await FileSystem.delete(photo.uri, {
-        idempotent: true,
-      });
-    }
+          idempotent: true
+      })
   }
+
+    console.log("7")
 
   return (
     uploadedPhotosIds.confirmed.length > 0 &&
@@ -276,7 +292,7 @@ export const createMarker = ({
     amount,
     photos,
   },
-  isEdit) => {
+  isEdit,) => {
   return async (dispatch, getState) => {
     try {
       dispatch({ type: types.CREATE_MARKER_REQUEST });
@@ -377,6 +393,12 @@ export const deleteImage = (markerId, imageId) => {
   });
 };
 
+export const getUploadURIsForPhotos = (photos, markerId) => {
+  return Api.put(API_ENDPOINTS.FETCH_TRASHPOINT_IMAGES(markerId), {
+    count: photos.length,
+  });
+};
+
 export const uploadPhotosOnAzure = (photos) => {
   return Promise.all(
     photos.map(({ url, blob }) => {
@@ -399,7 +421,7 @@ export const uploadPhotosOnAzure = (photos) => {
               'x-ms-blob-type': 'BlockBlob',
             },
           }).catch((res) => {
-            // handleSentryError(res);
+            //handleSentryError(res);
             return res;
           });
         });
@@ -415,7 +437,7 @@ export const confirmUploadedPhotos = (trashpointId, uploadedPhotos) => {
 };
 
 export const fetchUserTrashpoints = ({ reset = false } = {}) => async (dispatch,
-  getState) => {
+  getState,) => {
   dispatch(actions.fetchUserTrashpoints({ reset }));
 
   const state = getState();

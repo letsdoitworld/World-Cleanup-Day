@@ -21,7 +21,7 @@ export default EStyleSheet.create({
     subHeader: {
         marginTop: getHeightPercentage(5),
         paddingHorizontal: getWidthPercentage(20),
-        fontFamily: 'Lato-Bold',
+        fontFamily: 'Lato-Semibold',
         color: 'rgba(43,43,43,0.98)',
         fontSize: 15,
         textAlign: 'center',

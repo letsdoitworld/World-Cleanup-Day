@@ -138,11 +138,11 @@ class TrashPoints extends Component {
 
   componentDidMount() {
     try {
-      setTimeout(() => {
-        this.getPosition();
+      setTimeout(async () => {
+        this.getPosition().bind(this);
       }, 2000);
     } catch (ex) {
-      console.log('Error', ex);
+      console.log('===> getPosition Error', ex);
     }
 
     if (!this.props.datasetUUIDSelector) {
@@ -168,7 +168,7 @@ class TrashPoints extends Component {
               this.map.animateToRegion(initialRegion, 1500);
             }
           },
-          error => console.log('Error', error),
+          error => console.log(' ===> getPosition Error', error),
           { enableHighAccuracy: false, timeout: 600000 },
       );
   }
@@ -447,34 +447,35 @@ class TrashPoints extends Component {
           }
         }
 
-        const image = await ImagePicker.openCamera({
+        ImagePicker.openCamera({
           width: 500,
           height: 350,
           cropping: true,
           includeBase64: true,
-        });
+        }).then(async (image) => {
+          const { width, height, data, path } = image;
+          const uri = path;
+          const base64 = data;
 
-        const { width, height, data, path } = image;
-        const uri = path;
-        const base64 = data;
-
-        const thumbnailBase64 = await ImageService.getResizedImageBase64({
-          uri,
-          width,
-          height,
-        });
-        if (userCoord && userCoord.latitude) {
-          this.props.navigator.push({
-            screen: CREATE_MARKER,
-            title: strings.label_button_createTP_confirm_create,
-            passProps: {
-              photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
-              coords: userCoord,
-            },
+          const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height,
           });
-        } else {
-          this.showAlert();
-        }
+
+          if (userCoord && userCoord.latitude) {
+            this.props.navigator.push({
+              screen: CREATE_MARKER,
+              title: strings.label_button_createTP_confirm_create,
+              passProps: {
+                photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
+                coords: userCoord,
+              },
+            });
+          } else {
+            this.showAlert();
+          }
+        });
       } catch (err) {
         alert(strings.label_allow_access_to_camera);
       }

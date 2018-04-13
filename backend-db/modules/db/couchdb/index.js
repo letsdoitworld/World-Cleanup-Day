@@ -421,7 +421,13 @@ const layer = {
             return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
                     + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
           }
-          if (doc.$doctype === 'trashpoint' ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''} ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}) {
+          if (
+              doc.$doctype === 'trashpoint'
+              && doc.status !== 'cleaned'
+              && doc.status !== 'outdated'
+              ${name ? ` && doc.name.indexOf('${name}') !== -1` : ''} 
+              ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}
+          ) {
             ${location ? `
               emit(distanceBetweenPoints({latitude: ${location.latitude}, longitude: ${location.longitude}}, doc.location), doc);
             ` : `

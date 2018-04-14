@@ -356,7 +356,7 @@ class CreateMarker extends React.Component {
     };
 
     handleAddHahstag = () => {
-        const {hashtags, temporaryHashtag, trashCompositionTypes} = this.state;
+        const {hashtags, temporaryHashtag} = this.state;
 
         if (hashtags.length === MAX_HASHTAGS_NO) {
             return;
@@ -381,7 +381,6 @@ class CreateMarker extends React.Component {
         this.setState({
             hashtags: [...hashtags, ...labels.map(label => ({label}))],
             temporaryHashtag: '',
-            // trashCompositionTypes: [...trashCompositionTypes, ...labels.map(label => ({label, selected: true}))]
         });
     };
 
@@ -424,10 +423,7 @@ class CreateMarker extends React.Component {
             address = {},
             disableCreateTrashpointButton
         } = this.state;
-        const addHashtagTextStyle = {};
-        if (hashtags.length === MAX_HASHTAGS_NO) {
-            addHashtagTextStyle.color = GRADIENT_COLORS[1];
-        }
+
         if (!congratsShown) {
             return <CongratsModal onContinuePress={this.markCongratsShown.bind(this)}/>;
         }
@@ -519,6 +515,13 @@ class CreateMarker extends React.Component {
                     tags={trashCompositionTypes}
                     onTagSelect={this.handleTrashCompositionTypeSelect.bind(this)}
                 />
+                {hashtags && hashtags.length > 0 && this.renderSectionHeader(strings.label_additional_tags)}
+                {hashtags && hashtags.length > 0 &&
+                    <Tags
+                        tags={hashtags}
+                        onTagDelete={this.handleHashtagDelete.bind(this)}
+                    />
+                }
                 {this.renderSectionHeader(strings.label_add_additional_tags)}
                 <View style={styles.additionalTagsContainer}>
                     <TextInput

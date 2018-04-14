@@ -14,7 +14,7 @@ const Tag = ({label, selected, onSelect = _.noop, onDelete}) => {
         textStyles.push(styles.textSelected);
     }
     if (onDelete) {
-        tagContainerStyles.push(styles.tagContainerSelected);
+        tagContainerStyles.push({paddingRight: 35});
     }
     return (
         <TouchableHighlight onPress={onSelect} underlayColor="transparent">

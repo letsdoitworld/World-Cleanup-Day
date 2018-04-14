@@ -190,6 +190,7 @@ module.exports = new LocalizedStrings({
         label_add_location: "Add location",
         label_select_trash_type: "SELECT TRASH TYPE",
         label_add_additional_tags: "ADD ADDITIONAL TAGS",
+        label_additional_tags: "ADDITIONAL TAGS",
         label_trashpoints: "Trashpoints",
         label_tap_to_preview_trashpoints: "Tap to preview trashpoints",
         label_tip_add_trashpoints: "Set location in order to add trashpoints",

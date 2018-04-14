@@ -31,6 +31,7 @@ export async function searchEventsRequest(query, page, pageSize, location) {
             {
                 withToken: false,
             },);
+
         if (!response || !response.data) {
             throw {error: 'Could not load my events'};
         }

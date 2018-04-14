@@ -22,6 +22,7 @@ import TrashAmountLevel from '../../components/TrashAmountLevel/TrashAmountLevel
 import Chips from '../../components/Chips/Chips';
 import Swiper from 'react-native-page-swiper';
 import PageControl from 'react-native-page-control';
+import Tags from "../../components/Tags/Tags";
 
 
 const moment = require('moment');
@@ -94,6 +95,7 @@ export default class CreateEvent extends Component {
             amount,
             composition,
             isIncluded,
+            hashtags,
             photos
         } = this.props.trashPoint;
 
@@ -179,6 +181,14 @@ export default class CreateEvent extends Component {
                         level={amount}
                         paddingHorizontal={20}
                     />
+                    {hashtags && hashtags.length > 0 &&
+                        <View style={styles.rowHeader}>
+                            <Text style={styles.textHeader}>
+                                {strings.label_additional_tags}
+                            </Text>
+                        </View>
+                    }
+                    {hashtags && hashtags.length > 0 && <Tags tags={hashtags}/>}
                     <View style={styles.rowHeader}>
                         <Text style={styles.textHeader}>
                             {strings.label_trash_type}

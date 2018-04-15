@@ -15,6 +15,12 @@ const STATUS_STATE = {
     textStyle: { color: '#EB5757' },
     imageStyle: { height: '24px' },
   },
+  urgent: {
+    text: 'Urgent',
+    image: TrashpointIcons.threat,
+    textStyle: { color: '#EB5757' },
+    imageStyle: { height: '24px' },
+  },
   cleaned: {
     text: 'Cleaned',
     image: TrashpointIcons.cleaned,

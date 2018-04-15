@@ -1,4 +1,4 @@
-.EventDetails {
+  .EventDetails {
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -6,21 +6,29 @@
   flex-direction: column;
 }
 
-.EventDetails-width-40 {
-  width: 41%;
+.EventDetails p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.EventDetails-width-50 {
-  width: 50%;
+.EventDetails-width-45 {
+  width: 45%;
+}
+
+.EventDetails-width-55 {
+  width: 55%;
 }
 
 .EventDetails-width-60 {
   width: 59%;
 }
 
-.EventDetails-cover img {
+.EventDetails-cover {
   width: 100%;
-  height: 160px;
+  min-height: 160px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
 }
 
 .EventDetails-plot {

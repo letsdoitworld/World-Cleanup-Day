@@ -198,9 +198,6 @@ export const handleUpload = async ({ photos, markerId }) => {
     backendConfirmed: false,
   };
 
-  console.log("1")
-  console.log(photosResponse)
-
   if (photosResponse) {
     const thumbnailsPhotos = photosResponse.data
       .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
@@ -213,8 +210,6 @@ export const handleUpload = async ({ photos, markerId }) => {
         };
       });
 
-      console.log("2")
-      console.log(thumbnailsPhotos)
       let mediumPhotos = [];
       try {
 

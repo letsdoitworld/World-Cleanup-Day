@@ -2,32 +2,28 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 import { colors } from '../../themes';
 
-import { getHeightPercentage } from '../../shared/helpers';
-
 export const initialLayout = {
   height: 0,
   width: Dimensions.get('window').width,
 };
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
+  title: {
+    fontSize: 17, alignSelf: 'center', paddingBottom: 18,
+  },
+  selectedTitle: {
+    fontWeight: 'bold', color: colors.blue,
+  },
+  tabBar: {
+    top: 0, height: 58,
+  },
+  tab: {
+    marginTop: 51,
   },
   tabContainer: {
-    padding: getHeightPercentage(5),
+    marginBottom: -50,
   },
-  labelFocused: {
-    color: colors.blue,
-    fontWeight: 'bold',
-  },
-  label: {
-    color: colors.black,
-  },
-  tabBarContainer: {
-    backgroundColor: 'white',
-  },
-  textIndicator: {
-    backgroundColor: colors.blue,
-    height: 5,
+  tabBarShadow: {
+    bottom: 0, top: null,
   },
 });

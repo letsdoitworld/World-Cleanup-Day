@@ -107,8 +107,8 @@ class EventDetails extends PureComponent {
   }
 
   handleRenderImage() {
-    const { event, imageIndex } = this.props;
-    const bgImage = imageIndex === null ? { uri: event.photos[0] } : this.selectImage();
+    const { event } = this.props;
+    const bgImage = !isEmpty(event.photos) ? { uri: event.photos[0] } : this.selectImage();
     return (
       <Image
         style={styles.coverImage}

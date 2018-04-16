@@ -1,17 +1,16 @@
-import Api from "../services/Api";
+import Api from '../services/Api';
 
 export async function fetchTrashPointsDataSets() {
-    try {
+  try {
+    const response = await Api.get('datasets', {
+      withToken: false,
+    });
 
-        const response = await Api.get('datasets', {
-            withToken: false,
-        });
-
-        if (!response || !response.data) {
-            throw {error: 'Could not load trashPointsDatasets'};
-        }
-        return response.data.find((dataset)=> dataset.type === 'trashpoints').id
-    } catch (ex) {
-        throw ex
+    if (!response || !response.data) {
+      throw { error: 'Could not load trashPointsDatasets' };
     }
+    return response.data.find(dataset => dataset.type === 'trashpoints').id;
+  } catch (ex) {
+    throw ex;
+  }
 }

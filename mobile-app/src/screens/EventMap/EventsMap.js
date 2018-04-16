@@ -1,17 +1,16 @@
-import React, {Component} from 'react';
-import {FlatList, UIManager, View} from 'react-native';
+import React, { Component } from 'react';
+import { FlatList, UIManager, View } from 'react-native';
 
 
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 
-import {Map as MapView} from '../../components';
-import {DEFAULT_LOCATION, MIN_ZOOM} from '../../shared/constants';
-import {renderItem} from '../Events/List/ListItem/ListItem';
-import {Event} from '../../components/index';
+import { Map as MapView, Event } from '../../components';
+import { DEFAULT_LOCATION, MIN_ZOOM } from '../../shared/constants';
 import strings from '../../config/strings';
-import {EVENT_DETAILS_SCREEN} from '../index';
+import { EVENT_DETAILS_SCREEN } from '../index';
+import { Backgrounds } from '../../assets/images';
 
 import styles from './styles';
 
@@ -30,20 +29,21 @@ export default class EventsMap extends Component {
     const { location, onLoadMapEventsAction, mapEvents } = props;
     let userLocation;
     if (location === undefined || location === null) {
-      userLocation = DEFAULT_LOCATION
+      userLocation = DEFAULT_LOCATION;
     } else {
       userLocation = location;
     }
-      const region = { ...userLocation };
+    const region = { ...userLocation };
 
     this.state = {
       markers: undefined,
       mapEvents,
+      emptyEvents: undefined,
       userLocation,
       radius: DEFAULT_RADIUS_M,
       selectedItem: undefined,
       updateRegion: true,
-        region
+      region,
     };
 
     this.handleVisibleChange = debounce(this.getVisibleRows, 200);
@@ -52,12 +52,13 @@ export default class EventsMap extends Component {
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-  handleEventPress = (event) => {
+  handleEventPress = (event, imageIndex) => {
     this.props.navigator.showModal({
       screen: EVENT_DETAILS_SCREEN,
       title: strings.label_event,
       passProps: {
         eventId: event.id,
+        imageIndex,
       },
     });
   };
@@ -139,12 +140,12 @@ export default class EventsMap extends Component {
   };
 
   handleOnRegionChangeComplete = (center) => {
-      if (!this.state.updateRegion) {
-          this.setState((previousState) => {
-              return {
-                  ...previousState,
-                  updateRegion: true,
-                  region: center,
+    if (!this.state.updateRegion) {
+        this.setState((previousState) => {
+            return {
+                ...previousState,
+                updateRegion: true,
+                region: center,
               };
           });
       }
@@ -191,11 +192,22 @@ export default class EventsMap extends Component {
     }
   };
 
+  selectImage = (imageIndex) => {
+    switch (imageIndex) {
+      case 0: return Backgrounds.firstEmptyEvent;
+      case 1: return Backgrounds.secondEmptyEvent;
+      case 2: return Backgrounds.thirdEmptyEvent;
+    }
+  }
 
   keyExtractor = (item, index) => item.id.toString();
 
   renderItem(event) {
-    const coverPhoto = event.photos && event.photos[0];
+    const empty = this.state.mapEvents.map(e => {if(isEmpty(e.photos)) return e}).filter(e => {return typeof e!== 'undefined'})
+    const imageIndex = empty.indexOf(event) !== -1
+      ? empty.indexOf(event) % 3
+      : null;
+    const coverPhoto = !isEmpty(event.photos) ? { uri: event.photos[0] } : this.selectImage(imageIndex);
     return (
       <Event
         img={coverPhoto}
@@ -207,7 +219,7 @@ export default class EventsMap extends Component {
         containerStyle={styles.eventContainer}
         imageStyle={styles.eventImage}
         feedBackType="withoutFeedBack"
-        onPress={() => this.handleEventPress(event)}
+        onPress={() => this.handleEventPress(event, imageIndex)}
       />
     );
   }
@@ -245,7 +257,6 @@ export default class EventsMap extends Component {
         };
       });
     }
-
     return (
       <View style={styles.container}>
         <MapView

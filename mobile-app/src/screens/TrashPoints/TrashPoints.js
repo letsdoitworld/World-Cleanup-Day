@@ -9,6 +9,7 @@ import {
     TextInput,
     UIManager,
     View,
+    Platform,
 } from 'react-native';
 
 import FAB from 'react-native-fab';
@@ -136,38 +137,43 @@ class TrashPoints extends Component {
   }
 
   componentDidMount() {
-        // TODO This is workaround!! Think how normal fix this issue
     try {
-      setTimeout(() => {
-        navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                      this.getLocation(position);
-
-                      const { latitude, longitude } = position.coords;
-
-                      const initialRegion = {
-                        longitude,
-                        latitude,
-                        latitudeDelta: DEFAULT_ZOOM,
-                        longitudeDelta: DEFAULT_ZOOM,
-                      };
-
-                      if (this.isMapReady) {
-                        this.map.animateToRegion(initialRegion, 1500);
-                      }
-                    },
-                    error => console.log('Error', error),
-                    { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
-                );
+      setTimeout(async () => {
+        this.getPosition().bind(this);
       }, 2000);
     } catch (ex) {
-      console.log('Error', ex);
+      console.log('===> getPosition Error', ex);
     }
 
     if (!this.props.datasetUUIDSelector) {
       this.props.onFetchDatasetUUIDAction();
     }
   }
+
+  async getPosition() {
+    await navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.getLocation(position);
+
+            const { latitude, longitude } = position.coords;
+
+            const initialRegion = {
+              longitude,
+              latitude,
+              latitudeDelta: DEFAULT_ZOOM,
+              longitudeDelta: DEFAULT_ZOOM,
+            };
+
+            if (this.isMapReady) {
+              this.map.animateToRegion(initialRegion, 1500);
+            }
+          },
+          error => console.log(' ===> getPosition Error', error),
+          { enableHighAccuracy: false, timeout: 600000 },
+      );
+  }
+
+
 
   getLocation = (position) => {
     const { onFetchLocation } = this.props;
@@ -431,45 +437,47 @@ class TrashPoints extends Component {
 
 
   handleFabPress = async () => {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, userCoord } = this.props;
 
     if (isAuthenticated) {
       try {
-        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
-        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          alert(strings.label_allow_access_to_camera);
-          return;
+        if (Platform.OS === 'android' && Platform.Version >= 23) {
+          const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+          if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+            alert(strings.label_allow_access_to_camera);
+            return;
+          }
         }
 
-        const image = await ImagePicker.openCamera({
+        ImagePicker.openCamera({
           width: 500,
           height: 350,
           cropping: true,
           includeBase64: true,
-        });
+        }).then(async (image) => {
+          const { width, height, data, path } = image;
+          const uri = path;
+          const base64 = data;
 
-        const { width, height, data, path } = image;
-        const uri = path;
-        const base64 = data;
-
-        const thumbnailBase64 = await ImageService.getResizedImageBase64({
-          uri,
-          width,
-          height,
-        });
-
-        if (this.props.userCoord && this.props.userCoord.latitude) {
-          this.props.navigator.push({
-            screen: CREATE_MARKER,
-            title: strings.label_button_createTP_confirm_create,
-            passProps: {
-              photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
-              coords: this.props.userCoord,
-            },
+          const thumbnailBase64 = await ImageService.getResizedImageBase64({
+            uri,
+            width,
+            height,
           });
-        } else {
-          this.showAlert();
-        }
+
+          if (userCoord && userCoord.latitude) {
+            this.props.navigator.push({
+              screen: CREATE_MARKER,
+              title: strings.label_button_createTP_confirm_create,
+              passProps: {
+                photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
+                coords: userCoord,
+              },
+            });
+          } else {
+            this.showAlert();
+          }
+        });
       } catch (err) {
         alert(strings.label_allow_access_to_camera);
       }
@@ -489,6 +497,7 @@ class TrashPoints extends Component {
             );
     }
   };
+
 
   showAlert() {
     Alert.alert(

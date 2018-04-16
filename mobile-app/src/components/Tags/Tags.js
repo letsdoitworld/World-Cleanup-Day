@@ -45,7 +45,8 @@ Tags.propTypes = {
       selected: PropTypes.bool,
     }),
   ),
-  onTagSelect: PropTypes.func,
+  onTagDelete: PropTypes.func,
+  onTagSelect: PropTypes.func
 };
 
 export default Tags;

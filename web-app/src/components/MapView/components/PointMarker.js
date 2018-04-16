@@ -23,6 +23,7 @@ const TRASHPOINT_INACTIVE_MARKER_STATUS_IMAGES = {
   outdated: TrashpointPins.inactiveInRegularTp,
   regular: TrashpointPins.inactiveRegularTp,
   threat: TrashpointPins.inactiveToxicTp,
+  urgent: TrashpointPins.inactiveToxicTp,
   user: userIcon,
   changeLocation: changeLocationIcon,
 };
@@ -32,6 +33,7 @@ const TRASHPOINT_ACTIVE_MARKER_STATUS_IMAGES = {
   outdated: TrashpointPins.activeInRegularTp,
   regular: TrashpointPins.activeRegularTp,
   threat: TrashpointPins.activeToxicTp,
+  urgent: TrashpointPins.inactiveToxicTp,
   user: userIcon,
   changeLocation: changeLocationIcon,
 };

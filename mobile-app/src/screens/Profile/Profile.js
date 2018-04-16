@@ -32,7 +32,7 @@ class Profile extends Component {
       visible: true,
       isEndEventsReached: false,
       isEndTrashpointReached: false,
-      selectedTab: 'events'
+      selectedTab: 'events',
     };
   }
 
@@ -257,18 +257,8 @@ class Profile extends Component {
   }
 
   handleKeyExtractor = event => toString(event.id);
-  /*<ScrollView
-        onScroll={({nativeEvent}) => {
-          if (this.isCloseToBottom(nativeEvent)) {
-            this.handleEventPagination();
-          }
-        }}
-        scrollEventThrottle={400}
-      >
-        {this.props.myEvents && this.props.myEvents.map(item => this.handleRenderEvents(item))}
-      </ScrollView>*/
+ 
   isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    console.log(layoutMeasurement, contentOffset, contentSize)
     const paddingToBottom = 20;
     return layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom;
@@ -318,7 +308,6 @@ class Profile extends Component {
 
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
-    const { visible } = this.state;
 
     const tabs = [
       { content: this.onRenderEvents, name: strings.label_events },

@@ -20,13 +20,11 @@ class Tabs extends Component {
       titleStyle={styles.title}
       selectedTitleStyle={styles.selectedTitle}
       style={styles.tab}
-      onPress={() => this.setState({ selectedTab: toUpper(item.name) })}
+      // onPress={() => this.setState({ selectedTab: toUpper(item.name) })}
     >
       {item.content()}
     </TabNavigator.Item>;
   }
-
-  // renderScene = SceneMap(this.props.scenes);
 
   render() {
     return (
@@ -46,7 +44,6 @@ class Tabs extends Component {
 
 Tabs.propTypes = {
   tabs: PropTypes.array.isRequired,
-  // scenes: PropTypes.object.isRequired,
 };
 
 export { Tabs };

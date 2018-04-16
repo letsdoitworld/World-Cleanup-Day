@@ -157,7 +157,7 @@ class TrashPoints extends Component {
                       }
                     },
                     error => console.log('Error', error),
-                    { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
+                    { enableHighAccuracy: false, timeout: 600000 },
                 );
       }, 2000);
     } catch (ex) {

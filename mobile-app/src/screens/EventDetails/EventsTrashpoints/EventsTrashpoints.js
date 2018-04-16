@@ -47,7 +47,6 @@ class EventsTrshpoints extends PureComponent {
   };
 
   handleRenderTrashpoint(trashpoint) {
-    console.log(trashpoint);
     return (
       <View style={styles.trashpointContainer}>
         <Trashpoint

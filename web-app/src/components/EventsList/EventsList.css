@@ -85,7 +85,25 @@
   height: 9px;
 }
 
-.no-events-holder {
-  width: 380px;
-  height: 117px;
+.no-events-holder img {
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.no-events-text {
+  text-align: center;
+}
+
+.no-events-text .p1 {
+  color: #282633;
+  font-size: 15px;
+  line-height: 2;
+  font-weight: bold;
+}
+
+.no-events-text .p2 {
+  color: #7b7d80;
+  font-size: 15px;
+  line-height: 1.33;
 }

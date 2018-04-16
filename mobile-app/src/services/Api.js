@@ -72,14 +72,14 @@ class ApiService {
   }
 
   async get(url, axiosOptions, options = { withToken: true }) {
-        // try {
-    return await this.getApiInstance(options.withToken).get(
+    try {
+      return await this.getApiInstance(options.withToken).get(
                 url,
                 axiosOptions,
             );
-        // } catch (e) {
-        //     handleApiError(e);
-        // }
+    } catch (e) {
+      throw e;
+    }
   }
 
   async post(url, data, options = { withToken: true }, headers) {
@@ -95,15 +95,15 @@ class ApiService {
   }
 
   async put(url, data, options = { withToken: true }, headers) {
-        // try {
-    return await this.getApiInstance(options.withToken).put(
+    try {
+      return await this.getApiInstance(options.withToken).put(
                 url,
                 data,
                 headers,
             );
-        // } catch (e) {
-        //     handleApiError(e);
-        // }
+    } catch (e) {
+      throw e;
+    }
   }
 
   async delete(url, { skipError = false } = {}) {

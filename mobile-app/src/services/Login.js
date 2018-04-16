@@ -21,7 +21,6 @@ export function login(network, token) {
           }
         })
         .then((response) => {
-          console.log('Token', response.data.token);
           return response.data.token;
         })
         .then((networkToken) => {

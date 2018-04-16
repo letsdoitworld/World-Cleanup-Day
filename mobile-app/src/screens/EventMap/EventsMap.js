@@ -5,6 +5,7 @@ import { FlatList, UIManager, View } from 'react-native';
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
+import truncate from 'lodash/truncate';
 
 import { Map as MapView, Event } from '../../components';
 import { DEFAULT_LOCATION, MIN_ZOOM } from '../../shared/constants';
@@ -212,7 +213,7 @@ export default class EventsMap extends Component {
       <Event
         img={coverPhoto}
         title={event.name}
-        coordinator={event.coordinator}
+        coordinatorName={event.coordinatorName}
         date={event.startTime}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}

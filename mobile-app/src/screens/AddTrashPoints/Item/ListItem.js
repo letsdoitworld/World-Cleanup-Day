@@ -6,6 +6,7 @@ import {
     TouchableHighlight,
     View,
 } from "react-native";
+import truncate from 'lodash/truncate';
 import styles from "./styles"
 import Checkbox from '../../../components/Checkbox/Checkbox'
 import strings from '../../../assets/strings'
@@ -76,7 +77,7 @@ export function renderItem(item, checked, style, onPress, onCheckedChanged, isNo
                     <Text
                         numberOfLines={1}
                         style={styles.titleBlack}>
-                        {item.name}
+                        {truncate(item.name, { length: 25 })}
                     </Text>
                     {
                         item.isIncluded ?

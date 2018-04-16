@@ -173,8 +173,6 @@ class TrashPoints extends Component {
       );
   }
 
-
-
   getLocation = (position) => {
     const { onFetchLocation } = this.props;
     onFetchLocation({

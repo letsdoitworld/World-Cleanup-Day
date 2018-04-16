@@ -5,13 +5,14 @@ import { updateProfileStatus } from '../../store/actions/profile';
 
 import { logout } from '../../store/actions/auth';
 
-import { getProfileEntity, isPrivateProfile } from '../../store/selectors';
+import { getProfileEntity, isPrivateProfile, loadMyEventsEntity } from '../../store/selectors';
 
 import Component from './Settings';
 
 const selector = createStructuredSelector({
   isPrivateProfile,
   profile: getProfileEntity,
+  myEvents: loadMyEventsEntity,
 });
 
 const actions = {

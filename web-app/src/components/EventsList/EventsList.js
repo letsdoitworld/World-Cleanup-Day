@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import EventListHeader from './EventListHeader';
 import { EventDetails } from './EventDetails';
 import { Event } from './Event';
+import { noEventsCover } from '../common/Icons';
 import './EventsList.css';
 import { actions, selectors } from '../../reducers/events';
 import {
@@ -37,7 +38,7 @@ class EventsList extends Component {
           {
             eventDetails.id && eventId ?
             <EventDetails eventId={eventId} eventDetails={eventDetails} /> :
-            events ?
+            events.length ?
             events.map((ev) => {
               return (
                 <NavLink key={ev.id} to={`/event/${ev.id}`}>
@@ -55,7 +56,11 @@ class EventsList extends Component {
               );
             }) :
             <div className="no-events-holder">
-              The list is empty
+              <img src={noEventsCover} />
+              <div className="no-events-text">
+                <p className="p1">Nothing to see here!</p>
+                <p className="p2">Widen the search area or try another filter</p>
+              </div>
             </div>
           }
         </div>

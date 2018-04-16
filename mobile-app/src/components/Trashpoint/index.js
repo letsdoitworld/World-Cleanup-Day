@@ -15,12 +15,12 @@ const Trashpoint = ({
 }) => {
   const handleImageType = () => {
     let iconPath;
-
+    console.log(type)
     switch (type) {
       case 'regular':
         iconPath = Icons.RegularTrashpoint;
         break;
-      case 'toxic':
+      case 'urgent':
         iconPath = Icons.ToxicTrashpoint;
         break;
       default:

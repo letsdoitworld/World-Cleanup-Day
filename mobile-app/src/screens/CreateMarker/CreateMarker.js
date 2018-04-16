@@ -1,16 +1,47 @@
-import React from 'react';
-import {ActivityIndicator, BackHandler, ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import React, {Component} from 'react';
+import {MessageBarManager} from 'react-native-message-bar';
+import {
+    BackHandler,
+    StatusBar,
+    View,
+    ScrollView,
+    Text,
+    TextInput,
+    KeyboardAvoidingView,
+    Platform,
+    //   LinearGradient,
+    TouchableHighlight,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert
+} from 'react-native';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {compose} from 'recompose';
 import strings from '../../assets/strings';
 
 import ImageService from '../../services/Image';
 import LocationPicker from './components/LocationPicker/LocationPicker';
 import StatusPicker from './components/StatusPicker/StatusPicker';
 import {PhotoPicker} from '../../components/PhotoPicker';
+import {getWidthPercentage, getHeightPercentage} from '../../shared/helpers';
 import {Tags} from '../../components/Tags';
-import {AMOUNT_STATUSES} from '../../components/AmountPicker';
+import {AmountPicker, AMOUNT_STATUSES} from '../../components/AmountPicker';
 import {AlertModal} from '../../components/AlertModal';
 import {CustomSlider} from '../../components/CustomSlider';
-import {MARKER_STATUSES, TRASH_COMPOSITION_TYPE_LIST,} from '../../shared/constants';
+import {
+    TRASH_COMPOSITION_TYPE_LIST,
+    MARKER_STATUSES,
+    AMOUNT_HASH, DEFAULT_ZOOM,
+} from '../../shared/constants';
+import {
+    // operations as trashpileOperations,
+    createMarker
+} from '../../reducers/trashpile/operations';
+import {
+
+    selectors as trashpileSelectors,
+} from '../../reducers/trashpile/selectors';
 import _ from 'lodash';
 import styles from './styles';
 import CongratsModal from "./components/CongratsModal/CongratsModal";
@@ -155,7 +186,7 @@ class CreateMarker extends React.Component {
         const { coords } = await getCurrentPosition({
             enableHighAccuracy: false,
             timeout: 10 * 1000,
-            maximumAge: 60 * 1000,
+            maximumAge: 60 * 1000
         });
 
         this.props.navigator.pop();
@@ -344,7 +375,7 @@ class CreateMarker extends React.Component {
                 address,
                 AMOUNT_STATUSES[amount],
                 address,
-                photos,
+                photos
             );
         });
     };

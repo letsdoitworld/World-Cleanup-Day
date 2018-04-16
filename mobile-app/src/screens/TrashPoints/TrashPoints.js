@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
@@ -6,29 +6,29 @@ import {
     Dimensions,
     LayoutAnimation,
     PermissionsAndroid,
-    Platform,
     TextInput,
     UIManager,
     View,
+    Platform,
 } from 'react-native';
 
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
 
-import {Map as MapView} from '../../components/Map';
-import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
-import {CREATE_MARKER, TRASH_POINT} from '../index';
+import { Map as MapView } from '../../components/Map';
+import { DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM } from '../../shared/constants';
+import { CREATE_MARKER, TRASH_POINT } from '../index';
 import styles from '../Events/styles';
-import {debounce} from '../../shared/util';
+import { debounce } from '../../shared/util';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import {autocompleteStyle} from '../AddLocation/AddLocation';
+import { autocompleteStyle } from '../AddLocation/AddLocation';
 // import styles from './styles';
-import {renderItem} from '../AddTrashPoints/Item/ListItem';
+import { renderItem } from '../AddTrashPoints/Item/ListItem';
 
 const { width } = Dimensions.get('window');
 
@@ -172,6 +172,8 @@ class TrashPoints extends Component {
           { enableHighAccuracy: false, timeout: 600000 },
       );
   }
+
+
 
   getLocation = (position) => {
     const { onFetchLocation } = this.props;
@@ -439,7 +441,7 @@ class TrashPoints extends Component {
 
     if (isAuthenticated) {
       try {
-        if (Platform.OS === 'android') {
+        if (Platform.OS === 'android' && Platform.Version >= 23) {
           const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
           if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
             alert(strings.label_allow_access_to_camera);
@@ -495,6 +497,7 @@ class TrashPoints extends Component {
             );
     }
   };
+
 
   showAlert() {
     Alert.alert(

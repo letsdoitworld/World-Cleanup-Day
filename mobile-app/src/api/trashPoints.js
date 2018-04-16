@@ -1,9 +1,9 @@
 import Api from '../services/Api';
-import {API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH} from '../shared/constants';
-// import { handleUpload } from '../reducers/trashpile/operations';
-import {fetchTrashPointsDataSets} from './datasets';
-import {guid} from '../shared/helpers';
-import {handleUpload} from '../reducers/trashpile/operations';
+import types from '../reducers/trashpile/types';
+import { API_ENDPOINTS, MIN_ZOOM, SCREEN_WIDTH } from '../shared/constants';
+import { handleUpload } from '../reducers/trashpile/operations';
+import { fetchTrashPointsDataSets } from './datasets';
+import { guid } from '../shared/helpers';
 
 export async function searchTrashPointsRequest(query, page, pageSize, location) {
   try {

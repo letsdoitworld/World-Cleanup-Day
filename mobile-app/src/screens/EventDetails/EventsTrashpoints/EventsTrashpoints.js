@@ -57,7 +57,7 @@ class EventsTrshpoints extends PureComponent {
         <TouchableOpacity
           onPress={this.handleTrashpointSelect}
         >
-          <Icon path={Icons.BtnRemove} />
+          {trashpoint.createdBy === this.props.profile.id && <Icon path={Icons.BtnRemove} />}
         </TouchableOpacity>
       </View>
     );

@@ -643,6 +643,7 @@ class TrashPoints extends Component {
 TrashPoints.propTypes = {
   userCoord: PropTypes.object,
   isAuthenticated: PropTypes.bool,
+  datasetUUIDSelector: PropTypes.string,
   country: PropTypes.object,
   isLoading: PropTypes.bool,
   onFetchLocation: PropTypes.func,

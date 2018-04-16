@@ -18,21 +18,26 @@ async function loadEvent(id) {
 }
 
 export async function searchEventsRequest(query, page, pageSize, location) {
-  try {
-    const response = await Api.get('/events',
-      {
-        params: {
-          pageSize,
-          pageNumber: page + 1,
-          location,
-          address: query,
-        },
-      },
-      {
-        withToken: false,
-      });
-    if (!response || !response.data) {
-      throw { error: 'Could not load my events' };
+    try {
+        const response = await Api.get('/events',
+            {
+                params: {
+                    pageSize: pageSize,
+                    pageNumber: page + 1,
+                    location: location,
+                    address: query
+                },
+            },
+            {
+                withToken: false,
+            },);
+
+        if (!response || !response.data) {
+            throw {error: 'Could not load my events'};
+        }
+        return response;
+    } catch (ex) {
+        throw ex;
     }
     return response;
   } catch (ex) {

@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import {
   LocationIcon24px,
   GroupIcon24px,
-  userpicHolder,
   eventCover,
 } from '../../../components/common/Icons';
 import './Event.css';
@@ -37,9 +36,10 @@ export class Event extends Component {
     return (
       <div>
         <div className="Event-item">
-          <div className="Event-avatar">
-            <img src={avatar || eventCover} alt="event-avatar" />
-          </div>
+          <div
+            className="Event-avatar"
+            style={{ backgroundImage: `url(${avatar || eventCover})` }}
+          />
           <div className="Event-details">
             <div className="Event-details-part1">
               <p className="Event-title Event-info">{title}</p>

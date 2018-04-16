@@ -32,6 +32,7 @@
 }
 
 .Event-info {
+  margin-top: 0;
   margin-bottom: 8px;
 }
 
@@ -109,10 +110,15 @@
   margin-top: auto;
 }
 
-.Event-avatar img {
-  width: 70px;
-  height: 70px;
+.Event-avatar {
+  width: 70px !important;
+  height: 70px !important;
+  min-width: 70px !important;
+  min-height: 70px !important;
   border-radius: 4px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
 }
 
 .Event-divider {

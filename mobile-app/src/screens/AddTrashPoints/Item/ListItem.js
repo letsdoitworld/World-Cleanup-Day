@@ -1,15 +1,22 @@
 import React, {PureComponent} from 'react';
 import {Image, Text, TouchableHighlight, View,} from 'react-native';
+import truncate from 'lodash/truncate';
 import styles from './styles';
 import Checkbox from '../../../components/Checkbox/Checkbox';
 import strings from '../../../assets/strings';
 import {TRASH_POINT} from '../../index';
+import {
+    CleanedTrashpoint,
+    RegularTrashpoint,
+    RegularTrashpointInactive,
+    ToxicTrashpoint,
+} from '../../../assets/images';
 
 export const STATUS_IMAGES = {
-  cleaned: require('../../../assets/images/icCleanedTrashpoint.png'),
-  outdated: require('../../../assets/images/icRegularTrashpointInactive.png'),
-  regular: require('../../../assets/images/icRegularTrashpoint.png'),
-  urgent: require('../../../assets/images/icToxicTrashpoint.png'),
+  cleaned: CleanedTrashpoint,
+  outdated: RegularTrashpointInactive,
+  regular: RegularTrashpoint,
+  urgent: ToxicTrashpoint,
 };
 
 export default class ListItem extends PureComponent {
@@ -73,7 +80,7 @@ export function renderItem(item, checked, style, onPress, onCheckedChanged, isNo
             numberOfLines={1}
             style={styles.titleBlack}
           >
-            {item.name}
+            {truncate(item.name, { length: 25 })}
           </Text>
           {
                         item.isIncluded ?

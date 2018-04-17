@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
@@ -15,20 +15,20 @@ import {
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
 
-import {Map as MapView} from '../../components/Map';
-import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
-import {CREATE_MARKER, TRASH_POINT} from '../index';
+import { Map as MapView } from '../../components/Map';
+import { DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM } from '../../shared/constants';
+import { CREATE_MARKER, TRASH_POINT } from '../index';
 import styles from '../Events/styles';
-import {debounce} from '../../shared/util';
+import { debounce } from '../../shared/util';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import {autocompleteStyle} from '../AddLocation/AddLocation';
+import { autocompleteStyle } from '../AddLocation/AddLocation';
 // import styles from './styles';
-import {renderItem} from '../AddTrashPoints/Item/ListItem';
+import { renderItem } from '../AddTrashPoints/Item/ListItem';
 import has from 'lodash/has';
 
 const { width } = Dimensions.get('window');
@@ -96,7 +96,6 @@ class TrashPoints extends Component {
     };
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    // this.handleTrashPointsPress = this.handleTrashPointsPress.bind(this);
   }
 
   onModeChanged(index) {
@@ -174,7 +173,6 @@ class TrashPoints extends Component {
           { enableHighAccuracy: false, timeout: 600000 },
       );
   }
-
 
   getLocation = (position) => {
     const { onFetchLocation } = this.props;
@@ -276,7 +274,7 @@ class TrashPoints extends Component {
         ...marker.latlng,
         ...delta,
       };
-      // this.map.animateToRegion(region, 300);
+      this.map.animateToRegion(region, 300);
     }
   }
 
@@ -436,7 +434,6 @@ class TrashPoints extends Component {
     const { selectedItem, markers, initialRegion } = this.state;
 
     const checked = this.handleSelectStatus(selectedItem);
-    console.log('==> Checked ', checked);
 
     switch (this.state.mode) {
       case MODE.list: {

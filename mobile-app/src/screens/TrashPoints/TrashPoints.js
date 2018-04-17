@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
@@ -15,21 +15,22 @@ import {
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
 
-import { Map as MapView } from '../../components/Map';
-import { DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM } from '../../shared/constants';
-import { CREATE_MARKER, TRASH_POINT } from '../index';
+import {Map as MapView} from '../../components/Map';
+import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
+import {CREATE_MARKER, TRASH_POINT} from '../index';
 import styles from '../Events/styles';
-import { debounce } from '../../shared/util';
+import {debounce} from '../../shared/util';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import { autocompleteStyle } from '../AddLocation/AddLocation';
+import {autocompleteStyle} from '../AddLocation/AddLocation';
 // import styles from './styles';
-import { renderItem } from '../AddTrashPoints/Item/ListItem';
+import {renderItem} from '../AddTrashPoints/Item/ListItem';
 import has from 'lodash/has';
+import {AlertModal} from '../../components/AlertModal';
 
 const { width } = Dimensions.get('window');
 
@@ -93,6 +94,7 @@ class TrashPoints extends Component {
       region,
       initialRegion,
       userCoord,
+      showUserWarning: false,
     };
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -169,7 +171,11 @@ class TrashPoints extends Component {
               this.map.animateToRegion(initialRegion, 1500);
             }
           },
-          error => console.log(' ===> getPosition Error', error),
+          (error) => {
+            if (error.code === 1) {
+              this.setState({ showUserWarning: true });
+            }
+          },
           { enableHighAccuracy: false, timeout: 600000 },
       );
   }
@@ -346,6 +352,10 @@ class TrashPoints extends Component {
     return this.state.mapTrashPoints ? this.state.mapTrashPoints.filter(trashPoint => !trashPoint.count) : [];
   }
 
+  closeModal = () => {
+    this.setState({ showUserWarning: false });
+  };
+
   render() {
     return (
       <View style={[styles.containerContent]}>
@@ -354,6 +364,13 @@ class TrashPoints extends Component {
             flex: 1,
           }}
           >
+            <AlertModal
+              onOverlayPress={this.closeModal}
+              onPress={this.closeModal}
+              visible={this.state.showUserWarning}
+              title={strings.label_location_modal_title}
+              subtitle={strings.label_error_location_text}
+            />
             {this.renderContent()}
             {this.renderSearchBox()}
             {this.state.mode === MODE.map &&

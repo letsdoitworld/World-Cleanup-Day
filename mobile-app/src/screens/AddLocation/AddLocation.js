@@ -189,7 +189,7 @@ class AddLocation extends Component {
                     rankby: 'distance',
                     types: 'food',
                   }}
-                filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3', 'address']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
                 debounce={200}
                 />
             {this.renderConfirmButton()}

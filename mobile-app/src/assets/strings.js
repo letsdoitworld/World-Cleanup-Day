@@ -8,7 +8,7 @@ module.exports = new LocalizedStrings({
         label_nav_bar_list: "List",
         label_nav_bar_map: "Map",
         label_add: "Add",
-        label_allow_access_to_camera: "Please allow access to the camera in your setting to proceed trashpoint creation.",
+        label_allow_access_to_camera: "World Cleanup would like to Access the camera.",
         label_thank_you_for_contr: "Thank you for contribution!",
         label_add_more_trashpoints: "Add more trashpoints to the app.",
         label_edit: "Edit",

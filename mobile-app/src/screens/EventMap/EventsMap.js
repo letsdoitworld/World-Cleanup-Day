@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import { FlatList, UIManager, View } from 'react-native';
+import React, {Component} from 'react';
+import {FlatList, UIManager, View} from 'react-native';
 
 
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
-import truncate from 'lodash/truncate';
 
-import { Map as MapView, Event } from '../../components';
-import { DEFAULT_LOCATION, MIN_ZOOM } from '../../shared/constants';
+import {Event, Map as MapView} from '../../components';
+import {DEFAULT_LOCATION, MIN_ZOOM} from '../../shared/constants';
 import strings from '../../config/strings';
-import { EVENT_DETAILS_SCREEN } from '../index';
-import { Backgrounds } from '../../assets/images';
+import {EVENT_DETAILS_SCREEN} from '../index';
+import {Backgrounds} from '../../assets/images';
 
 import styles from './styles';
 
@@ -27,12 +26,12 @@ export default class EventsMap extends Component {
 
   constructor(props) {
     super(props);
-    const { location, onLoadMapEventsAction, mapEvents } = props;
+    const { initialRegion, onLoadMapEventsAction, mapEvents } = props;
     let userLocation;
-    if (location === undefined || location === null) {
+    if (initialRegion === undefined || initialRegion === null) {
       userLocation = DEFAULT_LOCATION;
     } else {
-      userLocation = location;
+      userLocation = initialRegion;
     }
     const region = { ...userLocation };
 
@@ -243,7 +242,7 @@ export default class EventsMap extends Component {
 
   render() {
     const { initialRegion } = this.props;
-    const { selectedItem, mapEvents } = this.state;
+    const { selectedItem, mapEvents, userLocation, region } = this.state;
 
     const checked = this.handleSelectStatus(selectedItem);
 
@@ -263,11 +262,11 @@ export default class EventsMap extends Component {
         <MapView
           onRegionChangeComplete={this.handleOnRegionChangeComplete}
           markers={markers}
-          initialRegion={initialRegion}
+          initialRegion={userLocation}
           style={styles.map}
           handleOnMarkerPress={this.onPressMarker}
           selectedItem={checked}
-          region={this.state.region === this.state.userLocation && this.state.updateRegion === false ? this.state.region : undefined}
+          region={region === userLocation && this.state.updateRegion === false ? this.state.region : undefined}
           getRef={map => this.map = map}
         />
 

@@ -127,6 +127,6 @@
   "label_text_about_5": "Financiadores: Ministerio de Ambiente de Estonia, el Ministerio de Relaciones Exteriores de la República de Estonia, Programa 100 de la República de Estonia",
   "label_button_editTP_delete": "Eliminar punto de basura",
   "label_locked_account_warning": "Su cuenta está bloqueada. Para obtener más información, póngase en contacto con un administrador.",
-  "label_no_connection_note": "Sin Internet, usted puede solamente marcar la basura. Esta marca será transferida al servidor al momento en que la conexión sea restaurada.",
+  "label_no_connection_note": "Sin Internet, usted puede solamente marcar la basura. Esta marca será transferida al servidor cuando la conexión a Internet sea restaurada.",
   "label_your_coordinates": "Sus coordenadas"
 }

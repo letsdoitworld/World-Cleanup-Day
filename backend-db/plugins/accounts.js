@@ -164,7 +164,7 @@ module.exports = function () {
         .use(async function ({update}, responder) {
             const id = __.user.id;
             if (!update.value) {
-                const userEventsCount = await db.countUserEvents();
+                const userEventsCount = await db.countUserEvents(id);
                 if (userEventsCount > 0) {
                     return responder.failure(new LuciusError(E.ACCOUNT_HAS_ACTIVE_EVENTS, {id}))
                 }

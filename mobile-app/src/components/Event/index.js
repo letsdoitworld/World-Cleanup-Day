@@ -93,7 +93,7 @@ const Event = ({
 
 Event.propTypes = {
   title: PropTypes.string,
-  coordinator: PropTypes.string,
+  coordinatorName: PropTypes.string,
   address: PropTypes.string,
   date: PropTypes.string,
   maxParticipants: PropTypes.number,

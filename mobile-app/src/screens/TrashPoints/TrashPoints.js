@@ -95,6 +95,7 @@ class TrashPoints extends Component {
       initialRegion,
       userCoord,
       showUserWarning: false,
+      fabVisible: false,
     };
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -140,8 +141,10 @@ class TrashPoints extends Component {
   }
 
   componentDidMount() {
+   
     try {
       setTimeout(async () => {
+        this.setVisible().bind(this);
         this.getPosition().bind(this);
       }, 2000);
     } catch (ex) {
@@ -156,6 +159,7 @@ class TrashPoints extends Component {
   async getPosition() {
     await navigator.geolocation.getCurrentPosition(
           (position) => {
+            console.log('Hello')
             this.getLocation(position);
 
             const { latitude, longitude } = position.coords;
@@ -227,7 +231,13 @@ class TrashPoints extends Component {
       },
     });
   };
-
+  setVisible = async () => {
+    if (Platform.OS === 'android') {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) this.setState({fabVisible: false})
+      else this.setState({fabVisible: true})
+    } else this.setState({fabVisible: true})
+  }
   onMarkerPress(marker) {
     const trashpoint = this.state.mapTrashPoints.find(
           trash => trash.id === marker.id,
@@ -418,7 +428,7 @@ class TrashPoints extends Component {
             buttonColor="rgb(225, 18, 131)"
             iconTextColor="white"
             onClickAction={this.handleFabPress.bind(this)}
-            visible
+            visible={this.state.fabVisible}
             iconTextComponent={<Icon name="plus" />}
           />
         </View>
@@ -429,8 +439,8 @@ class TrashPoints extends Component {
 
   renderCarouselItem({ item, index }) {
     return renderItem(
-            { ...item, isIncluded: false },
-            false,
+      { ...item, isIncluded: false },
+      false,
       {
         backgroundColor: 'white',
         height: 82,

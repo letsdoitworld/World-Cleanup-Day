@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import strings from '../../../assets/strings';
 import styles from './styles';
@@ -25,7 +25,7 @@ export default class EventsNavBar extends Component {
     return (
       <View style={styles.container}>
         <SegmentedControlTab
-          tabsContainerStyle={styles.tabsContainerStyle}
+          tabsContainerStyle={(Platform.OS === 'ios') && (this.state.selectedIndex === 1) ? styles.tabsIOSContainerStyle : styles.tabsContainerStyle}
           tabTextStyle={styles.tabTextStyle}
           activeTabStyle={styles.activeTabStyle}
           borderRadius={12}

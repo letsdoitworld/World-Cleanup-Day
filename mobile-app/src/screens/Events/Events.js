@@ -78,6 +78,8 @@ class Events extends Component {
     this.setState((previousState) => {
       return { mode: index };
     });
+    this.props.onClearEventsAction();
+    this.loadEvents(0);
     this.props.navigator.setButtons({
       leftButtons: [
         {
@@ -195,6 +197,7 @@ class Events extends Component {
         );
       }
       case MODE.map: {
+       
         return (
           <EventsMap
             initialRegion={this.props.userCoord}

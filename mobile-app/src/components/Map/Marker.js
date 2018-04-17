@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
-import {Icons, LocationPinActive, LocationPinInactive,} from '../../assets/images';
+import {Icons, LocationPinActive, LocationPinInactive} from '../../assets/images';
 
 import MapView from 'react-native-maps';
 

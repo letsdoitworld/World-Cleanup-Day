@@ -45,7 +45,7 @@ export default EStyleSheet.create({
         backgroundColor: colors.$white,
     },
     inputContainerStyle: {
-        height: getHeightPercentage(35),
+        height: getHeightPercentage(40),
         width: '100%',
         backgroundColor: colors.$white,
     },

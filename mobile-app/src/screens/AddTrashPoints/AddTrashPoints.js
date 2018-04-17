@@ -203,7 +203,7 @@ class AddTrashPoints extends Component {
             keyExtractor={this.keyExtractor.bind(this)}
             renderItem={this.renderItem.bind(this)}
             onEndReached={this.handleLoadMore.bind(this)}
-            onEndReachedThreshold={0}
+            onEndReachedThreshold={1}
           />
         </View>
         {this.renderProgress()}

@@ -1,18 +1,18 @@
 import styles from './styles';
 import React, { Component } from 'react';
 import {
-    View,
-    TouchableOpacity,
-    Text,
-    ScrollView,
-    TextInput,
-    Image,
-    TouchableHighlight,
-    ActivityIndicator,
-    FlatList,
-    UIManager,
-    LayoutAnimation,
-    Dimensions,
+  View,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  TextInput,
+  Image,
+  TouchableHighlight,
+  ActivityIndicator,
+  FlatList,
+  UIManager,
+  LayoutAnimation,
+  Dimensions,
 } from 'react-native';
 import { ADD_TRASH_POINTS_MAP } from '../index';
 import strings from '../../assets/strings';
@@ -22,7 +22,7 @@ import TrashAmountLevel from '../../components/TrashAmountLevel/TrashAmountLevel
 import Chips from '../../components/Chips/Chips';
 import Swiper from 'react-native-page-swiper';
 import PageControl from 'react-native-page-control';
-import Tags from "../../components/Tags/Tags";
+import Tags from '../../components/Tags/Tags';
 
 
 const moment = require('moment');
@@ -95,149 +95,152 @@ export default class CreateEvent extends Component {
             composition,
             isIncluded,
             hashtags,
-            photos
+            photos,
         } = this.props.trashPoint;
 
-        return (
-            <View style={styles.container}>
-                <ScrollView>
-                    <MapView
-                        markers={this.getMarker()}
-                        initialRegion={this.getInitialRegion()}
-                        region={this.getInitialRegion()}
-                        style={styles.map}
-                        getRef={(map) => this.map = map}/>
-                    <View style={styles.row}>
-                        <Image source={require('./images/icTrashpointAddress.png')}/>
-                        <Text style={styles.textLabel}>
-                            {address}
-                        </Text>
-                    </View>
-                    <View style={styles.rowHeader}>
-                        <Text style={styles.textHeader}>
-                            {strings.label_type_of_trashpoint}
-                        </Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Image
-                            resizeMethod={'scale'}
-                            resizeMode={'center'}
-                            source={STATUS_IMAGES[status]}
-                            style={styles.statusImage}
-                        />
-                        <Text style={[styles.textLabel, {color: STATUS_COLOR[status]}]}>
-                            {STATUS_LABEL[status]}
-                        </Text>
-                    </View>
-                    <View style={styles.rowHeader}>
-                        <Text style={styles.textHeader}>
-                            {strings.label_about_creator}
-                        </Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Image
-                            resizeMethod={'scale'}
-                            resizeMode={'center'}
-                            style={styles.avatar}
-                            source={{uri: creator ? creator.pictureURL : undefined}}/>
-                        <Text style={styles.textLabel}>
-                            {creator ? creator.name : undefined}
-                        </Text>
-                    </View>
-                    <View style={[styles.row, {marginTop: 1}]}>
-                        <Image source={require('./images/icTime.png')}/>
-                        <Text style={styles.textLabel}>
-                            {moment(createdAt).format('DD.MM.YYYY')}
-                        </Text>
-                    </View>
-                    <View style={styles.rowHeader}>
-                        <Text style={styles.textHeader}>
-                            {strings.label_last_update}
-                        </Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Image
-                            resizeMethod={'scale'}
-                            resizeMode={'center'}
-                            style={styles.avatar}
-                            source={{uri: updater ? updater.pictureURL : undefined}}/>
-                        <Text style={styles.textLabel}>
-                            {updater ? updater.name : undefined}
-                        </Text>
-                    </View>
-                    <View style={[styles.row, {marginTop: 1}]}>
-                        <Image source={require('./images/icTime.png')}/>
-                        <Text style={styles.textLabel}>
-                            {moment(updatedAt).format('DD.MM.YYYY')}
-                        </Text>
-                    </View>
-                    <View style={styles.rowHeader}>
-                        <Text style={styles.textHeader}>
-                            {strings.label_trash_amount}
-                        </Text>
-                    </View>
-                    <TrashAmountLevel
-                        level={amount}
-                        paddingHorizontal={20}
-                    />
-                    {hashtags && hashtags.length > 0 &&
-                        <View style={styles.rowHeader}>
-                            <Text style={styles.textHeader}>
-                                {strings.label_additional_tags}
-                            </Text>
-                        </View>
-                    }
-                    {hashtags && hashtags.length > 0 && <Tags tags={hashtags}/>}
-                    <View style={styles.rowHeader}>
-                        <Text style={styles.textHeader}>
-                            {strings.label_trash_type}
-                        </Text>
-                    </View>
-                    {composition && <Chips types={composition}/>}
-                    <View style={styles.rowHeader}>
-                        <Text style={styles.textHeader}>
-                            {strings.label_photos}
-                        </Text>
-                    </View>
-                    {
-                        photos &&
-                        <Swiper
-                          pager={false}
-                          onPageChange={(index) => {
-                            this.setState((previousState) => {
-                              return {
-                                ...previousState,
-                                index,
-                              };
-                            });
-                          }}
-                          style={styles.swiper}
-                        >
-                            {this.renderPages()}
-                        </Swiper>
-                    }
-          <PageControl
-              style={styles.pageControlStyle}
-              numberOfPages={photos ? photos.length : 0}
-              currentPage={this.state.index}
-              hidesForSinglePage
-              pageIndicatorTintColor="rgb(40, 38, 51)"
-              currentPageIndicatorTintColor={'rgb(63, 162, 247)'}
-              indicatorStyle={styles.dotStyle}
-              currentIndicatorStyle={styles.activeDotStyle}
+    return (
+      <View style={styles.container}>
+        <ScrollView>
+          <MapView
+            markers={this.getMarker()}
+            initialRegion={this.getInitialRegion()}
+            region={this.getInitialRegion()}
+            style={styles.map}
+            getRef={map => this.map = map}
+          />
+          <View style={styles.row}>
+            <Image source={require('./images/icTrashpointAddress.png')} />
+            <Text style={styles.textLabel}>
+              {address}
+            </Text>
+          </View>
+          <View style={styles.rowHeader}>
+            <Text style={styles.textHeader}>
+              {strings.label_type_of_trashpoint}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Image
+              resizeMethod={'scale'}
+              resizeMode={'center'}
+              source={STATUS_IMAGES[status]}
+              style={styles.statusImage}
             />
-          {
-                        !isIncluded && this.props.onCheckedChanged
-                            ? <TouchableOpacity
-                              style={styles.confirmButton}
-                              onPress={this.onSelectionConfirmed.bind(this)}
-                            >
-                              <Text style={styles.confirmButtonText}>
-                                {this.props.isChecked ? strings.label_remove_trashPoint : strings.label_add_trashPoint}
-                              </Text>
-                            </TouchableOpacity>
-                            : null
+            <Text style={[styles.textLabel, { color: STATUS_COLOR[status] }]}>
+              {STATUS_LABEL[status]}
+            </Text>
+          </View>
+          <View style={styles.rowHeader}>
+            <Text style={styles.textHeader}>
+              {strings.label_about_creator}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Image
+              resizeMethod={'scale'}
+              resizeMode={'center'}
+              style={styles.avatar}
+              source={{ uri: creator ? creator.pictureURL : undefined }}
+            />
+            <Text style={styles.textLabel}>
+              {creator ? creator.name : undefined}
+            </Text>
+          </View>
+          <View style={[styles.row, { marginTop: 1 }]}>
+            <Image source={require('./images/icTime.png')} />
+            <Text style={styles.textLabel}>
+              {moment(createdAt).format('DD.MM.YYYY')}
+            </Text>
+          </View>
+          <View style={styles.rowHeader}>
+            <Text style={styles.textHeader}>
+              {strings.label_last_update}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Image
+              resizeMethod={'scale'}
+              resizeMode={'center'}
+              style={styles.avatar}
+              source={{ uri: updater ? updater.pictureURL : undefined }}
+            />
+            <Text style={styles.textLabel}>
+              {updater ? updater.name : undefined}
+            </Text>
+          </View>
+          <View style={[styles.row, { marginTop: 1 }]}>
+            <Image source={require('./images/icTime.png')} />
+            <Text style={styles.textLabel}>
+              {moment(updatedAt).format('DD.MM.YYYY')}
+            </Text>
+          </View>
+          <View style={styles.rowHeader}>
+            <Text style={styles.textHeader}>
+              {strings.label_trash_amount}
+            </Text>
+          </View>
+          <TrashAmountLevel
+            level={amount}
+            paddingHorizontal={20}
+          />
+          {hashtags && hashtags.length > 0 &&
+          <View style={styles.rowHeader}>
+            <Text style={styles.textHeader}>
+                    {strings.label_additional_tags}
+                  </Text>
+          </View>
                     }
+          {hashtags && hashtags.length > 0 && <Tags tags={hashtags} />}
+          <View style={styles.rowHeader}>
+            <Text style={styles.textHeader}>
+              {strings.label_trash_type}
+            </Text>
+          </View>
+          {composition && <Chips types={composition} />}
+          <View style={styles.rowHeader}>
+            <Text style={styles.textHeader}>
+              {strings.label_photos}
+            </Text>
+          </View>
+          {
+            photos &&
+            <Swiper
+              pager={false}
+              onPageChange={(index) => {
+                this.setState((previousState) => {
+                  return {
+                    ...previousState,
+                    index,
+                  };
+                });
+              }}
+              style={styles.swiper}
+            >
+                {this.renderPages()}
+            </Swiper>
+          }
+          <PageControl
+            style={styles.pageControlStyle}
+            numberOfPages={photos ? photos.length : 0}
+            currentPage={this.state.index}
+            hidesForSinglePage
+            pageIndicatorTintColor="rgb(40, 38, 51)"
+            currentPageIndicatorTintColor={'rgb(63, 162, 247)'}
+            indicatorStyle={styles.dotStyle}
+            currentIndicatorStyle={styles.activeDotStyle}
+          />
+          {
+            !isIncluded && this.props.onCheckedChanged
+                ? <TouchableOpacity
+                  style={styles.confirmButton}
+                  onPress={this.onSelectionConfirmed.bind(this)}
+                >
+                  <Text style={styles.confirmButtonText}>
+                    {this.props.isChecked ? strings.label_remove_trashPoint : strings.label_add_trashPoint}
+                  </Text>
+                </TouchableOpacity>
+                : null
+          }
         </ScrollView>
       </View>
     );

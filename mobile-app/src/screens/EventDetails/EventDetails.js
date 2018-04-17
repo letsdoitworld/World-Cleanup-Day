@@ -107,8 +107,8 @@ class EventDetails extends PureComponent {
   }
 
   handleRenderImage() {
-    const { event, imageIndex } = this.props;
-    const bgImage = imageIndex === null ? { uri: event.photos[0] } : this.selectImage();
+    const { event } = this.props;
+    const bgImage = !isEmpty(event.photos) ? { uri: event.photos[0] } : this.selectImage();
     return (
       <Image
         style={styles.coverImage}
@@ -268,11 +268,11 @@ class EventDetails extends PureComponent {
     const { event } = this.props;
     return (
       <View>
-        {event.coordnatorName &&
+        {event.coordinatorName &&
           <View style={styles.coordinatorContainerItem}>
             <Icon path={Icons.Person} />
             <Text style={styles.coordinatorTextItem}>
-              {event.coordnatorName}
+              {event.coordinatorName}
             </Text>
           </View>
         }

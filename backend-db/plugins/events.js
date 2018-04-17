@@ -31,15 +31,32 @@ const mapEvent = async event => {
     event.photos = event.photos.map(p => p.url);
     if (event.trashpoints) {
       event.trashpoints = await Promise.all(await event.trashpoints.map(async (trashpointId) =>
-        await db.getTrashpoint(trashpointId)))
+        await db.getTrashpoint(trashpointId)));
       event.trashpoints = event.trashpoints.filter(t => t);
-      event.trashpoints = event.trashpoints.map(t => {
+      event.trashpoints = await Promise.all(event.trashpoints.map(async t => {
         if (t.location) {
           t.latitude = t.location.latitude;
           t.longitude = t.location.longitude;
         }
+        if (t.createdBy) {
+            const createdByUser = await db.getAccount(t.createdBy);
+            t.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+            t.createdByName = createdByUser.name;
+        }
+        if (t.updatedBy) {
+            if (t.creator && t.updatedBy === t.createdBy) {
+                t.updater = t.creator;
+                t.updatedByName = t.createdByName;
+            } else {
+                const updatedByUser = await db.getAccount(t.updatedBy);
+                if (updatedByUser) {
+                    t.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                    t.updatedByName = updatedByUser.name;
+                }
+            }
+        }
         return t;
-      });
+      }));
       event.trashpoints = sortByDistance(event.location, event.trashpoints, {yName: 'latitude', xName: 'longitude'});
       event.trashpoints = event.trashpoints.map(t => _.omit(t, ['latitude', 'longitude', 'distance']));
     } else {

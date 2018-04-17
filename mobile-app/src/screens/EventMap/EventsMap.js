@@ -6,14 +6,14 @@ import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 
-import {Map as MapView} from '../../components';
-import {DEFAULT_LOCATION, MIN_ZOOM} from '../../shared/constants';
-import {renderItem} from '../Events/List/ListItem/ListItem';
-import {Event} from '../../components/index';
+import {Event, Map as MapView} from '../../components';
+import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
 import strings from '../../config/strings';
 import {EVENT_DETAILS_SCREEN} from '../index';
+import {Backgrounds} from '../../assets/images';
 
 import styles from './styles';
+import {AlertModal} from '../../components/AlertModal';
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -27,23 +27,25 @@ export default class EventsMap extends Component {
 
   constructor(props) {
     super(props);
-    const { location, onLoadMapEventsAction, mapEvents } = props;
+    const { initialRegion, onLoadMapEventsAction, mapEvents } = props;
     let userLocation;
-    if (location === undefined || location === null) {
-      userLocation = DEFAULT_LOCATION
+    if (initialRegion === undefined || initialRegion === null) {
+      userLocation = DEFAULT_LOCATION;
     } else {
-      userLocation = location;
+      userLocation = initialRegion;
     }
-      const region = { ...userLocation };
+    const region = { ...userLocation };
 
     this.state = {
       markers: undefined,
       mapEvents,
+      emptyEvents: undefined,
       userLocation,
       radius: DEFAULT_RADIUS_M,
       selectedItem: undefined,
       updateRegion: true,
-        region
+      region,
+      showUserWarning: false,
     };
 
     this.handleVisibleChange = debounce(this.getVisibleRows, 200);
@@ -52,20 +54,53 @@ export default class EventsMap extends Component {
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-  handleEventPress = (event) => {
+  handleEventPress = (event, imageIndex) => {
     this.props.navigator.showModal({
       screen: EVENT_DETAILS_SCREEN,
       title: strings.label_event,
       passProps: {
         eventId: event.id,
+        imageIndex,
       },
     });
   };
 
   componentDidMount() {
+    if (!this.props.initialRegion) {
+      try {
+        this.getPosition().bind(this);
+      } catch (ex) {
+        console.log(ex);
+      }
+    }
     if (!this.props.datasetUUIDSelector) {
       this.props.onFetchDatasetUUIDAction();
     }
+  }
+
+  async getPosition() {
+    await navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              this.setState((previousState) => {
+                return {
+                  ...previousState,
+                  userLocation: {
+                    longitude,
+                    latitude,
+                    latitudeDelta: DEFAULT_ZOOM,
+                    longitudeDelta: DEFAULT_ZOOM,
+                  },
+                };
+              });
+            },
+            (error) => {
+              if (error.code === 1) {
+                this.setState({ showUserWarning: true });
+              }
+            },
+            { enableHighAccuracy: false, timeout: 600000 },
+        );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,12 +112,6 @@ export default class EventsMap extends Component {
   }
 
   onCheckedChanged(checked, item) {
-        // if (checked) {
-        //     this.marked.set(item.id, item)
-        // } else {
-        //     this.marked.delete(item.id)
-        // }
-
     const markers = this.props.mapEvents.map((mapEvents) => {
       return {
         id: mapEvents.id,
@@ -139,15 +168,15 @@ export default class EventsMap extends Component {
   };
 
   handleOnRegionChangeComplete = (center) => {
-      if (!this.state.updateRegion) {
-          this.setState((previousState) => {
-              return {
-                  ...previousState,
-                  updateRegion: true,
-                  region: center,
-              };
-          });
-      }
+    if (!this.state.updateRegion) {
+      this.setState((previousState) => {
+        return {
+          ...previousState,
+          updateRegion: true,
+          region: center,
+        };
+      });
+    }
     const adjustLongitude = (n) => {
       if (n < -180) {
         return 360 + n;
@@ -191,23 +220,34 @@ export default class EventsMap extends Component {
     }
   };
 
+  selectImage = (imageIndex) => {
+    switch (imageIndex) {
+      case 0: return Backgrounds.firstEmptyEvent;
+      case 1: return Backgrounds.secondEmptyEvent;
+      case 2: return Backgrounds.thirdEmptyEvent;
+    }
+  }
 
   keyExtractor = (item, index) => item.id.toString();
 
   renderItem(event) {
-    const coverPhoto = event.photos && event.photos[0];
+    const empty = this.state.mapEvents.map((e) => { if (isEmpty(e.photos)) return e; }).filter((e) => { return typeof e !== 'undefined'; });
+    const imageIndex = empty.indexOf(event) !== -1
+      ? empty.indexOf(event) % 3
+      : null;
+    const coverPhoto = !isEmpty(event.photos) ? { uri: event.photos[0] } : this.selectImage(imageIndex);
     return (
       <Event
         img={coverPhoto}
         title={event.name}
-        coordinator={event.coordinator}
+        coordinatorName={event.coordinatorName}
         date={event.startTime}
         maxParticipants={event.maxPeopleAmount}
         participants={event.peopleAmount}
         containerStyle={styles.eventContainer}
         imageStyle={styles.eventImage}
         feedBackType="withoutFeedBack"
-        onPress={() => this.handleEventPress(event)}
+        onPress={() => this.handleEventPress(event, imageIndex)}
       />
     );
   }
@@ -226,11 +266,15 @@ export default class EventsMap extends Component {
     if (!isEmpty(viewableItems)) {
       this.setState({ selectedItem: viewableItems[0].item });
     }
-  }
+  };
+
+  closeModal = () => {
+    this.setState({ showUserWarning: false });
+  };
 
   render() {
     const { initialRegion } = this.props;
-    const { selectedItem, mapEvents } = this.state;
+    const { selectedItem, mapEvents, userLocation, region, showUserWarning } = this.state;
 
     const checked = this.handleSelectStatus(selectedItem);
 
@@ -245,17 +289,23 @@ export default class EventsMap extends Component {
         };
       });
     }
-
     return (
       <View style={styles.container}>
+        <AlertModal
+          onOverlayPress={this.closeModal}
+          onPress={this.closeModal}
+          visible={showUserWarning}
+          title={strings.label_location_modal_title}
+          subtitle={strings.label_error_location_text}
+        />
         <MapView
           onRegionChangeComplete={this.handleOnRegionChangeComplete}
           markers={markers}
-          initialRegion={initialRegion}
+          initialRegion={userLocation}
           style={styles.map}
           handleOnMarkerPress={this.onPressMarker}
           selectedItem={checked}
-          region={this.state.region === this.state.userLocation && this.state.updateRegion === false ? this.state.region : undefined}
+          region={region === userLocation && this.state.updateRegion === false ? this.state.region : undefined}
           getRef={map => this.map = map}
         />
 
@@ -271,7 +321,6 @@ export default class EventsMap extends Component {
           onViewableItemsChanged={this.handleVisibleChange}
           viewabilityConfig={this.viewabilityConfig}
         />
-
       </View>
     );
   }

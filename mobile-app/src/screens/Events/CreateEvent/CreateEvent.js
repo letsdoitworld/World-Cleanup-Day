@@ -113,7 +113,7 @@ export default class CreateEvent extends ImmutableComponent {
         this.setData(d => d.set('startDate', date));
         const changedEndDate = date.split(' ')[0] + ' ' + endDate.split(' ')[1];
         this.setData(d => d.set('endDate', changedEndDate));
-        this.validateEndTime(changedEndDate);
+        this.validateEndTime(date, changedEndDate);
       }}
     />;
   }
@@ -232,7 +232,7 @@ export default class CreateEvent extends ImmutableComponent {
         const startDate = this.state.data.get('startDate');
         const endDate = startDate.split(' ')[0] + ' ' + date.split(' ')[1];
         this.setData(d => d.set('endDate', endDate));
-        this.validateEndTime(endDate);
+        this.validateEndTime(startDate, endDate);
       }}/>;
   }
 
@@ -545,11 +545,11 @@ export default class CreateEvent extends ImmutableComponent {
     return isValid;
   };
 
-  validateEndTime = (endTime: String) => {
+  validateEndTime = (startTime: String, endTime: String) => {
     const endDateTime = Moment(endTime, 'DD-MM-YYYY HH:mm').toDate();
-    const startDateFormat = this.state.data.get('startDate');
-    const startDate = Moment(startDateFormat, 'DD-MM-YYYY HH:mm').toDate();
-    let isValid = startDate < endDateTime;
+    const startDateTime = Moment(startTime, 'DD-MM-YYYY HH:mm').toDate();
+    console.log('startDate', this.state.data.get('startDate'), '; endDate', endDateTime)
+    let isValid = startDateTime < endDateTime;
     this.setData(d => d.set('isEndDateValid', isValid));
   };
 

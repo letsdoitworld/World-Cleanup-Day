@@ -1,93 +1,89 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
+import {Icons, LocationPinActive, LocationPinInactive} from '../../assets/images';
 
 import MapView from 'react-native-maps';
 
 import styles from './styles';
 
 export const STATUS_IMAGES = {
-    cleaned: require('./images/status/icInactiveCleanedTrashpointMap.png'),
-    outdated: require('./images/status/icInactiveInactiveTrashpointMap.png'),
-    regular: require('./images/status/icInactiveRegularTrashpointMap.png'),
-    urgent: require('./images/status/icInactiveToxicTrashpointMap.png')
+  cleaned: Icons.InactiveCleanedTrashpointMap,
+  outdated: Icons.InactiveInactiveTrashpointMap,
+  regular: Icons.InactiveRegularTrashpointMap,
+  urgent: Icons.InactiveToxicTrashpointMap,
 };
 
 export const SELECTED_STATUS_IMAGES = {
-    cleaned: require('./images/status/icActiveCleanedTrashpointMap.png'),
-    outdated: require('./images/status/icActiveInactiveTrashpointMap.png'),
-    regular: require('./images/status/icActiveRegularTrashpointMap.png'),
-    urgent: require('./images/status/icActiveToxicTrashpointMap.png')
+  cleaned: Icons.ActiveCleanedTrashpointMap,
+  outdated: Icons.ActiveInactiveTrashpointMap,
+  regular: Icons.ActiveRegularTrashpointMap,
+  urgent: Icons.ActiveToxicTrashpointMap,
 };
 
 const TRASHPILE_MARKER_OFFSET = {
-    x: 4,
-    y: -15,
+  x: 4,
+  y: -15,
 };
 
 const MARKER_OFFSET = {
-    x: 0,
-    y: 0,
+  x: 0,
+  y: 0,
 };
 
 export default class Marker extends Component {
 
-    render() {
+  render() {
+    const { marker, onMarkerPress } = this.props;
 
-
-        const {marker, onMarkerPress} = this.props;
-
-        if (!marker) {
-            return null;
-        }
-
-        let pointOffset = {...MARKER_OFFSET};
-
-        if (marker.isTrashpile) {
-            pointOffset = {...TRASHPILE_MARKER_OFFSET};
-        }
-
-        let showLabel = marker.isTrashpile && marker.count > 0;
-        let markerImage;
-        if (marker.status === undefined || marker.status === null) {
-            if (this.props.selectedItem === marker.id) {
-                markerImage = require('../../assets/images/icLocationPinActive.png');
-            } else {
-                markerImage = require('../../assets/images/icLocationPinInactive.png');
-            }
-        } else {
-            if (marker.isMarked) {
-                if (marker.isSelected) {
-                    markerImage = require('./images/pin/icActiveAddedCopy.png')
-                } else {
-                    markerImage = require('./images/pin/icInactiveAdded.png')
-                }
-            } else {
-                if (marker.isSelected) {
-                    markerImage = SELECTED_STATUS_IMAGES[marker.status]
-                } else {
-                    markerImage = STATUS_IMAGES[marker.status]
-                }
-            }
-        }
-        return (
-            <MapView.Marker
-                coordinate={marker.latlng}
-                onPress={onMarkerPress}
-                style={!marker.isTrashpile ? {zIndex: 2} : null}
-                image={markerImage}
-                identifier={String(marker.id)}>
-                {showLabel &&
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.labelText}>
-                            {marker.count}
-                        </Text>
-                    </View>
-                }
-                <MapView.Callout tooltip>
-                    <View/>
-                </MapView.Callout>
-            </MapView.Marker>
-        );
+    if (!marker) {
+      return null;
     }
+
+    let pointOffset = { ...MARKER_OFFSET };
+
+    if (marker.isTrashpile) {
+      pointOffset = { ...TRASHPILE_MARKER_OFFSET };
+    }
+
+    const showLabel = marker.isTrashpile && marker.count > 0;
+    let markerImage;
+    if (marker.status === undefined || marker.status === null) {
+      if (this.props.selectedItem === marker.id) {
+        markerImage = LocationPinActive;
+      } else {
+        markerImage = LocationPinInactive;
+      }
+    } else if (marker.isMarked) {
+      if (marker.isSelected) {
+        markerImage = Icons.ActiveAddedCopy;
+      } else {
+        markerImage = Icons.InactiveAdded;
+      }
+    } else if (marker.isSelected) {
+      markerImage = SELECTED_STATUS_IMAGES[marker.status];
+    } else {
+      markerImage = STATUS_IMAGES[marker.status];
+    }
+    return (
+      <MapView.Marker
+        coordinate={marker.latlng}
+        onPress={onMarkerPress}
+        style={!marker.isTrashpile ? { zIndex: 2 } : null}
+        image={markerImage}
+        identifier={String(marker.id)}
+      >
+        {showLabel &&
+        <View style={styles.labelContainer}>
+          <Text style={styles.labelText}>
+            {marker.count}
+          </Text>
+        </View>
+                }
+        <MapView.Callout tooltip>
+          <View />
+        </MapView.Callout>
+      </MapView.Marker>
+    );
+  }
 
 }

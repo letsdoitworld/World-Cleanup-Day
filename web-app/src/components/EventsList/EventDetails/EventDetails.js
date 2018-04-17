@@ -106,10 +106,13 @@ export const EventDetails = ({ eventDetails }) => {
         </div>
         <div className="EventDetails-coordinator EventDetails-infoblock">
           <h2 className="EventDetails-header">Coordinator</h2>
-          <div className="EventDetails-coordinator-part part1">
-            <Userpic />
-            <p>{eventDetails.createdByName}</p>
-          </div>
+          {
+            eventDetails.coordinatorName &&
+            <div className="EventDetails-coordinator-part part1">
+              <Userpic />
+              <p>{eventDetails.coordinatorName}</p>
+            </div>
+          }
           <div className="EventDetails-coordinator-part">
             <PhoneIcon />
             <p>{eventDetails.phonenumber}</p>
@@ -124,7 +127,7 @@ export const EventDetails = ({ eventDetails }) => {
         </div>
         <div className="EventDetails-creator EventDetails-infoblock">
           <h2 className="EventDetails-header">Event creator</h2>
-          <div className="EventDetails-creator-part">
+          <div className="EventDetails-creator-part part1">
             <Userpic />
             <p>{eventDetails.createdByName}</p>
           </div>

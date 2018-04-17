@@ -1,9 +1,16 @@
-import React, {PureComponent} from 'react';
-import {Image, Text, TouchableHighlight, View,} from 'react-native';
-import styles from './styles';
-import Checkbox from '../../../components/Checkbox/Checkbox';
-import strings from '../../../assets/strings';
-import {TRASH_POINT} from '../../index';
+import React, {PureComponent, Component} from "react";
+import {
+    Image,
+    Platform,
+    Text,
+    TouchableHighlight,
+    View,
+} from "react-native";
+import truncate from 'lodash/truncate';
+import styles from "./styles"
+import Checkbox from '../../../components/Checkbox/Checkbox'
+import strings from '../../../assets/strings'
+import {TRASH_POINT} from "../../index";
 
 export const STATUS_IMAGES = {
   cleaned: require('../../../assets/images/icCleanedTrashpoint.png'),
@@ -51,31 +58,27 @@ export default class ListItem extends PureComponent {
 }
 
 export function renderItem(item, checked, style, onPress, onCheckedChanged, isNotCheckable = false) {
-  return (
-    <TouchableHighlight
-      disabled={onPress === undefined}
-      underlayColor="rgb(232, 232, 232)"
-      onPress={onPress}
-      style={[item.isIncluded ? styles.itemTouchIncluded : styles.itemTouch, style]}
-    >
-      <View style={styles.itemContent}>
-        <Image
-          style={styles.status}
-          source={STATUS_IMAGES[item.status]}
-        />
-        <Image
-          style={styles.pin}
-          resizeMode={'contain'}
-          source={require('./images/icSmallLocationPinInactive.png')}
-        />
-        <View style={styles.titleContainer}>
-          <Text
-            numberOfLines={1}
-            style={styles.titleBlack}
-          >
-            {item.name}
-          </Text>
-          {
+    return (
+        <TouchableHighlight
+            disabled={onPress === undefined}
+            underlayColor="rgb(232, 232, 232)"
+            onPress={onPress}
+            style={[item.isIncluded ? styles.itemTouchIncluded : styles.itemTouch, style]}>
+            <View style={styles.itemContent}>
+                <Image
+                    style={styles.status}
+                    source={STATUS_IMAGES[item.status]}/>
+                <Image
+                    style={styles.pin}
+                    resizeMode={'contain'}
+                    source={require('./images/icSmallLocationPinInactive.png')}/>
+                <View style={styles.titleContainer}>
+                    <Text
+                        numberOfLines={1}
+                        style={styles.titleBlack}>
+                        {truncate(item.name, { length: 25 })}
+                    </Text>
+                    {
                         item.isIncluded ?
                             (
                               <Text
@@ -93,7 +96,7 @@ export function renderItem(item, checked, style, onPress, onCheckedChanged, isNo
                         (
                           <Checkbox
                             checked={checked}
-                            onCheckedChanged={checked => onCheckedChanged(checked, item)}
+                            onCheckedChanged={(checked) => onCheckedChanged(checked, item)}
                             style={styles.checkbox}
                           />
                         )

@@ -268,11 +268,11 @@ class EventDetails extends PureComponent {
     const { event } = this.props;
     return (
       <View>
-        {event.coordnatorName &&
+        {event.coordinatorName &&
           <View style={styles.coordinatorContainerItem}>
             <Icon path={Icons.Person} />
             <Text style={styles.coordinatorTextItem}>
-              {event.coordnatorName}
+              {event.coordinatorName}
             </Text>
           </View>
         }

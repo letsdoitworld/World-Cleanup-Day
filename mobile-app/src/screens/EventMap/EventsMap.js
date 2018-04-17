@@ -7,12 +7,13 @@ import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 
 import {Event, Map as MapView} from '../../components';
-import {DEFAULT_LOCATION, MIN_ZOOM} from '../../shared/constants';
+import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
 import strings from '../../config/strings';
 import {EVENT_DETAILS_SCREEN} from '../index';
 import {Backgrounds} from '../../assets/images';
 
 import styles from './styles';
+import {AlertModal} from '../../components/AlertModal';
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -44,6 +45,7 @@ export default class EventsMap extends Component {
       selectedItem: undefined,
       updateRegion: true,
       region,
+      showUserWarning: false,
     };
 
     this.handleVisibleChange = debounce(this.getVisibleRows, 200);
@@ -64,9 +66,41 @@ export default class EventsMap extends Component {
   };
 
   componentDidMount() {
+    if (!this.props.initialRegion) {
+      try {
+        this.getPosition().bind(this);
+      } catch (ex) {
+        console.log(ex);
+      }
+    }
     if (!this.props.datasetUUIDSelector) {
       this.props.onFetchDatasetUUIDAction();
     }
+  }
+
+  async getPosition() {
+    await navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              this.setState((previousState) => {
+                return {
+                  ...previousState,
+                  userLocation: {
+                    longitude,
+                    latitude,
+                    latitudeDelta: DEFAULT_ZOOM,
+                    longitudeDelta: DEFAULT_ZOOM,
+                  },
+                };
+              });
+            },
+            (error) => {
+              if (error.code === 1) {
+                this.setState({ showUserWarning: true });
+              }
+            },
+            { enableHighAccuracy: false, timeout: 600000 },
+        );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,12 +112,6 @@ export default class EventsMap extends Component {
   }
 
   onCheckedChanged(checked, item) {
-        // if (checked) {
-        //     this.marked.set(item.id, item)
-        // } else {
-        //     this.marked.delete(item.id)
-        // }
-
     const markers = this.props.mapEvents.map((mapEvents) => {
       return {
         id: mapEvents.id,
@@ -141,14 +169,14 @@ export default class EventsMap extends Component {
 
   handleOnRegionChangeComplete = (center) => {
     if (!this.state.updateRegion) {
-        this.setState((previousState) => {
-            return {
-                ...previousState,
-                updateRegion: true,
-                region: center,
-              };
-          });
-      }
+      this.setState((previousState) => {
+        return {
+          ...previousState,
+          updateRegion: true,
+          region: center,
+        };
+      });
+    }
     const adjustLongitude = (n) => {
       if (n < -180) {
         return 360 + n;
@@ -203,7 +231,7 @@ export default class EventsMap extends Component {
   keyExtractor = (item, index) => item.id.toString();
 
   renderItem(event) {
-    const empty = this.state.mapEvents.map(e => {if(isEmpty(e.photos)) return e}).filter(e => {return typeof e!== 'undefined'})
+    const empty = this.state.mapEvents.map((e) => { if (isEmpty(e.photos)) return e; }).filter((e) => { return typeof e !== 'undefined'; });
     const imageIndex = empty.indexOf(event) !== -1
       ? empty.indexOf(event) % 3
       : null;
@@ -238,11 +266,15 @@ export default class EventsMap extends Component {
     if (!isEmpty(viewableItems)) {
       this.setState({ selectedItem: viewableItems[0].item });
     }
-  }
+  };
+
+  closeModal = () => {
+    this.setState({ showUserWarning: false });
+  };
 
   render() {
     const { initialRegion } = this.props;
-    const { selectedItem, mapEvents, userLocation, region } = this.state;
+    const { selectedItem, mapEvents, userLocation, region, showUserWarning } = this.state;
 
     const checked = this.handleSelectStatus(selectedItem);
 
@@ -259,6 +291,13 @@ export default class EventsMap extends Component {
     }
     return (
       <View style={styles.container}>
+        <AlertModal
+          onOverlayPress={this.closeModal}
+          onPress={this.closeModal}
+          visible={showUserWarning}
+          title={strings.label_location_modal_title}
+          subtitle={strings.label_error_location_text}
+        />
         <MapView
           onRegionChangeComplete={this.handleOnRegionChangeComplete}
           markers={markers}
@@ -282,7 +321,6 @@ export default class EventsMap extends Component {
           onViewableItemsChanged={this.handleVisibleChange}
           viewabilityConfig={this.viewabilityConfig}
         />
-
       </View>
     );
   }

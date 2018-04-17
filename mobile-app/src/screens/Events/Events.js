@@ -1,23 +1,16 @@
-import React, { Component } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  LayoutAnimation,
-  TextInput,
-  UIManager,
-  View,
-} from 'react-native';
+import React, {Component} from 'react';
+import {ActivityIndicator, Alert, LayoutAnimation, TextInput, UIManager, View,} from 'react-native';
 import PropTypes from 'prop-types';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 
 import styles from './styles';
-import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
+import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN} from '../index';
 import strings from '../../assets/strings';
 
 
 import EventsList from './List/List';
-import { debounce } from '../../shared/util';
+import {debounce} from '../../shared/util';
 
 import EventsMap from '../EventMap/EventsMap';
 
@@ -183,7 +176,7 @@ class Events extends Component {
   };
 
   successCancel() {
-    this.props.navigator.pop()
+    this.props.navigator.pop();
   }
 
   renderContent(mapEvents) {

@@ -111,7 +111,13 @@ export default class CreateEvent extends ImmutableComponent {
       onDateChange={(date) => {
         const endDate = this.state.data.get('endDate');
         this.setData(d => d.set('startDate', date));
-        const changedEndDate = date.split(' ')[0] + ' ' + endDate.split(' ')[1];
+        console.log((++endDate.split(' ')[1].split(':')[0]));
+        const endDateTime = Moment(endDate, 'DD-MM-YYYY HH:mm').toDate();
+        const startDateTime = Moment(date, 'DD-MM-YYYY HH:mm').toDate();
+        const changedEndDate = date.split(' ')[0] !== endDate.split(' ')[0]
+        ? date.split(' ')[0] + ' ' + (++date.split(' ')[1].split(':')[0]) + ':' + endDate.split(' ')[1].split(':')[1]
+        : endDateTime > startDateTime ? date.split(' ')[0] + ' ' + endDate.split(' ')[1]
+        : date.split(' ')[0] + ' ' + (++date.split(' ')[1].split(':')[0]) + ':' + endDate.split(' ')[1].split(':')[1];
         this.setData(d => d.set('endDate', changedEndDate));
         this.validateEndTime(date, changedEndDate);
       }}

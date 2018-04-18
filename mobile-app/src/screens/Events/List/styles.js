@@ -33,6 +33,29 @@ export default {
   list: {
     flex: 1,
   },
+  emptyView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyImage: {
+    width: 246,
+    height: 246,
+  },
+  text: {
+    marginTop: 32,
+    textAlign: 'center',
+    fontSize: 15,
+    fontFamily: 'Lato-Bold',
+    color: 'rgb(40, 38, 51)',
+  },
+  textGrey: {
+    textAlign: 'center',
+    fontSize: 15,
+    fontFamily: 'Lato-Bold',
+    color: 'rgb(123, 125, 128)',
+  },
   spinner: {
     flex: 1,
     flexDirection: 'column',

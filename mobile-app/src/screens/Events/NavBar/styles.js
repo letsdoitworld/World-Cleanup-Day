@@ -3,12 +3,18 @@ export default {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
+    alignSelf: 'center',
+    flex: 2,
   },
   tabsContainerStyle: {
     width: 138,
     height: 28,
     padding: 0,
+  },
+  tabsIOSContainerStyle: {
+    width: 138,
+    height: 28,
+    marginRight: 42,
   },
   tabTextStyle: {
     fontFamily: 'Lato-Bold',

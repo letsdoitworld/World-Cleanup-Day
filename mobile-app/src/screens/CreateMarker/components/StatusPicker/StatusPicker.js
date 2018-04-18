@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
-import strings from '../../../../assets/strings'
+import strings from '../../../../assets/strings';
 
 import styles from './styles';
 
 export const options = {
-  urgent: {
-    id: 'urgent',
+  threat: {
+    id: 'threat',
     label: 'label_trash_status_urgent',
     image: require('./images/unselected/icToxicTrashpointSmall.png'),
     selectedImage: require('./images/selected/icToxicTrashpointSmall.png'),
@@ -30,38 +30,37 @@ export const options = {
 };
 
 export default class StatusPicker extends React.Component {
-    render() {
+  render() {
+    const { value, onChange } = this.props;
 
-        const {value, onChange} = this.props;
-
-        const display = this.props.display
+    const display = this.props.display
          ? this.props.display
-            : ['urgent', 'regular'];
-
-        return (
-        <View style={styles.container}>
-            <View style={styles.optionsContainer}>
-                {display.map(prop => {
-                    const option = options[prop];
-                    const isSelected = value === option.id;
-                    const onImagePress = () => onChange(option.id);
-                    return (
-                        <TouchableWithoutFeedback key={option.id} onPress={onImagePress}>
-                            <View style={styles.option}>
-                                <Image
-                                    style={isSelected ? styles.selectedImage : styles.image}
-                                    resizeMode="contain"
-                                    source={isSelected ? option.selectedImage : option.image}
-                                />
-                                <Text style={[styles.imageText, isSelected ? { color: 'rgb(0, 143, 223)'} : {}]}>
-                                    {strings[option.label].toUpperCase()}
-                                </Text>
-                            </View>
-                        </TouchableWithoutFeedback>
-                    );
-                })}
-            </View>
+            : ['threat', 'regular'];
+    console.log(display);
+    return (
+      <View style={styles.container}>
+        <View style={styles.optionsContainer}>
+          {display.map((prop) => {
+            const option = options[prop];
+            const isSelected = value === option.id;
+            const onImagePress = () => onChange(option.id);
+            return (
+                <TouchableWithoutFeedback key={option.id} onPress={onImagePress}>
+                    <View style={styles.option}>
+                    <Image
+                        style={isSelected ? styles.selectedImage : styles.image}
+                        resizeMode="contain"
+                        source={isSelected ? option.selectedImage : option.image}
+                      />
+                    <Text style={[styles.imageText, isSelected ? { color: 'rgb(0, 143, 223)' } : {}]}>
+                        {strings[option.label].toUpperCase()}
+                      </Text>
+                  </View>
+                  </TouchableWithoutFeedback>
+              );
+          })}
         </View>
-        );
-    }
+      </View>
+    );
+  }
 }

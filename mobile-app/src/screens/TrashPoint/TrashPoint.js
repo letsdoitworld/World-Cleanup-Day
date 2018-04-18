@@ -154,7 +154,7 @@ export default class CreateEvent extends Component {
           </View>
           <View style={styles.rowHeader}>
             <Text style={styles.textHeader}>
-              {strings.label_last_update}
+              {strings.label_TP_updates}
             </Text>
           </View>
           <View style={styles.row}>
@@ -165,13 +165,13 @@ export default class CreateEvent extends Component {
               source={{ uri: updater ? updater.pictureURL : undefined }}
             />
             <Text style={styles.textLabel}>
-              {updater ? updater.name : undefined}
+              {updater ? updater.name : 'No updates'}
             </Text>
           </View>
           <View style={[styles.row, { marginTop: 1 }]}>
             <Image source={require('./images/icTime.png')} />
             <Text style={styles.textLabel}>
-              {moment(updatedAt).format('DD.MM.YYYY')}
+              {updatedAt ? moment(updatedAt).format('DD.MM.YYYY') : 'Time to contribute!'}
             </Text>
           </View>
           <View style={styles.rowHeader}>
@@ -186,8 +186,8 @@ export default class CreateEvent extends Component {
           {hashtags && hashtags.length > 0 &&
           <View style={styles.rowHeader}>
             <Text style={styles.textHeader}>
-                    {strings.label_additional_tags}
-                  </Text>
+              {strings.label_additional_tags}
+            </Text>
           </View>
                     }
           {hashtags && hashtags.length > 0 && <Tags tags={hashtags} />}

@@ -3,9 +3,12 @@ import {
   View,
   ActivityIndicator,
   FlatList,
+  Image,
+  Text,
 } from 'react-native';
-
+import isEmpty from 'lodash/isEmpty';
 import ImmutableComponent from '../../../components/InputFields/ImmutableComponent';
+import { Backgrounds } from '../../../assets/images';
 
 import styles from './styles';
 import ListItem from './ListItem/ListItem';
@@ -37,7 +40,15 @@ export default class EventsList extends ImmutableComponent {
 
   // noinspection JSMethodCanBeStatic
   render() {
-    return (
+    return isEmpty(this.props.events)
+    ? (
+      <View style={styles.emptyView}>
+        <Image style={styles.emptyImage} source={Backgrounds.EmptyTrashpoints} />
+        <Text style={styles.text}>Nothing to see here!</Text>
+        <Text style={styles.textGrey}>Widen the search area or try another filter.</Text>
+      </View>
+      )
+    : (
       <FlatList
         ListFooterComponent={this.renderFooter.bind(this)}
         ListHeaderComponent={this.renderHeader.bind(this)}

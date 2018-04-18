@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     ActivityIndicator,
@@ -11,26 +11,27 @@ import {
     UIManager,
     View,
 } from 'react-native';
-
+import Permissions from 'react-native-permissions';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
+import has from 'lodash/has';
 
-import {Map as MapView} from '../../components/Map';
-import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
-import {CREATE_MARKER, TRASH_POINT} from '../index';
+import { Map as MapView } from '../../components/Map';
+import { DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM } from '../../shared/constants';
+import { CREATE_MARKER, TRASH_POINT } from '../index';
 import styles from '../Events/styles';
-import {debounce} from '../../shared/util';
+import { debounce } from '../../shared/util';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import {autocompleteStyle} from '../AddLocation/AddLocation';
+import { autocompleteStyle } from '../AddLocation/AddLocation';
 // import styles from './styles';
-import {renderItem} from '../AddTrashPoints/Item/ListItem';
-import has from 'lodash/has';
-import {AlertModal} from '../../components/AlertModal';
+import { renderItem } from '../AddTrashPoints/Item/ListItem';
+
+import { AlertModal } from '../../components/AlertModal';
 
 const { width } = Dimensions.get('window');
 
@@ -141,11 +142,10 @@ class TrashPoints extends Component {
   }
 
   componentDidMount() {
-   
     try {
       setTimeout(async () => {
-        this.setVisible().bind(this);
-        this.getPosition().bind(this);
+        this.setVisible();
+        this.getPosition();
       }, 2000);
     } catch (ex) {
       console.log('===> getPosition Error', ex);
@@ -159,7 +159,7 @@ class TrashPoints extends Component {
   async getPosition() {
     await navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log('Hello')
+            console.log('Hello');
             this.getLocation(position);
 
             const { latitude, longitude } = position.coords;
@@ -232,11 +232,11 @@ class TrashPoints extends Component {
     });
   };
   setVisible = async () => {
-    if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
-      if (granted !== PermissionsAndroid.RESULTS.GRANTED) this.setState({fabVisible: false})
-      else this.setState({fabVisible: true})
-    } else this.setState({fabVisible: true})
+    if (Platform.OS === 'android' && Platform.Version >= 23) {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) this.setState({ fabVisible: false });
+      else this.setState({ fabVisible: true });
+    } else this.setState({ fabVisible: true });
   }
   onMarkerPress(marker) {
     const trashpoint = this.state.mapTrashPoints.find(
@@ -492,14 +492,18 @@ class TrashPoints extends Component {
 
     if (isAuthenticated) {
       try {
-        if (Platform.OS === 'android' && Platform.Version >= 23) {
-          const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
-          if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-            alert(strings.label_allow_access_to_camera);
-            return;
-          }
+        let permission = await Permissions.check('camera').then(response => {
+          return response;
+        });
+        if (permission === 'undetermined') {
+          permission = await Permissions.request('camera').then(response => {
+            return response;
+          });
         }
-
+        if (permission !== 'authorized') {
+          alert(strings.label_allow_access_to_camera);
+          return;
+        }
         ImagePicker.openCamera({
           width: 500,
           height: 350,

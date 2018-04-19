@@ -145,6 +145,7 @@ export default class AddCoordinator extends ImmutableComponent {
 
     return (
       <View style={styles.addCoordinatorContainer}>
+      <View>
         {this.renderUserNameTitle()}
         <View style={styles.inputContainerStyle}>
           <InputField
@@ -189,6 +190,7 @@ export default class AddCoordinator extends ImmutableComponent {
           />
         </View>
         {this.renderEmailError()}
+        </View>
         <MainButton
           isValid={isValid}
           text={strings.label_next}

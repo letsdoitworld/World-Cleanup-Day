@@ -127,17 +127,17 @@ export default class IosLikeSwitch extends Component {
   toggleSwitch = (result, callback = () => null) => { // "result" is result of task
     const { switchAnimation } = this.state;
     const { value } = this.props;
-
+    console.log(value, this.state.value)
     this.animateHandler(this.handlerSize);
     if (result) {
       this.animateSwitch(value, () => {
         this.setState({
           value,
-          alignItems: value ? 'flex-end' : 'flex-start',
+          alignItems: !value ? 'flex-end' : 'flex-start',
         }, () => {
-          callback(value);
+          callback(!value);
         });
-        switchAnimation.setValue(value ? -1 : 1);
+        switchAnimation.setValue(!value ? -1 : 1);
       });
     }
   };
@@ -147,7 +147,7 @@ export default class IosLikeSwitch extends Component {
 
     Animated.timing(switchAnimation,
       {
-        toValue: value ? this.offset : -this.offset,
+        toValue: !value ? this.offset : -this.offset,
         duration: 200,
         easing: Easing.linear,
       },
@@ -167,12 +167,13 @@ export default class IosLikeSwitch extends Component {
   };
 
   render() {
-    const { switchAnimation, handlerAnimation, alignItems, value } = this.state;
+    const { switchAnimation, handlerAnimation, alignItems } = this.state;
     const {
             backgroundActive, backgroundInactive,
             width, height, circleColorActive, circleColorInactive, style,
             circleStyle,
-            ...rest
+            value,
+            ...rest         
         } = this.props;
 
     const interpolatedBackgroundColor = switchAnimation.interpolate({

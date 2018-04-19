@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View, Platform } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
@@ -70,6 +70,8 @@ export default class CreateEvent extends ImmutableComponent {
         selectedLocation: undefined,
         trashPointsCount: 0,
         trashPoints: [],
+        height: 0,
+        heightWTB: 0,
       }),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -85,7 +87,16 @@ export default class CreateEvent extends ImmutableComponent {
       }
     }
   }
-
+  updateSize = (height) => {
+    this.setState({
+      height
+    });
+  }
+  updateWTBSize = (heightWTB) => {
+    this.setState({
+      heightWTB
+    });
+  }
   back() {
     Navigation.dismissModal();
   }
@@ -259,10 +270,15 @@ export default class CreateEvent extends ImmutableComponent {
     const isLocationValid = this.state.data.get('isLocationValid');
     const photos = this.state.photos;
     const imagePath = (photos.length > 0) ? photos[0].uri : '';
-
+    const { height } = this.state;
     const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid
             && isStartDateValid && isEndDateValid && isLocationValid;
-
+    let newStyle = {
+      height,
+    };
+    let newStyleWTB = {
+      height,
+    };
     return (
       <View>
         <ScrollView
@@ -271,7 +287,7 @@ export default class CreateEvent extends ImmutableComponent {
         >
 
           {this.renderTitle()}
-          <View style={styles.inputContainerStyle}>
+          <View style={Platform.OS ==='android' ? [styles.inputContainerStyle, newStyle] : styles.inputContainerStyle} >
             <InputField
               style={styles.inputTextStyle}
               placeholder={strings.label_title_hint}
@@ -280,6 +296,7 @@ export default class CreateEvent extends ImmutableComponent {
               multiline={true}
               maxLength={70}
               onChangeText={this.onTitleTextChanged}
+              onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             />
           </View>
           {this.renderTitleError()}
@@ -368,7 +385,7 @@ export default class CreateEvent extends ImmutableComponent {
           </View>
           {this.renderDescriptionError()}
           {this.renderWhatToBringTitle()}
-          <View style={styles.whatBringContainerStyle}>
+          <View style={Platform.OS ==='android' ? [styles.whatBringContainerStyle, newStyleWTB] : styles.whatBringContainerStyle}>
             <InputField
               style={styles.inputTextStyle}
               placeholder={strings.label_specify_tools_for_work}
@@ -378,6 +395,7 @@ export default class CreateEvent extends ImmutableComponent {
               validate={this.validateWhatToBring}
               maxLength={500}
               onChangeText={this.onWhatToBringTextChanged}
+              onContentSizeChange={(e) => this.updateWTBSize(e.nativeEvent.contentSize.height)}
             />
           </View>
           {this.renderWhatToBringError()}

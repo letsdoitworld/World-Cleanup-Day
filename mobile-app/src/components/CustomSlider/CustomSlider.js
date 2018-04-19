@@ -47,27 +47,6 @@ const CustomSlider = (props) => {
 
   this.gradationPosition = props.paddingHorizontal * 2 + props.knobSize / 2 - 32.5;
 
-  const blueBackgroundLine = {
-    alignSelf: 'flex-start',
-    position: 'absolute',
-    top: 14,
-    left: props.paddingHorizontal,
-    height: props.trackHeight,
-    backgroundColor: '#4AA5FF',
-    borderRadius: props.trackHeight,
-    width: width - props.paddingHorizontal * 3,
-  };
-  const whiteBackgroundLine = {
-    alignSelf: 'flex-start',
-    position: 'absolute',
-    top: 14,
-    right: props.paddingHorizontal,
-    height: props.trackHeight,
-    backgroundColor: '#F7F7F7',
-    borderRadius: props.trackHeight,
-    width: width - props.paddingHorizontal * 3,
-  };
-
   return (
     <View style={styles.mainContainer}>
 

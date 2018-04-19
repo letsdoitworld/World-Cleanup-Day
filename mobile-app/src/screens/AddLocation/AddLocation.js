@@ -39,7 +39,6 @@ class AddLocation extends Component {
   constructor(props) {
     super(props);
     const { initialLocation } = props;
-    console.warn("initialLocation prps", initialLocation);
     if (initialLocation !== undefined) {
       this.state = {
         marker: undefined,
@@ -63,7 +62,6 @@ class AddLocation extends Component {
   }
 
   componentDidMount() {
-      console.warn("initialRegion", this.state.initialRegion);
     if (this.state.initialRegion === undefined) {
       this.getCurrentPosition();
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, BackHandler, ScrollView, Text, TextInput, TouchableOpacity, View,} from 'react-native';
+import {ActivityIndicator, BackHandler, ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import strings from '../../assets/strings';
 
 import ImageService from '../../services/Image';
@@ -10,13 +10,14 @@ import {Tags} from '../../components/Tags';
 import {AMOUNT_STATUSES} from '../../components/AmountPicker';
 import {AlertModal} from '../../components/AlertModal';
 import {CustomSlider} from '../../components/CustomSlider';
-import {MARKER_STATUSES, TRASH_COMPOSITION_TYPE_LIST,} from '../../shared/constants';
+import {MARKER_STATUSES, TRASH_COMPOSITION_TYPE_LIST} from '../../shared/constants';
 import _ from 'lodash';
 import styles from './styles';
 import CongratsModal from './components/CongratsModal/CongratsModal';
 import {geocodeCoordinates, getCurrentPosition} from '../../shared/geo';
 import ImagePicker from 'react-native-image-crop-picker';
 import {ADD_LOCATION, CREATE_MARKER} from '../index';
+import {getWidthPercentage} from '../../shared/helpers';
 
 const ALERT_CHECK_IMG = require('./alert_check.png');
 
@@ -253,7 +254,8 @@ class CreateMarker extends React.Component {
 
   handlePhotoAdd = async () => {
     const image = await ImagePicker.openCamera({
-      compressImageQuality: 0.2,
+      width: 500,
+      height: 350,
       cropping: true,
       includeBase64: true,
     });
@@ -464,11 +466,13 @@ class CreateMarker extends React.Component {
           {this.renderSectionHeader(strings.label_text_select_trash_amount)}
           <View style={styles.selectTrashPointTypeContainer}>
             <CustomSlider
+              width={getWidthPercentage(264)}
               paddingHorizontal={20}
               maximumValue={3}
               step={1}
               onValueChange={this.handleAmountSelect}
               gradationData={[{
+                position: getWidthPercentage(10.5),
                 image: amount >= 0
                                 ? HANDFUL_IMAGE_DATA.active
                                 : HANDFUL_IMAGE_DATA.default,
@@ -480,6 +484,7 @@ class CreateMarker extends React.Component {
     {strings.label_handful}
   </Text>,
               }, {
+                position: getWidthPercentage(91.2),
                 image: amount >= 1
                                 ? BAGFUL_IMAGE_DATA.active
                                 : BAGFUL_IMAGE_DATA.default,
@@ -491,6 +496,7 @@ class CreateMarker extends React.Component {
     {strings.label_bagful}
   </Text>,
               }, {
+                  position: getWidthPercentage(172),
                 image: amount >= 2
                                 ? CARTLOAD_IMAGE_DATA.active
                                 : CARTLOAD_IMAGE_DATA.default,
@@ -502,17 +508,18 @@ class CreateMarker extends React.Component {
     {strings.label_cartload}
   </Text>,
               }, {
-                  image: amount >= 3
+                  position: getWidthPercentage(253.2),
+                image: amount >= 3
                                 ? TRUCKLOAD_IMAGE_DATA.active
                                 : TRUCKLOAD_IMAGE_DATA.default,
-                  text:
+                text:
   <Text
     key={strings.label_truck}
     style={[styles.label, amount >= 3 ? { color: 'rgb(0, 143, 223)' } : {}]}
   >
     {strings.label_truck}
   </Text>,
-                }]}
+              }]}
             />
           </View>
           {this.renderSectionHeader(strings.label_select_trash_type)}

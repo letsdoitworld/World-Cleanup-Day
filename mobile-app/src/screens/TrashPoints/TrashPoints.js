@@ -95,7 +95,8 @@ class TrashPoints extends Component {
       initialRegion,
       userCoord,
       showUserWarning: false,
-      fabVisible: false,
+      fabVisible: true,
+      isFabBlock: false,
     };
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -141,10 +142,10 @@ class TrashPoints extends Component {
   }
 
   componentDidMount() {
-   
     try {
       setTimeout(async () => {
-        this.setVisible().bind(this);
+        // toDO fix me!!
+        // this.setVisible().bind(this);
         this.getPosition().bind(this);
       }, 2000);
     } catch (ex) {
@@ -159,7 +160,6 @@ class TrashPoints extends Component {
   async getPosition() {
     await navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log('Hello')
             this.getLocation(position);
 
             const { latitude, longitude } = position.coords;
@@ -231,13 +231,15 @@ class TrashPoints extends Component {
       },
     });
   };
+
   setVisible = async () => {
     if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
-      if (granted !== PermissionsAndroid.RESULTS.GRANTED) this.setState({fabVisible: false})
-      else this.setState({fabVisible: true})
-    } else this.setState({fabVisible: true})
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) this.setState({ fabVisible: false });
+      else this.setState({ fabVisible: true });
+    } else this.setState({ fabVisible: true });
   }
+
   onMarkerPress(marker) {
     const trashpoint = this.state.mapTrashPoints.find(
           trash => trash.id === marker.id,
@@ -488,65 +490,65 @@ class TrashPoints extends Component {
 
 
   handleFabPress = async () => {
-    const { isAuthenticated, userCoord } = this.props;
+      const { isAuthenticated, userCoord } = this.props;
 
-    if (isAuthenticated) {
-      try {
-        if (Platform.OS === 'android' && Platform.Version >= 23) {
-          const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
-          if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-            alert(strings.label_allow_access_to_camera);
-            return;
+      if (isAuthenticated) {
+        try {
+          if (Platform.OS === 'android' && Platform.Version >= 23) {
+            const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+            if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+              alert(strings.label_allow_access_to_camera);
+              return;
+            }
           }
-        }
 
-        ImagePicker.openCamera({
-          width: 500,
-          height: 350,
-          cropping: true,
-          includeBase64: true,
-        }).then(async (image) => {
-          const { width, height, data, path } = image;
-          const uri = path;
-          const base64 = data;
+          ImagePicker.openCamera({
+            width: 500,
+            height: 350,
+            cropping: true,
+            includeBase64: true,
+          }).then(async (image) => {
+            const { width, height, data, path } = image;
+            const uri = path;
+            const base64 = data;
 
-          const thumbnailBase64 = await ImageService.getResizedImageBase64({
-            uri,
-            width,
-            height,
-          });
-
-          if (userCoord && userCoord.latitude) {
-            this.props.navigator.push({
-              screen: CREATE_MARKER,
-              title: strings.label_button_createTP_confirm_create,
-              passProps: {
-                photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
-                coords: userCoord,
-              },
+            const thumbnailBase64 = await ImageService.getResizedImageBase64({
+              uri,
+              width,
+              height,
             });
-          } else {
-            this.showAlert();
-          }
-        });
-      } catch (err) {
-        alert(strings.label_allow_access_to_camera);
-      }
-    } else {
-      Alert.alert(
+
+            if (userCoord && userCoord.latitude) {
+              this.props.navigator.push({
+                screen: CREATE_MARKER,
+                title: strings.label_button_createTP_confirm_create,
+                passProps: {
+                  photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
+                  coords: userCoord,
+                },
+              });
+            } else {
+              this.showAlert();
+            }
+          });
+        } catch (err) {
+          alert(strings.label_allow_access_to_camera);
+        }
+      } else {
+        Alert.alert(
                 strings.label_private_auth_wor_title,
                 strings.label_private_auth_trashpoint_wor,
-        [
-          {
-            text: 'Cancel',
-            onPress: () => {
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {
+              },
+              style: 'cancel',
             },
-            style: 'cancel',
-          },
                     { text: 'Register', onPress: this.handleLogInPress },
-        ],
+          ],
             );
-    }
+      }
   };
 
 

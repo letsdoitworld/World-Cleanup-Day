@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, Linking, TouchableHighlight, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Linking,
+  TouchableHighlight,
+  Alert,
+  NetInfo,
+} from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { CountryModal } from './components/CountryModal';
@@ -24,7 +34,7 @@ import colors from '../../config/colors';
 import { ABOUT_SCREEN } from '../index';
 import userActions from '../../reducers/user/actions';
 
-import PropTypes from 'prop-types';
+
 
 export class Settings extends Component {
 
@@ -96,17 +106,24 @@ export class Settings extends Component {
   };
 
   handlePrivacyPress = (status) => {
-    if (_.isEmpty(this.props.myEvents)) {
-      this.props.onUpdateProfileStatus(status);
-    } else {
-      Alert.alert(strings.label_private_profile_wor_title,
-      'You are an event creator! You can’t make your profile private while you have events connected to your profile.',
+    NetInfo.isConnected.fetch().then((isConnected) => {
+      !isConnected ? Alert.alert(strings.label_private_profile_wor_title,
+        'No network connection. Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.',
         [
-          { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
         ],
-      { cancelable: false },
-  );
-    }
+        { cancelable: false },
+        )
+        : _.isEmpty(this.props.myEvents)
+        ? this.props.onUpdateProfileStatus(status)
+        : Alert.alert(strings.label_private_profile_wor_title,
+          'You are an event creator! You can’t make your profile private while you have events connected to your profile.',
+          [
+              { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+          ],
+          { cancelable: false },
+      );
+    });
   };
 
   handleLinkPress = link => () =>
@@ -174,7 +191,6 @@ export class Settings extends Component {
 
   render() {
     const { country, profile } = this.props;
-    console.log(this.props);
         // if (profile === null) {
         //     return null
         // }
@@ -217,7 +233,7 @@ export class Settings extends Component {
           </View>
           <TouchableOpacity
             style={styles.itemStyle}
-            onPress={this.handleLinkPress(TERMS_URL).bind(this)}
+            onPress={this.handleLinkPress(TERMS_URL)}
           >
             <Text style={styles.textItemStyle}>{strings.label_header_tc}</Text>
             <Image
@@ -262,6 +278,9 @@ export class Settings extends Component {
 
 Settings.propTypes = {
   onUpdateProfileStatus: PropTypes.func,
+  onLogout: PropTypes.func,
+  profile: PropTypes.object,
+  myEvents: PropTypes.array,
 };
 
 export default Settings;

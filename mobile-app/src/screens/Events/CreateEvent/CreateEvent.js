@@ -4,6 +4,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 import { Navigation } from 'react-native-navigation';
+import Permissions from 'react-native-permissions';
 
 import styles from './styles';
 import strings from '../../../assets/strings';
@@ -111,7 +112,6 @@ export default class CreateEvent extends ImmutableComponent {
       onDateChange={(date) => {
         const endDate = this.state.data.get('endDate');
         this.setData(d => d.set('startDate', date));
-        console.log((++endDate.split(' ')[1].split(':')[0]));
         const endDateTime = Moment(endDate, 'DD-MM-YYYY HH:mm').toDate();
         const startDateTime = Moment(date, 'DD-MM-YYYY HH:mm').toDate();
         const changedEndDate = date.split(' ')[0] !== endDate.split(' ')[0]
@@ -434,7 +434,19 @@ export default class CreateEvent extends ImmutableComponent {
         );
   }
 
-  openGallery() {
+  openGallery = async () => {
+    let permission = await Permissions.check('photo').then(response => {
+      return response;
+    });
+    if (permission === 'undetermined') {
+      permission = await Permissions.request('photo').then(response => {
+        return response;
+      });
+    }
+    if (permission !== 'authorized') {
+      alert('Please allow access to your camera roll');
+      return;
+    }
     ImagePicker.openPicker({
       width: 500,
       height: 350,
@@ -445,7 +457,20 @@ export default class CreateEvent extends ImmutableComponent {
     });
   }
 
-  openCamera() {
+  openCamera = async () => {
+    let permission = await Permissions.check('camera').then(response => {
+      return response;
+    });
+    if (permission === 'undetermined') {
+      permission = await Permissions.request('camera').then(response => {
+        return response;
+      });
+    }
+    if (permission !== 'authorized') {
+      alert('Please allow access to your camera.');
+      return;
+    }
+
     ImagePicker.openCamera({
       width: 500,
       height: 350,

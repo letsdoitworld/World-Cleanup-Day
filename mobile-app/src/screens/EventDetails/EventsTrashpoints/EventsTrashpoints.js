@@ -47,6 +47,7 @@ class EventsTrshpoints extends PureComponent {
   };
 
   handleRenderTrashpoint(trashpoint) {
+    const { profile } = this.props
     return (
       <View style={styles.trashpointContainer}>
         <Trashpoint
@@ -57,7 +58,7 @@ class EventsTrshpoints extends PureComponent {
         <TouchableOpacity
           onPress={this.handleTrashpointSelect}
         >
-          {trashpoint.createdBy === this.props.profile.id && <Icon path={Icons.BtnRemove} />}
+          {this.props.profile && (trashpoint.createdBy === this.props.profile.id) && <Icon path={Icons.BtnRemove} />}
         </TouchableOpacity>
       </View>
     );

@@ -53,7 +53,6 @@ class TrashPoints extends Component {
         id: searchId,
       },
     ],
-
   };
 
   constructor(props) {
@@ -144,13 +143,22 @@ class TrashPoints extends Component {
   componentDidMount() {
     try {
       setTimeout(async () => {
-        this.setVisible();
-        this.getPosition();
+        this.setVisible().then(() => this.getPosition().then(() => { this.watchID = navigator.geolocation.watchPosition(position => {
+          this.getLocation(position);
+          const { latitude, longitude } = position.coords;
+          const initialRegion = {
+            longitude,
+            latitude,
+            latitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+          };
+          this.map.animateToRegion(initialRegion, 2000);
+        })}));
       }, 2000);
     } catch (ex) {
       console.log('===> getPosition Error', ex);
     }
-
+    
     if (!this.props.datasetUUIDSelector) {
       this.props.onFetchDatasetUUIDAction();
     }
@@ -159,9 +167,6 @@ class TrashPoints extends Component {
   async getPosition() {
     await navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log('Hello');
-            this.getLocation(position);
-
             const { latitude, longitude } = position.coords;
 
             const initialRegion = {
@@ -172,7 +177,7 @@ class TrashPoints extends Component {
             };
 
             if (this.isMapReady) {
-              this.map.animateToRegion(initialRegion, 1500);
+              //this.map.animateToRegion(initialRegion, 1500);
             }
           },
           (error) => {
@@ -232,11 +237,27 @@ class TrashPoints extends Component {
     });
   };
   setVisible = async () => {
+    let permission = await Permissions.check('location').then(response => {
+      return response;
+    });
+    if (permission === 'undetermined') {
+      permission = await Permissions.request('location').then(response => {
+        return response;
+      });
+    }
+    switch (permission) {
+      case 'authorized': { this.setState({ fabVisible: true }); return; }
+      case 'denied': { this.setState({ fabVisible: false }); alert(strings.label_allow_access_to_location); return; }
+    }
+    /* if (permission !== 'authorized') {
+      alert(strings.label_allow_access_to_camera);
+      return;
+    }
     if (Platform.OS === 'android' && Platform.Version >= 23) {
       const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
       if (granted !== PermissionsAndroid.RESULTS.GRANTED) this.setState({ fabVisible: false });
       else this.setState({ fabVisible: true });
-    } else this.setState({ fabVisible: true });
+    } else this.setState({ fabVisible: true }); */
   }
   onMarkerPress(marker) {
     const trashpoint = this.state.mapTrashPoints.find(
@@ -472,10 +493,10 @@ class TrashPoints extends Component {
             initialRegion={initialRegion}
             onMapReady={() => {
               this.isMapReady = true;
-              this.map.animateToRegion(initialRegion, 1500);
+              this.map.animateToRegion(this.props.userCoord, 1500);
             }}
-            handleOnMarkerPress={this.onMarkerPress.bind(this)}
-            onRegionChangeComplete={this.handleOnRegionChangeComplete.bind(this)}
+            handleOnMarkerPress={this.onMarkerPress}
+            onRegionChangeComplete={this.handleOnRegionChangeComplete}
             markers={markers}
             getRef={this.getMapObject.bind(this)}
           />
@@ -559,7 +580,7 @@ class TrashPoints extends Component {
             'Error',
             strings.label_error_location_subtitle,
       [
-                { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'Ok', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
       ],
         );
   }

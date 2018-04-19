@@ -94,7 +94,7 @@ i18n.addResources('in', 'general', require('../trans/id.json'));
 // i18n.addResources('is', 'general', require('../trans/is.json'));
 i18n.addResources('it', 'general', require('../trans/it.json'));
 
-// i18n.addResources('ja', 'general', require('../trans/ja.json'));
+i18n.addResources('ja', 'general', require('../trans/ja.json'));
 // i18n.addResources('jv', 'general', require('../trans/jv.json'));
 
 // i18n.addResources('ka', 'general', require('../trans/ka.json'));

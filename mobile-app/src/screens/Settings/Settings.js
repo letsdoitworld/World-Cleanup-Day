@@ -35,7 +35,6 @@ import { ABOUT_SCREEN } from '../index';
 import userActions from '../../reducers/user/actions';
 
 
-
 export class Settings extends Component {
 
   static navigatorStyle = {
@@ -107,22 +106,26 @@ export class Settings extends Component {
 
   handlePrivacyPress = (status) => {
     NetInfo.isConnected.fetch().then((isConnected) => {
-      !isConnected ? Alert.alert(strings.label_private_profile_wor_title,
+      if (!isConnected) {
+        Alert.alert(strings.label_private_profile_wor_title,
         'No network connection. Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.',
-        [
-            { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        ],
+          [
+          { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+          ],
         { cancelable: false },
-        )
-        : _.isEmpty(this.props.myEvents)
-        ? this.props.onUpdateProfileStatus(status)
-        : Alert.alert(strings.label_private_profile_wor_title,
+        );
+      } else if (_.isEmpty(this.props.myEvents) || this.props.myEvents === null) {
+        this.props.onUpdateProfileStatus(status);
+        this.setState({ value: !this.state.value });
+      } else {
+        Alert.alert(strings.label_private_profile_wor_title,
           'You are an event creator! You can’t make your profile private while you have events connected to your profile.',
           [
-              { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
           ],
           { cancelable: false },
       );
+      }
     });
   };
 
@@ -224,7 +227,7 @@ export class Settings extends Component {
                 width={50}
                 height={30}
                 value={this.state.value}
-                onSyncPress={isOn => this.handlePrivacyPress(!isOn)}
+                onSyncPress={() => this.handlePrivacyPress(this.state.value)}
               />
             </View>
           </View>

@@ -183,10 +183,11 @@ export default EStyleSheet.create({
         height: '100%',
         width: '100%',
         flexDirection: "column",
+        justifyContent: 'space-between',
         backgroundColor: colors.$mainBackground
     },
     coordinatorNext: {
-        position: 'absolute',
+        position: 'relative',
         bottom: 0,
         width: '90%',
         marginTop: 38,

@@ -55,7 +55,7 @@ function facebookLogin() {
                         }
 
                         const email = res.email && res.email;
-
+                        
                         const updatedData = {
                           token: data,
                           email,

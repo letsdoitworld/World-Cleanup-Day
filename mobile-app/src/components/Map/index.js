@@ -80,6 +80,7 @@ class Map extends Component {
                 style={containerStyle}
                 onRegionChangeComplete={this.onRegionChangeComplete}
                 provider="google"
+                showsUserLocation={true}
             >
                 {this.displayMarkers()}
                 {this.displayCircle()}

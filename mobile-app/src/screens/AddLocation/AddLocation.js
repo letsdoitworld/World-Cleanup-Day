@@ -153,6 +153,9 @@ class AddLocation extends Component {
           region={this.state.region}
           onPress={this.onMapPress.bind(this)}
           markers={[this.state.marker]}
+          onMapReady={() => {
+              this.map.animateToRegion(this.state.initialRegion, 1500);
+          }}
           initialRegion={this.state.initialRegion}
           style={styles.map}
           getRef={(map) => {

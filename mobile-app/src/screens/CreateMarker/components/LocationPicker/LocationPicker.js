@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 
 import {Map} from '../../../../components/Map';
-import {SCREEN_WIDTH, DEFAULT_ZOOM} from '../../../../shared/constants';
+import {DEFAULT_ZOOM, SCREEN_WIDTH} from '../../../../shared/constants';
 
 import styles from './styles';
 import strings from '../../../../assets/strings'
@@ -45,7 +44,7 @@ export default class LocationPicker extends React.Component {
                 <View style={styles.row}>
                     <Image
                         source={require('../../../../assets/images/icTrashpointAddress.png')}/>
-                    <Text style={styles.address}>
+                    <Text numberOfLines={2} style={styles.address}>
                         {address}
                     </Text>
                     <TouchableOpacity onPress={onEditLocationPress} style={styles.editLocationContainer}>

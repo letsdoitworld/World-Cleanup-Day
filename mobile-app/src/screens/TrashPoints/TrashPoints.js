@@ -96,6 +96,7 @@ class TrashPoints extends Component {
       userCoord,
       showUserWarning: false,
       fabVisible: false,
+      isFabBlock: false,
     };
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -236,6 +237,7 @@ class TrashPoints extends Component {
       },
     });
   };
+
   setVisible = async () => {
     let permission = await Permissions.check('location').then(response => {
       return response;
@@ -259,6 +261,7 @@ class TrashPoints extends Component {
       else this.setState({ fabVisible: true });
     } else this.setState({ fabVisible: true }); */
   }
+
   onMarkerPress(marker) {
     const trashpoint = this.state.mapTrashPoints.find(
           trash => trash.id === marker.id,

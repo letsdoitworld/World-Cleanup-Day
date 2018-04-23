@@ -165,6 +165,19 @@ const designDocs = {
                 }),
             },
         },
+        byName: {
+            $version: 1,
+            views: {
+                view: tools.makeAreaView({
+                    map: function (doc) {
+                        var COPY_SANS_GEOMETRY = $$COPY_SANS_GEOMETRY$$;
+                        if (doc.$doctype === 'area') {
+                            emit(doc.name, COPY_SANS_GEOMETRY(doc));
+                        }
+                    },
+                }),
+            },
+        },
         // geometry: {
         //     $version: util.time.getNowUNIX(),
         //     views: {

@@ -13,6 +13,7 @@ import { withNavigationHelpers } from '../../services/Navigation';
 import styles from './styles';
 import { COUNTRIES_HASH } from '../../shared/countries';
 import SelectBlock from './SelectBlock';
+import { ROUTES } from '../../config/routes';
 
 class Profile extends Component {
 
@@ -21,11 +22,11 @@ class Profile extends Component {
   }
 
   handleTeamPress = team => {
-    this.props.navigation.navigate('TeamProfile', { team });
+    this.props.navigation.navigate(ROUTES.TeamProfile, { team });
   };
 
   handleJoinTeamPress = () => {
-    this.props.navigation.navigate('Teams');
+    this.props.navigation.navigate(ROUTES.Teams);
   };
 
 

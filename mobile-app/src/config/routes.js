@@ -187,6 +187,25 @@ const TabStack = TabNavigator(
   },
 );
 
+export const ROUTES = {
+  Login: 'Login',
+  PublicHome: 'PublicHome',
+  Tabs: 'Tabs',
+  CreateMarker: 'CreateMarker',
+  EditTrashpoint: 'EditTrashpoint',
+  Details: 'Details',
+  AcceptTerms: 'AcceptTerms',
+  PrivacyAndTerms: 'PrivacyAndTerms',
+  Terms: 'Terms',
+  Privacy: 'Privacy',
+  About: 'About',
+  EditLocation: 'EditLocation',
+  Settings: 'Settings',
+  Teams: 'Teams',
+  TeamProfile: 'TeamProfile',
+  DenyTerms: 'DenyTerms',
+}
+
 const AppNavigator = StackNavigator(
   {
     Login: {

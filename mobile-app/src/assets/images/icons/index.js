@@ -32,4 +32,15 @@ module.exports = {
 
   PlaceHolderPhoto: require('./placeholderPhoto.png'),
   PlaceHolderAvatar: require('./placeholderProfilePic.png'),
+  InactiveCleanedTrashpointMap: require('./status/icInactiveCleanedTrashpointMap.png'),
+  InactiveInactiveTrashpointMap: require('./status/icInactiveInactiveTrashpointMap.png'),
+  InactiveRegularTrashpointMap: require('./status/icInactiveRegularTrashpointMap.png'),
+  InactiveToxicTrashpointMap: require('./status/icInactiveToxicTrashpointMap.png'),
+  ActiveCleanedTrashpointMap: require('./status/icActiveCleanedTrashpointMap.png'),
+  ActiveInactiveTrashpointMap: require('./status/icActiveInactiveTrashpointMap.png'),
+  ActiveRegularTrashpointMap: require('./status/icActiveRegularTrashpointMap.png'),
+  ActiveToxicTrashpointMap: require('./status/icActiveToxicTrashpointMap.png'),
+
+  ActiveAddedCopy: require('./pin/icActiveAddedCopy.png'),
+  InactiveAdded: require('./pin/icInactiveAdded.png'),
 };

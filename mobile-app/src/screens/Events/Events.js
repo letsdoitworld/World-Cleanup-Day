@@ -1,23 +1,16 @@
-import React, { Component } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  LayoutAnimation,
-  TextInput,
-  UIManager,
-  View,
-} from 'react-native';
+import React, {Component} from 'react';
+import {ActivityIndicator, Alert, LayoutAnimation, TextInput, UIManager, View,} from 'react-native';
 import PropTypes from 'prop-types';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 
 import styles from './styles';
-import { CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN } from '../index';
+import {CREATE_EVENT, EVENTS_NAV_BAR, SETTINGS_SCREEN} from '../index';
 import strings from '../../assets/strings';
 
 
 import EventsList from './List/List';
-import { debounce } from '../../shared/util';
+import {debounce} from '../../shared/util';
 
 import EventsMap from '../EventMap/EventsMap';
 
@@ -85,6 +78,8 @@ class Events extends Component {
     this.setState((previousState) => {
       return { mode: index };
     });
+    this.props.onClearEventsAction();
+    this.loadEvents(0);
     this.props.navigator.setButtons({
       leftButtons: [
         {
@@ -156,13 +151,13 @@ class Events extends Component {
       if (isPrivateProfile) {
         Alert.alert(
             strings.label_private_profile_wor_title,
-                    strings.label_private_profile_wor,
+            strings.label_private_profile_wor,
           [
-                       { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                       { text: strings.label_settings_header, onPress: this.handleSettingsPress },
+            { text: strings.label_button_cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: strings.label_settings_header, onPress: this.handleSettingsPress },
           ],
-                    { cancelable: false },
-                );
+            { cancelable: false },
+          );
 
         return;
       }
@@ -175,15 +170,15 @@ class Events extends Component {
           strings.label_private_auth_wor_title,
                 strings.label_private_auth_wor,
         [
-                    { text: strings.label_button_cancel, onPress: () => {}, style: 'cancel' },
-                    { text: strings.label_settings_header, onPress: this.handleLogInPress },
+          { text: strings.label_button_cancel, onPress: () => {}, style: 'cancel' },
+          { text: strings.label_settings_header, onPress: this.handleLogInPress },
         ],
-            );
+      );
     }
   };
 
   successCancel() {
-    this.props.navigator.pop()
+    this.props.navigator.pop();
   }
 
   renderContent(mapEvents) {
@@ -202,6 +197,7 @@ class Events extends Component {
         );
       }
       case MODE.map: {
+       
         return (
           <EventsMap
             initialRegion={this.props.userCoord}

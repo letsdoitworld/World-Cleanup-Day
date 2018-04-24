@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Alert, FlatList, Text, View, ScrollView } from 'react-native';
+import { Alert, FlatList, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-
-import { SceneMap } from 'react-native-tab-view';
 
 import toString from 'lodash/toString';
 import isEqual from 'lodash/isEqual';
@@ -34,6 +32,7 @@ class Profile extends Component {
       visible: true,
       isEndEventsReached: false,
       isEndTrashpointReached: false,
+      selectedTab: 'events',
     };
   }
 
@@ -195,12 +194,11 @@ class Profile extends Component {
   handleEventPagination = () => {
     const { eventsPageSize, myEvents, onLoadMyEvents } = this.props;
     let { eventsPageNumber } = this.props;
-
+    eventsPageNumber++
     if (isEmpty(myEvents)) return;
 
     if (!this.state.isEndEventsReached && !(myEvents.length % eventsPageSize)) {
-      onLoadMyEvents(eventsPageSize, ++eventsPageNumber);
-      this.setState({ isEndEventsReached: true });
+      onLoadMyEvents(eventsPageSize, eventsPageNumber);
     }
   };
 
@@ -228,12 +226,12 @@ class Profile extends Component {
     const imageIndex = this.props.myEmptyEvents.indexOf(event) !== -1
       ? this.props.myEmptyEvents.indexOf(event) % 3
       : null;
-    console.log(imageIndex);
     const coverPhoto = imageIndex !== null
       ? this.selectImage(imageIndex)
       : { uri: event.photos[0] };
     return (
       <Event
+        key={event.id}
         img={coverPhoto}
         title={event.name}
         coordinator={event.coordinator}
@@ -259,16 +257,8 @@ class Profile extends Component {
   }
 
   handleKeyExtractor = event => toString(event.id);
-  /*<FlatList
-    style={styles.tabContent}
-        data={this.props.myEvents}
-        renderItem={({ item }) => this.handleRenderEvents(item)}
-        keyExtractor={this.handleKeyExtractor}
-        onEndReachedThreshold={0.5}
-    onEndReached={this.handleEventPagination}
-    />*/
+ 
   isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    console.log(layoutMeasurement, contentOffset, contentSize)
     const paddingToBottom = 20;
     return layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom;
@@ -276,16 +266,14 @@ class Profile extends Component {
   
   onRenderEvents = () => {
     return (
-      <ScrollView
-        onScroll={({nativeEvent}) => {
-          if (this.isCloseToBottom(nativeEvent)) {
-            this.handleEventPagination();
-          }
-        }}
-        scrollEventThrottle={400}
-      >
-        {this.props.myEvents && this.props.myEvents.map(item => this.handleRenderEvents(item))}
-      </ScrollView>
+      <FlatList
+        style={styles.tabContent}
+        data={this.props.myEvents}
+        renderItem={({ item }) => this.handleRenderEvents(item)}
+        keyExtractor={this.handleKeyExtractor}
+        onEndReachedThreshold={0.5}
+        onEndReached={this.handleEventPagination}
+      />
     );
   };
 
@@ -320,17 +308,11 @@ class Profile extends Component {
 
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
-    const { visible } = this.state;
 
-    const routes = [
-      { key: strings.label_events, title: strings.label_events },
-      { key: strings.label_trashpoints, title: strings.label_trashpoints },
+    const tabs = [
+      { content: this.onRenderEvents, name: strings.label_events },
+      { content: this.onRenderTrashPoints, name: strings.label_trashpoints },
     ];
-
-    const renderSceneTab = SceneMap({
-      [strings.label_events]: this.onRenderEvents,
-      [strings.label_trashpoints]: this.onRenderTrashPoints,
-    });
 
     if (!isAuthenticated && isGuestSession) return this.handleRenderGuestProfile();
     return (
@@ -346,12 +328,7 @@ class Profile extends Component {
         </View>
         <Divider />
         {this.handleRenderEmail()}
-        <Tabs
-                // scenes={scenes}
-          routes={routes}
-          isVisible={visible}
-          renderSceneTab={renderSceneTab}
-        />
+        <Tabs tabs={tabs} />
       </View>
     );
   }

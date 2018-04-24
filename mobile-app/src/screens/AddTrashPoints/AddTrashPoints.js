@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {ActivityIndicator, FlatList, LayoutAnimation, Text, TextInput, UIManager, View} from 'react-native';
-import styles from './styles'
-import strings from '../../assets/strings'
-import ListItem from "./Item/ListItem";
-import PropTypes from "prop-types";
-import Profile from "../Profile/Profile";
-import {ADD_TRASH_POINTS_MAP} from "../index";
+import styles from './styles';
+import strings from '../../assets/strings';
+import ListItem from './Item/ListItem';
+import PropTypes from 'prop-types';
+import Profile from '../Profile/Profile';
+import {ADD_TRASH_POINTS_MAP} from '../index';
 import {Icons} from '../../assets/images';
 
-let _ = require('lodash');
+const _ = require('lodash');
 
 const cancelId = 'cancelId';
 const saveId = 'saveId';
@@ -18,327 +18,325 @@ const PAGE_SIZE = 20;
 
 class AddTrashPoints extends Component {
 
-    marked = new Map();
+  marked = new Map();
 
-    static navigatorStyle = styles.navigatorStyle;
+  static navigatorStyle = styles.navigatorStyle;
 
-    static navigatorButtons = {
-        leftButtons: [
-            {
-                icon: Icons.Back,
-                id: cancelId,
-            }
-        ]
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        icon: Icons.Back,
+        id: cancelId,
+      },
+    ],
+  };
+
+  page = 0;
+
+  query = undefined;
+
+  constructor(props) {
+    super(props);
+
+    props.selectedTrashPoints.forEach((trashPoint) => {
+      this.marked.set(trashPoint.id, trashPoint);
+    });
+
+    this.state = {
+      count: 0,
+      trashPoints: [],
     };
 
-    page = 0;
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
 
-    query = undefined;
 
-    constructor(props) {
-        super(props);
+  componentDidMount() {
+    const { onSearchTrashPointsAction } = this.props;
+    onSearchTrashPointsAction(null, 0, PAGE_SIZE, this.props.location);
+  }
 
-        props.selectedTrashPoints.forEach((trashPoint) => {
-            this.marked.set(trashPoint.id, trashPoint)
-        });
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      switch (event.id) {
+        case cancelId: {
+          this.props.navigator.pop();
+          break;
+        }
+        case saveId: {
+          this.props.onTrashPointsSelected(this.marked);
+          this.props.navigator.pop();
+          break;
+        }
+        case mapId: {
+          this.props.navigator.push({
+            screen: ADD_TRASH_POINTS_MAP,
+            title: strings.label_add_trashPoints,
+            passProps: {
+              location: this.props.location,
+              selectedTrashPoints: this.marked,
+              trashPoints: this.state.trashPoints,
+              onMapTrashPointsSaved: this.onMapTrashPointsSaved.bind(this),
+            },
+          });
+          break;
+        }
+      }
+    }
+  }
 
-        this.state = {
-            count: 0,
-            trashPoints: []
+  onMapTrashPointsSaved(selectedTrashPoints) {
+    this.marked = new Map();
+    selectedTrashPoints.forEach((trashPoint) => {
+      this.marked.set(trashPoint.id, trashPoint);
+    });
+    this.setState((previousState) => {
+      return {
+        trashPoints: this.props.trashPoints,
+        count: this.marked.size,
+      };
+    });
+  }
+
+  handleLoadMore = () => {
+    if (this.getTrashPointsFromState().length < PAGE_SIZE * (this.page + 1)) {
+      return;
+    }
+
+    this.page++;
+
+    const { onSearchTrashPointsAction } = this.props;
+    onSearchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location);
+  };
+
+  componentWillReceiveProps(nextProps) {
+    const receivedTrashPointsList = nextProps.trashPoints;
+
+    if (receivedTrashPointsList === undefined) return;
+
+    if (this.marked.size === 0) {
+      this.setState((previousState) => {
+        return {
+          trashPoints: receivedTrashPointsList,
+          count: this.marked.size,
         };
+      });
+    } else if (this.page === 0) {
+      const filteredReceivedTrashPoints = receivedTrashPointsList
+                    .filter(trashPoint => !this.marked.has(trashPoint.id));
 
-        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+      if (filteredReceivedTrashPoints === undefined) return;
+
+      const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
+
+      this.setState((previousState) => {
+        return {
+          trashPoints,
+          count: this.marked.size,
+        };
+      });
+    } else {
+      this.setState((previousState) => {
+        return {
+          trashPoints: receivedTrashPointsList,
+          count: this.marked.size,
+        };
+      });
     }
 
+    this.props.navigator.setButtons({
+      leftButtons: [
+        {
+          icon: Icons.Back,
+          id: cancelId,
+        },
+      ],
+      rightButtons: [
+        {
+          title: strings.label_save,
+          id: saveId,
+          buttonColor: 'rgb(0, 143, 223)',
+          buttonFontSize: 17,
+          buttonFontFamily: 'Lato-Bold',
+        },
+        {
+          icon: require('../../../src/assets/images/icMapView.png'),
+          id: mapId,
+        },
+      ],
+    });
+  }
 
-    componentDidMount() {
-        const {onSearchTrashPointsAction} = this.props;
-        onSearchTrashPointsAction(null, 0, PAGE_SIZE, this.props.location);
+  getTrashPointsFromState() {
+    return this.state.trashPoints;
+  }
+
+  onCheckedChanged(checked, item) {
+    if (checked) {
+      this.marked.set(item.id, item);
+    } else {
+      this.marked.delete(item.id);
     }
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    this.setState((previousState) => {
+      return {
+        ...previousState,
+        count: this.marked.size,
+      };
+    });
+  }
 
-    onNavigatorEvent(event) {
-        if (event.type === 'NavBarButtonPress') {
-            switch (event.id) {
-                case cancelId: {
-                    this.props.navigator.pop();
-                    break;
-                }
-                case saveId: {
-                    this.props.onTrashPointsSelected(this.marked);
-                    this.props.navigator.pop();
-                    break;
-                }
-                case mapId: {
-                    this.props.navigator.push({
-                        screen: ADD_TRASH_POINTS_MAP,
-                        title: strings.label_add_trashPoints,
-                        passProps: {
-                            location: this.props.location,
-                            selectedTrashPoints: this.marked,
-                            trashPoints: this.state.trashPoints,
-                            onMapTrashPointsSaved: this.onMapTrashPointsSaved.bind(this)
-                        }
-                    });
-                    break;
-                }
-            }
-        }
+    // noinspection JSMethodCanBeStatic
+  render() {
+    return (
+      <View style={[styles.containerContent]}>
+        <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
+          {this.renderSearchBox()}
+          {this.renderCounter()}
+          <FlatList
+            ListFooterComponent={this.renderFooter.bind(this)}
+            ListHeaderComponent={this.renderHeader.bind(this)}
+            style={styles.list}
+            ItemSeparatorComponent={this.renderSeparator.bind(this)}
+            data={this.getTrashPointsFromState()}
+            keyExtractor={this.keyExtractor.bind(this)}
+            renderItem={this.renderItem.bind(this)}
+            onEndReached={this.handleLoadMore.bind(this)}
+            onEndReachedThreshold={1}
+          />
+        </View>
+        {this.renderProgress()}
+      </View>
+    );
+  }
+
+  renderCounter() {
+    const count = this.state.count;
+    if (count > 0) {
+      return (
+        <View style={styles.counterContainer}>
+          <Text style={styles.counter}>
+            {strings.formatString(strings.trashPoints_counter, count)}
+          </Text>
+        </View>
+      );
     }
+    return null;
+  }
 
-    onMapTrashPointsSaved(selectedTrashPoints) {
-        this.marked = new Map();
-        selectedTrashPoints.forEach((trashPoint) => {
-            this.marked.set(trashPoint.id, trashPoint)
-        });
-        this.setState(previousState => {
-            return {
-                trashPoints: this.props.trashPoints,
-                count: this.marked.size
-            }
-        });
+  renderSearchBox() {
+    return (
+      <View style={[styles.horizontal, styles.searchContainerStyle]}>
+        <TextInput
+          placeholderTextColor={'rgb(41, 127, 202)'}
+          style={styles.searchField}
+          ref="input"
+          onChangeText={this.onQueryChange.bind(this)}
+          placeholder={strings.label_text_select_country_hint}
+          underlineColorAndroid={'transparent'}
+        />
+      </View>
+    );
+  }
+
+  componentWillUnmount() {
+    const { onClearTrashPointsAction } = this.props;
+    onClearTrashPointsAction();
+  }
+
+  isProgressEnabled() {
+    return this.props.isLoading;
+  }
+
+  renderSeparator = () => {
+    return (
+      <View style={styles.listDivider} />
+    );
+  };
+
+  renderFooter = () => {
+    if (this.isProgressEnabled() && this.page === 0) {
+      return null;
+    } else if (this.isProgressEnabled() && this.page > 0) {
+      return (
+        <View
+          style={styles.paginationFooter}
+        >
+          {this.spinner()}
+        </View>
+      );
     }
+    return (<View style={styles.listDivider} />);
+  };
 
-    handleLoadMore = () => {
-        if (this.getTrashPointsFromState().length < PAGE_SIZE * (this.page + 1)) {
-            return
-        }
-
-        this.page++;
-
-        const {onSearchTrashPointsAction} = this.props;
-        onSearchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location);
-    };
-
-    componentWillReceiveProps(nextProps) {
-        const receivedTrashPointsList = nextProps.trashPoints;
-
-        if (receivedTrashPointsList === undefined) return;
-
-        if (this.marked.size === 0) {
-            this.setState(previousState => {
-                return {
-                    trashPoints: receivedTrashPointsList,
-                    count: this.marked.size
-                }
-            });
-        } else {
-            if (this.page === 0) {
-                const filteredReceivedTrashPoints = receivedTrashPointsList
-                    .filter((trashPoint) => !this.marked.has(trashPoint.id));
-
-                if (filteredReceivedTrashPoints === undefined) return;
-
-                const trashPoints = Array.from(this.marked.values()).concat(filteredReceivedTrashPoints);
-
-                this.setState(previousState => {
-                    return {
-                        trashPoints: trashPoints,
-                        count: this.marked.size
-                    }
-                });
-            } else {
-                this.setState(previousState => {
-                    return {
-                        trashPoints: receivedTrashPointsList,
-                        count: this.marked.size
-                    }
-                });
-            }
-        }
-
-        this.props.navigator.setButtons({
-            leftButtons: [
-                {
-                    icon: Icons.Back,
-                    id: cancelId,
-                }
-            ],
-            rightButtons: [
-                {
-                    title: strings.label_save,
-                    id: saveId,
-                    buttonColor: 'rgb(0, 143, 223)',
-                    buttonFontSize: 17,
-                    buttonFontFamily: 'Lato-Bold',
-                },
-                {
-                    icon: require('../../../src/assets/images/icMapView.png'),
-                    id: mapId,
-                }
-            ]
-        })
-
+  renderHeader = () => {
+    if (this.isProgressEnabled() && this.page === 0) {
+      return null;
     }
+    return (<View style={styles.listDivider} />);
+  };
 
-    getTrashPointsFromState() {
-        return this.state.trashPoints;
-    }
+  keyExtractor = (item, index) => item.id.toString() + this.marked.has(item.id);
 
-    onCheckedChanged(checked, item) {
-        if (checked) {
-            this.marked.set(item.id, item)
-        } else {
-            this.marked.delete(item.id)
-        }
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState(previousState => {
-            return {
-                ...previousState,
-                count: this.marked.size
-            };
-        });
-    };
-
-    //noinspection JSMethodCanBeStatic
-    render() {
-        return (
-            <View style={[styles.containerContent]}>
-                <View style={[styles.mainContentContainer, styles.containerContent, styles.vertical]}>
-                    {this.renderSearchBox()}
-                    {this.renderCounter()}
-                    <FlatList
-                        ListFooterComponent={this.renderFooter.bind(this)}
-                        ListHeaderComponent={this.renderHeader.bind(this)}
-                        style={styles.list}
-                        ItemSeparatorComponent={this.renderSeparator.bind(this)}
-                        data={this.getTrashPointsFromState()}
-                        keyExtractor={this.keyExtractor.bind(this)}
-                        renderItem={this.renderItem.bind(this)}
-                        onEndReached={this.handleLoadMore.bind(this)}
-                        onEndReachedThreshold={0}
-                    />
-                </View>
-                {this.renderProgress()}
-            </View>
-        );
-    }
-
-    renderCounter() {
-        const count = this.state.count;
-        if (count > 0) {
-            return (
-                <View style={styles.counterContainer}>
-                    <Text style={styles.counter}>
-                        {strings.formatString(strings.trashPoints_counter, count)}
-                    </Text>
-                </View>
-            );
-        } else {
-            return null;
-        }
-    }
-
-    renderSearchBox() {
-        return (
-            <View style={[styles.horizontal, styles.searchContainerStyle]}>
-                <TextInput
-                    placeholderTextColor={'rgb(41, 127, 202)'}
-                    style={styles.searchField}
-                    ref="input"
-                    onChangeText={this.onQueryChange.bind(this)}
-                    placeholder={strings.label_text_select_country_hint}
-                    underlineColorAndroid={'transparent'}/>
-            </View>
-        );
-    };
-
-    componentWillUnmount() {
-        const {onClearTrashPointsAction} = this.props;
-        onClearTrashPointsAction();
-    }
-
-    isProgressEnabled() {
-        return this.props.isLoading;
-    }
-
-    renderSeparator = () => {
-        return (
-            <View style={styles.listDivider}/>
-        )
-    };
-
-    renderFooter = () => {
-        if (this.isProgressEnabled() && this.page === 0) {
-            return null
-        } else if (this.isProgressEnabled() && this.page > 0) {
-            return (
-                <View
-                    style={styles.paginationFooter}>
-                    {this.spinner()}
-                </View>
-            )
-        } else {
-            return (<View style={styles.listDivider}/>)
-        }
-    };
-
-    renderHeader = () => {
-        if (this.isProgressEnabled() && this.page === 0) {
-            return null
-        } else {
-            return (<View style={styles.listDivider}/>)
-        }
-    };
-
-    keyExtractor = (item, index) => item.id.toString() + this.marked.has(item.id);
-
-    renderItem = ({item}) => (
-        <ListItem
-            onCheckedChanged={this.onCheckedChanged.bind(this)}
-            checked={this.marked.has(item.id)}
-            navigator={this.props.navigator}
-            item={item}
-            id={item.id}/>
+  renderItem = ({ item }) => (
+    <ListItem
+      onCheckedChanged={this.onCheckedChanged.bind(this)}
+      checked={this.marked.has(item.id)}
+      navigator={this.props.navigator}
+      item={item}
+      id={item.id}
+    />
     );
 
-    onQueryChange = debounce(function (text) {
-        this.query = text;
-        this.page = 0;
-        const {onSearchTrashPointsAction} = this.props;
+  onQueryChange = debounce(function (text) {
+    this.query = text;
+    this.page = 0;
+    const { onSearchTrashPointsAction } = this.props;
 
-        onSearchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location);
-    }, 1000);
+    onSearchTrashPointsAction(this.query, this.page, PAGE_SIZE, this.props.location);
+  }, 1000);
 
-    renderProgress() {
-        if (this.isProgressEnabled() && this.page === 0) {
-            return this.spinner()
-        } else {
-            return null;
-        }
+  renderProgress() {
+    if (this.isProgressEnabled() && this.page === 0) {
+      return this.spinner();
     }
+    return null;
+  }
 
-    spinner() {
-        return (
-            <ActivityIndicator
-                style={styles.spinner}
-                size="large"
-                color="rgb(0, 143, 223)"/>
-        );
-    }
+  spinner() {
+    return (
+      <ActivityIndicator
+        style={styles.spinner}
+        size="large"
+        color="rgb(0, 143, 223)"
+      />
+    );
+  }
 
 }
 
 function debounce(func, wait, immediate) {
-    let timeout;
-    return function () {
-        let context = this, args = arguments;
-        let later = function () {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        let callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
+  let timeout;
+  return function () {
+    let context = this,
+      args = arguments;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
     };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
 }
 
 Profile.propTypes = {
-    trashPoints: PropTypes.object,
-    isLoading: PropTypes.bool,
-    onSearchTrashPointsAction: PropTypes.func,
-    onClearTrashPointsAction: PropTypes.func,
+  trashPoints: PropTypes.object,
+  isLoading: PropTypes.bool,
+  onSearchTrashPointsAction: PropTypes.func,
+  onClearTrashPointsAction: PropTypes.func,
 };
 
-export default AddTrashPoints
+export default AddTrashPoints;

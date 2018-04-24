@@ -7,11 +7,13 @@ import {
 
 import {
   getEventsTrashpoints,
+  getProfileEntity,
 } from '../../../store/selectors';
 
 import Component from './EventsTrashpoints';
 
 const selector = createStructuredSelector({
+  profile: getProfileEntity,
   trashpoints: getEventsTrashpoints,
 });
 

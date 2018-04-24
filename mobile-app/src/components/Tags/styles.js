@@ -27,7 +27,21 @@ export default EStyleSheet.create({
     backgroundColor: 'white',
   },
   tagContainerSelected: {
-    backgroundColor: 'rgb(0, 143, 223)',
+      backgroundColor: 'rgb(0, 143, 223)',
+  },
+  closeStyle: {
+      textAlign: 'center',
+      color: 'white',
+  },
+  closeButton: {
+      backgroundColor: 'rgb(225, 18, 131)',
+      width: 30,
+      height: 30,
+      borderRadius: 15,
+      overflow: 'hidden',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center'
   },
   text: {
       color: 'rgb(0, 143, 223)',

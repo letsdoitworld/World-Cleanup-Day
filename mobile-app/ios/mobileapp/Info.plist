@@ -61,7 +61,7 @@
 		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>22</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -105,7 +105,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) create event photo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>$(PRODUCT_NAME) track user location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) create event photo</string>
 	<key>UIAppFonts</key>

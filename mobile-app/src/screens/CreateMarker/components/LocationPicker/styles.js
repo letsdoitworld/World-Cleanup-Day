@@ -1,9 +1,6 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import {
-    getHeightPercentage,
-    getWidthPercentage,
-} from '../../../../shared/helpers';
+import {getHeightPercentage, getWidthPercentage,} from '../../../../shared/helpers';
 
 export default EStyleSheet.create({
     container: {
@@ -68,7 +65,7 @@ export default EStyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: 44,
-        marginHorizontal: 16
+        height: getHeightPercentage(40),
+        marginHorizontal: 16,
     }
 });

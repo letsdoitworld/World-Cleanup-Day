@@ -15,7 +15,7 @@ import styles from './styles';
 const Event = ({
   img,
   title,
-  coordinator,
+  coordinatorName,
   address,
   date,
   maxParticipants,
@@ -67,12 +67,12 @@ const Event = ({
         <Image source={img} style={!imageStyle ? styles.image : imageStyle} />
 
         <View style={styles.middleColumn}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title} numberOfLines={2}>{title}</Text>
           <View>
-            {coordinator &&
+            {coordinatorName &&
               <View style={styles.coordinatorContainer}>
                 <Icon path={Icons.GroupPeople} containerStyle={styles.icon} />
-                <Text style={styles.coordinatorText}>{coordinator}</Text>
+                <Text style={styles.coordinatorText}>{coordinatorName}</Text>
               </View>
             }
 
@@ -93,7 +93,7 @@ const Event = ({
 
 Event.propTypes = {
   title: PropTypes.string,
-  coordinator: PropTypes.string,
+  coordinatorName: PropTypes.string,
   address: PropTypes.string,
   date: PropTypes.string,
   maxParticipants: PropTypes.number,

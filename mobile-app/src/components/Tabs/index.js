@@ -1,72 +1,49 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { TabBar, TabViewAnimated } from 'react-native-tab-view';
-import PropTypes from 'prop-types';
 
+import PropTypes from 'prop-types';
+import TabNavigator from 'react-native-tab-navigator';
 import toUpper from 'lodash/toUpper';
 
 import styles, { initialLayout } from './styles';
-import strings from '../../config/strings';
 
 class Tabs extends Component {
 
   state = {
-    index: 0,
-    routes: this.props.routes,
+    selectedTab: toUpper(this.props.tabs[0].name),
   };
 
-  handleIndexChange = index => this.setState({ index });
-
-  handleRenderTab = ({ route, focused }) => {
-    const textStyle = focused ? styles.labelFocused : styles.label;
-    return (
-      <View style={styles.tabContainer}>
-        <Text style={textStyle}>{toUpper(route.title)}</Text>
-      </View>
-    );
+  renderItem = (item) => {
+    return <TabNavigator.Item
+      key={item.name}
+      selected={toUpper(this.state.selectedTab) === toUpper(item.name)}
+      title={item.name}
+      titleStyle={styles.title}
+      selectedTitleStyle={styles.selectedTitle}
+      style={styles.tab}
+      // onPress={() => this.setState({ selectedTab: toUpper(item.name) })}
+    >
+      {item.content()}
+    </TabNavigator.Item>;
   }
-
-  renderHeader = props => (
-    <TabBar
-      {...props}
-      renderLabel={this.handleRenderTab}
-      style={styles.tabBarContainer}
-      indicatorStyle={styles.textIndicator}
-    />
-  );
-
-  canJumpToTab = (route) => {
-    switch (route.key) {
-      case strings.label_events:
-        return (route.enabled);
-      case strings.label_trashpoints:
-        return false;
-    }
-    return (route.enabled);
-  };
-
-  // renderScene = SceneMap(this.props.scenes);
 
   render() {
     return (
-      <TabViewAnimated
-        style={[styles.container, { flex: this.props.isVisible ? 1 : 0 }]}
-        navigationState={this.state}
-        renderScene={this.props.renderSceneTab}
-        renderHeader={this.renderHeader}
-        onIndexChange={this.handleIndexChange}
-        initialLayout={initialLayout}
-        canJumpToTab={this.canJumpToTab}
-      />
+      <TabNavigator
+        tabBarStyle={styles.tabBar}
+        tabBarShadowStyle={styles.tabBarShadow}
+        s
+        style={styles.tabContainer}
+      >
+        {this.props.tabs && this.props.tabs.map(item => {
+          return this.renderItem(item);
+        })}
+      </TabNavigator>
     );
   }
 }
 
 Tabs.propTypes = {
-  isVisible: PropTypes.bool,
-  routes: PropTypes.array.isRequired,
-  renderSceneTab: PropTypes.func.isRequired,
-  // scenes: PropTypes.object.isRequired,
+  tabs: PropTypes.array.isRequired,
 };
 
 export { Tabs };

@@ -51,7 +51,7 @@ module.exports = {
         message: ({id}) => `Account does not exist: '${id}'.`,
     },
     ACCOUNT_HAS_ACTIVE_EVENTS: {
-        message: ({id}) => `Account ${id} has active events.`,
+        message: ({id}) => `Account '${id}' has active events.`,
     },
     ACCOUNT_CANNOT_SELF_LOCK: {
         message: () => `An account cannot set lock status on itself.`,

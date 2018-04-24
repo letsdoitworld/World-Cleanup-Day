@@ -55,7 +55,7 @@ function facebookLogin() {
                         }
 
                         const email = res.email && res.email;
-
+                        
                         const updatedData = {
                           token: data,
                           email,
@@ -68,7 +68,7 @@ function facebookLogin() {
               });
           }
         })
-        .catch(error => console.log('Error',error));
+        .catch(error => console.log('Error', error));
 }
 
 async function logout() {

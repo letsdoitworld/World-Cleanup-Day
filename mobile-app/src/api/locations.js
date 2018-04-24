@@ -3,7 +3,6 @@ import axios from 'axios';
 import { GOOGLE_GEOCODE_API_URL, API_KEY } from '../shared/constants';
 
 const fetchAddress = async ({ latitude, longitude }) => {
-
   const { data } = await axios.get(
     `${GOOGLE_GEOCODE_API_URL}?key=${API_KEY}&latlng=${latitude},${longitude}`,
   );

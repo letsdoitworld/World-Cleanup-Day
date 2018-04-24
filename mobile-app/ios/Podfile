@@ -22,6 +22,7 @@ target 'mobileapp' do
     ]
     
     pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
+    pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
     pod 'FBSDKShareKit'

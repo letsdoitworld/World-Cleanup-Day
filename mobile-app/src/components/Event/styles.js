@@ -42,6 +42,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     fontWeight: 'bold',
+    flex: 1,
   },
   coordinatorContainer: {
     flexDirection: 'row',

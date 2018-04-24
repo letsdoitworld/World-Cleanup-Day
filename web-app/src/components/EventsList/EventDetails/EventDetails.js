@@ -62,21 +62,19 @@ export const EventDetails = ({ eventDetails }) => {
   moment.locale('en-au');
   return (
     <div className="EventDetails">
-      <div className="EventDetails-cover">
-        <img
-          src={eventDetails.photos[0] || eventCoverBig}
-          alt="demo"
-        />
-      </div>
+      <div
+        className="EventDetails-cover"
+        style={{ backgroundImage: `url(${eventDetails.photos[0] || eventCoverBig})` }}
+      />
       <div className="EventDetails-plot">
         <div className="EventDetails-timing EventDetails-infoblock">
-          <div className="EventDetails-width-60">
+          <div className="EventDetails-width-55">
             <DateIcon />
             <span className="EventDetails-date">
               {moment(eventDetails.startTime).format('ll')}
             </span>
           </div>
-          <div className="EventDetails-width-40">
+          <div className="EventDetails-width-45">
             <span className="EventDetails-period">
               {`${moment(eventDetails.startTime).format('LT')} - ${moment(eventDetails.endTime).format('LT')}`}
             </span>
@@ -89,11 +87,11 @@ export const EventDetails = ({ eventDetails }) => {
           </p>
         </div>
         <div className="EventDetails-actions EventDetails-infoblock">
-          <div className="EventDetails-actions-part EventDetails-width-60">
+          <div className="EventDetails-actions-part EventDetails-width-55">
             <ReportIcon />
             <span className="EventDetails-report">Report event</span>
           </div>
-          <div className="EventDetails-actions-report EventDetails-width-40">
+          <div className="EventDetails-actions-report EventDetails-width-45">
             <ShareIcon />
             <span className="EventDetails-share">Share</span>
           </div>
@@ -108,10 +106,13 @@ export const EventDetails = ({ eventDetails }) => {
         </div>
         <div className="EventDetails-coordinator EventDetails-infoblock">
           <h2 className="EventDetails-header">Coordinator</h2>
-          <div className="EventDetails-coordinator-part part1">
-            <Userpic />
-            <p>{eventDetails.createdByName}</p>
-          </div>
+          {
+            eventDetails.coordinatorName &&
+            <div className="EventDetails-coordinator-part part1">
+              <Userpic />
+              <p>{eventDetails.coordinatorName}</p>
+            </div>
+          }
           <div className="EventDetails-coordinator-part">
             <PhoneIcon />
             <p>{eventDetails.phonenumber}</p>
@@ -126,7 +127,7 @@ export const EventDetails = ({ eventDetails }) => {
         </div>
         <div className="EventDetails-creator EventDetails-infoblock">
           <h2 className="EventDetails-header">Event creator</h2>
-          <div className="EventDetails-creator-part">
+          <div className="EventDetails-creator-part part1">
             <Userpic />
             <p>{eventDetails.createdByName}</p>
           </div>

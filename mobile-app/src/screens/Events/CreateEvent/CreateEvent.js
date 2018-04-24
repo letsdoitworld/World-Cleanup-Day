@@ -1,9 +1,10 @@
 import React from 'react';
-import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View, Platform } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 import { Navigation } from 'react-native-navigation';
+import Permissions from 'react-native-permissions';
 
 import styles from './styles';
 import strings from '../../../assets/strings';
@@ -69,6 +70,8 @@ export default class CreateEvent extends ImmutableComponent {
         selectedLocation: undefined,
         trashPointsCount: 0,
         trashPoints: [],
+        height: 0,
+        heightWTB: 0,
       }),
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -84,7 +87,16 @@ export default class CreateEvent extends ImmutableComponent {
       }
     }
   }
-
+  updateSize = (height) => {
+    this.setState({
+      height
+    });
+  }
+  updateWTBSize = (heightWTB) => {
+    this.setState({
+      heightWTB
+    });
+  }
   back() {
     Navigation.dismissModal();
   }
@@ -111,9 +123,14 @@ export default class CreateEvent extends ImmutableComponent {
       onDateChange={(date) => {
         const endDate = this.state.data.get('endDate');
         this.setData(d => d.set('startDate', date));
-        const changedEndDate = date.split(' ')[0] + ' ' + endDate.split(' ')[1];
+        const endDateTime = Moment(endDate, 'DD-MM-YYYY HH:mm').toDate();
+        const startDateTime = Moment(date, 'DD-MM-YYYY HH:mm').toDate();
+        const changedEndDate = date.split(' ')[0] !== endDate.split(' ')[0]
+        ? date.split(' ')[0] + ' ' + (++date.split(' ')[1].split(':')[0]) + ':' + endDate.split(' ')[1].split(':')[1]
+        : endDateTime > startDateTime ? date.split(' ')[0] + ' ' + endDate.split(' ')[1]
+        : date.split(' ')[0] + ' ' + (++date.split(' ')[1].split(':')[0]) + ':' + endDate.split(' ')[1].split(':')[1];
         this.setData(d => d.set('endDate', changedEndDate));
-        this.validateEndTime(changedEndDate);
+        this.validateEndTime(date, changedEndDate);
       }}
     />;
   }
@@ -232,7 +249,7 @@ export default class CreateEvent extends ImmutableComponent {
         const startDate = this.state.data.get('startDate');
         const endDate = startDate.split(' ')[0] + ' ' + date.split(' ')[1];
         this.setData(d => d.set('endDate', endDate));
-        this.validateEndTime(endDate);
+        this.validateEndTime(startDate, endDate);
       }}/>;
   }
 
@@ -253,10 +270,15 @@ export default class CreateEvent extends ImmutableComponent {
     const isLocationValid = this.state.data.get('isLocationValid');
     const photos = this.state.photos;
     const imagePath = (photos.length > 0) ? photos[0].uri : '';
-
+    const { height } = this.state;
     const isValid = isTitleValid && isDescriptionValid && isWhatToBringValid
             && isStartDateValid && isEndDateValid && isLocationValid;
-
+    let newStyle = {
+      height,
+    };
+    let newStyleWTB = {
+      height,
+    };
     return (
       <View>
         <ScrollView
@@ -265,7 +287,7 @@ export default class CreateEvent extends ImmutableComponent {
         >
 
           {this.renderTitle()}
-          <View style={styles.inputContainerStyle}>
+          <View style={Platform.OS ==='android' ? [styles.inputContainerStyle, newStyle] : styles.inputContainerStyle} >
             <InputField
               style={styles.inputTextStyle}
               placeholder={strings.label_title_hint}
@@ -274,6 +296,7 @@ export default class CreateEvent extends ImmutableComponent {
               multiline={true}
               maxLength={70}
               onChangeText={this.onTitleTextChanged}
+              onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             />
           </View>
           {this.renderTitleError()}
@@ -362,7 +385,7 @@ export default class CreateEvent extends ImmutableComponent {
           </View>
           {this.renderDescriptionError()}
           {this.renderWhatToBringTitle()}
-          <View style={styles.whatBringContainerStyle}>
+          <View style={Platform.OS ==='android' ? [styles.whatBringContainerStyle, newStyleWTB] : styles.whatBringContainerStyle}>
             <InputField
               style={styles.inputTextStyle}
               placeholder={strings.label_specify_tools_for_work}
@@ -372,6 +395,7 @@ export default class CreateEvent extends ImmutableComponent {
               validate={this.validateWhatToBring}
               maxLength={500}
               onChangeText={this.onWhatToBringTextChanged}
+              onContentSizeChange={(e) => this.updateWTBSize(e.nativeEvent.contentSize.height)}
             />
           </View>
           {this.renderWhatToBringError()}
@@ -428,7 +452,19 @@ export default class CreateEvent extends ImmutableComponent {
         );
   }
 
-  openGallery() {
+  openGallery = async () => {
+    let permission = await Permissions.check('photo').then(response => {
+      return response;
+    });
+    if (permission === 'undetermined') {
+      permission = await Permissions.request('photo').then(response => {
+        return response;
+      });
+    }
+    if (permission !== 'authorized') {
+      alert('Please allow access to your camera roll');
+      return;
+    }
     ImagePicker.openPicker({
       width: 500,
       height: 350,
@@ -439,7 +475,20 @@ export default class CreateEvent extends ImmutableComponent {
     });
   }
 
-  openCamera() {
+  openCamera = async () => {
+    let permission = await Permissions.check('camera').then(response => {
+      return response;
+    });
+    if (permission === 'undetermined') {
+      permission = await Permissions.request('camera').then(response => {
+        return response;
+      });
+    }
+    if (permission !== 'authorized') {
+      alert('Please allow access to your camera.');
+      return;
+    }
+
     ImagePicker.openCamera({
       width: 500,
       height: 350,
@@ -545,11 +594,11 @@ export default class CreateEvent extends ImmutableComponent {
     return isValid;
   };
 
-  validateEndTime = (endTime: String) => {
+  validateEndTime = (startTime: String, endTime: String) => {
     const endDateTime = Moment(endTime, 'DD-MM-YYYY HH:mm').toDate();
-    const startDateFormat = this.state.data.get('startDate');
-    const startDate = Moment(startDateFormat, 'DD-MM-YYYY HH:mm').toDate();
-    let isValid = startDate < endDateTime;
+    const startDateTime = Moment(startTime, 'DD-MM-YYYY HH:mm').toDate();
+    console.log('startDate', this.state.data.get('startDate'), '; endDate', endDateTime)
+    let isValid = startDateTime < endDateTime;
     this.setData(d => d.set('isEndDateValid', isValid));
   };
 

@@ -45,7 +45,7 @@ export default EStyleSheet.create({
         backgroundColor: colors.$white,
     },
     inputContainerStyle: {
-        height: getHeightPercentage(35),
+        height: getHeightPercentage(40),
         width: '100%',
         backgroundColor: colors.$white,
     },
@@ -183,10 +183,11 @@ export default EStyleSheet.create({
         height: '100%',
         width: '100%',
         flexDirection: "column",
+        justifyContent: 'space-between',
         backgroundColor: colors.$mainBackground
     },
     coordinatorNext: {
-        position: 'absolute',
+        position: 'relative',
         bottom: 0,
         width: '90%',
         marginTop: 38,

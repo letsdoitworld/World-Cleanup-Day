@@ -22,7 +22,7 @@
     "sinon": "^2.3.5"
   },
   "scripts": {
-    "start": "react-native start",
+    "start": "adb revese tcp:8081 tcp:8081 && react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",

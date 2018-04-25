@@ -156,7 +156,6 @@ class AddLocation extends Component {
 
   render() {
     const region = (this.state.initialRegion) ? this.state.initialRegion : DEFAULT_LOCATION;
-    console.log('render region ', region);
     return (
       <View style={styles.container}>
         <Map

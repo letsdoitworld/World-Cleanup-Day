@@ -128,7 +128,7 @@ class TrashPoints extends Component {
       setTimeout(async () => {
         this.setVisible().then(() => this.getPosition().then(() => {
           this.watchID = navigator.geolocation.watchPosition((position) => {
-            // this.getLocation(position);
+            this.getLocation(position);
             const { latitude, longitude } = position.coords;
             const initialRegion = {
               longitude,

@@ -1,37 +1,27 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {
-    ActivityIndicator,
-    Alert,
-    Dimensions,
-    LayoutAnimation,
-    PermissionsAndroid,
-    Platform,
-    TextInput,
-    UIManager,
-    View,
-} from 'react-native';
+import {ActivityIndicator, Alert, Dimensions, LayoutAnimation, TextInput, UIManager, View,} from 'react-native';
 import Permissions from 'react-native-permissions';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Carousel from 'react-native-snap-carousel';
 import has from 'lodash/has';
 
-import { Map as MapView } from '../../components/Map';
-import { DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM } from '../../shared/constants';
-import { CREATE_MARKER, TRASH_POINT } from '../index';
+import {Map as MapView} from '../../components/Map';
+import {DEFAULT_LOCATION, DEFAULT_ZOOM, MIN_ZOOM} from '../../shared/constants';
+import {CREATE_MARKER, TRASH_POINT} from '../index';
 import styles from '../Events/styles';
-import { debounce } from '../../shared/util';
+import {debounce} from '../../shared/util';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
 import Api from '../../api';
-import { autocompleteStyle } from '../AddLocation/AddLocation';
+import {autocompleteStyle} from '../AddLocation/AddLocation';
 // import styles from './styles';
-import { renderItem } from '../AddTrashPoints/Item/ListItem';
+import {renderItem} from '../AddTrashPoints/Item/ListItem';
 
-import { AlertModal } from '../../components/AlertModal';
+import {AlertModal} from '../../components/AlertModal';
 
 const { width } = Dimensions.get('window');
 
@@ -60,14 +50,6 @@ class TrashPoints extends Component {
     isMapReady = false;
 
     this.props.navigator.setStyle({
-            // navBarCustomView: EVENTS_NAV_BAR,
-            // statusBarColor: 'white',
-            //  statusBarTextColorScheme: 'dark',
-            //  navBarBackgroundColor: 'white',
-            // navBarCustomViewInitialProps: {
-            //     index: MODE.map,
-            //     handleIndexChange: this.onModeChanged.bind(this),
-            // },
       navBarTitleTextCentered: true,
       navBarBackgroundColor: 'white',
       navBarTextColor: '$textColor',
@@ -144,22 +126,24 @@ class TrashPoints extends Component {
   componentDidMount() {
     try {
       setTimeout(async () => {
-        this.setVisible().then(() => this.getPosition().then(() => { this.watchID = navigator.geolocation.watchPosition(position => {
-          this.getLocation(position);
-          const { latitude, longitude } = position.coords;
-          const initialRegion = {
-            longitude,
-            latitude,
-            latitudeDelta: DEFAULT_ZOOM,
-            longitudeDelta: DEFAULT_ZOOM,
-          };
-          this.map.animateToRegion(initialRegion, 2000);
-        })}));
+        this.setVisible().then(() => this.getPosition().then(() => {
+          this.watchID = navigator.geolocation.watchPosition((position) => {
+            this.getLocation(position);
+            const { latitude, longitude } = position.coords;
+            const initialRegion = {
+              longitude,
+              latitude,
+              latitudeDelta: DEFAULT_ZOOM,
+              longitudeDelta: DEFAULT_ZOOM,
+            };
+            this.map.animateToRegion(initialRegion, 2000);
+          });
+        }));
       }, 2000);
     } catch (ex) {
       console.log('===> getPosition Error', ex);
     }
-    
+
     if (!this.props.datasetUUIDSelector) {
       this.props.onFetchDatasetUUIDAction();
     }
@@ -169,7 +153,7 @@ class TrashPoints extends Component {
     await navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-
+            this.getLocation(position);
             const initialRegion = {
               longitude,
               latitude,
@@ -178,7 +162,7 @@ class TrashPoints extends Component {
             };
 
             if (this.isMapReady) {
-              //this.map.animateToRegion(initialRegion, 1500);
+              this.map.animateToRegion(initialRegion, 1500);
             }
           },
           (error) => {
@@ -186,7 +170,7 @@ class TrashPoints extends Component {
               this.setState({ showUserWarning: true });
             }
           },
-          { enableHighAccuracy: false, timeout: 600000 },
+          { enableHighAccuracy: true, timeout: 600000 },
       );
   }
 
@@ -239,28 +223,19 @@ class TrashPoints extends Component {
   };
 
   setVisible = async () => {
-    let permission = await Permissions.check('location').then(response => {
+    let permission = await Permissions.check('location').then((response) => {
       return response;
     });
     if (permission === 'undetermined') {
-      permission = await Permissions.request('location').then(response => {
+      permission = await Permissions.request('location').then((response) => {
         return response;
       });
     }
     switch (permission) {
       case 'authorized': { this.setState({ fabVisible: true }); return; }
-      case 'denied': { this.setState({ fabVisible: false }); alert(strings.label_allow_access_to_location); return; }
+      case 'denied': { this.setState({ fabVisible: false }); alert(strings.label_allow_access_to_location); }
     }
-    /* if (permission !== 'authorized') {
-      alert(strings.label_allow_access_to_camera);
-      return;
-    }
-    if (Platform.OS === 'android' && Platform.Version >= 23) {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
-      if (granted !== PermissionsAndroid.RESULTS.GRANTED) this.setState({ fabVisible: false });
-      else this.setState({ fabVisible: true });
-    } else this.setState({ fabVisible: true }); */
-  }
+  };
 
   onMarkerPress(marker) {
     const trashpoint = this.state.mapTrashPoints.find(
@@ -483,6 +458,7 @@ class TrashPoints extends Component {
 
   renderContent() {
     const { selectedItem, markers, initialRegion } = this.state;
+    const coord = (this.props.userCoord) ? this.props.userCoord : initialRegion;
 
     const checked = this.handleSelectStatus(selectedItem);
 
@@ -496,9 +472,9 @@ class TrashPoints extends Component {
             initialRegion={initialRegion}
             onMapReady={() => {
               this.isMapReady = true;
-              this.map.animateToRegion(this.props.userCoord, 1500);
+              this.map.animateToRegion(coord, 1500);
             }}
-            handleOnMarkerPress={this.onMarkerPress}
+            handleOnMarkerPress={this.onMarkerPress.bind(this)}
             onRegionChangeComplete={this.handleOnRegionChangeComplete}
             markers={markers}
             getRef={this.getMapObject.bind(this)}
@@ -516,11 +492,11 @@ class TrashPoints extends Component {
 
     if (isAuthenticated) {
       try {
-        let permission = await Permissions.check('camera').then(response => {
+        let permission = await Permissions.check('camera').then((response) => {
           return response;
         });
         if (permission === 'undetermined') {
-          permission = await Permissions.request('camera').then(response => {
+          permission = await Permissions.request('camera').then((response) => {
             return response;
           });
         }

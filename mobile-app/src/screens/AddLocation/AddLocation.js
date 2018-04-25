@@ -4,7 +4,7 @@ import styles from './styles';
 import strings from '../../assets/strings';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {Map} from '../../components';
-import {DEFAULT_ZOOM} from '../../shared/constants';
+import {DEFAULT_LOCATION, DEFAULT_ZOOM} from '../../shared/constants';
 import {MARKER_STATUS_IMAGES} from '../../components/Map/Marker';
 import {connect} from 'react-redux';
 import {IGPSCoordinates} from 'NativeModules';
@@ -69,29 +69,37 @@ class AddLocation extends Component {
 
   getCurrentPosition() {
     try {
-      navigator.geolocation.getCurrentPosition(
-                (position) => {
-                  const { latitude, longitude } = position.coords;
-                  this.setState((previousState) => {
-                    return {
-                      initialRegion: {
-                        latitude,
-                        longitude,
-                        latitudeDelta: DEFAULT_ZOOM,
-                        longitudeDelta: DEFAULT_ZOOM,
-                      },
-                    };
-                  });
-                },
-                (error) => {
-                  if (error.code === 1) {
-                    alert(strings.label_error_location_text);
-                  }
-                },
-            );
+      this.getPosition();
     } catch (error) {
       alert(JSON.stringify(error));
     }
+  }
+
+  async getPosition() {
+    await navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              const initialRegion = {
+                longitude,
+                latitude,
+                latitudeDelta: DEFAULT_ZOOM,
+                longitudeDelta: DEFAULT_ZOOM,
+              };
+
+              this.map.animateToRegion(initialRegion, 1500);
+              this.setState(() => {
+                return {
+                  initialRegion,
+                };
+              });
+            },
+            (error) => {
+              if (error.code === 1) {
+                this.setState({ showUserWarning: true });
+              }
+            },
+            { enableHighAccuracy: true, timeout: 600000 },
+        );
   }
 
   onNavigatorEvent(event) {
@@ -147,6 +155,8 @@ class AddLocation extends Component {
   }
 
   render() {
+    const region = (this.state.initialRegion) ? this.state.initialRegion : DEFAULT_LOCATION;
+    console.log('render region ', region);
     return (
       <View style={styles.container}>
         <Map
@@ -154,7 +164,7 @@ class AddLocation extends Component {
           onPress={this.onMapPress.bind(this)}
           markers={[this.state.marker]}
           onMapReady={() => {
-              this.map.animateToRegion(this.state.initialRegion, 1500);
+            this.map.animateToRegion(region, 1500);
           }}
           initialRegion={this.state.initialRegion}
           style={styles.map}

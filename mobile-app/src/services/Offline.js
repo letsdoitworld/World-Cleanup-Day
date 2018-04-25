@@ -1,6 +1,7 @@
-import { SQLite } from 'expo';
-import { Api } from "./index";
-import { handleUpload, deleteImage } from "../reducers/trashpile/operations";
+import {SQLite} from 'expo';
+import {Api} from "./index";
+import {handleUpload, deleteImage} from "../reducers/trashpile/operations";
+import {operations as locationOperations} from '../reducers/location';
 
 const offlineDB = SQLite.openDatabase('db.offline');
 
@@ -14,23 +15,25 @@ class OfflineService {
       'photos BLOB,' +
       'dphotos BLOB,' +
       'status INTEGER DEFAULT 0' +
-    ');');
+      ');');
   }
 
   executeSql = async (sql, params = []) => {
     return new Promise((resolve, reject) => offlineDB.transaction(tx => {
-      tx.executeSql(sql, params, (_, { rows }) => resolve(rows._array), reject)
+      tx.executeSql(sql, params, (_, {rows}) => resolve(rows._array), reject)
     }))
   }
 
   saveTrashpoint = async (url, newMarker, photos, deletedPhotos) => {
-    const { location: { longitude, latitude } } = newMarker;
+    const {location: {longitude, latitude}} = newMarker;
+    console.log('FIRST', {newMarker})
     if (!newMarker.address || newMarker.address.length < 1) {
       newMarker.address = ' ';
     }
     if (!newMarker.name || newMarker.name.length < 1) {
       newMarker.name = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
     }
+    console.log('SECOND', {newMarker})
     await this.executeSql('INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
       url,
       JSON.stringify(newMarker),
@@ -44,7 +47,7 @@ class OfflineService {
 
   async syncToServer() {
     const transaction = await offlineDB.transaction(tx => {
-      tx.executeSql('SELECT id FROM trashpoints WHERE status = 0', [], async (_, { rows: { _array } }) => {
+      tx.executeSql('SELECT id FROM trashpoints WHERE status = 0', [], async (_, {rows: {_array}}) => {
         const idsToPush = [];
         for (let i = 0; i < _array.length; i++) {
           idsToPush.push(_array[i].id);
@@ -54,7 +57,7 @@ class OfflineService {
           tx.executeSql('UPDATE trashpoints SET status = 1 WHERE id IN (' + whereIds + ')', []);
           tx.executeSql(
             'SELECT id, url, marker, photos, dphotos, status FROM trashpoints WHERE id IN (' + whereIds + ')',
-            [], async (_, { rows: { _array } }) => {
+            [], async (_, {rows: {_array}}) => {
               for (let i = 0; i < _array.length; i++) {
                 let dataOk = true;
                 let trashpoint = {};
@@ -67,6 +70,12 @@ class OfflineService {
                   dataOk = false;
                 }
                 if (dataOk) {
+                  if ((trashpoint.marker.address === '' || trashpoint.marker.address === 0) && trashpoint.marker.location.latitude && trashpoint.marker.location.longitude) {
+                    trashpoint.marker.address = await locationOperations.fetchAddress(trashpoint.marker.location);
+                    if ((trashpoint.marker.name === '' || trashpoint.marker.name.length === 0) && trashpoint.marker.address) {
+                      trashpoint.marker.name = `${trashpoint.marker.address.streetAddress} ${trashpoint.marker.address.streetNumber}`;
+                    }
+                  }
                   const createMarkerResponse = await Api.put(trashpoint.url, trashpoint.marker);
                   if (createMarkerResponse || !trashpoint.marker.datasetId) {
                     offlineDB.transaction(tx => {
@@ -94,7 +103,7 @@ class OfflineService {
                   }
                 }
               }
-          });
+            });
         }
       });
 

@@ -323,6 +323,7 @@ export const createMarker = ({
           photos,
           !isEdit ? [] : toDeletePhotos
         );
+        dispatch(appOps.updateSyncStatus(false))
       }
 
       if (!createMarkerResponse) {

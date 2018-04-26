@@ -69,4 +69,12 @@ To fix it use the command:
 
 keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -list -v
 
+## How to install Cocoapods
+
+* You need Cocoapods  version 1.3.1. Check your version, please!
+* Go to ios project 
+* Enter pods install
+* Go to Xcode. Go to Build Settings -> Framework Search path and add path to your FacebookSDK (It's known issue and we fix it soon)
+* Please, do not add Pods/ under the git!
+
 

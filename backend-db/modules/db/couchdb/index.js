@@ -483,7 +483,7 @@ const layer = {
         return await adapter.getOneEntityById('Area', '_design/all/_view/view', id);
     },
     getAllAreas: async () => {
-        const ret = await adapter.getEntities('Area', '_design/byName/_view/view', {sorted: true});
+        const ret = await adapter.getEntities('Area', '_design/all/_view/view', {sorted: false});
         return ret;
     },
     getAreasByParent: async parentId => {

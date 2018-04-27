@@ -372,6 +372,18 @@ paths:
             $ref: "#/definitions/Trashpoint"
         "default":
           $ref: "#/responses/ErrorSet"
+    get:
+      description: Get trashpoint list between two dates.
+      operationId: getTrashpointsInBetween
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+      responses:
+        "200":
+          $ref: "#/definitions/TrashpointsList"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /trashpoints/user:
     x-swagger-router-controller: trashpoints
     get:
@@ -499,6 +511,18 @@ parameters:
     required: true
     type: integer
     minimum: 1
+  From:
+    name: from
+    in: query
+    description: date.
+    required: true
+    type: string
+  To:
+    name: to
+    in: query
+    description: date.
+    required: true
+    type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:
     name: request
@@ -985,6 +1009,12 @@ definitions:
     items:
       type: number
       format: int32
+  #-----------------------------------------------------------------------------
+  # Date.
+  #-----------------------------------------------------------------------------
+  Date:
+    description: date.
+    type: string
   #-----------------------------------------------------------------------------
   # Geographical data.
   #-----------------------------------------------------------------------------

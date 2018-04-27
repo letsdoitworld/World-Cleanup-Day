@@ -90,6 +90,20 @@ module.exports = function () {
         });
     });
 
+    lucius.register('role:db,cmd:getTrashpointsInBetween',async function (connector, args) {
+        return connector
+        .input(args)
+        .use(async function ({from, to}, responder) {
+            const dateFrom = util.time.getNowUTC(new Date(from));
+            const dateTo = util.time.getNowUTC(new Date(to));
+          const trashpoints = await db.getAllTrashpoints();
+          const intrevalTrashpoints = trashpoints.filter(trash => trash.createdAt >= dateFrom && trash.createdAt <= dateTo);
+            return responder.success({
+              trashpoints: intrevalTrashpoints
+            });
+        });
+    });
+
     lucius.register('role:db,cmd:getTrashpointById', async function (connector, args) {
         return connector
         .input({id: args.id})

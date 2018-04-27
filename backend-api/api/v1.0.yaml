@@ -375,7 +375,7 @@ paths:
     get:
       description: Get trashpoint list between two dates.
       operationId: getTrashpointsInBetween
-      x-security: [bearer]
+#      x-security: [bearer]
       parameters:
         - $ref: "#/parameters/From"
         - $ref: "#/parameters/To"

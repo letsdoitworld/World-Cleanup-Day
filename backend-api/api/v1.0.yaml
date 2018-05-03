@@ -816,6 +816,17 @@ definitions:
       coordinates:
         $ref: "#/definitions/GridCoordinates"
   #-----------------------------------------------------------------------------
+  # Trashpoints sorted array.
+  #-----------------------------------------------------------------------------
+  TrashpointsList:
+    type: object
+    required: [trashpoints]
+    properties:
+      trashpoints:
+        type: array
+        items:
+          $ref: "#/definitions/BriefTrashpoint"
+  #-----------------------------------------------------------------------------
   # Trashpoints as paginated sets.
   #-----------------------------------------------------------------------------
   PaginatedTrashpoints:

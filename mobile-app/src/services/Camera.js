@@ -5,12 +5,12 @@ import { ImagePicker, Constants, Permissions } from 'expo';
 import i18n from '../config/i18n';
 
 import { AlertModal } from '../components/AlertModal';
-const checkPermissions = async () => {
-  const { status } = await Permissions.getAsync(Permissions.CAMERA);
+const checkPermissions = async type => {
+  const { status } = await Permissions.getAsync(type);
 
   if (status !== 'granted') {
     const { status: askStatus } = await Permissions.askAsync(
-      Permissions.CAMERA,
+      type,
     );
 
     return askStatus === 'granted';
@@ -54,15 +54,16 @@ export const withCameraService = () => (Component) => {
       return ImagePicker.launchImageLibraryAsync(options);
     };
     takePhotoAsync = async (options) => {
-      const permitted = await checkPermissions();
-      if (!permitted) {
+      const permitted = await checkPermissions(Permissions.CAMERA);
+      const permitted1 = await checkPermissions(Permissions.CAMERA_ROLL);
+      if (!permitted || !permitted1) {
         this.showWarning();
         return { cancelled: true };
       }
       if (!Constants.isDevice) {
-        return ImagePicker.launchImageLibraryAsync(options);
+        return await ImagePicker.launchImageLibraryAsync(options);
       }
-      return ImagePicker.launchCameraAsync(options);
+      return await ImagePicker.launchCameraAsync();
     };
     showWarning = () => {
       this.setState({

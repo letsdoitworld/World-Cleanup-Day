@@ -77,8 +77,6 @@ class TabMiddleButton extends Component {
       } = await this.props.takePhotoAsync({
         quality: 0.2,
         base64: true,
-        allowsEditing: true,
-        aspect: [4, 3]
       });
 
       if (cancelled) {

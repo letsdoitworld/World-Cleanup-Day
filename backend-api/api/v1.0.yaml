@@ -93,6 +93,24 @@ paths:
           description: User was logged out.
         "default":
           $ref: "#/responses/ErrorSet"
+
+  #-----------------------------------------------------------------------------
+  /event:
+    x-swagger-router-controller: events
+    x-security: [bearer]
+    put:
+      description: Create new event, needed to organize people to clean garbage.
+      operationId: createEvent
+      parameters:
+        - $ref: "#/parameters/CreateEvent"
+      responses:
+          "200":
+            description: New event has been created
+            schema:
+              "type": "object"
+          "default":
+            $ref: "#/responses/ErrorSet"
+
   #-----------------------------------------------------------------------------
   /datasets:
     x-swagger-router-controller: datasets
@@ -606,6 +624,47 @@ parameters:
         hashtags:
           $ref: "#/definitions/TrashHashtags"
   #-----------------------------------------------------------------------------
+  CreateEvent:
+    name: event
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [datasetId, location, name, address, description, whatToBring]
+      properties:
+        datasetId:
+          $ref: "#/definitions/UUID"
+        name:
+          $ref: "#/definitions/EventName"
+        address:
+          description: Text field, representing the address of the event
+          $ref: "#/definitions/EventAddress"
+        location:
+          description: Event location.
+          $ref: "#/definitions/GeoPoint"
+        description:
+          description: Description of the event.
+          $ref: "#/definitions/EventDescription"
+        whatToBring:
+          description: Text field which says what to bring on the event.
+          $ref: "#/definitions/EventWhatToBring"
+        createDate:
+          description: When the event was created.
+          $ref: "#/definitions/ISOTimestamp"
+        updateDate:
+          description: When the event was modified.
+          $ref: "#/definitions/ISOTimestamp"
+        startTime:
+          description: When event is planned to start.
+          $ref: "#/definitions/ISOTimestamp"
+        endTime:
+          description: When event is planned to start.
+          $ref: "#/definitions/ISOTimestamp"
+        email:
+          description: Email address of contact permission
+          type: string
+
+  #-----------------------------------------------------------------------------
   MapQuery:
     name: query
     in: body
@@ -962,6 +1021,25 @@ definitions:
   TrashImageType:
     type: string
     enum: [medium, thumbnail]
+  #-----------------------------------------------------------------------------
+  # Event characteristics.
+  #-----------------------------------------------------------------------------
+  EventName:
+    type: string
+    minLength: 1
+    maxLength: 100
+  EventAddress:
+    type: string
+    minLength: 1
+    maxLength: 100
+  EventDescription:
+    type: string
+    minLength: 1
+    maxLength: 250
+  EventWhatToBring:
+    type: string
+    minLength: 1
+    maxLength: 250
   #-----------------------------------------------------------------------------
   # Dataset characteristics.
   #-----------------------------------------------------------------------------

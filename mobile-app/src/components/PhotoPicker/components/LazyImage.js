@@ -26,7 +26,6 @@ export class LazyImage extends Component {
   }
 
   onLoad = () => {
-    console.log('ON LOAD ON LOAD')
     Animated.timing(this.state.opacity, {
       toValue: 0,
       duration: 250,

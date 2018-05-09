@@ -3,6 +3,7 @@ import {
   View,
   StatusBar,
   Image,
+  ImageBackground,
   Text,
   TouchableOpacity,
   ActivityIndicator,
@@ -157,7 +158,7 @@ class Login extends Component {
       );
     }
     return (
-      <Image
+      <ImageBackground
         resizeMode="stretch"
         style={styles.image}
         source={require('./images/background.png')}
@@ -205,7 +206,7 @@ class Login extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-      </Image>
+      </ImageBackground>
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Facebook, Google, Constants } from 'expo';
+import { Facebook, Google } from 'expo';
 import _ from 'lodash';
 import axios from 'axios';
 import { handleSentryError } from '../shared/helpers';
@@ -12,8 +12,6 @@ import {
   GOOGLE_ANDROID_EXPO_ID,
   GOOGLE_IOS_EXPO_ID,
 } from '../../env';
-
-const isStandaloneApp = Constants.appOwnership === 'standalone';
 
 const SOCIAL_NETWORKS = {
   FACEBOOK: 'FACEBOOK',
@@ -30,7 +28,7 @@ const isTypeSuccess = (type) => {
 const loginFacebook = async () => {
   // TOOD check the other options that need to be send to Facebook, if any
   const data = await Facebook.logInWithReadPermissionsAsync(FACEBOOK_APP_ID, {
-    behavior: isStandaloneApp ? 'native' : 'web',
+    behavior: 'web',
     scopes: ['public_profile', 'email'],
   });
   return data;

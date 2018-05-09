@@ -1,0 +1,51 @@
+version: '3.1'
+
+services:
+  proxy:
+      image: vfarcic/docker-flow-proxy:17.08.28-3
+      ports:
+        - 80:80
+        - 443:443
+      networks:
+        - ${NETWORK}
+      environment:
+        - LISTENER_ADDRESS=swarm-listener
+        - MODE=swarm
+        - DO_NOT_RESOLVE_ADDR=true
+        - CHECK_RESOLVERS=true
+#        - DEBUG=true
+      deploy:
+        replicas: 1
+        labels:
+          com.ldiw.description: "${DEPLOYMENT_LABEL}"
+
+  swarm-listener:
+    image: vfarcic/docker-flow-swarm-listener:17.07.28-1
+    networks:
+      - ${NETWORK}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DF_NOTIFY_CREATE_SERVICE_URL=http://proxy:8080/v1/docker-flow-proxy/reconfigure
+      - DF_NOTIFY_REMOVE_SERVICE_URL=http://proxy:8080/v1/docker-flow-proxy/remove
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        com.ldiw.description: "${DEPLOYMENT_LABEL}"
+
+networks:
+  ${NETWORK}:
+    driver: overlay
+    external: true
+
+volumes:
+  certbot:
+    driver: "azurefile"
+    driver_opts:
+      share: "certificates"
+
+
+#secrets:
+#  cert-qualitance.com.pem:
+#    external: true

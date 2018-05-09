@@ -1,0 +1,166 @@
+version: '3.1'
+
+services:
+  api:
+    image: registry.ops.worldcleanupday.com/api-${ENV_LABEL}
+    networks:
+      - ${NETWORK}
+    env_file:
+      - api.env
+      - .globalenv
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      labels:
+        - com.df.notify=true
+        - com.df.serviceDomain=api-${ENV_LABEL}.app.worldcleanupday.com
+        - com.df.servicePath=/
+        # - com.df.srcPort=443
+        - com.df.port=80
+        # do ssl and http -> https redirect
+        - com.df.httpsOnly=true
+        - com.df.xForwardedProto=true
+        - com.df.redirectWhenHttpProto=true
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+  auth:
+    image: registry.ops.worldcleanupday.com/auth-${ENV_LABEL}
+    networks:
+      - ${NETWORK}
+    env_file:
+      - auth.env
+      - .globalenv
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      labels:
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+  db:
+    image: registry.ops.worldcleanupday.com/db-${ENV_LABEL}
+    networks:
+      - ${NETWORK}
+    env_file:
+      - db.env
+      - .globalenv
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      labels:
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+  geo:
+    image: registry.ops.worldcleanupday.com/geo-${ENV_LABEL}
+    networks:
+      - ${NETWORK}
+    env_file:
+      - geo.env
+      - .globalenv
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      labels:
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+  couchdb:
+    image: registry.ops.worldcleanupday.com/couchdb_geocouch:2
+    networks:
+      - ${NETWORK}
+    environment:
+      - "LCB_LOGLEVEL=5"
+      - "COUCHDB_USER=backenddb"
+      - "COUCHDB_PASSWORD=rockychrome"
+    env_file:
+      - couchdb.env
+      - .globalenv
+    volumes:
+      - couchdb-${ENV_LABEL}:/usr/local/var/lib/couchdb
+      - $PWD/local.ini:/usr/local/etc/couchdb/local.ini
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+#      placement:
+#        constraints: [node.role == worker]
+#      resources:
+#        limits:
+#          memory: 1G
+      labels:
+        - com.df.notify=true
+        - com.df.serviceDomain=couch-${ENV_LABEL}.app.worldcleanupday.com
+        - com.df.servicePath=/
+        # - com.df.srcPort=443
+        - com.df.port=5984
+        # do ssl and http -> https redirect
+        - com.df.httpsOnly=true
+        - com.df.xForwardedProto=true
+        - com.df.redirectWhenHttpProto=true
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+  webapp:
+    image: registry.ops.worldcleanupday.com/webapp-${ENV_LABEL}
+    networks:
+      - ${NETWORK}
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      labels:
+        - com.df.notify=true
+        - com.df.serviceDomain=${ENV_LABEL}.app.worldcleanupday.com
+        - com.df.servicePath=/
+        - com.df.srcPort=443
+        - com.df.port=80
+        # do ssl and http -> https redirect
+        - com.df.httpsOnly=true
+        - com.df.xForwardedProto=true
+        - com.df.redirectWhenHttpProto=true
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+#  couchbase:
+##    image: couchbase/server:community-4.5.1
+#    image: couchbase:enterprise-4.6.2
+#    networks:
+#      - ${NETWORK}
+#    environment:
+#      - "LCB_LOGLEVEL=5"
+#    volumes:
+##      - couch-${ENV_LABEL}:/opt/couchbase/var/lib/couchbase
+#      - /volatile/couchent-${ENV_LABEL}:/opt/couchbase/var/lib/couchbase
+#      - ./local.ini:/opt/couchbase/etc/couchdb/local.ini
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
+#      placement:
+#        constraints: [node.role == worker]
+#      resources:
+#        limits:
+#          memory: 1G
+#      labels:
+#        - com.df.notify=true
+#        - com.df.serviceDomain=couch-${ENV_LABEL}.app.worldcleanupday.com
+#        - com.df.servicePath=/
+#        - com.df.srcPort=443
+#        - com.df.port=8091
+#        # do ssl and http -> https redirect
+#        - com.df.httpsOnly=true
+#        - com.df.xForwardedProto=true
+#        - com.df.redirectWhenHttpProto=true
+#        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+networks:
+  ${NETWORK}:
+    driver: overlay
+    external: true
+
+
+volumes:
+  couchdb-${ENV_LABEL}:
+    driver: "azurefile"
+    driver_opts:
+      share: "couch-${ENV_LABEL}"

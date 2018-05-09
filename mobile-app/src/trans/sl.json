@@ -126,5 +126,7 @@
   "label_text_about_4": "Estonski izdelek, sponzoriran iz strani države in vlade",
   "label_text_about_5": "Financerji: Estonsko ministrstvo za okolje, Ministrstvo za zunanje zadeve Republike Estonije, Program 100 Republike Estonije",
   "label_button_editTP_delete": "Izbriši odlagališče",
-  "label_locked_account_warning": "Vaš račun je zaklenjen. Za podrobnosti se obrnite na skrbnika."
+  "label_locked_account_warning": "Vaš račun je zaklenjen. Za podrobnosti se obrnite na skrbnika.",
+  "label_no_connection_note": "Brez interneta lahko samo označite smeti. Lokacija bo prenesena na strežnik ob ponovni vzpostavitvi povezave z internetom.",
+  "label_your_coordinates": "Vaše koordinate"
 }

@@ -54,9 +54,9 @@ export const withCameraService = () => (Component) => {
       return ImagePicker.launchImageLibraryAsync(options);
     };
     takePhotoAsync = async (options) => {
-      const permitted = await checkPermissions(Permissions.CAMERA);
-      const permitted1 = await checkPermissions(Permissions.CAMERA_ROLL);
-      if (!permitted || !permitted1) {
+      const permittedCamera = await checkPermissions(Permissions.CAMERA);
+      const permittedCameraRoll = await checkPermissions(Permissions.CAMERA_ROLL);
+      if (!permittedCamera || !permittedCameraRoll) {
         this.showWarning();
         return { cancelled: true };
       }

@@ -1,0 +1,183 @@
+version: '3.1'
+
+services:
+  jenkins:
+    image: jenkins:2.60.2-alpine
+    extra_hosts:
+      - "dock1-eu-infra:10.150.1.100"
+      - "dock2-eu-infra:10.150.1.101"
+      - "dock1-eu-staging:10.150.1.200"
+      - "dock2-eu-staging:10.150.1.201"
+      - "dock1-eu-prod:10.150.2.100"
+      - "dock2-eu-prod:10.150.2.101"
+      - "dock1-us-prod:10.150.3.100"
+      - "dock2-us-prod:10.150.3.101"
+    volumes:
+#      - jenkins:/var/jenkins_home
+      - /volatile/jenkins:/var/jenkins_home
+    environment:
+      - JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.security.csrf.requestfield=crumb -Duser.timezone=Europe/Bucharest"
+      - TZ=Europe/Bucharest
+    # ports:
+      # - 8080:8080
+      # - 50001:50001
+    networks:
+      - ${NETWORK}
+    deploy:
+      replicas: 1
+      labels:
+        - com.df.notify=true
+        - com.df.serviceDomain=jenkins.ops.worldcleanupday.com
+        - com.df.servicePath=/
+        - com.df.srcPort=443
+        - com.df.port=8080
+        # do ssl and http -> https redirect
+        - com.df.httpsOnly=true
+        - com.df.xForwardedProto=true
+        - com.df.redirectWhenHttpProto=true
+        - com.diw.description="${DEPLOYMENT_LABEL}"
+
+
+  registry:
+    image: registry:2
+    environment:
+      REGISTRY_HTTP_SECRET: supersecret
+      REGISTRY_AUTH: htpasswd                          # configured in nginx
+      REGISTRY_AUTH_HTPASSWD_PATH: /etc/docker/registry/registry-htpasswd      # configured in nginx
+      REGISTRY_AUTH_HTPASSWD_REALM: "Ldiw Registry"     # configured in nginx
+      REGISTRY_STORAGE_DELETE_ENABLED: 'true'
+    volumes:
+      - registry:/var/lib/registry
+      - $PWD/registry/:/etc/docker/registry
+    networks:
+      - ${NETWORK}
+#    ports:
+#      - 5000:5000
+    deploy:
+      replicas: 1  # more than 1 registry creates timeout loops during docker push
+      labels:
+        - com.df.reqMode=http
+        - com.df.notify=true
+        - com.df.serviceDomain=registry.ops.worldcleanupday.com
+        - com.df.servicePath=/
+        - com.df.port=5000
+        - com.df.httpsOnly=true
+        - com.df.xForwardedProto=true
+        - com.df.redirectWhenHttpProto=true
+        - com.df.sessionType=sticky-server
+#        - com.df.connectionMode=http-server-close
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+
+  elasticsearch:
+      image: docker.elastic.co/elasticsearch/elasticsearch:5.4.1
+      volumes:
+        - ./elk_elastalert/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        - elk:/usr/share/elasticsearch/data
+      # ports:
+        # - "9200:9200"
+        # - "9300:9300"
+      environment:
+        - "LOGSPOUT=ignore"
+        - "ES_JAVA_OPTS=-Xmx2g -Xms2g"
+      networks:
+        - ${NETWORK}
+      deploy:
+        resources:
+          limits:
+            memory: 4G
+        replicas: 1
+        restart_policy:
+          condition: on-failure
+  #      placement:
+  #        constraints:
+  #          - node.hostname == dock1-eu-infra
+        labels:
+          com.ldiw.description: "${DEPLOYMENT_LABEL}"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.4.1
+    secrets:
+      - dfp_users_kibana
+    volumes:
+      - $PWD/elk_elastalert/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    networks:
+      - ${NETWORK}
+    deploy:
+      labels:
+        - com.df.notify=true
+        - com.df.serviceDomain=${KIBANA_URL}
+        - com.df.servicePath=/
+        - com.df.srcPort=443
+        - com.df.port=5601
+        # do ssl and http -> https redirect
+        - com.df.httpsOnly=true
+        - com.df.xForwardedProto=true
+        - com.df.redirectWhenHttpProto=true
+        - com.df.users=manager:m4n4g3r
+#        - com.df.usersSecret=kibana
+        # - com.df.usersPassEncrypted=true
+        - com.runspace.description="${DEPLOYMENT_LABEL}"
+
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:5.4.1
+    volumes:
+      - ./elk_elastalert/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./elk_elastalert/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5100:5000"
+      # - "12201:12201"
+    environment:
+      - "LOGSPOUT=ignore"
+      - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
+    networks:
+      - ${NETWORK}
+    deploy:
+      labels:
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+
+  logspout:
+    image: gliderlabs/logspout
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: "syslog://logstash:51415"
+    environment:
+      - "LOGSPOUT=ignore"
+      - "SYSLOG_FORMAT=rfc3164"
+    networks:
+      - ${NETWORK}
+    deploy:
+      mode: global
+      labels:
+        - com.ldiw.description="${DEPLOYMENT_LABEL}"
+
+networks:
+  ${NETWORK}:
+    driver: overlay
+    external: true
+
+volumes:
+  jenkins:
+    driver: "azurefile"
+    driver_opts:
+      share: "jenkins"
+      uid: 1000
+      gid: 1000
+      filemode: 0777
+      dirmode: 0777
+  registry:
+    driver: "azurefile"
+    driver_opts:
+      share: "registry"
+  elk:
+    driver: "azurefile"
+    driver_opts:
+      share: "elk"
+
+secrets:
+  registry.pem:
+    external: true
+  dfp_users_kibana:
+    external: true

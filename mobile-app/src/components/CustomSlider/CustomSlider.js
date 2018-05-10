@@ -58,8 +58,9 @@ const CustomSlider = (props) => {
         width: props.width,
       }}
     >
-      {props.gradationData.map(data => (
+      {props.gradationData.map((data, key) => (
         <Gradation
+          key={key}
           position={data.position}
           image={data.image}
         />

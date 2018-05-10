@@ -1,6 +1,5 @@
 import { SQLite } from 'expo';
 import { Api } from "./index";
-import { trashpileReducer } from '../reducers';
 import { handleUpload, deleteImage } from "../reducers/trashpile/operations";
 
 const offlineDB = SQLite.openDatabase('db.offline');
@@ -69,7 +68,7 @@ class OfflineService {
                 }
                 if (dataOk) {
                   const createMarkerResponse = await Api.put(trashpoint.url, trashpoint.marker);
-                  if (createMarkerResponse) {
+                  if (createMarkerResponse || !trashpoint.marker.datasetId) {
                     offlineDB.transaction(tx => {
                       tx.executeSql('DELETE FROM trashpoints WHERE id = ?;', [trashpoint.id]);
                     });

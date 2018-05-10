@@ -379,6 +379,7 @@ paths:
       parameters:
         - $ref: "#/parameters/From"
         - $ref: "#/parameters/To"
+        - $ref: "#/parameters/Country"
       responses:
         "200":
           $ref: "#/definitions/TrashpointsList"

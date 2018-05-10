@@ -60,6 +60,7 @@ module.exports = {
     req => ({
       from: req.swagger.params.from.value,
       to: req.swagger.params.to.value,
+      cc: req.swagger.params.country.value,
     }),
   ),
 };

@@ -336,6 +336,18 @@ const designDocs = {
                 },
             },
         },
+        byCreationTimeAndCountry: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'trashpoint') {
+                            emit([doc.areas[0], doc.createdAt], doc);
+                        }
+                    },
+                },
+            },
+        },
         byCreatingUser: {
             $version: 1,
             views: {

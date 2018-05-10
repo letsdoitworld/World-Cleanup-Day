@@ -270,7 +270,7 @@ const layer = {
       }
     );
   },
-  getAllTrashpoints: async (cc, dateFrom, dateTo) => {
+  getAllTrashpoints: async (dateFrom, dateTo, cc) => {
     return await adapter.getEntities(
       'Trashpoint',
       '_design/byCreationTimeAndCountry/_view/view',

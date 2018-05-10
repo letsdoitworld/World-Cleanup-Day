@@ -96,7 +96,7 @@ module.exports = function () {
       .use(async function ({from, to, cc}, responder) {
         const dateFrom = util.time.getNowUTC(new Date(from));
         const dateTo = util.time.getNowUTC(new Date(to));
-        const trashpoints = await db.getAllTrashpoints(cc, dateFrom, dateTo);
+        const trashpoints = await db.getAllTrashpoints(dateFrom, dateTo, cc);
         return responder.success({
           trashpoints: trashpoints
         });

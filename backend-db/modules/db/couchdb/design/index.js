@@ -342,7 +342,7 @@ const designDocs = {
                 view: {
                     map: function (doc) {
                         if (doc.$doctype === 'trashpoint') {
-                            emit([doc.areas[0], doc.createdAt], doc);
+                            emit([doc.areas[0], doc.createdAt, doc.createdAt], doc);
                         }
                     },
                 },

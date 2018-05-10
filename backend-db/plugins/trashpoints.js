@@ -96,11 +96,9 @@ module.exports = function () {
       .use(async function ({from, to, cc}, responder) {
         const dateFrom = util.time.getNowUTC(new Date(from));
         const dateTo = util.time.getNowUTC(new Date(to));
-        const trashpoints = await db.getAllTrashpoints(cc);
-
-        const intrevalTrashpoints = trashpoints.filter(trash => trash.createdAt >= dateFrom && trash.createdAt <= dateTo);
+        const trashpoints = await db.getAllTrashpoints(cc, dateFrom, dateTo);
         return responder.success({
-          trashpoints: intrevalTrashpoints
+          trashpoints: trashpoints
         });
       });
   });

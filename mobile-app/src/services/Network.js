@@ -81,7 +81,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
     }
     componentWillUnmount() {
       NetInfo.isConnected.removeEventListener(
-        'change',
+        'connectionChange',
         this.handleConnectionStatusChanged,
       );
       if (this.connectionCheckInterval) {
@@ -109,7 +109,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       });
 
       NetInfo.isConnected.addEventListener(
-        'change',
+        'connectionChange',
         data => this.handleConnectionStatusChanged(data)
       );
       this.props.updateNetworkStatus(isConnected);

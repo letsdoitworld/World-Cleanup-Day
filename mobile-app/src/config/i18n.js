@@ -6,7 +6,7 @@ const languageDetector = {
   type: 'languageDetector',
   async: true, // flags below detection to be async
   detect: (callback) => {
-    return Expo.Util.getCurrentLocaleAsync().then((lang) => {
+    return Expo.DangerZone.Localization.getCurrentLocaleAsync().then((lang) => {
       try {
         if (lang.indexOf('_')) {
           callback(lang.split('_')[0]);

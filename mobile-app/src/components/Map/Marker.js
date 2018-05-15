@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { MapView } from 'expo';
-import { View, ImageBackground, Text } from 'react-native';
+import React, {Component} from 'react';
+import {MapView} from 'expo';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import styles from './styles';
+import MarkerView from './MarkerView';
 
 const MARKER_STATUS_IMAGES = {
   cleaned: require('./images/pointer_cleaned.png'),
@@ -25,43 +24,27 @@ const MARKER_OFFSET = {
   y: 0,
 };
 
-const Marker = ({ marker, onMarkerPress = _.noop }) => {
-  if (!marker) {
-    return null;
+const Marker = ({marker, onMarkerPress = _.noop}) => {
+    if (!marker) {
+      return null;
+    }
+
+    let pointOffset = {...MARKER_OFFSET};
+
+    if (marker.isTrashpile) {
+      pointOffset = {...TRASHPILE_MARKER_OFFSET};
+    }
+
+    let showLabel = marker.isTrashpile && marker.count > 0;
+
+    return <MarkerView
+      showLabel={showLabel}
+      marker={marker}
+      onMarkerPress={onMarkerPress}
+      image={MARKER_STATUS_IMAGES[marker.status]}
+    />
   }
-
-  let pointOffset = { ...MARKER_OFFSET };
-
-  if (marker.isTrashpile) {
-    pointOffset = { ...TRASHPILE_MARKER_OFFSET };
-  }
-
-  let showLabel = marker.isTrashpile && marker.count > 0;
-
-  return (
-    <MapView.Marker
-      coordinate={marker.latlng}
-      onPress={onMarkerPress}
-      style={[!marker.isTrashpile ? {zIndex: 2} : null]}
-      identifier={String(marker.id)}
-    >
-      <ImageBackground
-        resizeMode="contain"
-        style={{width: 40, height: 40}}
-        source={MARKER_STATUS_IMAGES[marker.status]}>
-        {showLabel &&
-        <View style={styles.labelContainer}>
-          <Text style={styles.labelText}>
-            {marker.count}
-          </Text>
-        </View>}
-        <MapView.Callout tooltip>
-          <View/>
-        </MapView.Callout>
-      </ImageBackground>
-    </MapView.Marker>
-  );
-};
+;
 
 Marker.propTypes = {
   // disabled becuase of too many warnings

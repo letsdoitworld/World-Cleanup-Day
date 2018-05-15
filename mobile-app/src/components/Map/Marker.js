@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MapView } from 'expo';
-import { View, Image, Text } from 'react-native';
+import { View, ImageBackground, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -42,19 +42,23 @@ const Marker = ({ marker, onMarkerPress = _.noop }) => {
     <MapView.Marker
       coordinate={marker.latlng}
       onPress={onMarkerPress}
-      style={!marker.isTrashpile ? { zIndex: 2 } : null}
-      image={MARKER_STATUS_IMAGES[marker.status]}
+      style={[!marker.isTrashpile ? {zIndex: 2} : null]}
       identifier={String(marker.id)}
     >
-      {showLabel &&
+      <ImageBackground
+        resizeMode="contain"
+        style={{width: 40, height: 40}}
+        source={MARKER_STATUS_IMAGES[marker.status]}>
+        {showLabel &&
         <View style={styles.labelContainer}>
           <Text style={styles.labelText}>
             {marker.count}
           </Text>
         </View>}
-      <MapView.Callout tooltip>
-        <View />
-      </MapView.Callout>
+        <MapView.Callout tooltip>
+          <View/>
+        </MapView.Callout>
+      </ImageBackground>
     </MapView.Marker>
   );
 };

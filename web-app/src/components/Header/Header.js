@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { If, Else } from 'react-if';
 import HeaderItem from './HeaderItem';
 import Logo from './Logo';
 import { TextButton } from '../Buttons';
@@ -14,13 +15,27 @@ import {
 import './Header.css';
 
 class Header extends Component {
+  static propTypes = {
+    authUser: PropTypes.oneOfType([null, PropTypes.object]),
+    links: PropTypes.oneOfType([null, PropTypes.array]),
+    onLogout: PropTypes.func,
+    togglePopover: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+  }
+
+  static defaultProps = {
+    authUser: null,
+    links: null,
+    onLogout: () => {},
+  }
+
   handleLoginClick = e => {
     e.stopPropagation();
     this.props.togglePopover();
   };
 
   render() {
-    const { authUser, links, bottomLinks, onLogout, logoutText } = this.props;
+    const { authUser, links, onLogout } = this.props;
     return (
       <div className="Header">
         <div className="Header-main-nav">
@@ -30,18 +45,19 @@ class Header extends Component {
           <div className="Header-links-container">
             {
               links ?
-              links.map((link, index) => <HeaderItem {...link} key={index} />) :
+              links.map(link => <HeaderItem {...link} key={link.title} />) :
               null
             }
           </div>
-          {
-            authUser ?
-              <User authUser={authUser} onLogout={onLogout} /> :
+          <If condition={!!authUser}>
+            <User authUser={authUser} onLogout={onLogout} />
+            <Else>
               <div className="Header-button-container">
                 <Popover isOpen={this.props.isOpen} />
                 <TextButton title="Log in" onClick={this.handleLoginClick} />
               </div>
-          }
+            </Else>
+          </If>
         </div>
         <div className="Header-filters-placeholder" />
       </div>
@@ -58,12 +74,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-/*
-<HeaderItem title="Log out" onClick={onLogout} />
-
-{authUser && (
-  <HeaderItem title={authUser.name} />
-)}
-{authUser && <HeaderItem title={authUser.email} />}
-*/

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { TrashAmount, TrashPhotos, StatusText } from '../TrashpointDetails';
+import PropTypes from 'prop-types';
+import { TrashAmount, TrashPhotos } from '../TrashpointDetails';
 
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';

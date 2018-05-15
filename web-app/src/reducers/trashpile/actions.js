@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   API_ENDPOINTS,
   TRASHPOINT_IMAGE_TYPES,
-  MARKER_DIAGONALE_IN_PX,
 } from '../../shared/constants';
 import {
   convertToByteArray,

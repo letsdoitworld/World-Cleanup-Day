@@ -8,6 +8,10 @@ import { selectors as appSelectors } from '../../reducers/app';
 class AdminMap extends React.Component {
   static propTypes = {
     isUserLoggedIn: PropTypes.bool.isRequired,
+    currentActiveTab: PropTypes.string.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
   };
 
   handleMarkerClick = marker => {
@@ -25,7 +29,7 @@ class AdminMap extends React.Component {
     }
   };
   render() {
-    const { isUserLoggedIn, history } = this.props;
+    const { isUserLoggedIn } = this.props;
     return (
       <MarkersMap
         tabActive={this.props.currentActiveTab}

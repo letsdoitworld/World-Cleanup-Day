@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { LocationService } from '../../services';
 import {
   DEFAULT_ZOOM_LEVEL,
@@ -70,7 +71,7 @@ class MapView extends Component {
       zoom: propZoom,
       cursor,
     } = this.props;
-    const { mapLocation, zoom, mapLoaded } = this.state;
+    const { mapLocation, zoom } = this.state;
     const isMapReady = !!mapLocation;
     if (!isMapReady) {
       return <Loader />;
@@ -95,10 +96,30 @@ class MapView extends Component {
   }
 }
 
+MapView.propTypes = {
+  onClick: PropTypes.func,
+  points: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  onPointClick: PropTypes.func.isRequired,
+  setCurrentLocation: PropTypes.func.isRequired,
+  setMapComponent: PropTypes.func,
+  boundsChanged: PropTypes.func,
+  center: PropTypes.oneOfType([PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }), null]),
+  zoom: PropTypes.oneOfType([PropTypes.number, null]),
+  cursor: PropTypes.any,
+  location: PropTypes.oneOfType([null, PropTypes.shape]),
+};
+
 MapView.defaultProps = {
   onClick: noop,
   setMapComponent: noop,
   boundsChanged: noop,
+  location: null,
+  cursor: null,
+  zoom: null,
+  center: null,
 };
 
 const mapDispatchToProps = {

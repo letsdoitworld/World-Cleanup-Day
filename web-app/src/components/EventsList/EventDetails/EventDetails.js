@@ -1,6 +1,7 @@
 import React from 'react';
 import Swiper from 'react-id-swiper';
 import * as moment from 'moment';
+import PropTypes from 'prop-types';
 import 'moment/locale/en-au';
 import './EventDetails.css';
 import {
@@ -12,7 +13,6 @@ import {
   Userpic,
   EmailIcon,
   PhoneIcon,
-  userpicHolder,
   eventCoverBig,
 } from '../../../components/common/Icons';
 import demo from '../../../assets/demo.png';
@@ -144,4 +144,8 @@ export const EventDetails = ({ eventDetails }) => {
       </div>
     </div>
   );
+};
+
+EventDetails.propTypes = {
+  eventDetails: PropTypes.instanceOf(Object).isRequired,
 };

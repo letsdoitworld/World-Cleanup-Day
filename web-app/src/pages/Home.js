@@ -46,7 +46,7 @@ class Home extends Component {
       trashpointTabs: TRASHPOINTS_TABS,
       trashpointTabSelected: 0,
       showDetails: false,
-      showEdit: false
+      showEdit: false,
     };
   }
 

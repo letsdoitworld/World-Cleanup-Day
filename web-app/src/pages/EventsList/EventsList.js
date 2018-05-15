@@ -9,6 +9,21 @@ import {
 import { List } from '../../components/EventsList';
 
 class EventsList extends Component {
+
+  static propTypes = {
+    setActiveTab: PropTypes.func.isRequired,
+    isOpened: PropTypes.bool,
+    fetchEventsList: PropTypes.func.isRequired,
+    fetchEventDetails: PropTypes.func.isRequired,
+    expandEventWindow: PropTypes.func.isRequired,
+    eventId: PropTypes.string,
+  };
+
+  static defaultProps = {
+    eventId: '',
+    isOpened: false,
+  };
+
   componentWillMount() {
     this.props.setActiveTab('events');
     if (!this.props.eventId) {
@@ -40,17 +55,6 @@ class EventsList extends Component {
     );
   }
 }
-
-EventsList.propTypes = {
-  setActiveTab: PropTypes.func.isRequired,
-  fetchEventsList: PropTypes.func.isRequired,
-  fetchEventDetails: PropTypes.func.isRequired,
-  eventId: PropTypes.string,
-};
-
-EventsList.defaultProps = {
-  eventId: '',
-};
 
 const mapStateToProps = (state) => ({
   events: selectors.getEventsList(state),

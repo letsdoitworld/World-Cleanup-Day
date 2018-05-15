@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { actions as userActions } from '../../reducers/user';
 import { actions as appActions } from '../../reducers/app';
@@ -13,7 +14,6 @@ import './Popover.css';
 class Popover extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isOpen: props.isOpen,
     };
@@ -64,7 +64,9 @@ class Popover extends Component {
     const { hidePopover } = this.props;
     return (
       <div
-        className={classnames('Popover-container', { 'is-open': this.state.isOpen })}
+        className={classnames(
+          'Popover-container', { 'is-open': this.state.isOpen })
+        }
         onClick={this.preventDefaultClick}
       >
         <div className="Popover-cover" />
@@ -97,7 +99,9 @@ class Popover extends Component {
                 </div>
               </FacebookLogin>
             </div>
-            <div className="Popover-login-item-container Google-login-container">
+            <div
+              className="Popover-login-item-container Google-login-container"
+            >
               <div className="Google-login-btn-head" />
               <GoogleLogin
                 clientId="701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com"
@@ -106,7 +110,7 @@ class Popover extends Component {
                 style={{
                   background: 'none',
                   width: '100%',
-                } }
+                }}
               >
                 <div className="Google-login-btn Popover-login-item">
                   <GoogleIcon />
@@ -120,6 +124,12 @@ class Popover extends Component {
     );
   }
 }
+
+Popover.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  authenticate: PropTypes.func.isRequired,
+  hidePopover: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = dispatch => ({
   authenticate: ({ network, token }) =>

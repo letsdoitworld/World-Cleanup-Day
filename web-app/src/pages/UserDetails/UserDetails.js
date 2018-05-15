@@ -191,7 +191,7 @@ class UserDetails extends React.Component {
         <div style={{ padding: '20px' }}>
           <div className="UserDetails-image-container">
             {user.pictureURL && (
-              <img className="UserDetails-image" src={user.pictureURL} />
+              <img className="UserDetails-image" src={user.pictureURL} alt="" />
             )}
             <div className="UserDetails-info-container">
               {user.name && (
@@ -205,6 +205,7 @@ class UserDetails extends React.Component {
                   <img
                     className="UserDetails-country-image"
                     src={require('./image.png')}
+                    alt=""
                   />
                   <span className="UserDetails-country">
                     {COUNTRIES_HASH[user.country]}

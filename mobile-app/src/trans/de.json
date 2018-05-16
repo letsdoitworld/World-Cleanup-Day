@@ -1,5 +1,5 @@
 {
-  "label_text_app_subtitle": "Lasst uns die Welt zusammen sauber machen!",
+  "label_text_app_subtitle": "Lasst uns die Welt zu einem sauberen Ort machen!",
   "label_button_facebook": "Fortfahren mit Facebook",
   "label_button_google": "Fortfahren mit Google",
   "label_button_try_app": "Probiere die App ohne Account",
@@ -121,12 +121,12 @@
   "label_delete_photo_title": "Foto löschen",
   "label_delete_photo_subtitle": "Sind Sie sicher, dass Sie das Foto löschen möchten? Sie können dies nicht rückgängig machen.",
   "label_text_about_1": "Diese App ist eine Initiative von Let's Do It World",
-  "label_text_about_2": "All the data collected by users worldwide will be visualised in the global trash map for initiating worldwide clean-up events on World Cleanup Day, 15 September 2018",
+  "label_text_about_2": "Alle Daten, die von Nutzern weltweit in der globalen Müll-Karte zusammengetragen werden, dienen für die Initiierung von weltweiten Aufräumveranstaltungen am Weltaufräumtag dem 15. September 2018.",
   "label_text_about_3": "Diese App ist in Zusammenarbeit mit",
   "label_text_about_4": "Estnisches Produkt, gefördert durch das Land und die Regierung",
-  "label_text_about_5": "Funders: Estonian Ministry of Environment, The Ministry of Foreign Affairs of the Republic of Estonia, Estonian Republic 100 program",
+  "label_text_about_5": "Förderer: Estnische Ministerium für Umwelt, Republik Estland, AGEPO",
   "label_button_editTP_delete": "Trashpoint löschen",
   "label_locked_account_warning": "Dein Account wurde gesperrt. Kontaktiere die Administration für weitere Details.",
-  "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
-  "label_your_coordinates": "Your coordinates"
+  "label_no_connection_note": "Offline können Sie den Papierkorb nur markieren. Sobald Sie online gehen werden die Löschungen durchgeführt.",
+  "label_your_coordinates": "Ihre Koordinaten"
 }

@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { MinimizeIcon, CloseIcon } from '../../components/common/Icons';
-import { selectors } from '../../reducers/trashpile';
+import PropTypes from 'prop-types';
+import { CloseIcon } from '../../components/common/Icons';
 
 const TpdetailsHeader = ({
   tpTitle,
@@ -12,7 +11,7 @@ const TpdetailsHeader = ({
       <span className="Tpdetails-header-title">{tpTitle}</span>
       <div
         className="Tpdetails-header-minimize"
-        onClick={() => onMinimizeClick()}
+        onClick={onMinimizeClick}
       >
         <CloseIcon />
       </div>
@@ -20,7 +19,9 @@ const TpdetailsHeader = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-});
+TpdetailsHeader.propTypes = {
+  tpTitle: PropTypes.string.isRequired,
+  onMinimizeClick: PropTypes.func.isRequired,
+};
 
-export default connect(mapStateToProps)(TpdetailsHeader);
+export default TpdetailsHeader;

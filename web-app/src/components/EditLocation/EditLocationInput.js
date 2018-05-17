@@ -1,10 +1,17 @@
 import React from 'react';
-
-import { RoundButton } from '../../components/Buttons';
-
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import './EditLocationInput.css';
 
 class EditLocationInput extends React.Component {
+  static propTypes = {
+    onChange: PropTypes.func,
+  }
+
+  static defaultProps = {
+    onChange: null,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,19 +33,11 @@ class EditLocationInput extends React.Component {
     const latlng = latlngString.map(i => parseFloat(i, 10));
 
     const [lat, lng] = latlng;
-    if (isNaN(lat)) {
+    if (isNaN(lat) || lat >= 90 || lat <= -90) {
       this.setState({ error: 'Invalid latitude' });
       return;
     }
-    if (isNaN(lng)) {
-      this.setState({ error: 'Invalid longitude' });
-      return;
-    }
-    if (lat >= 90 || lat <= -90) {
-      this.setState({ error: 'Invalid latitude' });
-      return;
-    }
-    if (lng >= 180 || lng <= -180) {
+    if (isNaN(lng) || lng >= 180 || lng <= -180) {
       this.setState({ error: 'Invalid longitude' });
       return;
     }
@@ -52,16 +51,8 @@ class EditLocationInput extends React.Component {
   render() {
     const { error } = this.state;
     return (
-      <div
-        style={{
-          flexDirection: 'column',
-          marginTop: '20px',
-          marginBottom: '10px',
-        }}
-      >
-        <div
-          className="EditLocationInput"
-        >
+      <div className="EditLocationInput-parent">
+        <div className="EditLocationInput">
           <input
             className="EditLocationInput-text"
             type="text"
@@ -77,12 +68,10 @@ class EditLocationInput extends React.Component {
           </div>
         </div>
         <div
-          style={{
-            marginTop: '20px',
-            textAlign: 'center',
-            color: 'red',
-            display: error ? 'block' : 'none',
-          }}
+          className={classnames('EditLocation-error', {
+            'd-b': error,
+            'd-n': !error,
+          })}
         >
           {error}
         </div>

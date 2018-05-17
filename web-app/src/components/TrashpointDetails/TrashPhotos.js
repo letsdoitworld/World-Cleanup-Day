@@ -1,7 +1,8 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import Swiper from 'react-id-swiper';
-import { noop } from '../../shared/helpers';
+import { If } from 'react-if';
+import PropTypes from 'prop-types';
 import { CloseIcon } from '../common/Icons';
 import './TrashPhotos.css';
 
@@ -30,47 +31,31 @@ const swiperOptions = (if1slide, if2slides) => {
   };
 };
 
-const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
+const TrashPhotos = ({
+  photos,
+  canEdit,
+  onAddClick,
+  onDeleteClick,
+}) =>
   (<div className="TrashPhotos">
     <span className="TrashPhotos-title">Trash photos</span>
     <div className="TrashPhotos-images-container">
-      {onAddClick &&
-        <div
-          style={{
-            cursor: 'pointer',
-          }}
-        >
+      <If condition={!!onAddClick}>
+        <div className="cur-p">
           <Dropzone
-            style={{
-              width: '121px',
-              height: '86px',
-              border: '2px dashed #a4c7f0',
-              backgroundColor: '#f6f8f9',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: '10px',
-              marginRight: '10px',
-            }}
+            className="TrashPhotos-dropzone"
             multiple={false}
             onDrop={onAddClick}
             accept="image/*"
           >
             <div
-              style={{
-                fontSize: '14px',
-                color: '#a4c7f0',
-                margin: '5px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '2px',
-              }}
+              className="TrashPhotos-dropzone-placeholder"
             >
-              <p style={{ textAlign: 'center' }}>Add photos</p>
+              <p className="t-a-c">Add photos</p>
             </div>
           </Dropzone>
-        </div>}
+        </div>
+      </If>
       {
         onAddClick ?
         photos.map((photo, index) =>
@@ -97,9 +82,16 @@ const TrashPhotos = ({ photos, canEdit, onAddClick, onDeleteClick }) =>
     </div>
   </div>);
 
+TrashPhotos.propTypes = {
+  photos: PropTypes.arrayOf(PropTypes.string),
+  onDeleteClick: PropTypes.func,
+  onAddClick: PropTypes.func,
+  canEdit: PropTypes.bool,
+};
+
 TrashPhotos.defaultProps = {
   photos: [],
-  onDeleteClick: () => noop,
+  onDeleteClick: null,
   onAddClick: null,
   canEdit: false,
 };

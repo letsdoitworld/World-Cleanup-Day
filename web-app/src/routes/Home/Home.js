@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../../components/Header';
@@ -27,6 +28,22 @@ import { Privacy } from '../../components/Privacy';
 
 class Home extends React.Component {
 
+  static propTypes = {
+    history: PropTypes.shape({
+      replace: PropTypes.func,
+      push: PropTypes.func,
+      location: PropTypes.shape({
+        pathname: PropTypes.string,
+      }),
+    }).isRequired,
+    logout: PropTypes.func.isRequired,
+    agreeToTerms: PropTypes.func.isRequired,
+    userProfile: PropTypes.shape({
+      role: PropTypes.string,
+    }).isRequired,
+    resetUsers: PropTypes.func.isRequired,
+  };
+
   componentWillMount() {
     if (this.props.history.location.pathname === ROUTES.ROOT) {
       this.props.history.replace(ROUTES.TRASHPOINTS_ROOT);
@@ -54,16 +71,7 @@ class Home extends React.Component {
     </div>);
 
   renderNormalRoute = ({ history }) =>
-    (<div
-      className="Root-normal-route"
-      style={{
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}
-    >
+    (<div className="Root-normal-route">
       <Switch>
         <Route path={ROUTES.USER_DETAILS} exact component={UserDetails} />
         <Route path={ROUTES.USERLIST} exact component={UserList} />
@@ -141,21 +149,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);
-
-/*
-<Route
-  path="/trashpoints"
-  render={
-    () => {
-      return (
-        <div
-          onClick={() => { history.push('/trashpoints/create'); }}
-          className="Home-create-marker-button"
-        >
-          <span>Place trashpoint</span>
-        </div>
-      );
-    }
-  }
-/>
-*/

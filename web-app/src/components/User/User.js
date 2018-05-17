@@ -7,7 +7,16 @@ import './User.css';
 class User extends Component {
 
   static propTypes = {
-    authUser: PropTypes.oneOfType([PropTypes.shape, null]),
+    authUser: PropTypes.shape({
+      name: PropTypes.string,
+      id: PropTypes.string,
+      locked: PropTypes.bool,
+      pictureURL: PropTypes.string,
+      public: PropTypes.bool,
+      termsAcceptedAt: PropTypes.string,
+      email: PropTypes.string,
+      role: PropTypes.string,
+    }),
     onLogout: PropTypes.func.isRequired,
   }
 
@@ -21,7 +30,6 @@ class User extends Component {
 
   render() {
     const { authUser, onLogout } = this.props;
-
     return (
       <div className="User">
         <div className="User-top">

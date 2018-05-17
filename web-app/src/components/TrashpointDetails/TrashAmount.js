@@ -2,37 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _ from 'lodash';
-
-import bagfullBlueFill from './images/icon_bagful_blue_fill@2x.png';
-import bagfullBlueOutline from './images/icon_bagful_blue_outline@2x.png';
-import bagfullGreyFill from './images/icon_bagful_grey_fill@2x.png';
-import bagfullGreyOutline from './images/icon_bagful_grey_outline@2x.png';
-import cartloadBlueFill from './images/icon_cartload_blue_fill@2x.png';
-import cartloadBlueOutline from './images/icon_cartload_blue_outline@2x.png';
-import cartloadGreyFill from './images/icon_cartload_grey_fill@2x.png';
-import cartloadGreyOutline from './images/icon_cartload_grey_outline@2x.png';
-import handfulBlueFill from './images/icon_handful_blue_fill@2x.png';
-import handfulBlueOutline from './images/icon_handful_blue_outline@2x.png';
-import handfulGreyFill from './images/icon_handful_grey_fill@2x.png';
-import handfulGreyOutline from './images/icon_handful_grey_outline@2x.png';
-import truckBlueFill from './images/icon_truck_blue_fill@2x.png';
-import truckBlueOutline from './images/icon_truck_blue_outline@2x.png';
-import truckGreyFill from './images/icon_truck_grey_fill@2x.png';
-import truckGreyOutline from './images/icon_truck_grey_outline@2x.png';
+import { AMOUNT_STATUSES } from '../../shared/constants';
+import {
+  AMOUNT_PICKER_IMAGES,
+  TOGGLE_TYPE,
+} from '../../shared/trashpoint-constants';
 import './TrashAmount.css';
 
-export const AMOUNT_STATUSES = {
-  handful: 0,
-  bagful: 1,
-  cartload: 2,
-  truckload: 3,
-  0: 'handful',
-  1: 'bagful',
-  2: 'cartload',
-  3: 'truckload',
-};
-
-const GradationBall = ({ flexValue, disabled = false }) => {
+const GradationBall = ({ flexValue }) => {
   const styles = {
     backgroundColor: '#3e8ede',
     width: '8px',
@@ -47,7 +24,11 @@ const GradationBall = ({ flexValue, disabled = false }) => {
       <div style={styles} />
     </div>
   );
-}
+};
+
+GradationBall.propTypes = {
+  flexValue: PropTypes.number.isRequired,
+};
 
 const ImageToggleContainer = ({
   onClick,
@@ -68,81 +49,14 @@ const ImageToggleContainer = ({
   );
 };
 
-export const TOGGLE_TYPE = {
-  handful: 'HANDFUL',
-  bagful: 'BAGFUL',
-  cartload: 'CARTLOAD',
-  truck: 'TRUCK',
+ImageToggleContainer.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  flexValue: PropTypes.number.isRequired,
+  translationValue: PropTypes.number.isRequired,
+  children: PropTypes.any.isRequired,
 };
 
-const AMOUNT_PICKER_IMAGES = {
-  BAGFUL_BLUE_FILL: {
-    source: bagfullBlueFill,
-    style: { width: '20px' },
-  },
-  BAGFUL_BLUE_OUTLINE: {
-    source: bagfullBlueOutline,
-    style: { width: '20px' },
-  },
-  BAGFUL_GREY_FILL: {
-    source: bagfullGreyFill,
-    style: { width: '20px' },
-  },
-  BAGFUL_GREY_OUTLINE: {
-    source: bagfullGreyOutline,
-    style: { width: '20px' },
-  },
-  HANDFUL_BLUE_FILL: {
-    source: handfulBlueFill,
-    style: { width: '28px' },
-  },
-  HANDFUL_BLUE_OUTLINE: {
-    source: handfulBlueOutline,
-    style: { width: '28px' },
-  },
-  HANDFUL_GREY_FILL: {
-    source: handfulGreyFill,
-    style: { width: '28px' },
-  },
-  HANDFUL_GREY_OUTLINE: {
-    source: handfulGreyOutline,
-    style: { width: '28px' },
-  },
-  CARTLOAD_BLUE_FILL: {
-    source: cartloadBlueFill,
-    style: { width: '28px' },
-  },
-  CARTLOAD_BLUE_OUTLINE: {
-    source: cartloadBlueOutline,
-    style: { width: '28px' },
-  },
-  CARTLOAD_GREY_FILL: {
-    source: cartloadGreyFill,
-    style: { width: '28px' },
-  },
-  CARTLOAD_GREY_OUTLINE: {
-    source: cartloadGreyOutline,
-    style: { width: '28px' },
-  },
-  TRUCK_BLUE_FILL: {
-    source: truckBlueFill,
-    style: { width: '33px' },
-  },
-  TRUCK_BLUE_OUTLINE: {
-    source: truckBlueOutline,
-    style: { width: '33px' },
-  },
-  TRUCK_GREY_FILL: {
-    source: truckGreyFill,
-    style: { width: '33px' },
-  },
-  TRUCK_GREY_OUTLINE: {
-    source: truckGreyOutline,
-    style: { width: '33px' },
-  },
-};
-
-const ImageToggle = ({ selected, type, disabled }) => {
+const ImageToggle = ({ selected, type }) => {
   const imageRef = `${type}_${'BLUE'}_${selected
     ? 'FILL'
     : 'OUTLINE'}`;
@@ -155,10 +69,11 @@ const ImageToggle = ({ selected, type, disabled }) => {
 
 ImageToggle.propTypes = {
   selected: PropTypes.bool,
-  disabled: PropTypes.bool,
-  imageSelected: PropTypes.any,
-  imageUnselected: PropTypes.any,
-  customStyles: PropTypes.any,
+  type: PropTypes.string.isRequired,
+};
+
+ImageToggle.defaultProps = {
+  selected: false,
 };
 
 class TrashAmount extends Component {
@@ -272,7 +187,7 @@ class TrashAmount extends Component {
               onClick={() => this.handlePress(fourth.value)}
             />
           </div>
-          <div style={{ display: 'flex', marginTop: '15px' }}>
+          <div className="completer-wrapper">
             <div
               className="completer"
               onClick={() => this.handlePress(fourth.value)}
@@ -339,6 +254,12 @@ TrashAmount.propTypes = {
   amount: PropTypes.string,
   disabled: PropTypes.bool,
   onSelect: PropTypes.func,
+};
+
+TrashAmount.defaultProps = {
+  amount: '',
+  disabled: false,
+  onSelect: () => {},
 };
 
 export default TrashAmount;

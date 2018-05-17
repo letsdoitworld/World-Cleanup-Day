@@ -16,8 +16,13 @@ import './Header.css';
 
 class Header extends Component {
   static propTypes = {
-    authUser: PropTypes.oneOfType([null, PropTypes.object]),
-    links: PropTypes.oneOfType([null, PropTypes.array]),
+    authUser: PropTypes.any,
+    links: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      url: PropTypes.string,
+      onClick: PropTypes.func,
+      image: PropTypes.any,
+    })),
     onLogout: PropTypes.func,
     togglePopover: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired,

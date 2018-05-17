@@ -1,11 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   TrashpointIcons,
 } from '../common/Icons';
-import iconClean from '../../assets/icon_status_small_clean@2x.png';
-import iconOutdated from '../../assets/icon_status_small_outdated@2x.png';
-import iconRegular from '../../assets/icon_status_small_regular@2x.png';
-import iconThreat from '../../assets/icon_status_small_threat@2x.png';
 import './StatusText.css';
 
 const STATUS_STATE = {
@@ -48,6 +45,10 @@ const StatusText = ({ status }) => {
       </span>
     </div>
   );
+};
+
+StatusText.propTypes = {
+  status: PropTypes.string.isRequired,
 };
 
 export default StatusText;

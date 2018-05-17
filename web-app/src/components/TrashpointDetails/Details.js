@@ -67,7 +67,7 @@ class Details extends Component {
           trashpointId &&
           (
             location ?
-            <div className={ classnames('Tpdetails-plot', { 'visible': isOpened }) }>
+            <div className={ classnames('Tpdetails-plot', { 'visible': isOpened })}>
               <div className="Details-default-container">
                 <div className="Details-address-container">
                   <div>
@@ -193,12 +193,3 @@ Details.defaultProps = {
 };
 
 export default Details;
-
-/*
-<button
-  className="Details-close-button"
-  onClick={actions.onCloseDetailsClick}
->
-  <img src={closeButton} alt="" />
-</button>
-*/

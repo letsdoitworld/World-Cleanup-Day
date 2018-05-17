@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { If } from 'react-if';
 import './HeaderItem.css';
 
 const HeaderItem = ({ image, title, url, onClick }) => {
@@ -12,12 +13,11 @@ const HeaderItem = ({ image, title, url, onClick }) => {
         className="HeaderItem"
         onClick={onClick}
       >
-        {
-          image &&
+        <If condition={!!image}>
           <div className="HeaderItem-img-container">
             {image}
           </div>
-        }
+        </If>
         <span className="HeaderItem-title">
           {title}
         </span>
@@ -26,12 +26,11 @@ const HeaderItem = ({ image, title, url, onClick }) => {
   }
   return (
     <div className="HeaderItem" onClick={onClick}>
-      {
-        image &&
+      <If condition={!!image}>
         <div className="HeaderItem-img-container">
           {image}
         </div>
-      }
+      </If>
       <span className="HeaderItem-title">
         {title}
       </span>
@@ -40,15 +39,15 @@ const HeaderItem = ({ image, title, url, onClick }) => {
 };
 
 HeaderItem.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.string, null]),
+  image: PropTypes.any,
   title: PropTypes.string.isRequired,
-  url: PropTypes.oneOfType([PropTypes.string, null]),
+  url: PropTypes.string,
   onClick: PropTypes.func.isRequired,
 };
 
 HeaderItem.defaultProps = {
-  image: null,
-  url: null,
+  image: '',
+  url: '',
 };
 
 export default HeaderItem;

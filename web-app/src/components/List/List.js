@@ -18,7 +18,7 @@ class List extends Component {
         <Infinite
           containerHeight={containerHeight}
           onInfiniteLoad={onInfiniteLoad}
-          className='List'
+          className="List"
           elementHeight={this.props.elementHeight}
           infiniteLoadBeginEdgeOffset={200}
         >
@@ -29,7 +29,7 @@ class List extends Component {
         return infiniteList;
       }
       return (
-        <div style={{ position: 'relative',  paddingTop}}>
+        <div style={{ position: 'relative' }}>
           <div style={{ position: 'absolute', top: 0, left: 0 }}>
             {headerContent}
           </div>

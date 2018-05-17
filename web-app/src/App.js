@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import {
   actions as appActions,
   selectors as appSelectors,
@@ -25,6 +25,17 @@ import './App.css';
 
 
 class App extends Component {
+
+  static propTypes = {
+    fetchDatasets: PropTypes.func.isRequired,
+    fetchProfile: PropTypes.func.isRequired,
+    hideModal: PropTypes.func.isRequired,
+    toggleLockedModal: PropTypes.func.isRequired,
+    hidePopover: PropTypes.func.isRequired,
+    modalIsOpen: PropTypes.bool.isRequired,
+    lockedModalIsOpen: PropTypes.bool.isRequired,
+  }
+
   constructor() {
     super();
     this.state = {
@@ -66,7 +77,10 @@ class App extends Component {
       <div className="App" onClick={modalIsOpen && this.props.hidePopover}>
         <Router />
         <AuthModal isOpen={modalIsOpen} onClick={this.closeModal} />
-        <LockedModal isOpen={lockedModalIsOpen} onClick={this.handleLockedModalClose} />
+        <LockedModal
+          isOpen={lockedModalIsOpen}
+          onClick={this.handleLockedModalClose}
+        />
       </div>
     );
   }

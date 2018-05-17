@@ -68,15 +68,15 @@ const EventsList = ({
 EventsList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape).isRequired,
   toggleEventWindow: PropTypes.func.isRequired,
-  eventId: PropTypes.oneOfType([null, PropTypes.string]),
-  eventDetails: PropTypes.oneOfType([null, PropTypes.shape]),
+  eventId: PropTypes.string,
+  eventDetails: PropTypes.any,
   isOpened: PropTypes.bool.isRequired,
   fetchEventDetails: PropTypes.func.isRequired,
   fetchEventsList: PropTypes.func.isRequired,
 };
 
 EventsList.defaultProps = {
-  eventId: null,
+  eventId: '',
   eventDetails: null,
 };
 

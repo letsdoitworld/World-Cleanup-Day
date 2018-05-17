@@ -81,8 +81,8 @@ class MapView extends Component {
       <GoogleMapView
         cursor={cursor}
         onClick={onClick}
-        containerElement={<div style={{ height: '100%' }} />}
-        mapElement={<div style={{ height: '100%' }} />}
+        containerElement={<div className="h-100" />}
+        mapElement={<div className="h-100" />}
         points={points}
         onPointClick={onPointClick}
         location={mapLocation}
@@ -99,23 +99,27 @@ class MapView extends Component {
 MapView.propTypes = {
   onClick: PropTypes.func,
   points: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  onPointClick: PropTypes.func.isRequired,
+  onPointClick: PropTypes.func,
   setCurrentLocation: PropTypes.func.isRequired,
   setMapComponent: PropTypes.func,
   boundsChanged: PropTypes.func,
-  center: PropTypes.oneOfType([PropTypes.shape({
+  center: PropTypes.shape({
     lat: PropTypes.number,
     lng: PropTypes.number,
-  }), null]),
-  zoom: PropTypes.oneOfType([PropTypes.number, null]),
+  }),
+  zoom: PropTypes.number,
   cursor: PropTypes.any,
-  location: PropTypes.oneOfType([null, PropTypes.shape]),
+  location: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }),
 };
 
 MapView.defaultProps = {
   onClick: noop,
   setMapComponent: noop,
   boundsChanged: noop,
+  onPointClick: null,
   location: null,
   cursor: null,
   zoom: null,

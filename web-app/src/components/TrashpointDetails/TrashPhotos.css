@@ -8,6 +8,28 @@
   overflow: auto;
 }
 
+.TrashPhotos-dropzone {
+  width: 121px;
+  height: 86px;
+  border: 2px dashed #a4c7f0;
+  background-color: #f6f8f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.TrashPhotos-dropzone-placeholder {
+  font-size: 14px;
+  color: #a4c7f0;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
 .TrashPhotos-title {
   font-size: 14px;
   color: #4a90e2;

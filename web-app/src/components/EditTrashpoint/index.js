@@ -1,3 +1,3 @@
 import EditTrashpoint from './EditTrashpoint';
 
-export {EditTrashpoint};
+export { EditTrashpoint };

@@ -5,7 +5,7 @@ import Root from './Root';
 
 export default () =>
   (<BrowserRouter >
-    <div style={{ flex: 1, display: 'flex' }}>
+    <div className="Root-component">
       <Route path={ROUTES.ROOT} component={Root} />
     </div>
   </BrowserRouter>);

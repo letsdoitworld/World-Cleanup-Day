@@ -1,10 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import { SHARED_MODAL_STYLES } from '../../shared/constants';
 import closeButton from '../../assets/closeButton.png';
-import googlePlayImage from '../../assets/google-play-badge.png';
-import iosAppStoreImage from '../../assets/Download_on_the_App_Store_Badge_US-UK_135x40.svg';
 
 import './LockedModal.css';
 
@@ -24,5 +23,10 @@ const LockedModal = ({ isOpen, onClick }) =>
       </div>
     </div>
   </Modal>);
+
+LockedModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default LockedModal;

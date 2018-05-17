@@ -52,11 +52,6 @@ class TrashDetails extends React.Component {
   };
   handleOnCloseDetailsClick = () => {
     let url = '/trashpoints';
-    /*
-    if(this.props.location.state && this.props.location.state.selectedArea) {
-      url = `${url}areas`;
-    }
-    */
     this.props.history.push(url, {
       selectedArea: this.props.authUser.role !== USER_ROLES.VOLUNTEER ?
         (this.props.location.state ? this.props.location.state.selectedArea : undefined) :

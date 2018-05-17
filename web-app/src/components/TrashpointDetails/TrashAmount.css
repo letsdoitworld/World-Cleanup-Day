@@ -22,6 +22,11 @@
   flex: 0.125;
 }
 
+.completer-wrapper {
+  display: flex;
+  margin-top: 15px;
+}
+
 .completer.filled {
   background-color: #3e8ede;
   border-top-right-radius: 10px;

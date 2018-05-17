@@ -2,7 +2,7 @@ import React from 'react';
 import Spinner from 'react-spinkit';
 
 const Loader = () => {
-  return <div
+  return (<div
     style={{
       width: '100%',
       height: '100%',
@@ -12,7 +12,7 @@ const Loader = () => {
     }}
   >
     <Spinner name="three-bounce" color="#3E8EDE" />
-  </div>
+  </div>);
 };
 
 export default Loader;

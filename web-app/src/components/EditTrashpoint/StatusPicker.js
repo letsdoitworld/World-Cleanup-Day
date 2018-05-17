@@ -74,4 +74,9 @@ StatusPicker.propTypes = {
   onStatusChange: PropTypes.func.isRequired,
 };
 
+StatusPicker.defaultProps = {
+  showCleaned: false,
+  status: '',
+};
+
 export default StatusPicker;

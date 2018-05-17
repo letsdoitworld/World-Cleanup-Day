@@ -16,9 +16,3 @@ const mapStateToProps = state => ({
   isAllowedRole: userSelectors.isAllowedRole(state),
 });
 export default connect(mapStateToProps)(Root);
-
-/*
-if (!isAuthenticated || (isAuthenticated && !isAllowedRole)) {
-  return <Landing {...props} />;
-}
-*/

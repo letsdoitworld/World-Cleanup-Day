@@ -126,9 +126,9 @@ AreaListItem.defaultProps = {
 };
 AreaListItem.propTypes = {
   onClick: PropTypes.func.isRequired,
-  area: PropTypes.object.isRequired,
+  area: PropTypes.any.isRequired,
   index: PropTypes.number.isRequired,
   leftPadding: PropTypes.number,
-  rightLabel: PropTypes.oneOf(PropTypes.func, PropTypes.string),
+  rightLabel: PropTypes.any,
 };
 export default AreaListItem;

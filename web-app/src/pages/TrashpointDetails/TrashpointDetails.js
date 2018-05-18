@@ -24,7 +24,7 @@ class TrashDetails extends React.Component {
       params: PropTypes.shape({
         id: PropTypes.string,
       }),
-    }).isRequired,
+    }),
     isOpened: PropTypes.bool.isRequired,
     marker: PropTypes.shape({
       id: PropTypes.string,
@@ -33,7 +33,7 @@ class TrashDetails extends React.Component {
       state: PropTypes.shape({
         selectedArea: PropTypes.shape,
       }),
-    }).isRequired,
+    }),
     authUser: PropTypes.shape({
       role: PropTypes.string,
     }),
@@ -49,6 +49,8 @@ class TrashDetails extends React.Component {
     trashpointId: '',
     authUser: null,
     marker: null,
+    match: null,
+    location: null,
   }
 
   constructor(props) {

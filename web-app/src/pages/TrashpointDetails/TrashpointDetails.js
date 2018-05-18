@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import querystring from 'query-string';
 import _ from 'lodash';
@@ -11,6 +12,45 @@ import { selectors as userSelectors } from '../../reducers/user';
 import { USER_ROLES } from '../../shared/constants';
 
 class TrashDetails extends React.Component {
+
+  static propTypes = {
+    setActiveTab: PropTypes.func.isRequired,
+    fetchMarkerDetails: PropTypes.func.isRequired,
+    focusMapLocation: PropTypes.func.isRequired,
+    toggleDetailsWindow: PropTypes.func.isRequired,
+    isUserAllowedAdding: PropTypes.bool.isRequired,
+    trashpointId: PropTypes.string,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.string,
+      }),
+    }).isRequired,
+    isOpened: PropTypes.bool.isRequired,
+    marker: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+    location: PropTypes.shape({
+      state: PropTypes.shape({
+        selectedArea: PropTypes.shape,
+      }),
+    }).isRequired,
+    authUser: PropTypes.shape({
+      role: PropTypes.string,
+    }),
+    history: PropTypes.shape({
+      location: PropTypes.shape({
+        search: PropTypes.string,
+      }),
+      push: PropTypes.func,
+    }).isRequired,
+  }
+
+  static defaultProps = {
+    trashpointId: '',
+    authUser: null,
+    marker: null,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -33,13 +73,16 @@ class TrashDetails extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.trashpointId && this.props.trashpointId !== nextProps.trashpointId) {
+    if (
+      nextProps.trashpointId &&
+      this.props.trashpointId !== nextProps.trashpointId
+    ) {
       this.fetchMarkerDetails({
         id: nextProps.trashpointId,
         focusMap: !!querystring.parse(nextProps.history.location.search).focus,
       });
     }
-  };
+  }
   fetchMarkerDetails = ({ id, focusMap = false }) => {
     this.props.fetchMarkerDetails(id).then(marker => {
       if (!marker) {
@@ -51,11 +94,13 @@ class TrashDetails extends React.Component {
     });
   };
   handleOnCloseDetailsClick = () => {
-    let url = '/trashpoints';
+    const url = '/trashpoints';
     this.props.history.push(url, {
       selectedArea: this.props.authUser.role !== USER_ROLES.VOLUNTEER ?
-        (this.props.location.state ? this.props.location.state.selectedArea : undefined) :
-        undefined
+        (this.props.location.state ?
+          this.props.location.state.selectedArea :
+          undefined) :
+        undefined,
     });
   };
 

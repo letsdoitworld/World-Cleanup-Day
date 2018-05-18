@@ -26,17 +26,23 @@ class MarkersMap extends React.Component {
   static defaultProps = {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
-    tabOpened: ''
+    focusedLocation: null,
   };
 
   static propTypes = {
-    tabOpened: PropTypes.string,
-    fetchAllTrashpoints: PropTypes.func.isRequired,
-    fetchAllEventMarkers: PropTypes.func,
     onMarkerClick: PropTypes.func,
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
     isUserLoggedIn: PropTypes.bool.isRequired,
+    trashpointMarkers: PropTypes.arrayOf(
+      PropTypes.shape,
+    ).isRequired,
+    eventMarkers: PropTypes.arrayOf(
+      PropTypes.shape,
+    ).isRequired,
+    tabActive: PropTypes.string.isRequired,
+    currentEventLocation: PropTypes.any.isRequired,
+    focusedLocation: PropTypes.any,
   };
 
   constructor(props) {
@@ -50,7 +56,11 @@ class MarkersMap extends React.Component {
     if (nextProps.tabActive !== this.props.tabActive) {
       this.loadMarkers(nextProps.tabActive);
     }
-    if (this.map && this.props.currentEventLocation.latitude && nextProps.currentEventLocation !== this.props.currentEventLocation) {
+    if (
+      this.map &&
+      this.props.currentEventLocation.latitude &&
+      nextProps.currentEventLocation !== this.props.currentEventLocation
+    ) {
       this.map.panTo({
         lat: nextProps.currentEventLocation.latitude,
         lng: nextProps.currentEventLocation.longitude,
@@ -147,7 +157,7 @@ class MarkersMap extends React.Component {
             const mapElContainer = this.map.getDiv();
             const mapSize = {
               height: parseInt(getComputedStyle(mapElContainer).height, 10),
-              width: parseInt(getComputedStyle(mapElContainer).width, 10)
+              width: parseInt(getComputedStyle(mapElContainer).width, 10),
             };
             const { nw, se } = getViewportPoints(this.map.getBounds());
             if (se.longitude > nw.longitude) {
@@ -171,7 +181,7 @@ class MarkersMap extends React.Component {
       trashpointMarkers,
       eventMarkers,
       isUserLoggedIn,
-      tabActive
+      tabActive,
     } = this.props;
     const visiblePoints =
       tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;

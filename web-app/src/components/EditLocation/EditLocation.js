@@ -5,6 +5,23 @@ import Modal from 'react-modal';
 import MapView from '../MapView';
 
 class EditLocation extends React.Component {
+  static propTypes = {
+    visible: PropTypes.bool.isRequired,
+    onLocationChange: PropTypes.func,
+    onClose: PropTypes.func,
+    location: PropTypes.shape({
+      lat: PropTypes.number,
+      lng: PropTypes.number,
+    }).isRequired,
+    status: PropTypes.string,
+  };
+
+  static defaultProps = {
+    onClose: null,
+    onLocationChange: null,
+    status: '',
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -57,8 +74,5 @@ class EditLocation extends React.Component {
     );
   }
 }
-EditLocation.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  onClose: PropTypes.func,
-};
+
 export default EditLocation;

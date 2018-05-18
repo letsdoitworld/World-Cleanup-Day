@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { If } from 'react-if';
 import classnames from 'classnames';
 
 const Tag = ({ label, selected, onSelect, onDelete }) =>
@@ -11,10 +12,9 @@ const Tag = ({ label, selected, onSelect, onDelete }) =>
     <span className="Tag-label">
       {label}
     </span>
-    {
-      onDelete &&
+    <If condition={!!onDelete}>
       <div onClick={onDelete} className="Tag-delete-container">X</div>
-    }
+    </If>
   </div>
 );
 

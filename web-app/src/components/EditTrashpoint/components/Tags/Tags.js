@@ -1,4 +1,5 @@
 import React from 'react';
+import { If } from 'react-if';
 import PropTypes from 'prop-types';
 
 import Tag from './Tag';
@@ -54,19 +55,20 @@ class Tags extends React.Component {
             />),
           )}
         </div>
-        {tags.length > 0 &&
-          <div className="Tags-title">Additionally selected tags</div>}
+        <If condition={tags.length > 0}>
+          <div className="Tags-title">Additionally selected tags</div>
+        </If>
         <div className="Tags-custom-container">
-          {tags.map((tag, index) =>
+          {tags.map((tag) =>
             (<Tag
-              key={index}
+              key={tag.label}
               label={tag.label}
               selected
               onDelete={() => onTagDelete(tag)}
             />),
           )}
         </div>
-        {!!onTagAdd &&
+        <If condition={!!onTagAdd}>
           <div className="Tags-add-container">
             <input
               className="Tags-add-input"
@@ -78,7 +80,8 @@ class Tags extends React.Component {
             <div onClick={this.handleTagAdd} className="Tags-add-button">
               <p className="Tags-add-button-text">Add tag</p>
             </div>
-          </div>}
+          </div>
+        </If>
       </div>
     );
   }
@@ -90,16 +93,16 @@ Tags.propTypes = {
       label: PropTypes.string.isRequired,
       selected: PropTypes.bool,
     }),
-  ),
+  ).isRequired,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
       selected: PropTypes.bool,
     }),
   ).isRequired,
-  onTagSelect: PropTypes.func,
-  onTagAdd: PropTypes.func,
-  onTagDelete: PropTypes.func,
+  onTagSelect: PropTypes.func.isRequired,
+  onTagAdd: PropTypes.func.isRequired,
+  onTagDelete: PropTypes.func.isRequired,
 };
 
 export default Tags;

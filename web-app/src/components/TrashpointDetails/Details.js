@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { If, Else } from 'react-if';
 import 'moment/locale/en-ie';
 import classnames from 'classnames';
 import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
@@ -47,26 +48,22 @@ class Details extends Component {
     moment.locale('en-ie');
     return (
       <div className="Tpdetails">
-        {
-          isUserAllowedAdding &&
+        <If condition={isUserAllowedAdding}>
           <div
             onClick={() => { history.push('/trashpoints/create') }}
             className="Create-trashpoint"
           >
             <span>Place trashpoint</span>
           </div>
-        }
-        {
-          trashpointId &&
+        </If>
+        <If condition={!!trashpointId}>
           <TpdetailsHeader
             tpTitle={name || "Loading..."}
             onMinimizeClick={() => history.push('/trashpoints')}
           />
-        }
-        {
-          trashpointId &&
-          (
-            location ?
+        </If>
+        <If condition={!!trashpointId}>
+          <If condition={!!location}>
             <div className={ classnames('Tpdetails-plot', { 'visible': isOpened })}>
               <div className="Details-default-container">
                 <div className="Details-address-container">
@@ -139,8 +136,7 @@ class Details extends Component {
                 <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
               </div>
               <div className="Details-filler" />
-              {
-                canEdit &&
+              <If condition={canEdit}>
                 <div className="Details-default-container">
                   <div
                     className="CreateTrashpoint-edit-button"
@@ -148,13 +144,16 @@ class Details extends Component {
                   >
                     <p>Update trashpoint</p>
                   </div>
-                </div>}
-            </div> :
-            <div className="Tpdetails-loader-container">
-              <Loader />
+                </div>
+              </If>
             </div>
-          )
-        }
+            <Else>
+              <div className="Tpdetails-loader-container">
+                <Loader />
+              </div>
+            </Else>
+          </If>
+        </If>
       </div>
     );
   }

@@ -2,37 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
+import { STATUS_COUNT_HASH } from '../../shared/trashpoint-constants';
 import { actions, selectors } from '../../reducers/trashpile';
 import { List } from '../../components/List';
 import { TrashpointListItem } from './components/TrashpointListItem';
-
-const STATUS_COUNT_HASH = {
-  threat: {
-    label: 'THREAT',
-    color: '#FC505E',
-    background: 'linear-gradient(180deg, #FE6669 0%, #FC505E 100%)',
-    borderColor: '#E93A47',
-  },
-  regular: {
-    label: 'REGULAR',
-    color: '#FF7800',
-    background: 'linear-gradient(180deg, #FF9900 0%, #FF7800 100%)',
-    borderColor: '#EE7200',
-  },
-  cleaned: {
-    label: 'CLEANED',
-    color: '#5DBA37',
-    background: 'linear-gradient(180deg, #7BEA4E 0%, #5DBA37 100%)',
-    borderColor: '#57B531',
-  },
-  outdated: {
-    label: 'OUTDATED',
-    color: '#E3E3E3',
-    background: 'linear-gradient(180deg, #E3E3E3 0%, #C3C3C3 100%)',
-    borderColor: '#ABABAB',
-  },
-};
 
 class TrashpointList extends Component {
   constructor(props) {
@@ -69,7 +42,7 @@ class TrashpointList extends Component {
     if (!id) {
       return;
     }
-    this.props.history.push(`/trashpoints/${id}?focus=y`, {selectedArea: this.props.selectedArea});
+    this.props.history.push(`/trashpoints/${id}?focus=y`, { selectedArea: this.props.selectedArea });
   };
   handleLoadMore = () => {
     if (!this.props.canLoadMore) {
@@ -168,10 +141,11 @@ const mapDispatch = dispatch => ({
 });
 
 TrashpointList.propTypes = {
-  trashpoints: PropTypes.array.isRequired,
+  trashpoints: PropTypes.arrayOf(PropTypes.shape).isRequired,
   fetchTrashpoints: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   canLoadMore: PropTypes.bool.isRequired,
+  statusCounts: PropTypes.any.isRequired,
 };
 
 export default connect(mapState, mapDispatch)(TrashpointList);

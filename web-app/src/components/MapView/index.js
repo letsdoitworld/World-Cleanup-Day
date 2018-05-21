@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { LocationService } from '../../services';
 import {
   DEFAULT_ZOOM_LEVEL,
@@ -70,7 +71,7 @@ class MapView extends Component {
       zoom: propZoom,
       cursor,
     } = this.props;
-    const { mapLocation, zoom, mapLoaded } = this.state;
+    const { mapLocation, zoom } = this.state;
     const isMapReady = !!mapLocation;
     if (!isMapReady) {
       return <Loader />;
@@ -80,8 +81,8 @@ class MapView extends Component {
       <GoogleMapView
         cursor={cursor}
         onClick={onClick}
-        containerElement={<div style={{ height: '100%' }} />}
-        mapElement={<div style={{ height: '100%' }} />}
+        containerElement={<div className="h-100" />}
+        mapElement={<div className="h-100" />}
         points={points}
         onPointClick={onPointClick}
         location={mapLocation}
@@ -95,10 +96,34 @@ class MapView extends Component {
   }
 }
 
+MapView.propTypes = {
+  onClick: PropTypes.func,
+  points: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  onPointClick: PropTypes.func,
+  setCurrentLocation: PropTypes.func.isRequired,
+  setMapComponent: PropTypes.func,
+  boundsChanged: PropTypes.func,
+  center: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }),
+  zoom: PropTypes.number,
+  cursor: PropTypes.any,
+  location: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }),
+};
+
 MapView.defaultProps = {
   onClick: noop,
   setMapComponent: noop,
   boundsChanged: noop,
+  onPointClick: null,
+  location: null,
+  cursor: null,
+  zoom: null,
+  center: null,
 };
 
 const mapDispatchToProps = {

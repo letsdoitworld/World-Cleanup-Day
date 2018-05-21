@@ -112,6 +112,11 @@
   opacity: 1;
 }
 
+.Google-login-btn-it {
+  background: none;
+  width: 100%;
+}
+
 .Google-login-btn-head {
   height: 12px;
   width: 100%;

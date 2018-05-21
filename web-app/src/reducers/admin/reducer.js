@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import _ from 'lodash';
 
 import TYPES from './types';
 

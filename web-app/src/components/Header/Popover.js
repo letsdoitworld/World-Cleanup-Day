@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { actions as userActions } from '../../reducers/user';
 import { actions as appActions } from '../../reducers/app';
-import { BACKEND_LOGIN_SOURCES } from '../../shared/constants';
+import {
+  BACKEND_LOGIN_SOURCES,
+  GOOGLE_LOGIN_ID,
+  FACEBOOK_APP_ID,
+} from '../../shared/constants';
 import { FbIcon, GoogleIcon, CloseIcon } from '../common/Icons';
 import demo from '../../assets/demo-login.png';
 import './Popover.css';
@@ -13,7 +18,6 @@ import './Popover.css';
 class Popover extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isOpen: props.isOpen,
     };
@@ -64,7 +68,9 @@ class Popover extends Component {
     const { hidePopover } = this.props;
     return (
       <div
-        className={classnames('Popover-container', { 'is-open': this.state.isOpen })}
+        className={classnames(
+          'Popover-container', { 'is-open': this.state.isOpen })
+        }
         onClick={this.preventDefaultClick}
       >
         <div className="Popover-cover" />
@@ -85,8 +91,7 @@ class Popover extends Component {
             <div className="Popover-login-item-container Fb-login-container">
               <div className="Fb-login-btn-head" />
               <FacebookLogin
-                containerStyle={{ fontWeight: 'bold' }}
-                appId="340116156418708"
+                appId={FACEBOOK_APP_ID}
                 autoLoad={false}
                 fields="email"
                 callback={this.handleFacebookLoginSuccess}
@@ -97,16 +102,15 @@ class Popover extends Component {
                 </div>
               </FacebookLogin>
             </div>
-            <div className="Popover-login-item-container Google-login-container">
+            <div
+              className="Popover-login-item-container Google-login-container"
+            >
               <div className="Google-login-btn-head" />
               <GoogleLogin
-                clientId="701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com"
+                clientId={GOOGLE_LOGIN_ID}
                 onSuccess={this.handleGoogleLoginSuccess}
                 onFailure={this.handleGoogleLoginFailure}
-                style={{
-                  background: 'none',
-                  width: '100%',
-                } }
+                className="Google-login-btn-it"
               >
                 <div className="Google-login-btn Popover-login-item">
                   <GoogleIcon />
@@ -120,6 +124,12 @@ class Popover extends Component {
     );
   }
 }
+
+Popover.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  authenticate: PropTypes.func.isRequired,
+  hidePopover: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = dispatch => ({
   authenticate: ({ network, token }) =>

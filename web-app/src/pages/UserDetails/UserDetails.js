@@ -17,6 +17,7 @@ import { Loader } from '../../components/Spinner';
 import { USER_ROLES } from '../../shared/constants';
 import { UserAreas } from './components/UserAreas';
 import { AreaAssingList } from './components/AreaAssignList';
+import UserDetImage from './image.png';
 
 class UserDetails extends React.Component {
   constructor(props) {
@@ -188,10 +189,10 @@ class UserDetails extends React.Component {
         >
           <img src={closeButton} alt="" />
         </button>
-        <div style={{ padding: '20px' }}>
+        <div className="p-20">
           <div className="UserDetails-image-container">
             {user.pictureURL && (
-              <img className="UserDetails-image" src={user.pictureURL} />
+              <img className="UserDetails-image" src={user.pictureURL} alt="" />
             )}
             <div className="UserDetails-info-container">
               {user.name && (
@@ -204,7 +205,8 @@ class UserDetails extends React.Component {
                 <div className="UserDetails-country-container">
                   <img
                     className="UserDetails-country-image"
-                    src={require('./image.png')}
+                    src={UserDetImage}
+                    alt=""
                   />
                   <span className="UserDetails-country">
                     {COUNTRIES_HASH[user.country]}

@@ -5,3 +5,32 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
+
+.t-a-c {
+  text-align: center;
+}
+
+.cur-p {
+  cursor: pointer;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.d-b {
+  display: block;
+}
+
+.d-n {
+  display: none;
+}
+
+.Root-component {
+  flex: 1;
+  display: flex;
+}

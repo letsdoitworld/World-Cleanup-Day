@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-
+import PropTypes from 'prop-types';
 import { SHARED_MODAL_STYLES } from '../../shared/constants';
 import { CloseIcon } from '../common/Icons';
 
@@ -27,5 +27,15 @@ const AlertModal = ({ message, isOpen, onClick }) =>
       </div>
     </div>
   </Modal>);
+
+AlertModal.propTypes = {
+  message: PropTypes.string,
+  isOpen: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+AlertModal.defaultProps = {
+  message: '',
+};
 
 export default AlertModal;

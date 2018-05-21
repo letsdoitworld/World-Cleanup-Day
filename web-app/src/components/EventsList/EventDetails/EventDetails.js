@@ -1,6 +1,8 @@
 import React from 'react';
 import Swiper from 'react-id-swiper';
+import { If } from 'react-if';
 import * as moment from 'moment';
+import PropTypes from 'prop-types';
 import 'moment/locale/en-au';
 import './EventDetails.css';
 import {
@@ -12,7 +14,6 @@ import {
   Userpic,
   EmailIcon,
   PhoneIcon,
-  userpicHolder,
   eventCoverBig,
 } from '../../../components/common/Icons';
 import demo from '../../../assets/demo.png';
@@ -106,24 +107,22 @@ export const EventDetails = ({ eventDetails }) => {
         </div>
         <div className="EventDetails-coordinator EventDetails-infoblock">
           <h2 className="EventDetails-header">Coordinator</h2>
-          {
-            eventDetails.coordinatorName &&
+          <If condition={!!eventDetails.coordinatorName}>
             <div className="EventDetails-coordinator-part part1">
               <Userpic />
               <p>{eventDetails.coordinatorName}</p>
             </div>
-          }
+          </If>
           <div className="EventDetails-coordinator-part">
             <PhoneIcon />
             <p>{eventDetails.phonenumber}</p>
           </div>
-          {
-            eventDetails.email &&
+          <If condition={!!eventDetails.email}>
             <div className="EventDetails-coordinator-part">
               <EmailIcon />
               <p>{eventDetails.email}</p>
             </div>
-          }
+          </If>
         </div>
         <div className="EventDetails-creator EventDetails-infoblock">
           <h2 className="EventDetails-header">Event creator</h2>
@@ -144,4 +143,8 @@ export const EventDetails = ({ eventDetails }) => {
       </div>
     </div>
   );
+};
+
+EventDetails.propTypes = {
+  eventDetails: PropTypes.instanceOf(Object).isRequired,
 };

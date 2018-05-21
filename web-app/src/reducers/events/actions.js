@@ -1,12 +1,9 @@
 import TYPES from './types';
-// import events from './events.json';
-import { getEventsList, getAllEventMarkers } from './selectors';
 import { ApiService } from '../../services';
 import {
   getDistanceBetweenPointsInMeters,
   getGridValue,
   guid,
-  destinationPoint,
 } from '../../shared/helpers';
 import { API_ENDPOINTS } from '../../shared/constants';
 import { actions as appActions, selectors as appSelectors } from '../app';

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import TYPES from './types';
-// import events from './events.json';
 
 const EVENTS_MARKERS_INITIAL_STATE = {
   markers: [],

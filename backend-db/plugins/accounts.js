@@ -158,6 +158,18 @@ module.exports = function () {
         })
     });
 
+    lucius.register('role:db,cmd:modifyUserProfilePrivacy', async function (connector, args, __) {
+        return connector.input(args)
+        .use(async function ({update}, responder) {
+            const id = __.user.id;
+            const account = await db.modifyAccount(id, id, update);
+            if (!account) {
+                return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id}))
+            }
+            return responder.success(filterBriefAccountData(account));
+        })
+    });
+
     lucius.register('role:db,cmd:getOrCreateAccountFromSocial', async function (connector, args, __) {
         return connector.input(args)
         .use(async function (socialAccount, responder) {

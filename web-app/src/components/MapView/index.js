@@ -4,7 +4,7 @@ import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import { LocationService } from '../../services';
 import {
   DEFAULT_ZOOM_LEVEL,
-  ESTONIA_CENTER_COORDINATES,
+  EUROPE_CENTER_COORDINATES,
   NO_PERMISSION_ZOOM_LEVEL,
 } from '../../shared/constants';
 import GoogleMapView from './components/GoogleMap';
@@ -33,7 +33,7 @@ class MapView extends Component {
       location => this.setState({ mapLocation: location }),
       () =>
         this.setState({
-          mapLocation: ESTONIA_CENTER_COORDINATES,
+          mapLocation: EUROPE_CENTER_COORDINATES,
           zoom: NO_PERMISSION_ZOOM_LEVEL,
         }),
     );

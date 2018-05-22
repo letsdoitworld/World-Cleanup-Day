@@ -185,8 +185,6 @@ const layer = {
   },
   getAccountsInBetween: async (dateFrom, dateTo, cc) => {
     if (cc) {
-      console.log('GET ALL ACCOUNTS COUNTRT', dateFrom, dateTo, cc);
-
       return await adapter.getEntities(
         'Account',
         '_design/byCreationTimeAndCountry/_view/view',
@@ -198,7 +196,6 @@ const layer = {
         }
       );
     }
-    console.log("ITS HEEREEEEEEEEEEEE", dateFrom, dateTo, cc);
     return await adapter.getEntities(
       'Account',
       '_design/byCreationTime/_view/view',
@@ -299,8 +296,6 @@ const layer = {
   },
   getAllTrashpoints: async (dateFrom, dateTo, cc) => {
     if (cc) {
-      console.log('GET ALL TRASHPOINTS COUNTRY', dateFrom, dateTo, cc);
-
       return await adapter.getEntities(
         'Trashpoint',
         '_design/byUpdatingTimeAndCountry/_view/view',
@@ -312,7 +307,6 @@ const layer = {
         }
       );
     }
-    console.log('GET ALL TRASHPOINTS', dateFrom, dateTo, cc);
     return await adapter.getEntities(
       'Trashpoint',
       '_design/byUpdatingTime/_view/view',

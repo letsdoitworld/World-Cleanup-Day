@@ -264,7 +264,6 @@ module.exports = function () {
         const dateFrom = from ? util.time.getNowUTC(new Date(from)) : util.time.getNowUTC(new Date(0));
         const dateTo = to ? util.time.getNowUTC(new Date(to)) : util.time.getNowUTC(new Date());
         const accounts = await db.getAccountsInBetween(dateFrom, dateTo, cc);
-        console
         const userList = accounts.map(async (a) => {
           const statuses = {
             threat: 0,

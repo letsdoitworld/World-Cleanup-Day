@@ -129,7 +129,7 @@ paths:
     get:
       description: Fetch all users.
       operationId: getAllUsers
-      x-security: [bearer, {roles:[superadmin, leader]}]
+#      x-security: [bearer, {roles:[superadmin, leader]}]
       parameters:
         - $ref: "#/parameters/PageSize"
         - $ref: "#/parameters/PageNumber"
@@ -152,6 +152,28 @@ paths:
                 type: array
                 items:
                   $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /users/list:
+    x-swagger-router-controller: users
+    get:
+      description: Fetch user list without sensitive data.
+      operationId: getAllUsersInBetween
+#      x-security: [bearer, {roles:[superadmin, leader]}]
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/Country"
+      responses:
+        "200":
+          description: List of users without sensitive data
+          schema:
+            type: object
+            properties:
+              records:
+                type: array
+                items:
+                  $ref: "#/definitions/AccountFullInfo"
         "default":
           $ref: "#/responses/ErrorSet"
   /users/{id}:
@@ -768,6 +790,15 @@ definitions:
         $ref: "#/definitions/ISOTimestamp"
       locked:
         type: boolean
+  AccountBrief:
+    type: object
+    properties:
+      id:
+        $ref: "#/definitions/UUID"
+      createdAt:
+        $ref: "#/definitions/ISOTimestamp"
+
+
   AccountPlusAreas:
     allOf:
     - "$ref": "#/definitions/Account"

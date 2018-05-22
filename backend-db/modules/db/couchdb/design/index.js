@@ -110,6 +110,30 @@ const designDocs = {
                 },
             },
         },
+        byCreationTimeAndCountry: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account') {
+                            emit([doc.country, doc.createdAt, doc.createdAt], doc);
+                        }
+                    },
+                },
+            },
+        },
+        byCreationTime: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account') {
+                            emit(doc.createdAt, doc);
+                        }
+                    },
+                },
+            },
+        },
         countAll: {
             $version: 1,
             views: {

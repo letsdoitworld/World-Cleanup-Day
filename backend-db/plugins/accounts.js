@@ -17,6 +17,11 @@ const filterBriefAccountData = account => util.object.filter(account, {
     termsAcceptedAt: true,
 });
 
+const filterNonSensitiveAccountData = account => util.object.filter(account, {
+    id: true,
+    country: true,
+});
+
 const countriesForLeader = areasForLeader => {
     const leaderAreaHash = areasForLeader
         // only need the country code
@@ -252,6 +257,35 @@ module.exports = function () {
             return responder.success(filterBriefAccountData(account));
         });
     });
+
+  lucius.register('role:db,cmd:getAccountsInBetween', async function (connector, args, __) {
+    return connector.input(args)
+      .use(async function ({from, to, cc}, responder) {
+        const dateFrom = from ? util.time.getNowUTC(new Date(from)) : util.time.getNowUTC(new Date(0));
+        const dateTo = to ? util.time.getNowUTC(new Date(to)) : util.time.getNowUTC(new Date());
+        const accounts = await db.getAccountsInBetween(dateFrom, dateTo, cc);
+        console
+        const userList = accounts.map(async (a) => {
+          const statuses = {
+            threat: 0,
+            regular: 0,
+            cleaned: 0,
+            outdated: 0,
+          };
+          const userTrashpoints = await db.getAllUserTrashpoints(a.id);
+          userTrashpoints.forEach(t => statuses[t.status]++);
+          return {
+            id: a.id,
+            country: a.country,
+            trashpoints: statuses,
+          }
+        });
+        const result = await Promise.all(userList);
+        return responder.success({
+          users: result,
+        });
+      });
+  });
 
     return PLUGIN_NAME;
 };

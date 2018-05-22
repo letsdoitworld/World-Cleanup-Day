@@ -183,6 +183,33 @@ const layer = {
     }
     return true;
   },
+  getAccountsInBetween: async (dateFrom, dateTo, cc) => {
+    if (cc) {
+      console.log('GET ALL ACCOUNTS COUNTRT', dateFrom, dateTo, cc);
+
+      return await adapter.getEntities(
+        'Account',
+        '_design/byCreationTimeAndCountry/_view/view',
+        {
+          sorted: true,
+          descending: true,
+          startkey: [cc, dateTo, {}],
+          endkey: [cc, dateFrom],
+        }
+      );
+    }
+    console.log("ITS HEEREEEEEEEEEEEE", dateFrom, dateTo, cc);
+    return await adapter.getEntities(
+      'Account',
+      '_design/byCreationTime/_view/view',
+      {
+        sorted: true,
+        descending: true,
+        startkey: dateTo,
+        endkey: dateFrom,
+      }
+    );
+  },
 
   //========================================================
   // SESSIONS
@@ -272,6 +299,8 @@ const layer = {
   },
   getAllTrashpoints: async (dateFrom, dateTo, cc) => {
     if (cc) {
+      console.log('GET ALL TRASHPOINTS COUNTRY', dateFrom, dateTo, cc);
+
       return await adapter.getEntities(
         'Trashpoint',
         '_design/byUpdatingTimeAndCountry/_view/view',
@@ -283,7 +312,7 @@ const layer = {
         }
       );
     }
-
+    console.log('GET ALL TRASHPOINTS', dateFrom, dateTo, cc);
     return await adapter.getEntities(
       'Trashpoint',
       '_design/byUpdatingTime/_view/view',
@@ -322,6 +351,18 @@ const layer = {
         skip: pageSize * (pageNumber - 1),
       }
     );
+  },
+  getAllUserTrashpoints: async (userId) => {
+    return await adapter.getEntities(
+      'Trashpoint',
+      '_design/byCreatingUser/_view/view',
+      {
+        sorted: true,
+        descending: true,
+        startkey: [userId, {}],
+        endkey: [userId],
+      }
+    )
   },
   getGridCellTrashpoints: async (datasetId, cellSize, gridCoord) => {
     const scale = grid.getScaleForCellSize(cellSize);

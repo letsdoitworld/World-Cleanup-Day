@@ -515,14 +515,14 @@ parameters:
   From:
     name: from
     in: query
-    description: date.
-    required: true
+    description: date
+    required: false
     type: string
   To:
     name: to
     in: query
     description: date.
-    required: true
+    required: false
     type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:

@@ -271,14 +271,27 @@ const layer = {
     );
   },
   getAllTrashpoints: async (dateFrom, dateTo, cc) => {
+    if (cc) {
+      return await adapter.getEntities(
+        'Trashpoint',
+        '_design/byUpdatingTimeAndCountry/_view/view',
+        {
+          sorted: true,
+          descending: true,
+          startkey: [cc, dateTo, {}],
+          endkey: [cc, dateFrom],
+        }
+      );
+    }
+
     return await adapter.getEntities(
       'Trashpoint',
-      '_design/byCreationTimeAndCountry/_view/view',
+      '_design/byUpdatingTime/_view/view',
       {
         sorted: true,
         descending: true,
-        startkey: [cc, dateTo, {}],
-        endkey: [cc, dateFrom],
+        startkey: [dateTo, {}],
+        endkey: [dateFrom],
       }
     );
   },

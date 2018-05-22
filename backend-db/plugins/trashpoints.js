@@ -94,8 +94,8 @@ module.exports = function () {
     return connector
       .input(args)
       .use(async function ({from, to, cc}, responder) {
-        const dateFrom = util.time.getNowUTC(new Date(from));
-        const dateTo = util.time.getNowUTC(new Date(to));
+        const dateFrom = from ? util.time.getNowUTC(new Date(from)) : util.time.getNowUTC(new Date(0)) ;
+        const dateTo = to ? util.time.getNowUTC(new Date(to)) : util.time.getNowUTC(new Date());
         const trashpoints = await db.getAllTrashpoints(dateFrom, dateTo, cc);
         return responder.success({
           trashpoints: trashpoints

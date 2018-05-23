@@ -11,7 +11,7 @@
     "classnames": "2.2.5",
     "history": "4.6.3",
     "lodash": "^4.17.4",
-    "moment": "2.18.1",
+    "moment": "^2.21.0",
     "node-sass-chokidar": "^0.0.3",
     "prop-types": "^15.5.10",
     "query-string": "5.0.0",

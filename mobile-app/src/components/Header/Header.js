@@ -43,13 +43,14 @@ class Header extends React.Component {
       titleRightButton = '',
       leftButtonImage,
       rightButtonImage,
+      containerStyle
     } = this.props;
 
     const showLeftButton = !!titleLeftButton;
     const showRightButton = !!titleRightButton;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         <View style={styles.leftButtonContainer}>
           {showLeftButton &&
             <SimpleButton

@@ -42,7 +42,7 @@
     "i18next": "^8.4.3",
     "invariant": "^2.2.2",
     "json-server": "^0.10.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "moment": "^2.18.1",
     "prop-types": "15.5.10",
     "query-string": "^4.3.4",

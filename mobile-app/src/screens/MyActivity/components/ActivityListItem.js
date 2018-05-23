@@ -52,6 +52,7 @@ const ActivityListItem = ({
   location,
   counter = '',
   onPressItem,
+  backgroundColor
 }) => {
   const statusStyle = { backgroundColor: STATUSES_COLOR[status] };
   let nameToList = name.trim();
@@ -70,7 +71,7 @@ const ActivityListItem = ({
       onPress={() => onPressItem({ id, location })}
       activeOpacity={0.9}
     >
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor}]}>
         <View style={styles.marginContainer}>
           <View style={[styles.status, statusStyle]} />
         </View>

@@ -1,4 +1,4 @@
-  .EventDetails {
+.EventDetails {
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -94,7 +94,8 @@
   color: #3e8ede !important;
 }
 
-.swiper-pagination {
+.EventDetails-actions-report {
+  cursor: pointer;
 }
 
 .EventDetails-report {

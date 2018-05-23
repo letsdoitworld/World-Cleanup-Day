@@ -7,6 +7,8 @@ export const TYPES = {
   FETCH_DATASETS_FAILED: 'FETCH_DATASETS_FAILED',
   SHOW_MODAL: 'SHOW_MODAL',
   HIDE_MODAL: 'HIDE_MODAL',
+  SHOW_SHARE_MODAL: 'SHOW_SHARE_MODAL',
+  HIDE_SHARE_MODAL: 'HIDE_SHARE_MODAL',
   TOGGLE_LOGIN_POPOVER: 'TOGGLE_LOGIN_POPOVER',
   HIDE_LOGIN_POPOVER: 'HIDE_LOGIN_POPOVER',
   SHOW_LOCKED_MODAL: 'SHOW_LOCKED_MODAL',
@@ -19,6 +21,7 @@ const appReducer = (
   state = {
     trashpointsDatasetUUID: '',
     showModal: false,
+    showShareModal: false,
     showLoginPopover: false,
     showLockedModal: false,
     currentTabActive: 'trashpoints',
@@ -43,7 +46,10 @@ const appReducer = (
       return { ...state, showModal: true };
     case TYPES.HIDE_MODAL:
       return { ...state, showModal: false };
-
+    case TYPES.SHOW_SHARE_MODAL:
+      return { ...state, showShareModal: true };
+    case TYPES.HIDE_SHARE_MODAL:
+      return { ...state, showShareModal: false };
     case TYPES.TOGGLE_LOGIN_POPOVER:
       return { ...state, showLoginPopover: !state.showLoginPopover };
     case TYPES.HIDE_LOGIN_POPOVER:
@@ -108,6 +114,12 @@ const toggleLockedModal = (show = true) => {
   };
 };
 
+const showShareModal = () => dispatch =>
+  dispatch({ type: TYPES.SHOW_SHARE_MODAL });
+
+const hideShareModal = () => dispatch =>
+  dispatch({ type: TYPES.HIDE_SHARE_MODAL });
+
 const toggleLoginPopover = () => dispatch =>
   dispatch({ type: TYPES.TOGGLE_LOGIN_POPOVER });
 
@@ -130,6 +142,8 @@ export const actions = {
   fetchDatasets,
   showModal,
   hideModal,
+  showShareModal,
+  hideShareModal,
   toggleLoginPopover,
   hideLoginPopover,
   toggleLockedModal,
@@ -141,6 +155,7 @@ const getAppState = state => state.app;
 const getTrashpointsDatasetUUID = state =>
   getAppState(state).trashpointsDatasetUUID;
 const getShowModal = state => getAppState(state).showModal;
+const getShowShareModal = state => getAppState(state).showShareModal;
 const getModalContant = state => getAppState(state).modalContent;
 const getShowLoginPopover = state => getAppState(state).showLoginPopover;
 const getShowLockedModal = state => getAppState(state).showLockedModal;
@@ -150,6 +165,7 @@ const getCurrentLocation = state => getAppState(state).currentLocation;
 export const selectors = {
   getTrashpointsDatasetUUID,
   getShowModal,
+  getShowShareModal,
   getModalContant,
   getShowLoginPopover,
   getShowLockedModal,

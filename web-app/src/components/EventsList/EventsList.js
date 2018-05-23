@@ -17,6 +17,7 @@ const EventsList = ({
   isOpened,
   fetchEventDetails,
   fetchEventsList,
+  showShareModal,
 }) => {
   const { id } = eventDetails;
   return (
@@ -30,7 +31,11 @@ const EventsList = ({
       <div className={classnames('EventsList-plot', { visible: isOpened })}>
         {
           id && eventId ?
-            <EventDetails eventId={eventId} eventDetails={eventDetails} /> :
+            <EventDetails
+              eventId={eventId}
+              eventDetails={eventDetails}
+              showShareModal={showShareModal}
+            /> :
             (
               events.length ?
               events.map(ev => {
@@ -73,6 +78,7 @@ EventsList.propTypes = {
   isOpened: PropTypes.bool.isRequired,
   fetchEventDetails: PropTypes.func.isRequired,
   fetchEventsList: PropTypes.func.isRequired,
+  showShareModal: PropTypes.func.isRequired,
 };
 
 EventsList.defaultProps = {

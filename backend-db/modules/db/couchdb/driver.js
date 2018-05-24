@@ -26,6 +26,7 @@ const couch = new NodeCouchDb({
     host: COUCHDB_HOST,
     protocol: COUCHDB_PROTOCOL,
     port: COUCHDB_PORT,
+    timeout: 30000,
     auth: {
         user: COUCHDB_USER,
         pass: COUCHDB_PASSWORD,

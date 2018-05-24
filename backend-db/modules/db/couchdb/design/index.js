@@ -537,7 +537,7 @@ designDocs.trashpoints = Object.assign(
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(11, 'clusters', templates.trashpointClusters),
+    tools.makeGridScaleDesignDocs(12, 'clusters', templates.trashpointClusters),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,

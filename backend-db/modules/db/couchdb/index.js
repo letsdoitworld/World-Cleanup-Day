@@ -746,6 +746,30 @@ const layer = {
     const sortedTeamsByCountry = _.sortBy(filteredTeams, team => team.CC !== country);
     return sortedTeamsByCountry
   },
+  getTeamsInBetween: async (dateFrom, dateTo, nameTeam) => {
+    if (nameTeam) {
+      return await adapter.getEntities(
+        'Team',
+        '_design/byCreationTimeAndName/_view/view',
+        {
+          sorted: true,
+          descending: true,
+          startkey: [nameTeam, dateTo, {}],
+          endkey: [nameTeam, dateFrom],
+        }
+      );
+    }
+    return await adapter.getEntities(
+      'Team',
+      '_design/byCreationTime/_view/view',
+      {
+        sorted: true,
+        descending: true,
+        startkey: dateTo,
+        endkey: dateFrom,
+      }
+    );
+  },
   getCountTeamsTrashpoints: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
   getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/all/_view/view', id),
   createTeam: async (id, who, create) => {

@@ -201,6 +201,30 @@ const designDocs = {
                 },
             },
         },
+        byCreationTimeAndName: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'team') {
+                            emit([doc.name, doc.createdAt, doc.createdAt], doc)
+                        }
+                    },
+                },
+            },
+        },
+        byCreationTime: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'team') {
+                            emit(doc.createdAt, doc)
+                        }
+                    },
+                },
+            },
+        },
     },
     areas: {
         all: {

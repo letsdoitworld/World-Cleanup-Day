@@ -9,6 +9,14 @@ module.exports = {
             search: req.swagger.params.search.value,
         }),
     ),
+    getTeamsInBetween: senecaRequestMw(
+        'role:db,cmd:getTeamsInBetween',
+        req => ({
+          from: req.swagger.params.from.value,
+          to: req.swagger.params.to.value,
+          nameTeam: req.swagger.params.nameTeam.value,
+        }),
+    ),
     getAllTeamsWeb: senecaRequestMw(
         'role:db,cmd:getAllTeamsWeb',
         req => ({

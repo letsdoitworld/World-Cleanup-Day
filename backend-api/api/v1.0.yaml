@@ -244,6 +244,20 @@ paths:
           $ref: "#/responses/Teams"
         "default":
           $ref: "#/responses/ErrorSet"
+  /teams/list:
+    x-swagger-router-controller: teams
+    get:
+      description: List of all teams between two dates.
+      operationId: getTeamsInBetween
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/NameTeam"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /teams/web:
     x-swagger-router-controller: teams
     get:
@@ -655,6 +669,12 @@ parameters:
     type: string
     minLength: 3
     maxLength: 10
+  #-----------------------------------------------------------------------------
+  NameTeam:
+    name: nameTeam
+    in: query
+    required: false
+    type: string
   #-----------------------------------------------------------------------------
   Search:
     name: search

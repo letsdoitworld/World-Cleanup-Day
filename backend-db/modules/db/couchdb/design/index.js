@@ -549,7 +549,7 @@ designDocs.events = Object.assign(
 );
 designDocs.events = Object.assign(
   designDocs.events,
-  tools.makeGridScaleDesignDocs(9, 'clusters', templates.eventClusters),
+  tools.makeGridScaleDesignDocs(10, 'clusters', templates.eventClusters),
 );
 designDocs.events = Object.assign(
   designDocs.events,

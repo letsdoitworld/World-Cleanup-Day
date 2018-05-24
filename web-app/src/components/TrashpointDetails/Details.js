@@ -74,7 +74,7 @@ class Details extends Component {
               <ShareModal
                 header="Share trashpoint"
                 url={`http://app.worldcleanupday.com/trashpoint/${trashpointId}`}
-                title={formattedLocation}
+                title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
                 image={thumbnails[0] && thumbnails[0].url}
               />
               <div className="Details-default-container">

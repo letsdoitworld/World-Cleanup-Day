@@ -18,7 +18,7 @@ class List extends Component {
         <Infinite
           containerHeight={containerHeight}
           onInfiniteLoad={onInfiniteLoad}
-          className='List'
+          className="List"
           elementHeight={this.props.elementHeight}
           infiniteLoadBeginEdgeOffset={200}
         >
@@ -40,7 +40,9 @@ class List extends Component {
     return (
       <div className="List">
         {headerContent}
-        {items.map(item => item)}
+        <div className="Team-List">
+          {items.map(item => item)}
+          </div>
       </div>
     );
   }

@@ -61,7 +61,6 @@ const getProfile = () => async (dispatch) => {
 
   try {
     const response = await Api.get('/me');
-
     dispatch(actions.fetchProfileDone(response.data));
     return response.data;
   } catch (ex) {

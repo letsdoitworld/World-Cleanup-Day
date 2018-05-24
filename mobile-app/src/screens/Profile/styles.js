@@ -42,6 +42,64 @@ export default EStyleSheet.create({
     marginTop: getHeightPercentage(20),
     alignItems: 'center',
   },
+  teamContainer: {
+    paddingVertical: getHeightPercentage(20),
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+  },
+  teamIconContainer: {
+    width: '20%',
+    flexGrow: 1,
+  },
+  teamIconImage: {
+    width: getWidthPercentage(40),
+    height: getWidthPercentage(40),
+  },
+  teamContentContainer: {
+    flexGrow: 1,
+    width: '70%',
+  },
+  teamTitleContainer: {
+  },
+  teamTitle: {
+    fontFamily: '$boldFont',
+    fontSize: 20,
+    color: '$textTitleColor',
+    paddingRight: 20,
+  },
+  teamNameContainer: {
+  },
+  teamName: {
+    fontFamily: '$font',
+    fontSize: 15,
+    color: '#404040',
+    paddingRight: 20,
+  },
+  teamChevronContainer: {
+    width: '10%',
+    alignItems: 'flex-end',
+    height: '100%',
+    paddingTop: 10,
+  },
+  teamChevron: {
+    height: getHeightPercentage(15),
+    resizeMode: 'contain',
+  },
+  addInfoContainer: {
+    paddingHorizontal: getWidthPercentage(10),
+    backgroundColor: '$white',
+  },
+  teamsContainer: {
+    paddingHorizontal: getWidthPercentage(20),
+    paddingTop: getHeightPercentage(20),
+  },
+  teamsHeader: {
+    fontSize: 20,
+    fontFamily: '$boldFont',
+    paddingTop: getHeightPercentage(1),
+  },
   displayLoadingView: {
     flex: 1,
     alignItems: 'center',

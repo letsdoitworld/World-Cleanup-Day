@@ -17,6 +17,12 @@ module.exports = {
             update: req.swagger.params.update.value,
         }),
     ),
+    modifyUserTeam: senecaRequestMw(
+      'role:db,cmd:modifyOwnUserProfile',
+      req => ({
+        update: req.swagger.params.update.value,
+      }),
+    ),
     getUserProfile: senecaRequestMw(
         'role:db,cmd:getAccountById',
         req => ({
@@ -37,6 +43,14 @@ module.exports = {
             country: req.swagger.params.country.value,
             nameSearch: req.swagger.params.nameSearch.value,
         }),
+    ),
+    getAllUsersInBetween: senecaRequestMw(
+      'role:db,cmd:getAccountsInBetween',
+      req => ({
+        from: req.swagger.params.from.value,
+        to: req.swagger.params.to.value,
+        cc: req.swagger.params.country.value,
+      }),
     ),
     getOneUser: senecaRequestMw(
         'role:db,cmd:getAccountById',

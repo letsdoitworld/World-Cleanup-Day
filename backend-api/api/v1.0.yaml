@@ -68,6 +68,22 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /me/team:
+    x-swagger-router-controller: users
+    put:
+      description: Join user to team.
+      operationId: modifyUserTeam
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/ModifyTeam"
+      responses:
+        "200":
+          description: Account information.
+          schema:
+            $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /auth/external:
     x-swagger-router-controller: users
     post:
@@ -154,6 +170,28 @@ paths:
                   $ref: "#/definitions/Account"
         "default":
           $ref: "#/responses/ErrorSet"
+  /users/list:
+    x-swagger-router-controller: users
+    get:
+      description: Fetch user list without sensitive data.
+      operationId: getAllUsersInBetween
+#      x-security: [bearer, {roles:[superadmin, leader]}]
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/Country"
+      responses:
+        "200":
+          description: List of users without sensitive data
+          schema:
+            type: object
+            properties:
+              records:
+                type: array
+                items:
+                  $ref: "#/definitions/AccountFullInfo"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /users/{id}:
     x-swagger-router-controller: users
     get:
@@ -190,6 +228,72 @@ paths:
       responses:
         "200":
           description: The user account was locked or unlocked successfully.
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  /teams:
+    x-swagger-router-controller: teams
+    get:
+      description: List all teams.
+      operationId: getAllTeams
+      parameters:
+        - $ref: "#/parameters/Country"
+        - $ref: "#/parameters/Search"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/list:
+    x-swagger-router-controller: teams
+    get:
+      description: List of all teams between two dates.
+      operationId: getTeamsInBetween
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/NameTeam"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/web:
+    x-swagger-router-controller: teams
+    get:
+      description: List all teams attached to this admin.
+      operationId: getAllTeamsWeb
+      x-security: [bearer, {roles:[superadmin, leader]}]
+      parameters:
+        - $ref: "#/parameters/Country"
+        - $ref: "#/parameters/Superadmin"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/trashpoints:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch information about trashpoints for all teams.
+      operationId: getCountTeamsTrashpoints
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/{id}:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch complete info about a specific team.
+      operationId: getTeam
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: Full team information.
+          schema:
+            $ref: "#/definitions/Team"
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
@@ -372,6 +476,19 @@ paths:
             $ref: "#/definitions/Trashpoint"
         "default":
           $ref: "#/responses/ErrorSet"
+    get:
+      description: Get trashpoint list between two dates.
+      operationId: getTrashpointsInBetween
+#      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/Country"
+      responses:
+        "200":
+          $ref: "#/definitions/TrashpointsList"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /trashpoints/user:
     x-swagger-router-controller: trashpoints
     get:
@@ -499,6 +616,18 @@ parameters:
     required: true
     type: integer
     minimum: 1
+  From:
+    name: from
+    in: query
+    description: date
+    required: false
+    type: string
+  To:
+    name: to
+    in: query
+    description: date.
+    required: false
+    type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:
     name: request
@@ -541,6 +670,26 @@ parameters:
     minLength: 3
     maxLength: 10
   #-----------------------------------------------------------------------------
+  NameTeam:
+    name: nameTeam
+    in: query
+    required: false
+    type: string
+  #-----------------------------------------------------------------------------
+  Search:
+    name: search
+    in: query
+    required: false
+    type: string
+    minLength: 3
+    maxLength: 10
+  #-----------------------------------------------------------------------------
+  Superadmin:
+    name: superadmin
+    in: query
+    required: false
+    type: boolean
+  #-----------------------------------------------------------------------------
   Country:
     name: country
     in: query
@@ -558,6 +707,17 @@ parameters:
       properties:
         country:
           $ref: "#/definitions/CountryCode"
+  #-----------------------------------------------------------------------------
+  ModifyTeam:
+    name: update
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [team]
+      properties:
+        team:
+          $ref: "#/definitions/UUID"
   #-----------------------------------------------------------------------------
   ModifyTrashpoint:
     name: trashpoint
@@ -677,6 +837,12 @@ responses:
     description: List of trashpoints for area leader consumption.
     schema:
       $ref: "#/definitions/PaginatedAreaTrashpoints"
+  Teams:
+    description: List of teams.
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Team"
   StorageAuth:
     description: A short-term authorization allowing access to storage operations.
     schema:
@@ -720,6 +886,28 @@ definitions:
         description: Area can be optionally be assigned to a user.
         $ref: "#/definitions/UUID"
   #-----------------------------------------------------------------------------
+  # Team properties.
+  #-----------------------------------------------------------------------------
+  Team:
+    type: object
+    required: [id, name]
+    properties:
+      id:
+        description: A unique code of team
+        type: string
+      name:
+        description: A name of team
+        type: string
+      teamDescription:
+        description: Desctiption of team
+        type: string
+      trashpoints:
+        description: How many trashpoints have this team
+        type: integer
+      users:
+        description: How many users have this team
+        type: integer
+  #-----------------------------------------------------------------------------
   # Account properties.
   #-----------------------------------------------------------------------------
   Account:
@@ -743,6 +931,10 @@ definitions:
         $ref: "#/definitions/ISOTimestamp"
       locked:
         type: boolean
+      team:
+        type:
+          - string
+          - 'null'
   AccountPlusAreas:
     allOf:
     - "$ref": "#/definitions/Account"
@@ -791,6 +983,17 @@ definitions:
         $ref: "#/definitions/GeoPoint"
       coordinates:
         $ref: "#/definitions/GridCoordinates"
+  #-----------------------------------------------------------------------------
+  # Trashpoints sorted array.
+  #-----------------------------------------------------------------------------
+  TrashpointsList:
+    type: object
+    required: [trashpoints]
+    properties:
+      trashpoints:
+        type: array
+        items:
+          $ref: "#/definitions/BriefTrashpoint"
   #-----------------------------------------------------------------------------
   # Trashpoints as paginated sets.
   #-----------------------------------------------------------------------------
@@ -985,6 +1188,12 @@ definitions:
     items:
       type: number
       format: int32
+  #-----------------------------------------------------------------------------
+  # Date.
+  #-----------------------------------------------------------------------------
+  Date:
+    description: date.
+    type: string
   #-----------------------------------------------------------------------------
   # Geographical data.
   #-----------------------------------------------------------------------------

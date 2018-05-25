@@ -1,14 +1,51 @@
 .Privacy-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
+  width: 590px;
+  height: 418px;
+  position: fixed;
+  background-color: white;
+  top: calc(50vh - 235px);
+  left: calc(50vw - 295px);
+  border-radius: 10px;
+  z-index: 99;
   margin-top: 15px;
   margin-bottom: 75px;
 }
 
 .Privacy-frame {
-  flex: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
   border: none;
+}
+
+.Privacy-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 22px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Privacy-header-title {
+  width: 96%;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.Privacy-header-close {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.Privacy-header-close img {
+  width: 14px;
+  height: 14px;
+  vertical-align: text-bottom;
 }
 
 .Privacy-accept-button {
@@ -26,6 +63,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .Privacy-accept-button-text{
   text-align: center;
 }

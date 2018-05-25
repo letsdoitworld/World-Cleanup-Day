@@ -71,11 +71,7 @@ const fetchAllEventMarkers = (
     },
     cellSize,
   };
-
-  const [markersRes, clustersRes] = await Promise.all([
-    ApiService.post(API_ENDPOINTS.FETCH_EVENTS, body, {
-      withToken: false,
-    }),
+  const [clustersRes] = await Promise.all([
     ApiService.post(
       API_ENDPOINTS.FETCH_OVERVIEW_EVENT_CLUSTERS,
       {
@@ -89,19 +85,6 @@ const fetchAllEventMarkers = (
 
   let markers = [];
 
-  if (markersRes && markersRes.data && Array.isArray(markersRes.data)) {
-    markers = [
-      ...markersRes.data.map(marker => ({
-        ...marker,
-        position: {
-          lat: marker.location.latitude,
-          lng: marker.location.longitude,
-        },
-        isTrashpile: true,
-      })),
-    ];
-  }
-
   if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
     markers = [
       ...markers,
@@ -112,12 +95,12 @@ const fetchAllEventMarkers = (
           lng: cluster.location.longitude,
         },
         isTrashpile: true,
-        id: guid(),
+        id: cluster.id,
       })),
     ];
   }
 
-  if (!markersRes && !clustersRes) {
+  if (!clustersRes) {
     return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
   }
 

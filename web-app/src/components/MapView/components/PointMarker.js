@@ -46,7 +46,7 @@ const PointMarker = props => {
     currentTrashpointMarkerID,
     currentActiveTab,
   } = props;
-  const isCluster = point.isTrashpile && point.count > 0;
+  const isCluster = point.isTrashpile && point.count > 1;
   if (isCluster) {
     return (
       <Marker

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import MapView from '../MapView';
 import {
@@ -21,6 +22,9 @@ import {
   GRID_MIN_VALUE,
   FOCUS_EVENT_ZOOM_LEVEL,
 } from '../../shared/constants';
+import { ExpandAreaModal } from './ExpandAreaModal';
+import { SearchThisArea } from './SearchThisAreaBtn';
+import './MarkersMap.css';
 
 class MarkersMap extends React.Component {
   static defaultProps = {
@@ -49,10 +53,24 @@ class MarkersMap extends React.Component {
     super(props);
     this.state = {
       updateRegion: true,
+      searchVisible: false,
+      expandAreaModalVisible: false,
     };
   }
 
   componentWillReceiveProps(nextProps) {
+    const visiblePoints =
+      nextProps.tabActive === 'trashpoints' ?
+      nextProps.trashpointMarkers :
+      nextProps.eventMarkers;
+    console.log(visiblePoints);
+    setTimeout(() => {
+      if (!visiblePoints.length) {
+        this.setState({ expandAreaModalVisible: true });
+      } else {
+        this.setState({ expandAreaModalVisible: false });
+      }
+    }, 500);
     if (nextProps.tabActive !== this.props.tabActive) {
       this.loadMarkers(nextProps.tabActive);
     }
@@ -100,9 +118,10 @@ class MarkersMap extends React.Component {
       this.loadMarkers(this.props.tabActive);
     }
   };
+
   handleBoundsChanged = () => {
-    if (this.map) {
-      this.loadMarkers(this.props.tabActive);
+    if (!this.state.searchVisible) {
+      this.setState({ searchVisible: true });
     }
   };
 
@@ -128,11 +147,14 @@ class MarkersMap extends React.Component {
     if (!marker.isTrashpile) {
       return;
     }
-    if (marker && !marker.count) {
+    if (marker && marker.count === 1) {
+      /* click handler for pin */
       if (typeof this.props.onMarkerClick === 'function') {
         this.props.onMarkerClick(marker);
       }
     } else if (this.map && _.has(this.props, 'gridValue.gridValueToZoom')) {
+      /* click handler for cluster */
+      this.loadMarkers(this.props.tabActive);
       const diagonaleInMeters = GRID_HASH[this.props.gridValue.gridValueToZoom];
       const region = {
         ...DELTA_HASH[diagonaleInMeters],
@@ -186,13 +208,28 @@ class MarkersMap extends React.Component {
     const visiblePoints =
       tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
     return (
-      <MapView
-        isUserLoggedIn={isUserLoggedIn}
-        points={visiblePoints}
-        setMapComponent={this.handleSetMapComponent}
-        boundsChanged={this.handleBoundsChanged}
-        onPointClick={this.handleMarkerClick}
-      />
+      <div className="h-100">
+        <SearchThisArea
+          onSearchClick={() => {
+            if (this.map) {
+              this.loadMarkers(this.props.tabActive);
+              this.setState({ searchVisible: false });
+            }
+          }}
+          isVisible={this.state.searchVisible}
+        />
+        <ExpandAreaModal
+          isVisible={this.state.expandAreaModalVisible}
+          hideModal={() => this.setState({ expandAreaModalVisible: false })}
+        />
+        <MapView
+          isUserLoggedIn={isUserLoggedIn}
+          points={visiblePoints}
+          setMapComponent={this.handleSetMapComponent}
+          boundsChanged={this.handleBoundsChanged}
+          onPointClick={this.handleMarkerClick}
+        />
+      </div>
     );
   }
 }

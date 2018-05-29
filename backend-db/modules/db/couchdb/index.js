@@ -709,7 +709,9 @@ const layer = {
       const existedTeam = existingTeams[team.id];
       if (!existedTeam && (!team.CC || team.CC && CCs.includes(team.CC))) {
         // team.image = gravatar.url(team.name, {s: '100', r: 'x', d: 'identicon'}, true);
-        team.image = teamImages[key % teamImages.length];
+        if (!team.image) {
+          team.image = teamImages[key % teamImages.length];
+        }
         team.nationalTeam = true;
         await layer.createTeam(team.id, null, _.pick(team, [...neededParams, 'image', 'nationalTeam']));
       }

@@ -4,10 +4,6 @@ import {
   ScrollView,
   Text,
   ActivityIndicator,
-  TouchableOpacity,
-  TouchableHighlight,
-  Image,
-  TextInput
 } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -18,6 +14,7 @@ import { withNavigationHelpers } from '../../services/Navigation';
 import { operations as teamsOperations } from '../../reducers/teams';
 import Team from './Team';
 import SearchBar from './SearchBar';
+import { ROUTES } from '../../config/routes';
 
 const LENGTH_SEARCH_START = 2;
 
@@ -60,14 +57,14 @@ class Teams extends Component {
   };
 
   handleTeamPress = team => {
-    this.props.navigation.navigate('TeamProfile', { team });
+    this.props.navigation.navigate(ROUTES.TeamProfile, { team });
   };
 
   render() {
     const { t, teams, loading } = this.props;
     const { search } = this.state;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <SearchBar onChangeText={this.handleSearchChanged}
                    value={search}
                    placeholder={t('label_text_search_placeholder')}

@@ -1,12 +1,13 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { orderBy } from 'lodash';
+import {orderBy} from 'lodash';
+import classnames from 'classnames';
 
-import { actions, selectors } from '../../reducers/teams';
-import { List } from '../../components/List';
-import { Loader } from '../../components/Spinner';
-import { TeamsListItem } from './components/TeamsListItem';
+import {actions, selectors} from '../../reducers/teams';
+import {List} from '../../components/List';
+import {Loader} from '../../components/Spinner';
+import {TeamsListItem} from './components/TeamsListItem';
 import './TeamsList.css';
 
 const LENGTH_SEARCH_START = 3;
@@ -34,12 +35,12 @@ class TeamsList extends PureComponent {
   };
 
   handleSetSort = sortBy => {
-    this.setState({ sortBy });
+    this.setState({sortBy});
   };
 
   getFilteredTeams = () => {
-    const { search } = this.state;
-    const { teams } = this.props;
+    const {search} = this.state;
+    const {teams} = this.props;
     if (!search || (
       search && search.length < LENGTH_SEARCH_START)) {
       return teams;
@@ -58,10 +59,10 @@ class TeamsList extends PureComponent {
   };
 
   renderItems() {
-    const { loading } = this.props;
+    const {loading} = this.props;
     if (loading) {
       return [
-        <Loader key="0" />
+        <Loader key="0"/>
       ];
     } else {
       const teams = this.getFilteredTeams();
@@ -94,31 +95,19 @@ class TeamsList extends PureComponent {
         <div className="TeamsList-sort-container">
           Sort by:
           <button
-            className={
-              this.state.sortBy === 'name' ?
-                'TeamsList-sort-button TeamsList-sort-button-active' :
-                'TeamsList-sort-button'
-            }
+            className={classnames('TeamsList-sort-button', {'TeamsList-sort-button-active': this.state.sortBy === 'name'})}
             onClick={() => this.handleSetSort('name')}
           >
             Name
           </button>
           <button
-            className={
-              this.state.sortBy === 'users' ?
-              'TeamsList-sort-button TeamsList-sort-button-active' :
-              'TeamsList-sort-button'
-            }
+            className={classnames('TeamsList-sort-button', {'TeamsList-sort-button-active': this.state.sortBy === 'users'})}
             onClick={() => this.handleSetSort('users')}
           >
             Users
           </button>
           <button
-            className={
-              this.state.sortBy === 'trashpoints' ?
-              'TeamsList-sort-button TeamsList-sort-button-active' :
-              'TeamsList-sort-button'
-            }
+            className={classnames('TeamsList-sort-button', {'TeamsList-sort-button-active': this.state.sortBy === 'trashpoints'})}
             onClick={() => this.handleSetSort('trashpoints')}
           >
             Score
@@ -129,7 +118,6 @@ class TeamsList extends PureComponent {
   }
 
   render() {
-    const { search } = this.state;
     return (
       <List
         elementHeight={62}

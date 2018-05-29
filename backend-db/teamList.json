@@ -336,6 +336,13 @@
       "name": "ONG NEH",
       "teamDescription": "Are you an employee or friend of ONG NEH. Join this team and help to make the change towards a cleaner and healthier world.",
       "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717g",
+      "name": "Plogging Thailand Team",
+      "teamDescription": "Plogging Thailand is a group of runners in Thailand who has passion in good health and clean city",
+      "image": "https://ucarecdn.com/db2bc61d-5504-4fba-ab27-718311c4f098/Plogging_Thailand.jpg",
+      "CC": "TH"
     }
   ]
 }

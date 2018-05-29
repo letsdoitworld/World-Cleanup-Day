@@ -81,7 +81,6 @@ class App extends Component {
         },
         (e) => {
           handleSentryError(e);
-          console.log(e.message);
         },
       );
   };

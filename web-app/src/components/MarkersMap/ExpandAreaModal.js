@@ -37,5 +37,5 @@ export const ExpandAreaModal = ({ isVisible, hideModal }) =>
 
 ExpandAreaModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
-  hideModal: PropTypes.bool.isRequired,
+  hideModal: PropTypes.func.isRequired,
 };

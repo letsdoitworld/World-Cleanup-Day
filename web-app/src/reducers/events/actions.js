@@ -3,7 +3,6 @@ import { ApiService } from '../../services';
 import {
   getDistanceBetweenPointsInMeters,
   getGridValue,
-  guid,
 } from '../../shared/helpers';
 import { API_ENDPOINTS } from '../../shared/constants';
 import { actions as appActions, selectors as appSelectors } from '../app';
@@ -103,6 +102,11 @@ const fetchAllEventMarkers = (
   if (!clustersRes) {
     return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
   }
+
+  if (!clustersRes.data.length) {
+    return dispatch(appActions.showExpandAreaModal());
+  }
+
 
   dispatch({
     type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,

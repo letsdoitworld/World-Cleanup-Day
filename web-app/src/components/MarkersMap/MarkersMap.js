@@ -14,6 +14,7 @@ import {
 } from '../../reducers/events';
 import {
   selectors as appSelectors,
+  actions as appActions,
 } from '../../reducers/app';
 import { getViewportPoints } from '../../shared/helpers';
 import {
@@ -47,6 +48,8 @@ class MarkersMap extends React.Component {
     tabActive: PropTypes.string.isRequired,
     currentEventLocation: PropTypes.any.isRequired,
     focusedLocation: PropTypes.any,
+    isExpandAreaModalVisible: PropTypes.bool.isRequired,
+    hideExpandAreaModal: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -54,23 +57,10 @@ class MarkersMap extends React.Component {
     this.state = {
       updateRegion: true,
       searchVisible: false,
-      expandAreaModalVisible: false,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const visiblePoints =
-      nextProps.tabActive === 'trashpoints' ?
-      nextProps.trashpointMarkers :
-      nextProps.eventMarkers;
-    console.log(visiblePoints);
-    setTimeout(() => {
-      if (!visiblePoints.length) {
-        this.setState({ expandAreaModalVisible: true });
-      } else {
-        this.setState({ expandAreaModalVisible: false });
-      }
-    }, 500);
     if (nextProps.tabActive !== this.props.tabActive) {
       this.loadMarkers(nextProps.tabActive);
     }
@@ -204,6 +194,8 @@ class MarkersMap extends React.Component {
       eventMarkers,
       isUserLoggedIn,
       tabActive,
+      isExpandAreaModalVisible,
+      hideExpandAreaModal,
     } = this.props;
     const visiblePoints =
       tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
@@ -219,8 +211,8 @@ class MarkersMap extends React.Component {
           isVisible={this.state.searchVisible}
         />
         <ExpandAreaModal
-          isVisible={this.state.expandAreaModalVisible}
-          hideModal={() => this.setState({ expandAreaModalVisible: false })}
+          isVisible={isExpandAreaModalVisible}
+          hideModal={hideExpandAreaModal}
         />
         <MapView
           isUserLoggedIn={isUserLoggedIn}
@@ -240,11 +232,12 @@ const mapStateToProps = state => ({
   currentEventLocation: eventSelectors.getCurrentMarkerLocation(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
-  currentLocation: appSelectors.getCurrentLocation(state),
+  isExpandAreaModalVisible: appSelectors.getShowExpandAreaModal(state),
 });
 const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
+  hideExpandAreaModal: appActions.hideExpandAreaModal,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

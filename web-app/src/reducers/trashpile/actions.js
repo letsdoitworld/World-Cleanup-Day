@@ -8,7 +8,6 @@ import {
   convertToByteArray,
   getDistanceBetweenPointsInMeters,
   getGridValue,
-  guid,
   destinationPoint,
 } from '../../shared/helpers';
 import { ApiService } from '../../services';
@@ -154,6 +153,10 @@ const fetchAllMarkers = (
         id: cluster.id,
       })),
     ];
+  }
+
+  if (!clustersRes.data.length) {
+    return dispatch(appActions.showExpandAreaModal());
   }
 
   if (!clustersRes) {

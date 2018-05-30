@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  ImageBackground,
   ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -161,7 +162,7 @@ class Login extends Component {
       );
     }
     return (
-      <Image
+      <ImageBackground
         resizeMode="stretch"
         style={styles.image}
         source={require('./images/background.png')}
@@ -209,7 +210,7 @@ class Login extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-      </Image>
+      </ImageBackground>
     );
   }
 }

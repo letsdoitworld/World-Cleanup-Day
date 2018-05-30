@@ -3,7 +3,7 @@ const ROUTES = {
   USERLIST: '/users',
   USER_DETAILS: '/users/:id',
   EVENTS_ROOT: '/event',
-  EVENTS: '/event/:id?',
+  EVENTS: '/event/:id?/:trashpointList?/:trashpointId?',
   AREALIST: '/user-areas',
   TERMS: '/terms',
   PRIVACY: '/privacy',

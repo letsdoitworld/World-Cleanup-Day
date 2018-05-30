@@ -18,10 +18,14 @@ class EventsList extends Component {
     fetchEventDetails: PropTypes.func.isRequired,
     expandEventWindow: PropTypes.func.isRequired,
     eventId: PropTypes.string,
+    isTrashpointList: PropTypes.bool,
+    trashpointId: PropTypes.string,
   };
 
   static defaultProps = {
     eventId: '',
+    isTrashpointList: false,
+    trashpointId: '',
     isOpened: false,
     shareModalOpened: false,
   };

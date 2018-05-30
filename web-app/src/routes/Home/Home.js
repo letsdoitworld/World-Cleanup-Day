@@ -76,8 +76,16 @@ class Home extends React.Component {
         <Route
           path={ROUTES.EVENTS}
           render={
-            ({ match }) =>
-              <EventsList eventId={match.params.id} history={history} />}
+            ({ match }) => {
+              return (
+                (<EventsList
+                  eventId={match.params.id}
+                  isTrashpointList={!!match.params.trashpointList}
+                  trashpointId={match.params.trashpointId}
+                  history={history}
+                />)
+              );
+            }}
         />
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route

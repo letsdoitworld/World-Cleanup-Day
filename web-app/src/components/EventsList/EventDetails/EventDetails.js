@@ -1,5 +1,5 @@
 import React from 'react';
-import Swiper from 'react-id-swiper';
+import { NavLink } from 'react-router-dom';
 import { If } from 'react-if';
 import * as moment from 'moment';
 import PropTypes from 'prop-types';
@@ -15,50 +15,9 @@ import {
   EmailIcon,
   PhoneIcon,
   eventCoverBig,
+  RubbishIcon,
 } from '../../common/Icons';
 import ShareModal from '../../ShareModal/ShareModal';
-import demo from '../../../assets/demo.png';
-
-
-const swiperOptions = {
-  slidesPerView: 2,
-  spaceBetween: 40,
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-};
-
-const attachedTrashpoints = (eventDetails) => {
-  return (
-    <div className="EventDetails-trashpoints EventDetails-infoblock">
-      <h2 className="EventDetails-header">Trashpoints</h2>
-      {
-        eventDetails.trashpoints.length ?
-          <Swiper {...swiperOptions}>
-            {
-              eventDetails.trashpoints.map(tp =>
-                (<div key={tp.id} className="EventDetails-trashpoints-item">
-                  <img
-                    className="EventDetails-trashpoints-item-img"
-                    src={tp.image || demo}
-                    alt="demo"
-                  />
-                  <br />
-                  <span
-                    className="EventDetails-trashpoints-item-title"
-                  >
-                    {tp.name}
-                  </span>
-                </div>),
-              )
-            }
-          </Swiper> :
-          <span />
-      }
-    </div>
-  );
-};
 
 export const EventDetails = ({ eventDetails, showShareModal }) => {
   moment.locale('en-au');
@@ -73,7 +32,9 @@ export const EventDetails = ({ eventDetails, showShareModal }) => {
       />
       <div
         className="EventDetails-cover"
-        style={{ backgroundImage: `url(${eventDetails.photos[0] || eventCoverBig})` }}
+        style={{
+          backgroundImage: `url(${eventDetails.photos[0] || eventCoverBig})`,
+        }}
       />
       <div className="EventDetails-plot">
         <div className="EventDetails-timing EventDetails-infoblock">
@@ -108,6 +69,20 @@ export const EventDetails = ({ eventDetails, showShareModal }) => {
             <span className="EventDetails-report">Report event</span>
           </div>
         </div>
+        <NavLink to={`/event/${eventDetails.id}/trashpoints`}>
+          <div className="EventDetails-trashpoints EventDetails-infoblock">
+            <h2 className="EventDetails-header">Trashpoints</h2>
+            <p>
+              <RubbishIcon />
+              <span>Click to preview trashpoints</span>
+              <span className="EventDetails-trashpoints-num">
+                {
+                  eventDetails.trashpoints.length
+                }
+              </span>
+            </p>
+          </div>
+        </NavLink>
         <div className="EventDetails-descr EventDetails-infoblock">
           <h2 className="EventDetails-header">Description</h2>
           <p>{eventDetails.description}</p>

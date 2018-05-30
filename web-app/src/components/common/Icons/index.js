@@ -25,6 +25,7 @@ import collapse from '../../../assets/collapse.png';
 import expand from '../../../assets/expand.png';
 import time from '../../../assets/ic-time.png';
 import logout from '../../../assets/logout.png';
+import rubbish from '../../../assets/icDeleteInactive.png';
 
 import eventCover from '../../../assets/img-event-cover-small-1.png';
 import eventCoverBig from '../../../assets/img-event-cover-big-1.png';
@@ -49,6 +50,7 @@ import cleaned from '../../../assets/trashpoint_icons/icCleanedTrashpoint@2x.png
 import outdated from '../../../assets/trashpoint_icons/icRegularTrashpointInactive@2x.png';
 
 export const BinIcon = () => <img src={bin} alt="bin-icon" />;
+export const RubbishIcon = () => <img src={rubbish} alt="rub-icon" />;
 export const ArrowDownIcon = () => <img src={arrowDown} alt="arrowdown-icon" />;
 export const EventsIcon = () => <img src={events} alt="events-icon" />;
 export const LocationIcon = () => <img src={location} alt="location-icon" />;

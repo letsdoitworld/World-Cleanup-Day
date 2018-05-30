@@ -25,7 +25,7 @@ const EventListHeader = ({
       <If condition={!!eventId}>
         <button
           className="EventsList-header-back"
-          onClick={() => history.push('/event')}
+          onClick={() => history.goBack()}
         >
           <BackIcon />
         </button>

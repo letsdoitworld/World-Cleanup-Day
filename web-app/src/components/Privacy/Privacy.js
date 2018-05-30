@@ -10,7 +10,7 @@ const Privacy = () =>
     <div className="Privacy-header">
       <span className="Privacy-header-title">Privacy Policy</span>
       <div className="Privacy-header-close">
-        <Link to="/">
+        <Link to="/trashpoints">
           <CloseIcon />
         </Link>
       </div>

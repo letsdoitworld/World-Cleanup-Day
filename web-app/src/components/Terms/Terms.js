@@ -13,7 +13,7 @@ const Terms = ({ onAccept, onDecline }) =>
     <div className="Terms-header">
       <span className="Terms-header-title">Terms and conditions</span>
       <div onClick={onDecline || noop} className="Terms-header-close">
-        <Link to="/">
+        <Link to="/trashpoints">
           <CloseIcon />
         </Link>
       </div>

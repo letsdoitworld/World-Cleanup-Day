@@ -171,11 +171,15 @@ module.exports = function () {
                   }
                 }
                 event.trashpoints = filteredTrashpoints;
-                const savedEvent = await db.createEvent(__.user.id, event);
-                const mappedEvent = await mapEvent(savedEvent);
-                //TODO Status TRUE should be implemented all over the project. For now it's just mock data
-                mappedEvent.status = true;
-                return responder.success(mappedEvent);
+                if (event.offlineAttendees <= event.maxPeopleAmount) {
+                    const savedEvent = await db.createEvent(__.user.id, event);
+                    const mappedEvent = await mapEvent(savedEvent);
+                    //TODO Status TRUE should be implemented all over the project. For now it's just mock data
+                    mappedEvent.status = true;
+                    return responder.success(mappedEvent);
+                }else {
+                    return responder.failure(new LuciusError(E.OFFLINE_ATTENDEES));
+                }
             });
     });
     lucius.register('role:db,cmd:getEvents', async function (connector, args) {

@@ -897,7 +897,7 @@ parameters:
         maxPeopleAmount:
           description: Max amount of people
           type: number
-        offlineAttendees:
+        offlineAttendeesAmount:
           description: The number of offline attendees
           type: number
         trashpoints:

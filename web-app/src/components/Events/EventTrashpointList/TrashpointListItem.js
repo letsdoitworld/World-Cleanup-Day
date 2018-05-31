@@ -6,7 +6,7 @@ import {
 } from '../../common/Icons'
 
 export const TrashpointListItem = ({ data }) => (
-  <NavLink to={`/trashpoints/${data.id}`}>
+  <NavLink to={`/event/${11}/trashpoints/${data.id}`}>
     <div className="EventDetails-TrashpointListItem">
       <img
         className="EventDetails-TrashpointListItem-status"

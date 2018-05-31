@@ -20,7 +20,10 @@ import { CreateTrashpoint } from '../../components/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
-import { EventsList } from '../../pages/EventsList';
+import { EventsRoot } from '../../pages/EventsRoot';
+import EventsList from '../../pages/EventsRoot/EventsList';
+import EventDetails from '../../pages/EventsRoot/EventDetails';
+import EventTrashpointList from '../../pages/EventsRoot/EventTrashpointList';
 import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
@@ -73,20 +76,47 @@ class Home extends React.Component {
         <Route path={ROUTES.USER_DETAILS} exact component={UserDetails} />
         <Route path={ROUTES.USERLIST} exact component={UserList} />
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
-        <Route
-          path={ROUTES.EVENTS}
-          render={
-            ({ match }) => {
-              return (
-                (<EventsList
-                  eventId={match.params.id}
-                  isTrashpointList={!!match.params.trashpointList}
-                  trashpointId={match.params.trashpointId}
-                  history={history}
-                />)
-              );
-            }}
-        />
+        <Route path={ROUTES.EVENTS_LIST}>
+          <EventsRoot>
+            <Route
+              path={ROUTES.EVENTS_LIST}
+              exact
+              component={EventsList}
+            />
+            <Route
+              path={ROUTES.EVENT_DETAILS}
+              exact
+              render={
+                ({ match }) => {
+                  return (
+                    <EventDetails eventId={match.params.eventId} />
+                  );
+                }}
+            />
+            <Route
+              path={ROUTES.EVENT_TRASHPOINTS}
+              exact
+              render={
+                ({ match }) => {
+                  return (
+                    <EventTrashpointList eventId={match.params.eventId} />
+                  )
+                }}
+            />
+            <Route
+              path={ROUTES.EVENT_TRASHPOINT_DETAILS}
+              exact
+              render={
+                ({ match }) => {
+                  return (
+                    <TrashpointDetails
+                      trashpointId={match.params.trashpointId}
+                    />
+                  )
+                }}
+            />
+        </EventsRoot>
+        </Route>
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route
           path={ROUTES.CREATE_TRASHPOINT}

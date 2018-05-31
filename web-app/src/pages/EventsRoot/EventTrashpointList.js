@@ -6,9 +6,9 @@ import {
   actions as appActions,
   selectors as appSelectors,
 } from '../../reducers/app';
-import { List } from '../../components/EventsList';
+import { TrashpointList } from '../../components/Events/EventTrashpointList/TrashpointList';
 
-class EventsList extends Component {
+class EventTrashpointList extends Component {
 
   static propTypes = {
     setActiveTab: PropTypes.func.isRequired,
@@ -20,6 +20,7 @@ class EventsList extends Component {
     eventId: PropTypes.string,
     isTrashpointList: PropTypes.bool,
     trashpointId: PropTypes.string,
+    children: PropTypes.any.isRequired,
   };
 
   static defaultProps = {
@@ -31,38 +32,20 @@ class EventsList extends Component {
   };
 
   componentWillMount() {
-    this.props.setActiveTab('events');
-    if (!this.props.eventId) {
-      this.props.fetchEventsList(50, 1);
-    }
-    if (this.props.eventId) {
-      this.props.fetchEventDetails(this.props.eventId);
-    }
+    this.props.fetchEventDetails(this.props.eventId);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isOpened) {
-      this.props.expandEventWindow();
-    }
     if (nextProps.eventId && nextProps.eventId !== this.props.eventId) {
       this.props.fetchEventDetails(nextProps.eventId);
     }
-    if (!nextProps.eventId && nextProps.eventId !== this.props.eventId) {
-      const itemsPerPage = 50;
-      const pageNumber = 1;
-      this.props.fetchEventsList(itemsPerPage, pageNumber);
-    }
-    if (nextProps.shareModalOpened) {
-      document.getElementsByClassName('EventsList-container')[0].style.zIndex = 12;
-    } else {
-      document.getElementsByClassName('EventsList-container')[0].style.zIndex = 9;
-    }
-    document.getElementsByClassName('EventsList-plot')[0].scrollTop = 0;
   }
 
   render() {
+    const { eventDetails } = this.props;
+    console.log('eventDetails', eventDetails);
     return (
-      <List {...this.props} />
+      <TrashpointList trashpoints={eventDetails.trashpoints} />
     );
   }
 }
@@ -84,4 +67,4 @@ const mapDispatchToProps = {
   setActiveTab: appActions.setActiveTab,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsList);
+export default connect(mapStateToProps, mapDispatchToProps)(EventTrashpointList);

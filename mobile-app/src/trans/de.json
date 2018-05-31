@@ -127,7 +127,7 @@
    "label_text_about_5": "Förderer: Estnische Ministerium für Umwelt, Republik Estland, AGEPO",
    "label_button_editTP_delete": "Trashpoint löschen",
    "label_locked_account_warning": "Dein Account wurde gesperrt. Kontaktiere die Administration für weitere Details.",
-   "label_no_connection_note": "Continue mapping as before. The trashpoints will be sent to the map server as soon as you regain Internet access.",
+   "label_no_connection_note": "Setzen Sie die Kartierung wie zuvor fort. Die Müllstellplatzen werden an den Kartenserver gesendet, sobald Sie den Internetzugang wiedererlangen.",
    "label_your_coordinates": "Ihre Koordinaten",
    "label_header_team_profile": "Team profile",
    "label_button_join_team": "Join a team",

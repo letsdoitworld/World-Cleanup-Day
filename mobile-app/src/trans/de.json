@@ -129,7 +129,7 @@
    "label_locked_account_warning": "Dein Account wurde gesperrt. Kontaktiere die Administration für weitere Details.",
    "label_no_connection_note": "Setzen Sie die Kartierung wie zuvor fort. Die Müllstellplatzen werden an den Kartenserver gesendet, sobald Sie den Internetzugang wiedererlangen.",
    "label_your_coordinates": "Ihre Koordinaten",
-   "label_header_team_profile": "Team profile",
+   "label_header_team_profile": "Team",
    "label_button_join_team": "Join a team",
    "label_button_leave_team": "Leave a team",
    "label_text_global_team": "Global",

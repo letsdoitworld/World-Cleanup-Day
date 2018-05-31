@@ -57,15 +57,54 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
-    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, address, location, area) => {
+    getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, address, location, area, rectangle) => {
       return await adapter.executeTemporaryView('Event', {
         map: `function(doc) {
             function distanceBetweenPoints (p1, p2) {
               return Math.abs(Math.sqrt((p1['latitude'] - p2['latitude']) * (p1['latitude'] - p2['latitude']) 
                       + (p1['longitude'] - p2['longitude']) * (p1['longitude'] - p2['longitude'])))
             }
+            
+            function checkLatitude(rectangle, doc) {
+              if (
+                rectangle.nw.latitude > doc.location.latitude &&
+                rectangle.se.latitude < doc.location.latitude
+              ) {
+                return true;
+              }
+              return false;
+            }
+
+            function checkViewport(rectangle, doc) {
+              if (rectangle.se.longitude < rectangle.nw.longitude) {
+                if (
+                  checkLatitude(rectangle, doc) &&
+                  rectangle.nw.longitude < doc.location.longitude &&
+                  180 <= doc.location.longitude
+                ) {
+                  return true;
+                }
+                if (
+                  checkLatitude(rectangle, doc) &&
+                  -180 <= doc.location.longitude &&
+                  rectangle.se.longitude > doc.location.longitude
+                ) {
+                  return true;
+                }
+              } else if (
+                checkLatitude(rectangle, doc) &&
+                rectangle.nw.longitude < doc.location.longitude &&
+                rectangle.se.longitude > doc.location.longitude
+              ) {
+                return true;
+              }
+            
+              return false;
+            }
+
             if (
               doc.$doctype === 'event' 
+              ${rectangle ? ` && checkViewport(${JSON.stringify(rectangle)}, doc)` : ''}
               ${name ? ` && doc.name.toLowerCase().indexOf('${name.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0').toLowerCase()}') !== -1` : ''} 
               ${area ? ` && doc.areas.indexOf('${area}') !== -1` : ''}
               ${address ? ` && doc.address.toLowerCase().indexOf('${address.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0').toLowerCase()}') !== -1` : ''}

@@ -23,7 +23,8 @@ module.exports = {
       location: req.swagger.params.location.value,
       name: req.swagger.params.name.value,
       address: req.swagger.params.address.value,
-      area: req.swagger.params.area.value
+      area: req.swagger.params.area.value,
+      rectangle: req.swagger.params.rectangle.value
     })
   ),
   getEventsOverview: senecaRequestMw(

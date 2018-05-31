@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { MapView } from 'expo';
+import React, {Component} from 'react';
+import {MapView} from 'expo';
 import PropTypes from 'prop-types';
 
 import Marker from './Marker';
@@ -7,20 +7,16 @@ import styles from './styles';
 
 class Map extends Component {
   displayMarkers = () => {
-    const { markers = [], handleOnMarkerPress } = this.props;
-    return markers.map((marker) => {
-      return (
-        <Marker
-          marker={marker}
-          key={marker.id}
-          onMarkerPress={handleOnMarkerPress}
-        />
-      );
-    });
+    const {markers = [], handleOnMarkerPress} = this.props;
+    return markers.map((marker, key) => <Marker
+      marker={marker}
+      key={marker.id || key}
+      onMarkerPress={handleOnMarkerPress}
+    />);
   };
 
   displayCircle = () => {
-    const { circleProps } = this.props;
+    const {circleProps} = this.props;
     return circleProps
       ? <MapView.Circle
         center={circleProps.center}
@@ -32,8 +28,8 @@ class Map extends Component {
       : null;
   };
   onRegionChangeComplete = (region) => {
-    const { onRegionChangeComplete } = this.props;
-    let { longitudeDelta, longitude } = region;
+    const {onRegionChangeComplete} = this.props;
+    let {longitudeDelta, longitude} = region;
     if (onRegionChangeComplete) {
       // on android, the longitude delta is sometimes negative ( which doesn't make any sense )
       // https://github.com/airbnb/react-native-maps/issues/1386

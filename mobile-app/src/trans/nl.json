@@ -1,10 +1,10 @@
 {
-   "label_text_app_subtitle": "Let's clean up the world together!",
-   "label_button_facebook": "Ga door met Facebook",
-   "label_button_google": "Ga door met Google",
+   "label_text_app_subtitle": "Annuleren",
+   "label_button_facebook": "Doorgaan met Facebook",
+   "label_button_google": "Ga verder met Google",
    "label_button_try_app": "Probeer de app zonder account",
    "label_button_acknowledge": "Ok, ik snap het!",
-   "label_button_cancel": "Stoppen",
+   "label_button_cancel": "Annuleren",
    "label_button_continue": "Doorgaan",
    "label_trash_status_threat": "bedreiging",
    "label_trash_status_regular": "regelmatig",
@@ -153,5 +153,5 @@
    "label_text_trashpoint": "Trashpoint",
    "label_no": "No",
    "label_yes": "Yes",
-   "label_cancel": "Stoppen"
+   "label_cancel": "Annuleren"
 }

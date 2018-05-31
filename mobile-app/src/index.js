@@ -16,6 +16,7 @@ import store from './config/store';
 import Navigator from './config/routes';
 import { images, fonts } from './config/assets';
 import { operations as appOperations } from './reducers/app';
+import { operations as teamsOperations } from './reducers/teams';
 import { handleSentryError } from './shared/helpers';
 import './config/styles';
 
@@ -27,10 +28,11 @@ import { API_URL, SENTRY_URL } from '../env';
 // Remove this once Sentry is correctly setup.
 // Sentry.enableInExpoDevelopment = true;
 
-Sentry.config(SENTRY_URL).install();
+Sentry.config(SENTRY_URL)
+  .install();
 
 const WrappedNavigator = () => {
-  return <Navigator screenProps={{ t: i18n.getFixedT() }} />;
+  return <Navigator screenProps={{ t: i18n.getFixedT() }}/>;
 };
 // AsyncStorage.clear()
 const AppNavigator = compose(
@@ -45,6 +47,7 @@ const AppNavigator = compose(
 )(WrappedNavigator);
 
 Api.setBaseURL(API_URL);
+
 class App extends Component {
   constructor() {
     super();
@@ -71,15 +74,15 @@ class App extends Component {
         storage: AsyncStorage,
       }),
       store.dispatch(appOperations.fetchDatasets()),
-    ]).then(
-      () => {
-        this.setState({ assetsLoaded: true });
-      },
-      (e) => {
-        handleSentryError(e);
-        console.log(e.message);
-      },
-    );
+    ])
+      .then(
+        () => {
+          this.setState({ assetsLoaded: true });
+        },
+        (e) => {
+          handleSentryError(e);
+        },
+      );
   };
   registerMessageBarRef = (a) => {
     MessageBarManager.registerMessageBar(a);
@@ -91,14 +94,14 @@ class App extends Component {
         <Provider store={store}>
           <I18nextProvider i18n={i18n}>
             <View style={{ flex: 1 }}>
-              <AppNavigator />
-              <MessageBar ref={this.registerMessageBarRef} />
+              <AppNavigator/>
+              <MessageBar ref={this.registerMessageBarRef}/>
             </View>
           </I18nextProvider>
         </Provider>
       );
     }
-    return <AppLoading />;
+    return <AppLoading/>;
   }
 }
 

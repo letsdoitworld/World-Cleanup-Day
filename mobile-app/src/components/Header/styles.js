@@ -13,10 +13,10 @@ export default EStyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingTop: isAndroid() ? StatusBar.currentHeight : 15,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '$headerGrey',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#D9D9D9'
+    borderBottomColor: '$headerBorderBlack',
   },
   leftButtonContainer: {
     flex: 1,

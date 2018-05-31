@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { actions, selectors } from '../../reducers/trashpile';
 import { List } from '../../components/List';
 import { TrashpointListItem } from './components/TrashpointListItem';
+import './TrashpointList.css';
 
 const STATUS_COUNT_HASH = {
   threat: {
@@ -139,11 +140,11 @@ class TrashpointList extends Component {
 
   render() {
     return (
-      <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
-        <div style={{ flex: -1 }}>
+      <div className="StatusCount-block">
+        <div className="MinusFlex">
           {this.renderStatusCounts()}
         </div>
-        <div style={{ flex: '1' }}>
+        <div className="Flex">
           <List
             infinite
             isInfiniteLoading={this.props.loading}

@@ -11,7 +11,10 @@ const colors = {
   $red: '#FC515E',
   $iconColor: ICON_COLOR,
   $white: WHITE_COLOR,
-  $textColor:'#2B2B2B'
+  $textColor: '#2B2B2B',
+  $textTitleColor: '#3E8EDE',
+  $headerGrey: '#F6F6F6',
+  $headerBorderBlack: '#D9D9D9',
 };
 const dimensions = {
   $radius10: 10,

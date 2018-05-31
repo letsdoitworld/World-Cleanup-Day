@@ -365,10 +365,10 @@ export const handleUpload = async ({ photos, markerId }) => {
 
     const handledPhotos = [...thumbnailsPhotos, ...mediumPhotos];
     const uploadedPhotosResponses = await uploadPhotosOnAzure(handledPhotos);
-
+    const CONFIRM_CODE = 201;
     if (uploadedPhotosResponses) {
       uploadedPhotosResponses.forEach(({ status }, index) => {
-        const state = status === 201 ? 'confirmed' : 'failed';
+        const state = status === CONFIRM_CODE ? 'confirmed' : 'failed';
         uploadedPhotosIds[state].push(handledPhotos[index].id);
       });
       const upRes = await confirmUploadedPhotos(markerId, uploadedPhotosIds);

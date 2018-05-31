@@ -66,7 +66,7 @@ export const EventDetails = ({ eventDetails, showShareModal }) => {
     <div className="EventDetails">
       <ShareModal
         header="Share event"
-        url={`http://app.worldcleanupday.com/event/${eventDetails.id}`}
+        url={`http://52.143.138.160:3000/event/${eventDetails.id}`}
         image={eventDetails.photos[0] || eventCoverBig}
         title={eventDetails.name}
         description={eventDetails.description}

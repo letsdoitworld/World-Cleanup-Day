@@ -126,5 +126,7 @@
   "label_text_about_4": "Pagaminta Estijoje su šalies ir vyriausybės parama",
   "label_text_about_5": "Rėmėjai: Estijos aplinkos ministerija, Estijos Respublikos užsienio reikalų ministerija, programa Estijos Respublikai 100",
   "label_button_editTP_delete": "Ištrinti šiukšlių tašką",
-  "label_locked_account_warning": "Jūsų paskyra užblokuota. Susisiekite su administratoriumi."
+  "label_locked_account_warning": "Jūsų paskyra užblokuota. Susisiekite su administratoriumi.",
+  "label_no_connection_note": "Be interneto ryšio galite tik pažymėti šiukšles. Žyma bus perkelta į serverį atnaujinus ryšį.",
+  "label_your_coordinates": "Jūsų koordinatės"
 }

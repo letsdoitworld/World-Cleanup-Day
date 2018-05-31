@@ -126,5 +126,7 @@
   "label_text_about_4": "Produs Estonian, sponsorizat de ţară şi de guvern",
   "label_text_about_5": "Finanţatori: Ministerul Mediului al Estoniei, Ministerul Afacerilor Externe al Estoniei, Program 100 al Republicii Estoniei",
   "label_button_editTP_delete": "Şterge locul cu gunoi",
-  "label_locked_account_warning": "Contul tău este blocat. Pentru detalii contactează un administrator."
+  "label_locked_account_warning": "Contul tău este blocat. Pentru detalii contactează un administrator.",
+  "label_no_connection_note": "Fara o conexiune la internet puteti doar adauga locatia de gunoi. Datele despre locatie vor fi transferata catre server atunci cand conexiunea va fi restabilita.",
+  "label_your_coordinates": "Coordonatele dumneavoastra"
 }

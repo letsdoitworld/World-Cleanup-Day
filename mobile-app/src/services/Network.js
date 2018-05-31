@@ -69,9 +69,8 @@ export const withNetworkGuard = () => (WrappedComponent) => {
         }
 
         if (isConnected && !this.props.inSync) {
-          this.handleSyncStatusChanged(true);
           await OfflineService.syncToServer();
-          this.handleSyncStatusChanged(false);
+          this.handleSyncStatusChanged(true);
         }
 
         if (this.props.isNoLackConnectionAlert && isConnected) {
@@ -82,7 +81,7 @@ export const withNetworkGuard = () => (WrappedComponent) => {
     }
     componentWillUnmount() {
       NetInfo.isConnected.removeEventListener(
-        'change',
+        'connectionChange',
         this.handleConnectionStatusChanged,
       );
       if (this.connectionCheckInterval) {
@@ -110,8 +109,8 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       });
 
       NetInfo.isConnected.addEventListener(
-        'change',
-        this.handleConnectionStatusChanged,
+        'connectionChange',
+        data => this.handleConnectionStatusChanged(data)
       );
       this.props.updateNetworkStatus(isConnected);
       this.props.setConnectionChecked();

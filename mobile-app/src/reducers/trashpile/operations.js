@@ -217,7 +217,7 @@ export const handleUpload = async ({ photos, markerId }) => {
     const mediumPhotos = photosResponse.data
       .filter(pr => pr.type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
       .map(({ permission: { token, resourceId } }, index) => {
-        const { base64 } = photos[index];
+        const { thumbnail: { base64 } } = photos[index];
         return {
           url: token,
           id: resourceId,
@@ -323,6 +323,7 @@ export const createMarker = ({
           photos,
           !isEdit ? [] : toDeletePhotos
         );
+        dispatch(appOps.updateSyncStatus(false))
       }
 
       if (!createMarkerResponse) {
@@ -338,6 +339,7 @@ export const createMarker = ({
           markerId: createMarkerResponse.data.id,
         });
       }
+
       if (isEdit && toDeletePhotos.length > 0 && isConnected) {
         try {
           await Promise.all(
@@ -354,11 +356,11 @@ export const createMarker = ({
           photos,
           markerId: createMarkerResponse.data.id,
         });
+
       }
       if (uploadStatus === undefined) {
         uploadStatus = true;
       }
-
       dispatch({
         type: types.CREATE_MARKER_SUCCESS,
         marker: {

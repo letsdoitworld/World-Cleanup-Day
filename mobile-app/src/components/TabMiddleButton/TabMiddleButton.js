@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableWithoutFeedback, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import {View, TouchableWithoutFeedback, Text} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
+import {connect} from 'react-redux';
+import {compose} from 'recompose';
 
-import { handleSentryError } from '../../shared/helpers';
-import { withCameraActions } from '../../services/Camera';
+import {handleSentryError} from '../../shared/helpers';
+import {withCameraActions} from '../../services/Camera';
 import ImageService from '../../services/Image';
 import {
   selectors as locationSels,
@@ -15,7 +15,7 @@ import {
 
 import ButtonPopover from './components/ButtonPopover';
 
-import { Popover } from '../Popover';
+import {Popover} from '../Popover';
 
 import styles from './styles';
 import {
@@ -39,12 +39,12 @@ class TabMiddleButton extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { popoverShow: false };
+    this.state = {popoverShow: false};
 
     if (!props.wasPopoverShown) {
       this.onPopoverShow();
       const timer = setTimeout(() => {
-        this.setState({ showPopover: true });
+        this.setState({showPopover: true});
         clearTimeout(timer);
       }, 1000);
     }
@@ -56,7 +56,7 @@ class TabMiddleButton extends Component {
     }
   };
   locationActiveGuard = () => {
-    const { locationActive } = this.props;
+    const {locationActive} = this.props;
     if (!locationActive) {
       this.props.showLocationErrorModal();
       return false;
@@ -74,7 +74,11 @@ class TabMiddleButton extends Component {
         base64,
         width,
         height,
-      } = await this.props.takePhotoAsync({ quality: 0.2, base64: true });
+      } = await this.props.takePhotoAsync({
+        quality: 0.2,
+        base64: true,
+      });
+
       if (cancelled) {
         return;
       }
@@ -83,9 +87,9 @@ class TabMiddleButton extends Component {
         width,
         height,
       });
-      const { navigation, userLocation } = this.props;
+      const {navigation, userLocation} = this.props;
       navigation.navigate('CreateMarker', {
-        photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
+        photos: [{uri, thumbnail: {base64: thumbnailBase64}, base64}],
         coords: userLocation,
       });
     } catch (e) {
@@ -94,14 +98,14 @@ class TabMiddleButton extends Component {
     }
   };
   handleOnClosePopover = () => {
-    this.setState({ showPopover: false });
+    this.setState({showPopover: false});
   };
 
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
         <View style={styles.container}>
-          <Ionicons name={'ios-add-circle-outline'} size={24} color={'white'} />
+          <Ionicons name={'ios-add-circle-outline'} size={24} color={'white'}/>
           {this.state.showPopover &&
           <Popover show onRequestClose={this.handleOnClosePopover}>
             <ButtonPopover

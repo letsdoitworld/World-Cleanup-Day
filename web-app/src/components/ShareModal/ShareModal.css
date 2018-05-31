@@ -1,0 +1,168 @@
+.ShareModal-container {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: opacity .3s, visibility .3s;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 0;
+}
+
+.ShareModal-container iframe {
+  margin-left: 23px;
+  margin-bottom: 25px;
+}
+
+.ShareModal-container.is-open {
+  visibility: visible;
+  opacity: 1;
+  z-index: 999;
+}
+
+.ShareModal-cover {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(30, 30, 34, 0.72);
+}
+
+.ShareModal {
+  border-radius: 10px;
+  background-color: #f6f8f9;
+  width: 520px;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  z-index: 9;
+}
+
+.ShareModal-header {
+  display: flex;
+  justify-content: space-between;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  width: 100%;
+  background-color: #4a90e2;
+  padding: 13px 24px 16px 24px;
+  box-sizing: border-box;
+}
+
+.ShareModal-body {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ShareModal-title {
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.87);
+  line-height: 1.4;
+}
+
+.ShareModal-hide {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.ShareModal-email-block {
+  padding: 24px 24px 0 24px;
+}
+
+.ShareModal-email-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ShareModal-email-header {
+  font-size: 13px;
+  font-weight: bold;
+  color: #777;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.ShareModal-email-input-text {
+  height: 30px;
+  font-size: 13px;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+  border-radius: 3px;
+  flex: 1;
+  outline: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 25px;
+  box-sizing: border-box;
+}
+
+.ShareModal-email-btn {
+  cursor: pointer;
+  position: relative;
+  background-color: #f1f1f1;
+  border: 1px solid #dcdcdc;
+  width: 114px;
+  left: -5px;
+  border-radius: 2px;
+  height: 30px;
+  flex: -1;
+  padding: 10px;
+  box-sizing: border-box;
+  color: #000;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.ShareModal-email-btn-text {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ShareModal-socialnets-block {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 30px;
+  padding: 0 11px 0 7px;
+}
+
+.ShareModal-socialnets-block .SocialMediaShareButton {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 25px;
+  width: 16.6%;
+}
+
+.ShareModal-socialnets-block .social-icon {
+  margin-left: 20px;
+  border-radius: 8px;
+}
+
+.ShareModal-socialnets-title {
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 12px;
+  color: #4a90e2;
+}
+
+.Line-btn {
+  position: relative;
+  right: 39px;
+  bottom: 1px;
+}

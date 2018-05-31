@@ -10,6 +10,8 @@ import {
   Userpic,
   LocationIconEvent,
   TimeIcon,
+  ShareIcon,
+  ReportIcon,
 } from '../common/Icons';
 import StatusText from './StatusText';
 import TrashpointDate from './TrashpointDate';
@@ -18,6 +20,7 @@ import TpdetailsHeader from './Header'
 import TrashAmount from './TrashAmount';
 import { Loader } from '../Spinner';
 import { noop } from '../../shared/helpers';
+import ShareModal from '../ShareModal/ShareModal';
 import './Details.css';
 
 class Details extends Component {
@@ -43,8 +46,11 @@ class Details extends Component {
       canEdit,
       trashpointId,
       isUserAllowedAdding,
+      showShareModal,
       history,
     } = this.props;
+    const coordinates = location ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : '';
+    const formattedLocation = `${address} | ${coordinates}`;
     moment.locale('en-ie');
     return (
       <div className="Tpdetails">
@@ -65,18 +71,19 @@ class Details extends Component {
         <If condition={!!trashpointId}>
           <If condition={!!location}>
             <div className={ classnames('Tpdetails-plot', { 'visible': isOpened })}>
+              <ShareModal
+                header="Share trashpoint"
+                url={`http://app.worldcleanupday.com/trashpoint/${trashpointId}`}
+                title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
+                image={thumbnails[0] && thumbnails[0].url}
+              />
               <div className="Details-default-container">
                 <div className="Details-address-container">
                   <div>
                     <LocationIconEvent />
                   </div>
                   <span className="Details-address">
-                    {address} |
-                    {location
-                      ? `${location.latitude.toFixed(
-                          6,
-                        )}, ${location.longitude.toFixed(6)}`
-                      : ''}
+                    {formattedLocation}
                   </span>
                 </div>
               </div>
@@ -86,6 +93,15 @@ class Details extends Component {
                 </span>
                 <br /><br />
                 <StatusText status={status} />
+              </div>
+              <div className="Details-default-container">
+                <div
+                  onClick={showShareModal}
+                  className="Details-actions-share Details-width-45"
+                >
+                  <ShareIcon />
+                  <span className="EventDetails-share">Share</span>
+                </div>
               </div>
               <div className="Details-default-container Details-creation-info">
                 <span className="Details-trash-type-title">About creator</span>

@@ -3,7 +3,7 @@
   position: fixed;
   bottom: 45px;
   left: 50px;
-  z-index: 9;
+  z-index: 12;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -124,6 +124,20 @@
   font-size: 14px;
   color: #282633;
   letter-spacing: normal;
+}
+
+.Details-actions-share {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.Details-actions-share img {
+  vertical-align: text-bottom;
+  margin-right: 14px;
+}
+
+.Details-width-45 {
+  width: 45%;
 }
 
 .Details-default-container {

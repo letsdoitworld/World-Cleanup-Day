@@ -13,6 +13,7 @@ class EventsList extends Component {
   static propTypes = {
     setActiveTab: PropTypes.func.isRequired,
     isOpened: PropTypes.bool,
+    shareModalOpened: PropTypes.bool,
     fetchEventsList: PropTypes.func.isRequired,
     fetchEventDetails: PropTypes.func.isRequired,
     expandEventWindow: PropTypes.func.isRequired,
@@ -22,6 +23,7 @@ class EventsList extends Component {
   static defaultProps = {
     eventId: '',
     isOpened: false,
+    shareModalOpened: false,
   };
 
   componentWillMount() {
@@ -60,12 +62,14 @@ const mapStateToProps = (state) => ({
   events: selectors.getEventsList(state),
   eventDetails: selectors.getEventDetails(state),
   isOpened: selectors.getShowEventWindow(state),
+  shareModalOpened: appSelectors.getShowShareModal(state),
   currentLocation: appSelectors.getCurrentLocation(state),
 });
 
 const mapDispatchToProps = {
   toggleEventWindow: actions.toggleEventWindow,
   expandEventWindow: actions.expandEventWindow,
+  showShareModal: appActions.showShareModal,
   fetchEventsList: actions.fetchEventsList,
   fetchEventDetails: actions.fetchEventDetails,
   setActiveTab: appActions.setActiveTab,

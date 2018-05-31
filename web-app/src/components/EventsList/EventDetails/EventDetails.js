@@ -15,7 +15,8 @@ import {
   EmailIcon,
   PhoneIcon,
   eventCoverBig,
-} from '../../../components/common/Icons';
+} from '../../common/Icons';
+import ShareModal from '../../ShareModal/ShareModal';
 import demo from '../../../assets/demo.png';
 
 
@@ -59,10 +60,17 @@ const attachedTrashpoints = (eventDetails) => {
   );
 };
 
-export const EventDetails = ({ eventDetails }) => {
+export const EventDetails = ({ eventDetails, showShareModal }) => {
   moment.locale('en-au');
   return (
     <div className="EventDetails">
+      <ShareModal
+        header="Share event"
+        url={`http://app.worldcleanupday.com/event/${eventDetails.id}`}
+        image={eventDetails.photos[0] || eventCoverBig}
+        title={eventDetails.name}
+        description={eventDetails.description}
+      />
       <div
         className="EventDetails-cover"
         style={{ backgroundImage: `url(${eventDetails.photos[0] || eventCoverBig})` }}
@@ -88,13 +96,16 @@ export const EventDetails = ({ eventDetails }) => {
           </p>
         </div>
         <div className="EventDetails-actions EventDetails-infoblock">
+          <div
+            onClick={showShareModal}
+            className="EventDetails-actions-report EventDetails-width-45"
+          >
+            <ShareIcon />
+            <span className="EventDetails-share">Share</span>
+          </div>
           <div className="EventDetails-actions-part EventDetails-width-55">
             <ReportIcon />
             <span className="EventDetails-report">Report event</span>
-          </div>
-          <div className="EventDetails-actions-report EventDetails-width-45">
-            <ShareIcon />
-            <span className="EventDetails-share">Share</span>
           </div>
         </div>
         <div className="EventDetails-descr EventDetails-infoblock">
@@ -147,4 +158,5 @@ export const EventDetails = ({ eventDetails }) => {
 
 EventDetails.propTypes = {
   eventDetails: PropTypes.instanceOf(Object).isRequired,
+  showShareModal: PropTypes.func.isRequired,
 };

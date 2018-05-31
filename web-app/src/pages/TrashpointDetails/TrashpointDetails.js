@@ -18,6 +18,7 @@ class TrashDetails extends React.Component {
     fetchMarkerDetails: PropTypes.func.isRequired,
     focusMapLocation: PropTypes.func.isRequired,
     toggleDetailsWindow: PropTypes.func.isRequired,
+    showShareModal: PropTypes.func.isRequired,
     isUserAllowedAdding: PropTypes.bool.isRequired,
     trashpointId: PropTypes.string,
     match: PropTypes.shape({
@@ -166,6 +167,7 @@ class TrashDetails extends React.Component {
         toggleDetailsWindow={this.props.toggleDetailsWindow}
         trashpointId={this.props.trashpointId}
         isUserAllowedAdding={this.props.isUserAllowedAdding}
+        showShareModal={this.props.showShareModal}
         history={this.props.history}
         actions={this.actions}
         canEdit={this.canUserEditTrashPoint()}
@@ -183,6 +185,7 @@ const mapDispatch = {
   fetchMarkerDetails: actions.fetchMarkerDetails,
   focusMapLocation: actions.focusMapLocation,
   setActiveTab: appActions.setActiveTab,
+  showShareModal: appActions.showShareModal,
   toggleDetailsWindow: actions.toggleDetailsWindow,
 };
 

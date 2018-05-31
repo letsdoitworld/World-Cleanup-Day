@@ -110,7 +110,7 @@
    "label_location_permission_warning_android": "Sie müssen die Kamera Zugriffsberechtigungen ändern. Um dies zu tun, gehen Sie zu Einstellungen > Privatsphäre > Kamera.",
    "label_location_off_warning": "Ortungsdienste sind deaktiviert. Bitte aktivieren Sie Ihr GPS in den Einstellungen der Anwendung.",
    "label_location_modal_title": "Aktiviere Standort",
-   "label_network_off_warning_title": "Welcome to offline mode!",
+   "label_network_off_warning_title": "Willkommen im Offline-Modus!",
    "label_network_off_warning": "Mobile Daten ist deaktiviert. Aktivieren Sie mobile Daten oder verbinden Sie Ihr Telefon mit Wi-Fi zur Nutzung der Anwendung.",
    "label_loading_image_text": "Fast da...",
    "label_loading_image_subtext": "Bitte warten Sie, bis wir Ihre Aktionen gespeichert haben.",

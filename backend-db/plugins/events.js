@@ -177,7 +177,7 @@ module.exports = function () {
                     //TODO Status TRUE should be implemented all over the project. For now it's just mock data
                     mappedEvent.status = true;
                     return responder.success(mappedEvent);
-                }else {
+                } else {
                     return responder.failure(new LuciusError(E.OFFLINE_ATTENDEES));
                 }
             });

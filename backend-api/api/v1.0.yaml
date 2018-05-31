@@ -226,6 +226,10 @@ paths:
           type: string
           minLength: 2
           maxLength: 2
+        - name: rectangle
+          in: query
+          required: false
+          type: string
       responses:
         "200":
           $ref: "#/definitions/PaginatedEvents"

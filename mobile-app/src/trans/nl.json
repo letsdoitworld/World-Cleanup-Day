@@ -1,10 +1,10 @@
 {
-   "label_text_app_subtitle": "Let's clean up the world together!",
-   "label_button_facebook": "Ga door met Facebook",
-   "label_button_google": "Ga door met Google",
+   "label_text_app_subtitle": "Annuleren",
+   "label_button_facebook": "Doorgaan met Facebook",
+   "label_button_google": "Ga verder met Google",
    "label_button_try_app": "Probeer de app zonder account",
    "label_button_acknowledge": "Ok, ik snap het!",
-   "label_button_cancel": "Stoppen",
+   "label_button_cancel": "Annuleren",
    "label_button_continue": "Doorgaan",
    "label_trash_status_threat": "bedreiging",
    "label_trash_status_regular": "regelmatig",
@@ -110,7 +110,7 @@
    "label_location_permission_warning_android": "U moet de locatie machtigingen wijzigen. Om dit te doen, ga naar instellingen > Apps.",
    "label_location_off_warning": "Locatieservices zijn uitgeschakeld. Activeer uw GPS in uw instellingen om de toepassing te gebruiken.",
    "label_location_modal_title": "Locatie inschakelen",
-   "label_network_off_warning_title": "Geen netwerkverbinding",
+   "label_network_off_warning_title": "Welcome to offline mode!",
    "label_network_off_warning": "Mobiel dataverkeer is uitgeschakeld. Schakel deze in of verbind de telefoon met Wi-Fi om de toepassing te gebruiken.",
    "label_loading_image_text": "We zijn er bijna...",
    "label_loading_image_subtext": "Een moment geduld a.u.b. terwijl we uw acties opslaan.",
@@ -127,7 +127,7 @@
    "label_text_about_5": "Financiers: Estse ministerie van milieu, het ministerie van buitenlandse zaken van de Republiek Estland, het 100 programma van de Estse Republiek",
    "label_button_editTP_delete": "Afvalpunt verwijderen",
    "label_locked_account_warning": "Uw account is geblokkeerd. Neem contact op met de beheerder voor meer informatie.",
-   "label_no_connection_note": "Without the Internet, you can only mark the trash. This mark will be transferred to the server when the connection to the Internet is restored.",
+   "label_no_connection_note": "Continue mapping as before. The trashpoints will be sent to the map server as soon as you regain Internet access.",
    "label_your_coordinates": "Your coordinates",
    "label_header_team_profile": "Team profile",
    "label_button_join_team": "Join a team",
@@ -153,5 +153,5 @@
    "label_text_trashpoint": "Trashpoint",
    "label_no": "No",
    "label_yes": "Yes",
-   "label_cancel": "Stoppen"
+   "label_cancel": "Annuleren"
 }

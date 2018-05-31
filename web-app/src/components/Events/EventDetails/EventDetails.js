@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import 'moment/locale/en-au';
 import './EventDetails.css';
+import { EmptyEventsState } from '../EmptyState';
 import {
   LocationIconEvent,
   DateIcon,
@@ -76,6 +77,7 @@ export const Details = ({ eventDetails, showShareModal }) => {
               <p>
                 <RubbishIcon />
                 <span>Click to preview trashpoints</span>
+                <span className="pointer">{'>'}</span>
                 <span className="EventDetails-trashpoints-num">
                   {
                     eventDetails.trashpoints &&
@@ -131,7 +133,7 @@ export const Details = ({ eventDetails, showShareModal }) => {
         </div>
       </div>
       <Else>
-        <div>Loading</div>
+        <EmptyEventsState />
       </Else>
     </If>
   );

@@ -21,6 +21,7 @@ import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
 import { EventsRoot } from '../../pages/EventsRoot';
+import EventsRootHeader from '../../components/Events/EventListHeader';
 import EventsList from '../../pages/EventsRoot/EventsList';
 import EventDetails from '../../pages/EventsRoot/EventDetails';
 import EventTrashpointList from '../../pages/EventsRoot/EventTrashpointList';
@@ -77,45 +78,52 @@ class Home extends React.Component {
         <Route path={ROUTES.USERLIST} exact component={UserList} />
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route path={ROUTES.EVENTS_LIST}>
-          <EventsRoot>
-            <Route
-              path={ROUTES.EVENTS_LIST}
-              exact
-              component={EventsList}
-            />
-            <Route
-              path={ROUTES.EVENT_DETAILS}
-              exact
-              render={
-                ({ match }) => {
-                  return (
-                    <EventDetails eventId={match.params.eventId} />
-                  );
-                }}
-            />
-            <Route
-              path={ROUTES.EVENT_TRASHPOINTS}
-              exact
-              render={
-                ({ match }) => {
-                  return (
-                    <EventTrashpointList eventId={match.params.eventId} />
-                  )
-                }}
-            />
-            <Route
-              path={ROUTES.EVENT_TRASHPOINT_DETAILS}
-              exact
-              render={
-                ({ match }) => {
-                  return (
-                    <TrashpointDetails
-                      trashpointId={match.params.trashpointId}
-                    />
-                  )
-                }}
-            />
-        </EventsRoot>
+          {
+            (arg) => {
+              console.log(arg);
+              return (
+                <EventsRoot>
+                  <Route
+                    path={ROUTES.EVENTS_LIST}
+                    exact
+                    component={EventsList}
+                  />
+                  <Route
+                    path={ROUTES.EVENT_DETAILS}
+                    exact
+                    render={
+                      ({ match }) => {
+                        return (
+                          <EventDetails eventId={match.params.eventId} />
+                        );
+                      }}
+                  />
+                  <Route
+                    path={ROUTES.EVENT_TRASHPOINTS}
+                    exact
+                    render={
+                      ({ match }) => {
+                        return (
+                          <EventTrashpointList eventId={match.params.eventId} />
+                        );
+                      }}
+                  />
+                  <Route
+                    path={ROUTES.EVENT_TRASHPOINT_DETAILS}
+                    exact
+                    render={
+                      ({ match }) => {
+                        return (
+                          <TrashpointDetails
+                            trashpointId={match.params.trashpointId}
+                          />
+                        );
+                      }}
+                  />
+                </EventsRoot>
+              );
+            }
+          }
         </Route>
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route
@@ -130,6 +138,7 @@ class Home extends React.Component {
           render={
             ({ match }) =>
               (<TrashpointDetails
+                showHeader
                 isUserAllowedAdding={this.isUserAllowedAddingTrashpoints}
                 trashpointId={match.params.id}
                 history={history}

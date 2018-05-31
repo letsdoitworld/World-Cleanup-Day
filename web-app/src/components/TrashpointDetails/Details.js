@@ -47,11 +47,13 @@ class Details extends Component {
       trashpointId,
       isUserAllowedAdding,
       showShareModal,
+      showHeader,
       history,
     } = this.props;
     const coordinates = location ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : '';
     const formattedLocation = `${address} | ${coordinates}`;
     moment.locale('en-ie');
+
     return (
       <div className="Tpdetails">
         <If condition={isUserAllowedAdding}>
@@ -62,7 +64,7 @@ class Details extends Component {
             <span>Place trashpoint</span>
           </div>
         </If>
-        <If condition={!!trashpointId}>
+        <If condition={!!trashpointId && showHeader}>
           <TpdetailsHeader
             tpTitle={name || "Loading..."}
             onMinimizeClick={() => history.push('/trashpoints')}
@@ -75,7 +77,7 @@ class Details extends Component {
                 header="Share trashpoint"
                 url={`http://app.worldcleanupday.com/trashpoint/${trashpointId}`}
                 title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
-                image={thumbnails[0] && thumbnails[0].url}
+                image={thumbnails && thumbnails[0] && thumbnails[0].url}
               />
               <div className="Details-default-container">
                 <div className="Details-address-container">

@@ -3,32 +3,19 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { actions, selectors } from '../../reducers/events';
 import {
-  actions as appActions,
-  selectors as appSelectors,
-} from '../../reducers/app';
-import { TrashpointList } from '../../components/Events/EventTrashpointList/TrashpointList';
+  TrashpointList,
+} from '../../components/Events/EventTrashpointList/TrashpointList';
 
 class EventTrashpointList extends Component {
 
   static propTypes = {
-    setActiveTab: PropTypes.func.isRequired,
-    isOpened: PropTypes.bool,
-    shareModalOpened: PropTypes.bool,
-    fetchEventsList: PropTypes.func.isRequired,
     fetchEventDetails: PropTypes.func.isRequired,
-    expandEventWindow: PropTypes.func.isRequired,
+    eventDetails: PropTypes.any.isRequired,
     eventId: PropTypes.string,
-    isTrashpointList: PropTypes.bool,
-    trashpointId: PropTypes.string,
-    children: PropTypes.any.isRequired,
   };
 
   static defaultProps = {
     eventId: '',
-    isTrashpointList: false,
-    trashpointId: '',
-    isOpened: false,
-    shareModalOpened: false,
   };
 
   componentWillMount() {
@@ -42,29 +29,26 @@ class EventTrashpointList extends Component {
   }
 
   render() {
-    const { eventDetails } = this.props;
-    console.log('eventDetails', eventDetails);
+    const { eventDetails, eventId } = this.props;
+    const { trashpoints } = eventDetails;
     return (
-      <TrashpointList trashpoints={eventDetails.trashpoints} />
+      <TrashpointList
+        eventId={eventId}
+        trashpoints={trashpoints}
+      />
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  events: selectors.getEventsList(state),
   eventDetails: selectors.getEventDetails(state),
-  isOpened: selectors.getShowEventWindow(state),
-  shareModalOpened: appSelectors.getShowShareModal(state),
-  currentLocation: appSelectors.getCurrentLocation(state),
 });
 
 const mapDispatchToProps = {
-  toggleEventWindow: actions.toggleEventWindow,
-  expandEventWindow: actions.expandEventWindow,
-  showShareModal: appActions.showShareModal,
-  fetchEventsList: actions.fetchEventsList,
   fetchEventDetails: actions.fetchEventDetails,
-  setActiveTab: appActions.setActiveTab,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventTrashpointList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EventTrashpointList);

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { If, Else } from 'react-if';
 import PropTypes from 'prop-types';
 import { Event } from '../Event';
-import { noEventsCover } from '../../common/Icons';
+import { EmptyEventsState } from '../EmptyState';
 
 export const List = ({ events }) => (
   <div>
@@ -30,15 +30,7 @@ export const List = ({ events }) => (
         }
       </div>
       <Else>
-        <div className="no-events-holder">
-          <img src={noEventsCover} alt="no-events-cover" />
-          <div className="no-events-text">
-            <p className="p1">Nothing to see here!</p>
-            <p className="p2">
-              Widen the search area or try another filter
-            </p>
-          </div>
-        </div>
+        <EmptyEventsState />
       </Else>
     </If>
   </div>

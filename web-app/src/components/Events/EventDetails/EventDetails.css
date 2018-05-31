@@ -76,14 +76,28 @@
 
 .EventDetails-trashpoints-num {
   display: inline-block;
-  width: 24px;
-  height: 24px;
-  background-color: black;
+  width: 29px;
+  height: 29px;
+  background-color: #e11383;
   color: white;
   border-radius: 100px;
   text-align: center;
-  line-height: 24px;
+  line-height: 29px;
   float: right;
+  font-weight: bold;
+  position: relative;
+  bottom: 5px;
+  right: 20px;
+}
+
+.pointer {
+  font-size: 28px;
+  float: right;
+  vertical-align: middle;
+  color: #008fdf;
+  position: relative;
+  bottom: 10px;
+  right: 5px;
 }
 
 .EventDetails-coordinator-part {

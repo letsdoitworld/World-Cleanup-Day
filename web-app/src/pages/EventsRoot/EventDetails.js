@@ -3,32 +3,23 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { actions, selectors } from '../../reducers/events';
 import {
-  actions as appActions,
   selectors as appSelectors,
+  actions as appActions,
 } from '../../reducers/app';
 import { Details } from '../../components/Events/EventDetails';
 
 class EventsDetails extends Component {
 
   static propTypes = {
-    setActiveTab: PropTypes.func.isRequired,
-    isOpened: PropTypes.bool,
-    shareModalOpened: PropTypes.bool,
-    fetchEventsList: PropTypes.func.isRequired,
     fetchEventDetails: PropTypes.func.isRequired,
-    expandEventWindow: PropTypes.func.isRequired,
+    eventDetails: PropTypes.any.isRequired,
     eventId: PropTypes.string,
-    isTrashpointList: PropTypes.bool,
-    trashpointId: PropTypes.string,
-    children: PropTypes.any.isRequired,
+    showShareModal: PropTypes.func,
   };
 
   static defaultProps = {
     eventId: '',
-    isTrashpointList: false,
-    trashpointId: '',
-    isOpened: false,
-    shareModalOpened: false,
+    showShareModal: null,
   };
 
   componentWillMount() {
@@ -43,7 +34,6 @@ class EventsDetails extends Component {
 
   render() {
     const { eventDetails, showShareModal } = this.props;
-    console.log('eventDetails', eventDetails);
     return (
       <Details eventDetails={eventDetails} showShareModal={showShareModal} />
     );
@@ -51,20 +41,13 @@ class EventsDetails extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  events: selectors.getEventsList(state),
   eventDetails: selectors.getEventDetails(state),
-  isOpened: selectors.getShowEventWindow(state),
   shareModalOpened: appSelectors.getShowShareModal(state),
-  currentLocation: appSelectors.getCurrentLocation(state),
 });
 
 const mapDispatchToProps = {
-  toggleEventWindow: actions.toggleEventWindow,
-  expandEventWindow: actions.expandEventWindow,
-  showShareModal: appActions.showShareModal,
-  fetchEventsList: actions.fetchEventsList,
   fetchEventDetails: actions.fetchEventDetails,
-  setActiveTab: appActions.setActiveTab,
+  showShareModal: appActions.showShareModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsDetails);

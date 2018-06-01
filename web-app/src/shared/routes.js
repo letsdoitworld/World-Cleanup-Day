@@ -6,7 +6,6 @@ const ROUTES = {
   EVENT_DETAILS: '/event/:eventId',
   EVENT_TRASHPOINTS: '/event/:eventId/trashpoints',
   EVENT_TRASHPOINT_DETAILS: '/event/:eventId/trashpoints/:trashpointId',
-  EVENTS: '/event/:id?/:trashpointList?/:trashpointId?',
   AREALIST: '/user-areas',
   TERMS: '/terms',
   PRIVACY: '/privacy',

@@ -68,7 +68,19 @@ class Home extends React.Component {
 
   renderTerms = () =>
     (<div className="Home">
-      <Terms onAccept={this.handleTermsAccept} onDecline={this.handleLogout} />
+      <Terms
+        onAccept={this.handleTermsAccept}
+        onDecline={this.handleLogout}
+      />
+      <div className="Home-map-container">
+        <Header
+          onLogout={this.handleLogout}
+          links={null}
+          authUser={null}
+        />
+        <AdminMap isUserLoggedIn={false} />
+        <Footer />
+      </div>
     </div>);
 
   renderNormalRoute = ({ history }) =>
@@ -79,10 +91,9 @@ class Home extends React.Component {
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route path={ROUTES.EVENTS_LIST}>
           {
-            (arg) => {
-              console.log(arg);
+            () => {
               return (
-                <EventsRoot>
+                <EventsRoot history={history}>
                   <Route
                     path={ROUTES.EVENTS_LIST}
                     exact
@@ -139,7 +150,7 @@ class Home extends React.Component {
             ({ match }) =>
               (<TrashpointDetails
                 showHeader
-                isUserAllowedAdding={this.isUserAllowedAddingTrashpoints}
+                isUserAllowedAdding={false}
                 trashpointId={match.params.id}
                 history={history}
               />)

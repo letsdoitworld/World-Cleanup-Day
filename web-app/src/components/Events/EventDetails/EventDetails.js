@@ -16,7 +16,7 @@ import {
   EmailIcon,
   PhoneIcon,
   eventCoverBig,
-  RubbishIcon,
+  RubbishIconActive,
 } from '../../common/Icons';
 import ShareModal from '../../ShareModal/ShareModal';
 
@@ -75,7 +75,7 @@ export const Details = ({ eventDetails, showShareModal }) => {
             <div className="EventDetails-trashpoints EventDetails-infoblock">
               <h2 className="EventDetails-header">Trashpoints</h2>
               <p>
-                <RubbishIcon />
+                <RubbishIconActive />
                 <span>Click to preview trashpoints</span>
                 <span className="pointer">{'>'}</span>
                 <span className="EventDetails-trashpoints-num">

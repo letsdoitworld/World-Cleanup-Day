@@ -12,7 +12,7 @@ import {
   FACEBOOK_APP_ID,
 } from '../../shared/constants';
 import { FbIcon, GoogleIcon, CloseIcon } from '../common/Icons';
-import demo from '../../assets/demo-login.png';
+import cover from '../../assets/cover-login.png';
 import './Popover.css';
 
 class Popover extends Component {
@@ -85,7 +85,7 @@ class Popover extends Component {
             </div>
           </div>
           <div className="Popover-img">
-            <img src={demo} alt="popover-demo" />
+            <img src={cover} alt="popover-login-cover" />
           </div>
           <div className="Popover-body">
             <div className="Popover-login-item-container Fb-login-container">

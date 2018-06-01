@@ -75,6 +75,7 @@
 }
 
 .EventDetails-trashpoints-num {
+  font-size: 17px;
   display: inline-block;
   width: 29px;
   height: 29px;
@@ -82,12 +83,12 @@
   color: white;
   border-radius: 100px;
   text-align: center;
-  line-height: 29px;
+  line-height: 28px;
   float: right;
   font-weight: bold;
   position: relative;
   bottom: 5px;
-  right: 20px;
+  right: 10px;
 }
 
 .pointer {
@@ -97,7 +98,7 @@
   color: #008fdf;
   position: relative;
   bottom: 10px;
-  right: 5px;
+  right: 0px;
 }
 
 .EventDetails-coordinator-part {

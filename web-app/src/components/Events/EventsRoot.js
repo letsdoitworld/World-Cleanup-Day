@@ -10,12 +10,12 @@ class EventsRoot extends Component {
     toggleEventWindow: PropTypes.func.isRequired,
     isOpened: PropTypes.bool.isRequired,
     fetchEventsList: PropTypes.func.isRequired,
+    history: PropTypes.any,
+    children: PropTypes.any.isRequired,
   };
 
   static defaultProps = {
-    eventId: '',
-    isTrashpointList: false,
-    eventDetails: null,
+    history: null,
   };
 
   render() {

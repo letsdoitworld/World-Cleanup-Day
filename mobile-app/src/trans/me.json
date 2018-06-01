@@ -1,14 +1,14 @@
 {
-   "label_text_app_subtitle": "Let's clean up the world together!",
-   "label_button_facebook": "Continue with Facebook",
-   "label_button_google": "Continue with Google",
-   "label_button_try_app": "Try out the app without account",
-   "label_button_acknowledge": "Ok, got it!",
-   "label_button_cancel": "Cancel",
-   "label_button_continue": "Continue",
+   "label_text_app_subtitle": "Očistimo svijet zajedno! ",
+   "label_button_facebook": "Nastavite uz pomoć Facebooka",
+   "label_button_google": "Nastavite uz pomoć Google-a",
+   "label_button_try_app": "Pristupite aplikaciji bez naloga",
+   "label_button_acknowledge": "OK, shvatam! ",
+   "label_button_cancel": "Poništi",
+   "label_button_continue": "Nastavi ",
    "label_trash_status_threat": "threat",
-   "label_trash_status_regular": "regular",
-   "label_trash_status_cleaned": "cleaned",
+   "label_trash_status_regular": "Regularno",
+   "label_trash_status_cleaned": "Očišćeno ",
    "label_trash_status_outdated": "outdated",
    "label_trash_status_user": "user",
    "label_trash_status_change_location": "changeLocation",
@@ -153,5 +153,5 @@
    "label_text_trashpoint": "Trashpoint",
    "label_no": "No",
    "label_yes": "Yes",
-   "label_cancel": "Cancel"
+   "label_cancel": "Poništi"
 }

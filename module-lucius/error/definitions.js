@@ -95,4 +95,7 @@ module.exports = {
     SESSION_NOT_FOUND: {
         message: ({id}) => `Session not found: '${id}'.`,
     },
+    OFFLINE_ATTENDEES_AMOUNT: {
+        message: () => `The number of offline attendees must be less or equal to the maximum number`
+    },
 };

@@ -116,6 +116,7 @@ class Event extends Type {
             phonenumber: true,
             trashpoints: true,
             maxPeopleAmount: true,
+            offlineAttendeesAmount: true,
             peoples: true,
             createdBy: true,
             updatedBy: true,

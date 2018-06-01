@@ -57,7 +57,7 @@ i18n.addResources('ceb', 'general', require('../trans/ceb.json'));
 // i18n.addResources('cy', 'general', require('../trans/cy.json'));
 
 // i18n.addResources('da', 'general', require('../trans/da.json'));
-// i18n.addResources('de', 'general', require('../trans/de.json'));
+i18n.addResources('de', 'general', require('../trans/de.json'));
 
 // i18n.addResources('ee', 'general', require('../trans/ee.json'));
 i18n.addResources('el', 'general', require('../trans/el.json'));

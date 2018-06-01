@@ -110,7 +110,7 @@
    "label_location_permission_warning_android": "Kailangan mong baguhin ang mga pahintulot sa lokasyon. Upang magawa ito, pumunta sa Settings > Apps.",
    "label_location_off_warning": "Nakapatay ang iyong Location Services. Paganagin ang iyong GPS sa iyong Settings upang magamit ang application.",
    "label_location_modal_title": "Paganahin ang Location",
-   "label_network_off_warning_title": "Welcome to offline mode!",
+   "label_network_off_warning_title": "Welcome sa offline mode!",
    "label_network_off_warning": "Hindi naka-on ang mobile data. I-on ang mobile data o di kaya'y ikonekta sa Wi-Fi ang iyong telepono upang magamit ang application.",
    "label_loading_image_text": "Halos tapos na...",
    "label_loading_image_subtext": "Mangyari lamang maghintay habang sini-save namin ang iyong mga nagawa.",

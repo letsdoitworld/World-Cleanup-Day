@@ -149,9 +149,9 @@
    "label_text_search_placeholder": "チームを探す",
    "label_text_search_teams": "チームを探す",
    "label_text_search_for_a_team": "特定のチームを探す",
-   "label_text_work_together": "Work together with other people and create competings teams. The winner is the world!",
+   "label_text_work_together": "他の人と一緒に活動し、競争力のあるチームを作る。世界一を目指せ！",
    "label_text_trashpoint": "Trashpoint",
-   "label_no": "No",
-   "label_yes": "Yes",
+   "label_no": "いいえ",
+   "label_yes": "はい",
    "label_cancel": "キャンセルする"
 }

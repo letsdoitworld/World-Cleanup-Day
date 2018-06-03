@@ -110,7 +110,7 @@
    "label_location_permission_warning_android": "È necessario modificare i permessi di localizzazione. Per fare questo, vai su Impostazioni > applicazioni.",
    "label_location_off_warning": "I servizi di localizzazione sono disattivati. Attiva il GPS nelle Impostazioni per usare l'applicazione.",
    "label_location_modal_title": "Abilitare la geolocalizzazione",
-   "label_network_off_warning_title": "Welcome to offline mode!",
+   "label_network_off_warning_title": "Benvenuto alla modalità offline!",
    "label_network_off_warning": "I dati mobili sono disattivati. Abilita i dati mobili o connetti il tuo cellulare alla rete Wi-Fi per usare l'applicazione.",
    "label_loading_image_text": "Ci siamo quasi...",
    "label_loading_image_subtext": "Si prega di attendere mentre salviamo le tue azioni.",

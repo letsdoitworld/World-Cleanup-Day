@@ -9,18 +9,21 @@ import {
   ExpandIcon,
 } from '../../components/common/Icons';
 import { selectors } from '../../reducers/events';
+import {
+  selectors as appSelectors,
+} from '../../reducers/app';
 
 class EventListHeader extends Component {
 
   static propTypes = {
     onMinimizeClick: PropTypes.func.isRequired,
-    eventId: PropTypes.string,
     eventTitle: PropTypes.string,
     onSearch: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
     listState: PropTypes.bool,
+    router: PropTypes.shape.isRequired,
   };
 
   static defaultProps = {
@@ -32,18 +35,23 @@ class EventListHeader extends Component {
   render() {
     const {
       onMinimizeClick,
-      eventId,
       eventTitle,
       onSearch,
       history,
       listState,
+      router,
     } = this.props;
     const itemsPerPage = 50;
     const pageNumber = 1;
-
+    const ifListDisplayed =
+    !!router.pathname.split('/')[2] || !!window.location.pathname.split('/')[2];
+    /*
+      define if pathname contains event ID and then decide if render
+      search bar or event title (in last case we take it from store)
+    */
     return (
       <div className="EventsList-header">
-        <If condition={!!eventId}>
+        <If condition={ifListDisplayed}>
           <button
             className="EventsList-header-back"
             onClick={() => history.goBack()}
@@ -54,7 +62,7 @@ class EventListHeader extends Component {
             <LocationIcon />
           </Else>
         </If>
-        <If condition={!!eventId}>
+        <If condition={ifListDisplayed}>
           <span className="EventsList-header-title">
             {eventTitle}
           </span>
@@ -88,6 +96,7 @@ class EventListHeader extends Component {
 const mapStateToProps = (state) => ({
   eventTitle: selectors.getEventTitle(state),
   listState: selectors.getShowEventWindow(state),
+  router: appSelectors.getRouterInfo(state),
 });
 
 export default connect(mapStateToProps)(EventListHeader);

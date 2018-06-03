@@ -17,6 +17,7 @@ export const TYPES = {
   HIDE_LOCKED_MODAL: 'HIDE_LOCKED_MODAL',
   SET_ACTIVE_TAB: 'SET_ACTIVE_TAB',
   SET_CURRENT_LOCATION: 'SET_CURRENT_LOCATION',
+  ROUTER: 'ROUTER',
 };
 
 const appReducer = (
@@ -29,6 +30,14 @@ const appReducer = (
     showLockedModal: false,
     currentTabActive: 'trashpoints',
     currentLocation: {},
+    router: {
+      action: '',
+      hash: '',
+      key: '',
+      pathname: '',
+      search: '',
+      state: undefined,
+    },
   },
   action,
 ) => {
@@ -69,6 +78,11 @@ const appReducer = (
       return { ...state, currentTabActive: action.tabName };
     case TYPES.SET_CURRENT_LOCATION:
       return { ...state, currentLocation: action.currentLocation };
+    case TYPES.ROUTER:
+      return {
+        ...state,
+        router: action.router,
+      };
     default:
       return state;
   }
@@ -151,6 +165,14 @@ const setCurrentLocation = currentLocation => dispatch =>
     currentLocation,
   });
 
+const updateRouterInfo = router => dispatch => {
+  dispatch({
+    type: TYPES.ROUTER,
+    router,
+  });
+};
+
+
 export const actions = {
   fetchDatasets,
   showModal,
@@ -164,6 +186,7 @@ export const actions = {
   toggleLockedModal,
   setActiveTab,
   setCurrentLocation,
+  updateRouterInfo,
 };
 
 const getAppState = state => state.app;
@@ -177,6 +200,7 @@ const getShowLoginPopover = state => getAppState(state).showLoginPopover;
 const getShowLockedModal = state => getAppState(state).showLockedModal;
 const getCurrentActiveTab = state => getAppState(state).currentTabActive;
 const getCurrentLocation = state => getAppState(state).currentLocation;
+const getRouterInfo = state => getAppState(state).router;
 
 export const selectors = {
   getTrashpointsDatasetUUID,
@@ -188,6 +212,7 @@ export const selectors = {
   getShowLockedModal,
   getCurrentActiveTab,
   getCurrentLocation,
+  getRouterInfo,
 };
 
 export default appReducer;

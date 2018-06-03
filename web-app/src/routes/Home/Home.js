@@ -12,6 +12,9 @@ import {
   selectors as userSels,
 } from '../../reducers/user';
 import {
+  actions as appActions,
+} from '../../reducers/app';
+import {
   actions as adminActions,
 } from '../../reducers/admin';
 
@@ -21,7 +24,6 @@ import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
 import { EventsRoot } from '../../pages/EventsRoot';
-import EventsRootHeader from '../../components/Events/EventListHeader';
 import EventsList from '../../pages/EventsRoot/EventsList';
 import EventDetails from '../../pages/EventsRoot/EventDetails';
 import EventTrashpointList from '../../pages/EventsRoot/EventTrashpointList';
@@ -39,6 +41,7 @@ class Home extends React.Component {
       location: PropTypes.shape({
         pathname: PropTypes.string,
       }),
+      listen: PropTypes.func,
     }).isRequired,
     logout: PropTypes.func.isRequired,
     agreeToTerms: PropTypes.func.isRequired,
@@ -46,12 +49,16 @@ class Home extends React.Component {
       role: PropTypes.string,
     }).isRequired,
     resetUsers: PropTypes.func.isRequired,
+    updateRouterInfo: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
     if (this.props.history.location.pathname === ROUTES.ROOT) {
       this.props.history.replace(ROUTES.TRASHPOINTS_ROOT);
     }
+    this.props.history.listen((location, action) => {
+      this.props.updateRouterInfo({ ...location, action });
+    });
   }
 
   handleLogout = () => {
@@ -201,6 +208,7 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),
   agreeToTerms: () => dispatch(userActions.agreeToTerms()),
   resetUsers: () => dispatch(adminActions.resetUsers()),
+  updateRouterInfo: (router) => dispatch(appActions.updateRouterInfo(router)),
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);

@@ -127,7 +127,7 @@
    "label_text_about_5": "Finanziatori: Ministero dell'ambiente Estone, Ministero degli Affari Esteri della Repubblica d'Estonia, Repubblica d'Estonia 100 programmi",
    "label_button_editTP_delete": "Cancella il trashpoint",
    "label_locked_account_warning": "Il tuo account è bloccato. Per ulteriori informazioni contattare un amministratore.",
-   "label_no_connection_note": "Continua la mappatura come prima. I \"trashpoints\" verranno inviati al server di mappe, appena riconnesso il tuo dispositivo ad Internet.",
+   "label_no_connection_note": "Continua la mappatura come prima. I \"trashpoints\" verranno inviati al server, appena riconnetterai il tuo dispositivo ad Internet.",
    "label_your_coordinates": "Le tue coordinate",
    "label_header_team_profile": "Profilo del team",
    "label_button_join_team": "Entrare in un team",

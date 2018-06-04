@@ -25,18 +25,23 @@ class OfflineService {
 
   saveTrashpoint = async (url, newMarker, photos, deletedPhotos) => {
     const { location: { longitude, latitude } } = newMarker;
-    if (!newMarker.address || newMarker.address.length < 1) {
+    if (newMarker && !newMarker.address || newMarker && newMarker.address && newMarker.address.length < 1) {
       newMarker.address = ' ';
     }
-    if (!newMarker.name || newMarker.name.length < 1) {
+    if (newMarker && !newMarker.name || newMarker && newMarker.name && newMarker.name.length < 1) {
       newMarker.name = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
     }
-    await this.executeSql('INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
-      url,
-      JSON.stringify(newMarker),
-      JSON.stringify(photos),
-      JSON.stringify(deletedPhotos)
-    ]);
+    try {
+        await this.executeSql('INSERT INTO trashpoints (url, marker, photos, dphotos) VALUES (?, ?, ?, ?);', [
+            url,
+            JSON.stringify(newMarker),
+            JSON.stringify(photos),
+            JSON.stringify(deletedPhotos)
+        ]);
+    } catch (e) {
+      console.log('saveTrashpoint ', e);
+    }
+
     const dummyReturn = {data: newMarker};
 
     return dummyReturn;
@@ -68,17 +73,19 @@ class OfflineService {
                 }
                 if (dataOk) {
                   const createMarkerResponse = await Api.put(trashpoint.url, trashpoint.marker);
-                  if (createMarkerResponse || !trashpoint.marker.datasetId) {
+                  if (createMarkerResponse || trashpoint && trashpoint.marker && !trashpoint.marker.datasetId) {
                     offlineDB.transaction(tx => {
-                      tx.executeSql('DELETE FROM trashpoints WHERE id = ?;', [trashpoint.id]);
+                      if (trashpoint && trashpoint.id) {
+                          tx.executeSql('DELETE FROM trashpoints WHERE id = ?;', [trashpoint.id]);
+                      }
                     });
-                    if (trashpoint.photos.length > 0) {
+                    if (trashpoint && trashpoint.photos && trashpoint.photos.length > 0) {
                       await handleUpload({
                         photos: trashpoint.photos,
                         markerId: createMarkerResponse.data.id
                       });
                     }
-                    if (trashpoint.dphotos.length > 0) {
+                    if (trashpoint && trashpoint.dphotos && trashpoint.dphotos.length > 0) {
                       try {
                         await Promise.all(
                           trashpoint.dphotos.map(p => deleteImage(id, p.parentId)),
@@ -89,7 +96,9 @@ class OfflineService {
                     }
                   } else {
                     offlineDB.transaction(tx => {
-                      tx.executeSql('UPDATE trashpoints SET status = 0 WHERE id = ?;', [trashpoint.id]);
+                        if (trashpoint && trashpoint.id) {
+                            tx.executeSql('UPDATE trashpoints SET status = 0 WHERE id = ?;', [trashpoint.id]);
+                        }
                     });
                   }
                 }

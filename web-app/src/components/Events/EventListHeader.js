@@ -22,8 +22,24 @@ class EventListHeader extends Component {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
+    rectangle: PropTypes.shape({
+      nw: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+      }),
+      se: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+      }),
+    }).isRequired,
     listState: PropTypes.bool,
-    router: PropTypes.shape.isRequired,
+    router: PropTypes.shape({
+      pathname: PropTypes.string,
+      search: PropTypes.string,
+      hash: PropTypes.string,
+      key: PropTypes.string,
+      action: PropTypes.string,
+    }).isRequired,
   };
 
   static defaultProps = {
@@ -40,8 +56,9 @@ class EventListHeader extends Component {
       history,
       listState,
       router,
+      rectangle,
     } = this.props;
-    const itemsPerPage = 50;
+    const itemsPerPage = 20;
     const pageNumber = 1;
     const ifListDisplayed =
     !!router.pathname.split('/')[2] || !!window.location.pathname.split('/')[2];
@@ -72,7 +89,7 @@ class EventListHeader extends Component {
               type="text"
               placeholder="Search location"
               onChange={
-                (ev) => onSearch(itemsPerPage, pageNumber, ev.target.value)
+                (ev) => onSearch(rectangle, itemsPerPage, pageNumber, ev.target.value)
               }
             />
           </Else>
@@ -97,6 +114,7 @@ const mapStateToProps = (state) => ({
   eventTitle: selectors.getEventTitle(state),
   listState: selectors.getShowEventWindow(state),
   router: appSelectors.getRouterInfo(state),
+  rectangle: appSelectors.getViewport(state),
 });
 
 export default connect(mapStateToProps)(EventListHeader);

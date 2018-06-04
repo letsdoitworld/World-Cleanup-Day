@@ -18,6 +18,7 @@ export const TYPES = {
   SET_ACTIVE_TAB: 'SET_ACTIVE_TAB',
   SET_CURRENT_LOCATION: 'SET_CURRENT_LOCATION',
   ROUTER: 'ROUTER',
+  SET_VIEWPORT: 'SET_VIEWPORT',
 };
 
 const appReducer = (
@@ -38,6 +39,7 @@ const appReducer = (
       search: '',
       state: undefined,
     },
+    rectangle: null,
   },
   action,
 ) => {
@@ -82,6 +84,11 @@ const appReducer = (
       return {
         ...state,
         router: action.router,
+      };
+    case TYPES.SET_VIEWPORT:
+      return {
+        ...state,
+        rectangle: action.rectangle,
       };
     default:
       return state;
@@ -165,6 +172,12 @@ const setCurrentLocation = currentLocation => dispatch =>
     currentLocation,
   });
 
+const setViewport = rectangle => dispatch =>
+  dispatch({
+    type: TYPES.SET_VIEWPORT,
+    rectangle,
+  });
+
 const updateRouterInfo = router => dispatch => {
   dispatch({
     type: TYPES.ROUTER,
@@ -186,6 +199,7 @@ export const actions = {
   toggleLockedModal,
   setActiveTab,
   setCurrentLocation,
+  setViewport,
   updateRouterInfo,
 };
 
@@ -201,6 +215,7 @@ const getShowLockedModal = state => getAppState(state).showLockedModal;
 const getCurrentActiveTab = state => getAppState(state).currentTabActive;
 const getCurrentLocation = state => getAppState(state).currentLocation;
 const getRouterInfo = state => getAppState(state).router;
+const getViewport = state => getAppState(state).rectangle;
 
 export const selectors = {
   getTrashpointsDatasetUUID,
@@ -213,6 +228,7 @@ export const selectors = {
   getCurrentActiveTab,
   getCurrentLocation,
   getRouterInfo,
+  getViewport,
 };
 
 export default appReducer;

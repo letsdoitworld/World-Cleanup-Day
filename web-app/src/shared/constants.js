@@ -1,8 +1,8 @@
-export const GOOGLE_MAPS_API_KEY = 'AIzaSyD0AC9TcY3xdmRsc_atlSHRreEbnEbxPEA';
+export const GOOGLE_MAPS_API_KEY = 'AIzaSyDPpazJRvOYVRE6JBjAW5fbpLq8TDkSS98';
 export const GOOGLE_LOGIN_ID =
 '701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com';
 export const FACEBOOK_APP_ID = '340116156418708';
-export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.27&libraries=places,geometry&key=${GOOGLE_MAPS_API_KEY}`;
+export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.31&libraries=places,geometry&key=${GOOGLE_MAPS_API_KEY}`;
 export const DEFAULT_ZOOM_LEVEL = 7;
 export const NO_PERMISSION_ZOOM_LEVEL = 8;
 export const ESTONIA_CENTER_COORDINATES = { lat: 48.5953, lng: 35.0136 };

@@ -114,11 +114,13 @@ const fetchAllEventMarkers = (
   });
 };
 
-const fetchEventsList = (pageSize, pageNumber, address) =>
+const fetchEventsList = (rectangle, pageSize, pageNumber, address) =>
 async (dispatch, getState) => {
+  // const rectangle = appSelectors.getViewport(getState());
   const response = await ApiService.get('events',
     {
       params: {
+        rectangle,
         pageSize,
         pageNumber,
         address,

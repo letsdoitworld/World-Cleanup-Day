@@ -50,6 +50,7 @@ class MarkersMap extends React.Component {
     focusedLocation: PropTypes.any,
     isExpandAreaModalVisible: PropTypes.bool.isRequired,
     hideExpandAreaModal: PropTypes.func.isRequired,
+    setViewport: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -60,15 +61,20 @@ class MarkersMap extends React.Component {
     };
   }
 
+  componentWillMount() {
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.tabActive !== this.props.tabActive) {
       this.loadMarkers(nextProps.tabActive);
     }
+    console.log(this.props.currentEventLocation, nextProps.currentEventLocation);
     if (
       this.map &&
-      this.props.currentEventLocation.latitude &&
-      nextProps.currentEventLocation !== this.props.currentEventLocation
+      this.props.currentEventLocation &&
+      nextProps.currentEventLocation.latitude !== this.props.currentEventLocation.latitude
     ) {
+      console.log('PAN TO MARKER');
       this.map.panTo({
         lat: nextProps.currentEventLocation.latitude,
         lng: nextProps.currentEventLocation.longitude,
@@ -125,7 +131,19 @@ class MarkersMap extends React.Component {
         height: parseInt(getComputedStyle(mapElContainer).height, 10),
         width: parseInt(getComputedStyle(mapElContainer).width, 10),
       };
-      const { nw, se } = getViewportPoints(this.map.getBounds());
+      // const { nw, se } = getViewportPoints(this.map.getBounds());
+      const nw = {
+        latitude: this.map.getBounds().getNorthEast().lat(),
+        longitude: this.map.getBounds().getSouthWest().lng(),
+      };
+      const se = {
+        latitude: this.map.getBounds().getSouthWest().lat(),
+        longitude: this.map.getBounds().getNorthEast().lng(),
+      };
+      this.props.setViewport({
+        nw,
+        se,
+      });
       const action = markersType === 'trashpoints'
          ? 'fetchAllTrashpoints'
          : 'fetchAllEventMarkers';
@@ -244,5 +262,6 @@ const mapDispatchToProps = {
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
   hideExpandAreaModal: appActions.hideExpandAreaModal,
+  setViewport: appActions.setViewport,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

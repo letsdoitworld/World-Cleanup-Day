@@ -30,7 +30,7 @@ export const getCurrentMarkerID = createSelector(
 
 const getCurrentMarkerLocation = createSelector(
  detailsSel,
- state => get(state, 'event.location', 'Unknown location'),
+ state => get(state, 'event.location', null),
 );
 
 export const getEventTitle = createSelector(

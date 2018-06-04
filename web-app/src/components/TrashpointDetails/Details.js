@@ -75,7 +75,7 @@ class Details extends Component {
             <div className={ classnames('Tpdetails-plot', { 'visible': isOpened })}>
               <ShareModal
                 header="Share trashpoint"
-                url={`http://app.worldcleanupday.com/trashpoint/${trashpointId}`}
+                url={`http://52.143.138.160:3000/trashpoint/${trashpointId}`}
                 title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
                 image={thumbnails && thumbnails[0] && thumbnails[0].url}
               />

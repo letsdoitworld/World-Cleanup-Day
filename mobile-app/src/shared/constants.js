@@ -40,24 +40,25 @@ export const MARKER_STATUSES = {
   USER: 'user',
   CHANGE_LOCATION: 'changeLocation',
 };
+//TODO: remove in favour of TRASH_COMPOSITION_TYPE_LIST if there is no stale data relying on this
 export const TRASH_COMPOSITION_TYPES_HASH = {
-  plastic: 'Plastic',
+  plastic: 'label_trash_type_plastic',
   Plastic: 'plastic',
-  metal: 'Metal',
+  metal: 'label_trash_type_metal',
   Metal: 'metal',
-  glass: 'Glass',
+  glass: 'label_trash_type_glass',
   Glass: 'glass',
-  electronics: 'Electronics',
+  electronics: 'label_trash_type_electro',
   Electronics: 'electronics',
-  paper: 'Paper/Wood',
+  paper: 'label_trash_type_paper',
   'Paper/Wood': 'paper/wood',
-  tyres: 'Tyres',
+  tyres: 'label_trash_type_tyres',
   Tyres: 'tyres',
-  'domestic waste': 'Domestic waste',
+  'domestic waste': 'label_trash_type_dom_waste',
   'Domestic waste': 'domestic waste',
-  furniture: 'Furniture',
+  furniture: 'label_trash_type_furniture',
   Furniture: 'furniture',
-  'organic waste': 'Organic waste',
+  'organic waste': 'label_trash_type_org_waste',
   'Organic waste': 'organic waste',
 };
 
@@ -93,6 +94,7 @@ export const DATASETS_TYPES = {
 export const API_ENDPOINTS = {
   FETCH_DATASETS: '/datasets',
   USER_ME: '/me',
+  USER_TEAM: '/me/team',
   USER_AUTH: '/auth/external',
   FETCH_OVERVIEW_CLUSTERS: '/overview/clusters',
   FETCH_OVERVIEW_TRASHPOINTS: '/overview/trashpoints',
@@ -105,6 +107,10 @@ export const API_ENDPOINTS = {
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',
+  FETCH_TEAMS: (country, search) => `/teams?country=${country}&search=${search}`,
+  FETCH_TEAMS_TRASHPOINTS: '/teams/trashpoints',
+  FETCH_TEAM: teamId =>
+    `/teams/${teamId}`,
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {
@@ -286,3 +292,4 @@ export const USER_ROLES = {
   LEADER: 'leader',
   SUPERADMIN: 'superadmin',
 };
+

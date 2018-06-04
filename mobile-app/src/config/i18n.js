@@ -6,7 +6,7 @@ const languageDetector = {
   type: 'languageDetector',
   async: true, // flags below detection to be async
   detect: (callback) => {
-    return Expo.Util.getCurrentLocaleAsync().then((lang) => {
+    return Expo.DangerZone.Localization.getCurrentLocaleAsync().then((lang) => {
       try {
         if (lang.indexOf('_')) {
           callback(lang.split('_')[0]);
@@ -57,7 +57,7 @@ i18n.addResources('ceb', 'general', require('../trans/ceb.json'));
 // i18n.addResources('cy', 'general', require('../trans/cy.json'));
 
 // i18n.addResources('da', 'general', require('../trans/da.json'));
-// i18n.addResources('de', 'general', require('../trans/de.json'));
+i18n.addResources('de', 'general', require('../trans/de.json'));
 
 // i18n.addResources('ee', 'general', require('../trans/ee.json'));
 i18n.addResources('el', 'general', require('../trans/el.json'));
@@ -70,6 +70,7 @@ i18n.addResources('et', 'general', require('../trans/et.json'));
 // i18n.addResources('fi', 'general', require('../trans/fi.json'));
 i18n.addResources('fil', 'general', require('../trans/fil.json'));
 // i18n.addResources('fj', 'general', require('../trans/fj.json'));
+i18n.addResources('fo', 'general', require('../trans/fo.json'));
 i18n.addResources('fr', 'general', require('../trans/fr.json'));
 
 // i18n.addResources('ga', 'general', require('../trans/ga.json'));
@@ -93,7 +94,7 @@ i18n.addResources('in', 'general', require('../trans/id.json'));
 // i18n.addResources('is', 'general', require('../trans/is.json'));
 i18n.addResources('it', 'general', require('../trans/it.json'));
 
-// i18n.addResources('ja', 'general', require('../trans/ja.json'));
+i18n.addResources('ja', 'general', require('../trans/ja.json'));
 // i18n.addResources('jv', 'general', require('../trans/jv.json'));
 
 // i18n.addResources('ka', 'general', require('../trans/ka.json'));

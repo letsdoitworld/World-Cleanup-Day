@@ -3,8 +3,10 @@ import {
   View,
   StatusBar,
   Image,
+  ImageBackground,
   Text,
   TouchableOpacity,
+  ImageBackground,
   ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -17,6 +19,7 @@ import { LinearGradient } from 'expo';
 import { withNavigationHelpers } from '../../services/Navigation';
 import { withLoadingScreen } from '../../services/Loading';
 import { fetchAddress } from '../../services/Location';
+import { operations as teamsOperations } from '../../reducers/teams';
 import { PRIVACY_URL, TERMS_URL } from '../../../env';
 
 import {
@@ -76,14 +79,17 @@ class Login extends Component {
       locationActive,
       location,
       updateProfile,
+      fetchTeams
     } = this.props;
-    const tabsGo = userProfile => {
+    const tabsGo = async userProfile => {
+      // await fetchTeams();
       if (userProfile && userProfile.termsAcceptedAt) {
         this.props.navigation.resetTo('Tabs', {});
       } else {
         this.props.navigation.navigate('AcceptTerms');
       }
     };
+
 
     if (!profile) {
       getProfile().then(
@@ -157,7 +163,7 @@ class Login extends Component {
       );
     }
     return (
-      <Image
+      <ImageBackground
         resizeMode="stretch"
         style={styles.image}
         source={require('./images/background.png')}
@@ -205,7 +211,7 @@ class Login extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-      </Image>
+      </ImageBackground>
     );
   }
 }
@@ -229,6 +235,7 @@ const mapDispatch = {
   googleLogin: userOperations.googleLogin,
   getProfile: userOperations.getProfile,
   updateProfile: userOperations.updateProfile,
+  fetchTeams: teamsOperations.fetchTeams,
 };
 
 export default compose(

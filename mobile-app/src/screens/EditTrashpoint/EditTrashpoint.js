@@ -108,8 +108,8 @@ class EditTrashpoint extends Component {
       trashCompositionTypes: TRASH_COMPOSITION_TYPE_LIST.map(
         (trashCompositionType) => {
           return {
-            trashCompositionType.type,
-            props.t(trashCompositionType.label),
+            type: trashCompositionType.type,
+            label: props.t(trashCompositionType.label),
             selected: marker.composition.indexOf(trashCompositionType.type) !== -1,
           };
         },

@@ -19,6 +19,7 @@ import {
   selectors as trashSels,
   operations as trashOps,
 } from '../../reducers/trashpile';
+import { selectors as appSelectors } from '../../reducers/app';
 import ActivityListItem from './components/ActivityListItem';
 import { Divider } from '../../components/Divider';
 import { EmptyStateScreen } from '../../components/EmptyStateScreen';
@@ -26,9 +27,10 @@ import { SimpleButton } from '../../components/Buttons';
 
 import styles from './styles';
 
-const divider = () => <Divider hasTopLine={false} />;
+const divider = () => <Divider hasTopLine={false}/>;
 
 class MyActivity extends PureComponent {
+
   goToDetails = _.debounce(
     ({ id, location }) => {
       this.props.navigation.navigate('Details', {
@@ -43,22 +45,24 @@ class MyActivity extends PureComponent {
     },
   );
 
-  componentWillMount = () => {};
+  componentWillMount = () => {
+  };
 
   _renderItem = ({ item }) =>
-    <ActivityListItem {...item} onPressItem={this.goToDetails} />;
+    <ActivityListItem {...item} onPressItem={this.goToDetails}/>;
 
   _keyExtractor = ({ id }) => id;
 
   displayEmptyState = () => {
     return (
       <View style={styles.emptyStateScreenContainer}>
-        <EmptyStateScreen description={this.props.t('label_text_activity_empty_text')} />
+        <EmptyStateScreen
+          description={this.props.t('label_text_activity_empty_text')}/>
         <View style={styles.emptyStateScreenImageContainer}>
           <Text style={styles.emptyStateScreenText}>
             {this.props.t('label_text_activity_empty_hint')}
           </Text>
-          <Image source={require('./images/arrow.png')} />
+          <Image source={require('./images/arrow.png')}/>
         </View>
       </View>
     );
@@ -67,14 +71,15 @@ class MyActivity extends PureComponent {
   displayLoading = () => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator />
+        <ActivityIndicator/>
       </View>
     );
   };
   displayRetry = () => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <SimpleButton text={this.props.t('label_retry_button')} onPress={this.loadMoreTrashpiles} />
+        <SimpleButton text={this.props.t('label_retry_button')}
+                      onPress={this.loadMoreTrashpiles}/>
       </View>
     );
   };
@@ -110,13 +115,13 @@ class MyActivity extends PureComponent {
   };
 
   render() {
-    const { loading, error, initialLoad, refreshing } = this.props;
+    const { loading, error, initialLoad, refreshing, isConnected } = this.props;
 
-    if (!initialLoad && error) {
+    if (!initialLoad && error && isConnected) {
       return this.displayRetry();
     }
 
-    if (!initialLoad && loading && !refreshing) {
+    if (!initialLoad && loading && !refreshing || !isConnected) {
       return this.displayLoading();
     }
 
@@ -132,6 +137,7 @@ MyActivity.propTypes = {
   canLoadMore: PropTypes.bool.isRequired,
   refreshing: PropTypes.bool.isRequired,
   fetchUserTrashpoints: PropTypes.func.isRequired,
+  isConnected: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -141,6 +147,7 @@ const mapStateToProps = state => ({
   initialLoad: trashSels.userTrashpointsInitialLoaded(state),
   canLoadMore: trashSels.userTrashpointsCanLoadMore(state),
   refreshing: trashSels.userTrashpointsRefreshing(state),
+  isConnected: appSelectors.isConnected(state),
 });
 const mapDispatch = {
   fetchUserTrashpoints: trashOps.fetchUserTrashpoints,

@@ -72,7 +72,7 @@ const bearerCheck = async (req, res, next) => {
         if (response.isSuccessful()) {
             const ret = response.getPayload();
             req.__.user = util.object.filter(ret.account, {
-                id: true, termsAcceptedAt: true, role: true,
+                id: true, termsAcceptedAt: true, role: true, team: true
             });
             req.__.session = ret.session;
             return next();

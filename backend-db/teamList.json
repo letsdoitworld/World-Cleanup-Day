@@ -1,0 +1,348 @@
+{
+  "list": [
+    {
+      "id": "3b61b794-2b8e-11e8-b467-0ed5f89f718b",
+      "name": "Friends of World Cleanup Day",
+      "teamDescription": "If you believe that World Cleanup Day is a wonderful initiative which you want to support, then this team is for you! Map the waste so we can end trash blindness once and for all!"
+
+    },
+    {
+      "id": "3b61bb86-2b8e-11e8-b467-0ed5f89f718a",
+      "name": "Going Zero Waste",
+      "teamDescription": "A future without waste and toxic pollution is not just a dream; it’s a necessity. Help us to locate trash piles in your country!"
+
+    },
+    {
+      "id": "3b61c0e0-2b8e-11e8-b467-0ed5f89f718c",
+      "name": "JCI Trash Hunters",
+      "teamDescription": "Hi, JCI family! It is time to declare the trash hunting season open! Join the JCI mapping team to show how young action-minded people make a difference!"
+
+    },
+    {
+      "id": "3b61c36a-2b8e-11e8-b467-0ed5f89f718d",
+      "name": "Let’s Do It! World",
+      "teamDescription": "Join us and let's map the world!  Let's Do It! World is an international movement that tackles environmental and social problems related to mismanaged waste, by mobilising millions of positive-minded, action-orientated people."
+    },
+    {
+      "id": "3b61c5cc-2b8e-11e8-b467-0ed5f89f718e",
+      "name": "Just Map It",
+      "teamDescription": "Running, hiking or just walking around your neighbourhood?! Join the Just Map It team and put your active spirit to good use!"
+
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718f",
+      "name": "Mapping for Peace",
+      "teamDescription": "Everyone who believes that sustainability and peace go hand in hand - join the Peace One day mapping team. Let's map the waste, and bring about peace of mind as well!"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718g",
+      "name": "Ülemiste City",
+      "teamDescription": "Are you an employee or friend of Ülemiste City. Join this team and help to make the change towards a cleaner and healthier world.",
+      "image": "https://ucarecdn.com/97027779-24b8-4d5c-a2c3-c577c42a15e1/YC_logo_CMYK2.jpg",
+      "CC": "EE"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718h",
+      "name": "Salesforce",
+      "teamDescription": "Are you an employee or friend of Salesforce. Join this team and help to make the change towards a cleaner and healthier world."
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718i",
+      "name": "YMCA",
+      "teamDescription": "Are you an employee or friend of YMCA. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718j",
+      "name": "Outdoor Retailer",
+      "teamDescription": "Are you an employee or friend of Outdoor Retailer. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718k",
+      "name": "Vail Resorts",
+      "teamDescription": "Are you an employee or friend of Vail Resorts. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718l",
+      "name": "United States Navy",
+      "teamDescription": "Are you an employee or friend of United States Navy. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718m",
+      "name": "United States Army",
+      "teamDescription": "Are you an employee or friend of United States Army. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718n",
+      "name": "United States Air Force",
+      "teamDescription": "Are you an employee or friend of United States Air Force. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718o",
+      "name": "United States Coast Guard",
+      "teamDescription": "Are you an employee or friend of United States Coast Guard. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718p",
+      "name": "United States Marines",
+      "teamDescription": "Are you an employee or friend of United States Marines. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "US"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718q",
+      "name": "IMG",
+      "teamDescription": "Are you an employee or friend of IMG. Join this team and help to make the change towards a cleaner and healthier world."
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718r",
+      "name": "GSMA",
+      "teamDescription": "Are you an employee or friend of GSMA. Join this team and help to make the change towards a cleaner and healthier world."
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718s",
+      "name": "Microsoft",
+      "teamDescription": "Do you believe that trash can be data? Hunt for data about trash!"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718t",
+      "name": "Zero Waste - Cambodia",
+      "teamDescription": "Are you an employee or friend of Zero Waste - Cambodia. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "KH"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718u",
+      "name": "Cúcuta",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Cúcuta y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718v",
+      "name": "Valledupar",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Valledupar y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718w",
+      "name": "Santa Marta",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Santa Marta y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718x",
+      "name": "Barranquilla",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Barranquilla y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718y",
+      "name": "San Andrés",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de San Andrés y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f718z",
+      "name": "Bogotá",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Bogotá y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719a",
+      "name": "Medellín",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Medellín y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719b",
+      "name": "Bucaramanga",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Bucaramanga y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719c",
+      "name": "La Jagua",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de La Jagua y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719d",
+      "name": "Cartanegra",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Cartanegra y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719e",
+      "name": "Cali",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Cali y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719f",
+      "name": "Pereira",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Pereira y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719g",
+      "name": "Riohacha",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en la ciudad de Riohacha y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719h",
+      "name": "Acandí",
+      "teamDescription": "Este equipo tiene como objetivo localizar, limpiar y transformar basureros ilegales en el municipio de Acandí y sus alrededores, todos los habitantes locales están invitados a hacer parte de esta causa.",
+      "CC": "CO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719i",
+      "name": "Scouting for Better World",
+      "teamDescription": "Global scouting movement creating a better waste free world"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719k",
+      "name": "The Coca-Cola Journey",
+      "teamDescription": "Are you part of the worldwide Coke family or just loving Coke? This team is for you!"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719j",
+      "name": "Creating a GLOBE",
+      "teamDescription": "GLOBE programme will map for citizen science. Be part of GLOBE"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719l",
+      "name": "Youth 4 Global Goals",
+      "teamDescription": "AIESEC believes that young people are part of the solution to create positive change in the world. Do you?"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719m",
+      "name": "Earth Day is Every Day",
+      "teamDescription": "Help End Plastic Pollution with Earth Day Network"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719nf",
+      "name": "Beat Plastic Pollution",
+      "teamDescription": "If you can't reuse it, refuse it! Join United Nations initiative to beat plastic pollution."
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719o",
+      "name": "Rudda Føroyar",
+      "teamDescription": "Are you an employee or friend of Rudda Føroyar. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "FO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719p",
+      "name": "Heimasidur",
+      "teamDescription": "Are you an employee or friend of Heimasidur. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "FO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719q",
+      "name": "Elinsa",
+      "teamDescription": "Are you an employee or friend of Elinsa. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "FO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719r",
+      "name": "Vist",
+      "teamDescription": "Are you an employee or friend of Vist. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "FO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719s",
+      "name": "Borg",
+      "teamDescription": "Are you an employee or friend of Borg. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "FO"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719t",
+      "name": "JCI BENIN",
+      "teamDescription": "Are you an employee or friend of JCI BENIN. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719u",
+      "name": "AIESEC BENIN",
+      "teamDescription": "Are you an employee or friend of AIESEC BENIN. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719v",
+      "name": "Club UEMOA/BENIN",
+      "teamDescription": "Are you an employee or friend of Club UEMOA/BENIN. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719w",
+      "name": "La Brigade Verte",
+      "teamDescription": "Are you an employee or friend of La Brigade Verte. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719x",
+      "name": "UJD2PB",
+      "teamDescription": "Are you an employee or friend of UJD2PB. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719y",
+      "name": "ONG aide et progrès",
+      "teamDescription": "Are you an employee or friend of ONG aide et progrès. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f719z",
+      "name": "Rotaract BENIN",
+      "teamDescription": "Are you an employee or friend of Rotaract BENIN. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717a",
+      "name": "CROIX ROUGE BENIN",
+      "teamDescription": "Are you an employee or friend of CROIX ROUGE BENIN. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717b",
+      "name": "SCOUT BENINOIS",
+      "teamDescription": "Are you an employee or friend of SCOUT BENINOIS. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717c",
+      "name": "OCJ",
+      "teamDescription": "Are you an employee or friend of OCJ. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717d",
+      "name": "AMAF BENIN",
+      "teamDescription": "Are you an employee or friend of AMAF BENIN. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717e",
+      "name": "2TG - ONG",
+      "teamDescription": "Are you an employee or friend of 2TG - ONG. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717f",
+      "name": "ONG NEH",
+      "teamDescription": "Are you an employee or friend of ONG NEH. Join this team and help to make the change towards a cleaner and healthier world.",
+      "CC": "BJ"
+    },
+    {
+      "id": "3b61c81a-2b8e-11e8-b467-0ed5f89f717g",
+      "name": "Plogging Thailand Team",
+      "teamDescription": "Plogging Thailand is a group of runners in Thailand who has passion in good health and clean city",
+      "image": "https://ucarecdn.com/db2bc61d-5504-4fba-ab27-718311c4f098/Plogging_Thailand.jpg",
+      "CC": "TH"
+    }
+  ]
+}

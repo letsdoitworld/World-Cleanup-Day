@@ -69,19 +69,20 @@ const authenticate = ({ network, token }) => async (dispatch, getState) => {
     const networkToken = response.data.token;
     ApiService.setAuthToken(networkToken);
     dispatch(setAuthToken(networkToken));
-    dispatch(fetchProfile()).then(profile => {
-      if (!profile) {
-        return;
-      }
-      if (profile.locked) {
-        console.log('Account is locked');
-        return;
-      }
-      if (!isAllowedRole(getState())) {
-        dispatch(logout());
-        dispatch(appActions.showModal());
-      }
-    });
+    dispatch(fetchProfile())
+      .then(profile => {
+        if (!profile) {
+          return;
+        }
+        if (profile.locked) {
+          console.log('Account is locked');
+          return;
+        }
+        if (!isAllowedRole(getState())) {
+          dispatch(logout());
+          dispatch(appActions.showModal());
+        }
+      });
   } catch (e) {
     console.log(e);
   }

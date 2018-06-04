@@ -16,7 +16,6 @@ import _ from 'lodash';
 import { translate } from 'react-i18next';
 
 import { Map } from '../../components/Map';
-import { SimpleButton } from '../../components/Buttons';
 import {
   getHeightPercentage,
   getWidthPercentage,
@@ -123,7 +122,7 @@ class Details extends Component {
   displayTrashCompositionTypes = () => {
     const { composition, hashtags } = this.props.marker;
     return [...composition, ...hashtags].map(trashCompositionType => {
-      const text = TRASH_COMPOSITION_TYPES_HASH[trashCompositionType];
+      const text = this.props.t(TRASH_COMPOSITION_TYPES_HASH[trashCompositionType]);
       return (
         <View style={styles.containerTag} key={trashCompositionType}>
           <Text style={styles.tagText}>

@@ -1,0 +1,28 @@
+.TeamDetails-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.TeamDetails-logo {
+    width: 110px
+}
+
+.TeamDetails-members {
+    width: 150px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.TeamDetails-members-icon {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.TeamDetails-members-p {
+    margin: 0;
+}
+
+.TeamDetails-description-p {
+    padding: 10px
+}

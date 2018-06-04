@@ -24,6 +24,6 @@
   text-align: left;
 }
 
-.FooterItem.active{
-  background-color:#2672BD;
+.FooterItem.active span{
+  font-weight: 900;
 }

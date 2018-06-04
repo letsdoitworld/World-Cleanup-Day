@@ -9,6 +9,8 @@ export const TYPES = {
   HIDE_MODAL: 'HIDE_MODAL',
   SHOW_SHARE_MODAL: 'SHOW_SHARE_MODAL',
   HIDE_SHARE_MODAL: 'HIDE_SHARE_MODAL',
+  SHOW_EXPAND_AREA_MODAL: 'SHOW_EXPAND_AREA_MODAL',
+  HIDE_EXPAND_AREA_MODAL: 'HIDE_EXPAND_AREA_MODAL',
   TOGGLE_LOGIN_POPOVER: 'TOGGLE_LOGIN_POPOVER',
   HIDE_LOGIN_POPOVER: 'HIDE_LOGIN_POPOVER',
   SHOW_LOCKED_MODAL: 'SHOW_LOCKED_MODAL',
@@ -22,6 +24,7 @@ const appReducer = (
     trashpointsDatasetUUID: '',
     showModal: false,
     showShareModal: false,
+    showExpandAreaModal: false,
     showLoginPopover: false,
     showLockedModal: false,
     currentTabActive: 'trashpoints',
@@ -50,6 +53,10 @@ const appReducer = (
       return { ...state, showShareModal: true };
     case TYPES.HIDE_SHARE_MODAL:
       return { ...state, showShareModal: false };
+    case TYPES.SHOW_EXPAND_AREA_MODAL:
+      return { ...state, showExpandAreaModal: true };
+    case TYPES.HIDE_EXPAND_AREA_MODAL:
+      return { ...state, showExpandAreaModal: false };
     case TYPES.TOGGLE_LOGIN_POPOVER:
       return { ...state, showLoginPopover: !state.showLoginPopover };
     case TYPES.HIDE_LOGIN_POPOVER:
@@ -120,6 +127,12 @@ const showShareModal = () => dispatch =>
 const hideShareModal = () => dispatch =>
   dispatch({ type: TYPES.HIDE_SHARE_MODAL });
 
+const showExpandAreaModal = () => dispatch =>
+  dispatch({ type: TYPES.SHOW_EXPAND_AREA_MODAL });
+
+const hideExpandAreaModal = () => dispatch =>
+  dispatch({ type: TYPES.HIDE_EXPAND_AREA_MODAL });
+
 const toggleLoginPopover = () => dispatch =>
   dispatch({ type: TYPES.TOGGLE_LOGIN_POPOVER });
 
@@ -144,6 +157,8 @@ export const actions = {
   hideModal,
   showShareModal,
   hideShareModal,
+  showExpandAreaModal,
+  hideExpandAreaModal,
   toggleLoginPopover,
   hideLoginPopover,
   toggleLockedModal,
@@ -156,6 +171,7 @@ const getTrashpointsDatasetUUID = state =>
   getAppState(state).trashpointsDatasetUUID;
 const getShowModal = state => getAppState(state).showModal;
 const getShowShareModal = state => getAppState(state).showShareModal;
+const getShowExpandAreaModal = state => getAppState(state).showExpandAreaModal;
 const getModalContant = state => getAppState(state).modalContent;
 const getShowLoginPopover = state => getAppState(state).showLoginPopover;
 const getShowLockedModal = state => getAppState(state).showLockedModal;
@@ -166,6 +182,7 @@ export const selectors = {
   getTrashpointsDatasetUUID,
   getShowModal,
   getShowShareModal,
+  getShowExpandAreaModal,
   getModalContant,
   getShowLoginPopover,
   getShowLockedModal,

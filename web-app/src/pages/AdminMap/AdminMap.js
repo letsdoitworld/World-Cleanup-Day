@@ -15,7 +15,7 @@ class AdminMap extends React.Component {
   };
 
   handleMarkerClick = marker => {
-    if (marker && !marker.count) {
+    if (marker && marker.count === 1) {
       switch (this.props.currentActiveTab) {
         case ('events'):
           this.props.history.push(`/event/${marker.id}`);

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import MapView from '../MapView';
 import {
@@ -13,6 +14,7 @@ import {
 } from '../../reducers/events';
 import {
   selectors as appSelectors,
+  actions as appActions,
 } from '../../reducers/app';
 import { getViewportPoints } from '../../shared/helpers';
 import {
@@ -21,6 +23,9 @@ import {
   GRID_MIN_VALUE,
   FOCUS_EVENT_ZOOM_LEVEL,
 } from '../../shared/constants';
+import { ExpandAreaModal } from './ExpandAreaModal';
+import { SearchThisArea } from './SearchThisAreaBtn';
+import './MarkersMap.css';
 
 class MarkersMap extends React.Component {
   static defaultProps = {
@@ -43,12 +48,15 @@ class MarkersMap extends React.Component {
     tabActive: PropTypes.string.isRequired,
     currentEventLocation: PropTypes.any.isRequired,
     focusedLocation: PropTypes.any,
+    isExpandAreaModalVisible: PropTypes.bool.isRequired,
+    hideExpandAreaModal: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       updateRegion: true,
+      searchVisible: false,
     };
   }
 
@@ -100,9 +108,10 @@ class MarkersMap extends React.Component {
       this.loadMarkers(this.props.tabActive);
     }
   };
+
   handleBoundsChanged = () => {
-    if (this.map) {
-      this.loadMarkers(this.props.tabActive);
+    if (!this.state.searchVisible) {
+      this.setState({ searchVisible: true });
     }
   };
 
@@ -128,11 +137,14 @@ class MarkersMap extends React.Component {
     if (!marker.isTrashpile) {
       return;
     }
-    if (marker && !marker.count) {
+    if (marker && marker.count === 1) {
+      /* click handler for pin */
       if (typeof this.props.onMarkerClick === 'function') {
         this.props.onMarkerClick(marker);
       }
     } else if (this.map && _.has(this.props, 'gridValue.gridValueToZoom')) {
+      /* click handler for cluster */
+      this.loadMarkers(this.props.tabActive);
       const diagonaleInMeters = GRID_HASH[this.props.gridValue.gridValueToZoom];
       const region = {
         ...DELTA_HASH[diagonaleInMeters],
@@ -182,17 +194,34 @@ class MarkersMap extends React.Component {
       eventMarkers,
       isUserLoggedIn,
       tabActive,
+      isExpandAreaModalVisible,
+      hideExpandAreaModal,
     } = this.props;
     const visiblePoints =
       tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
     return (
-      <MapView
-        isUserLoggedIn={isUserLoggedIn}
-        points={visiblePoints}
-        setMapComponent={this.handleSetMapComponent}
-        boundsChanged={this.handleBoundsChanged}
-        onPointClick={this.handleMarkerClick}
-      />
+      <div className="h-100">
+        <SearchThisArea
+          onSearchClick={() => {
+            if (this.map) {
+              this.loadMarkers(this.props.tabActive);
+              this.setState({ searchVisible: false });
+            }
+          }}
+          isVisible={this.state.searchVisible}
+        />
+        <ExpandAreaModal
+          isVisible={isExpandAreaModalVisible}
+          hideModal={hideExpandAreaModal}
+        />
+        <MapView
+          isUserLoggedIn={isUserLoggedIn}
+          points={visiblePoints}
+          setMapComponent={this.handleSetMapComponent}
+          boundsChanged={this.handleBoundsChanged}
+          onPointClick={this.handleMarkerClick}
+        />
+      </div>
     );
   }
 }
@@ -203,11 +232,12 @@ const mapStateToProps = state => ({
   currentEventLocation: eventSelectors.getCurrentMarkerLocation(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
-  currentLocation: appSelectors.getCurrentLocation(state),
+  isExpandAreaModalVisible: appSelectors.getShowExpandAreaModal(state),
 });
 const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
+  hideExpandAreaModal: appActions.hideExpandAreaModal,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

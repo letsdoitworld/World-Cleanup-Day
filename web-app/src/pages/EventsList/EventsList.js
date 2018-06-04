@@ -48,6 +48,11 @@ class EventsList extends Component {
       const pageNumber = 1;
       this.props.fetchEventsList(itemsPerPage, pageNumber);
     }
+    if (nextProps.shareModalOpened) {
+      document.getElementsByClassName('EventsList-container')[0].style.zIndex = 12;
+    } else {
+      document.getElementsByClassName('EventsList-container')[0].style.zIndex = 9;
+    }
     document.getElementsByClassName('EventsList-plot')[0].scrollTop = 0;
   }
 

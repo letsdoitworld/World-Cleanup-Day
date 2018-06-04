@@ -1,30 +1,26 @@
 import React from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-import { SHARED_MODAL_STYLES } from '../../shared/constants';
 import { CloseIcon } from '../common/Icons';
 
 import './AlertModal.css';
 
 const AlertModal = ({ message, isOpen, onClick }) =>
-  (<Modal isOpen={isOpen} style={SHARED_MODAL_STYLES} contentLabel="">
-    <div>
-      <button
-        className="CreateTrashpoint-close-button"
-        onClick={this.handleCloseClick}
-      >
+  (<Modal
+    isOpen={isOpen}
+    contentLabel=""
+    className="AlertModal"
+    overlayClassName="AlertModal-Overlay"
+  >
+    <div className="AlertModal-header">
+      <button className="AlertModal-close-button" onClick={onClick}>
         <CloseIcon />
       </button>
     </div>
-    <button className="Shared-modal-close-button" onClick={onClick}>
-      <CloseIcon />
-    </button>
-    <div>
-      <div className="NoAuthorization-modal">
-        <span className="NoAuthorization-modal-title">
-          {message}
-        </span>
-      </div>
+    <div className="AlertModal-body">
+      <span className="AlertModal-message">
+        {message}
+      </span>
     </div>
   </Modal>);
 

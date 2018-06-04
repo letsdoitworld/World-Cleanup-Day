@@ -64,10 +64,7 @@ class Home extends React.Component {
 
   renderTerms = () =>
     (<div className="Home">
-      <Header
-        onLogout={this.handleLogout}
-      />
-      <Terms onAccept={this.handleTermsAccept} />
+      <Terms onAccept={this.handleTermsAccept} onDecline={this.handleLogout} />
     </div>);
 
   renderNormalRoute = ({ history }) =>

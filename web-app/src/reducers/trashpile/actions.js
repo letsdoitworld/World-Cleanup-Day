@@ -8,7 +8,6 @@ import {
   convertToByteArray,
   getDistanceBetweenPointsInMeters,
   getGridValue,
-  guid,
   destinationPoint,
 } from '../../shared/helpers';
 import { ApiService } from '../../services';
@@ -127,10 +126,7 @@ const fetchAllMarkers = (
     cellSize,
   };
 
-  const [markersRes, clustersRes] = await Promise.all([
-    ApiService.post(API_ENDPOINTS.FETCH_OVERVIEW_TRASHPOINTS, body, {
-      withToken: false,
-    }),
+  const [clustersRes] = await Promise.all([
     ApiService.post(
       API_ENDPOINTS.FETCH_OVERVIEW_CLUSTERS,
       {
@@ -144,19 +140,6 @@ const fetchAllMarkers = (
 
   let markers = [];
 
-  if (markersRes && markersRes.data && Array.isArray(markersRes.data)) {
-    markers = [
-      ...markersRes.data.map(marker => ({
-        ...marker,
-        position: {
-          lat: marker.location.latitude,
-          lng: marker.location.longitude,
-        },
-        isTrashpile: true,
-      })),
-    ];
-  }
-
   if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
     markers = [
       ...markers,
@@ -167,12 +150,16 @@ const fetchAllMarkers = (
           lng: cluster.location.longitude,
         },
         isTrashpile: true,
-        id: guid(),
+        id: cluster.id,
       })),
     ];
   }
 
-  if (!markersRes && !clustersRes) {
+  if (!clustersRes.data.length) {
+    return dispatch(appActions.showExpandAreaModal());
+  }
+
+  if (!clustersRes) {
     return dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
   }
 

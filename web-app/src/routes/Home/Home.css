@@ -1,8 +1,8 @@
 .Home {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Root-normal-route {
@@ -14,67 +14,67 @@
 }
 
 .List-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-self: stretch;
 }
 
 .List-tabs {
-    align-self: stretch;
-    display: flex;
-    align-items: center;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
 }
 
 .List-tab {
-    padding: 10px 20px;
-    background-color: #fff;
-    border: 1px solid transparent;
-    flex: 1;
+  padding: 10px 20px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  flex: 1;
 }
 
 .List-tab span {
-    color: #2B2B2B;
-    letter-spacing: 0;
+  color: #2B2B2B;
+  letter-spacing: 0;
 }
 
 .List-tab.selected {
-    background: #F6F6F6;
+  background: #F6F6F6;
 }
 
 .List-tab.selected span {
-    color: #3E8EDE;
-    letter-spacing: 0;
+  color: #3E8EDE;
+  letter-spacing: 0;
 }
 
 .Home-map-container {
-    flex: 1;
-    align-self: stretch;
+  flex: 1;
+  align-self: stretch;
 }
 
 .Home-create-marker-button {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    height: 40px;
-    width: 163px;
-    border-radius: 100px;
-    background: linear-gradient(180deg, #4AA5FF 0%, #3E8EDE 100%);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  height: 40px;
+  width: 163px;
+  border-radius: 100px;
+  background: linear-gradient(180deg, #4AA5FF 0%, #3E8EDE 100%);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
 }
 
 .Home-create-marker-button span {
-    text-align: center;
-    height: 20px;
-    width: 123px;
-    color: #FFFFFF;
-    font-family: "Noto Sans";
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 20px;
-    text-align: center;
+  text-align: center;
+  height: 20px;
+  width: 123px;
+  color: #FFFFFF;
+  font-family: "Noto Sans";
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  text-align: center;
 }

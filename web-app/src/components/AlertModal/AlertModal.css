@@ -3,8 +3,50 @@
   flex-direction: row;
   width: 100%;
   box-sizing: border-box;
-  padding: 18px 22px;
+  padding: 12px 22px;
   background-color: #3e8ede;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.AlertModal-close-button {
+  width: 100%;
+  text-align: right;
+}
+
+.AlertModal-close-button img {
+  width: 14px;
+  height: 14px;
+}
+
+.AlertModal-body {
+  padding: 24px;
+}
+
+.AlertModal-message {
+  font-size: 16px;
+  color: rgba(0,0,0,.87);
+}
+
+.AlertModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  z-index: 99;
+  outline: none;
+  background-color: #fff;
+}
+
+.AlertModal-Overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(30, 30, 34, 0.72);
 }

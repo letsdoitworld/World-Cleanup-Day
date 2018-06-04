@@ -86,9 +86,8 @@ export const SHARED_MODAL_STYLES = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    padding: '20px',
-    borderRadius: '5px',
-    boxShadow: '0px 0px 15px 2px rgba(0,0,0,0.3)',
+    padding: '24px',
+    borderRadius: '10px',
   },
 };
 

@@ -12,6 +12,9 @@ import {
   selectors as userSels,
 } from '../../reducers/user';
 import {
+  actions as appActions,
+} from '../../reducers/app';
+import {
   actions as adminActions,
 } from '../../reducers/admin';
 
@@ -20,7 +23,10 @@ import { CreateTrashpoint } from '../../components/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import { AdminMap } from '../../pages/AdminMap';
-import { EventsList } from '../../pages/EventsList';
+import { EventsRoot } from '../../pages/EventsRoot';
+import EventsList from '../../pages/EventsRoot/EventsList';
+import EventDetails from '../../pages/EventsRoot/EventDetails';
+import EventTrashpointList from '../../pages/EventsRoot/EventTrashpointList';
 import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
@@ -35,6 +41,7 @@ class Home extends React.Component {
       location: PropTypes.shape({
         pathname: PropTypes.string,
       }),
+      listen: PropTypes.func,
     }).isRequired,
     logout: PropTypes.func.isRequired,
     agreeToTerms: PropTypes.func.isRequired,
@@ -42,12 +49,16 @@ class Home extends React.Component {
       role: PropTypes.string,
     }).isRequired,
     resetUsers: PropTypes.func.isRequired,
+    updateRouterInfo: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
     if (this.props.history.location.pathname === ROUTES.ROOT) {
       this.props.history.replace(ROUTES.TRASHPOINTS_ROOT);
     }
+    this.props.history.listen((location, action) => {
+      this.props.updateRouterInfo({ ...location, action });
+    });
   }
 
   handleLogout = () => {
@@ -64,7 +75,19 @@ class Home extends React.Component {
 
   renderTerms = () =>
     (<div className="Home">
-      <Terms onAccept={this.handleTermsAccept} onDecline={this.handleLogout} />
+      <Terms
+        onAccept={this.handleTermsAccept}
+        onDecline={this.handleLogout}
+      />
+      <div className="Home-map-container">
+        <Header
+          onLogout={this.handleLogout}
+          links={null}
+          authUser={null}
+        />
+        <AdminMap isUserLoggedIn={false} />
+        <Footer />
+      </div>
     </div>);
 
   renderNormalRoute = ({ history }) =>
@@ -73,12 +96,53 @@ class Home extends React.Component {
         <Route path={ROUTES.USER_DETAILS} exact component={UserDetails} />
         <Route path={ROUTES.USERLIST} exact component={UserList} />
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
-        <Route
-          path={ROUTES.EVENTS}
-          render={
-            ({ match }) =>
-              <EventsList eventId={match.params.id} history={history} />}
-        />
+        <Route path={ROUTES.EVENTS_LIST}>
+          {
+            () => {
+              return (
+                <EventsRoot history={history}>
+                  <Route
+                    path={ROUTES.EVENTS_LIST}
+                    exact
+                    component={EventsList}
+                  />
+                  <Route
+                    path={ROUTES.EVENT_DETAILS}
+                    exact
+                    render={
+                      ({ match }) => {
+                        return (
+                          <EventDetails eventId={match.params.eventId} />
+                        );
+                      }}
+                  />
+                  <Route
+                    path={ROUTES.EVENT_TRASHPOINTS}
+                    exact
+                    render={
+                      ({ match }) => {
+                        return (
+                          <EventTrashpointList eventId={match.params.eventId} />
+                        );
+                      }}
+                  />
+                  <Route
+                    path={ROUTES.EVENT_TRASHPOINT_DETAILS}
+                    exact
+                    render={
+                      ({ match }) => {
+                        return (
+                          <TrashpointDetails
+                            trashpointId={match.params.trashpointId}
+                          />
+                        );
+                      }}
+                  />
+                </EventsRoot>
+              );
+            }
+          }
+        </Route>
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route
           path={ROUTES.CREATE_TRASHPOINT}
@@ -92,7 +156,8 @@ class Home extends React.Component {
           render={
             ({ match }) =>
               (<TrashpointDetails
-                isUserAllowedAdding={this.isUserAllowedAddingTrashpoints}
+                showHeader
+                isUserAllowedAdding={false}
                 trashpointId={match.params.id}
                 history={history}
               />)
@@ -143,6 +208,7 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),
   agreeToTerms: () => dispatch(userActions.agreeToTerms()),
   resetUsers: () => dispatch(adminActions.resetUsers()),
+  updateRouterInfo: (router) => dispatch(appActions.updateRouterInfo(router)),
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);

@@ -30,6 +30,10 @@
   display: none;
 }
 
+.gm-fullscreen-control {
+  display: none !important;
+}
+
 .Root-component {
   flex: 1;
   display: flex;

@@ -6,47 +6,32 @@ import {
   actions as appActions,
   selectors as appSelectors,
 } from '../../reducers/app';
-import { List } from '../../components/EventsList';
+import { Events } from '../../components/Events';
+import EventListHeader from '../../components/Events/EventListHeader';
 
-class EventsList extends Component {
+class EventsRoot extends Component {
 
   static propTypes = {
     setActiveTab: PropTypes.func.isRequired,
     isOpened: PropTypes.bool,
     shareModalOpened: PropTypes.bool,
     fetchEventsList: PropTypes.func.isRequired,
-    fetchEventDetails: PropTypes.func.isRequired,
     expandEventWindow: PropTypes.func.isRequired,
-    eventId: PropTypes.string,
+    children: PropTypes.any.isRequired,
   };
 
   static defaultProps = {
-    eventId: '',
     isOpened: false,
     shareModalOpened: false,
   };
 
   componentWillMount() {
     this.props.setActiveTab('events');
-    if (!this.props.eventId) {
-      this.props.fetchEventsList(50, 1);
-    }
-    if (this.props.eventId) {
-      this.props.fetchEventDetails(this.props.eventId);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.isOpened) {
       this.props.expandEventWindow();
-    }
-    if (nextProps.eventId && nextProps.eventId !== this.props.eventId) {
-      this.props.fetchEventDetails(nextProps.eventId);
-    }
-    if (!nextProps.eventId && nextProps.eventId !== this.props.eventId) {
-      const itemsPerPage = 50;
-      const pageNumber = 1;
-      this.props.fetchEventsList(itemsPerPage, pageNumber);
     }
     if (nextProps.shareModalOpened) {
       document.getElementsByClassName('EventsList-container')[0].style.zIndex = 12;
@@ -58,26 +43,21 @@ class EventsList extends Component {
 
   render() {
     return (
-      <List {...this.props} />
+      <Events {...this.props} />
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  events: selectors.getEventsList(state),
-  eventDetails: selectors.getEventDetails(state),
   isOpened: selectors.getShowEventWindow(state),
   shareModalOpened: appSelectors.getShowShareModal(state),
-  currentLocation: appSelectors.getCurrentLocation(state),
 });
 
 const mapDispatchToProps = {
   toggleEventWindow: actions.toggleEventWindow,
   expandEventWindow: actions.expandEventWindow,
-  showShareModal: appActions.showShareModal,
   fetchEventsList: actions.fetchEventsList,
-  fetchEventDetails: actions.fetchEventDetails,
   setActiveTab: appActions.setActiveTab,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsList);
+export default connect(mapStateToProps, mapDispatchToProps)(EventsRoot);

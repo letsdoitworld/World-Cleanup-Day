@@ -70,16 +70,35 @@
   margin-right: 10px;
 }
 
-.EventDetails-trashpoints-item-img {
-  width: 130px;
-  height: 80px;
-  border-radius: 2px;
-  margin-bottom: 6px;
+.EventDetails-trashpoints {
+  cursor: pointer;
 }
 
-.EventDetails-trashpoints-item-title {
-  font-size: 12px;
-  color: #282633;
+.EventDetails-trashpoints-num {
+  font-size: 17px;
+  display: inline-block;
+  width: 29px;
+  height: 29px;
+  background-color: #e11383;
+  color: white;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 28px;
+  float: right;
+  font-weight: bold;
+  position: relative;
+  bottom: 5px;
+  right: 10px;
+}
+
+.pointer {
+  font-size: 28px;
+  float: right;
+  vertical-align: middle;
+  color: #008fdf;
+  position: relative;
+  bottom: 10px;
+  right: 0px;
 }
 
 .EventDetails-coordinator-part {
@@ -117,4 +136,37 @@
 
 .EventDetails-location-address {
   line-height: 1.43;
+}
+
+.EventDetails-TrashpointList {
+  width: 100%;
+  height: 100%;
+}
+
+.EventDetails-TrashpointListItem {
+  cursor: pointer;
+  width: 100%;
+  height: 80px;
+  box-sizing: border-box;
+  padding: 0 30px 20px 30px;
+  font-size: 14px;
+  border-bottom: 1px solid #ececec;
+}
+
+.EventDetails-TrashpointListItem p {
+  line-height: 80px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.EventDetails-TrashpointListItem-status {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  margin-right: 16px !important;
+}
+
+.EventDetails-TrashpointListItem img {
+  vertical-align: middle;
+  margin-right: 4px;
 }

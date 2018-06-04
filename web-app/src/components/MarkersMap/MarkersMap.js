@@ -213,6 +213,11 @@ class MarkersMap extends React.Component {
         <ExpandAreaModal
           isVisible={isExpandAreaModalVisible}
           hideModal={hideExpandAreaModal}
+          onExpandClick={() => {
+            const currentZoom = this.map.getZoom();
+            this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(currentZoom - 1);
+            hideExpandAreaModal();
+          }}
         />
         <MapView
           isUserLoggedIn={isUserLoggedIn}

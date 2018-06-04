@@ -15,6 +15,7 @@ class TrashDetails extends React.Component {
 
   static propTypes = {
     setActiveTab: PropTypes.func.isRequired,
+    showHeader: PropTypes.bool,
     fetchMarkerDetails: PropTypes.func.isRequired,
     focusMapLocation: PropTypes.func.isRequired,
     toggleDetailsWindow: PropTypes.func.isRequired,
@@ -52,6 +53,7 @@ class TrashDetails extends React.Component {
     marker: null,
     match: null,
     location: null,
+    showHeader: false,
   }
 
   constructor(props) {
@@ -62,7 +64,9 @@ class TrashDetails extends React.Component {
   }
 
   componentWillMount() {
-    this.props.setActiveTab('trashpoints');
+    if (this.props.showHeader) {
+      this.props.setActiveTab('trashpoints');
+    }
   }
 
   componentDidMount() {
@@ -70,7 +74,7 @@ class TrashDetails extends React.Component {
     if (trashpointId) {
       this.fetchMarkerDetails({
         id: trashpointId,
-        focusMap: !!querystring.parse(history.location.search).focus,
+        // focusMap: !!querystring.parse(history.location.search).focus,
       });
     }
   }
@@ -171,6 +175,7 @@ class TrashDetails extends React.Component {
         history={this.props.history}
         actions={this.actions}
         canEdit={this.canUserEditTrashPoint()}
+        showHeader={this.props.showHeader}
       />
     );
   }

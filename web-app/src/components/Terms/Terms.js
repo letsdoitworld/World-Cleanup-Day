@@ -8,8 +8,9 @@ import { noop } from '../../shared/helpers';
 const TERMS_URL =
 'https://storeldiweuprod.blob.core.windows.net/static-resources/terms_new.html';
 
-const Terms = ({ onAccept, onDecline }) =>
+const Terms = ({ onAccept, onDecline, ifCastShadow }) =>
   (<div className="Terms-container">
+    <div className="Terms-cover" />
     <div className="Terms-header">
       <span className="Terms-header-title">Terms and conditions</span>
       <div onClick={onDecline || noop} className="Terms-header-close">
@@ -34,11 +35,13 @@ const Terms = ({ onAccept, onDecline }) =>
 Terms.propTypes = {
   onAccept: PropTypes.func,
   onDecline: PropTypes.func,
+  ifCastShadow: PropTypes.bool,
 };
 
 Terms.defaultProps = {
   onAccept: null,
   onDecline: null,
+  ifCastShadow: false,
 };
 
 export default Terms;

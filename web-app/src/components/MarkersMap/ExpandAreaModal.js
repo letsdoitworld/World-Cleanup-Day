@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { expandArea, CloseIcon } from '../common/Icons';
 
-export const ExpandAreaModal = ({ isVisible, hideModal }) =>
+export const ExpandAreaModal = ({ isVisible, hideModal, onExpandClick }) =>
   (
     <div className={classnames('Expand-area-modal', { 'Expand-area-modal-visible': isVisible })}>
       <div className="Expand-area-modal-header">
@@ -26,8 +26,8 @@ export const ExpandAreaModal = ({ isVisible, hideModal }) =>
           <span className="Terms-accept-button-text">Cancel</span>
         </div>
         <div
-          onClick={hideModal}
-          className="Expand-area-modal-close Expand-area-modal-btn"
+          onClick={onExpandClick}
+          className="Expand-area-modal-expand Expand-area-modal-btn"
         >
           <span className="Terms-accept-button-text">Expand</span>
         </div>
@@ -38,4 +38,5 @@ export const ExpandAreaModal = ({ isVisible, hideModal }) =>
 ExpandAreaModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   hideModal: PropTypes.func.isRequired,
+  onExpandClick: PropTypes.func.isRequired,
 };

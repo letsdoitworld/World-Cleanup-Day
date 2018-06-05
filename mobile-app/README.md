@@ -1,12 +1,11 @@
-#WARNING
-BUILDING ON ANDROID UPDATES THE JS IN THE ALREADY DEPLOYED CLIENTS
-FOR MORE DETAILS SEE [this](https://expo.canny.io/feature-requests/p/support-isremotejsenabled-on-android)
+
 
 ## Local development instructions
 
-1. yarn
-2. yarn start
-3. open the app in the expo mobile app
+1. npm install
+2. cd ios
+3. install cocoapods (see instruction: https://cocoapods.org/)
+3. pod install
 
 ## Build instructions
 1. Create an env.js with the following exported variables: 
@@ -14,44 +13,90 @@ FOR MORE DETAILS SEE [this](https://expo.canny.io/feature-requests/p/support-isr
   - FACEBOOK_APP_ID
   - GOOGLE_ANDROID_APP_ID
   - GOOGLE_IOS_APP_ID
-2. Create a app.json file. During the writing of this file, app.json contained the following keys :
-  - name
-  - version
-  - sdkVersion ( this is set to v18.0.0 for now )
-  - orientation
-  - icon
-  - slug
-  - loading :
-    - icon
-  - facebookScheme
-  - ios :
-   - bundleIdentifier
-   - buildNumber
-   - supportsTablet
-   - config :
-      - googleSignIn :
-        - reservedClientId
-      - googleMapsApiKey
-  - android :
-    - package
-    - config :
-    - googleSignIn :
-      - apiKey
-      - certificateHash
-    - googleMaps :
-      - apiKey
+  - PRIVACY_URL
+  - TERMS_URL
+  - SENTRY_URL
+  - BASE_URL
+2. Create an branch.json file
+## Build Android app
+1. Generate your Fabric api key and add it in android/app/src/Manifest.xml
+`<meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="YOUR_FABRIC_API_KEY" />`
+2. Add your google maps api key in android/app/src/Manifest.xml
+`<meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_GOOGLE_MAP_API_KEY" />`
+3. Add Fabric apiSecret in android/app/fabric.properties
+4. Add facebook credentials in android/app/src/main/res/values/strings
+  `<string name="facebook_app_id">FB_AAP_ID</string>
+   <string name="fb_login_protocol_scheme">FB_PROTOCOL</string>`
+5. Create sentry.properties file with the following exported variables:
+      `defaults.url=https://sentry.io/
+      defaults.org=ORG
+      defaults.project=PROGECT
+      auth.token=YOUR_TOKEN
+      cli.executable=node_modules/sentry-cli-binary/bin/sentry-cli`
+6. Create google.json file for Google log in
+7. Run react-native-cli start
+## Build iOS app
+1. Add your keys in mobile-app/ios/mobileapp/Info.plist
+- Google maps api key
+    `<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>YOUR_IOS_GOOGLE_MAP_KEY.apps.googleusercontent.com</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>YOUR_IOS_GOOGLE_MAP_KEY.apps.googleusercontent.com</string>
+			</array>
+		</dict>`
+- Facebook credentials
+  `<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>YOUR_FB</string>
+			</array>
+		</dict>`
+    `<key>FacebookAppID</key>
+	  <string>YOUR_FacebookAppID</string>`
+ - Fabric api key
+    `<key>Fabric</key>
+	  <dict>
+		<key>APIKey</key>
+		<string>YOUR_FABRIC_KEY</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>`
+- Branch key
+    `<key>branch_key</key>
+    <string>YOUR_BRANCH_KEY</string>`
+2. Create sentry.properties file with the following exported variables:
+      `defaults.url=https://sentry.io/
+      defaults.org=ORG
+      defaults.project=PROGECT
+      auth.token=YOUR_TOKEN
+      cli.executable=node_modules/sentry-cli-binary/bin/sentry-cli`
+3. Create GoogleService-Info.plist and add to iOS project
+4. Run react-native-cli start
+
 
 ### References
- - [app.json configuration](https://docs.expo.io/versions/v18.0.0/guides/configuration.html)
- - [expo facebook configuration](https://docs.expo.io/versions/v18.0.0/sdk/facebook.html)
- - [expo google configuration](https://docs.expo.io/versions/v18.0.0/sdk/google.html)
- - [expo build instructions](https://docs.expo.io/versions/v18.0.0/guides/building-standalone-apps.html)
+ - [cocoapods](https://cocoapods.org/)
+ - [crashlytics for android](https://fabric.io/kits/android/crashlytics/installl)
+ - [crashlytics for ios](https://fabric.io/kits/ios/crashlytics/install)
+ - [react-native](https://facebook.github.io/react-native/docs/getting-started.html)
+ - [branch](https://docs.branch.io/pages/dashboard/integrate/)
  
 ## Known issues
-
-* CopyPlistFile build/Build/Products/Debug-iphonesimulator/mobileapp.app/GoogleService-Info.plist /Users/annaseverinovskaya/Documents/Downloads/GoogleService-Info.plist
-
-To fix put the GoogleService-Info.plist file from the mobile-app folder to Downloads.
 
 * https://github.com/oblador/react-native-vector-icons/issues/626
 
@@ -74,7 +119,5 @@ keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -
 * You need Cocoapods  version 1.3.1. Check your version, please!
 * Go to ios project 
 * Enter pods install
-* Go to Xcode. Go to Build Settings -> Framework Search path and add path to your FacebookSDK (It's known issue and we fix it soon)
-* Please, do not add Pods/ under the git!
 
 

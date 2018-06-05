@@ -24,7 +24,7 @@ const fetchTeams = search => {
 
     dispatch({ type: types.FETCH_TEAMS_REQUEST });
 
-    const response = await Api.get(API_ENDPOINTS.FETCH_TEAMS(getState().user.profile.entity.country || 'EN', search));
+    const response = await Api.get(API_ENDPOINTS.FETCH_TEAMS(getState().user.profile.entity.country || 'EN', search))
 
     if (!response) {
       return dispatch({ type: types.FETCH_TEAMS_FAILED });
@@ -38,6 +38,25 @@ const fetchTeams = search => {
   };
 };
 
+const fetchTeamsByCountry = () => {
+  return async (dispatch, getState) => {
+    dispatch({ type: types.FETCH_TEAMS_REQUEST });
+    const country = getState().user.profile.entity.country || 'EN';
+    const response = await Api.get(API_ENDPOINTS.FETCH_TEAMS_BY_COUNTRY(country));
+
+    if (!response) {
+      return dispatch({ type: types.FETCH_TEAMS_BY_COUNTRY_FAILED });
+    }
+
+    const { data } = response;
+    const filteredTeams = data.filter(team => team.CC === undefined || team.CC === country);
+    dispatch({
+      type: types.FETCH_TEAMS_BY_COUNTRY_SUCCESS,
+      payload: filteredTeams,
+    });
+  }
+};
+
 const clearTeams = () => (dispatch => {
   dispatch({ type: types.CLEAR_TEAMS_SUCCESS });
 });
@@ -46,5 +65,6 @@ const clearTeams = () => (dispatch => {
 export default {
   updateTeam,
   fetchTeams,
-  clearTeams
+  clearTeams,
+  fetchTeamsByCountry
 };

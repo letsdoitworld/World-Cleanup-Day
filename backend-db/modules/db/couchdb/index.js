@@ -47,8 +47,7 @@ const layer = {
         const id = util.uuid.random();
         await adapter.createDocument('Event', id, event, {
           createDate: util.time.getNowUTC(),
-          createdBy: userId,
-          peoples: []
+          createdBy: userId
         });
         return await layer.getEvent(id);
     },

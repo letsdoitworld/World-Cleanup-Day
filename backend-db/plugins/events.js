@@ -9,7 +9,7 @@ const _ = require("lodash");
 const PLUGIN_NAME = 'events';
 
 const mapEvent = async event => {
-    event.peopleAmount = event.peoples ? event.peoples.length : 0;
+    event.offlineAttendeesAmount = event.offlineAttendeesAmount ? event.offlineAttendeesAmount : 0;
     if (event.createdBy) {
       const createdByUser = await db.getAccount(event.createdBy);
       event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
@@ -174,6 +174,7 @@ module.exports = function () {
                 if (event.offlineAttendeesAmount > event.maxPeopleAmount) {
                     return responder.failure(new LuciusError(E.OFFLINE_ATTENDEES_AMOUNT));
                 }
+                event.attendeesAmount = event.offlineAttendeesAmount;
                 const savedEvent = await db.createEvent(__.user.id, event);
                 const mappedEvent = await mapEvent(savedEvent);
                 //TODO Status TRUE should be implemented all over the project. For now it's just mock data

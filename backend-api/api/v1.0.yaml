@@ -900,6 +900,9 @@ parameters:
         offlineAttendeesAmount:
           description: The number of offline attendees
           type: number
+        attendeesAmount:
+          description: The number of attendees
+          type: number
         trashpoints:
          type: array
          items:

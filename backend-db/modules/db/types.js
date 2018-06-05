@@ -117,7 +117,7 @@ class Event extends Type {
             trashpoints: true,
             maxPeopleAmount: true,
             offlineAttendeesAmount: true,
-            peoples: true,
+            attendeesAmount: true,
             createdBy: true,
             updatedBy: true,
         });
@@ -249,7 +249,7 @@ const datatypeFactory = (datatype, data) => {
     case 'Area':
         return new Area(data);
     case 'Event':
-        return new Event(data)
+        return new Event(data);
     default:
         throw new TypeError(`Unknown data type '${datatype}'.`)
     }

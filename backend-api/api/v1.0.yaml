@@ -657,6 +657,20 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /trashpoints/details:
+     x-swagger-router-controller: trashpoints
+     get:
+       description: Get compositions and origins trashpoints.
+       operationId: getDetailsTrashpoints
+       x-security: [bearer]
+       responses:
+         "200":
+           description: Types trashpoints.
+           schema:
+             type: object
+         "default":
+           $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /trashpoints/{id}/images:
     x-swagger-router-controller: images
     get:
@@ -899,6 +913,9 @@ parameters:
           type: number
         offlineAttendeesAmount:
           description: The number of offline attendees
+          type: number
+        attendeesAmount:
+          description: The number of attendees
           type: number
         trashpoints:
          type: array

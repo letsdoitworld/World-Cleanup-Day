@@ -110,7 +110,7 @@
    "label_location_permission_warning_android": "Вы павінны змяніць дазвол месцазнаходжання. Для гэтага, перайдзіце ў раздзел Налады> Праграмы.",
    "label_location_off_warning": "Сервісы вызначэння месцазнаходжання адключаныя. Калі ласка, уключыце ваш GPS у наладах, каб выкарыстоўваць праграму.",
    "label_location_modal_title": "Уключыць месцазнаходжанне",
-   "label_network_off_warning_title": "Welcome to offline mode!",
+   "label_network_off_warning_title": "Запрашаем у аўтаномны рэжым!",
    "label_network_off_warning": "Перадача мабільных дадзеных адключаная. Уключыць перадачу мабільных дадзеных або падключыць тэлефон да Wi-Fi, каб выкарыстоўваць праграму.",
    "label_loading_image_text": "Амаль там...",
    "label_loading_image_subtext": "Пачакайце, пакуль мы захаваем вашыя дзеянні.",

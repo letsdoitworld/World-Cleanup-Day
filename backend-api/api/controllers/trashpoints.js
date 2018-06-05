@@ -38,8 +38,8 @@ module.exports = {
             id: req.swagger.params.id.value,
         }),
     ),
-    getDetailsTrashpoints: senecaRequestMw(
-        'role:db,cmd:getDetailsTrashpoints',
+    getTrashpointDetails: senecaRequestMw(
+        'role:db,cmd:getTrashpointDetails',
         req => ({}),
     ),
     removeTrashpoint: senecaRequestMw(

@@ -524,7 +524,7 @@ const layer = {
         );
     },
 
-    getDetailsTrashpoints: async () => {
+    getTrashpointDetails: async () => {
       return await adapter.getRawDocs(
           'Detail',
           '_design/all/_view/view'

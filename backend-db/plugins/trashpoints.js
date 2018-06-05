@@ -196,11 +196,11 @@ module.exports = function () {
         })
     });
 
-    lucius.register('role:db,cmd:getDetailsTrashpoints', async function (connector, args) {
+    lucius.register('role:db,cmd:getTrashpointDetails', async function (connector, args) {
         return connector
             .input(args)
             .use(async function ({}, responder) {
-                const trashpointsDetails = await db.getDetailsTrashpoints();
+                const trashpointsDetails = await db.getTrashpointDetails();
                 const filtered = trashpointsDetails.map(value => util.object.filter(
                     value,
                     {trashpoint_origins: true, trashpoint_compositions: true}

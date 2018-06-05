@@ -661,7 +661,7 @@ paths:
      x-swagger-router-controller: trashpoints
      get:
        description: Get compositions and origins trashpoints.
-       operationId: getDetailsTrashpoints
+       operationId: getTrashpointDetails
        x-security: [bearer]
        responses:
          "200":

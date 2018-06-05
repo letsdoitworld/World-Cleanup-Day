@@ -147,11 +147,11 @@
    "label_text_join_a_team": "Pridružite se timu",
    "label_text_join_a_team_description": "Join your sisters and brothers in arms!",
    "label_text_search_placeholder": "Pronađite tim ",
-   "label_text_search_teams": "Search teams",
+   "label_text_search_teams": "Pronađite timove",
    "label_text_search_for_a_team": "Search for a team!",
    "label_text_work_together": "Work together with other people and create competings teams. The winner is the world!",
    "label_text_trashpoint": "Trashpoint",
-   "label_no": "No",
-   "label_yes": "Yes",
+   "label_no": "Ne",
+   "label_yes": "Da",
    "label_cancel": "Poništi"
 }

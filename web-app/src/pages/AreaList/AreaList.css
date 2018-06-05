@@ -1,0 +1,49 @@
+.AreaList {
+    width: 325px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.AreaList-message {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.AreaList-top-band {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    align-items: center;
+}
+
+.AreaList-top-band-back {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.AreaList-top-band-left-arrow {
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 7px solid rgba(43,43,43,0.98);
+}
+
+.AreaList-top-band-area {
+    flex: 1;
+    color: rgba(43, 43, 43, 0.98);
+    font-family: "Noto Sans";
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+}

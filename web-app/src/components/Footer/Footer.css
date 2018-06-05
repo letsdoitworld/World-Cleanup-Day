@@ -1,0 +1,26 @@
+.Footer {
+  display: flex;
+  height: 45px;
+  width: 640px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  border-top-right-radius: 50px;
+  background: #3e8ede;
+  box-shadow: 1px -2px 15px rgba(0,0,0,0.2);
+}
+
+.Footer-button-container {
+  display: flex;
+  align-items: bottom;
+  padding: 0 50px;
+  position:relative;
+}
+
+.Footer-separator {
+  width: 1px;
+  margin: 16px 20px 12px 20px;
+  background: #D9D9D9;
+  opacity: 0.6;
+}

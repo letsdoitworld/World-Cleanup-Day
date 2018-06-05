@@ -1,0 +1,10 @@
+{
+  "name": "module-lucius",
+  "version": "1.0.0",
+  "description": "Seneca messaging framework.",
+  "main": "index.js",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+  }
+}

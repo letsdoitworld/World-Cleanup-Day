@@ -1,0 +1,117 @@
+.Search-this-area {
+  position: fixed;
+  border-radius: 22px;
+  width: 138px;
+  height: 34px;
+  top: 134px;
+  right: 20px;
+  z-index: 9;
+  background-color: #fff;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  line-height: 34px;
+  color: #008fdf;
+  font-size: 15px;
+  letter-spacing: -0.4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.Search-this-area-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.Expand-area-modal {
+  position: fixed;
+  background-color: #fff;
+  top: calc(50vh - 165px);
+  left: calc(50vw - 212px);
+  width: 425px;
+  height: 330px;
+  z-index: 9;
+  border-radius: 10px;
+  display: none;
+}
+
+.Expand-area-modal-visible {
+  display: block;
+}
+
+.Expand-area-modal-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 22px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Expand-area-modal-header-title {
+  width: 96%;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.Expand-area-modal-header img {
+  width: 14px;
+  height: 14px;
+  vertical-align: text-bottom;
+  cursor: pointer;
+}
+
+.Coala {
+  display: block;
+  margin: 24px auto;
+}
+
+.Expand-area-modal-text {
+  text-align: center;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 24px auto;
+}
+
+.Expand-area-modal-btns {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #fff;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: relative;
+  bottom: 5px;
+  text-align: right;
+}
+
+.Expand-area-modal-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 125px;
+  height: 36px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 14px;
+  line-height: 36px;
+  border-radius: 2px;
+}
+
+.Expand-area-modal-cancel {
+  color: #3e8ede;
+  margin-right: 12px;
+}
+
+.Expand-area-modal-expand {
+  margin-right: 24px;
+  color: #fff;
+  background-color: #3e8ede;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+}

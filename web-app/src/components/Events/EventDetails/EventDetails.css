@@ -1,0 +1,172 @@
+.EventDetails {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.EventDetails p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.EventDetails-width-45 {
+  width: 45%;
+}
+
+.EventDetails-width-55 {
+  width: 55%;
+}
+
+.EventDetails-width-60 {
+  width: 59%;
+}
+
+.EventDetails-cover {
+  width: 100%;
+  min-height: 160px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.EventDetails-plot {
+  padding: 16px 0;
+}
+
+.EventDetails-plot img {
+  vertical-align: top;
+  margin-right: 14px;
+}
+
+.EventDetails-infoblock {
+  padding: 20px 30px;
+  border-bottom: 0.2px solid rgba(0,0,0,0.3);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.EventDetails-header {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #3e8ede;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.EventDetails-location,
+.EventDetails-actions,
+.EventDetails-timing,
+.EventDetails-coordinator-part,
+.EventDetails-attend-part,
+.EventDetails-creator-part {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.part1 img {
+  margin-right: 10px;
+}
+
+.EventDetails-trashpoints {
+  cursor: pointer;
+}
+
+.EventDetails-trashpoints-num {
+  font-size: 17px;
+  display: inline-block;
+  width: 29px;
+  height: 29px;
+  background-color: #e11383;
+  color: white;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 28px;
+  float: right;
+  font-weight: bold;
+  position: relative;
+  bottom: 5px;
+  right: 10px;
+}
+
+.pointer {
+  font-size: 28px;
+  float: right;
+  vertical-align: middle;
+  color: #008fdf;
+  position: relative;
+  bottom: 10px;
+  right: 0px;
+}
+
+.EventDetails-coordinator-part {
+  margin: 18px auto;
+}
+
+.swiper-wrapper {
+  height: 130px;
+}
+
+.swiper-pagination-bullet-active {
+  color: #3e8ede !important;
+}
+
+.EventDetails-actions-report {
+  cursor: pointer;
+}
+
+.EventDetails-report {
+  color: #e11383;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.EventDetails-share {
+  color: #3e8ede;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.EventDetails-attend-part img {
+  position: relative;
+  top: 3px;
+}
+
+.EventDetails-location-address {
+  line-height: 1.43;
+}
+
+.EventDetails-TrashpointList {
+  width: 100%;
+  height: 100%;
+}
+
+.EventDetails-TrashpointListItem {
+  cursor: pointer;
+  width: 100%;
+  height: 80px;
+  box-sizing: border-box;
+  padding: 0 30px 20px 30px;
+  font-size: 14px;
+  border-bottom: 1px solid #ececec;
+}
+
+.EventDetails-TrashpointListItem p {
+  line-height: 80px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.EventDetails-TrashpointListItem-status {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  margin-right: 16px !important;
+}
+
+.EventDetails-TrashpointListItem img {
+  vertical-align: middle;
+  margin-right: 4px;
+}

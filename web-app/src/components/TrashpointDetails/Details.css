@@ -1,0 +1,249 @@
+.Tpdetails {
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: visible;
+}
+
+.ReactModal__Overlay {
+  z-index: 9;
+}
+
+.Tpdetails-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 22px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Tpdetails-loader-container {
+  width: 100%;
+  height: calc(100vh - 230px);
+  transition: all 0.5s ease-in-out;
+}
+
+.Tpdetails-header-title {
+  width: 90%;
+  margin: 0 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
+}
+
+.Tpdetails-plot {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+  height: calc(100vh - 230px);
+}
+
+.visible {
+  display: flex;
+}
+
+.Tpdetails-header-minimize {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.Tpdetails-header-minimize img {
+  width: 12px;
+  height: 12px;
+}
+
+.Create-trashpoint {
+  position: fixed;
+  bottom: 75px;
+  right: 50px;
+  height: 40px;
+  width: 140px;
+  border-radius: 100px;
+  background: #3e8ede;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.Create-trashpoint span {
+  text-align: center;
+  height: 20px;
+  width: 123px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.Details-close-button {
+  background-image: linear-gradient(-179deg, #4AA5FF 0%, #3E8EDE 100%);
+  position: absolute;
+  top: 0;
+  right: 10px;
+  padding: 7px 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+.Details-close-button img {
+  width: 14px;
+  height: 14px;
+}
+
+.Details-address-container {
+  margin-top: 5px;
+  display: flex;
+}
+
+.Details-address-container img {
+  width: 11px;
+}
+
+.Details-address-container span {
+  padding-left: 10px;
+}
+
+.Details-address {
+  font-size: 14px;
+  color: #282633;
+  letter-spacing: normal;
+}
+
+.Details-actions-share {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.Details-actions-share img {
+  vertical-align: text-bottom;
+  margin-right: 14px;
+}
+
+.Details-width-45 {
+  width: 45%;
+}
+
+.Details-default-container {
+  padding: 20px 30px;
+  border-top: 1px solid #D9D9D9;
+}
+
+.Details-creation-info-block {
+  margin: 20px 0 0 0;
+}
+
+.Details-creation-info-block img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.Details-creation-info-block span {
+  font-size: 14px;
+}
+
+.Details-trash-type-title {
+  font-size: 14px;
+  color: #4a90e2;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.Details-composition-tag-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.Details-composition-tag {
+  background: #fff;
+  flex: 1;
+  max-width: 110px;
+  height: 36px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  color: #3e8ede;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 3px 5px;
+  font-size: 12px;
+  cursor: pointer;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  border: 1px solid #3e8ede;
+}
+
+.Tag-label {
+  max-width: 90px;
+  padding: 5px;
+  flex: 1;
+  cursor: inherit;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: 'Lato';
+  font-weight: 600;
+}
+
+.Details-filler {
+  flex: 1;
+  background: #eee;
+}
+
+.Details-edit-container {
+  height: 100px;
+  padding: 20px;
+  text-align: center;
+}
+
+.Details-edit-container span {
+  font-size: 13px;
+}
+
+.Details-edit-container .buttons {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Details-edit-container .buttons button {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .5);
+  border-radius: 100px;
+  height: 35px;
+  padding: 0 23px;
+  min-width: 85px;
+  font-weight: 700;
+}
+
+.Details-edit-container .buttons button:first-of-type {
+  background-image: linear-gradient(-180deg, #b4ec51 3%, #52ba28 100%);
+  color: #2d5917;
+  font-size: 13px;
+}
+
+.Details-edit-container .buttons button:last-of-type {
+  background-image: linear-gradient(-180deg, #fff 0%, #f1f1f1 100%);
+  color: #3e8ede;
+  font-size: 13px;
+}

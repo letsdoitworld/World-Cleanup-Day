@@ -1,0 +1,40 @@
+.App {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.t-a-c {
+  text-align: center;
+}
+
+.cur-p {
+  cursor: pointer;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.d-b {
+  display: block;
+}
+
+.d-n {
+  display: none;
+}
+
+.gm-fullscreen-control {
+  display: none !important;
+}
+
+.Root-component {
+  flex: 1;
+  display: flex;
+}

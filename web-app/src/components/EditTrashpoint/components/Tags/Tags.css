@@ -1,0 +1,114 @@
+.Tags-Composition-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.Tags-custom-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.Tags-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #4a90e2;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+.Tag-container {
+  flex: 1;
+  max-width: 110px;
+  height: 36px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background-color: white;
+  color: #282633;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 3px 5px;
+  font-size: 12px;
+  cursor: pointer;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  flex-direction: row;
+  border: solid 1px #7b7d80;
+}
+
+.Tag-container.selected {
+  color: white;
+  border: solid 1px #3e8ede;
+  background-color: #4a90e2;
+}
+
+.Tag-label {
+  max-width: 90px;
+  padding: 5px;
+  flex: 1;
+  cursor: inherit;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.Tags-add-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Tags-add-input {
+  height: 30px;
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+  border-radius: 3px;
+  flex: 1;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 25px;
+  box-sizing: border-box;
+}
+
+.Tags-add-button {
+  cursor: pointer;
+  position: relative;
+  background-color: #3e8ede;
+  border: 1px solid #dcdcdc;
+  width: 114px;
+  left: -5px;
+  border-radius: 2px;
+  height: 30px;
+  flex: -1;
+  padding: 10px;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.Tags-add-button-text {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.Tag-delete-container {
+  flex:0;
+  background-color: linear-gradient(-180deg, #fff 0%, #f1f1f1 100%);
+  padding: 5px;
+  border-radius: 3px;
+  float: right;
+}

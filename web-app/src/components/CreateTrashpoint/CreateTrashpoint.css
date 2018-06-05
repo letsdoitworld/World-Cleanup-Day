@@ -1,0 +1,160 @@
+.CreateTrashpoint {
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.CreateTrashpoint-plot {
+  max-height: calc(100vh - 230px);
+  overflow-y: auto;
+}
+
+.CreateTrashpoint-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 22px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.CreateTrashpoint-title {
+  width: 90%;
+  margin: 0 14px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
+}
+
+.CreateTrashpoint-close-button {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.CreateTrashpoint-address-container {
+  margin-top: 5px;
+  display: flex;
+}
+
+.CreateTrashpoint-address-container img {
+  width: 11px;
+}
+
+.CreateTrashpoint-address-container span {
+  padding-left: 10px;
+}
+
+.CreateTrashpoint-address {
+  font-size: 13px;
+  color: #808080;
+  letter-spacing: 0;
+}
+
+.CreateTrashpoint-edit-location-container {
+  width: 100%;
+}
+
+.CreateTrashpoint-edit-location-container img {
+  vertical-align: text-top;
+  margin-right: 15px;
+}
+
+.CreateTrashpoint-edit-location-button {
+  color: #3e8ede;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+.CreateTrashpoint-default-container {
+  padding: 20px 30px;
+  border-top: 1px solid #d9d9d9;
+}
+
+.CreateTrashpoint-trash-type-title {
+  font-size: 15px;
+  color: rgba(43, 43, 43, 0.98);
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+.CreateTrashpoint-composition-tag {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.CreateTrashpoint-composition-tag span {
+  background-image: linear-gradient(-180deg, #E3E3E3 0%, #C3C3C3 100%);
+  border-radius: 52px;
+  padding: 5px 15px;
+  font-size: 13px;
+  color: rgba(43, 43, 43, 0.98);
+  letter-spacing: 0;
+  line-height: 14px;
+  margin: 0 5px 10px 0;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.CreateTrashpoint-filler {
+  flex: 1;
+  background: #eee;
+}
+
+.CreateTrashpoint-button-container{
+  display: flex;
+  flex-direction: column;
+  margin-top:20px;
+  margin-bottom: 20px;
+  background-color: white;
+  border-top: none;
+}
+.CreateTrashpoint-edit-button {
+  cursor: pointer;
+  height: 35px;
+  width: 240px;
+  background: #3e8ede;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.CreateTrashpoint-edit-button p {
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}
+
+.CreateTrashpoint-delete-button{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.CreateTrashpoint-delete-button p {
+  cursor: pointer;
+  text-align: center;
+  color: #EB5E63;
+  text-decoration: underline;
+  font-weight: bold;
+}

@@ -1,0 +1,119 @@
+.TrashAmount {
+  width: 100%;
+  position: relative;
+}
+
+.TrashAmount-title {
+  font-size: 14px;
+  color: #4a90e2;
+  letter-spacing: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.TrashAmount-container-images {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+
+.completer {
+  flex: 0.125;
+}
+
+.completer-wrapper {
+  display: flex;
+  margin-top: 15px;
+}
+
+.completer.filled {
+  background-color: #3e8ede;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.completer.filled.disabled {
+  background-color: #3e8ede;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.TouchableChildContainer {
+  background-color: #e8f1fb;
+  position: relative;
+  display: flex;
+  border-radius: 10px;
+}
+
+.BarContainer {
+  height: 8px;
+  background-color: #3e8ede;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.BarContainer-first {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.BarContainer.BarContainer-disabled {
+  background-color: #3e8ede;
+}
+
+.BarContainer-last {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.BarContainer-label {
+  color: #282633;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+.SliderButton {
+  display: flex;
+  position: relative;
+  left: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 11px;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px 0 #a4c7f0;
+}
+
+.InsideSliderButton {
+  background-color: #3e8ede;
+  width: 8px;
+  height: 8px;
+  border-radius: 6px;
+}
+
+.TrashAmount-types {
+  margin-top: 5px;
+  height: 30px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.TrashAmount-types-text {
+  text-align: center;
+  color: #282633;
+  width: 25%;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.selected {
+  color: #3e8ede;
+  font-weight: bold;
+}
+
+.TrashAmount-selected-text.disabled{
+  color: rgba(43,43,43,0.98);
+}

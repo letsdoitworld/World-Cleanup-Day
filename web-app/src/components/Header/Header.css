@@ -1,0 +1,35 @@
+.Header {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+.Header-main-nav {
+  display: flex;
+  flex-direction: row;
+  height: 65px;
+  background: #3e8ede;
+}
+
+.Header-filters-placeholder {
+  height: 56px;
+  color: #fff;
+}
+
+.Header-logo-container {
+  position: relative;
+  z-index: 9;
+  width: 220px;
+}
+
+.Header-links-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  flex: 1;
+}
+
+.Header-button-container {
+  display: flex;
+  position: relative;
+}

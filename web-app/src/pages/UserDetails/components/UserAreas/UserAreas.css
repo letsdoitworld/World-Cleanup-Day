@@ -1,0 +1,21 @@
+.UserAreas-container {
+    border-bottom: solid 1px #E6E6E6;
+    margin-bottom: 5px;
+}
+
+.UserAreas-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+}
+
+.UserAreas-name {
+    margin-left: 10px;
+}
+
+.UserAreas-remove {
+    cursor: pointer;
+    margin-right: 10px;
+}

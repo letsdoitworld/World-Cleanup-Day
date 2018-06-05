@@ -1,0 +1,130 @@
+.Event-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 30px 6px 30px;
+}
+
+.Event-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.Event-details img {
+  vertical-align: text-top;
+  width: 16px;
+  height: 16px;
+}
+
+.Event-details-part1 {
+  margin: 0 10px;
+  width: 173px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Event-details-part2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.Event-info {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.Event-title {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
+.Event-creator {
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
+.Event-creator span {
+  position: relative;
+  left: 4px;
+}
+
+.Event-status {
+  color: #fff;
+  font-weight: bold;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  border-radius: 8px;
+  background-color: #3e8ede;
+  padding: 2px 8px;
+  align-self: flex-start;
+}
+
+.Event-location {
+  font-size: 10px;
+  color: rgba(0,0,0,0.4);
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  position: relative;
+  top: 3px;
+}
+
+.Event-location span {
+  position: relative;
+  top: 3px;
+  left: 2px;
+}
+
+.Event-fill {
+  font-size: 10px;
+  border-radius: 8px;
+  color: #282633;
+  background-color: #ffd800;
+  padding: 4px 8px;
+  font-weight: bold;
+  margin-left: auto;
+  align-self: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 54px;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+.Event-date {
+  font-size: 10px;
+  font-weight: bold;
+  align-self: flex-end;
+  margin-top: auto;
+}
+
+.Event-avatar {
+  width: 70px !important;
+  height: 70px !important;
+  min-width: 70px !important;
+  min-height: 70px !important;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.Event-divider {
+  height: 1px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: rgba(127, 127, 127, 0.4);
+  opacity: 0.2;
+}

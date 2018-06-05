@@ -1,0 +1,16 @@
+{
+  "name": "backend-api",
+  "version": "1.0.0",
+  "description": "REST API microservice.",
+  "main": "app.js",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "cors": "=2.8.4",
+    "express": "=4.15.3",
+    "express-bearer-token": "=2.1.0",
+    "js-yaml": "=3.9.0",
+    "morgan": "=1.8.2",
+    "swagger-tools": "=0.10.1"
+  }
+}

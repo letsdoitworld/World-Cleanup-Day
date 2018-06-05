@@ -1,0 +1,26 @@
+.TrashpointDate {
+  margin-top: 5px;
+}
+
+.TrashpointDate-image-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.TrashpointDate-label {
+  font-size: 13px;
+  color: #7D7D7D;
+  margin-left: 5px;
+}
+
+.TrashpointDate-date {
+  margin-left: 5px;
+  color: #2B2B2B;
+  font-size: 13px;
+}
+
+.m-l-7 {
+  margin-left: 7px;
+}

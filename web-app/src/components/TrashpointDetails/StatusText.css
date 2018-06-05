@@ -1,0 +1,10 @@
+.StatusText {
+  display: flex;
+  min-height: 18px;
+}
+
+.StatusText span {
+  font-size: 17px;
+  padding-left: 8px;
+  padding-top: 2px;
+}

@@ -1,0 +1,14 @@
+{
+  "name": "backend-auth",
+  "version": "1.0.0",
+  "description": "Auth and session handling service.",
+  "main": "app.js",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "azure-storage": "=2.2.1",
+    "fbgraph": "=1.4.1",
+    "googleapis": "=20.0.1",
+    "jsonwebtoken": "=7.4.1"
+  }
+}

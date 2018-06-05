@@ -1,0 +1,17 @@
+{
+  "name": "backend-db",
+  "version": "1.0.0",
+  "description": "Persistent storage service.",
+  "main": "app.js",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "bluebird": "=3.5.0",
+    "caught": "=0.1.1",
+    "lodash": "^4.17.5",
+    "node-couchdb": "=1.1.1",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
+    "sort-by-distance": "^1.0.0"
+  }
+}

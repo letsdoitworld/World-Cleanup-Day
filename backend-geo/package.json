@@ -1,0 +1,13 @@
+{
+  "name": "backend-geo",
+  "version": "1.0.0",
+  "description": "Microservice that resolves geospatial queries.",
+  "main": "app.js",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@turf/bbox": "=4.7.3",
+    "@turf/inside": "=4.7.3",
+    "caught": "=0.1.1"
+  }
+}

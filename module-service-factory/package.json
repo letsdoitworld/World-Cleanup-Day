@@ -1,0 +1,11 @@
+{
+  "name": "module-service-factory",
+  "version": "1.0.0",
+  "description": "Seneca microservice factory.",
+  "main": "index.js",
+  "author": "Qualitance",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "seneca": "=3.4.1"
+  }
+}

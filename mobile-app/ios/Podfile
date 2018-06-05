@@ -1,0 +1,45 @@
+platform :ios, '8.0'
+install! 'cocoapods', :deterministic_uuids => false, :integrate_targets => false
+target 'mobileapp' do
+
+    # this is very important to have!
+    rn_path = '../node_modules/react-native'
+    pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
+    pod 'Google/SignIn'
+    pod 'Firebase/Core'
+    pod 'React', path: rn_path, subspecs: [
+    'Core',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket'
+    ]
+    
+    pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
+    pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
+    pod 'FBSDKShareKit'
+    pod 'Google/SignIn'
+    pod 'Fabric'
+    pod 'Crashlytics'
+    pod 'GoogleMaps'
+    pod 'react-native-branch', :path => '../node_modules/react-native-branch'
+    pod 'Branch-SDK', path: '../node_modules/react-native-branch/ios'
+end
+
+# very important to have, unless you removed React dependencies for Libraries
+# and you rely on Cocoapods to manage it
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.name == "React"
+            target.remove_from_project
+        end
+    end
+end

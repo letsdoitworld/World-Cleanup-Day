@@ -1,0 +1,102 @@
+.swiper-container {
+  margin: 0;
+}
+
+.TrashPhotos {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.TrashPhotos-dropzone {
+  width: 121px;
+  height: 86px;
+  border: 2px dashed #a4c7f0;
+  background-color: #f6f8f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.TrashPhotos-dropzone-placeholder {
+  font-size: 14px;
+  color: #a4c7f0;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.TrashPhotos-title {
+  font-size: 14px;
+  color: #4a90e2;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+.TrashPhotos-images-container {
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.TrashPhotos-img-container {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.TrashPhotos-img-container img {
+  width: 135px;
+  height: 90px;
+  margin-top: 10px;
+}
+
+.TrashPhotos-img-container button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #3e8ede;
+  right: 12px;
+  top: 15px;
+}
+
+.TrashPhotos-img-container button img {
+  position: absolute;
+  top: -6px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+}
+
+.TrashPhotos-img-container-create {
+  position: relative;
+}
+
+.TrashPhotos-img-container-create img {
+  width: 125px;
+  height: 90px;
+  margin: 10px;
+}
+
+.TrashPhotos-img-container-create button img {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+}
+
+.TrashPhotos-img-container-create button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #3e8ede;
+  right: 15px;
+  top: 15px;
+}

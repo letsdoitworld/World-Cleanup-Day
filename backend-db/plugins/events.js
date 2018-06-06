@@ -8,8 +8,9 @@ const _ = require("lodash");
 
 const PLUGIN_NAME = 'events';
 
-const mapEvent = async event => {
+const   mapEvent = async event => {
     event.offlineAttendeesAmount = event.offlineAttendeesAmount ? event.offlineAttendeesAmount : 0;
+    event.attendeesAmount = event.attendeesAmount ? event.attendeesAmount : 0;
     if (event.createdBy) {
       const createdByUser = await db.getAccount(event.createdBy);
       event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);

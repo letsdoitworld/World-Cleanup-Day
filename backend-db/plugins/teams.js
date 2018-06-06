@@ -42,7 +42,7 @@ module.exports = function () {
             .use(async function ({CC, superadmin}, responder) {
                 const teams = await db.getAllTeams();
                 const filteredTeams = superadmin ? teams : teams.filter(team => team.CC === CC);
-                return responder.success(sortedTeams);
+                return responder.success(filteredTeams);
             });
     });
 

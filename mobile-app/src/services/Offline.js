@@ -39,7 +39,7 @@ class OfflineService {
             JSON.stringify(deletedPhotos)
         ]);
     } catch (e) {
-      console.log('saveTrashpoint ', e);
+      console.log('Save trashpoint error', e);
     }
 
     const dummyReturn = {data: newMarker};

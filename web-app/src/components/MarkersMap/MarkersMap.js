@@ -58,10 +58,8 @@ class MarkersMap extends React.Component {
     this.state = {
       updateRegion: true,
       searchVisible: false,
+      updatedOnMount: false,
     };
-  }
-
-  componentWillMount() {
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,11 +67,13 @@ class MarkersMap extends React.Component {
       this.loadMarkers(nextProps.tabActive);
     }
     if (
-      this.map &&
+      (this.map &&
       this.props.currentEventLocation &&
-      nextProps.currentEventLocation.latitude !== this.props.currentEventLocation.latitude
+      nextProps.currentEventLocation.latitude !== this.props.currentEventLocation.latitude) ||
+      (this.map &&
+      nextProps.currentEventLocation &&
+      !this.props.currentEventLocation)
     ) {
-      console.log('PAN TO MARKER');
       this.map.panTo({
         lat: nextProps.currentEventLocation.latitude,
         lng: nextProps.currentEventLocation.longitude,
@@ -104,6 +104,25 @@ class MarkersMap extends React.Component {
         };
         this.map.fitBounds(bounds);
       }
+    }
+  }
+
+  componentWillUpdate() {
+    /*
+      if user open app on direct link to event details
+      we should wait for it's location
+      and panTo & zoom to it's pin - update map's state
+      flag updatedOnMount helps us avoid undesirable effects
+      in future usage
+    */
+    if (this.props.currentEventLocation && !this.state.updatedOnMount) {
+      this.map.panTo({
+        lat: this.props.currentEventLocation.latitude,
+        lng: this.props.currentEventLocation.longitude,
+      });
+      this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
+      this.loadMarkers(this.props.tabActive);
+      this.setState({ updatedOnMount: true });
     }
   }
 

@@ -71,7 +71,7 @@ class OfflineService {
                 } catch (e) {
                   dataOk = false;
                 }
-                if (dataOk) {
+                if (dataOk && trashpoint && trashpoint.url && trashpoint.marker) {
                   const createMarkerResponse = await Api.put(trashpoint.url, trashpoint.marker);
                   if (createMarkerResponse || trashpoint && trashpoint.marker && !trashpoint.marker.datasetId) {
                     offlineDB.transaction(tx => {
@@ -106,7 +106,6 @@ class OfflineService {
           });
         }
       });
-
 
     });
   }

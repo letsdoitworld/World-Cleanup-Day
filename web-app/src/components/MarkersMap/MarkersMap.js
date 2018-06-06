@@ -68,7 +68,6 @@ class MarkersMap extends React.Component {
     if (nextProps.tabActive !== this.props.tabActive) {
       this.loadMarkers(nextProps.tabActive);
     }
-    console.log(this.props.currentEventLocation, nextProps.currentEventLocation);
     if (
       this.map &&
       this.props.currentEventLocation &&

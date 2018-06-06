@@ -116,7 +116,7 @@ const fetchAllEventMarkers = (
 
 const fetchEventsList = (rectangle, pageSize, pageNumber, address) =>
 async (dispatch, getState) => {
-  // const rectangle = appSelectors.getViewport(getState());
+  dispatch({ type: TYPES.FETCH_ALL_EVENTS_REQUEST });
   const response = await ApiService.get('events',
     {
       params: {
@@ -136,6 +136,10 @@ async (dispatch, getState) => {
   dispatch({
     type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
     events: response.data.records,
+    pageSize: response.data.pageSize,
+    pageNumber: response.data.pageNumber,
+    total: response.data.total,
+    totalPages: Math.ceil(response.data.total / response.data.pageSize),
   });
 };
 

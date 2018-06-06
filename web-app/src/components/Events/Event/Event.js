@@ -13,7 +13,6 @@ export const Event = ({
   avatar,
   title,
   location,
-  numberOfParticipants,
   maxNumberOfParticipants,
   date,
 }) => {
@@ -42,7 +41,7 @@ export const Event = ({
           </div>
           <div className="Event-details-part2">
             <p className="Event-fill Event-info">
-              {`${numberOfParticipants}/${maxNumberOfParticipants}`}
+              {`${0}/${maxNumberOfParticipants}`}
             </p>
             <p className="Event-date Event-info">
               {moment(date).format('L')}
@@ -59,7 +58,6 @@ Event.propTypes = {
   avatar: PropTypes.string,
   title: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
-  numberOfParticipants: PropTypes.number.isRequired,
   maxNumberOfParticipants: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
 };

@@ -38,6 +38,16 @@ export const getEventTitle = createSelector(
   state => get(state, 'event.name', 'Unknown title'),
 );
 
+export const getEventsListMeta = createSelector(
+  eventsSel,
+  state => ({
+    pageSize: state.pageSize,
+    pageNumber: state.pageNumber,
+    total: state.total,
+    totalPages: state.totalPages,
+  }),
+);
+
 export default {
   getEventsList,
   getAllEventMarkers,
@@ -46,4 +56,5 @@ export default {
   getCurrentMarkerID,
   getCurrentMarkerLocation,
   getEventDetails,
+  getEventsListMeta,
 };

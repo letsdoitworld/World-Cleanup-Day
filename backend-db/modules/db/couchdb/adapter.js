@@ -21,7 +21,8 @@ const TYPE_TO_DB_MAP = {
     'Account': 'accounts',
     'Session': 'sessions',
     'Area': 'areas',
-    'Event': 'events'
+    'Event': 'events',
+    'Detail': 'details',
 };
 
 const cdb = require('./driver');
@@ -118,6 +119,7 @@ const adapter = {
         if (!ret) {
             return [];
         }
+
         return ret.data.rows.map(row => row.value);
     },
     getEntities: async (datatype, view, options = {}) => {

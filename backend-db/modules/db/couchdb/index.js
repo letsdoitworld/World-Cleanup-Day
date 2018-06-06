@@ -522,6 +522,13 @@ const layer = {
             }
         );
     },
+
+    getTrashpointDetails: async () => {
+      return await adapter.getRawDocs(
+          'Detail',
+          '_design/all/_view/view'
+      );
+    },
     getGridCellTrashpoints: async (datasetId, cellSize, gridCoord) => {
         const scale = grid.getScaleForCellSize(cellSize);
         const ret = await adapter.getEntities(

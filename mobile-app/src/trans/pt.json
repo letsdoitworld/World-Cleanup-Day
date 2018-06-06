@@ -110,7 +110,7 @@
    "label_location_permission_warning_android": "Deve alterar as permissões de localização. Para fazer isso, dirija-se a Definições > Aplicações",
    "label_location_off_warning": "Serviços de localização estão desligados. Por favor ligue o seu GPS, nas Definições, para poder usar a aplicação.",
    "label_location_modal_title": "Permitir a localização",
-   "label_network_off_warning_title": "Welcome to offline mode!",
+   "label_network_off_warning_title": "Bem-vindo ao modo off-line",
    "label_network_off_warning": "Dados móveis encontram-se desligados. Ligue os dados móveis ou Wi-Fi para poder usar a aplicação.",
    "label_loading_image_text": "Quase lá...",
    "label_loading_image_subtext": "Por favor espere, enquanto guardamos as suas acções.",

@@ -22,13 +22,13 @@ export const handleApiError = (error) => {
   if (error && error.response && error.response.status === 403) {
     resetTo(rootNav, 'Login');
     store.dispatch(userOps.logout());
-  } else if (error.response && error.response.status) {
+  } else if (error && error.response && error.response.status) {
     const message = `${i18n.t(
       'label_error_modal_default_subtitle',
     )} [${error.response.status}]`;
     store.dispatch(appOperations.setErrorMessage(message));
   } else {
-    if (!appSelectors.isNoLackConnectionAlert) {
+    if (error && !appSelectors.isNoLackConnectionAlert) {
       store.dispatch(appOperations.setErrorMessage(error.message));
     }
   }

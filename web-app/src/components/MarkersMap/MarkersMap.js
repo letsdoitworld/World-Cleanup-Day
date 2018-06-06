@@ -50,6 +50,7 @@ class MarkersMap extends React.Component {
     focusedLocation: PropTypes.any,
     isExpandAreaModalVisible: PropTypes.bool.isRequired,
     hideExpandAreaModal: PropTypes.func.isRequired,
+    setViewport: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -57,6 +58,7 @@ class MarkersMap extends React.Component {
     this.state = {
       updateRegion: true,
       searchVisible: false,
+      updatedOnMount: false,
     };
   }
 
@@ -65,9 +67,12 @@ class MarkersMap extends React.Component {
       this.loadMarkers(nextProps.tabActive);
     }
     if (
-      this.map &&
-      this.props.currentEventLocation.latitude &&
-      nextProps.currentEventLocation !== this.props.currentEventLocation
+      (this.map &&
+      this.props.currentEventLocation &&
+      nextProps.currentEventLocation.latitude !== this.props.currentEventLocation.latitude) ||
+      (this.map &&
+      nextProps.currentEventLocation &&
+      !this.props.currentEventLocation)
     ) {
       this.map.panTo({
         lat: nextProps.currentEventLocation.latitude,
@@ -102,6 +107,25 @@ class MarkersMap extends React.Component {
     }
   }
 
+  componentWillUpdate() {
+    /*
+      if user open app on direct link to event details
+      we should wait for it's location
+      and panTo & zoom to it's pin - update map's state
+      flag updatedOnMount helps us avoid undesirable effects
+      in future usage
+    */
+    if (this.props.currentEventLocation && !this.state.updatedOnMount) {
+      this.map.panTo({
+        lat: this.props.currentEventLocation.latitude,
+        lng: this.props.currentEventLocation.longitude,
+      });
+      this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
+      this.loadMarkers(this.props.tabActive);
+      this.setState({ updatedOnMount: true });
+    }
+  }
+
   handleSetMapComponent = map => {
     this.map = map;
     if (map) {
@@ -125,7 +149,19 @@ class MarkersMap extends React.Component {
         height: parseInt(getComputedStyle(mapElContainer).height, 10),
         width: parseInt(getComputedStyle(mapElContainer).width, 10),
       };
-      const { nw, se } = getViewportPoints(this.map.getBounds());
+      // const { nw, se } = getViewportPoints(this.map.getBounds());
+      const nw = {
+        latitude: this.map.getBounds().getNorthEast().lat(),
+        longitude: this.map.getBounds().getSouthWest().lng(),
+      };
+      const se = {
+        latitude: this.map.getBounds().getSouthWest().lat(),
+        longitude: this.map.getBounds().getNorthEast().lng(),
+      };
+      this.props.setViewport({
+        nw,
+        se,
+      });
       const action = markersType === 'trashpoints'
          ? 'fetchAllTrashpoints'
          : 'fetchAllEventMarkers';
@@ -244,5 +280,6 @@ const mapDispatchToProps = {
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
   fetchClusterTrashpoints: trashpileActions.fetchClusterTrashpoints,
   hideExpandAreaModal: appActions.hideExpandAreaModal,
+  setViewport: appActions.setViewport,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

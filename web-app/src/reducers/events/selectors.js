@@ -30,12 +30,22 @@ export const getCurrentMarkerID = createSelector(
 
 const getCurrentMarkerLocation = createSelector(
  detailsSel,
- state => get(state, 'event.location', 'Unknown location'),
+ state => get(state, 'event.location', null),
 );
 
 export const getEventTitle = createSelector(
   detailsSel,
   state => get(state, 'event.name', 'Unknown title'),
+);
+
+export const getEventsListMeta = createSelector(
+  eventsSel,
+  state => ({
+    pageSize: state.pageSize,
+    pageNumber: state.pageNumber,
+    total: state.total,
+    totalPages: state.totalPages,
+  }),
 );
 
 export default {
@@ -46,4 +56,5 @@ export default {
   getCurrentMarkerID,
   getCurrentMarkerLocation,
   getEventDetails,
+  getEventsListMeta,
 };

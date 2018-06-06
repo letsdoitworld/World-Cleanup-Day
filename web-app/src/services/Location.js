@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const GOOGLE_GEOCODE_API_URL = 'https://maps.google.com/maps/api/geocode/json';
-const API_KEY = 'AIzaSyCrUdei3NecMdATo4yTR8FUnphSMMJ2MSg';
+const API_KEY = 'AIzaSyDPpazJRvOYVRE6JBjAW5fbpLq8TDkSS98';
 
 export default {
   getLocation: () => {

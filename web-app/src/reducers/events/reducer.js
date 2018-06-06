@@ -11,6 +11,10 @@ const EVENTS_INITIAL_STATE = {
   loading: false,
   error: false,
   showEventWindow: true,
+  pageSize: 50,
+  pageNumber: 1,
+  total: 0,
+  totalPages: 0,
 };
 
 const EVENT_DETAILS_INITIAL_STATE = {
@@ -52,7 +56,29 @@ const eventsReducer = (state = EVENTS_INITIAL_STATE, action) => {
     case TYPES.FETCH_ALL_EVENTS_FAILED:
       return { ...state, loading: false, error: true };
     case TYPES.FETCH_ALL_EVENTS_SUCCESS:
-      return { ...state, events: action.events, loading: false };
+      if (action.pageNumber === 1) {
+        return {
+          ...state,
+          events: action.events,
+          loading: false,
+          pageSize: action.pageSize,
+          pageNumber: action.pageNumber,
+          total: action.total,
+          totalPages: action.totalPages,
+        };
+      }
+      if (action.pageNumber > 1) {
+        return {
+          ...state,
+          events: [...state.events, ...action.events],
+          loading: false,
+          pageSize: action.pageSize,
+          pageNumber: action.pageNumber,
+          total: action.total,
+          totalPages: action.totalPages,
+        };
+      }
+      break;
     case TYPES.TOGGLE_EVENT_WINDOW:
       return { ...state, showEventWindow: !state.showEventWindow };
     case TYPES.EXPAND_EVENT_WINDOW:

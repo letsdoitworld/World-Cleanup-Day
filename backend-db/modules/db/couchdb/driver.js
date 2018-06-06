@@ -13,7 +13,6 @@ const COUCHDB_HOST = process.env.COUCHDB_HOST || 'couchdb';
 const COUCHDB_PROTOCOL = process.env.COUCHDB_PROTOCOL || 'http';
 const COUCHDB_PORT = process.env.COUCHDB_PORT || 5984;
 const COUCHDB_URL = `${COUCHDB_PROTOCOL}://${COUCHDB_USER}:${COUCHDB_PASSWORD}@${COUCHDB_HOST}:${COUCHDB_PORT}`;
-const COUCHDB_REDUCE_LIMIT = process.env.COUCHDB_REDUCE_LIMIT || "false";
 
 const caught = require('caught');
 const logger = require('module-logger');
@@ -99,14 +98,6 @@ const checkDatabases = async () => {
     }
 };
 
-const configDatabases = async () => {
-    await request({
-        uri: `${COUCHDB_URL}/_config/query_server_config/reduce_limit`,
-        method: 'PUT',
-        json: stringifyFuncs(COUCHDB_REDUCE_LIMIT),
-    });
-};
-
 // update views if missing/not latest version
 const checkViews = async () => {
     for (let dbName of Object.getOwnPropertyNames(designDefs)) {
@@ -159,7 +150,6 @@ const checkViews = async () => {
 const SERVER_READY = caught(new Promise(async function (resolve, reject) {
     try {
         await checkDatabases();
-        await configDatabases();
         await checkViews();
         resolve();
     } catch (e) {

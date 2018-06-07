@@ -127,6 +127,7 @@ paths:
           $ref: "#/responses/ErrorSet"
     delete:
       description: delete event by ID.
+      x-security: [bearer]
       operationId: deleteEventById
       parameters:
          - $ref: "#/parameters/UUID"

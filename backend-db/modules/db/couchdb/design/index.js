@@ -177,6 +177,18 @@ const designDocs = {
                 },
             },
         },
+        byTeamId: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'team') {
+                            emit(doc._id, doc);
+                        }
+                    },
+                },
+            },
+        },
     },
     areas: {
         all: {

@@ -668,7 +668,7 @@ const layer = {
   //========================================================
   // TEAMS
   //========================================================
-  getTeam: id => adapter.getOneEntityById('Team', '_design/all/_view/view', id),
+  getTeam: id => adapter.getOneEntityById('Team', '_design/byTeamId/_view/view', id),
   getAllTeams: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: true}),
   getAllTeamsByCountry: async (country, search) => {
     const teams = await adapter.getEntities(
@@ -687,7 +687,7 @@ const layer = {
     return sortedTeamsByCountry
   },
   getCountTeamsTrashpoints: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
-  getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/all/_view/view', id),
+  getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/byTeamId/_view/view', id),
   createTeam: async (id, who, create) => {
     await adapter.createDocument('Team', id, create, {
       createdAt: util.time.getNowUTC(),

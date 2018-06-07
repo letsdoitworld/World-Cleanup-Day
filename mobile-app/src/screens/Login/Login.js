@@ -5,7 +5,6 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  ImageBackground,
   ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';

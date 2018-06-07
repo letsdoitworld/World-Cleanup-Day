@@ -104,7 +104,7 @@ const fetchAllEventMarkers = (
   }
 
   if (!clustersRes.data.length) {
-    return dispatch(appActions.showExpandAreaModal());
+    dispatch(appActions.showExpandAreaModal());
   }
 
 

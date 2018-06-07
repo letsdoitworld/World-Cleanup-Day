@@ -164,11 +164,11 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.ACCESS_DENIED));
             })
             .get(['event'])
-            //get image of event
+            //get images of event
             .request('role:db,cmd:getEventImages', {eventId: args.id})
             .input(images => images.filter(img => img.type === Image.TYPE_MEDIUM).map(img => img.id))
             .set('imageIds')
-            //delete img event
+            //delete imgs event
             .get(['event', 'imageIds'])
             .input(({event, imageIds}) => ({
                 eventId: event.id,

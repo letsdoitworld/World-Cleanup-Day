@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { If, Else } from 'react-if';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import {
   LocationIcon,
   BackIcon,
@@ -48,6 +49,14 @@ class EventListHeader extends Component {
     listState: false,
   };
 
+  state = {
+    searchString: '',
+  }
+
+  handleChange = (searchString) => {
+    this.setState({ searchString });
+  }
+
   render() {
     const {
       onMinimizeClick,
@@ -84,14 +93,42 @@ class EventListHeader extends Component {
             {eventTitle}
           </span>
           <Else>
-            <input
-              className="EventsList-header-searchbar"
-              type="text"
-              placeholder="Search location"
-              onChange={
-                (ev) => onSearch(rectangle, itemsPerPage, pageNumber, ev.target.value)
+            <PlacesAutocomplete
+              value={this.state.searchString}
+              onChange={this.handleChange}
+              onSelect={this.handleSelect}
+            >
+              {
+                ({ getInputProps, getSuggestionsItemProps, suggestions }) => (
+                  <div>
+                    <input
+                      {
+                        ...getInputProps({
+                          placeholder: 'Search ... ',
+                          className: 'location-search-input'
+                        })
+                      }
+                    />
+                  <div className="autocomplete-dropdown-container">
+                    {
+                      suggestions.map(sugg => {
+                        console.log(getSuggestionsItemProps);
+                        const className = sugg.active ? 'suggestion-item--active' : 'suggestion-item';
+                        const style = sugg.active
+                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                        return (
+                          <div {...getSuggestionsItemProps(sugg, { className, style })}>
+                            <span>{sugg.description}</span>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                  </div>
+                )
               }
-            />
+            </PlacesAutocomplete>
           </Else>
         </If>
         <div
@@ -118,3 +155,14 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(EventListHeader);
+
+/*
+<input
+  className="EventsList-header-searchbar"
+  type="text"
+  placeholder="Search location"
+  onChange={
+    (ev) => onSearch(rectangle, itemsPerPage, pageNumber, ev.target.value)
+  }
+/>
+*/

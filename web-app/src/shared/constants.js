@@ -30,6 +30,7 @@ export const API_ENDPOINTS = {
   LOCK_USER: userId => `/users/${userId}/lock`,
   FETCH_AREA_TRASHPOINTS: areaId => `/areas/${areaId}/trashpoints`,
   FETCH_TEAMS: (country, superadmin) => `/teams/web?country=${country}&superadmin=${superadmin}`,
+  FETCH_ALL_TEAMS: superadmin => `/teams/web?superadmin=${superadmin}`,
   FETCH_TEAMS_TRASHPOINTS: '/teams/trashpoints',
   FETCH_TEAM: teamId => `/teams/${teamId}`,
 };

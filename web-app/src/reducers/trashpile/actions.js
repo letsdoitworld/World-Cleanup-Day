@@ -156,7 +156,7 @@ const fetchAllMarkers = (
   }
 
   if (!clustersRes.data.length) {
-    return dispatch(appActions.showExpandAreaModal());
+    dispatch(appActions.showExpandAreaModal());
   }
 
   if (!clustersRes) {

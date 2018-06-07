@@ -9,7 +9,7 @@ class EventsRoot extends Component {
   static propTypes = {
     toggleEventWindow: PropTypes.func.isRequired,
     isOpened: PropTypes.bool.isRequired,
-    fetchEventsList: PropTypes.func.isRequired,
+    updateSearchResultViewport: PropTypes.func.isRequired,
     history: PropTypes.any,
     children: PropTypes.any.isRequired,
   };
@@ -22,7 +22,7 @@ class EventsRoot extends Component {
     const {
       toggleEventWindow,
       history,
-      fetchEventsList,
+      updateSearchResultViewport,
       isOpened,
       children,
     } = this.props;
@@ -31,7 +31,7 @@ class EventsRoot extends Component {
       <div className="EventsList-container">
         <EventListHeader
           onMinimizeClick={toggleEventWindow}
-          onSearch={fetchEventsList}
+          updateSearchResultViewport={updateSearchResultViewport}
           history={history}
         />
         <div className={classnames('EventsList-plot', { visible: isOpened })}>

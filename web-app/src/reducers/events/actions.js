@@ -104,7 +104,7 @@ const fetchAllEventMarkers = (
   }
 
   if (!clustersRes.data.length) {
-    return dispatch(appActions.showExpandAreaModal());
+    dispatch(appActions.showExpandAreaModal());
   }
 
 
@@ -163,6 +163,13 @@ const fetchEventDetails = eventId => async dispatch => {
   });
 };
 
+const updateSearchResultViewport = viewport => dispatch => {
+  dispatch({
+    type: TYPES.UPDATE_SEARCH_RESULT_VIEWPORT,
+    viewport,
+  });
+};
+
 export default {
   toggleEventWindow,
   expandEventWindow,
@@ -170,4 +177,5 @@ export default {
   fetchEventsList,
   fetchEventTitle,
   fetchEventDetails,
+  updateSearchResultViewport,
 };

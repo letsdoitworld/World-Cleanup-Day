@@ -57,6 +57,7 @@ const mapDispatchToProps = {
   toggleEventWindow: actions.toggleEventWindow,
   expandEventWindow: actions.expandEventWindow,
   fetchEventsList: actions.fetchEventsList,
+  updateSearchResultViewport: actions.updateSearchResultViewport,
   setActiveTab: appActions.setActiveTab,
 };
 

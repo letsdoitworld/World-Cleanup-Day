@@ -11,7 +11,7 @@ export const TrashpointList = ({ trashpoints, eventId }) => (
         {
           trashpoints && trashpoints.map(tp => {
             return (
-              <TrashpointListItem key={tp.name} eventId={eventId} data={tp} />
+              <TrashpointListItem key={tp.id} eventId={eventId} data={tp} />
             );
           })
         }

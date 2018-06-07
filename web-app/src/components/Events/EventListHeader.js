@@ -19,19 +19,9 @@ class EventListHeader extends Component {
   static propTypes = {
     onMinimizeClick: PropTypes.func.isRequired,
     eventTitle: PropTypes.string,
-    onSearch: PropTypes.func.isRequired,
+    updateSearchResultViewport: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
-    }).isRequired,
-    rectangle: PropTypes.shape({
-      nw: PropTypes.shape({
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
-      }),
-      se: PropTypes.shape({
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
-      }),
     }).isRequired,
     listState: PropTypes.bool,
     router: PropTypes.shape({
@@ -57,18 +47,21 @@ class EventListHeader extends Component {
     this.setState({ searchString });
   }
 
+  handleSelect = (address) => {
+    geocodeByAddress(address)
+      .then(results => this.props.updateSearchResultViewport(results[0].geometry.viewport))
+      .catch(error => console.error('Error', error));
+  }
+
   render() {
     const {
       onMinimizeClick,
       eventTitle,
-      onSearch,
       history,
       listState,
       router,
-      rectangle,
     } = this.props;
-    const itemsPerPage = 20;
-    const pageNumber = 1;
+
     const ifListDisplayed =
     !!router.pathname.split('/')[2] || !!window.location.pathname.split('/')[2];
     /*
@@ -99,27 +92,29 @@ class EventListHeader extends Component {
               onSelect={this.handleSelect}
             >
               {
-                ({ getInputProps, getSuggestionsItemProps, suggestions }) => (
-                  <div>
+                ({ getInputProps, suggestions, getSuggestionItemProps }) => (
+                  <div className="EventsList-header-searchbar-container">
                     <input
                       {
                         ...getInputProps({
-                          placeholder: 'Search ... ',
-                          className: 'location-search-input'
+                          className: 'EventsList-header-searchbar',
+                          type: 'text',
+                          placeholder: 'Search location',
                         })
                       }
                     />
-                  <div className="autocomplete-dropdown-container">
+                  <div className="EventsList-header-suggestions-block">
                     {
                       suggestions.map(sugg => {
-                        console.log(getSuggestionsItemProps);
-                        const className = sugg.active ? 'suggestion-item--active' : 'suggestion-item';
-                        const style = sugg.active
-                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
                         return (
-                          <div {...getSuggestionsItemProps(sugg, { className, style })}>
-                            <span>{sugg.description}</span>
+                          <div
+                            {...getSuggestionItemProps(sugg)}
+                            key={sugg.id}
+                            className="EventsList-header-suggestion"
+                          >
+                            <span className="EventsList-header-suggestion-txt">
+                              {sugg.description}
+                            </span>
                           </div>
                         )
                       })
@@ -151,7 +146,6 @@ const mapStateToProps = (state) => ({
   eventTitle: selectors.getEventTitle(state),
   listState: selectors.getShowEventWindow(state),
   router: appSelectors.getRouterInfo(state),
-  rectangle: appSelectors.getViewport(state),
 });
 
 export default connect(mapStateToProps)(EventListHeader);
@@ -165,4 +159,15 @@ export default connect(mapStateToProps)(EventListHeader);
     (ev) => onSearch(rectangle, itemsPerPage, pageNumber, ev.target.value)
   }
 />
+
+rectangle: PropTypes.shape({
+  nw: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+  }),
+  se: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+  }),
+}).isRequired,
 */

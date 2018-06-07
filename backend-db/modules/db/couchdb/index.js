@@ -56,6 +56,10 @@ const layer = {
         return await adapter.getOneEntityById('Event', '_design/all/_view/view', id);
     },
 
+    removeEvent: async id => {
+        return await adapter.removeDocument('Event', '_design/all/_view/view', id);
+    },
+
     getEventsByNameOrderByDistance: async(pageSize = 10, pageNumber = 1, name, address, location, area, rectangle) => {
       return await adapter.executeTemporaryView('Event', {
         map: `function(doc) {

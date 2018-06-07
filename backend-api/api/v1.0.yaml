@@ -125,6 +125,18 @@ paths:
             "type": "object"
         "default":
           $ref: "#/responses/ErrorSet"
+    delete:
+      description: delete event by ID.
+      operationId: deleteEventById
+      parameters:
+         - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: elete event by ID.
+          schema:
+            "type": "object"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /event:
     x-swagger-router-controller: events
     put:

@@ -164,17 +164,15 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: request.id}));
             }
             const createdByUser = await db.getAccount(trashpoint.createdBy);
-            if (createdByUser && createdByUser.name) {
+            if (createdByUser) {
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
             }
-            if (trashpoint.updatedBy) {
-                if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
-                    trashpoint.updater = trashpoint.creator;
-                } else {
-                    const updatedByUser = await db.getAccount(trashpoint.updatedBy);
-                    if (updatedByUser && updatedByUser.name) {
-                        trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
-                    }
+            if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
+                trashpoint.updater = trashpoint.creator;
+            } else {
+                const updatedByUser = await db.getAccount(trashpoint.updatedBy);
+                if (updatedByUser) {
+                   trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
                 }
             }
             trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);

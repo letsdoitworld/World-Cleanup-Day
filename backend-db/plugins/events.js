@@ -8,8 +8,9 @@ const _ = require("lodash");
 
 const PLUGIN_NAME = 'events';
 
-const mapEvent = async event => {
-    event.peopleAmount = event.peoples ? event.peoples.length : 0;
+const   mapEvent = async event => {
+    event.offlineAttendeesAmount = event.offlineAttendeesAmount ? event.offlineAttendeesAmount : 0;
+    event.attendeesAmount = event.attendeesAmount ? event.attendeesAmount : 0;
     if (event.createdBy) {
       const createdByUser = await db.getAccount(event.createdBy);
       event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
@@ -171,6 +172,10 @@ module.exports = function () {
                   }
                 }
                 event.trashpoints = filteredTrashpoints;
+                if (event.offlineAttendeesAmount > event.maxPeopleAmount) {
+                    return responder.failure(new LuciusError(E.OFFLINE_ATTENDEES_AMOUNT));
+                }
+                event.attendeesAmount = event.offlineAttendeesAmount;
                 const savedEvent = await db.createEvent(__.user.id, event);
                 const mappedEvent = await mapEvent(savedEvent);
                 //TODO Status TRUE should be implemented all over the project. For now it's just mock data
@@ -181,7 +186,7 @@ module.exports = function () {
     lucius.register('role:db,cmd:getEvents', async function (connector, args) {
       return connector
         .input(args)
-        .use(async function ({pageSize, pageNumber, location, name, address, area}, responder) {
+        .use(async function ({pageSize, pageNumber, location, name, address, area, rectangle}, responder) {
           if (location) {
             try {
               location = JSON.parse(location);
@@ -192,7 +197,14 @@ module.exports = function () {
               return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'location'}));
             }
           }
-          const { data: {rows, total_rows: total} } = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, address, location, area);
+          if (rectangle) {
+            try {
+              rectangle = JSON.parse(rectangle);
+            } catch (e) {
+              return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'rectangle'}));
+            }
+          }
+          const { data: {rows, total_rows: total} } = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, address, location, area, rectangle);
           const records = await Promise.all(rows.map(async (e) => await mapEvent(e.value)));
           return responder.success({total, pageSize, pageNumber, records});
         })
@@ -205,7 +217,7 @@ module.exports = function () {
           const clusters = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getEventsOverviewClusters);
           const filtered = clusters.map(value => util.object.filter(
             value,
-            {count: true, location: true, coordinates: true}
+            {id: true, count: true, location: true, coordinates: true}
           ));
           return responder.success(filtered);
         })

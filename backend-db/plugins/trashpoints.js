@@ -196,6 +196,19 @@ module.exports = function () {
         })
     });
 
+    lucius.register('role:db,cmd:getTrashpointDetails', async function (connector, args) {
+        return connector
+            .input(args)
+            .use(async function ({}, responder) {
+                const trashpointsDetails = await db.getTrashpointDetails();
+                const filtered = trashpointsDetails.map(value => util.object.filter(
+                    value,
+                    {trashpoint_origins: true, trashpoint_compositions: true}
+                ));
+                return responder.success(filtered[0]);
+            })
+    });
+
     lucius.register('role:db,cmd:getClustersOverview', async function (connector, args) {
         return connector.input(args)
         // verify that dataset exists and is the right type

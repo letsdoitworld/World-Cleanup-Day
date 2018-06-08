@@ -13,7 +13,7 @@ module.exports = serviceName => {
     // set options common to all instances
     const seneca = Seneca({
         transport: {
-            'http': {
+            'web': {
                 timeout: SENECA_TIMEOUT,
             },
             'tcp': {

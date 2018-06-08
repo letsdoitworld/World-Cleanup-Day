@@ -232,6 +232,19 @@ class Area extends Type {
     }
 }
 
+class Detail extends Type {
+    constructor(data) {
+        super();
+        this.value = util.object.filter(data, {
+            id: true,
+            trashpoint_compositions: true,
+            trashpoint_origins: true,
+            updatedAt: true,
+            createdAt: true,
+        });
+    }
+}
+
 const datatypeFactory = (datatype, data) => {
     switch (datatype) {
     case 'Dataset':
@@ -250,10 +263,12 @@ const datatypeFactory = (datatype, data) => {
         return new Area(data);
     case 'Event':
         return new Event(data);
+    case 'Detail':
+        return new Detail(data);
     default:
         throw new TypeError(`Unknown data type '${datatype}'.`)
     }
-}
+};
 
 const normalizeData = (datatype, data) => (datatypeFactory(datatype, data)).export();
 

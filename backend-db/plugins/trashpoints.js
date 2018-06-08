@@ -87,7 +87,10 @@ module.exports = function () {
     const lucius = new Lucius(this);
 
     lucius.pluginInit(PLUGIN_NAME, next => {
-        db.ready().then(() => next()).catch(e => next(e));
+        db.ready().then( async () => {
+            await db.createTrashpointDetails();
+            next();
+        }).catch(e => next(e));
     });
 
     lucius.register('role:db,cmd:getTrashpoints', async function (connector, args) {

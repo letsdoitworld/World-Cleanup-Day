@@ -641,6 +641,32 @@ const layer = {
 
         return await layer.getTrashpoint(id);
     },
+    createTrashpointDetails: async () => {
+        const create = {
+            trashpoint_compositions: [
+                "glass",
+                "electronics",
+                "paper",
+                "domestic waste",
+                "furniture",
+                "organic waste",
+                "plastic",
+                "metal",
+                "tyres"
+            ],
+            trashpoint_origins: [
+                "household",
+                "non-household",
+                "construction and demolition"
+            ]
+        };
+        const id = util.uuid.random();
+        await adapter.createDocument('Detail', id, create, {
+            updatedAt: util.time.getNowUTC(),
+            createdAt: util.time.getNowUTC(),
+        });
+        return true;
+    },
     removeTrashpoint: async id => {
         return await adapter.removeDocument('Trashpoint', '_design/all/_view/view', id);
     },

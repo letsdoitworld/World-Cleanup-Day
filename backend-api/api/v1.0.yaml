@@ -151,7 +151,7 @@ paths:
         - $ref: "#/parameters/UUID"
       responses:
         "200":
-          description: List of images.
+          description: An empty object.
           schema:
             "type": "object"
         "default":

@@ -39,6 +39,7 @@ class MarkersMap extends React.Component {
     gridValue: PropTypes.any.isRequired,
     fetchClusterTrashpoints: PropTypes.func.isRequired,
     isUserLoggedIn: PropTypes.bool.isRequired,
+    searchResultViewport: PropTypes.any.isRequired,
     trashpointMarkers: PropTypes.arrayOf(
       PropTypes.shape,
     ).isRequired,
@@ -78,7 +79,7 @@ class MarkersMap extends React.Component {
         lat: nextProps.currentEventLocation.latitude,
         lng: nextProps.currentEventLocation.longitude,
       });
-      if (this.map.getZoom() < FOCUS_EVENT_ZOOM_LEVEL) {
+      if (this.map.getZoom() !== FOCUS_EVENT_ZOOM_LEVEL) {
         this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
         /*
         the only way to setZoom in this library
@@ -86,8 +87,8 @@ class MarkersMap extends React.Component {
         strange, but just dealing with it
         https://github.com/tomchentw/react-google-maps/issues/188
         */
+        this.loadMarkers(nextProps.tabActive);
       }
-      this.loadMarkers(nextProps.tabActive);
     }
     if (
       this.props.focusedLocation !== nextProps.focusedLocation &&
@@ -105,6 +106,15 @@ class MarkersMap extends React.Component {
         this.map.fitBounds(bounds);
       }
     }
+    /* applying click on suggested search result */
+    if (
+      (nextProps.searchResultViewport.b && !this.props.searchResultViewport.b) ||
+      (this.props.searchResultViewport.b && nextProps.searchResultViewport.b.b !== this.props.searchResultViewport.b.b)
+    ) {
+      this.map.fitBounds(nextProps.searchResultViewport);
+      this.loadMarkers(nextProps.tabActive);
+      this.props.hideExpandAreaModal();
+    }
   }
 
   componentWillUpdate() {
@@ -115,7 +125,7 @@ class MarkersMap extends React.Component {
       flag updatedOnMount helps us avoid undesirable effects
       in future usage
     */
-    if (this.props.currentEventLocation && !this.state.updatedOnMount) {
+    if (this.map && this.props.currentEventLocation && !this.state.updatedOnMount) {
       this.map.panTo({
         lat: this.props.currentEventLocation.latitude,
         lng: this.props.currentEventLocation.longitude,
@@ -149,7 +159,6 @@ class MarkersMap extends React.Component {
         height: parseInt(getComputedStyle(mapElContainer).height, 10),
         width: parseInt(getComputedStyle(mapElContainer).width, 10),
       };
-      // const { nw, se } = getViewportPoints(this.map.getBounds());
       const nw = {
         latitude: this.map.getBounds().getNorthEast().lat(),
         longitude: this.map.getBounds().getSouthWest().lng(),
@@ -274,6 +283,7 @@ const mapStateToProps = state => ({
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
   isExpandAreaModalVisible: appSelectors.getShowExpandAreaModal(state),
+  searchResultViewport: eventSelectors.getSelectedSearchResultViewport(state),
 });
 const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,

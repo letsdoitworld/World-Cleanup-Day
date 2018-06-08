@@ -23,6 +23,10 @@ const EVENT_DETAILS_INITIAL_STATE = {
   error: false,
 };
 
+const EVENTS_SEARCH_INITIAL_STATE = {
+  viewport: {},
+};
+
 const GRID_INITIAL_STATE = {
   gridValue: null,
   gridValueToZoom: null,
@@ -33,6 +37,15 @@ const gridReducer = (state = GRID_INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPES.SET_GRID_VALUE:
       return action.gridValue;
+    default:
+      return state;
+  }
+};
+
+const eventsSearchReducer = (state = EVENTS_SEARCH_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case TYPES.UPDATE_SEARCH_RESULT_VIEWPORT:
+      return { ...state, viewport: action.viewport };
     default:
       return state;
   }
@@ -105,5 +118,6 @@ export default combineReducers({
   markers: eventMarkersReducer,
   events: eventsReducer,
   details: eventDetailsReducer,
+  selectedSearchResultViewport: eventsSearchReducer,
   grid: gridReducer,
 });

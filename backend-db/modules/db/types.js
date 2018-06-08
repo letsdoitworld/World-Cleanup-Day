@@ -237,8 +237,8 @@ class Detail extends Type {
         super();
         this.value = util.object.filter(data, {
             id: true,
-            trashpoint_compositions: true,
-            trashpoint_origins: true,
+            trashpointCompositions: true,
+            trashpointOrigins: true,
             updatedAt: true,
             createdAt: true,
         });

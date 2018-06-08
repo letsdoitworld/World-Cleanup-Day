@@ -271,6 +271,7 @@ export const createMarker = ({
     address,
     amount,
     photos,
+    team
   },
   isEdit,) => {
   return async (dispatch, getState) => {
@@ -284,6 +285,7 @@ export const createMarker = ({
         name,
         address,
         amount,
+        team
       };
       let newPhotos = [];
       let toDeletePhotos = [];

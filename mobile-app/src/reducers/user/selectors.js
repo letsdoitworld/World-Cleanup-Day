@@ -52,6 +52,11 @@ const getProfileTeam = createSelector(
   profile => profile && profile.teamInfo,
 );
 
+const getProfileTeamId = createSelector(
+  getProfileTeam,
+  team => team && team.id,
+);
+
 const getRole = createSelector(getProfile, (profile) => {
   if (!profile) {
     return undefined;
@@ -81,4 +86,5 @@ export default {
   getRole,
   isLeader,
   isSuperAdmin,
+  getProfileTeamId,
 };

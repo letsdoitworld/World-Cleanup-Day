@@ -23,6 +23,7 @@ import { withCameraActions } from '../../services/Camera';
 import ImageService from '../../services/Image';
 import { withLoadingScreen } from '../../services/Loading';
 import { operations as locationOperations } from '../../reducers/location';
+import { selectors as userSelectors } from '../../reducers/user';
 import { Button } from '../../components/Buttons';
 import { LocationPicker } from './components/LocationPicker';
 import { StatusPicker } from './components/StatusPicker';
@@ -268,7 +269,7 @@ class CreateMarker extends Component {
   }
 
   handleTrashpointCreate = () => {
-    const { createMarker, navigation, setErrorMessage, t } = this.props;
+    const { createMarker, navigation, setErrorMessage, t, teamId } = this.props;
     const {
       photos,
       trashCompositionTypes,
@@ -294,6 +295,7 @@ class CreateMarker extends Component {
         amount: AMOUNT_STATUSES[amount],
         address: completeAddress,
         name: `${streetAddress} ${streetNumber}`,
+        team: teamId,
       }).then(
         (res) => {
           if (res) {
@@ -569,6 +571,7 @@ const mapDispatch = {
 const mapStateToProps = state => ({
   isConnected: appSels.isConnected(state),
   loading: trashpileSelectors.isLoading(state),
+  teamId: userSelectors.getProfileTeamId(state),
 });
 
 export default compose(

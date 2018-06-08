@@ -149,25 +149,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(EventListHeader);
-
-/*
-<input
-  className="EventsList-header-searchbar"
-  type="text"
-  placeholder="Search location"
-  onChange={
-    (ev) => onSearch(rectangle, itemsPerPage, pageNumber, ev.target.value)
-  }
-/>
-
-rectangle: PropTypes.shape({
-  nw: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
-  }),
-  se: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
-  }),
-}).isRequired,
-*/

@@ -43,6 +43,14 @@ const stringifyFuncs = o => {
   return o;
 };
 
+const mango = async (db, mangoQuery, params) => {
+    try {
+        return await couch.mango(db, mangoQuery, params);
+    } catch (e) {
+        throw e;
+    }
+};
+
 const getURI = async (db, uri, options = {}) => {
     try {
         return await couch.get(db, uri, options);
@@ -164,4 +172,5 @@ module.exports = {
     updateDoc,
     deleteDoc,
     temporaryView,
+    mango
 };

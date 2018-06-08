@@ -45,5 +45,11 @@ module.exports = {
       pageSize: req.swagger.params.pageSize.value,
       pageNumber: req.swagger.params.pageNumber.value
     })
-  )
+  ),
+  joinAnEvent: senecaRequestMw(
+    'role:db,cmd:joinAnEvent',
+    req => ({
+      id: req.swagger.params.id.value
+    })
+  ),
 }

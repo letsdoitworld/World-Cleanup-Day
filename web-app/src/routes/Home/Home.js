@@ -31,6 +31,7 @@ import { TrashpointDetails } from '../../pages/TrashpointDetails';
 import { USER_ROLES } from '../../shared/constants';
 import { Terms } from '../../components/Terms';
 import { Privacy } from '../../components/Privacy';
+import { AppLinksModal } from '../../components/AppLinksModal';
 
 class Home extends React.Component {
 
@@ -151,6 +152,12 @@ class Home extends React.Component {
         />
         <Route path={ROUTES.TERMS} render={() => <Terms />} />
         <Route path={ROUTES.PRIVACY} render={() => <Privacy />} />
+        <Route
+          path={ROUTES.TRY_OUR_APP}
+          render={
+            () => (<AppLinksModal />)
+            }
+        />
         <Route
           path={ROUTES.TRASHPOINT_DETAILS}
           render={

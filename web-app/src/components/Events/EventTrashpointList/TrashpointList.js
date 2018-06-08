@@ -17,7 +17,7 @@ export const TrashpointList = ({ trashpoints, eventId }) => (
         }
       </div>
       <Else>
-        <EmptyEventsState />
+        <EmptyEventsState text="No trashpoints." />
       </Else>
     </If>
   </div>

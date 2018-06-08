@@ -68,7 +68,7 @@ class ShareModal extends Component {
       title,
     } = this.props;
     const mailToLink =
-    `mailto:${this.state.emailToShare}?subject=${title}&body=${description}`;
+    `mailto:${this.state.emailToShare}?subject=${title}&body=${description} ${url}`;
     const content =
     description && (description.length > 150 ? `${description.substr(0, 150)}...` : description);
     return (

@@ -76,7 +76,7 @@ class Popover extends Component {
           textButton="Continue with Facebook"
         />
         <GoogleLogin
-          clientId="931132275173-qpl736bphbjbg4qo6t21na7dfj2ac9it.apps.googleusercontent.com"
+          clientId="701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com"
           onSuccess={this.handleGoogleLoginSuccess}
           onFailure={this.handleGoogleLoginFailure}
           style={{ background: 'white', padding: 0, width: '100%' }}

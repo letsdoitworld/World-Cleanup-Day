@@ -115,6 +115,7 @@ class Event extends Type {
             email: true,
             phonenumber: true,
             trashpoints: true,
+            attendees: true,
             maxPeopleAmount: true,
             offlineAttendeesAmount: true,
             attendeesAmount: true,

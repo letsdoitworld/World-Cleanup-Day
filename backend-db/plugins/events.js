@@ -11,6 +11,7 @@ const PLUGIN_NAME = 'events';
 const   mapEvent = async event => {
     event.offlineAttendeesAmount = event.offlineAttendeesAmount ? event.offlineAttendeesAmount : 0;
     event.attendeesAmount = event.attendeesAmount ? event.attendeesAmount : 0;
+    event.attendees = event.attendees ? event.attendees : [];
     if (event.createdBy) {
       const createdByUser = await db.getAccount(event.createdBy);
       event.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
@@ -139,6 +140,36 @@ module.exports = function () {
         });
     });
 
+  lucius.register('role:db,cmd:joinAnEvent', async function (connector, args, __) {
+    return connector
+      .input(args)
+      .use(async function ({id}, responder) {
+
+        const event = await db.getEvent(id);
+        if (!event) {
+          return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id}));
+        }
+
+        let attendees = event.attendees ? event.attendees : [];
+        if (event.maxPeopleAmount <= event.attendeesAmount) {
+          return responder.failure(new LuciusError(E.EVENT_EXCEEDED_MAX_AMOUNT_OF_ATTENDEES, {id}));
+        }
+
+        const currentUserId = __.user.id;
+        if (attendees.includes(currentUserId)) {
+          return responder.failure(new LuciusError(E.EVENT_ALREADY_JOINED, {id}));
+        }
+        attendees.push(currentUserId);
+
+        const updateResult = await db.updateEvent(id, {
+          attendees: attendees,
+          attendeesAmount: event.attendeesAmount + 1,
+        });
+
+        return responder.success({});
+      });
+  });
+
     lucius.register('role:db,cmd:createEvent', async function (connector, args, __) {
         return connector
             // verify that the dataset exists
@@ -155,7 +186,8 @@ module.exports = function () {
             .get(['areas'])
             .use(async function ({areas}, responder) {
                 const event = args.event;
-                args.event.areas = areas;
+                event.areas = areas;
+                event.attendees = [];
                 const filteredTrashpoints = [];
                 if (event.trashpoints) {
                   for (let trashpointId of event.trashpoints) {

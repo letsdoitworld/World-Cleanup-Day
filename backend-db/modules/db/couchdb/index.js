@@ -202,6 +202,13 @@ const layer = {
         return await layer.modifyEvent(id, who, {});
     },
 
+    updateEvent: async (id, updatedFields, rawEventDoc = null) =>
+      adapter.modifyDocument(
+        'Event',
+        rawEventDoc || await layer.getRawEventDoc(id),
+        updatedFields
+      ),
+
     modifyEvent: async (id, who, update, rawEventDoc = null) => {
         return await adapter.modifyDocument(
             'Event',

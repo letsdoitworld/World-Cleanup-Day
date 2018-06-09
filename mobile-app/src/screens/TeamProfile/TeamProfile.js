@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Alert, ScrollView } from 'react-native';
+import { View, Image, Text, Alert, ScrollView, ActivityIndicator } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import { Divider } from '../../components/Divider';
 import { selectors as userSelectors } from '../../reducers/user';
+import { selectors as teamSelectors } from '../../reducers/teams';
 import { operations as teamsOps } from '../../reducers/teams';
 import { withNavigationHelpers } from '../../services/Navigation';
 import { COUNTRIES_HASH } from '../../shared/countries';
@@ -65,9 +66,20 @@ class TeamProfile extends Component {
     this.props.navigation.navigate('Profile');
   };
 
+  componentWillMount() {
+    this.props.fetchTeam(this.state.team.id);
+  }
+
   render() {
-    const { team } = this.state;
-    const myTeam = this.props.team;
+    const { team, loading } = this.props;
+    const myTeam = this.props.myTeam;
+    if (loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator/>
+        </View>
+      )
+    }
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -150,11 +162,14 @@ class TeamProfile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    team: userSelectors.getProfileTeam(state),
+    myTeam: userSelectors.getProfileTeam(state),
+    team: teamSelectors.teamSelector(state),
+    loading: teamSelectors.loadingSelector(state),
   };
 };
 const mapDispatchToProps = {
   updateTeam: teamsOps.updateTeam,
+  fetchTeam: teamsOps.fetchTeam,
 };
 
 export default compose(

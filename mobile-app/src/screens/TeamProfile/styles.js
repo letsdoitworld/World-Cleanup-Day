@@ -92,5 +92,12 @@ export default EStyleSheet.create({
   circleText: {
     fontFamily: '$boldFont',
     fontSize: 11,
-  }
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: getWidthPercentage(20),
+    paddingVertical: getHeightPercentage(20),
+  },
 });

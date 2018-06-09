@@ -57,6 +57,24 @@ const fetchTeamsByCountry = () => {
   }
 };
 
+const fetchTeam = (teamId) => {
+  return async (dispatch) => {
+    dispatch({ type: types.FETCH_TEAM_REQUEST });
+    const response = await Api.get(API_ENDPOINTS.FETCH_TEAM(teamId));
+
+    if (!response) {
+      return dispatch({ type: types.FETCH_TEAM_FAILED });
+    }
+
+    const { data } = response;
+
+    dispatch({
+      type: types.FETCH_TEAM_SUCCESS,
+      payload: data,
+    });
+  }
+};
+
 const clearTeams = () => (dispatch => {
   dispatch({ type: types.CLEAR_TEAMS_SUCCESS });
 });
@@ -65,6 +83,7 @@ const clearTeams = () => (dispatch => {
 export default {
   updateTeam,
   fetchTeams,
+  fetchTeam,
   clearTeams,
   fetchTeamsByCountry
 };

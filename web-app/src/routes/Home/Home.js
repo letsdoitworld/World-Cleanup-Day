@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
-import { BinIcon, EventsIcon } from '../../components/common/Icons';
+import { BinIcon, EventsIcon, UsersIcon } from '../../components/common/Icons';
 import ROUTES from '../../shared/routes';
 
 import {
@@ -188,7 +188,8 @@ class Home extends React.Component {
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       HEADER_LINKS.push({
         title: 'Users',
-        url: userProfile.role === USER_ROLES.LEADER ? '/user-areas' : '/users'
+        url: userProfile.role === USER_ROLES.LEADER ? '/user-areas' : '/users',
+        image: <UsersIcon />,
       });
     }
     HEADER_LINKS.forEach(link => link.onClick = () => this.props.resetUsers());

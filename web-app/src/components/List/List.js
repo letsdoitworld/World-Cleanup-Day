@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Infinite from 'react-infinite';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import './List.css';
 
 class List extends Component {
@@ -10,15 +11,25 @@ class List extends Component {
     document.body.clientHeight);
 
   render() {
-    const { headerContent, infinite, onInfiniteLoad, items } = this.props;
-    const paddingTop = (headerContent ? 80 : 0);
+    const {
+      headerContent,
+      infinite,
+      onInfiniteLoad,
+      items,
+      userslistWindowVisible,
+    } = this.props;
+    const paddingTop = (headerContent ? 40 : 0);
     const containerHeight = this.getWindowHeight() - paddingTop;
     if (infinite) {
       const infiniteList = (
         <Infinite
           containerHeight={containerHeight}
           onInfiniteLoad={onInfiniteLoad}
-          className="List"
+          className={
+            classnames(
+              'UsersList-plot',
+              { isVisible: userslistWindowVisible })
+            }
           elementHeight={this.props.elementHeight}
           infiniteLoadBeginEdgeOffset={200}
         >
@@ -29,18 +40,23 @@ class List extends Component {
         return infiniteList;
       }
       return (
-        <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', top: 0, left: 0 }}>
-            {headerContent}
-          </div>
+        <div className="UsersList-container">
+          {headerContent}
           {infiniteList}
         </div>
       );
     }
     return (
-      <div className="List">
+      <div className="UsersList-container">
         {headerContent}
-        {items.map(item => item)}
+        <div className={
+          classnames(
+            'UsersList-plot',
+            { isVisible: userslistWindowVisible })
+          }
+        >
+          {items.map(item => item)}
+        </div>
       </div>
     );
   }
@@ -55,6 +71,7 @@ List.propTypes = {
   headerContent: PropTypes.element,
   items: PropTypes.array.isRequired,
   infinite: PropTypes.bool,
+  userslistWindowVisible: PropTypes.bool.isRequired,
   onInfiniteLoad: PropTypes.func,
   elementHeight: PropTypes.number,
 };

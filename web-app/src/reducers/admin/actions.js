@@ -32,7 +32,7 @@ const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) 
         canLoadMore,
         total,
         isSearch: !!nameSearch,
-        isLoadingMore
+        isLoadingMore,
       },
     });
     return {
@@ -40,7 +40,7 @@ const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) 
       users,
       reset,
       canLoadMore,
-      total
+      total,
     };
   } catch (e) {
     console.log(e);
@@ -84,6 +84,12 @@ const setUserLocked = (userId, locked) => async dispatch => {
   });
 };
 
+const toggleUserslistWindow = () => dispatch => {
+  dispatch({
+    type: TYPES.TOGGLE_USERSLIST_WINDOW,
+  });
+};
+
 const resetUsers = () => ({ type: TYPES.RESET_USERS });
 
 export default {
@@ -91,4 +97,5 @@ export default {
   fetchUser,
   setUserLocked,
   resetUsers,
+  toggleUserslistWindow,
 };

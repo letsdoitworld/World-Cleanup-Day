@@ -9,6 +9,8 @@ import locationBlack24px from '../../../assets/icLocationOnBlack24Px.png';
 import locationPinActive from '../../../assets/icLocationPinActive.png';
 import locationPinInactive from '../../../assets/icLocationPinInactive.png';
 import groupBlack24px from '../../../assets/icGroupBlack24Px.png';
+import search from '../../../assets/ic-search.png';
+import users from '../../../assets/ic-users.png';
 import hidePanel from '../../../assets/hide-panel.png';
 import fb from '../../../assets/ic-facebook-active.png';
 import google from '../../../assets/ic-google-plus-active.png';
@@ -73,6 +75,8 @@ export const Userpic = () => (<img
   src={userpicHolder}
   alt="userpic"
 />);
+export const SearchIcon = () => <img src={search} alt="search" />;
+export const UsersIcon = () => <img src={users} alt="users" />
 export const EmailIcon = () => <img src={email} alt="email" />;
 export const PhoneIcon = () => <img src={phone} alt="phone" />;
 export const BackIcon = () => <img src={back} alt="back" />;

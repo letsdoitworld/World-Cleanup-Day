@@ -44,11 +44,7 @@ const stringifyFuncs = o => {
 };
 
 const mango = async (db, mangoQuery, params) => {
-    try {
-        return await couch.mango(db, mangoQuery, params);
-    } catch (e) {
-        throw e;
-    }
+    return await couch.mango(db, mangoQuery, params);
 };
 
 const getURI = async (db, uri, options = {}) => {

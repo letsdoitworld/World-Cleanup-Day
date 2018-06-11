@@ -154,6 +154,22 @@ paths:
           "default":
             $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /event/{id}/attendees:
+    x-swagger-router-controller: events
+    post:
+      description: Join an event.
+      operationId: joinAnEvent
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: An empty object.
+          schema:
+            "type": "object"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /event/{id}/images:
     x-swagger-router-controller: images
     get:

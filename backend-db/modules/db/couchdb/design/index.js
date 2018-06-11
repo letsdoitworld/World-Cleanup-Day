@@ -518,6 +518,20 @@ const designDocs = {
             },
         },
     },
+    details: {
+        all: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'detail') {
+                            emit(doc._id, doc);
+                        }
+                    },
+                },
+            },
+        },
+    }
 };
 
 /**

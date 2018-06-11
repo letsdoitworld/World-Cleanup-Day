@@ -87,7 +87,10 @@ module.exports = function () {
     const lucius = new Lucius(this);
 
     lucius.pluginInit(PLUGIN_NAME, next => {
-        db.ready().then(() => next()).catch(e => next(e));
+        db.ready().then( async () => {
+            await db.createTrashpointDetails();
+            next();
+        }).catch(e => next(e));
     });
 
     lucius.register('role:db,cmd:getTrashpoints', async function (connector, args) {
@@ -164,18 +167,19 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: request.id}));
             }
             const createdByUser = await db.getAccount(trashpoint.createdBy);
-            if (createdByUser && createdByUser.name) {
-                trashpoint.createdByName = createdByUser.name;
+            if (createdByUser) {
+                trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
             }
-            if (trashpoint.createdByName && trashpoint.updatedBy === trashpoint.createdBy) {
-                trashpoint.updatedByName = trashpoint.createdByName;
-            }
-            else {
+            if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
+                trashpoint.updater = trashpoint.creator;
+            } else {
                 const updatedByUser = await db.getAccount(trashpoint.updatedBy);
-                if (updatedByUser && updatedByUser.name) {
-                    trashpoint.updatedByName = updatedByUser.name;
+                if (updatedByUser) {
+                   trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
                 }
             }
+            trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
+            trashpoint.photos = trashpoint.photos.map(p => p.url);
             return responder.success(trashpoint);
         })
     });

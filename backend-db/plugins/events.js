@@ -200,7 +200,8 @@ module.exports = function () {
         }
 
         let attendees = event.attendees ? event.attendees : [];
-        if (event.maxPeopleAmount <= event.attendeesAmount) {
+        let attendeesAmount = event.attendeesAmount ? event.event.attendeesAmount : 0;
+        if (event.maxPeopleAmount <= attendeesAmount) {
           return responder.failure(new LuciusError(E.EVENT_EXCEEDED_MAX_AMOUNT_OF_ATTENDEES, {id}));
         }
 
@@ -212,7 +213,7 @@ module.exports = function () {
 
         const updateResult = await db.updateEvent(id, {
           attendees: attendees,
-          attendeesAmount: event.attendeesAmount + 1,
+          attendeesAmount: attendeesAmount + 1,
         });
 
         return responder.success({});

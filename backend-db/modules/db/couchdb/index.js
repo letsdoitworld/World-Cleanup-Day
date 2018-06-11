@@ -656,14 +656,16 @@ const layer = {
         const create = {
             trashpointCompositions: [
                 "glass",
-                "electronics",
-                "paper",
-                "domestic waste",
-                "furniture",
-                "organic waste",
+                "ceramic/bricks",
                 "plastic",
                 "metal",
-                "tyres"
+                "biological/paper/wood",
+                "textiles/shoes/carpets",
+                "rubber/tyres",
+                "electronics",
+                "toxic/chemicals",
+                "car parts/vehicles",
+                "other"
             ],
             trashpointOrigins: [
                 "household",

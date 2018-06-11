@@ -140,6 +140,55 @@ module.exports = function () {
         });
     });
 
+    lucius.register('role:db,cmd:deleteEventById', async function (connector, args, __) {
+        return connector
+            .input(args)
+            //check event
+            .use(async function ({id}, responder) {
+                const event = await db.getEvent(id);
+                if (!event) {
+                    return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id}));
+                }
+                return responder.success(event);
+            })
+            .set('event')
+            .use(async function (event, responder) {
+                // superadmin can delete any event
+                if (__.user.role === Account.ROLE_SUPERADMIN) {
+                    return responder.success();
+                }
+                // if user is the event's creator
+                if (event.createdBy === __.user.id) {
+                    return responder.success();
+                }
+                // found no reason to allow delete
+                return responder.failure(new LuciusError(E.ACCESS_DENIED));
+            })
+            .get(['event'])
+            //get images of event
+            .request('role:db,cmd:getEventImages', {eventId: args.id})
+            .input(images => images.filter(img => img.type === Image.TYPE_MEDIUM).map(img => img.id))
+            .set('imageIds')
+            //delete imgs event
+            .get(['event', 'imageIds'])
+            .input(({event, imageIds}) => ({
+                eventId: event.id,
+                request: {
+                    delete: imageIds,
+                },
+            }))
+            .request('role:db,cmd:deleteEventImages')
+            .get(['event'])
+            //delete event
+            .use(async function ({event}, responder) {
+                const ret = await db.removeEvent(event.id);
+                if (!ret) {
+                    return responder.failure(new LuciusError(E.EVENT_NOT_FOUND, {id: event.id}))
+                }
+                return responder.success({status : 204});
+            });
+    });
+
   lucius.register('role:db,cmd:joinAnEvent', async function (connector, args, __) {
     return connector
       .input(args)

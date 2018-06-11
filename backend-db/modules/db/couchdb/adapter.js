@@ -132,7 +132,8 @@ const adapter = {
             if (!ret) {
                 return [];
             }
-            return ret.data.docs;
+            const res = ret.data.docs.map(d => adapter.rawDocToEntity(datatype, d));
+            return res;
     },
     getEntities: async (datatype, view, options = {}) => {
         const docs = await adapter.getRawDocs(datatype, view, options);

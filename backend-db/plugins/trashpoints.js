@@ -168,7 +168,8 @@ module.exports = function () {
             }
             const createdByUser = await db.getAccount(trashpoint.createdBy);
             //trashpoints created with private profile but user is SUPERADMIN
-            if (createdByUser && createdByUser.public || __.user.role === Account.ROLE_SUPERADMIN) {
+            if (createdByUser && createdByUser.public || __.user.role === Account.ROLE_SUPERADMIN
+                || __.user.role === Account.ROLE_ADMIN) {
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
                 if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
                     trashpoint.updater = trashpoint.creator;

@@ -64,6 +64,18 @@ module.exports = function () {
                     return responder.failure(new LuciusError(E.ACCOUNT_NOT_SUBJECT_TO_LEADER, {accountId, leaderId: __.user.id}));
                 }
             }
+            //delete all user's events if locked is true
+            if (locked) {
+                const events = await db.getUserOwnEvents(args.accountId, 0 , 0);
+                let eventsId = [];
+                events.filter(t => eventsId.push(t.id));
+                console.log("__.user.id ====", args.accountId);
+                console.log("DELETE", eventsId);
+                for (let i = 0; i < eventsId.length; i++) {
+                   await lucius.request('role:db,cmd:deleteEventById', {id: eventsId[i], __: {user: {role: Account.ROLE_SUPERADMIN}}});
+                }
+            }
+
             // perform [un]lock
             const ret = await db.setAccountLock(accountId, locked, __.user.id, rawAccount);
             if (!ret) {
@@ -193,6 +205,9 @@ module.exports = function () {
                     Account.ROLE_VOLUNTEER,
                     socialAccount.pictureURL
                 );
+            }
+            if (account.locked) {
+                return responder.failure(new LuciusError(E.ACCOUNT_BLOCKED, {id}));
             }
             return responder.success(account);
         });

@@ -56,6 +56,9 @@ module.exports = {
     ACCOUNT_CANNOT_SELF_LOCK: {
         message: () => `An account cannot set lock status on itself.`,
     },
+    ACCOUNT_BLOCKED: {
+        message: () => `Sorry but your account was blocked by Administrator`,
+    },
     COUNTRY_REQUIRED: {
         message: () => `Area leaders must provide a country with the request.`,
     },

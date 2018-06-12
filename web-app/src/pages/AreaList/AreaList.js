@@ -13,6 +13,10 @@ import {
 } from '../../reducers/areas';
 import { selectors as userSels } from '../../reducers/user';
 import { actions as trashpileActions } from '../../reducers/trashpile';
+import {
+  SearchIcon,
+  ExpandIcon,
+} from '../../components/common/Icons';
 
 class AreaList extends React.Component {
   constructor(props) {
@@ -48,7 +52,7 @@ class AreaList extends React.Component {
     const isUserAreas = match && match.path && match.path === '/user-areas';
     if (isUserAreas && isAreaLeader) {
       const areaId = getCountryFromStr(area.parentId ? area.parentId : area.id);
-      return history.push(`/users?area=${areaId}`);
+      return history.push(`/countries/users?area=${areaId}`);
     }
 
     this.setState({ selectedArea: area });
@@ -58,7 +62,9 @@ class AreaList extends React.Component {
     if (loading) {
       return (
         <div className="AreaList-message">
-          <Loader />
+          {
+            // <Loader />
+          }
         </div>
       );
     }
@@ -82,6 +88,7 @@ class AreaList extends React.Component {
       />
     ));
   };
+
   handleBackClick = () => {
     this.setState({ selectedArea: undefined }, () => {
       this.props.resetAreaTrashpoints();
@@ -92,12 +99,12 @@ class AreaList extends React.Component {
     const { loading } = this.props;
     const { selectedArea } = this.state;
     if (selectedArea && loading) {
-      return <Loader />;
+      return;
     }
     if (selectedArea) {
       return (
-        <div className="AreaList">
-          <div className="AreaList-top-band">
+        <div className="AreaList-container">
+          <div className="AreaList-header">
             <div
               onClick={this.handleBackClick}
               className="AreaList-top-band-back"
@@ -113,12 +120,32 @@ class AreaList extends React.Component {
         </div>
       );
     }
-    return <div className="AreaList">{this.renderInnerAreaList()}</div>;
+    return (
+      <div className="AreaList-container">
+        <div
+          className="AreaList-header"
+        >
+          <SearchIcon />
+          <input
+            className="UsersList-search-input"
+            type="text"
+            name="search"
+            placeholder="Search areas"
+          />
+          <div className="AreaList-minimize">
+            <ExpandIcon />
+          </div>
+        </div>
+        <div className="AreaList-plot">
+          {this.renderInnerAreaList()}
+        </div>
+      </div>);
   }
 }
 AreaList.defaultProps = {
   areas: undefined,
 };
+
 AreaList.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any.isRequired,

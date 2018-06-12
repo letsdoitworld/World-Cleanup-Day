@@ -1,4 +1,4 @@
-.AreaAssignList-сontainer {
+.CountriesList-container {
   width: 380px;
   position: fixed;
   bottom: 45px;
@@ -11,7 +11,16 @@
   border-top-right-radius: 10px;
 }
 
-.AreaAssignList-header {
+.CountriesList-plot {
+  flex-direction: column;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
+  height: calc(100vh - 230px) !important;
+  display: flex;
+}
+
+.CountriesList-header {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -20,17 +29,4 @@
   background-color: #3e8ede;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-}
-
-.AreaAssignList-header img {
-  cursor: pointer;
-}
-
-.AreaAssignList-plot {
-  flex-direction: column;
-  width: 100%;
-  transition: all 0.3s ease-in-out;
-  overflow-y: auto;
-  height: calc(100vh - 230px) !important;
-  display: flex;
 }

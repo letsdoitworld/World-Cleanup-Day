@@ -12,11 +12,13 @@ import {
   selectors as areaSels,
 } from '../../reducers/areas';
 import { COUNTRIES_HASH } from '../../shared/countries';
-import closeButton from '../../assets/closeButton.png';
 import { Loader } from '../../components/Spinner';
 import { USER_ROLES } from '../../shared/constants';
 import { UserAreas } from './components/UserAreas';
-import { AreaAssingList } from './components/AreaAssignList';
+import { AreaAssignList } from './components/AreaAssignList';
+import {
+  CloseIcon,
+} from '../../components/common/Icons';
 import UserDetImage from './image.png';
 
 class UserDetails extends React.Component {
@@ -158,7 +160,7 @@ class UserDetails extends React.Component {
     const { user, authUser, loading, error } = this.props;
     if (this.state.assignAreas) {
       return (
-        <AreaAssingList
+        <AreaAssignList
           userId={user.id}
           onClick={this.handleAreaAssign}
           onClose={this.handleAssignAreasClosed}
@@ -168,7 +170,9 @@ class UserDetails extends React.Component {
     if (loading || !user) {
       return (
         <div className="UserDetails">
-          <Loader />
+          {
+            // <Loader />
+          }
         </div>
       );
     }
@@ -182,14 +186,15 @@ class UserDetails extends React.Component {
       );
     }
     return (
-      <div className="UserDetails">
-        <button
-          className="UserDetails-close-button"
+      <div className="UserDetails-container">
+        <div
+          className="UserDetails-header"
           onClick={this.handleCloseClicked}
         >
-          <img src={closeButton} alt="" />
-        </button>
-        <div className="p-20">
+          <span className="placeholder" />
+          <CloseIcon />
+        </div>
+        <div className="UserDetails-plot">
           <div className="UserDetails-image-container">
             {user.pictureURL && (
               <img className="UserDetails-image" src={user.pictureURL} alt="" />

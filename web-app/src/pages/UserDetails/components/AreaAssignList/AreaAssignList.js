@@ -9,8 +9,9 @@ import {
   selectors as areaSels,
   actions as areaActs,
 } from '../../../../reducers/areas';
-
-import closeButton from '../../../../assets/closeButton.png';
+import {
+  CloseIcon,
+} from '../../../../components/common/Icons';
 
 class AreaList extends React.Component {
   componentWillMount() {
@@ -32,7 +33,7 @@ class AreaList extends React.Component {
       return <Loader />;
     }
     if (error) {
-      return <div>error</div>;
+      return <div>{error}</div>;
     }
     return (
       <div className="AreaAssignList-items">
@@ -55,14 +56,17 @@ class AreaList extends React.Component {
   };
   render() {
     return (
-      <div className="AreaAssignList">
-        <button
-          className="AreaAssignList-close-button"
+      <div className="AreaAssignList-сontainer">
+        <div
+          className="AreaAssignList-header"
           onClick={this.handleCloseClick}
         >
-          <img src={closeButton} alt="" />
-        </button>
-        {this.renderInnerAreaList()}
+          <span className="placeholder" />
+          <CloseIcon />
+        </div>
+        <div className="AreaAssignList-plot">
+          {this.renderInnerAreaList()}
+        </div>
       </div>
     );
   }

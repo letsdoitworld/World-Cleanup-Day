@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Alert, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Image, Text, Alert, ScrollView, } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
@@ -7,7 +7,6 @@ import _ from 'lodash';
 
 import { Divider } from '../../components/Divider';
 import { selectors as userSelectors } from '../../reducers/user';
-import { selectors as teamSelectors } from '../../reducers/teams';
 import { operations as teamsOps } from '../../reducers/teams';
 import { withNavigationHelpers } from '../../services/Navigation';
 import { COUNTRIES_HASH } from '../../shared/countries';
@@ -67,20 +66,11 @@ class TeamProfile extends Component {
     this.props.navigation.navigate('Profile');
   };
 
-  componentWillMount() {
-    this.props.fetchTeam(this.state.team.id);
-  }
 
   render() {
-    const { team, loading } = this.props;
-    const myTeam = this.props.myTeam;
-    if (loading) {
-      return (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator/>
-        </View>
-      )
-    }
+    const { team } = this.state;
+    const myTeam = this.props.team;
+
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -138,7 +128,7 @@ class TeamProfile extends Component {
               <Text
                 style={styles.trashPointsText}>{this.props.t('label_text_latest_activity')}
               </Text>
-              {team.lastTrashpoints && team.lastTrashpoints.slice(0, LAST_ACTIVITY_TRASHPOINTS_AMOUNT).map(trash => (
+              {team.lastTrashpoints && team.lastTrashpoints.map(trash => (
                 <ActivityListItem key={trash.id} {...trash}
                                   onPressItem={this.goToDetails}
                                   backgroundColor={'transparent'}/>
@@ -163,14 +153,11 @@ class TeamProfile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    myTeam: userSelectors.getProfileTeam(state),
-    team: teamSelectors.teamSelector(state),
-    loading: teamSelectors.loadingSelector(state),
+    team: userSelectors.getProfileTeam(state),
   };
 };
 const mapDispatchToProps = {
   updateTeam: teamsOps.updateTeam,
-  fetchTeam: teamsOps.fetchTeam,
 };
 
 export default compose(

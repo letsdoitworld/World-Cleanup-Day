@@ -402,7 +402,7 @@ export const createMarker = (
 ) => async (dispatch, getState) => {
   try {
     dispatch({ type: TYPES.CREATE_MARKER_REQUEST });
-    const team = getState().user.profile.team;
+
     const newMarker = {
       hashtags,
       composition,
@@ -411,7 +411,6 @@ export const createMarker = (
       name,
       address,
       amount,
-      team,
     };
     let newPhotos = [];
     let toDeletePhotos = [];

@@ -10,5 +10,4 @@ const loadingSelector = createSelector(stateSelector, state => state.loading);
 export default {
   teamsSelector,
   loadingSelector,
-  teamSelector
 };

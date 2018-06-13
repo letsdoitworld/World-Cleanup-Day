@@ -500,14 +500,13 @@ paths:
           description: User was successfully assigned to area.
         "default":
           $ref: "#/responses/ErrorSet"
-  /areas/{id}/leader:
-    x-swagger-router-controller: areas
     delete:
       description: Remove the leader of an area.
       operationId: removeAreaLeader
       x-security: [bearer, {roles:[superadmin]}]
       parameters:
         - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/UUID2"
       responses:
         "200":
           description: User was successfully unassigned from area.

@@ -80,12 +80,16 @@ module.exports = function () {
             if (!rawAreaDoc) {
                 return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
             }
-            // check that area doesn't already have a leader
-            if (rawAreaDoc.leaderId) {
-                return responder.failure(new LuciusError(E.AREA_LEADER_EXISTS, {id: areaId}))
-            }
             // set the leader on the area
-            const ret = await db.modifyArea(areaId, __.user.id, {leaderId: accountId}, rawAreaDoc);
+            let areaLeadersId = typeof rawAreaDoc.leaderId === "object" ?
+                                       rawAreaDoc.leaderId :
+                                       rawAreaDoc.leaderId.split();
+
+            if (areaLeadersId.indexOf(accountId) !== -1) {
+                return responder.failure(new LuciusError(E.AREA_LEADER_EXISTS, {id: accountId}));
+            }
+            areaLeadersId.push(accountId);
+            const ret = await db.modifyArea(areaId, __.user.id, {leaderId: areaLeadersId}, rawAreaDoc);
             if (!ret) {
                 return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
             }
@@ -104,29 +108,37 @@ module.exports = function () {
 
     lucius.register('role:db,cmd:removeAreaLeader', async function (connector, args, __) {
         return connector.input(args)
-        .use(async function ({areaId}, responder) {
+        .use(async function ({areaId, accountId}, responder) {
             // attempt to fetch area
             const rawAreaDoc = await db.getRawAreaDoc(areaId);
             if (!rawAreaDoc) {
                 return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
             }
-            // check if it has a leader
+            // check leaders of area
             if (rawAreaDoc.leaderId) {
-                const leaderId = rawAreaDoc.leaderId;
+                let leadersId = typeof rawAreaDoc.leaderId === "object" ?
+                    rawAreaDoc.leaderId :
+                    rawAreaDoc.leaderId.split();
+
+                const indexLeader = leadersId.indexOf(accountId);
+                if (indexLeader === -1) {
+                    return responder.failure(new LuciusError(E.LEADER_NOT_FOUND, {id: accountId}))
+                }
                 // remove the leader
-                const ret = await db.modifyArea(areaId, __.user.id, {leaderId: undefined}, rawAreaDoc);
+                leadersId.splice(indexLeader, 1);
+                const ret = await db.modifyArea(areaId, __.user.id, {leaderId: leadersId}, rawAreaDoc);
                 if (!ret) {
                     return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
                 }
                 // see if user is still assigned to any areas
-                const cnt = await db.countLeaderAreas(leaderId);
+                const cnt = await db.countLeaderAreas(accountId);
                 if (cnt === 0) {
                     // if not a leader anywhere, set user role to volunteer
                     const ret = await db.modifyAccount(
-                        leaderId, __.user.id, {role: Account.ROLE_VOLUNTEER}
+                        accountId, __.user.id, {role: Account.ROLE_VOLUNTEER}
                     );
                     if (!ret) {
-                        return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id: leaderId}))
+                        return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id: accountId}))
                     }
                 }
             }

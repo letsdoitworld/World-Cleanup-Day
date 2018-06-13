@@ -35,8 +35,11 @@ module.exports = {
     AREA_NOT_FOUND: {
         message: ({id}) => `Area does not exist: '${id}'.`,
     },
+    LEADER_NOT_FOUND: {
+        message: ({id}) => `Leader not found: '${id}'.`,
+    },
     AREA_LEADER_EXISTS: {
-        message: ({id}) => `Area '${id}' already has a leader.`,
+        message: ({id}) => `Area already has a leader '${id}'.`,
     },
     ACCOUNT_NOT_SUBJECT_TO_LEADER: {
         message: ({accountId, leaderId}) => `Account ${accountId} cannot be modified by leader '${leaderId}'.`,

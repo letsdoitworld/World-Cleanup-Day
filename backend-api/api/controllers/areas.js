@@ -29,6 +29,7 @@ module.exports = {
         'role:db,cmd:removeAreaLeader',
         req => ({
             areaId: req.swagger.params.id.value,
+            accountId: req.swagger.params.id2.value,
         }),
         res => res.json() // blank response
     ),

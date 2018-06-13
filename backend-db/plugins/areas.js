@@ -150,5 +150,33 @@ module.exports = function () {
         })
     });
 
+    lucius.register('role:db,cmd:getAreaLeaders', async function (connector, args) {
+        return connector
+            .input(args)
+            .use(async function ({areaId}, responder) {
+                const rawAreaDoc = await db.getRawAreaDoc(areaId);
+                if (!rawAreaDoc) {
+                    return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
+                }
+                //get leaders id of area
+                const leadersId = await db.getArea(areaId);
+                if (leadersId.leaderId === 0){
+                    return responder.success({});
+                }
+                //get leader info
+                let leaders = [];
+                for (let i = 0; i < leadersId.leaderId.length; i ++){
+                    let user = await db.getAccount(leadersId.leaderId[i]);
+                    if(user) {
+                        let userInfo = {};
+                        userInfo.name = user.name;
+                        userInfo.email = user.email || '';
+                        userInfo.pictureURL = user.pictureURL || '';
+                        leaders.push(userInfo);
+                    }
+                }
+                return responder.success(leaders);
+            })
+    });
     return PLUGIN_NAME;
 };

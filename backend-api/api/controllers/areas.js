@@ -41,4 +41,10 @@ module.exports = {
             pageNumber: req.swagger.params.pageNumber.value,
         }),
     ),
+    getAreaLeaders: senecaRequestMw(
+        'role:db,cmd:getAreaLeaders',
+        req => ({
+            areaId: req.swagger.params.id.value
+        })
+    )
 };

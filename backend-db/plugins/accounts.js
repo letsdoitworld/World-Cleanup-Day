@@ -64,23 +64,24 @@ module.exports = function () {
                     return responder.failure(new LuciusError(E.ACCOUNT_NOT_SUBJECT_TO_LEADER, {accountId, leaderId: __.user.id}));
                 }
             }
-            //delete all user's events if locked is true
-            if (locked) {
-                const events = await db.getUserOwnEvents(args.accountId, 0 , 0);
-                let eventsId = [];
-                events.filter(t => eventsId.push(t.id));
-                console.log("__.user.id ====", args.accountId);
-                console.log("DELETE", eventsId);
-                for (let i = 0; i < eventsId.length; i++) {
-                   await lucius.request('role:db,cmd:deleteEventById', {id: eventsId[i], __: {user: {role: Account.ROLE_SUPERADMIN}}});
-                }
-            }
-
             // perform [un]lock
             const ret = await db.setAccountLock(accountId, locked, __.user.id, rawAccount);
             if (!ret) {
                 return responder.failure(new LuciusError(
                     E.ACCOUNT_NOT_FOUND, {id: accountId}))
+            }
+            //delete all user's upcoming events if locked is true and delete from area leader
+            if (locked) {
+                //FIX ME - we need delete user as admin for area (but now it'is not possible with couchDB 1.6.1)
+                const events = await db.getUserOwnEvents(args.accountId, 0 , 0);
+                let eventsId = [];
+                events.filter(t => {
+                    if (t.startTime > util.time.getNowUTC())
+                    eventsId.push(t.id);
+                });
+                for (let i = 0; i < eventsId.length; i++) {
+                    await lucius.request('role:db,cmd:deleteEventById', {id: eventsId[i], __: __});
+                }
             }
             return responder.success();
         })

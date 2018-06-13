@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
-import {actions, selectors} from '../../reducers/trashpile';
-import {List} from '../../components/List';
-import {TrashpointListItem} from './components/TrashpointListItem';
+import { actions, selectors } from '../../reducers/trashpile';
+import { List } from '../../components/List';
+import { TrashpointListItem } from './components/TrashpointListItem';
+import './TrashpointList.css';
 
 const STATUS_COUNT_HASH = {
   threat: {
@@ -141,16 +141,18 @@ class TrashpointList extends Component {
 
   render() {
     return (
-      <div style={{display: 'flex', flex: '1', flexDirection: 'column'}}>
-        <div style={{flex: -1}}>
+      <div className="StatusCount-block">
+        <div className="MinusFlex">
           {this.renderStatusCounts()}
         </div>
-        <List
-          infinite
-          isInfiniteLoading={this.props.loading}
-          onInfiniteLoad={this.handleLoadMore}
-          items={this.renderItems()}
-        />
+        <div className="Flex">
+          <List
+            infinite
+            isInfiniteLoading={this.props.loading}
+            onInfiniteLoad={this.handleLoadMore}
+            items={this.renderItems()}
+          />
+        </div>
       </div>
     );
   }

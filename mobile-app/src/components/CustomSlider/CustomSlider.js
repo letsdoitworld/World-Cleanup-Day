@@ -58,8 +58,9 @@ const CustomSlider = (props) => {
         width: props.width,
       }}
     >
-      {props.gradationData.map(data => (
+      {props.gradationData.map((data, key) => (
         <Gradation
+          key={key}
           position={data.position}
           image={data.image}
         />
@@ -108,10 +109,6 @@ CustomSlider.propTypes = {
   knobSize: PropTypes.number,
   innerKnobSize: PropTypes.number,
   trackHeight: PropTypes.number,
-  gradationData: PropTypes.shape({
-    position: PropTypes.number.isRequired,
-    image: PropTypes.object,
-  }),
 };
 
 export default CustomSlider;

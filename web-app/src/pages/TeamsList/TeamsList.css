@@ -1,0 +1,17 @@
+.TeamsList-sort-container {
+  padding: 10px;
+}
+
+.TeamsList-sort-button {
+  cursor: pointer;
+  margin-left: 5px;
+  color: #2672bd;
+}
+
+.TeamsList-sort-button:hover {
+  opacity: .6;
+}
+
+.TeamsList-sort-button-active {
+  text-decoration: underline;
+}

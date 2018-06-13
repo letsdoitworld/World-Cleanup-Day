@@ -12,7 +12,7 @@ import {
 import { selectors as locationSelectors } from '../reducers/location';
 import { selectors as appSelectors } from '../reducers/app';
 import { SCREENS } from '../shared/constants';
-import { DELTA_HASH, GRID_HASH, MIN_ZOOM } from '../shared/constants';
+import { MIN_ZOOM } from '../shared/constants';
 import _ from 'lodash';
 import {translate} from 'react-i18next';
 import styles from './styles';

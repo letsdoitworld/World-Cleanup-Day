@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   Image,
+  ImageBackground,
   Animated,
   View,
   Text,
@@ -19,6 +20,11 @@ export class LazyImage extends Component {
       opacity: new Animated.Value(1),
     };
   }
+
+  componentDidMount() {
+    this.onLoad();
+  }
+
   onLoad = () => {
     Animated.timing(this.state.opacity, {
       toValue: 0,
@@ -29,25 +35,26 @@ export class LazyImage extends Component {
       });
     });
   };
+
   render() {
-    const { children, style = {}, ...props } = this.props;
+    const {children, style = {}, ...props} = this.props;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         {!this.state.loaded &&
-          <Animated.Image
-            style={[
-              style,
-              {
-                opacity: this.state.opacity,
-              },
-            ]}
-            {...props}
-            source={loadingImg}
-          />}
-        <Animated.Image {...props} style={[style]} onLoad={this.onLoad}>
+        <Animated.Image
+          style={[
+            style,
+            {
+              opacity: this.state.opacity,
+            },
+          ]}
+          {...props}
+          source={loadingImg}
+        />}
+        <ImageBackground {...props} style={[style]}>
           {children}
-        </Animated.Image>
+        </ImageBackground>
       </View>
     );
   }

@@ -136,6 +136,19 @@ const designDocs = {
                 },
             },
         },
+        countByTeam: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account' && doc.team) {
+                            emit(doc.team, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
     },
     sessions: {
         all: {
@@ -144,6 +157,32 @@ const designDocs = {
                 view: {
                     map: function (doc) {
                         if (doc.$doctype === 'session') {
+                            emit(doc._id, doc);
+                        }
+                    },
+                },
+            },
+        },
+    },
+    teams: {
+        all: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'team') {
+                            emit(doc._id, doc);
+                        }
+                    },
+                },
+            },
+        },
+        byTeamId: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'team') {
                             emit(doc._id, doc);
                         }
                     },
@@ -160,19 +199,6 @@ const designDocs = {
                         var COPY_SANS_GEOMETRY = $$COPY_SANS_GEOMETRY$$;
                         if (doc.$doctype === 'area') {
                             emit(doc._id, COPY_SANS_GEOMETRY(doc));
-                        }
-                    },
-                }),
-            },
-        },
-        byName: {
-            $version: 1,
-            views: {
-                view: tools.makeAreaView({
-                    map: function (doc) {
-                        var COPY_SANS_GEOMETRY = $$COPY_SANS_GEOMETRY$$;
-                        if (doc.$doctype === 'area') {
-                            emit(doc.name, COPY_SANS_GEOMETRY(doc));
                         }
                     },
                 }),
@@ -384,6 +410,31 @@ const designDocs = {
                         }
                     },
                     reduce: '_count',
+                },
+            },
+        },
+        countByTeam: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'trashpoint' && doc.team) {
+                            emit(doc.team, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
+        byTeam: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'trashpoint' && doc.team) {
+                            emit([doc.team, doc.updatedAt], doc);
+                        }
+                    }
                 },
             },
         },

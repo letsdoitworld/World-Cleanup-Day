@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { selectors as trashpileSelector } from '../trashpile';
+import { selectors as teamsSelector } from '../teams';
 
 import { COUNTRY_LIST, USER_ROLES } from '../../shared/constants';
 
@@ -46,6 +47,16 @@ const getProfileCountry = createSelector(getProfile, (profile) => {
   }
   return COUNTRY_LIST.find(c => c.code === profile.country);
 });
+const getProfileTeam = createSelector(
+  getProfile,
+  profile => profile && profile.teamInfo,
+);
+
+const getProfileTeamId = createSelector(
+  getProfileTeam,
+  team => team && team.id,
+);
+
 const getRole = createSelector(getProfile, (profile) => {
   if (!profile) {
     return undefined;
@@ -65,6 +76,7 @@ export default {
   isProfileLoading,
   getProfileError,
   getProfileCountry,
+  getProfileTeam,
   getCachedLocation,
   didAgreeToTerms,
   getToken,
@@ -74,4 +86,5 @@ export default {
   getRole,
   isLeader,
   isSuperAdmin,
+  getProfileTeamId,
 };

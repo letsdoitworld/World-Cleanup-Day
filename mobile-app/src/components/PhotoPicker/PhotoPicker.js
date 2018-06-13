@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import _ from 'lodash';
 import { translate } from 'react-i18next';
 
 import { AlertModal } from '../AlertModal';
+import { PhotoModal } from '../PhotoModal';
 import { LazyImage } from './components/LazyImage';
 
 import styles from './styles';
@@ -35,6 +40,7 @@ class Photo extends React.Component {
     super(props);
     this.state = {
       showingConfirm: false,
+      showZoomedPhoto: false,
     };
 
     this.buttons = [
@@ -49,57 +55,92 @@ class Photo extends React.Component {
       },
     ];
   }
+
   setConfirmState = (showingConfirm) => {
     this.setState({
       showingConfirm,
     });
-  };
+  }
+
   handlePhotoDeletePress = () => {
     this.setConfirmState(true);
-  };
+  }
+
   handleModalClosed = () => {
     this.setConfirmState(false);
-  };
+  }
+
   handleModalConfirmed = () => {
     this.setConfirmState(false);
-    this.props.onPress();
-  };
+    this.props.onDeletePress();
+  }
+
+  openZoomedPhoto = () => {
+    const { photo } = this.props;
+    this.setState({
+      zoomedPhotoUrl: photo.mediumPhotoUrl,
+      showZoomedPhoto: true,
+    });
+  }
+
+  closeZoomedPhoto = () => {
+    this.setState({
+      showZoomedPhoto: false,
+    });
+  }
+
   render() {
-    const { photo, onPress } = this.props;
+    const { photo, onDeletePress } = this.props;
     const { showingConfirm } = this.state;
     return (
-      <LazyImage key={photo} style={[styles.photo]} source={{ uri: photo }}>
-        <View>
-          {onPress &&
-            <TouchableOpacity
-              onPress={this.handlePhotoDeletePress}
-              style={styles.photoButtonContainer}
-            >
-              <Ionicons
-                size={styles.$photoSize}
-                name="md-close"
-                style={styles.photoButton}
-              />
-            </TouchableOpacity>}
-
-          <AlertModal
-            visible={showingConfirm}
-            buttons={this.buttons}
-            onOverlayPress={this.handleModalClosed}
-            title={this.props.t('label_delete_photo_title')}
-            subtitle={this.props.t('label_delete_photo_subtitle')}
+      <TouchableOpacity onPress={this.openZoomedPhoto}>
+        <LazyImage
+          key={photo}
+          style={[styles.photo]}
+          source={{ uri: photo.thumbnailUrl }}
+        >
+          <PhotoModal
+            visible={this.state.showZoomedPhoto}
+            onRequestClose={this.closeZoomedPhoto}
+            photoUrl={this.state.zoomedPhotoUrl}
           />
-        </View>
-      </LazyImage>
+          <View>
+            {onDeletePress &&
+              <TouchableOpacity
+                onPress={this.handlePhotoDeletePress}
+                style={styles.photoButtonContainer}
+              >
+                <Ionicons
+                  size={styles.$photoSize}
+                  name="md-close"
+                  style={styles.photoButton}
+                />
+              </TouchableOpacity>}
+
+            <AlertModal
+              visible={showingConfirm}
+              buttons={this.buttons}
+              onOverlayPress={this.handleModalClosed}
+              title={this.props.t('label_delete_photo_title')}
+              subtitle={this.props.t('label_delete_photo_subtitle')}
+            />
+          </View>
+        </LazyImage>
+      </TouchableOpacity>
     );
   }
 }
+
 Photo.defaultProps = {
-  onPress: undefined,
+  onDeletePress: undefined,
 };
+
 Photo.propTypes = {
-  photo: PropTypes.string.isRequired,
-  onPress: PropTypes.func,
+  photo: PropTypes.shape({
+    thumbnailUrl: PropTypes.string.isRequired,
+    mediumPhotoUrl: PropTypes.string.isRequired,
+  }).isRequired,
+  onDeletePress: PropTypes.func,
 };
 
 const PhotoComponent = translate()(Photo);
@@ -131,15 +172,15 @@ const PhotoPicker = ({
         style={styles.photoContainer}
       >
         {hasPhotos &&
-          photos.map((uri, index) => {
+          photos.map((photo, index) => {
             const onDeletePhotoPress = hasDelete
               ? () => onDeletePress(index)
               : undefined;
             return (
               <PhotoComponent
-                key={uri}
-                photo={uri}
-                onPress={onDeletePhotoPress}
+                key={photo.thumbnailUrl}
+                photo={photo}
+                onDeletePress={onDeletePhotoPress}
               />
             );
           })}
@@ -152,15 +193,21 @@ const PhotoPicker = ({
     </View>
   );
 };
+
 PhotoPicker.defaultProps = {
   maxPhotos: undefined,
   onDeletePress: undefined,
   onAddPress: undefined,
 };
+
 PhotoPicker.propTypes = {
-  photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  photos: PropTypes.arrayOf(PropTypes.shape({
+    thumbnailUrl: PropTypes.string.isRequired,
+    mediumPhotoUrl: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
   onDeletePress: PropTypes.func,
   onAddPress: PropTypes.func,
   maxPhotos: PropTypes.number,
 };
+
 export default translate()(PhotoPicker);

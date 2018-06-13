@@ -161,7 +161,7 @@ module.exports = function () {
                 //get leaders id of area
                 const leadersId = await db.getArea(areaId);
                 if (leadersId.leaderId === 0){
-                    return responder.success({});
+                    return responder.success([]);
                 }
                 //get leader info
                 let leaders = [];

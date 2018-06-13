@@ -53,6 +53,9 @@ module.exports = {
     ACCOUNT_NOT_FOUND: {
         message: ({id}) => `Account does not exist: '${id}'.`,
     },
+    ACCOUNT_IS_LOCK: {
+        message: ({id}) => `You can't assign locked user: '${id}'.`,
+    },
     ACCOUNT_HAS_ACTIVE_EVENTS: {
         message: ({id}) => `Account '${id}' has active events.`,
     },

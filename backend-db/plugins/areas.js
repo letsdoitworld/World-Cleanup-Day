@@ -80,6 +80,10 @@ module.exports = function () {
             if (!rawAreaDoc) {
                 return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
             }
+            //check if user is blocked
+            if (account.locked) {
+                return responder.failure(new LuciusError(E.ACCOUNT_IS_LOCK, {id: accountId}));
+            }
             // set the leader on the area
             let areaLeadersId = typeof rawAreaDoc.leaderId === "object" ?
                                        rawAreaDoc.leaderId :

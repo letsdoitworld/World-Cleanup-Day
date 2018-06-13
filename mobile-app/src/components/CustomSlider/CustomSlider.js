@@ -109,10 +109,6 @@ CustomSlider.propTypes = {
   knobSize: PropTypes.number,
   innerKnobSize: PropTypes.number,
   trackHeight: PropTypes.number,
-  gradationData: PropTypes.shape({
-    position: PropTypes.number.isRequired,
-    image: PropTypes.object,
-  }),
 };
 
 export default CustomSlider;

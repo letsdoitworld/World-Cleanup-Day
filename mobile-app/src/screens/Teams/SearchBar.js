@@ -15,7 +15,7 @@ export default SearchBar = ({ onChangeText, value, placeholder, onPress }) =>
       onChangeText={onChangeText}
       value={value}
       placeholder={placeholder}
-      maxLength={10}
+      maxLength={50}
       autoCorrect={false}
       underlineColorAndroid={'#fff'}
     />

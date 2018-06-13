@@ -60,8 +60,19 @@ class Teams extends Component {
     this.props.navigation.navigate(ROUTES.TeamProfile, { team });
   };
 
+  getAllTeams = async () => {
+    const { fetchTeamsByCountry } = this.props;
+    const teams = await fetchTeamsByCountry();
+    this.setState( { teams })
+  };
+
+  componentDidMount() {
+    this.getAllTeams();
+  }
+
   render() {
     const { t, teams, loading } = this.props;
+
     const { search } = this.state;
     return (
       <View style={styles.container}>
@@ -107,6 +118,7 @@ const mapState = (state) => {
 };
 const mapDispatch = {
   fetchTeams: teamsOperations.fetchTeams,
+  fetchTeamsByCountry: teamsOperations.fetchTeamsByCountry,
   clearTeams: teamsOperations.clearTeams,
 };
 

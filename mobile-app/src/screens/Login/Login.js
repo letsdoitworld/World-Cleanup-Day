@@ -3,10 +3,10 @@ import {
   View,
   StatusBar,
   Image,
-  ImageBackground,
   Text,
   TouchableOpacity,
   ActivityIndicator,
+  ImageBackground
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';

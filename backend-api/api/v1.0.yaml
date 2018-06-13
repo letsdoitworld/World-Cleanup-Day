@@ -682,7 +682,7 @@ parameters:
     required: false
     type: string
     minLength: 3
-    maxLength: 10
+    maxLength: 60
   #-----------------------------------------------------------------------------
   Superadmin:
     name: superadmin

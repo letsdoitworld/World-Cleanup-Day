@@ -8,7 +8,9 @@ const fetchAllTeams = () => async (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_TEAMS_REQUEST });
   const country = userSelectors.getProfile(getState()).country;
   const superadmin = userSelectors.getProfile(getState()).role === USER_ROLES.SUPERADMIN;
-  const response = await ApiService.get(API_ENDPOINTS.FETCH_TEAMS(country, superadmin));
+  const response = country
+    ? await ApiService.get(API_ENDPOINTS.FETCH_TEAMS(country, superadmin))
+    : await ApiService.get(API_ENDPOINTS.FETCH_ALL_TEAMS(superadmin));
   if (!response) {
     return dispatch({ type: TYPES.FETCH_TEAMS_FAILED });
   }

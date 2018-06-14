@@ -10,9 +10,16 @@ module.exports = {
             doc.datasetId,
             GRID_CONVERTER(docCoords, LENGTH),
             docCoords,
-        ],              {
+        ], {
             _id: doc._id,
-            status: doc.status
+            status: doc.status,
+            photos: doc.photos,
+            name: doc.name,
+            coordinatorName: doc.coordinatorName,
+            maxPeopleAmount: doc.maxPeopleAmount,
+            attendeesAmount: doc.attendeesAmount,
+            eventContainer: doc.eventContainer,
+            eventImage: doc.eventImage
         });
     },
     reduce: function (keys, values, rereduce) {
@@ -38,39 +45,39 @@ module.exports = {
                 latitude: minLat + (maxLat - minLat) / 2,
             };
         }
-        function clusterStatus(data) {
-            if (data.length === 1) {
-                return data[0].status;
-            }
-            var states = ['threat', 'urgent', 'regular', 'cleaned', 'outdated'];
-            var priorities = states.reduce(function (red, val, idx) {
-                red[val] = idx;
-                return red;
-            }, {});
-            var mostUrgent = data.reduce(function (prev, curr) {
-                return Math.min(prev, priorities[curr.status]);
-            }, states.length - 1);
-            return states[mostUrgent];
-        }
 
         if (rereduce) {
             return {
                 _id: values[0]._id,
-                status: clusterStatus(values),
-                count: values.reduce(function (prev, curr) { return prev + curr.count; }, 0),
+                count: values.reduce(function (prev, curr) {
+                    return prev + curr.count;
+                }, 0),
                 location: clusterLocation(values.map(function (val) {
                     return [val.location.longitude, val.location.latitude];
                 })),
+                photos: values[0].photos,
+                name: values[0].name,
+                coordinatorName: values[0].coordinatorName,
+                maxPeopleAmount: values[0].maxPeopleAmount,
+                attendeesAmount: values[0].attendeesAmount,
+                eventContainer: values[0].eventContainer,
+                eventImage: values[0].eventImage
             };
         }
 
         return {
             _id: values[0]._id,
-            status: clusterStatus(values),
             count: values.length,
             location: clusterLocation(keys.map(function (val) {
                 return val[0][2];
             })),
+            photos: values[0].photos,
+            name: values[0].name,
+            coordinatorName: values[0].coordinatorName,
+            maxPeopleAmount: values[0].maxPeopleAmount,
+            attendeesAmount: values[0].attendeesAmount,
+            eventContainer: values[0].eventContainer,
+            eventImage: values[0].eventImage
         };
     },
 };

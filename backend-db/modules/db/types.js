@@ -211,6 +211,14 @@ class Cluster extends Type {
             status: true,
             location: true,
             coordinates: true,
+            isIncluded: true,
+            name: true,
+            photos: true,
+            coordinatorName: true,
+            maxPeopleAmount: true,
+            attendeesAmount: true,
+            eventContainer: true,
+            eventImage: true
         });
         //FIXME: validate field values
     }

@@ -122,19 +122,6 @@ const adapter = {
 
         return ret.data.rows.map(row => row.value);
     },
-    getMangoRawDocs: async (datatype, mangoQuery, params = {}) => {
-            const ret = await cdb.mango(
-                TYPE_TO_DB_MAP[datatype],
-                mangoQuery,
-                params
-            );
-
-            if (!ret) {
-                return [];
-            }
-            const res = ret.data.docs.map(d => adapter.rawDocToEntity(datatype, d));
-            return res;
-    },
     getEntities: async (datatype, view, options = {}) => {
         const docs = await adapter.getRawDocs(datatype, view, options);
         if (!docs) {
@@ -142,6 +129,22 @@ const adapter = {
         }
         const ret = docs.map(d => adapter.rawDocToEntity(datatype, d));
         return ret;
+    },
+    getMangoEntities: async (datatype, mangoQuery, params = {}) => {
+        const docs = await adapter.getMangoRawDocs(datatype, mangoQuery, params);
+        if (!docs) {
+            return [];
+        }
+        return docs.data.docs.map(item => adapter.rawDocToEntity(datatype, item));
+    },
+    getMangoRawDocs: async (datatype, mangoQuery, params = {}) => {
+        const ret = await cdb.mango(
+            TYPE_TO_DB_MAP[datatype],
+            mangoQuery,
+            params
+        );
+
+        return ret ? ret : [];
     },
     getOneRawDocById: async (datatype, view, id) => {
         if (!id) {

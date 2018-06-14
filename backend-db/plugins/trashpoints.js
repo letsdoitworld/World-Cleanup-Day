@@ -117,9 +117,8 @@ module.exports = function () {
         .get(['location', 'areas'])
         .use(async function ({ areas, location }, responder) {
             const {pageSize, pageNumber, name} = args;
-            const { data: {rows, total_rows: total} } = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location, areas[0]);
-            const records = await Promise.all(rows.map(async r => {
-              const trashpoint = r.value;
+            const trashpoints = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location, areas[0]);
+            const records = await Promise.all(trashpoints.map(async trashpoint => {
               if (trashpoint.createdBy) {
                   const createdByUser = await db.getAccount(trashpoint.createdBy);
                   trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
@@ -138,7 +137,7 @@ module.exports = function () {
               trashpoint.photos = trashpoint.photos.map(p => p.url);
               return trashpoint;
             }));
-            return responder.success({total, pageSize, pageNumber, records});
+            return responder.success({total: trashpoints.length + 1, pageSize, pageNumber, records});
         })
     });
 

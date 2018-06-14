@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { AreaListItem } from '../../components/AreaListItem';
 import {
@@ -9,10 +10,15 @@ import {
 import {
   SearchIcon,
   ExpandIcon,
+  CollapseIcon,
 } from '../../components/common/Icons';
 import './CountriesList.css';
 
 class CountriesList extends Component {
+
+  state = {
+    plotVisible: true,
+  }
 
   componentWillMount() {
     const { getCountries } = this.props;
@@ -21,6 +27,7 @@ class CountriesList extends Component {
 
   render() {
     const { countries, history } = this.props;
+    const { plotVisible } = this.state;
     return (
       <div className="CountriesList-container">
         <div className="CountriesList-header">
@@ -31,18 +38,30 @@ class CountriesList extends Component {
             name="search"
             placeholder="Search areas"
           />
-          <div className="AreaList-minimize">
-            <ExpandIcon />
+          <div
+            className="AreaList-minimize"
+            onClick={
+              () => this.setState({ plotVisible: !this.state.plotVisible })
+            }
+          >
+            {
+              plotVisible ?
+                <CollapseIcon /> :
+                <ExpandIcon />
+            }
           </div>
         </div>
-        <div className="CountriesList-plot">
+        <div className={
+            classnames('CountriesList-plot', { isVisible: plotVisible })
+          }
+        >
           <div className="AreaAssignList-items">
             {
               countries ?
               countries.filter(c => !c.parentId).map((c, i) => {
                 return (
                   <AreaListItem
-                    onClick={
+                    onBodyClick={
                       () => history.push(`/countries/users?area=${c.id}`)
                     }
                     index={i}

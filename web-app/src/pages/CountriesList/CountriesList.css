@@ -17,6 +17,10 @@
   transition: all 0.3s ease-in-out;
   overflow-y: auto;
   height: calc(100vh - 230px) !important;
+  display: none;
+}
+
+.isVisible {
   display: flex;
 }
 

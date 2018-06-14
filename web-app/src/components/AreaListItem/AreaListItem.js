@@ -45,7 +45,7 @@ class AreaListItem extends React.Component {
   };
 
   render() {
-    const { onClick, area, match } = this.props;
+    const { onClick, onBodyClick, area, match } = this.props;
     const hasChildren = area.children && area.children.length > 0;
     const isUserAreas = match && match.path && match.path === '/user-areas';
     let areaName = area.name;
@@ -64,7 +64,14 @@ class AreaListItem extends React.Component {
     }
 
     return (
-      <div className="AreaListItem">
+      <div
+        className="AreaListItem"
+        onClick={
+          onBodyClick ?
+          () => onBodyClick(area) :
+          null
+        }
+      >
         <div
           onClick={this.handleCollapseToggleClick}
           className="AreaListItem-plot"
@@ -94,12 +101,15 @@ class AreaListItem extends React.Component {
               {areaName}
             </span>
           </div>
-          <div
-            onClick={() => onClick(area)}
-            className="AreaListItem-trashlist-button"
-          >
-            {this.renderRightLabel()}
-          </div>
+          {
+            onClick &&
+            <div
+              onClick={() => onClick(area)}
+              className="AreaListItem-trashlist-button"
+            >
+              {this.renderRightLabel()}
+            </div>
+          }
         </div>
       </div>
     );
@@ -112,11 +122,17 @@ AreaListItem.defaultProps = {
 };
 
 AreaListItem.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  onBodyClick: PropTypes.func,
   area: PropTypes.any.isRequired,
   index: PropTypes.number.isRequired,
   leftPadding: PropTypes.number,
   rightLabel: PropTypes.any,
+};
+
+AreaListItem.defaultProps = {
+  onClick: null,
+  onBodyClick: null,
 };
 
 export default AreaListItem;

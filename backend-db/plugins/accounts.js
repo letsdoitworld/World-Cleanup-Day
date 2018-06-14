@@ -72,7 +72,15 @@ module.exports = function () {
             }
             //delete all user's upcoming events if locked is true and delete from area leader
             if (locked) {
-                //FIX ME - we need delete user as admin for area (but now it'is not possible with couchDB 1.6.1)
+                //delete user from area leader
+                const areaUserLeader = await db.getAreasForLeader(__.user.id);
+                for (let i = 0; i < areaUserLeader.length; i++){
+                    let indexLeader = areaUserLeader[i].leaderId.indexOf(__.user.id);
+                    areaUserLeader[i].leaderId.splice(indexLeader, 1);
+                    await db.modifyArea(areaUserLeader[i].id, __.user.id, {leaderId: areaUserLeader[i]});
+                }
+
+                //delete upcoming events
                 const events = await db.getUserOwnEvents(args.accountId, 0 , 0);
                 let eventsId = [];
                 events.filter(t => {

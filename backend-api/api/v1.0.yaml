@@ -125,6 +125,19 @@ paths:
             "type": "object"
         "default":
           $ref: "#/responses/ErrorSet"
+    delete:
+      description: delete event by ID.
+      x-security: [bearer]
+      operationId: deleteEventById
+      parameters:
+         - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: elete event by ID.
+          schema:
+            "type": "object"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /event:
     x-swagger-router-controller: events
     put:
@@ -140,6 +153,22 @@ paths:
               "type": "object"
           "default":
             $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
+  /event/{id}/attendees:
+    x-swagger-router-controller: events
+    post:
+      description: Join an event.
+      operationId: joinAnEvent
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: An empty object.
+          schema:
+            "type": "object"
+        "default":
+          $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /event/{id}/images:
     x-swagger-router-controller: images

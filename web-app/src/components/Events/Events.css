@@ -48,8 +48,44 @@
   outline: none;
   color: #fff;
   margin: 0 16px;
-  width: 90%;
+  width: 100%;
   font-size: 14px;
+}
+
+.EventsList-header-searchbar-container {
+  width: 90%;
+}
+
+.EventsList-header-suggestions-block {
+  position: absolute;
+  left: 0;
+  top: 55px;
+  background-color: #ecf4fc;
+  z-index: 99;
+  width: 100%;
+}
+
+.EventsList-header-suggestion {
+  cursor: pointer;
+  padding: 10px 32px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.EventsList-header-suggestion:first-of-type {
+  padding-top: 16px;
+}
+
+.EventsList-header-suggestion:last-of-type {
+  padding-bottom: 18px;
+}
+
+.EventsList-header-suggestion-txt {
+  color: #4a4a4a;
+  font-size: 12px;
 }
 
 .EventsList-header-title {

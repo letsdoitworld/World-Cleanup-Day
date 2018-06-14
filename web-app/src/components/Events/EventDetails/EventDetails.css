@@ -153,10 +153,14 @@
   border-bottom: 1px solid #ececec;
 }
 
-.EventDetails-TrashpointListItem p {
+.EventDetails-TrashpointListItem-addr {
   line-height: 80px;
   vertical-align: middle;
   display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 75%;
 }
 
 .EventDetails-TrashpointListItem-status {

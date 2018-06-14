@@ -15,7 +15,6 @@ import store from './config/store';
 import { Loader } from './components/Spinner';
 import { ApiService } from './services/';
 
-import { AuthModal } from './components/AuthModal';
 import { LockedModal } from './components/LockedModal';
 
 import Router from './routes/index';
@@ -76,7 +75,6 @@ class App extends Component {
     return (
       <div className="App" onClick={modalIsOpen && this.props.hidePopover}>
         <Router />
-        <AuthModal isOpen={modalIsOpen} onClick={this.closeModal} />
         <LockedModal
           isOpen={lockedModalIsOpen}
           onClick={this.handleLockedModalClose}

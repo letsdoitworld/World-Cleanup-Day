@@ -15,6 +15,12 @@ module.exports = {
       event: req.swagger.params.event.value
     })
   ),
+  deleteEventById: senecaRequestMw(
+    'role:db,cmd:deleteEventById',
+     req => ({
+        id: req.swagger.params.id.value
+     })
+  ),
   getEvents: senecaRequestMw(
     'role:db,cmd:getEvents',
     req => ({
@@ -45,5 +51,11 @@ module.exports = {
       pageSize: req.swagger.params.pageSize.value,
       pageNumber: req.swagger.params.pageNumber.value
     })
-  )
+  ),
+  joinAnEvent: senecaRequestMw(
+    'role:db,cmd:joinAnEvent',
+    req => ({
+      id: req.swagger.params.id.value
+    })
+  ),
 }

@@ -30,6 +30,7 @@
     "react-infinite": "^0.12.1",
     "react-modal": "^2.2.2",
     "react-motion": "^0.5.0",
+    "react-places-autocomplete": "^7.1.2",
     "react-popover": "^0.4.16",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",

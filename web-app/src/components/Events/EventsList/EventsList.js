@@ -30,7 +30,7 @@ export const List = ({ events }) => (
         }
       </div>
       <Else>
-        <EmptyEventsState />
+        <EmptyEventsState text={'Nothing to see here!'} subheadNeeded />
       </Else>
     </If>
   </div>

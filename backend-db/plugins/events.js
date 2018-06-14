@@ -200,7 +200,7 @@ module.exports = function () {
                 }
 
                 let attendees = event.attendees ? event.attendees : [];
-                let attendeesAmount = event.attendeesAmount ? event.event.attendeesAmount : 0;
+                let attendeesAmount = event.attendeesAmount ? event.attendeesAmount : 0;
                 if (event.maxPeopleAmount <= attendeesAmount) {
                     return responder.failure(new LuciusError(E.EVENT_EXCEEDED_MAX_AMOUNT_OF_ATTENDEES, {id}));
                 }

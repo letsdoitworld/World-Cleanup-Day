@@ -212,9 +212,9 @@ mime-types@^2.1.12, mime-types@~2.1.17:
   dependencies:
     mime-db "~1.33.0"
 
-node-couchdb@=1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/node-couchdb/-/node-couchdb-1.1.1.tgz#90f50058b2d4e08cc46814b623754eb5eb1141b2"
+node-couchdb@=1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/node-couchdb/-/node-couchdb-1.3.0.tgz#a0b335d21f47806d639980878a8ea3459a74eb96"
   dependencies:
     request "^2.79.0"
 

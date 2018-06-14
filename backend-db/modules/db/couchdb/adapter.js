@@ -122,6 +122,19 @@ const adapter = {
 
         return ret.data.rows.map(row => row.value);
     },
+    getMangoRawDocs: async (datatype, mangoQuery, params = {}) => {
+            const ret = await cdb.mango(
+                TYPE_TO_DB_MAP[datatype],
+                mangoQuery,
+                params
+            );
+
+            if (!ret) {
+                return [];
+            }
+            const res = ret.data.docs.map(d => adapter.rawDocToEntity(datatype, d));
+            return res;
+    },
     getEntities: async (datatype, view, options = {}) => {
         const docs = await adapter.getRawDocs(datatype, view, options);
         if (!docs) {

@@ -15,7 +15,7 @@ export const TrashpointListItem = ({ data, eventId }) => (
         alt="status"
       />
       <LocationIcon24px />
-      <p>{ data.name }</p>
+      <p className="EventDetails-TrashpointListItem-addr">{ data.name }</p>
     </div>
   </NavLink>
 );

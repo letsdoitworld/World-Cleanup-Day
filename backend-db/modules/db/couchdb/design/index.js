@@ -518,6 +518,20 @@ const designDocs = {
             },
         },
     },
+    details: {
+        all: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'detail') {
+                            emit(doc._id, doc);
+                        }
+                    },
+                },
+            },
+        },
+    }
 };
 
 /**
@@ -537,7 +551,7 @@ designDocs.trashpoints = Object.assign(
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
-    tools.makeGridScaleDesignDocs(12, 'clusters', templates.trashpointClusters),
+    tools.makeGridScaleDesignDocs(13, 'clusters', templates.trashpointClusters),
 );
 designDocs.trashpoints = Object.assign(
     designDocs.trashpoints,
@@ -549,7 +563,7 @@ designDocs.events = Object.assign(
 );
 designDocs.events = Object.assign(
   designDocs.events,
-  tools.makeGridScaleDesignDocs(10, 'clusters', templates.eventClusters),
+  tools.makeGridScaleDesignDocs(11, 'clusters', templates.eventClusters),
 );
 designDocs.events = Object.assign(
   designDocs.events,

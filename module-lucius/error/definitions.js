@@ -68,6 +68,12 @@ module.exports = {
     EVENT_NOT_FOUND: {
         message: ({id}) => `Event does not exist: '${id}'.`,
     },
+    EVENT_ALREADY_JOINED: {
+        message: ({id}) => `You are already joined this event: '${id}'.`,
+    },
+    EVENT_EXCEEDED_MAX_AMOUNT_OF_ATTENDEES: {
+        message: ({id}) => `Exceeded max amount of attendees for event: '${id}'.`,
+    },
     IMAGE_NOT_FOUND: {
         message: ({id}) => `Image does not exist: '${id}'.`,
     },

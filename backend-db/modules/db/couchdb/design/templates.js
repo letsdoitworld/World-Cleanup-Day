@@ -1,6 +1,7 @@
 'use strict';
 
-const clusterTemplate = require('./clusterTemplate');
+const trashpointClusterTemplate = require('./trashpointClusterTemplate');
+const eventClusterTemplate = require('./trashpointClusterTemplate');
 
 /*global emit $$LENGTH$$ $$GRID_CONVERTER$$ */
 module.exports = {
@@ -47,7 +48,7 @@ module.exports = {
         },
     },
 
-    trashpointClusters: clusterTemplate,
+    trashpointClusters: trashpointClusterTemplate,
 
     isolatedEvents: {
         map: function (doc) {
@@ -98,5 +99,5 @@ module.exports = {
         },
     },
 
-    eventClusters: clusterTemplate,
+    eventClusters: eventClusterTemplate,
 };

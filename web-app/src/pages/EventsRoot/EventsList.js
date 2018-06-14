@@ -51,7 +51,7 @@ class EventsList extends Component {
     const defaultPageSize = 50;
     const defaultPageNumber = 1;
     if ((nextProps.rectangle && !rectangle) ||
-    (nextProps.rectangle.se.latitude !== rectangle.se.latitude)) {
+    (rectangle && nextProps.rectangle && nextProps.rectangle.se.latitude !== rectangle.se.latitude)) {
       fetchEventsList(nextProps.rectangle, defaultPageSize, defaultPageNumber);
     }
     if (nextProps.eventsMeta.pageNumber !== eventsMeta.pageNumber && nextProps.eventsMeta.pageNumber === 1) {

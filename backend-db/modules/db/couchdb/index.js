@@ -173,17 +173,22 @@ const layer = {
     },
 
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
-      return await adapter.getEntities(
+      return await adapter.getMangoRawDocs(
         'Event',
-        '_design/byCreatingUser/_view/view',
-        {
-          sorted: true,
-          descending: true, //XXX: when desc=true, startkey and endkey are reversed
-          startkey: [userId, {}],
-          endkey: [userId],
-          limit: pageSize,
-          skip: pageSize * (pageNumber - 1),
-        });
+          {
+              selector: {
+                  $or: [
+                      {createdBy: userId},
+                      {updatedBy: userId}
+                  ]
+              },
+          },
+          {
+              sorted: true,
+              limit: pageSize,
+              skip: pageSize * (pageNumber - 1),
+          }
+      );
     },
 
     countEvents: async () => {

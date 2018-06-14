@@ -805,14 +805,14 @@ const layer = {
         );
     },
     getAreasForLeader: async leaderId => {
-        return await adapter.getEntities(
+        return await adapter.getMangoRawDocs(
             'Area',
-            `_design/byLeader/_view/view`,
             {
-                startkey: leaderId,
-                endkey: leaderId,
-                'inclusive_end': true,
-                sorted: false,
+                selector: {
+                    leaderId: {
+                        $all: [leaderId]
+                    }
+                }
             }
         );
     },

@@ -137,7 +137,7 @@ module.exports = function () {
               trashpoint.photos = trashpoint.photos.map(p => p.url);
               return trashpoint;
             }));
-            return responder.success({total: trashpoints.length + 1, pageSize, pageNumber, records});
+            return responder.success({total: trashpoints.length, pageSize, pageNumber, records});
         })
     });
 

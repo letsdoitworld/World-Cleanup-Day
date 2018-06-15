@@ -59,3 +59,30 @@
   width: 16px !important;
   height: 9px !important;
 }
+
+.no-users-holder {
+  height: calc(100vh - 230px) !important;
+}
+
+.no-users-holder img {
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.no-users-text {
+  text-align: center;
+}
+
+.no-users-text .p1 {
+  color: #282633;
+  font-size: 15px;
+  line-height: 2;
+  font-weight: bold;
+}
+
+.no-users-text .p2 {
+  color: #7b7d80;
+  font-size: 15px;
+  line-height: 1.33;
+}

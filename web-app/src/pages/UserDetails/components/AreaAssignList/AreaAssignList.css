@@ -28,6 +28,17 @@
   height: 16px;
 }
 
+.AreaAssignList-header-ttl {
+  width: 90%;
+  height: 20px;
+  margin: 0 16px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
+  text-align: left;
+}
+
 .AreaAssignList-plot {
   flex-direction: column;
   width: 100%;

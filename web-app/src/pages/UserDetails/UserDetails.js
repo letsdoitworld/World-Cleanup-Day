@@ -18,7 +18,6 @@ import { USER_ROLES } from '../../shared/constants';
 import { UserAreas } from './components/UserAreas';
 import { AreaAssignList } from './components/AreaAssignList';
 import {
-  CloseIcon,
   HumanIcon,
   EmailIcon,
   CollapseIcon,
@@ -33,6 +32,7 @@ class UserDetails extends React.Component {
 
     this.state = {
       assignAreas: false,
+      userDetailsVisible: true,
     };
   }
 
@@ -171,6 +171,7 @@ class UserDetails extends React.Component {
 
   render() {
     const { user, authUser, loading, error, history } = this.props;
+    const { userDetailsVisible } = this.state;
     if (this.state.assignAreas) {
       return (
         <AreaAssignList
@@ -208,11 +209,23 @@ class UserDetails extends React.Component {
             <BackIcon />
           </div>
           <span className="UserDetails-header-title">User details</span>
-          <div className="UserDetails-minimize">
-            <ExpandIcon />
+          <div
+            onClick={() => this.setState(
+              { userDetailsVisible: !this.state.userDetailsVisible },
+            )}
+            className="UserDetails-minimize"
+          >
+            {
+              userDetailsVisible ?
+                <CollapseIcon /> :
+                <ExpandIcon />
+            }
           </div>
         </div>
-        <div className="UserDetails-plot">
+        <div className={
+            classnames('UserDetails-plot', { isVisible: userDetailsVisible })
+          }
+        >
           <div className="UserDetails-image-container">
             {user.pictureURL && (
               <img className="UserDetails-image" src={user.pictureURL} alt="" />

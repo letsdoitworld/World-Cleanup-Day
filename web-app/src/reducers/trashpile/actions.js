@@ -13,6 +13,7 @@ import {
 import { ApiService } from '../../services';
 import selectors from './selectors';
 import { actions as appActions, selectors as appSelectors } from '../app';
+import { actions as errActions } from '../error';
 
 import TYPES from './types';
 
@@ -155,8 +156,12 @@ const fetchAllMarkers = (
     ];
   }
 
-  if (!clustersRes.data.length) {
-    dispatch(appActions.showExpandAreaModal());
+  try {
+    if (!clustersRes.data.length) {
+      dispatch(appActions.showExpandAreaModal());
+    }
+  } catch (e) {
+    console.error(e);
   }
 
   if (!clustersRes) {

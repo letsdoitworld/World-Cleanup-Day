@@ -5,6 +5,10 @@ import {
   actions as appActions,
   selectors as appSelectors,
 } from './reducers/app';
+import {
+  actions as errorActions,
+  selectors as errorSelectors,
+} from './reducers/error';
 import { actions as trashpileActions } from './reducers/trashpile';
 import {
   selectors as userSelectors,
@@ -16,6 +20,7 @@ import { Loader } from './components/Spinner';
 import { ApiService } from './services/';
 
 import { LockedModal } from './components/LockedModal';
+import { ErrorModal } from './components/ErrorModal/ErrorModal';
 
 import Router from './routes/index';
 
@@ -30,9 +35,11 @@ class App extends Component {
     fetchProfile: PropTypes.func.isRequired,
     hideModal: PropTypes.func.isRequired,
     toggleLockedModal: PropTypes.func.isRequired,
-    hidePopover: PropTypes.func.isRequired,
-    modalIsOpen: PropTypes.bool.isRequired,
     lockedModalIsOpen: PropTypes.bool.isRequired,
+    hideErrorModal: PropTypes.func.isRequired,
+    showErrorModal: PropTypes.func.isRequired,
+    isErrModalVisible: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
   }
 
   constructor() {
@@ -65,19 +72,35 @@ class App extends Component {
     this.props.toggleLockedModal(false);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errorMessage !== this.props.errorMessage) {
+      this.props.showErrorModal();
+    }
+  }
+
   render() {
-    const { modalIsOpen, lockedModalIsOpen } = this.props;
+    const {
+      lockedModalIsOpen,
+      errorMessage,
+      hideErrorModal,
+      isErrModalVisible,
+    } = this.props;
 
     if (!this.state.appLoaded) {
       return <Loader />;
     }
 
     return (
-      <div className="App" onClick={modalIsOpen && this.props.hidePopover}>
+      <div className="App">
         <Router />
         <LockedModal
           isOpen={lockedModalIsOpen}
           onClick={this.handleLockedModalClose}
+        />
+        <ErrorModal
+          hideModal={hideErrorModal}
+          isVisible={isErrModalVisible}
+          errorMessage={errorMessage}
         />
       </div>
     );
@@ -88,6 +111,8 @@ const mapStateToProps = state => ({
   isAuthenticated: !!userSelectors.getUserToken(state),
   modalIsOpen: appSelectors.getShowModal(state),
   lockedModalIsOpen: appSelectors.getShowLockedModal(state),
+  errorMessage: errorSelectors.getErrorMessage(state),
+  isErrModalVisible: errorSelectors.getShowErrorModal(state),
 });
 
 const mapDispatchToProps = {
@@ -98,6 +123,8 @@ const mapDispatchToProps = {
   showModal: appActions.showModal,
   fetchProfile: userActions.fetchProfile,
   toggleLockedModal: appActions.toggleLockedModal,
+  hideErrorModal: errorActions.hideErrorModal,
+  showErrorModal: errorActions.showErrorModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

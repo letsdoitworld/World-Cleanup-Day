@@ -6,6 +6,7 @@ import {
 } from '../../shared/helpers';
 import { API_ENDPOINTS } from '../../shared/constants';
 import { actions as appActions, selectors as appSelectors } from '../app';
+import { actions as errorActions } from '../error';
 
 const setGridValue = gridValue => ({ type: TYPES.SET_GRID_VALUE, gridValue });
 
@@ -115,6 +116,7 @@ const fetchAllEventMarkers = (
     });
   } catch (e) {
     console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to load events'));
   }
 };
 

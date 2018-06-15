@@ -2,6 +2,9 @@ import ApiService from '../../services/Api';
 import actions from './actions';
 import selectors from './selectors';
 import { selectors as userSels } from '../../reducers/user';
+import {
+  actions as errActions,
+} from '../../reducers/error';
 
 const getUserAreas = ({ userId }) => async (dispatch, getState) => {
   const authUser = userSels.getProfile(getState());
@@ -22,18 +25,16 @@ const getUserAreas = ({ userId }) => async (dispatch, getState) => {
   return areas;
 };
 const getAreas = () => async dispatch => {
-  dispatch(actions.getAreas());
-  let response = await ApiService.get('/areas');
-  if (!response) {
-    response = await ApiService.get('/areas');
+  try {
+    dispatch(actions.getAreas());
+    const response = await ApiService.get('/areas');
     if (!response) {
       dispatch(actions.getAreasError({ error: true }));
+      dispatch(errActions.setErrorMessage('Failed to load areas'));
       return;
     }
-  }
-  const areas = response.data;
-  try {
-    // get the other area
+    const areas = response.data;
+      // get the other area
     const otherTraspointsResponse = await ApiService.get(
       'areas/-/trashpoints?pageSize=10&pageNumber=1',
     );
@@ -45,10 +46,10 @@ const getAreas = () => async dispatch => {
         // TODO add other count
       });
     }
+    dispatch(actions.getAreasSuccess({ areas }));
   } catch (ex) {
     console.log(ex);
   }
-  dispatch(actions.getAreasSuccess({ areas }));
 };
 
 const assignAreaLeader = ({ areaId, userId }) => async (dispatch, getState) => {

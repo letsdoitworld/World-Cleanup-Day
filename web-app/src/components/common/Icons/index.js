@@ -35,6 +35,7 @@ import human from '../../../assets/ic-name-copy.png';
 import eventCover from '../../../assets/img-event-cover-small-1.png';
 import eventCoverBig from '../../../assets/img-event-cover-big-1.png';
 import noEventsCover from '../../../assets/img-no-events.png';
+import noUsersCover from '../../../assets/img-no-users.png';
 import expandArea from '../../../assets/img-expand-small.png';
 
 import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
@@ -116,5 +117,6 @@ export {
   eventCover,
   eventCoverBig,
   noEventsCover,
+  noUsersCover,
   expandArea,
 };

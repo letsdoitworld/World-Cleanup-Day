@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { If } from 'react-if';
 
 import {
   selectors as adminSels,
@@ -18,6 +19,11 @@ import { UserAreas } from './components/UserAreas';
 import { AreaAssignList } from './components/AreaAssignList';
 import {
   CloseIcon,
+  HumanIcon,
+  EmailIcon,
+  CollapseIcon,
+  ExpandIcon,
+  BackIcon,
 } from '../../components/common/Icons';
 import UserDetImage from './image.png';
 
@@ -46,7 +52,6 @@ class UserDetails extends React.Component {
       nextProps.user &&
       this.props.user.id !== nextProps.user.id)
     ) {
-
       if (
         this.props.authUser.id === nextProps.user.id &&
         this.props.authUser.role === USER_ROLES.SUPERADMIN
@@ -74,31 +79,38 @@ class UserDetails extends React.Component {
       getUserAreas({ userId: user.id });
     }
   };
+
   handleBlockClicked = () => {
     const { user, setUserLocked } = this.props;
     setUserLocked(user.id, !user.locked);
   };
+
   handleCloseClicked = () => {
     this.props.history.push('/users');
   };
+
   handleAreaAssign = area => {
     this.props.assignAreaLeader({
       areaId: area.id,
       userId: this.props.user.id,
     });
   };
+
   handleRemoveAreaClicked = area => {
     this.props.removeAreaLeader({
       areaId: area.id,
       userId: this.props.user.id,
     });
   };
+
   handleAssignAreasClosed = () => {
     this.setState({ assignAreas: false });
   };
+
   handleAssignAreasClicked = () => {
     this.setState({ assignAreas: true });
   };
+
   renderUserAreasList = () => {
     const {
       userAreas,
@@ -142,6 +154,7 @@ class UserDetails extends React.Component {
     }
     return true;
   };
+
   renderRoleName = () => {
     const { user } = this.props;
     switch (user.role) {
@@ -157,7 +170,7 @@ class UserDetails extends React.Component {
   };
 
   render() {
-    const { user, authUser, loading, error } = this.props;
+    const { user, authUser, loading, error, history } = this.props;
     if (this.state.assignAreas) {
       return (
         <AreaAssignList
@@ -187,12 +200,17 @@ class UserDetails extends React.Component {
     }
     return (
       <div className="UserDetails-container">
-        <div
-          className="UserDetails-header"
-          onClick={this.handleCloseClicked}
-        >
-          <span className="placeholder" />
-          <CloseIcon />
+        <div className="UserDetails-header">
+          <div
+            className="UserDetails-header-back"
+            onClick={() => history.goBack()}
+          >
+            <BackIcon />
+          </div>
+          <span className="UserDetails-header-title">User details</span>
+          <div className="UserDetails-minimize">
+            <ExpandIcon />
+          </div>
         </div>
         <div className="UserDetails-plot">
           <div className="UserDetails-image-container">
@@ -202,9 +220,6 @@ class UserDetails extends React.Component {
             <div className="UserDetails-info-container">
               {user.name && (
                 <span className="UserDetails-name">{user.name}</span>
-              )}
-              {user.email && (
-                <span className="UserDetails-email">{user.email}</span>
               )}
               {user.country && (
                 <div className="UserDetails-country-container">
@@ -218,15 +233,23 @@ class UserDetails extends React.Component {
                   </span>
                 </div>
               )}
-              {user.role && (
-                <span className="UserDetails-role">
-                  {this.renderRoleName()}
-                </span>
-              )}
             </div>
           </div>
-
           <div className="UserDetails-areas-container">
+            <If condition={!!user.role}>
+              <div className="UserDetails-block">
+                <HumanIcon />
+                <span className="UserDetails-block-text">
+                  {this.renderRoleName()}
+                </span>
+              </div>
+            </If>
+            <If condition={!!user.email}>
+              <div className="UserDetails-block">
+                <EmailIcon />
+                <span className="UserDetails-block-text">{user.email}</span>
+              </div>
+            </If>
             {this.renderUserAreasList()}
             {authUser.role === 'superadmin' &&
             user.role !== 'superadmin' && (

@@ -30,6 +30,8 @@ import logout from '../../../assets/logout.png';
 import rubbish from '../../../assets/icDeleteInactive.png';
 import rubbishActive from '../../../assets/ic-organization.png';
 
+import human from '../../../assets/ic-name-copy.png';
+
 import eventCover from '../../../assets/img-event-cover-small-1.png';
 import eventCoverBig from '../../../assets/img-event-cover-big-1.png';
 import noEventsCover from '../../../assets/img-no-events.png';
@@ -65,6 +67,7 @@ export const LocationIcon24px = () => <img src={locationBlack24px} alt="location
 export const GroupIcon24px = () => <img src={groupBlack24px} alt="group-icon-black" />;
 export const MinimizeIcon = () => <img src={hidePanel} alt="minimize-icon" />;
 export const FbIcon = () => <img src={fb} alt="fb-icon" />;
+export const HumanIcon = () => <img src={human} alt="human" />;
 export const GoogleIcon = () => <img src={google} alt="google-icon" />;
 export const ShareIcon = () => <img src={share} alt="share-icon" />;
 export const ParticipantsIcon = () => <img src={participants} alt="participants-icon" />;

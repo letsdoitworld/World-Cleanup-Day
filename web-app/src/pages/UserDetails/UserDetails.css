@@ -23,13 +23,33 @@
   text-align: right;
 }
 
-.UserDetails-header img {
+.UserDetails-header-back {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.UserDetails-minimize {
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }
 
-.placeholder {
-  display: inline-block;
-  width: 100%;
+.UserDetails-minimize img {
+  width: 16px;
+  height: 9px;
+}
+
+.UserDetails-header-title {
+  width: 90%;
+  height: 20px;
+  margin: 0 16px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
+  text-align: left;
 }
 
 .UserDetails-plot {
@@ -43,17 +63,18 @@
 
 .UserDetails-image-container {
   width: 100%;
-  /* height: 225px; */
+  height: 194px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: #ffd800;
   border-bottom: solid 1px #E6E6E6;
 }
 
 .UserDetails-image {
-  width: 128px;
-  height: 128px;
+  width: 80px;
+  height: 80px;
   border-radius: 128px;
 }
 
@@ -63,13 +84,33 @@
   flex-direction: column;
 }
 
+.UserDetails-block {
+  height: 70px;
+  padding: 24px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e5e9;
+}
+
+.UserDetails-block-text {
+  text-align: center;
+  color: #282633;
+  font-family: 'Lato';
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.UserDetails-block img {
+  vertical-align: bottom;
+  margin-right: 20px;
+}
+
 .UserDetails-name {
   text-align: center;
-  color: rgba(43, 43, 43, 0.98);
-  font-family: "Noto Sans";
-  font-size: 20px;
+  color: #282633;
+  font-family: 'Lato';
+  font-size: 15px;
   font-weight: bold;
-  line-height: 27px;
   text-align: center;
   word-wrap: break-word;
   max-width: 325px;
@@ -114,45 +155,43 @@
   text-align: center;
 }
 
-.UserDetails-role {
-  text-align: center;
-  color: rgba(43, 43, 43, 0.98);
-  font-family: "Noto Sans";
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 18px;
-  text-align: center;
-}
-
 .UserDetails-actions-container {
-  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .UserDetails-block-user {
-  color: #FC515E;
-  font-family: "Noto Sans";
-  font-size: 13px;
+  color: #e11383;
+  font-family: "Lato";
+  font-size: 14px;
   font-weight: bold;
   line-height: 18px;
   text-decoration: underline;
   cursor: pointer;
 }
 .UserDetails-block-user.locked{
-  color: #6DD543;
+  color: #3d8ded;
 }
 
 .UserDetails-area-assign-container {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: solid 1px #E6E6E6;
   text-align: center;
+  margin-top: 24px;
 }
 
 .UserDetails-area-assign-button {
-  font-size: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 217px;
+  height: 36px;
+  font-weight: bold;
   cursor: pointer;
-  text-decoration: underline;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 14px;
+  line-height: 36px;
+  border-radius: 2px;
+  background-color: #3e8ede;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
 }

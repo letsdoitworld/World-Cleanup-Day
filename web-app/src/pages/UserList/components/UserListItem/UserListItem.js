@@ -5,8 +5,7 @@ import './UserListItem.css';
 
 const UserListItem = ({
   onClick,
-  user: { pictureURL, country, name, id, locked },
-  setUserLocked,
+  user: { pictureURL, country, name },
 }) => {
   const addressContainerStyles = {};
   return (
@@ -22,29 +21,6 @@ const UserListItem = ({
         <span className="UserListItem-header">{name}</span>
         <span className="UserListItem-location">{COUNTRIES_HASH[country]}</span>
       </div>
-      <div className="UserListItem-actions">
-        {
-          locked ?
-            (<span
-              className="UserListItem-unblock"
-              onClick={e => {
-                e.stopPropagation();
-                setUserLocked(id, !locked);
-              }}
-            >
-              Unblock
-            </span>) :
-            (<span
-              className="UserListItem-block"
-              onClick={e => {
-                e.stopPropagation();
-                setUserLocked(id, !locked);
-              }}
-            >
-              Block
-            </span>)
-        }
-      </div>
     </div>
   );
 };
@@ -58,7 +34,6 @@ UserListItem.propTypes = {
     id: PropTypes.string,
     locked: PropTypes.bool,
   }).isRequired,
-  setUserLocked: PropTypes.func.isRequired,
 };
 
 export default UserListItem;

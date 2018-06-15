@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import classnames from 'classnames';
 import { Loader } from '../../components/Spinner';
 import { AreaListItem } from '../../components/AreaListItem';
 import { TrashpointList } from '../TrashpointList';
@@ -16,6 +16,7 @@ import { actions as trashpileActions } from '../../reducers/trashpile';
 import {
   SearchIcon,
   ExpandIcon,
+  CollapseIcon,
 } from '../../components/common/Icons';
 
 class AreaList extends React.Component {
@@ -25,6 +26,7 @@ class AreaList extends React.Component {
       selectedArea: props.location.state
         ? props.location.state.selectedArea
         : undefined,
+      areasWindowVisible: true,
     };
   }
 
@@ -57,6 +59,7 @@ class AreaList extends React.Component {
 
     this.setState({ selectedArea: area });
   };
+
   renderInnerAreaList = () => {
     const { loading, areas, error, match } = this.props;
     if (loading) {
@@ -80,7 +83,7 @@ class AreaList extends React.Component {
     }
     return areas.map((a, i) => (
       <AreaListItem
-        onClick={this.handleListItemClick}
+        onBodyClick={this.handleListItemClick}
         index={i}
         area={a}
         key={a.id}
@@ -97,7 +100,7 @@ class AreaList extends React.Component {
 
   render() {
     const { loading } = this.props;
-    const { selectedArea } = this.state;
+    const { selectedArea, areasWindowVisible } = this.state;
     if (selectedArea && loading) {
       return;
     }
@@ -132,11 +135,26 @@ class AreaList extends React.Component {
             name="search"
             placeholder="Search areas"
           />
-          <div className="AreaList-minimize">
-            <ExpandIcon />
-          </div>
+        <div
+          onClick={() => {
+            this.setState({
+              areasWindowVisible: !this.state.areasWindowVisible,
+            });
+          }}
+          className="AreaList-minimize"
+        >
+          {
+            areasWindowVisible ?
+              <CollapseIcon /> :
+              <ExpandIcon />
+          }
         </div>
-        <div className="AreaList-plot">
+        </div>
+        <div className={
+          classnames(
+            'AreaList-plot', { isVisible: areasWindowVisible },
+          )}
+        >
           {this.renderInnerAreaList()}
         </div>
       </div>);

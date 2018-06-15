@@ -61,7 +61,7 @@ class AreaList extends React.Component {
           className="AreaAssignList-header"
           onClick={this.handleCloseClick}
         >
-          <span className="placeholder" />
+          <span className="placeholder">Assign area to user</span>
           <CloseIcon />
         </div>
         <div className="AreaAssignList-plot">

@@ -184,7 +184,9 @@ class Home extends React.Component {
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       HEADER_LINKS.push({
         title: 'Users',
-        url: userProfile.role === USER_ROLES.LEADER ? '/user-areas' : '/countries',
+        url: userProfile.role === USER_ROLES.LEADER
+        ? '/user-areas'
+        : '/countries',
         image: <UsersIcon />,
       });
     }

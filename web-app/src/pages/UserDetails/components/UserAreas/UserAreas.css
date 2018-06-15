@@ -1,21 +1,30 @@
-.UserAreas-container {
-    border-bottom: solid 1px #E6E6E6;
-    margin-bottom: 5px;
+.UserAreas-item {
+  padding: 10px 20px;
+  height: 60px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e5e9;
+  position: relative;
 }
 
-.UserAreas-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 40px;
+.UserAreas-item img {
+  margin-right: 20px;
+  vertical-align: middle;
+}
+
+.UserAreas-name-block {
+  display: inline-block;
 }
 
 .UserAreas-name {
-    margin-left: 10px;
+  line-height: 10px;
 }
 
 .UserAreas-remove {
-    cursor: pointer;
-    margin-right: 10px;
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  cursor: pointer;
+  color: #e11383;
+  text-decoration: underline;
+  font-weight: bold;
 }

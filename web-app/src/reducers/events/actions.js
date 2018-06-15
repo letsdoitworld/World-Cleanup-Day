@@ -22,96 +22,100 @@ const fetchAllEventMarkers = (
   viewPortRightBottomCoordinate,
   mapSize,
 ) => async (dispatch, getState) => {
-  dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_REQUEST });
-  let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+  try {
+    dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_REQUEST });
+    let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
 
-  if (!datasetId) {
-    try {
-      await dispatch(appActions.fetchDatasets());
-      datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
-    } catch (ex) {
+    if (!datasetId) {
+      try {
+        await dispatch(appActions.fetchDatasets());
+        datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+      } catch (ex) {
+        return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
+      }
+    }
+
+    const diagonaleInMeters = getDistanceBetweenPointsInMeters(
+      viewPortLeftTopCoordinate.latitude,
+      viewPortLeftTopCoordinate.longitude,
+      viewPortRightBottomCoordinate.latitude,
+      viewPortRightBottomCoordinate.longitude,
+    );
+    const grid = getGridValue(diagonaleInMeters);
+    dispatch(setGridValue(grid));
+    let cellSize = 0;
+    if (
+      viewPortRightBottomCoordinate.longitude >
+      viewPortLeftTopCoordinate.longitude
+    ) {
+      cellSize =
+        38 *
+        (viewPortRightBottomCoordinate.longitude -
+          viewPortLeftTopCoordinate.longitude) /
+        mapSize.width;
+    } else {
+      cellSize =
+        (180 -
+          viewPortLeftTopCoordinate.longitude +
+          viewPortRightBottomCoordinate.longitude +
+          180) *
+        38 /
+        mapSize.width;
+    }
+
+    const body = {
+      datasetId,
+      rectangle: {
+        nw: viewPortLeftTopCoordinate,
+        se: viewPortRightBottomCoordinate,
+      },
+      cellSize,
+    };
+    const [clustersRes] = await Promise.all([
+      ApiService.post(
+        API_ENDPOINTS.FETCH_OVERVIEW_EVENT_CLUSTERS,
+        {
+          ...body,
+        },
+        {
+          withToken: false,
+        },
+      ),
+    ]);
+
+    let markers = [];
+
+    if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
+      markers = [
+        ...markers,
+        ...clustersRes.data.map(cluster => ({
+          ...cluster,
+          position: {
+            lat: cluster.location.latitude,
+            lng: cluster.location.longitude,
+          },
+          isTrashpile: true,
+          id: cluster.id,
+        })),
+      ];
+    }
+
+    if (!clustersRes) {
       return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
     }
+
+    if (!clustersRes.data.length) {
+      dispatch(appActions.showExpandAreaModal());
+    }
+
+
+    dispatch({
+      type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
+      markers,
+    });
+  } catch (e) {
+    console.log(e);
   }
-
-  const diagonaleInMeters = getDistanceBetweenPointsInMeters(
-    viewPortLeftTopCoordinate.latitude,
-    viewPortLeftTopCoordinate.longitude,
-    viewPortRightBottomCoordinate.latitude,
-    viewPortRightBottomCoordinate.longitude,
-  );
-  const grid = getGridValue(diagonaleInMeters);
-  dispatch(setGridValue(grid));
-  let cellSize = 0;
-  if (
-    viewPortRightBottomCoordinate.longitude >
-    viewPortLeftTopCoordinate.longitude
-  ) {
-    cellSize =
-      38 *
-      (viewPortRightBottomCoordinate.longitude -
-        viewPortLeftTopCoordinate.longitude) /
-      mapSize.width;
-  } else {
-    cellSize =
-      (180 -
-        viewPortLeftTopCoordinate.longitude +
-        viewPortRightBottomCoordinate.longitude +
-        180) *
-      38 /
-      mapSize.width;
-  }
-
-  const body = {
-    datasetId,
-    rectangle: {
-      nw: viewPortLeftTopCoordinate,
-      se: viewPortRightBottomCoordinate,
-    },
-    cellSize,
-  };
-  const [clustersRes] = await Promise.all([
-    ApiService.post(
-      API_ENDPOINTS.FETCH_OVERVIEW_EVENT_CLUSTERS,
-      {
-        ...body,
-      },
-      {
-        withToken: false,
-      },
-    ),
-  ]);
-
-  let markers = [];
-
-  if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
-    markers = [
-      ...markers,
-      ...clustersRes.data.map(cluster => ({
-        ...cluster,
-        position: {
-          lat: cluster.location.latitude,
-          lng: cluster.location.longitude,
-        },
-        isTrashpile: true,
-        id: cluster.id,
-      })),
-    ];
-  }
-
-  if (!clustersRes) {
-    return dispatch({ type: TYPES.FETCH_ALL_EVENT_MARKERS_FAILED });
-  }
-
-  if (!clustersRes.data.length) {
-    dispatch(appActions.showExpandAreaModal());
-  }
-
-
-  dispatch({
-    type: TYPES.FETCH_ALL_EVENT_MARKERS_SUCCESS,
-    markers,
-  });
 };
 
 const fetchEventsList = (rectangle, pageSize, pageNumber, address) =>

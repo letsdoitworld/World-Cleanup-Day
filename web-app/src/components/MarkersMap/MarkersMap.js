@@ -32,6 +32,7 @@ class MarkersMap extends React.Component {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
     focusedLocation: null,
+    currentEventLocation: null,
   };
 
   static propTypes = {
@@ -47,7 +48,7 @@ class MarkersMap extends React.Component {
       PropTypes.shape,
     ).isRequired,
     tabActive: PropTypes.string.isRequired,
-    currentEventLocation: PropTypes.any.isRequired,
+    currentEventLocation: PropTypes.any,
     focusedLocation: PropTypes.any,
     isExpandAreaModalVisible: PropTypes.bool.isRequired,
     hideExpandAreaModal: PropTypes.func.isRequired,

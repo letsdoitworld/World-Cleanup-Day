@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
 import { actions, selectors } from '../../reducers/trashpile';
 import { List } from '../../components/List';
 import { TrashpointListItem } from './components/TrashpointListItem';
@@ -50,8 +49,9 @@ class TrashpointList extends Component {
       leading: true,
     });
   }
+
   componentWillMount() {
-    const { page, pageSize, loaded } = this.state;
+    const {page, pageSize, loaded} = this.state;
     this.props
       .fetchTrashpoints({
         areaId: this.props.selectedArea.id,
@@ -61,7 +61,7 @@ class TrashpointList extends Component {
       })
       .then(res => {
         if (res) {
-          this.setState({ loaded: true });
+          this.setState({loaded: true});
         }
       });
   }
@@ -76,7 +76,7 @@ class TrashpointList extends Component {
     if (!this.props.canLoadMore) {
       return;
     }
-    const { page, pageSize } = this.state;
+    const {page, pageSize} = this.state;
     this.setState(
       {
         page: page + 1,
@@ -90,8 +90,9 @@ class TrashpointList extends Component {
       },
     );
   };
+
   renderItems() {
-    const { trashpoints = [] } = this.props;
+    const {trashpoints = []} = this.props;
     return trashpoints.map(t =>
       (<TrashpointListItem
         title={t.name}
@@ -103,7 +104,7 @@ class TrashpointList extends Component {
   }
 
   renderStatusCounts = () => {
-    const { statusCounts } = this.props;
+    const {statusCounts} = this.props;
     if (!statusCounts) {
       return null;
     }
@@ -126,7 +127,7 @@ class TrashpointList extends Component {
                 </span>
               </div>
               <span
-                style={{ color: status.color }}
+                style={{color: status.color}}
                 className="StatusCount-label"
               >
                 {status.label}

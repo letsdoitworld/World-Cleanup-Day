@@ -117,6 +117,11 @@ class CreateTrashpoint extends Component {
       base64,
     });
 
+    const coordinates = await ImageService.getEXIFCoordinates(base64);
+    if (coordinates.lat !== "") {
+      this.handleLocationChanged(coordinates);
+    }
+
     this.setState({
       photos: [
         ...this.state.photos,

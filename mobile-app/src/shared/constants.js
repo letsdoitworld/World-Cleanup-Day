@@ -294,3 +294,5 @@ export const USER_ROLES = {
   SUPERADMIN: 'superadmin',
 };
 
+export const LAST_ACTIVITY_TRASHPOINTS_AMOUNT = 4;
+

@@ -48,6 +48,9 @@ class TrashDetails extends React.Component {
     if(this.props.location.state && this.props.location.state.selectedArea) {
       url = `${url}areas`;
     }
+    if(this.props.location.state && this.props.location.state.selectedTeamId) {
+      url = `${url}teams/${this.props.location.state.selectedTeamId}`;
+    }
     this.props.history.push(url, {
       selectedArea: this.props.authUser.role !== USER_ROLES.VOLUNTEER ?
         (this.props.location.state ? this.props.location.state.selectedArea : undefined) :

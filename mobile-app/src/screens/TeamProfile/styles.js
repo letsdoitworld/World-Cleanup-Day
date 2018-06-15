@@ -92,5 +92,5 @@ export default EStyleSheet.create({
   circleText: {
     fontFamily: '$boldFont',
     fontSize: 11,
-  }
+  },
 });

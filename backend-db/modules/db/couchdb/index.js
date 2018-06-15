@@ -210,6 +210,30 @@ const layer = {
     }
     return true;
   },
+  getAccountsInBetween: async (dateFrom, dateTo, cc) => {
+    if (cc) {
+      return await adapter.getEntities(
+        'Account',
+        '_design/byCreationTimeAndCountry/_view/view',
+        {
+          sorted: true,
+          descending: true,
+          startkey: [cc, dateTo, {}],
+          endkey: [cc, dateFrom],
+        }
+      );
+    }
+    return await adapter.getEntities(
+      'Account',
+      '_design/byCreationTime/_view/view',
+      {
+        sorted: true,
+        descending: true,
+        startkey: dateTo,
+        endkey: dateFrom,
+      }
+    );
+  },
 
   //========================================================
   // SESSIONS
@@ -297,6 +321,30 @@ const layer = {
       }
     );
   },
+  getAllTrashpoints: async (dateFrom, dateTo, cc) => {
+    if (cc) {
+      return await adapter.getEntities(
+        'Trashpoint',
+        '_design/byUpdatingTimeAndCountry/_view/view',
+        {
+          sorted: true,
+          descending: true,
+          startkey: [cc, dateTo, {}],
+          endkey: [cc, dateFrom],
+        }
+      );
+    }
+    return await adapter.getEntities(
+      'Trashpoint',
+      '_design/byUpdatingTime/_view/view',
+      {
+        sorted: true,
+        descending: true,
+        startkey: [dateTo, {}],
+        endkey: [dateFrom],
+      }
+    );
+  },
   getAreaTrashpoints: async (areaCode, pageSize = 10, pageNumber = 1) => {
     return await adapter.getEntities(
       'Trashpoint',
@@ -324,6 +372,18 @@ const layer = {
         skip: pageSize * (pageNumber - 1),
       }
     );
+  },
+  getAllUserTrashpoints: async (userId) => {
+    return await adapter.getEntities(
+      'Trashpoint',
+      '_design/byCreatingUser/_view/view',
+      {
+        sorted: true,
+        descending: true,
+        startkey: [userId, {}],
+        endkey: [userId],
+      }
+    )
   },
   getGridCellTrashpoints: async (datasetId, cellSize, gridCoord) => {
     const scale = grid.getScaleForCellSize(cellSize);
@@ -685,6 +745,30 @@ const layer = {
     ) : teams;
     const sortedTeamsByCountry = _.sortBy(filteredTeams, team => team.CC !== country);
     return sortedTeamsByCountry
+  },
+  getTeamsInBetween: async (dateFrom, dateTo, nameTeam) => {
+    if (nameTeam) {
+      return await adapter.getEntities(
+        'Team',
+        '_design/byCreationTimeAndName/_view/view',
+        {
+          sorted: true,
+          descending: true,
+          startkey: [nameTeam, dateTo, {}],
+          endkey: [nameTeam, dateFrom],
+        }
+      );
+    }
+    return await adapter.getEntities(
+      'Team',
+      '_design/byCreationTime/_view/view',
+      {
+        sorted: true,
+        descending: true,
+        startkey: dateTo,
+        endkey: dateFrom,
+      }
+    );
   },
   getCountTeamsTrashpoints: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
   getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/byTeamId/_view/view', id),

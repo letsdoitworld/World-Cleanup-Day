@@ -1,5 +1,6 @@
 'use strict';
 const {E, LuciusError, Lucius} = require('module-lucius');
+const util = require('module-util');
 const db = require('../modules/db');
 const logger = require('module-logger');
 const {Team, Account} = require('../modules/db/types');
@@ -35,6 +36,24 @@ module.exports = function () {
                 const teamsWithMembers = await Promise.all(teams.map(async team => additionalTeamInfo(team, AMOOUNT_OF_TEAMS)));
                 return responder.success(teamsWithMembers);
             });
+    });
+
+    lucius.register('role:db,cmd:getTeamsInBetween', async function (connector, args) {
+        return connector.input(args)
+          .use(async function ({from, to, nameTeam}, responder) {
+              const dateFrom = from ? util.time.getNowUTC(new Date(from)) : util.time.getNowUTC(new Date(0));
+              const dateTo = to ? util.time.getNowUTC(new Date(to)) : util.time.getNowUTC(new Date());
+              const teams = await db.getTeamsInBetween(dateFrom, dateTo, nameTeam);
+              const teamsWithAdditionalInfo = await Promise.all(teams.map(async team => additionalTeamInfo(team, -1)));
+              const result = teamsWithAdditionalInfo.map(team => ({
+                id: team.id,
+                name: team.name,
+                members: team.members,
+                trashpoints: team.trashpoints,
+                groupCount: team.groupCount,
+              }));
+              return responder.success(result);
+          });
     });
 
     lucius.register('role:db,cmd:getAllTeamsWeb', async function (connector, args) {

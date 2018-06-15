@@ -170,6 +170,28 @@ paths:
                   $ref: "#/definitions/Account"
         "default":
           $ref: "#/responses/ErrorSet"
+  /users/list:
+    x-swagger-router-controller: users
+    get:
+      description: Fetch user list without sensitive data.
+      operationId: getAllUsersInBetween
+#      x-security: [bearer, {roles:[superadmin, leader]}]
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/Country"
+      responses:
+        "200":
+          description: List of users without sensitive data
+          schema:
+            type: object
+            properties:
+              records:
+                type: array
+                items:
+                  $ref: "#/definitions/AccountFullInfo"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /users/{id}:
     x-swagger-router-controller: users
     get:
@@ -217,6 +239,20 @@ paths:
       parameters:
         - $ref: "#/parameters/Country"
         - $ref: "#/parameters/Search"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/list:
+    x-swagger-router-controller: teams
+    get:
+      description: List of all teams between two dates.
+      operationId: getTeamsInBetween
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/NameTeam"
       responses:
         "200":
           $ref: "#/responses/Teams"
@@ -440,6 +476,19 @@ paths:
             $ref: "#/definitions/Trashpoint"
         "default":
           $ref: "#/responses/ErrorSet"
+    get:
+      description: Get trashpoint list between two dates.
+      operationId: getTrashpointsInBetween
+#      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/Country"
+      responses:
+        "200":
+          $ref: "#/definitions/TrashpointsList"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /trashpoints/user:
     x-swagger-router-controller: trashpoints
     get:
@@ -567,6 +616,18 @@ parameters:
     required: true
     type: integer
     minimum: 1
+  From:
+    name: from
+    in: query
+    description: date
+    required: false
+    type: string
+  To:
+    name: to
+    in: query
+    description: date.
+    required: false
+    type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:
     name: request
@@ -608,6 +669,12 @@ parameters:
     type: string
     minLength: 3
     maxLength: 10
+  #-----------------------------------------------------------------------------
+  NameTeam:
+    name: nameTeam
+    in: query
+    required: false
+    type: string
   #-----------------------------------------------------------------------------
   Search:
     name: search
@@ -917,6 +984,17 @@ definitions:
       coordinates:
         $ref: "#/definitions/GridCoordinates"
   #-----------------------------------------------------------------------------
+  # Trashpoints sorted array.
+  #-----------------------------------------------------------------------------
+  TrashpointsList:
+    type: object
+    required: [trashpoints]
+    properties:
+      trashpoints:
+        type: array
+        items:
+          $ref: "#/definitions/BriefTrashpoint"
+  #-----------------------------------------------------------------------------
   # Trashpoints as paginated sets.
   #-----------------------------------------------------------------------------
   PaginatedTrashpoints:
@@ -1110,6 +1188,12 @@ definitions:
     items:
       type: number
       format: int32
+  #-----------------------------------------------------------------------------
+  # Date.
+  #-----------------------------------------------------------------------------
+  Date:
+    description: date.
+    type: string
   #-----------------------------------------------------------------------------
   # Geographical data.
   #-----------------------------------------------------------------------------

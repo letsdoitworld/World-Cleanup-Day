@@ -82,7 +82,7 @@ const layer = {
         }
 
         if (address) {
-            address.push({
+            operands.push({
                 "address": {
                     "$regex": "(?i)" + address
                 }

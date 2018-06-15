@@ -23,6 +23,7 @@ class Details extends Component {
         createdByName,
         updatedByName,
         thumbnails,
+        mediumPhotos,
         composition,
         hashtags,
         amount,
@@ -66,7 +67,11 @@ class Details extends Component {
           />
         </div>
         <div className="Details-default-container">
-          <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
+          <TrashPhotos photos={(thumbnails || []).map(thumbnail => ({
+            thumbnailUrl: thumbnail.url,
+            mediumPhotoUrl: mediumPhotos.find((mediumPhoto) => mediumPhoto.id === thumbnail.parentId).url,
+          }))}
+          />
         </div>
         <div className="Details-default-container">
           <TrashAmount disabled amount={amount} />

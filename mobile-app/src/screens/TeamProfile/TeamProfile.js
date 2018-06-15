@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Alert, ScrollView } from 'react-native';
+import { View, Image, Text, Alert, ScrollView, } from 'react-native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
@@ -13,6 +13,7 @@ import { COUNTRIES_HASH } from '../../shared/countries';
 import { Button } from '../../components/Buttons';
 import TrashCircle from './TrashCircle';
 import ActivityListItem from '../MyActivity/components/ActivityListItem';
+import { LAST_ACTIVITY_TRASHPOINTS_AMOUNT } from '../../shared/constants';
 
 import styles from './styles';
 
@@ -65,9 +66,11 @@ class TeamProfile extends Component {
     this.props.navigation.navigate('Profile');
   };
 
+
   render() {
     const { team } = this.state;
     const myTeam = this.props.team;
+
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -125,7 +128,7 @@ class TeamProfile extends Component {
               <Text
                 style={styles.trashPointsText}>{this.props.t('label_text_latest_activity')}
               </Text>
-              {team.lastTrashpoints && team.lastTrashpoints.map(trash => (
+              {team.lastTrashpoints && team.lastTrashpoints.slice(0, LAST_ACTIVITY_TRASHPOINTS_AMOUNT).map(trash => (
                 <ActivityListItem key={trash.id} {...trash}
                                   onPressItem={this.goToDetails}
                                   backgroundColor={'transparent'}/>

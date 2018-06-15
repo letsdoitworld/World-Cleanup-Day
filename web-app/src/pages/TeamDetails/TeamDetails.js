@@ -63,7 +63,7 @@ class TeamDetails extends Component {
     if (!id) {
       return;
     }
-    this.props.history.push(`/trashpoints/${id}?focus=y`, { selectedArea: this.props.selectedArea });
+    this.props.history.push(`/trashpoints/${id}?focus=y`, { selectedTeamId: this.props.team.id });
   };
 
   handleLoadMore = () => {
@@ -143,7 +143,6 @@ class TeamDetails extends Component {
   render() {
 
     const { team, match: { params } } = this.props;
-
     return team.id === params.id ?
       <div className="AreaList">
         <div className="AreaList-top-band">

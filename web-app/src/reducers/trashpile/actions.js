@@ -402,6 +402,7 @@ export const createMarker = (
 ) => async (dispatch, getState) => {
   try {
     dispatch({ type: TYPES.CREATE_MARKER_REQUEST });
+
     const newMarker = {
       hashtags,
       composition,

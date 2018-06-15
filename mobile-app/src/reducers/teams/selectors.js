@@ -6,7 +6,8 @@ const teamsSelector = createSelector(stateSelector, state => state.list);
 
 const loadingSelector = createSelector(stateSelector, state => state.loading);
 
+
 export default {
   teamsSelector,
-  loadingSelector
+  loadingSelector,
 };

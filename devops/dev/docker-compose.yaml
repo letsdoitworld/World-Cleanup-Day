@@ -78,5 +78,4 @@ services:
             - "127.0.0.1:5984:5984"
             - "127.0.0.1:5986:5986"
         volumes:
-            - ./services/couchdb/db:/usr/local/var/lib/couchdb
-            - ./services/couchdb/etc/local.ini:/usr/local/etc/couchdb/local.ini
+            - ./services/couchdb/db:/opt/couchdb/data

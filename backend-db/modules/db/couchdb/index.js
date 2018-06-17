@@ -649,7 +649,7 @@ const layer = {
     },
     createTrashpointDetails: async () => {
         const ret = await layer.getTrashpointDetails();
-        if (!Array.isArray(ret) || !ret.length === 0) {
+        if (!Array.isArray(ret) || ret.length !== 0) {
             return false;
         }
         const create = {

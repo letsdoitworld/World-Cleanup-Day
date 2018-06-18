@@ -181,7 +181,7 @@ module.exports = function () {
                 }
             }
             //trashpoints created by user with private profile are shown anonymously
-            if(createdByUser && !createdByUser.public) {
+            if(createdByUser && !createdByUser.public  && __.user.role !== Account.ROLE_SUPERADMIN) {
                 createdByUser.name = 'anonymously';
                 createdByUser.email = 'anonymously';
                 createdByUser.pictureURL = '';

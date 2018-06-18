@@ -35,8 +35,11 @@ module.exports = {
     AREA_NOT_FOUND: {
         message: ({id}) => `Area does not exist: '${id}'.`,
     },
+    LEADER_NOT_FOUND: {
+        message: ({id}) => `Leader not found: '${id}'.`,
+    },
     AREA_LEADER_EXISTS: {
-        message: ({id}) => `Area '${id}' already has a leader.`,
+        message: ({id}) => `Area already has a leader '${id}'.`,
     },
     ACCOUNT_NOT_SUBJECT_TO_LEADER: {
         message: ({accountId, leaderId}) => `Account ${accountId} cannot be modified by leader '${leaderId}'.`,
@@ -50,11 +53,17 @@ module.exports = {
     ACCOUNT_NOT_FOUND: {
         message: ({id}) => `Account does not exist: '${id}'.`,
     },
+    ACCOUNT_IS_LOCK: {
+        message: ({id}) => `You can't assign locked user: '${id}'.`,
+    },
     ACCOUNT_HAS_ACTIVE_EVENTS: {
         message: ({id}) => `Account '${id}' has active events.`,
     },
     ACCOUNT_CANNOT_SELF_LOCK: {
         message: () => `An account cannot set lock status on itself.`,
+    },
+    ACCOUNT_BLOCKED: {
+        message: () => `Sorry but your account was blocked by Administrator`,
     },
     COUNTRY_REQUIRED: {
         message: () => `Area leaders must provide a country with the request.`,

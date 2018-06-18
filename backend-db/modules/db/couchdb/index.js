@@ -152,17 +152,29 @@ const layer = {
     },
 
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
-        return await adapter.getEntities(
-            'Event',
-            '_design/byCreatingUser/_view/view',
-            {
+        let paramsQuery = {
+            sorted: true,
+            descending: true, //XXX: when desc=true, startkey and endkey are reversed
+            startkey: [userId, {}],
+            endkey: [userId],
+            limit: pageSize,
+            skip: pageSize * (pageNumber - 1),
+        };
+
+        if (pageSize === 0 || pageNumber === 0) {
+             paramsQuery = {
                 sorted: true,
                 descending: true, //XXX: when desc=true, startkey and endkey are reversed
                 startkey: [userId, {}],
                 endkey: [userId],
-                limit: pageSize,
-                skip: pageSize * (pageNumber - 1),
-            });
+            };
+        }
+
+        return await adapter.getEntities(
+            'Event',
+            '_design/byCreatingUser/_view/view',
+            paramsQuery
+            );
     },
 
     countEvents: async () => {

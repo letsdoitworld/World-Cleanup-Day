@@ -1471,11 +1471,6 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Trashpoint"
-      peoples:
-        description: Peoples list
-        type: array
-        items:
-          $ref: "#/definitions/Account"
 
   #-----------------------------------------------------------------------------
   # Grid data.

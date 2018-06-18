@@ -65,8 +65,14 @@ module.exports = {
     TRASHPOINT_ALREADY_INCLUDED: {
         message: ({trashpointId}) => `Trashpoint '${trashpointId}' already included.`,
     },
+    TRASHPOINT_ALREADY__EXIST: {
+        message: ({longitude, latitude}) => `Trashpoint with longitude='${longitude}' and latitude='${latitude}' already exist.`,
+    },
     EVENT_NOT_FOUND: {
         message: ({id}) => `Event does not exist: '${id}'.`,
+    },
+    EVENT_ALREADY__EXIST: {
+        message: ({longitude, latitude}) => `Event with longitude='${longitude}' and latitude='${latitude}' already exist.`,
     },
     EVENT_ALREADY_JOINED: {
         message: ({id}) => `You are already joined this event: '${id}'.`,

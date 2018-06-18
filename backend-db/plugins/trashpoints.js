@@ -117,9 +117,8 @@ module.exports = function () {
         .get(['location', 'areas'])
         .use(async function ({ areas, location }, responder) {
             const {pageSize, pageNumber, name} = args;
-            const { data: {rows, total_rows: total} } = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location, areas[0]);
-            const records = await Promise.all(rows.map(async r => {
-              const trashpoint = r.value;
+            const trashpoints = await db.getTrashpointsByNameOrderByDistance(pageSize, pageNumber, name, location, areas[0]);
+            const records = await Promise.all(trashpoints.map(async trashpoint => {
               if (trashpoint.createdBy) {
                   const createdByUser = await db.getAccount(trashpoint.createdBy);
                   trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
@@ -138,7 +137,7 @@ module.exports = function () {
               trashpoint.photos = trashpoint.photos.map(p => p.url);
               return trashpoint;
             }));
-            return responder.success({total, pageSize, pageNumber, records});
+            return responder.success({total: trashpoints.length, pageSize, pageNumber, records});
         })
     });
 
@@ -158,7 +157,7 @@ module.exports = function () {
         });
     });
 
-    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args) {
+    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args, __) {
         return connector
         .input({id: args.id})
         .use(async function (request, responder) {
@@ -167,17 +166,28 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: request.id}));
             }
             const createdByUser = await db.getAccount(trashpoint.createdBy);
-            if (createdByUser) {
+            //trashpoints created with private profile but user is SUPERADMIN
+            if (createdByUser && createdByUser.public || __.user.role === Account.ROLE_SUPERADMIN
+                || __.user.role === Account.ROLE_ADMIN) {
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
-            }
-            if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
-                trashpoint.updater = trashpoint.creator;
-            } else {
-                const updatedByUser = await db.getAccount(trashpoint.updatedBy);
-                if (updatedByUser) {
-                   trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
+                    trashpoint.updater = trashpoint.creator;
+                } else {
+                    const updatedByUser = await db.getAccount(trashpoint.updatedBy);
+                    if (updatedByUser) {
+                        trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                    }
                 }
             }
+            //trashpoints created by user with private profile are shown anonymously
+            if(createdByUser && !createdByUser.public) {
+                createdByUser.name = 'anonymously';
+                createdByUser.email = 'anonymously';
+                createdByUser.pictureURL = '';
+                trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+                trashpoint.updater = trashpoint.creator;
+            }
+
             trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
             trashpoint.photos = trashpoint.photos.map(p => p.url);
             return responder.success(trashpoint);
@@ -258,10 +268,13 @@ module.exports = function () {
         // update the trashpoint
         .get(['areas', 'request'])
         .use(async function ({areas, request}, responder) {
+            const modifyByUser = await db.getAccount(__.user.id);
+            //if user with private profile update trashpoint
+            const userId = modifyByUser.public ? __.user.id : 'anonymously';
             const trashpointId = request.trashpointId;
             const trashpointData = request.trashpointData;
             trashpointData.areas = areas;
-            const trashpoint = await db.modifyTrashpoint(trashpointId, __.user.id, trashpointData);
+            const trashpoint = await db.modifyTrashpoint(trashpointId, userId, trashpointData);
             if (!trashpoint) {
                 return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: trashpointId}));
             }

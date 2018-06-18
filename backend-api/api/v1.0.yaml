@@ -486,6 +486,23 @@ paths:
               $ref: "#/definitions/Area"
         "default":
           $ref: "#/responses/ErrorSet"
+  /areas/{id}/leader:
+    x-swagger-router-controller: areas
+    get:
+      description: Admin's name of chosen country
+      operationId: getAreaLeaders
+      x-security: [bearer, {roles:[leader, superadmin]}]
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: Get admin's name of country.
+          schema:
+            type: array
+            items:
+             type: object
+        "default":
+          $ref: "#/responses/ErrorSet"
   /areas/{id}/leader/{id2}:
     x-swagger-router-controller: areas
     put:
@@ -500,14 +517,13 @@ paths:
           description: User was successfully assigned to area.
         "default":
           $ref: "#/responses/ErrorSet"
-  /areas/{id}/leader:
-    x-swagger-router-controller: areas
     delete:
       description: Remove the leader of an area.
       operationId: removeAreaLeader
       x-security: [bearer, {roles:[superadmin]}]
       parameters:
         - $ref: "#/parameters/UUID"
+        - $ref: "#/parameters/UUID2"
       responses:
         "200":
           description: User was successfully unassigned from area.
@@ -1471,11 +1487,6 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Trashpoint"
-      peoples:
-        description: Peoples list
-        type: array
-        items:
-          $ref: "#/definitions/Account"
 
   #-----------------------------------------------------------------------------
   # Grid data.

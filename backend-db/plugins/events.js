@@ -288,7 +288,7 @@ module.exports = function () {
                     }
                 }
                 const rows = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, address, location, area, rectangle);
-                const records = await Promise.all(rows.map(async (e) => await mapEvent(e.value)));
+                const records = await Promise.all(rows.map(async (e) => await mapEvent(e)));
                 return responder.success({total: rows.length, pageSize, pageNumber, records});
             })
     });

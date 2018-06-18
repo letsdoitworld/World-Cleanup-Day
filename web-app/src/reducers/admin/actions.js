@@ -1,6 +1,7 @@
 import { ApiService } from '../../services';
 import { API_ENDPOINTS } from '../../shared/constants';
 import TYPES from './types';
+import { actions as errorActions } from '../error';
 
 const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USERS_REQUEST });
@@ -47,6 +48,7 @@ const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) 
     dispatch({
       type: TYPES.FETCH_USERS_FAILED,
     });
+    dispatch(errorActions.setErrorMessage('Failed to load users list'));
     return false;
   }
 };
@@ -64,6 +66,7 @@ const fetchUser = ({ id }) => async dispatch => {
       });
     }
   } catch (ex) {
+    dispatch(errorActions.setErrorMessage('Failed to load user details'));
     dispatch({ type: TYPES.GET_USER_ERROR });
   }
 };

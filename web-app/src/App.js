@@ -65,15 +65,17 @@ class App extends Component {
       this.setState({ appLoaded: true });
     });
   }
+
   closeModal = () => {
     this.props.hideModal();
   };
+
   handleLockedModalClose = () => {
     this.props.toggleLockedModal(false);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errorMessage !== this.props.errorMessage) {
+    if (nextProps.errorMessage && nextProps.errorMessage !== this.props.errorMessage) {
       this.props.showErrorModal();
     }
   }

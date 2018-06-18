@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { If } from 'react-if';
+import { If, Else } from 'react-if';
 
 import {
   selectors as adminSels,
@@ -16,6 +16,7 @@ import { COUNTRIES_HASH } from '../../shared/countries';
 import { Loader } from '../../components/Spinner';
 import { USER_ROLES } from '../../shared/constants';
 import { UserAreas } from './components/UserAreas';
+import { EmptyUsersState } from '../../components/List/EmptyState';
 import { AreaAssignList } from './components/AreaAssignList';
 import {
   HumanIcon,
@@ -23,8 +24,8 @@ import {
   CollapseIcon,
   ExpandIcon,
   BackIcon,
+  LocationIcon24px,
 } from '../../components/common/Icons';
-import UserDetImage from './image.png';
 
 class UserDetails extends React.Component {
   constructor(props) {
@@ -181,24 +182,7 @@ class UserDetails extends React.Component {
         />
       );
     }
-    if (loading || !user) {
-      return (
-        <div className="UserDetails">
-          {
-            // <Loader />
-          }
-        </div>
-      );
-    }
-    if (error && !user) {
-      return (
-        <div className="UserDetails">
-          <div>
-            <span>An error was encountered. Please try refreshing</span>
-          </div>
-        </div>
-      );
-    }
+
     return (
       <div className="UserDetails-container">
         <div className="UserDetails-header">
@@ -222,73 +206,74 @@ class UserDetails extends React.Component {
             }
           </div>
         </div>
-        <div className={
-            classnames('UserDetails-plot', { isVisible: userDetailsVisible })
-          }
-        >
-          <div className="UserDetails-image-container">
-            {user.pictureURL && (
-              <img className="UserDetails-image" src={user.pictureURL} alt="" />
-            )}
-            <div className="UserDetails-info-container">
-              {user.name && (
-                <span className="UserDetails-name">{user.name}</span>
+        <If condition={!loading}>
+          <div className={
+              classnames('UserDetails-plot', { isVisible: userDetailsVisible })
+            }
+          >
+            <div className="UserDetails-image-container">
+              {user.pictureURL && (
+                <img className="UserDetails-image" src={user.pictureURL} alt="" />
               )}
-              {user.country && (
-                <div className="UserDetails-country-container">
-                  <img
-                    className="UserDetails-country-image"
-                    src={UserDetImage}
-                    alt=""
-                  />
-                  <span className="UserDetails-country">
-                    {COUNTRIES_HASH[user.country]}
+              <div className="UserDetails-info-container">
+                {user.name && (
+                  <span className="UserDetails-name">{user.name}</span>
+                )}
+                {user.country && (
+                  <div className="UserDetails-country-container">
+                    <LocationIcon24px />
+                    <span className="UserDetails-country">
+                      {COUNTRIES_HASH[user.country]}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="UserDetails-areas-container">
+              <If condition={!!user.role}>
+                <div className="UserDetails-block">
+                  <HumanIcon />
+                  <span className="UserDetails-block-text">
+                    {this.renderRoleName()}
+                  </span>
+                </div>
+              </If>
+              <If condition={!!user.email}>
+                <div className="UserDetails-block">
+                  <EmailIcon />
+                  <span className="UserDetails-block-text">{user.email}</span>
+                </div>
+              </If>
+              {this.renderUserAreasList()}
+              {authUser.role === 'superadmin' &&
+              user.role !== 'superadmin' && (
+                <div className="UserDetails-area-assign-container">
+                  <span
+                    className="UserDetails-area-assign-button"
+                    onClick={this.handleAssignAreasClicked}
+                  >
+                    Assign areas
                   </span>
                 </div>
               )}
             </div>
-          </div>
-          <div className="UserDetails-areas-container">
-            <If condition={!!user.role}>
-              <div className="UserDetails-block">
-                <HumanIcon />
-                <span className="UserDetails-block-text">
-                  {this.renderRoleName()}
-                </span>
-              </div>
-            </If>
-            <If condition={!!user.email}>
-              <div className="UserDetails-block">
-                <EmailIcon />
-                <span className="UserDetails-block-text">{user.email}</span>
-              </div>
-            </If>
-            {this.renderUserAreasList()}
-            {authUser.role === 'superadmin' &&
-            user.role !== 'superadmin' && (
-              <div className="UserDetails-area-assign-container">
+            <div className="UserDetails-actions-container">
+              {this.canBlockUser() && (
                 <span
-                  className="UserDetails-area-assign-button"
-                  onClick={this.handleAssignAreasClicked}
+                  onClick={this.handleBlockClicked}
+                  className={classnames('UserDetails-block-user', {
+                    locked: user.locked,
+                  })}
                 >
-                  Assign areas
+                  {user.locked ? 'Unblock user' : 'Block user'}
                 </span>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-          <div className="UserDetails-actions-container">
-            {this.canBlockUser() && (
-              <span
-                onClick={this.handleBlockClicked}
-                className={classnames('UserDetails-block-user', {
-                  locked: user.locked,
-                })}
-              >
-                {user.locked ? 'Unblock user' : 'Block user'}
-              </span>
-            )}
-          </div>
-        </div>
+          <Else>
+            <Loader />
+          </Else>
+        </If>
       </div>
     );
   }

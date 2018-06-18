@@ -13,7 +13,7 @@ import {
 import { ApiService } from '../../services';
 import selectors from './selectors';
 import { actions as appActions, selectors as appSelectors } from '../app';
-import { actions as errActions } from '../error';
+import { actions as errorActions } from '../error';
 
 import TYPES from './types';
 
@@ -41,6 +41,7 @@ export const fetchAreaTrashpoints = ({
         dispatch({
           type: TYPES.FETCH_AREA_MARKERS_ERROR,
         });
+        dispatch(errorActions.setErrorMessage('Failed to load trashpoints'));
         return false;
       }
     }
@@ -69,6 +70,7 @@ export const fetchAreaTrashpoints = ({
     return true;
   } catch (e) {
     console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to load trashpoints'));
     return false;
   }
 };
@@ -78,100 +80,106 @@ const fetchAllMarkers = (
   viewPortRightBottomCoordinate,
   mapSize,
 ) => async (dispatch, getState) => {
-  dispatch({ type: TYPES.FETCH_ALL_MARKERS_REQUEST });
-  let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+  try {
+    dispatch({ type: TYPES.FETCH_ALL_MARKERS_REQUEST });
+    let datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
 
-  if (!datasetId) {
+    if (!datasetId) {
+      try {
+        await dispatch(appActions.fetchDatasets());
+        datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
+      } catch (ex) {
+        return dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
+      }
+    }
+
+    const diagonaleInMeters = getDistanceBetweenPointsInMeters(
+      viewPortLeftTopCoordinate.latitude,
+      viewPortLeftTopCoordinate.longitude,
+      viewPortRightBottomCoordinate.latitude,
+      viewPortRightBottomCoordinate.longitude,
+    );
+    const grid = getGridValue(diagonaleInMeters);
+    dispatch(setGridValue(grid));
+    let cellSize = 0;
+    if (
+      viewPortRightBottomCoordinate.longitude >
+      viewPortLeftTopCoordinate.longitude
+    ) {
+      cellSize =
+        38 *
+        (viewPortRightBottomCoordinate.longitude -
+          viewPortLeftTopCoordinate.longitude) /
+        mapSize.width;
+    } else {
+      cellSize =
+        (180 -
+          viewPortLeftTopCoordinate.longitude +
+          viewPortRightBottomCoordinate.longitude +
+          180) *
+        38 /
+        mapSize.width;
+    }
+
+    const body = {
+      datasetId,
+      rectangle: {
+        nw: viewPortLeftTopCoordinate,
+        se: viewPortRightBottomCoordinate,
+      },
+      cellSize,
+    };
+
+    const [clustersRes] = await Promise.all([
+      ApiService.post(
+        API_ENDPOINTS.FETCH_OVERVIEW_CLUSTERS,
+        {
+          ...body,
+        },
+        {
+          withToken: false,
+        },
+      ),
+    ]);
+
+    let markers = [];
+
+    if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
+      markers = [
+        ...markers,
+        ...clustersRes.data.map(cluster => ({
+          ...cluster,
+          position: {
+            lat: cluster.location.latitude,
+            lng: cluster.location.longitude,
+          },
+          isTrashpile: true,
+          id: cluster.id,
+        })),
+      ];
+    }
+
     try {
-      await dispatch(appActions.fetchDatasets());
-      datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
-    } catch (ex) {
+      if (!clustersRes.data.length) {
+        dispatch(appActions.showExpandAreaModal());
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    if (!clustersRes) {
+      dispatch(errorActions.setErrorMessage('Failed to load trashpoint markers'));
       return dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
     }
-  }
 
-  const diagonaleInMeters = getDistanceBetweenPointsInMeters(
-    viewPortLeftTopCoordinate.latitude,
-    viewPortLeftTopCoordinate.longitude,
-    viewPortRightBottomCoordinate.latitude,
-    viewPortRightBottomCoordinate.longitude,
-  );
-  const grid = getGridValue(diagonaleInMeters);
-  dispatch(setGridValue(grid));
-  let cellSize = 0;
-  if (
-    viewPortRightBottomCoordinate.longitude >
-    viewPortLeftTopCoordinate.longitude
-  ) {
-    cellSize =
-      38 *
-      (viewPortRightBottomCoordinate.longitude -
-        viewPortLeftTopCoordinate.longitude) /
-      mapSize.width;
-  } else {
-    cellSize =
-      (180 -
-        viewPortLeftTopCoordinate.longitude +
-        viewPortRightBottomCoordinate.longitude +
-        180) *
-      38 /
-      mapSize.width;
-  }
-
-  const body = {
-    datasetId,
-    rectangle: {
-      nw: viewPortLeftTopCoordinate,
-      se: viewPortRightBottomCoordinate,
-    },
-    cellSize,
-  };
-
-  const [clustersRes] = await Promise.all([
-    ApiService.post(
-      API_ENDPOINTS.FETCH_OVERVIEW_CLUSTERS,
-      {
-        ...body,
-      },
-      {
-        withToken: false,
-      },
-    ),
-  ]);
-
-  let markers = [];
-
-  if (clustersRes && clustersRes.data && Array.isArray(clustersRes.data)) {
-    markers = [
-      ...markers,
-      ...clustersRes.data.map(cluster => ({
-        ...cluster,
-        position: {
-          lat: cluster.location.latitude,
-          lng: cluster.location.longitude,
-        },
-        isTrashpile: true,
-        id: cluster.id,
-      })),
-    ];
-  }
-
-  try {
-    if (!clustersRes.data.length) {
-      dispatch(appActions.showExpandAreaModal());
-    }
+    dispatch({
+      type: TYPES.FETCH_ALL_MARKERS_SUCCESS,
+      markers,
+    });
   } catch (e) {
-    console.error(e);
+    console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to load trashpoint markers'));
   }
-
-  if (!clustersRes) {
-    return dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
-  }
-
-  dispatch({
-    type: TYPES.FETCH_ALL_MARKERS_SUCCESS,
-    markers,
-  });
 };
 
 const fetchClusterTrashpoints = ({
@@ -489,6 +497,7 @@ export const createMarker = (
     };
   } catch (ex) {
     dispatch({ type: TYPES.CREATE_MARKER_FAILED });
+    dispatch(errorActions.setErrorMessage('Failed placing trashpoint'));
   }
 };
 
@@ -506,6 +515,7 @@ const deleteMarker = ({ markerId }) => async dispatch => {
   });
   if (!response || !response.status || response.status !== 200) {
     dispatch({ type: TYPES.DELETE_MARKER_ERROR });
+    dispatch(errorActions.setErrorMessage('Failed to delete trashpoint'));
     return false;
   }
   dispatch({ type: TYPES.DELETE_MARKER_SUCCESS, payload: { markerId } });

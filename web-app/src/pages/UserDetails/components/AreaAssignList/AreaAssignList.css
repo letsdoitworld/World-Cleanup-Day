@@ -22,10 +22,15 @@
   border-top-right-radius: 10px;
 }
 
-.AreaAssignList-header img {
+.AreaAssignList-header-close {
+  width: 12px;
+  height: 12px;
+}
+
+.AreaAssignList-header-close img {
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
 }
 
 .AreaAssignList-header-ttl {

@@ -56,7 +56,7 @@ class Details extends Component {
 
     return (
       <div className="Tpdetails">
-        <If condition={!!isUserAllowedAdding}>
+        <If condition={true}>
           <div
             onClick={() => { history.push('/trashpoints/create') }}
             className="Create-trashpoint"

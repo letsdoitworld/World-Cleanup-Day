@@ -178,11 +178,12 @@ class UserList extends PureComponent {
 
   render() {
     const { search } = this.state;
-    const { userslistWindowVisible } = this.props;
+    const { userslistWindowVisible, loading } = this.props;
     return (
       <List
         elementHeight={70}
         infinite
+        loading={loading}
         userslistWindowVisible={userslistWindowVisible}
         onInfiniteLoad={
           () => this.handleLoadMoreUsers(search && search.length >= 3, true)

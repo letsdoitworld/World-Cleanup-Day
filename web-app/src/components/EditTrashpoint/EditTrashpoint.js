@@ -209,7 +209,8 @@ class EditTrashpoint extends Component {
     }
     this.props.deleteMarker({ markerId: marker.id }).then(res => {
       if (res) {
-        history.push('/');
+        console.log(res);
+        history.push('/trashpoints');
       }
     });
   };

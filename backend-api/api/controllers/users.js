@@ -44,6 +44,14 @@ module.exports = {
             nameSearch: req.swagger.params.nameSearch.value,
         }),
     ),
+    getAllUsersInBetween: senecaRequestMw(
+      'role:db,cmd:getAccountsInBetween',
+      req => ({
+        from: req.swagger.params.from.value,
+        to: req.swagger.params.to.value,
+        cc: req.swagger.params.country.value,
+      }),
+    ),
     getOneUser: senecaRequestMw(
         'role:db,cmd:getAccountById',
         req => ({

@@ -110,6 +110,30 @@ const designDocs = {
                 },
             },
         },
+        byCreationTimeAndCountry: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account') {
+                            emit([doc.country, doc.createdAt, doc.createdAt], doc);
+                        }
+                    },
+                },
+            },
+        },
+        byCreationTime: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account') {
+                            emit(doc.createdAt, doc);
+                        }
+                    },
+                },
+            },
+        },
         countAll: {
             $version: 1,
             views: {
@@ -184,6 +208,30 @@ const designDocs = {
                     map: function (doc) {
                         if (doc.$doctype === 'team') {
                             emit(doc._id, doc);
+                        }
+                    },
+                },
+            },
+        },
+        byCreationTimeAndName: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'team') {
+                            emit([doc.name, doc.createdAt, doc.createdAt], doc)
+                        }
+                    },
+                },
+            },
+        },
+        byCreationTime: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'team') {
+                            emit(doc.createdAt, doc)
                         }
                     },
                 },
@@ -370,6 +418,42 @@ const designDocs = {
                     map: function (doc) {
                         if (doc.$doctype === 'trashpoint') {
                             emit(doc.createdAt, doc);
+                        }
+                    },
+                },
+            },
+        },
+        byCreationTimeAndCountry: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'trashpoint') {
+                            emit([doc.areas[0], doc.createdAt, doc.createdAt], doc);
+                        }
+                    },
+                },
+            },
+        },
+        byUpdatingTimeAndCountry: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'trashpoint') {
+                            emit([doc.areas[0], doc.createdAt, doc.updatedAt], doc)
+                        }
+                    },
+                },
+            },
+        },
+        byUpdatingTime: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'trashpoint') {
+                            emit([doc.createdAt, doc.updatedAt], doc)
                         }
                     },
                 },

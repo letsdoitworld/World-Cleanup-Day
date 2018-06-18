@@ -21,7 +21,7 @@ const getExpirationIntervalInSeconds = () => {
     return convertDaysToSeconds(getExpirationIntervalInDays());
 };
 
-const getNowUTC = () => moment().toISOString();
+const getNowUTC = (data) => data ? moment(data).toISOString() : moment().toISOString();
 
 const getUTCDateShifted = (quantity, units) => moment().utc().add(quantity, units).toDate();
 const getNowUTCShifted = (quantity, units) => moment().utc().add(quantity, units).toISOString();

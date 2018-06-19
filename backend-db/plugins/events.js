@@ -200,7 +200,7 @@ module.exports = function () {
                 }
 
                 let attendees = event.attendees ? event.attendees : [];
-                let attendeesAmount = event.attendeesAmount ? event.event.attendeesAmount : 0;
+                let attendeesAmount = event.attendeesAmount ? event.attendeesAmount : 0;
                 if (event.maxPeopleAmount <= attendeesAmount) {
                     return responder.failure(new LuciusError(E.EVENT_EXCEEDED_MAX_AMOUNT_OF_ATTENDEES, {id}));
                 }
@@ -236,6 +236,14 @@ module.exports = function () {
             .get(['areas'])
             .use(async function ({areas}, responder) {
                 const event = args.event;
+
+                const longitude = event.location.longitude;
+                const latitude = event.location.latitude;
+                const eventByLocation = await db.getByLocation(longitude, latitude, 'Event');
+                if (eventByLocation.length !== 0) {
+                    return responder.failure(new LuciusError(E.EVENT_ALREADY__EXIST, {longitude, latitude}));
+                }
+
                 event.areas = areas;
                 event.attendees = [];
                 const filteredTrashpoints = [];
@@ -287,9 +295,9 @@ module.exports = function () {
                         return responder.failure(new LuciusError(E.INVALID_TYPE, {parameter: 'rectangle'}));
                     }
                 }
-                const {data: {rows, total_rows: total}} = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, address, location, area, rectangle);
-                const records = await Promise.all(rows.map(async (e) => await mapEvent(e.value)));
-                return responder.success({total, pageSize, pageNumber, records});
+                const rows = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, address, location, area, rectangle);
+                const records = await Promise.all(rows.map(async (e) => await mapEvent(e)));
+                return responder.success({total: rows.length, pageSize, pageNumber, records});
             })
     });
 

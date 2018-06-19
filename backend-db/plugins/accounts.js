@@ -70,6 +70,27 @@ module.exports = function () {
                 return responder.failure(new LuciusError(
                     E.ACCOUNT_NOT_FOUND, {id: accountId}))
             }
+            //delete all user's upcoming events if locked is true and delete from area leader
+            if (locked) {
+                //delete user from area leader
+                const areaUserLeader = await db.getAreasForLeader(__.user.id);
+                for (let i = 0; i < areaUserLeader.length; i++){
+                    let indexLeader = areaUserLeader[i].leaderId.indexOf(__.user.id);
+                    areaUserLeader[i].leaderId.splice(indexLeader, 1);
+                    await db.modifyArea(areaUserLeader[i].id, __.user.id, {leaderId: areaUserLeader[i]});
+                }
+
+                //delete upcoming events
+                const events = await db.getUserOwnEvents(args.accountId, 0 , 0);
+                let eventsId = [];
+                events.filter(t => {
+                    if (t.startTime > util.time.getNowUTC())
+                    eventsId.push(t.id);
+                });
+                for (let i = 0; i < eventsId.length; i++) {
+                    await lucius.request('role:db,cmd:deleteEventById', {id: eventsId[i], __: __});
+                }
+            }
             return responder.success();
         })
     });
@@ -193,6 +214,9 @@ module.exports = function () {
                     Account.ROLE_VOLUNTEER,
                     socialAccount.pictureURL
                 );
+            }
+            if (account.locked) {
+                return responder.failure(new LuciusError(E.ACCOUNT_BLOCKED, {id}));
             }
             return responder.success(account);
         });

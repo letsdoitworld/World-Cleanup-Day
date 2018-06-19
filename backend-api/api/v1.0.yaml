@@ -462,7 +462,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/Area"
+              type: object
         "default":
           $ref: "#/responses/ErrorSet"
   /areas:

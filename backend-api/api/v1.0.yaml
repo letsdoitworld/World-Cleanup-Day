@@ -301,7 +301,7 @@ paths:
           $ref: "#/responses/ErrorSet"
 
   /overview/events/grid:
-    x-swagger-router-controller: trashpoints
+    x-swagger-router-controller: events
     post:
       description: Fetch isolated (ie. with no neighbors nearby) location events from a specific dataset, within a certain grid slot, for a certain grid scale.
       operationId: getEventsInGridCell

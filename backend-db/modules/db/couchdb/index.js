@@ -163,28 +163,28 @@ const layer = {
     },
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
         let paramsQuery = {
-            sorted: true,
-            descending: true, //XXX: when desc=true, startkey and endkey are reversed
-            startkey: [userId, {}],
-            endkey: [userId],
             limit: pageSize,
             skip: pageSize * (pageNumber - 1),
         };
-
         if (pageSize === 0 || pageNumber === 0) {
-             paramsQuery = {
-                sorted: true,
-                descending: true, //XXX: when desc=true, startkey and endkey are reversed
-                startkey: [userId, {}],
-                endkey: [userId],
-            };
+             paramsQuery = {};
         }
 
-        return await adapter.getEntities(
+        return await adapter.getMangoEntities(
             'Event',
-            '_design/byCreatingUser/_view/view',
-            paramsQuery
-            );
+            {
+                selector: {
+                    $or: [
+                        {createdBy: userId},
+                        {attendees: {
+                                $all: [userId]
+                            }
+                        }
+                    ]
+                },
+            }
+        );
+
     },
 
     countEvents: async () => {

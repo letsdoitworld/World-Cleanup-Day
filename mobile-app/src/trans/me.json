@@ -13,7 +13,7 @@
    "label_trash_status_user": "Korisnik",
    "label_trash_status_change_location": "Promijeniti lokaciju",
    "label_trash_status_state_threat": "Ova tačka je prijetnja!",
-   "label_trash_status_state_regular": "This is a regular trashpoint.",
+   "label_trash_status_state_regular": "Ovo je regularno mjesto otpada.",
    "label_trash_status_state_cleaned": "Ova tačka je očišćena!",
    "label_trash_status_state_outdated": "This point is outdated!",
    "label_TP_created_date": "Kreirana",

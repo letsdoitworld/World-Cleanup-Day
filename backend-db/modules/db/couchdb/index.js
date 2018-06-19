@@ -151,6 +151,16 @@ const layer = {
             });
     },
 
+    getByLocation: async (longitude, latitude, db) => {
+        return await adapter.getMangoEntities(
+            db,
+            {
+                "selector": {
+                    "location.latitude":  latitude,
+                    "location.longitude": longitude
+                }
+            });
+    },
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
         let paramsQuery = {
             sorted: true,

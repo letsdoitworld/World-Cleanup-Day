@@ -298,6 +298,12 @@ module.exports = function () {
         // create the trashpoint
         .get(['dataset', 'areas'])
         .use(async function ({areas, dataset}, responder) {
+            const longitude = args.trashpoint.location.longitude;
+            const latitude = args.trashpoint.location.latitude;
+            const trashpointByLocation = await db.getByLocation(longitude, latitude, 'Trashpoint');
+            if (trashpointByLocation.length !== 0) {
+                return responder.failure(new LuciusError(E.TRASHPOINT_ALREADY__EXIST, {longitude, latitude}));
+            }
             args.trashpoint.areas = areas;
             return responder.success(await db.createTrashpoint(dataset.id, __.user.id, args.trashpoint));
         });

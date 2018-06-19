@@ -236,6 +236,14 @@ module.exports = function () {
             .get(['areas'])
             .use(async function ({areas}, responder) {
                 const event = args.event;
+
+                const longitude = event.location.longitude;
+                const latitude = event.location.latitude;
+                const eventByLocation = await db.getByLocation(longitude, latitude, 'Event');
+                if (eventByLocation.length !== 0) {
+                    return responder.failure(new LuciusError(E.EVENT_ALREADY__EXIST, {longitude, latitude}));
+                }
+
                 event.areas = areas;
                 event.attendees = [];
                 const filteredTrashpoints = [];

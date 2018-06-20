@@ -23,9 +23,9 @@ function googleLogin() {
   return GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
-      '750766631573-gub35t5jrnlng5pr2u81rgtitljbbn85.apps.googleusercontent.com',
+      '931132275173-fvb2788pvr62qsaugvmi7qa58tq01jmu.apps.googleusercontent.com',
     webClientId:
-      '750766631573-3ucld7s069juiur8hstqia93rpu92c9q.apps.googleusercontent.com',
+      '931132275173-vpsdvsgftc4mlpm5mump3chdcp34f2h0.apps.googleusercontent.com',
     offlineAccess: false,
   })
     .then(() => {

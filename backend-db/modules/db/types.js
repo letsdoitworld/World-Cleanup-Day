@@ -232,6 +232,26 @@ class Area extends Type {
     }
 }
 
+class Team extends Type {
+    constructor(data) {
+        super();
+        this.value = util.object.filter(data, {
+            id: true,
+            name: true,
+            teamDescription: true,
+            image: true,
+            trashpoints: true,
+            createdAt: true,
+            createdBy: true,
+            updatedAt: true,
+            updatedBy: true,
+            nationalTeam: true,
+            CC: true
+        });
+        //FIXME: validate field values
+    }
+}
+
 const datatypeFactory = (datatype, data) => {
     switch (datatype) {
     case 'Dataset':
@@ -248,6 +268,8 @@ const datatypeFactory = (datatype, data) => {
         return new Cluster(data);
     case 'Area':
         return new Area(data);
+    case 'Team':
+        return new Team(data);
     case 'Event':
         return new Event(data);
     default:
@@ -260,5 +282,5 @@ const normalizeData = (datatype, data) => (datatypeFactory(datatype, data)).expo
 module.exports = {
     datatypeFactory,
     normalizeData,
-    Dataset, Account, Session, Trashpoint, Image, Cluster, Area, Event
+    Dataset, Account, Session, Trashpoint, Image, Cluster, Area, Team, Event
 };

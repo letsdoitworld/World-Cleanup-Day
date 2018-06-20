@@ -404,6 +404,34 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /teams:
+    x-swagger-router-controller: teams
+    get:
+      description: List all teams.
+      operationId: getAllTeams
+      parameters:
+        - $ref: "#/parameters/Country"
+        - $ref: "#/parameters/Search"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/{id}:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch complete info about a specific team.
+      operationId: getTeam
+      parameters:
+        - $ref: "#/parameters/UUID"
+      responses:
+        "200":
+          description: Full team information.
+          schema:
+            $ref: "#/definitions/Team"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /areas/user:
     x-swagger-router-controller: areas
     get:
@@ -773,6 +801,14 @@ parameters:
     minLength: 3
     maxLength: 10
   #-----------------------------------------------------------------------------
+  Search:
+    name: search
+    in: query
+    required: false
+    type: string
+    minLength: 3
+    maxLength: 60
+  #-----------------------------------------------------------------------------
   Country:
     name: country
     in: query
@@ -979,6 +1015,12 @@ responses:
     description: List of trashpoints for area leader consumption.
     schema:
       $ref: "#/definitions/PaginatedAreaTrashpoints"
+  Teams:
+    description: List of teams.
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Team"
   StorageAuth:
     description: A short-term authorization allowing access to storage operations.
     schema:
@@ -1027,6 +1069,28 @@ definitions:
       leaderId:
         description: Area can be optionally be assigned to a user.
         $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
+  # Team properties.
+  #-----------------------------------------------------------------------------
+  Team:
+    type: object
+    required: [id, name]
+    properties:
+      id:
+        description: A unique code of team
+        type: string
+      name:
+        description: A name of team
+        type: string
+      teamDescription:
+        description: Desctiption of team
+        type: string
+      trashpoints:
+        description: How many trashpoints have this team
+        type: integer
+      users:
+        description: How many users have this team
+        type: integer
   #-----------------------------------------------------------------------------
   # Account properties.
   #-----------------------------------------------------------------------------

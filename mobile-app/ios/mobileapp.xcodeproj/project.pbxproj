@@ -53,8 +53,8 @@
 		7F50E99DEFFA40318A10FE26 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA155CB495464438AF9468D8 /* Ionicons.ttf */; };
 		7F703F9CBECD4293B958CCCD /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7338DB9C253450395EA3D25 /* Entypo.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		985CDC7620D2A4B6009F75FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 985CDC7520D2A4B6009F75FD /* GoogleService-Info.plist */; };
 		98A82D1B0FA441F19C7AB3C5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7E99D8C64240D793C9247E /* libRNVectorIcons.a */; };
-		99ECE8E5208136FB008351A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99ECE8E4208136FB008351A7 /* GoogleService-Info.plist */; };
 		9F38AACE96424A5AAF8EE780 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC65F903ED6545AF8F7E8898 /* Octicons.ttf */; };
 		BA257C73204033FF00A5766B /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EACEF89203FF52C0035A33E /* libReactNativeNavigation.a */; };
 		BA8F1ED52040451C00672998 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA257C602040308600A5766B /* libAirMaps.a */; };
@@ -79,7 +79,6 @@
 		BA8F1F10204045FD00672998 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8F1EFC204045FD00672998 /* AIRGMSMarker.m */; };
 		C419DCC5CD749A1BF1CEB88D /* libPods-mobileapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C339738660600A970741EE7F /* libPods-mobileapp.a */; };
 		CE466BBBA5044034BFF9AE00 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 365CCA51A30848A69766070C /* libRNGestureHandler.a */; };
-		CEA039E020A993E00001BC8C /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 03448A8D90A34E318612317F /* branch.json */; };
 		CEA794775962443EA98024CC /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF04DB7C55094DE5BEA37AC5 /* EvilIcons.ttf */; };
 		CED3C7DA20A5A11500498C7F /* mobileapp.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = CED3C7D920A59FFB00498C7F /* mobileapp.entitlements */; };
 		D1D6503E48254DF5BF6FD661 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F943A4740AD9455B82B9EA13 /* MaterialCommunityIcons.ttf */; };
@@ -402,7 +401,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -410,7 +408,6 @@
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* mobileappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobileappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C8DF3D1286499B821FB98B /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
-		03448A8D90A34E318612317F /* branch.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
 		09CF6809A7404FA3B0E5C0C0 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		0AF8986019CD49C9AB13FA80 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		0B5F928AEBCE4B81A5EE41E3 /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -459,7 +456,7 @@
 		8EE4EB1591EF980F81925954 /* Pods-mobileapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobileapp/Pods-mobileapp.debug.xcconfig"; sourceTree = "<group>"; };
 		923460CA117F471C84B3630A /* ReactNativeLocalization.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeLocalization.xcodeproj; path = "../node_modules/react-native-localization/ReactNativeLocalization.xcodeproj"; sourceTree = "<group>"; };
 		967B5425AE654EE688630BAB /* libReactNativeExceptionHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeExceptionHandler.a; sourceTree = "<group>"; };
-		99ECE8E4208136FB008351A7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		985CDC7520D2A4B6009F75FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E501624453D4AFAA24DA56B /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		AE924B78BD4A4CCE9AC4C5E8 /* ReactNativeExceptionHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeExceptionHandler.xcodeproj; path = "../node_modules/react-native-exception-handler/ios/ReactNativeExceptionHandler.xcodeproj"; sourceTree = "<group>"; };
 		B4820635DEC14B738EEB49CB /* RNFileSystem.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFileSystem.xcodeproj; path = "../node_modules/react-native-filesystem/ios/RNFileSystem.xcodeproj"; sourceTree = "<group>"; };
@@ -650,16 +647,14 @@
 		13B07FAE1A68108700A75B9A /* mobileapp */ = {
 			isa = PBXGroup;
 			children = (
+				985CDC7520D2A4B6009F75FD /* GoogleService-Info.plist */,
 				CED3C7D920A59FFB00498C7F /* mobileapp.entitlements */,
-				99ECE8E4208136FB008351A7 /* GoogleService-Info.plist */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				03448A8D90A34E318612317F /* branch.json */,
 			);
 			name = mobileapp;
 			sourceTree = "<group>";
@@ -1479,7 +1474,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA039E020A993E00001BC8C /* branch.json in Resources */,
 				CED3C7DA20A5A11500498C7F /* mobileapp.entitlements in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
@@ -1493,11 +1487,11 @@
 				D1D6503E48254DF5BF6FD661 /* MaterialCommunityIcons.ttf in Resources */,
 				FABDE363082D402AABF2D9F2 /* MaterialIcons.ttf in Resources */,
 				9F38AACE96424A5AAF8EE780 /* Octicons.ttf in Resources */,
-				99ECE8E5208136FB008351A7 /* GoogleService-Info.plist in Resources */,
 				75E3346CD2CC40CB8B44355C /* SimpleLineIcons.ttf in Resources */,
 				D58BDA376FCF4E338E05AC2D /* Zocial.ttf in Resources */,
 				2EAF44F8204FF07D00FFB686 /* Lato-Bold.ttf in Resources */,
 				2EAF44F9204FF07D00FFB686 /* Lato-Regular.ttf in Resources */,
+				985CDC7620D2A4B6009F75FD /* GoogleService-Info.plist in Resources */,
 				2EB8976A204565EA007A7EC9 /* react-clone-referenced-element in Resources */,
 				17D77BED771448C7A4A722E1 /* Feather.ttf in Resources */,
 				2D7DEA5F0EF248A485FAB391 /* ChauPhilomeneOne-Regular.ttf in Resources */,
@@ -1623,7 +1617,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" cc9f6bf2eb7bea9c558343478586b25c62c12afb 6ebcd3057d44fe70fed2410a8b99d6cb191273fa117a16f76c0ee704df5ca4ed";
+			shellScript = "./Fabric.framework/run b526fc2dae30365e887d1776c5416b987a2f9781 a8fa3ab95fa642dec09f536656d345a5e6ded0eae9372ccec7bd4e573654fdde";
 		};
 		FB802C15EB1816F39CB3184B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

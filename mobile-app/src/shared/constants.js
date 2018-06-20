@@ -130,6 +130,8 @@ export const API_ENDPOINTS = {
   FETCH_EVENTS: '/overview/events',
   FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
   FETCH_CLUSTER_EVENTS: '/overview/events/grid',
+  FETCH_TEAMS: (search) => `/teams${search ? `?search=${search}` : ''}`,
+  FETCH_TEAM: teamId => `/teams/${teamId}`,
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {

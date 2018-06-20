@@ -31,6 +31,8 @@ import {
   searchTrashPointsFlow,
   updateProfileStatusFlow,
   requestTermsFlow,
+  loadTeamsFlow,
+  loadTeamFlow,
 } from './sagas';
 
 
@@ -90,6 +92,8 @@ export default function configureStore() {
       sagaMiddleware.run(getMapTrashPointsFlow),
       sagaMiddleware.run(fetchTrashPointsDataFromOneClusterFlow),
       sagaMiddleware.run(requestTermsFlow),
+      sagaMiddleware.run(loadTeamsFlow),
+      sagaMiddleware.run(loadTeamFlow),
     ],
   };
 }

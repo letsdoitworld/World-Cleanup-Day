@@ -1,6 +1,7 @@
 'use strict';
 const {E, LuciusError, Lucius} = require('module-lucius');
 const db = require('../modules/db');
+const util = require('module-util');
 const logger = require('module-logger');
 const {Account} = require('../modules/db/types');
 
@@ -38,7 +39,12 @@ module.exports = function () {
             const areas = typeof parentId === 'undefined'
                 ? await db.getAllAreas()
                 : await db.getAreasByParent(parentId);
-            return responder.success(areas);
+
+            const filtered = areas.map(value => util.object.filter(
+                value,
+                {id: true, name: true, parentId: true}
+            ));
+            return responder.success(filtered);
         });
     });
 

@@ -85,9 +85,13 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.ACCOUNT_IS_LOCK, {id: accountId}));
             }
             // set the leader on the area
-            let areaLeadersId = typeof rawAreaDoc.leaderId === "object" ?
-                                       rawAreaDoc.leaderId :
-                                       rawAreaDoc.leaderId.split();
+            let areaLeadersId = [];
+
+            if (rawAreaDoc.leaderId) {
+                areaLeadersId = typeof rawAreaDoc.leaderId === "object" ?
+                    rawAreaDoc.leaderId :
+                    rawAreaDoc.leaderId.split();
+            }
 
             if (areaLeadersId.indexOf(accountId) !== -1) {
                 return responder.failure(new LuciusError(E.AREA_LEADER_EXISTS, {id: accountId}));

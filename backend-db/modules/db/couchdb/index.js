@@ -856,7 +856,7 @@ const layer = {
         );
     },
     getAreasForLeader: async leaderId => {
-        return await adapter.getMangoRawDocs(
+        const ret = await adapter.getMangoRawDocs(
             'Area',
             {
                 selector: {
@@ -866,6 +866,7 @@ const layer = {
                 }
             }
         );
+        return ret.data.docs;
     },
     countLeaderAreas: async leaderId => {
         const ret = await adapter.getRawDocs('Area', `_design/countByLeader/_view/view`, {

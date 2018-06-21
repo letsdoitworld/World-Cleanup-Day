@@ -216,7 +216,7 @@ module.exports = function () {
                 );
             }
             if (account.locked) {
-                return responder.failure(new LuciusError(E.ACCOUNT_BLOCKED, {id}));
+                return responder.failure(new LuciusError(E.ACCOUNT_BLOCKED, {accountId}));
             }
             return responder.success(account);
         });

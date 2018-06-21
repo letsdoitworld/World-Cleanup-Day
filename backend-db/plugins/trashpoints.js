@@ -168,7 +168,7 @@ module.exports = function () {
             const createdByUser = await db.getAccount(trashpoint.createdBy);
             //trashpoints created with private profile but user is SUPERADMIN
             if (createdByUser && createdByUser.public || __.user.role === Account.ROLE_SUPERADMIN
-                || __.user.role === Account.ROLE_ADMIN) {
+                || __.user.role === Account.ROLE_LEADER) {
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
                 if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
                     trashpoint.updater = trashpoint.creator;
@@ -181,7 +181,7 @@ module.exports = function () {
             }
             //trashpoints created by user with private profile are shown anonymously
             if(!createdByUser.public  && __.user.role !== Account.ROLE_SUPERADMIN
-                                      && __.user.role !== Account.ROLE_ADMIN) {
+                                      && __.user.role !== Account.ROLE_LEADER) {
                 createdByUser.name = 'anonymously';
                 createdByUser.email = 'anonymously';
                 createdByUser.pictureURL = '';
@@ -215,10 +215,11 @@ module.exports = function () {
         return connector
             .input(args)
             .use(async function ({}, responder) {
+
                 const trashpointsDetails = await db.getTrashpointDetails();
                 const filtered = trashpointsDetails.map(value => util.object.filter(
                     value,
-                    {trashpoint_origins: true, trashpoint_compositions: true}
+                    {trashpointCompositions: true, trashpointOrigins: true}
                 ));
                 return responder.success(filtered[0]);
             })

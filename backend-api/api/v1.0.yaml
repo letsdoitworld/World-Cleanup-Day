@@ -453,7 +453,7 @@ paths:
     get:
       description: List areas assigned to a specific user.
       operationId: getUserAreas
-      x-security: [bearer, {roles:[superadmin]}]
+      x-security: [bearer, {roles:[superadmin, leader]}]
       parameters:
         - $ref: "#/parameters/UUID"
       responses:

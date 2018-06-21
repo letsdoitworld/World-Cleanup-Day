@@ -46,6 +46,12 @@ export default {
     height: 30,
     marginLeft: 15,
   },
+  arrow: {
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    right: 15,
+  },
   text: {
     fontFamily,
     fontSize,

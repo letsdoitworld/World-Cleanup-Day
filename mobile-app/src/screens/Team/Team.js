@@ -7,9 +7,10 @@ import {
   Image,
   ActivityIndicator
 } from 'react-native';
-import icon from '../../assets/images/icons/pin/icInactiveAdded.png';
+import locationIcon from '../../assets/images/ic_location.png';
 import listIcon from '../../assets/images/icons/icList.png';
 import trashIcon from '../../assets/images/icons/icTrashpointsInActive.png';
+import arrow from '../../assets/images/icon_menu_arrowforward.png';
 import styles from './styles';
 import { COUNTRIES_HASH } from '../../shared/countries';
 
@@ -34,15 +35,23 @@ export default class Team extends Component {
     id === myTeam ? onUpdateProfileTeam({ team: '' }) : onUpdateProfileTeam({ team: id })
   };
 
-  renderInfo = (icon, title, text) => (
+  renderInfo = (icon, title, text, arrow, onPress) => (
     <View style={{ marginTop: 15 }}>
       <Text style={styles.infoTitle}>{title.toUpperCase()}</Text>
-      <TouchableOpacity style={styles.infoTextWrapper}>
+      <TouchableOpacity style={styles.infoTextWrapper} onPress={onPress}>
         {icon && <Image source={icon} style={styles.image} resizeMode="contain"/>}
         <Text style={styles.text}>{text}</Text>
+        {arrow && <Image source={arrow} style={styles.arrow} resizeMode="contain"/>}
       </TouchableOpacity>
     </View>
   );
+
+  handleTrashpointsPress = () => {
+    this.props.navigator.push({
+      screen: 'TEAM_TRASHPOINTS_SCREEN',
+      title: 'Team Trashpoints',
+    })
+  };
 
   spinner = () => {
     return (
@@ -56,7 +65,6 @@ export default class Team extends Component {
 
   render() {
     const { team, loading, myTeam } = this.props;
-    console.log('MY TEAM', myTeam);
     const btnText = team && myTeam && team.id === myTeam ? 'Leave' : 'Join';
     const location = team && team.CC ? COUNTRIES_HASH[team.CC] : 'Global';
     const remoteImage = team && team.image ? { uri: team.image} : null;
@@ -66,9 +74,9 @@ export default class Team extends Component {
       <ScrollView style={styles.container}>
         {this.renderInfo(remoteImage, 'name', team.name)}
         {this.renderButton(btnText)}
-        {this.renderInfo(icon, 'location', location )}
+        {this.renderInfo(locationIcon, 'location', location )}
         {this.renderInfo(listIcon, 'joined Members', `${team.members}/40` )}
-        {this.renderInfo(trashIcon, 'reported trashpoints', 'Tap to preview trashpoints' )}
+        {this.renderInfo(trashIcon, 'reported trashpoints', 'Tap to preview trashpoints', arrow, this.handleTrashpointsPress )}
         {this.renderInfo(null, 'description', team.teamDescription )}
       </ScrollView>
     );

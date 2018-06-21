@@ -26,6 +26,7 @@ import TrashPointMenu from './TrashPoint/TrashPointMenu';
 import ExpandSearch from './EventMap/components/ExpandSearch';
 import Teams from './Teams';
 import Team from './Team';
+import TeamTrashpoints from './TeamTrashpoints/TeamTrashpoints';
 
 export const TERMS_SCREEN = 'TERMS_SCREEN';
 export const PROFILE_SCREEN = 'PROFILE_SCREEN';
@@ -54,6 +55,7 @@ export const TRASH_POINT_MENU_SCREEN = 'TRASH_POINT_MENU_SCREEN';
 export const EXPAND_SEARCH = 'EXPAND_SEARCH';
 export const TEAMS_SCREEN = 'TEAMS_SCREEN';
 export const TEAM_SCREEN = 'TEAM_SCREEN';
+export const TEAM_TRASHPOINTS_SCREEN = 'TEAM_TRASHPOINTS_SCREEN';
 export function registerScreens(store, Provider) {
   Navigation.registerComponent(NAV_BAR, () => NavBar);
   Navigation.registerComponent(TERMS_SCREEN, () => AcceptTerms, store, Provider);
@@ -92,4 +94,5 @@ export function registerScreens(store, Provider) {
     () => ExpandSearch, store, Provider);
   Navigation.registerComponent(TEAMS_SCREEN, () => Teams, store, Provider);
   Navigation.registerComponent(TEAM_SCREEN, () => Team, store, Provider);
+  Navigation.registerComponent(TEAM_TRASHPOINTS_SCREEN, () => TeamTrashpoints, store, Provider);
 }

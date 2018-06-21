@@ -110,6 +110,7 @@ export const DATASETS_TYPES = {
 export const API_ENDPOINTS = {
   FETCH_DATASETS: '/datasets',
   USER_ME: '/me',
+  USER_TEAM: '/me/team',
   USER_AUTH: '/auth/external',
   FETCH_OVERVIEW_CLUSTERS: '/overview/clusters',
   FETCH_OVERVIEW_TRASHPOINTS: '/overview/trashpoints',

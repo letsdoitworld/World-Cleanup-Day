@@ -154,6 +154,7 @@ async function createTrashPointRequest(
   amount,
   name,
   photos,
+  team,
 ) {
   try {
     const datasetId = await fetchTrashPointsDataSets()
@@ -167,6 +168,7 @@ async function createTrashPointRequest(
       address,
       amount,
       datasetId,
+      team,
     };
 
     const url = API_ENDPOINTS.CREATE_TRASHPOINT;

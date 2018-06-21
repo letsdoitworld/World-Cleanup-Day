@@ -33,6 +33,7 @@ import {
   requestTermsFlow,
   loadTeamsFlow,
   loadTeamFlow,
+  updateProfileTeamFlow,
 } from './sagas';
 
 
@@ -94,6 +95,7 @@ export default function configureStore() {
       sagaMiddleware.run(requestTermsFlow),
       sagaMiddleware.run(loadTeamsFlow),
       sagaMiddleware.run(loadTeamFlow),
+      sagaMiddleware.run(updateProfileTeamFlow),
     ],
   };
 }

@@ -84,6 +84,22 @@ paths:
         "default":
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
+  /me/team:
+    x-swagger-router-controller: users
+    put:
+      description: Join user to team.
+      operationId: modifyUserTeam
+      x-security: [bearer]
+      parameters:
+        - $ref: "#/parameters/ModifyTeam"
+      responses:
+        "200":
+          description: Account information.
+          schema:
+            $ref: "#/definitions/Account"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  #-----------------------------------------------------------------------------
   /auth/external:
     x-swagger-router-controller: users
     post:
@@ -838,6 +854,17 @@ parameters:
         value:
           type: boolean
   #-----------------------------------------------------------------------------
+  ModifyTeam:
+    name: update
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [team]
+      properties:
+        team:
+          $ref: "#/definitions/UUID"
+  #-----------------------------------------------------------------------------
   ModifyTrashpoint:
     name: trashpoint
     in: body
@@ -1117,6 +1144,10 @@ definitions:
         type: boolean
       public:
         type: boolean
+      team:
+        type:
+          - string
+          - 'null'
   AccountPlusAreas:
     allOf:
     - "$ref": "#/definitions/Account"

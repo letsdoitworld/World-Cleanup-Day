@@ -64,6 +64,7 @@ function* createTrashPoint(
   amount,
   name,
   photos,
+  team,
 ) {
   try {
     const response = yield call(
@@ -76,6 +77,7 @@ function* createTrashPoint(
       amount,
       name,
       photos,
+      team,
     );
 
     if (response.data) {
@@ -101,6 +103,7 @@ export function* createTrashPointFlow() {
       amount,
       name,
       photos,
+      team,
     } = payload;
     yield put(controlProgress(true));
     yield call(
@@ -113,6 +116,7 @@ export function* createTrashPointFlow() {
       amount,
       name,
       photos,
+      team,
     );
     yield put(controlProgress(false));
   }

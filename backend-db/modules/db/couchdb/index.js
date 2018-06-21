@@ -348,12 +348,13 @@ const layer = {
             }
         );
     },
-    createAccount: async (id, name, email, role, pictureURL) => {
+    createAccount: async (id, name, email, role, pictureURL, team) => {
         await adapter.createDocument('Account', id, {
             name,
             email,
             role,
             pictureURL,
+            team
         }, {
             locked: false,
             createdAt: util.time.getNowUTC(),

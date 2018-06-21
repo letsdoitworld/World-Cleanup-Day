@@ -52,6 +52,7 @@ class Account extends Type {
             role: true,
             pictureURL: true,
             country: true,
+            team: true,
             termsAcceptedAt: true,
             locked: true,
             createdAt: true,
@@ -71,6 +72,7 @@ declareConstants(Account, {
     ROLE_LEADER: 'leader',
     ROLE_ADMIN: 'admin',
     ROLE_SUPERADMIN: 'superadmin',
+    DEFAULT_TEAM: null,
 });
 
 class Session extends Type {
@@ -142,6 +144,7 @@ class Trashpoint extends Type {
             address: true,
             hashtags: true,
             counter: true,
+            team: true,
             createdAt: true,
             createdBy: true,
             updatedAt: true,

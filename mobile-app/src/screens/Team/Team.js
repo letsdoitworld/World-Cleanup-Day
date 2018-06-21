@@ -20,13 +20,19 @@ export default class Team extends Component {
     onFetchTeam(teamId);
   }
 
-  renderButton = () => (
+  renderButton = (btnText) => (
     <View style={styles.buttonWrapper}>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.btnText}>Join</Text>
+      <TouchableOpacity style={[styles.button, { backgroundColor: btnText === 'Leave' ? '#DF1E83' : '#1791DC' }]} onPress={this.handleBtnClick}>
+        <Text style={styles.btnText}>{btnText}</Text>
       </TouchableOpacity>
     </View>
   );
+
+  handleBtnClick = () => {
+    const { onUpdateProfileTeam, team, myTeam } = this.props;
+    const { id } = team;
+    id === myTeam ? onUpdateProfileTeam({ team: '' }) : onUpdateProfileTeam({ team: id })
+  };
 
   renderInfo = (icon, title, text) => (
     <View style={{ marginTop: 15 }}>
@@ -49,17 +55,17 @@ export default class Team extends Component {
   };
 
   render() {
-    const { team, loading } = this.props;
+    const { team, loading, myTeam } = this.props;
+    console.log('MY TEAM', myTeam);
+    const btnText = team && myTeam && team.id === myTeam ? 'Leave' : 'Join';
     const location = team && team.CC ? COUNTRIES_HASH[team.CC] : 'Global';
-    const remoteImage = {
-      uri: team.image
-    };
+    const remoteImage = team && team.image ? { uri: team.image} : null;
     return loading
       ? this.spinner()
-      : (
+      : team && (
       <ScrollView style={styles.container}>
         {this.renderInfo(remoteImage, 'name', team.name)}
-        {this.renderButton()}
+        {this.renderButton(btnText)}
         {this.renderInfo(icon, 'location', location )}
         {this.renderInfo(listIcon, 'joined Members', `${team.members}/40` )}
         {this.renderInfo(trashIcon, 'reported trashpoints', 'Tap to preview trashpoints' )}

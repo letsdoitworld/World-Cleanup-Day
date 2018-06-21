@@ -79,7 +79,6 @@ class EventsList extends Component {
 
   render() {
     const { events, isLoading } = this.props;
-    console.log(isLoading);
     return (
       <List events={events} isLoading={isLoading} />
     );

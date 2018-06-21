@@ -241,7 +241,7 @@ class UserDetails extends React.Component {
         </div>
         <If condition={!loading}>
           <div className={
-              classnames('UserDetails-plot', { isVisible: userDetailsVisible })
+              classnames('UserDetails-plot', 'scrollbar-modified', { isVisible: userDetailsVisible })
             }
           >
             <div className="UserDetails-image-container">

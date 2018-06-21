@@ -41,10 +41,11 @@ class Tags extends React.Component {
       onTagSelect,
       onTagAdd,
       onTagDelete,
+      header,
     } = this.props;
     return (
       <div className="Tags-container">
-        <span className="Tags-title">Select trash type</span>
+        <span className="Tags-title">{ header }</span>
         <div className="Tags-Composition-container">
           {composition.map(tag =>
             (<Tag
@@ -58,16 +59,18 @@ class Tags extends React.Component {
         <If condition={tags.length > 0}>
           <div className="Tags-title">Additionally selected tags</div>
         </If>
-        <div className="Tags-custom-container">
-          {tags.map((tag) =>
-            (<Tag
-              key={tag.label}
-              label={tag.label}
-              selected
-              onDelete={() => onTagDelete(tag)}
-            />),
-          )}
-        </div>
+        <If condition={!!onTagAdd}>
+          <div className="Tags-custom-container">
+            {tags.map((tag) =>
+              (<Tag
+                key={tag.label}
+                label={tag.label}
+                selected
+                onDelete={() => onTagDelete(tag)}
+              />),
+            )}
+          </div>
+        </If>
         <If condition={!!onTagAdd}>
           <div className="Tags-add-container">
             <input
@@ -101,8 +104,14 @@ Tags.propTypes = {
     }),
   ).isRequired,
   onTagSelect: PropTypes.func.isRequired,
-  onTagAdd: PropTypes.func.isRequired,
-  onTagDelete: PropTypes.func.isRequired,
+  onTagAdd: PropTypes.func,
+  onTagDelete: PropTypes.func,
+  header: PropTypes.string.isRequired,
+};
+
+Tags.defaultProps = {
+  onTagAdd: null,
+  onTagDelete: null,
 };
 
 export default Tags;

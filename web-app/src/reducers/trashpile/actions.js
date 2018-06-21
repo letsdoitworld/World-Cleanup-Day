@@ -183,12 +183,20 @@ const fetchAllMarkers = (
   }
 };
 
-const fetchTrashTypesAndOrigin = () => async dispatch => {
+const fetchTrashTypesAndOrigin = () => async (dispatch, getState) => {
   try {
+    dispatch({ type: TYPES.FETCH_TRASH_TYPES_ORIGIN });
     const response = await ApiService.get(
       API_ENDPOINTS.FETCH_TRASH_TYPES_ORIGIN,
     );
-    console.log(response);
+    if (!response) {
+      return dispatch({ type: TYPES.FETCH_TRASH_TYPES_ORIGIN_FAILED });
+    }
+    dispatch({
+      type: TYPES.FETCH_TRASH_TYPES_ORIGIN_SUCCESS,
+      trashTypes: response.data.trashpointCompositions,
+      trashOrigin: response.data.trashpointOrigins,
+    });
   } catch (e) {
     console.log(e);
   }
@@ -300,46 +308,51 @@ const toggleDetailsWindow = () => ({
 });
 
 const fetchMarkerDetails = markerId => async dispatch => {
-  dispatch({ type: TYPES.FETCH_MARKER_DETAILS_REQUEST });
-  const [imagesResponse, detailsResponse] = await Promise.all([
-    ApiService.get(API_ENDPOINTS.FETCH_TRASHPOINT_IMAGES(markerId), {
-      withToken: false,
-    }),
-    ApiService.get(API_ENDPOINTS.FETCH_TRASHPOINT_DETAILS(markerId), {
-      withToken: false,
-    }),
-  ]);
+  try {
+    dispatch({ type: TYPES.FETCH_MARKER_DETAILS_REQUEST });
+    const [imagesResponse, detailsResponse] = await Promise.all([
+      ApiService.get(API_ENDPOINTS.FETCH_TRASHPOINT_IMAGES(markerId), {
+        withToken: false,
+      }),
+      ApiService.get(API_ENDPOINTS.FETCH_TRASHPOINT_DETAILS(markerId), {
+        withToken: false,
+      }),
+    ]);
 
-  if (!imagesResponse || !detailsResponse) {
+    if (!imagesResponse || !detailsResponse) {
+      dispatch(errorActions.setErrorMessage('Failed to load trashpoint details'));
+      dispatch({ type: TYPES.FETCH_MARKER_DETAILS_FAILED });
+    }
+
+    const imageResponseIsArray = Array.isArray(imagesResponse.data);
+    const photos = imageResponseIsArray ? imagesResponse.data : [];
+    const thumbnails = imageResponseIsArray
+      ? photos.filter(({ type }) => type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
+      : [];
+    const mediumPhotos = imageResponseIsArray
+      ? photos.filter(({ type }) => type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
+      : [];
+
+    const marker = {
+      ...detailsResponse.data,
+      position: {
+        lat: detailsResponse.data.location.latitude,
+        lng: detailsResponse.data.location.longitude,
+      },
+      photos,
+      thumbnails,
+      mediumPhotos,
+    };
+
+    dispatch({
+      type: TYPES.FETCH_MARKER_DETAILS_SUCCESS,
+      marker,
+    });
+    return marker;
+  } catch (e) {
     dispatch(errorActions.setErrorMessage('Failed to load trashpoint details'));
-    dispatch({ type: TYPES.FETCH_MARKER_DETAILS_FAILED });
+    console.log(e);
   }
-
-  const imageResponseIsArray = Array.isArray(imagesResponse.data);
-  const photos = imageResponseIsArray ? imagesResponse.data : [];
-  const thumbnails = imageResponseIsArray
-    ? photos.filter(({ type }) => type === TRASHPOINT_IMAGE_TYPES.THUMBNAIL)
-    : [];
-  const mediumPhotos = imageResponseIsArray
-    ? photos.filter(({ type }) => type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
-    : [];
-
-  const marker = {
-    ...detailsResponse.data,
-    position: {
-      lat: detailsResponse.data.location.latitude,
-      lng: detailsResponse.data.location.longitude,
-    },
-    photos,
-    thumbnails,
-    mediumPhotos,
-  };
-
-  dispatch({
-    type: TYPES.FETCH_MARKER_DETAILS_SUCCESS,
-    marker,
-  });
-  return marker;
 };
 
 export const deleteImage = (markerId, imageId) =>
@@ -429,6 +442,7 @@ export const createMarker = (
     id,
     hashtags,
     composition,
+    origin,
     location,
     status,
     name,
@@ -443,6 +457,7 @@ export const createMarker = (
     const newMarker = {
       hashtags,
       composition,
+      origin: origin.length ? origin : null,
       location,
       status,
       name,
@@ -467,7 +482,7 @@ export const createMarker = (
 
     if (!createMarkerResponse) {
       dispatch({ type: TYPES.CREATE_MARKER_FAILED });
-      return undefined;
+      return dispatch(errorActions.setErrorMessage('Failed placing trashpoint'));
     }
 
     let uploadStatus;

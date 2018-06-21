@@ -152,7 +152,7 @@ class AreaList extends React.Component {
         </div>
         <div className={
           classnames(
-            'AreaList-plot', { isVisible: areasWindowVisible },
+            'AreaList-plot', 'scrollbar-modified', { isVisible: areasWindowVisible },
           )}
         >
           {this.renderInnerAreaList()}

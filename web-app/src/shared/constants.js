@@ -56,20 +56,6 @@ export const TRASHPOINT_IMAGE_TYPES = {
   MEDIUM: 'medium',
 };
 
-export const TRASH_COMPOSITION_TYPE_LIST = [
-  { type: 'glass', label: 'Glass' },
-  { type: 'ceramic/bricks', label: 'Ceramic/Bricks' },
-  { type: 'plastic', label: 'Plastic' },
-  { type: 'metal', label: 'Metal' },
-  { type: 'biological/paper/wood', label: 'Paper/Wood' },
-  { type: 'textiles/shoes/carpets', label: 'Shoes/Carpets' },
-  { type: 'rubber/tyres', label: 'Rubber/Tyres' },
-  { type: 'electronics', label: 'Electronics' },
-  { type: 'toxic/chemicals', label: 'Toxic/Chemicals' },
-  { type: 'car parts/vehicles', label: 'Car parts/Vehicles' },
-  { type: 'other', label: 'Other' },
-];
-
 export const AMOUNT_STATUSES = {
   handful: 0,
   bagful: 1,

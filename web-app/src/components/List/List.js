@@ -31,6 +31,7 @@ class List extends Component {
           className={
             classnames(
               'UsersList-plot',
+              'scrollbar-modified',
               { isVisible: userslistWindowVisible })
             }
           elementHeight={this.props.elementHeight}
@@ -63,6 +64,7 @@ class List extends Component {
         <div className={
           classnames(
             'UsersList-plot',
+            'scrollbar-modified',
             { isVisible: userslistWindowVisible })
           }
         >

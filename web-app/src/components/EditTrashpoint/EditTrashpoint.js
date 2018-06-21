@@ -16,11 +16,9 @@ import {
   Userpic,
   TimeIcon,
 } from '../common/Icons';
-import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from './components/Tags';
 import StatusPicker from './StatusPicker';
-import closeButton from '../../assets/closeButton.png';
 
 import './EditTrashpoint.css';
 
@@ -28,7 +26,7 @@ class EditTrashpoint extends Component {
   constructor(props) {
     super(props);
 
-    const { marker } = props;
+    const { marker, trashTypes, trashOrigin } = props;
     const {
       name,
       address,
@@ -37,6 +35,7 @@ class EditTrashpoint extends Component {
       thumbnails,
       hashtags,
       composition,
+      origin,
       location,
     } = marker;
 
@@ -47,10 +46,15 @@ class EditTrashpoint extends Component {
       editLocation: false,
       amount,
       status,
-      composition: TRASH_COMPOSITION_TYPE_LIST.map(t => ({
+      composition: trashTypes.map(t => ({
         label: t.label,
         value: t.type,
         selected: composition.indexOf(t.type) >= 0,
+      })),
+      origin: trashOrigin.map(o => ({
+        label: o.label,
+        value: o.type,
+        selected: origin ? origin.indexOf(o.type) >= 0 : false,
       })),
       hashtags: hashtags.map(h => ({ label: h, value: h, selected: true })),
       photos: thumbnails,
@@ -84,6 +88,7 @@ class EditTrashpoint extends Component {
       address,
       photos,
       composition,
+      origin,
       hashtags,
       status,
       amount,
@@ -99,6 +104,7 @@ class EditTrashpoint extends Component {
       photos,
       amount,
       composition: composition.filter(t => t.selected).map(t => t.value),
+      origin: origin.filter(o => o.selected).map(o => o.value),
       hashtags: hashtags.map(t => t.value),
       address,
       name,
@@ -233,6 +239,7 @@ class EditTrashpoint extends Component {
       location,
       amount,
       composition,
+      origin,
       hashtags,
       status,
       validationMessage,
@@ -263,7 +270,7 @@ class EditTrashpoint extends Component {
             <CloseIcon />
           </div>
         </div>
-        <div className="EditTrashpoint-plot">
+        <div className="EditTrashpoint-plot scrollbar-modified">
           <div>
             <div className="EditTrashpoint-default-container">
               <div className="EditTrashpoint-address-container">
@@ -339,12 +346,22 @@ class EditTrashpoint extends Component {
           </div>
           <div className="EditTrashpoint-default-container">
             <Tags
+              header="Trash types"
               composition={composition}
               tags={hashtags}
               onCompositionSelect={this.handleCompositionSelect}
               onTagSelect={this.handleTagSelect}
               onTagAdd={this.handleTagAdd}
               onTagDelete={this.handleTagDelete}
+            />
+          </div>
+          <div className="EditTrashpoint-default-container">
+            <Tags
+              header="Trash origin"
+              tags={[]}
+              composition={origin}
+              onCompositionSelect={this.handleCompositionSelect}
+              onTagSelect={this.handleTagSelect}
             />
           </div>
           <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">

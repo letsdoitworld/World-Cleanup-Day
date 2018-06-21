@@ -40,6 +40,7 @@ class App extends Component {
     showErrorModal: PropTypes.func.isRequired,
     isErrModalVisible: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
+    fetchTrashTypesAndOrigin: PropTypes.func.isRequired,
   }
 
   constructor() {
@@ -56,11 +57,12 @@ class App extends Component {
         store,
         localStorage,
       }),
-    ]).then(() => {
+    ]).then(async () => {
       const token = userSelectors.getUserToken(store.getState());
       if (token) {
         ApiService.setAuthToken(token);
-        this.props.fetchProfile();
+        await this.props.fetchTrashTypesAndOrigin();
+        await this.props.fetchProfile();
       }
       this.setState({ appLoaded: true });
     });
@@ -121,6 +123,7 @@ const mapDispatchToProps = {
   fetchDatasets: appActions.fetchDatasets,
   hidePopover: appActions.hideLoginPopover,
   fetchAllMarkers: trashpileActions.fetchAllMarkers,
+  fetchTrashTypesAndOrigin: trashpileActions.fetchTrashTypesAndOrigin,
   hideModal: appActions.hideModal,
   showModal: appActions.showModal,
   fetchProfile: userActions.fetchProfile,

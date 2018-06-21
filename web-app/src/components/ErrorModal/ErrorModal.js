@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { expandArea, CloseIcon } from '../common/Icons';
+import { errorImg, CloseIcon } from '../common/Icons';
 import './ErrorModal.css';
 
 export const ErrorModal = ({ isVisible, errorMessage, hideModal }) =>
@@ -15,7 +15,7 @@ export const ErrorModal = ({ isVisible, errorMessage, hideModal }) =>
           <CloseIcon />
         </div>
       </div>
-      <img className="Coala" src={expandArea} alt="err-area-coala" />
+      <img className="Coala" src={errorImg} alt="err-area-coala" />
       <p className="Errormodal-text">
         {
           errorMessage
@@ -26,7 +26,7 @@ export const ErrorModal = ({ isVisible, errorMessage, hideModal }) =>
           onClick={hideModal}
           className="Errormodal-ok Errormodal-btn"
         >
-          <span className="Errormodal-btn-text">OK</span>
+          <span className="Errormodal-btn-text">Okay</span>
         </div>
       </div>
     </div>

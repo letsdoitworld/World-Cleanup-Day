@@ -5,9 +5,8 @@ import { TrashAmount, TrashPhotos } from '../TrashpointDetails';
 
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';
-import { actions as trashpileOperations } from '../../reducers/trashpile';
+import { actions as trashpileOperations, selectors } from '../../reducers/trashpile';
 import { AlertModal } from '../../components/AlertModal';
-import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from '../EditTrashpoint/components/Tags';
 import StatusPicker from '../EditTrashpoint/StatusPicker';
@@ -19,7 +18,10 @@ import './CreateTrashpoint.css';
 class CreateTrashpoint extends Component {
   constructor(props) {
     super(props);
-
+    const {
+      trashTypes,
+      trashOrigin,
+    } = this.props;
     this.state = {
       name: '',
       address: '',
@@ -27,9 +29,14 @@ class CreateTrashpoint extends Component {
       editLocation: false,
       amount: 'handful',
       status: 'regular',
-      composition: TRASH_COMPOSITION_TYPE_LIST.map(t => ({
+      typesComposition: trashTypes.map(t => ({
         label: t.label,
         value: t.type,
+        selected: false,
+      })),
+      originComposition: trashOrigin.map(o => ({
+        label: o.label,
+        value: o.type,
         selected: false,
       })),
       hashtags: [],
@@ -39,8 +46,8 @@ class CreateTrashpoint extends Component {
   }
   // TODO implement validation
   validate = () => {
-    const { composition, location, photos } = this.state;
-    if (composition.filter(c => c.selected).length === 0) {
+    const { typesComposition, location, photos } = this.state;
+    if (typesComposition.filter(c => c.selected).length === 0) {
       this.setState({
         validationMessage: 'You must select at least 1 trash type',
       });
@@ -68,12 +75,12 @@ class CreateTrashpoint extends Component {
       name,
       address,
       photos,
-      composition,
+      typesComposition,
+      originComposition,
       hashtags,
       status,
       amount,
     } = this.state;
-
     if (!this.validate()) {
       return;
     }
@@ -83,7 +90,8 @@ class CreateTrashpoint extends Component {
       status,
       photos,
       amount,
-      composition: composition.filter(t => t.selected).map(t => t.value),
+      composition: typesComposition.filter(t => t.selected).map(t => t.value),
+      origin: originComposition.filter(o => o.selected).map(o => o.value),
       hashtags: hashtags.map(t => t.value),
       address,
       name,
@@ -104,6 +112,7 @@ class CreateTrashpoint extends Component {
       photos,
     });
   };
+
   handlePhotoAdd = async photos => {
     if (!photos || photos.length === 0) {
       return;
@@ -135,10 +144,17 @@ class CreateTrashpoint extends Component {
     composition.selected = !composition.selected;
     this.setState({});
   };
+
+  handleOriginSelect = origin => {
+    origin.selected = !origin.selected;
+    this.setState({});
+  };
+
   handleTagSelect = tag => {
     tag.selected = !tag.selected;
     this.setState({});
   };
+
   handleTagAdd = tag => {
     this.state.hashtags.push({
       label: tag,
@@ -147,6 +163,7 @@ class CreateTrashpoint extends Component {
     });
     this.setState({});
   };
+
   handleTagDelete = tag => {
     const index = this.state.hashtags.findIndex(h => h.value === tag.value);
     if (index >= 0) {
@@ -154,16 +171,17 @@ class CreateTrashpoint extends Component {
       this.setState({});
     }
   };
+
   handleAmountChanged = amount => {
     this.setState({ amount });
   };
+
   handleLocationChanged = async location => {
     const { lat, lng } = location;
     const data = await LocationService.fetchAddress({
       latitude: lat,
       longitude: lng,
     });
-
     this.setState({
       name: data.streetAddress || 'Unknown address',
       address: data.completeAddress || 'Unknown address',
@@ -174,9 +192,11 @@ class CreateTrashpoint extends Component {
     });
     this.handleEditLocationClosed();
   };
+
   handleEditLocationClosed = () => {
     this.setState({ editLocation: false });
   };
+
   handleEditLocationOpen = () => {
     this.setState({ editLocation: true });
   };
@@ -189,11 +209,13 @@ class CreateTrashpoint extends Component {
       validationMessage: false,
     });
   };
+
   hasAddressLineSet = () => {
     const { location, address } = this.state;
     const { latitude, longitude } = location || {};
     return !!address || !!latitude || !!longitude;
   };
+
   renderAddressLine = () => {
     const { location, address } = this.state;
     const { latitude, longitude } = location || {};
@@ -218,16 +240,15 @@ class CreateTrashpoint extends Component {
       address,
       location,
       amount,
-      composition,
+      typesComposition,
+      originComposition,
       hashtags,
       status,
       photos,
       validationMessage,
     } = this.state;
-    const { fetchTrashTypesAndOrigin } = this.props;
-    fetchTrashTypesAndOrigin();
     const { latitude, longitude } = location || {};
-    console.log(fetchTrashTypesAndOrigin);
+
     return (
       <div className="CreateTrashpoint">
         <AlertModal
@@ -253,7 +274,7 @@ class CreateTrashpoint extends Component {
             <CloseIcon />
           </button>
         </div>
-        <div className="CreateTrashpoint-plot">
+        <div className="CreateTrashpoint-plot scrollbar-modified">
           <div className="CreateTrashpoint-default-container">
             <div className="CreateTrashpoint-address-container">
               <div>
@@ -285,12 +306,22 @@ class CreateTrashpoint extends Component {
           </div>
           <div className="CreateTrashpoint-default-container">
             <Tags
-              composition={composition}
+              composition={typesComposition}
               tags={hashtags}
+              header={'Select trash type'}
               onCompositionSelect={this.handleCompositionSelect}
               onTagSelect={this.handleTagSelect}
               onTagAdd={this.handleTagAdd}
               onTagDelete={this.handleTagDelete}
+            />
+          </div>
+          <div className="CreateTrashpoint-default-container">
+            <Tags
+              composition={originComposition}
+              tags={[]}
+              header={'Select trash origin'}
+              onCompositionSelect={this.handleOriginSelect}
+              onTagSelect={this.handleTagSelect}
             />
           </div>
           <div className="CreateTrashpoint-default-container">
@@ -323,14 +354,18 @@ class CreateTrashpoint extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  trashTypes: selectors.getTrashTypes(state),
+  trashOrigin: selectors.getTrashOrigin(state),
+});
+
 const mapDispatchToProps = dispatch => ({
   createTrashpoint(marker) {
     return dispatch(trashpileOperations.createMarker(marker, false));
   },
-  fetchTrashTypesAndOrigin: trashpileOperations.fetchTrashTypesAndOrigin,
 });
 
-export default connect(undefined, mapDispatchToProps)(CreateTrashpoint);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTrashpoint);
 
 
 /*

@@ -37,6 +37,7 @@ import eventCoverBig from '../../../assets/img-event-cover-big-1.png';
 import noEventsCover from '../../../assets/img-no-events.png';
 import noUsersCover from '../../../assets/img-no-users.png';
 import expandArea from '../../../assets/img-expand-small.png';
+import errorImg from '../../../assets/img-error.png';
 
 import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
 import activeInToxicTP from '../../../assets/trashpoints/icActiveInactiveToxicTrashpointMap.png';
@@ -119,4 +120,5 @@ export {
   noEventsCover,
   noUsersCover,
   expandArea,
+  errorImg,
 };

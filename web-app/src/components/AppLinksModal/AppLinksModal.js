@@ -11,7 +11,7 @@ const AppLinksModal = () =>
     <div className="AppLinks-header">
       <span className="AppLinks-header-title">Try our app</span>
       <div className="AppLinks-header-close">
-        <Link to="/">
+        <Link to="/trashpoints">
           <CloseIcon />
         </Link>
       </div>

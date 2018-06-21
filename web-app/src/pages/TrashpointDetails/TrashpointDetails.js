@@ -45,6 +45,8 @@ class TrashDetails extends React.Component {
       }),
       push: PropTypes.func,
     }).isRequired,
+    trashTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    trashOrigin: PropTypes.arrayOf(PropTypes.string).isRequired,
   }
 
   static defaultProps = {
@@ -161,6 +163,8 @@ class TrashDetails extends React.Component {
           history={history}
           marker={this.props.marker}
           actions={this.actions}
+          trashTypes={this.props.trashTypes}
+          trashOrigin={this.props.trashOrigin}
         />
       );
     }
@@ -176,6 +180,8 @@ class TrashDetails extends React.Component {
         actions={this.actions}
         canEdit={this.canUserEditTrashPoint()}
         showHeader={this.props.showHeader}
+        trashTypes={this.props.trashTypes}
+        trashOrigin={this.props.trashOrigin}
       />
     );
   }
@@ -185,7 +191,10 @@ const mapState = state => ({
   marker: selectors.getMarkerDetails(state),
   authUser: userSelectors.getProfile(state),
   isOpened: selectors.getShowDetailsWindow(state),
+  trashTypes: selectors.getTrashTypes(state),
+  trashOrigin: selectors.getTrashOrigin(state),
 });
+
 const mapDispatch = {
   fetchMarkerDetails: actions.fetchMarkerDetails,
   focusMapLocation: actions.focusMapLocation,

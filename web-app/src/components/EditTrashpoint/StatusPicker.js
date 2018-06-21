@@ -7,23 +7,23 @@ const options = {
   regular: {
     id: 'regular',
     label: 'REGULAR',
-    image: require('./images/default-status-regular@2x.png'),
-    selectedImage: require('./images/selected-status-regular@3x.png'),
+    image: require('./images/img-regular-trashpoint@2x.png'),
+    selectedImage: require('./images/img-regular-trashpoint@3x.png'),
     color: '#ff7a00',
   },
   threat: {
     id: 'threat',
     label: 'THREAT',
-    image: require('./images/default-status-threat@2x.png'),
-    selectedImage: require('./images/selected-status-threat@2x.png'),
+    image: require('./images/urgent@2x.png'),
+    selectedImage: require('./images/urgent@2x.png'),
     color: '#fc515e',
   },
 
   cleaned: {
     id: 'cleaned',
     label: 'CLEANED',
-    image: require('./images/default-status-clean@2x.png'),
-    selectedImage: require('./images/selected_status_clean@2x.png'),
+    image: require('./images/icCleanedTrashpoint@2x.png'),
+    selectedImage: require('./images/icCleanedTrashpoint@2x.png'),
     color: '#7BEA4E',
   },
 };

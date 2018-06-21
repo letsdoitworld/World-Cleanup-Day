@@ -59,7 +59,7 @@ class CountriesList extends Component {
           </div>
         </div>
         <div className={
-            classnames('CountriesList-plot', { isVisible: plotVisible })
+            classnames('CountriesList-plot', 'scrollbar-modified', { isVisible: plotVisible })
           }
         >
           <div className="CountriesList-items">

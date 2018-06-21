@@ -7,6 +7,8 @@ import TYPES from './types';
 // markers
 const MARKERS_INITIAL_STATE = {
   markers: [],
+  trashTypes: [],
+  trashOrigin: [],
   loading: false,
   error: false,
 };
@@ -41,6 +43,20 @@ const markersReducer = (state = MARKERS_INITIAL_STATE, action) => {
       return {
         ...state,
         markers: state.markers.filter(m => m.id !== action.payload.markerId),
+      };
+    case TYPES.FETCH_TRASH_TYPES_ORIGIN_SUCCESS:
+      const trashTypesArr = action.trashTypes.map(t => ({
+        type: t,
+        label: t.split('/').map(type => type.charAt(0).toUpperCase() + type.slice(1)).join('/'),
+      }));
+      const trashOriginArr = action.trashOrigin.map(o => ({
+        type: o,
+        label: o.split('/').map(type => type.charAt(0).toUpperCase() + type.slice(1)).join('/'),
+      }));
+      return {
+        ...state,
+        trashTypes: trashTypesArr,
+        trashOrigin: trashOriginArr,
       };
     default:
       return state;

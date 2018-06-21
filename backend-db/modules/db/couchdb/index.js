@@ -654,8 +654,9 @@ const layer = {
         return await layer.modifyTrashpoint(id, who, {});
     },
     createTrashpoint: async (datasetId, who, create) => {
+
         create.counter = 1, //FIXME: generate this number using a couchbase atomic counter
-            create.datasetId = datasetId;
+        create.datasetId = datasetId;
         create.hashtags = create.hashtags || [];
         create.isIncluded = false;
 

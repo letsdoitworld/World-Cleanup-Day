@@ -139,6 +139,7 @@ class Trashpoint extends Type {
             status: true,
             amount: true,
             composition: true,
+            origin: true,
             name: true,
             address: true,
             hashtags: true,

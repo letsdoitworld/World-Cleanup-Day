@@ -877,6 +877,8 @@ parameters:
           $ref: "#/definitions/TrashAmount"
         composition:
           $ref: "#/definitions/TrashComposition"
+        origin:
+          $ref: "#/definitions/TrashOrigin"
         name:
           $ref: "#/definitions/TrashName"
         address:
@@ -901,6 +903,8 @@ parameters:
           $ref: "#/definitions/TrashAmount"
         composition:
           $ref: "#/definitions/TrashComposition"
+        origin:
+          $ref: "#/definitions/TrashOrigin"
         name:
           $ref: "#/definitions/TrashName"
         address:
@@ -1318,7 +1322,15 @@ definitions:
     minItems: 1
     items:
       type: string
-      enum: [glass, electronics, paper, domestic waste, furniture, organic waste, plastic, metal, tyres]
+      enum: [glass, ceramic/bricks, plastic, metal, biological/paper/wood, textiles/shoes/carpets, rubber/tyres, electronics, toxic/chemicals, car parts/vehicles, other]
+  TrashOrigin:
+    description: The origin of the trash is made of.
+    type: array
+    uniqueItems: true
+    minItems: 1
+    items:
+      type: string
+      enum: [household, non-household, construction and demolition]
   TrashAmount:
     description: The amount of trash.
     type: string

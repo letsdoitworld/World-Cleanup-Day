@@ -1322,7 +1322,7 @@ definitions:
     minItems: 1
     items:
       type: string
-      enum: [glass, ceramic/bricks, plastic, metal, biological/paper/wood, textiles/shoes/carpets, rubber/tyres, electronics, toxic/chemicals, car parts/vehicles, other]
+      enum: [glass, paper, domestic waste, furniture, ceramic/bricks, tyres, organic waste, plastic, metal, biological/paper/wood, textiles/shoes/carpets, rubber/tyres, electronics, toxic/chemicals, car parts/vehicles, other]
   TrashOrigin:
     description: The origin of the trash is made of.
     type: array

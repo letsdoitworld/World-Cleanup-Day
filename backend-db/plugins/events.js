@@ -308,7 +308,17 @@ module.exports = function () {
                 const clusters = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getEventsOverviewClusters);
                 const filtered = clusters.map(value => util.object.filter(
                     value,
-                    {id: true, count: true, location: true, coordinates: true}
+                    {   id: true,
+                        name: true,
+                        maxPeopleAmount: true,
+                        attendeesAmount: true,
+                        startTime: true,
+                        coordinatorName: true,
+                        photos: true,
+                        count: true,
+                        location: true,
+                        coordinates: true
+                    }
                 ));
                 return responder.success(filtered);
             })

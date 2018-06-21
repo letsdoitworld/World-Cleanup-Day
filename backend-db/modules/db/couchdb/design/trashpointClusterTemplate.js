@@ -12,6 +12,11 @@ module.exports = {
             docCoords,
         ],              {
             _id: doc._id,
+            maxPeopleAmount: doc.maxPeopleAmount,
+            attendeesAmount: doc.attendeesAmount,
+            startTime: doc.startTime,
+            photos: doc.photos,
+            coordinatorName: doc.coordinatorName,
             status: doc.status,
             isIncluded: doc.isIncluded,
             name: doc.name
@@ -58,6 +63,11 @@ module.exports = {
         if (rereduce) {
             return {
                 _id: values[0]._id,
+                maxPeopleAmount: values[0].maxPeopleAmount,
+                attendeesAmount: values[0].attendeesAmount,
+                startTime: values[0].startTime,
+                coordinatorName: values[0].coordinatorName,
+                photos: values[0].photos,
                 status: clusterStatus(values),
                 count: values.reduce(function (prev, curr) { return prev + curr.count; }, 0),
                 location: clusterLocation(values.map(function (val) {
@@ -70,6 +80,11 @@ module.exports = {
 
         return {
             _id: values[0]._id,
+            maxPeopleAmount: values[0].maxPeopleAmount,
+            attendeesAmount: values[0].attendeesAmount,
+            startTime: values[0].startTime,
+            coordinatorName: values[0].coordinatorName,
+            photos: values[0].photos,
             status: clusterStatus(values),
             count: values.length,
             location: clusterLocation(keys.map(function (val) {

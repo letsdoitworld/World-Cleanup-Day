@@ -116,37 +116,42 @@ const fetchAllEventMarkers = (
     });
   } catch (e) {
     console.log(e);
-    dispatch(errorActions.setErrorMessage('Failed to load events'));
+    dispatch(errorActions.setErrorMessage('Failed to load event markers'));
   }
 };
 
 const fetchEventsList = (rectangle, pageSize, pageNumber, address) =>
-async (dispatch, getState) => {
-  dispatch({ type: TYPES.FETCH_ALL_EVENTS_REQUEST });
-  const response = await ApiService.get('events',
-    {
-      params: {
-        rectangle,
-        pageSize,
-        pageNumber,
-        address,
+async (dispatch) => {
+  try {
+    dispatch({ type: TYPES.FETCH_ALL_EVENTS_REQUEST });
+    const response = await ApiService.get('events',
+      {
+        params: {
+          rectangle,
+          pageSize,
+          pageNumber,
+          address,
+        },
       },
-    },
-    {
-      withToken: false,
+      {
+        withToken: false,
+      });
+    if (!response) {
+      dispatch({ type: TYPES.FETCH_ALL_EVENTS_FAIL });
+    }
+
+    dispatch({
+      type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
+      events: response.data.records,
+      pageSize: response.data.pageSize,
+      pageNumber: response.data.pageNumber,
+      total: response.data.total,
+      totalPages: Math.ceil(response.data.total / response.data.pageSize),
     });
-  if (!response) {
-    dispatch({ type: TYPES.FETCH_ALL_EVENTS_FAIL });
-    return false;
+  } catch (e) {
+    console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to load events'));
   }
-  dispatch({
-    type: TYPES.FETCH_ALL_EVENTS_SUCCESS,
-    events: response.data.records,
-    pageSize: response.data.pageSize,
-    pageNumber: response.data.pageNumber,
-    total: response.data.total,
-    totalPages: Math.ceil(response.data.total / response.data.pageSize),
-  });
 };
 
 const fetchEventTitle = (id) => ({
@@ -155,18 +160,22 @@ const fetchEventTitle = (id) => ({
 });
 
 const fetchEventDetails = eventId => async dispatch => {
-  dispatch({ type: TYPES.FETCH_EVENT_DETAILS_REQUEST });
-  const res = await ApiService.get(API_ENDPOINTS.FETCH_EVENT_DETAILS(eventId), {
-    withToken: false,
-  });
-  if (!res) {
-    dispatch({ type: TYPES.FETCH_EVENT_DETAILS_FAILED });
-    return false;
+  try {
+    dispatch({ type: TYPES.FETCH_EVENT_DETAILS_REQUEST });
+    const res = await ApiService.get(API_ENDPOINTS.FETCH_EVENT_DETAILS(eventId), {
+      withToken: false,
+    });
+    if (!res) {
+      dispatch({ type: TYPES.FETCH_EVENT_DETAILS_FAILED });
+    }
+    dispatch({
+      type: TYPES.FETCH_EVENT_DETAILS_SUCCESS,
+      event: res.data,
+    });
+  } catch (e) {
+    console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to load event details'));
   }
-  dispatch({
-    type: TYPES.FETCH_EVENT_DETAILS_SUCCESS,
-    event: res.data,
-  });
 };
 
 const updateSearchResultViewport = viewport => dispatch => {

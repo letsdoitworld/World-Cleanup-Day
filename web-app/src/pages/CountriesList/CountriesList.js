@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { AreaListItem } from '../../components/AreaListItem';
+import { Loader } from '../../components/Spinner';
 import {
   selectors as areaSelectors,
   actions as areaActions,
@@ -15,6 +16,12 @@ import {
 import './CountriesList.css';
 
 class CountriesList extends Component {
+
+  static propTypes = {
+    history: PropTypes.any.isRequired,
+    getCountries: PropTypes.func.isRequired,
+    countries: PropTypes.any.isRequired,
+  }
 
   state = {
     plotVisible: true,
@@ -55,7 +62,7 @@ class CountriesList extends Component {
             classnames('CountriesList-plot', { isVisible: plotVisible })
           }
         >
-          <div className="AreaAssignList-items">
+          <div className="CountriesList-items">
             {
               countries ?
               countries.filter(c => !c.parentId).map((c, i) => {
@@ -70,7 +77,7 @@ class CountriesList extends Component {
                   />
                 );
               }) :
-              <div>Loading</div>
+              <Loader />
             }
           </div>
         </div>

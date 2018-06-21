@@ -1,3 +1,7 @@
+.CountriesList-items {
+  height: 100%;  
+}
+
 .CountriesList-container {
   width: 380px;
   position: fixed;

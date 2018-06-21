@@ -3,6 +3,7 @@ import Infinite from 'react-infinite';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { EmptyUsersState } from './EmptyState';
+import { Loader } from '../Spinner';
 import './List.css';
 
 class List extends Component {
@@ -18,11 +19,12 @@ class List extends Component {
       onInfiniteLoad,
       items,
       userslistWindowVisible,
+      loading,
     } = this.props;
     const paddingTop = (headerContent ? 40 : 0);
     const containerHeight = this.getWindowHeight() - paddingTop;
     if (infinite) {
-      const infiniteList = items.length ? (
+      const infiniteList = (
         <Infinite
           containerHeight={containerHeight}
           onInfiniteLoad={onInfiniteLoad}
@@ -34,16 +36,24 @@ class List extends Component {
           elementHeight={this.props.elementHeight}
           infiniteLoadBeginEdgeOffset={200}
         >
-          {items}
+          {
+            items.length ?
+            items :
+            <EmptyUsersState />
+          }
         </Infinite>
-      ) : <EmptyUsersState />;
+      );
       if (!headerContent) {
         return infiniteList;
       }
       return (
         <div className="UsersList-container">
           {headerContent}
-          {infiniteList}
+          {
+            loading ?
+              <Loader /> :
+              infiniteList
+          }
         </div>
       );
     }
@@ -57,7 +67,6 @@ class List extends Component {
           }
         >
           {items.map(item => item)}
-          <EmptyUsersState />
         </div>
       </div>
     );

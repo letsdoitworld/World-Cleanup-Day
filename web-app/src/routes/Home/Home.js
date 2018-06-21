@@ -72,9 +72,6 @@ class Home extends React.Component {
     this.props.agreeToTerms();
   };
 
-  isUserAllowedAddingTrashpoints =
-  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0;
-
   renderTerms = () =>
     (<div className="Home">
       <Terms
@@ -150,9 +147,7 @@ class Home extends React.Component {
         <Route path={ROUTES.PRIVACY} render={() => <Privacy />} />
         <Route
           path={ROUTES.TRY_OUR_APP}
-          render={
-            () => (<AppLinksModal />)
-            }
+          component={AppLinksModal}
         />
         <Route
           path={ROUTES.TRASHPOINT_DETAILS}
@@ -160,7 +155,9 @@ class Home extends React.Component {
             ({ match }) =>
               (<TrashpointDetails
                 showHeader
-                isUserAllowedAdding={false}
+                isUserAllowedAdding={
+                  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0
+                }
                 trashpointId={match.params.id}
                 history={history}
               />)

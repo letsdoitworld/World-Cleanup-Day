@@ -12,6 +12,7 @@ class EventTrashpointList extends Component {
     fetchEventDetails: PropTypes.func.isRequired,
     eventDetails: PropTypes.any.isRequired,
     eventId: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -29,12 +30,13 @@ class EventTrashpointList extends Component {
   }
 
   render() {
-    const { eventDetails, eventId } = this.props;
+    const { eventDetails, eventId, isLoading } = this.props;
     const { trashpoints } = eventDetails;
     return (
       <TrashpointList
         eventId={eventId}
         trashpoints={trashpoints}
+        isLoading={isLoading}
       />
     );
   }
@@ -42,6 +44,7 @@ class EventTrashpointList extends Component {
 
 const mapStateToProps = (state) => ({
   eventDetails: selectors.getEventDetails(state),
+  isLoading: selectors.getEventDetailsLoading(state),
 });
 
 const mapDispatchToProps = {

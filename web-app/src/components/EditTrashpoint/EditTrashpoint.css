@@ -42,6 +42,11 @@
   cursor: pointer;
 }
 
+.EditTrashpoint-close-button img {
+  width: 12px;
+  height: 12px;
+}
+
 .EditTrashpoint-address-container {
   margin-top: 5px;
   display: flex;

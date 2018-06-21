@@ -60,10 +60,6 @@
   height: 9px !important;
 }
 
-.no-users-holder {
-  height: calc(100vh - 230px) !important;
-}
-
 .no-users-holder img {
   display: block;
   margin: 50px auto;

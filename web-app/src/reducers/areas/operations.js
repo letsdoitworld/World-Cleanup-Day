@@ -10,13 +10,9 @@ const getUserAreas = ({ userId }) => async (dispatch, getState) => {
   const authUser = userSels.getProfile(getState());
   const isOwnUser = authUser && authUser.id === userId;
   dispatch(actions.getUserAreas({ userId }));
-  let response = await ApiService.get(
-    isOwnUser ? '/areas/user' : `/areas/user/${userId}`,
-  );
+  let response = await ApiService.get(`/areas/user/${userId}`);
   if (!response) {
-    response = await ApiService.get(
-      isOwnUser ? '/areas/user' : `/areas/user/${userId}`,
-    );
+    response = await ApiService.get(`/areas/user/${userId}`);
     dispatch(actions.getUserAreasError({ userId, error: true }));
     return;
   }
@@ -69,7 +65,7 @@ const assignAreaLeader = ({ areaId, userId }) => async (dispatch, getState) => {
 };
 
 const removeAreaLeader = ({ areaId, userId }) => async dispatch => {
-  const response = await ApiService.delete(`/areas/${areaId}/leader`);
+  const response = await ApiService.delete(`/areas/${areaId}/leader/${userId}`);
   if (response) {
     dispatch(actions.removeAreaLeader({ areaId, userId }));
   }

@@ -57,6 +57,8 @@
   width: 100%;
   transition: all 0.3s ease-in-out;
   overflow-y: auto;
+  min-height: calc(100vh - 230px) !important;
+  max-height: calc(100vh - 230px) !important; 
   height: calc(100vh - 230px) !important;
   display: none;
 }
@@ -143,18 +145,18 @@
   margin-bottom: 5px;
 }
 
-.UserDetails-country-image {
+.UserDetails-country-container img {
   flex: 0;
-  width: 11px;
-  height: 15px;
-  margin-right: 3px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 
 .UserDetails-country {
   text-align: center;
-  color: #7F7F7F;
-  font-family: "Noto Sans";
-  font-size: 13px;
+  color: #000;
+  font-family: "Lato";
+  font-size: 14px;
   line-height: 18px;
   text-align: center;
 }

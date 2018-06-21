@@ -1,10 +1,13 @@
 import React from 'react';
-import Spinner from 'react-spinkit';
+import spinner from '../../assets/loader.gif';
+import './Spinner.css';
 
 const Loader = () => {
   return (
     <div className="Spinner-wrapper">
-      <Spinner name="three-bounce" color="#3E8EDE" />
+      <div className="Spinner">
+        <img src={spinner} alt="spinner" />
+      </div>
     </div>
   );
 };

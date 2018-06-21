@@ -256,12 +256,12 @@ class EditTrashpoint extends Component {
           <span className="EditTrashpoint-title">
             Edit trashpoint
           </span>
-          <button
+          <div
             className="EditTrashpoint-close-button"
-            onClick={actions.handleOnCloseEditClick}
+            onClick={actions.onCloseEditClick}
           >
             <CloseIcon />
-          </button>
+          </div>
         </div>
         <div className="EditTrashpoint-plot">
           <div>

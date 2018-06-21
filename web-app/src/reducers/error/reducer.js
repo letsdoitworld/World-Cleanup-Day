@@ -27,6 +27,7 @@ const errorReducer = (state = ERROR_INITIAL_STATE, action) => {
       return {
         ...state,
         showErrorModal: false,
+        errorMessage: '',
       };
     default:
       return state;

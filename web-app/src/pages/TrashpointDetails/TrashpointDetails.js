@@ -122,7 +122,7 @@ class TrashDetails extends React.Component {
     this.setState({
       edit: false,
     });
-    this.props.fetchMarkerDetails(this.props.match.params.id);
+    this.props.fetchMarkerDetails(this.props.trashpointId);
   };
   actions = {
     onCloseDetailsClick: this.handleOnCloseDetailsClick,

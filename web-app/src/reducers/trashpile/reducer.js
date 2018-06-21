@@ -109,6 +109,12 @@ const MARKER_DETAILS_STATE = {
     thumbnails: [],
     name: '',
     address: '',
+    creator: {
+      name: '',
+    },
+    updater: {
+      name: '',
+    },
   },
   loading: false,
   error: false,

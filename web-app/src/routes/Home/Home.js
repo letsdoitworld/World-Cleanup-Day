@@ -155,7 +155,9 @@ class Home extends React.Component {
             ({ match }) =>
               (<TrashpointDetails
                 showHeader
-                isUserAllowedAdding={false}
+                isUserAllowedAdding={
+                  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0
+                }
                 trashpointId={match.params.id}
                 history={history}
               />)

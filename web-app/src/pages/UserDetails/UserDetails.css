@@ -57,6 +57,8 @@
   width: 100%;
   transition: all 0.3s ease-in-out;
   overflow-y: auto;
+  min-height: calc(100vh - 230px) !important;
+  max-height: calc(100vh - 230px) !important; 
   height: calc(100vh - 230px) !important;
   display: none;
 }

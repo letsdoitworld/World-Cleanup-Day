@@ -182,6 +182,39 @@ class UserDetails extends React.Component {
         />
       );
     }
+    if (loading || !user) {
+      return (
+        <div className="UserDetails-container">
+          <div className="UserDetails-header">
+            <div
+              className="UserDetails-header-back"
+              onClick={() => history.goBack()}
+            >
+              <BackIcon />
+            </div>
+            <span className="UserDetails-header-title">User details</span>
+            <div
+              onClick={() => this.setState(
+                { userDetailsVisible: !this.state.userDetailsVisible },
+              )}
+              className="UserDetails-minimize"
+            >
+              {
+                userDetailsVisible ?
+                  <CollapseIcon /> :
+                  <ExpandIcon />
+              }
+            </div>
+          </div>
+          <div className={
+              classnames('UserDetails-plot', { isVisible: userDetailsVisible })
+            }
+          >
+            <Loader />
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="UserDetails-container">

@@ -1,5 +1,6 @@
 import { ApiService } from '../services';
 import { DATASETS_TYPES, API_ENDPOINTS } from '../shared/constants';
+import { actions as errorActions } from './error';
 
 export const TYPES = {
   FETCH_DATASETS_REQUEST: 'FETCH_DATASETS_REQUEST',
@@ -96,22 +97,28 @@ const appReducer = (
 };
 
 const fetchDatasets = () => async dispatch => {
-  dispatch({ type: TYPES.FETCH_DATASETS_REQUEST });
-  const response = await ApiService.get(API_ENDPOINTS.FETCH_DATASETS, {
-    withToken: false,
-  });
+  try {
+    dispatch({ type: TYPES.FETCH_DATASETS_REQUEST });
+    const response = await ApiService.get(API_ENDPOINTS.FETCH_DATASETS, {
+      withToken: false,
+    });
 
-  if (!response) {
-    return dispatch({ type: TYPES.FETCH_DATASETS_FAILED });
+    if (!response) {
+      dispatch(errorActions.setErrorMessage('Failed to load datasets'));
+      dispatch({ type: TYPES.FETCH_DATASETS_FAILED });
+    }
+
+    const { data } = response;
+    dispatch({
+      type: TYPES.FETCH_DATASETS_SUCCESS,
+      trashpointsDatasetUUID: Array.isArray(data)
+        ? data.find(({ type }) => type === DATASETS_TYPES.TRASHPOINTS).id
+        : '',
+    });
+  } catch (e) {
+    console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to load datasets'));
   }
-
-  const { data } = response;
-  dispatch({
-    type: TYPES.FETCH_DATASETS_SUCCESS,
-    trashpointsDatasetUUID: Array.isArray(data)
-      ? data.find(({ type }) => type === DATASETS_TYPES.TRASHPOINTS).id
-      : '',
-  });
 };
 
 const showModal = modalContent => (dispatch, getState) => {

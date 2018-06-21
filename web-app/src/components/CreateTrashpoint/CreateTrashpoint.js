@@ -224,7 +224,10 @@ class CreateTrashpoint extends Component {
       photos,
       validationMessage,
     } = this.state;
+    const { fetchTrashTypesAndOrigin } = this.props;
+    fetchTrashTypesAndOrigin();
     const { latitude, longitude } = location || {};
+    console.log(fetchTrashTypesAndOrigin);
     return (
       <div className="CreateTrashpoint">
         <AlertModal
@@ -324,6 +327,7 @@ const mapDispatchToProps = dispatch => ({
   createTrashpoint(marker) {
     return dispatch(trashpileOperations.createMarker(marker, false));
   },
+  fetchTrashTypesAndOrigin: trashpileOperations.fetchTrashTypesAndOrigin,
 });
 
 export default connect(undefined, mapDispatchToProps)(CreateTrashpoint);

@@ -37,6 +37,7 @@ export const API_ENDPOINTS = {
   FETCH_EVENTS: '/overview/events',
   FETCH_EVENT_DETAILS: eventId => `/event/${eventId}`,
   FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
+  FETCH_TRASH_TYPES_ORIGIN: 'trashpoints/details',
 };
 export const BACKEND_LOGIN_SOURCES = {
   FACEBOOK: 'facebook',
@@ -56,15 +57,17 @@ export const TRASHPOINT_IMAGE_TYPES = {
 };
 
 export const TRASH_COMPOSITION_TYPE_LIST = [
+  { type: 'glass', label: 'Glass' },
+  { type: 'ceramic/bricks', label: 'Ceramic/Bricks' },
   { type: 'plastic', label: 'Plastic' },
   { type: 'metal', label: 'Metal' },
-  { type: 'glass', label: 'Glass' },
+  { type: 'biological/paper/wood', label: 'Paper/Wood' },
+  { type: 'textiles/shoes/carpets', label: 'Shoes/Carpets' },
+  { type: 'rubber/tyres', label: 'Rubber/Tyres' },
   { type: 'electronics', label: 'Electronics' },
-  { type: 'paper', label: 'Paper/Wood' },
-  { type: 'tyres', label: 'Tyres' },
-  { type: 'domestic waste', label: 'Domestic waste' },
-  { type: 'furniture', label: 'Furniture' },
-  { type: 'organic waste', label: 'Organic waste' },
+  { type: 'toxic/chemicals', label: 'Toxic/Chemicals' },
+  { type: 'car parts/vehicles', label: 'Car parts/Vehicles' },
+  { type: 'other', label: 'Other' },
 ];
 
 export const AMOUNT_STATUSES = {

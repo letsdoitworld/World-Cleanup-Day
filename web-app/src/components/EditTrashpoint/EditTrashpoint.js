@@ -209,8 +209,7 @@ class EditTrashpoint extends Component {
     }
     this.props.deleteMarker({ markerId: marker.id }).then(res => {
       if (res) {
-        console.log(res);
-        history.push('/trashpoints');
+        history.push('/');
       }
     });
   };
@@ -257,12 +256,12 @@ class EditTrashpoint extends Component {
           <span className="EditTrashpoint-title">
             Edit trashpoint
           </span>
-          <button
+          <div
             className="EditTrashpoint-close-button"
-            onClick={actions.handleOnCloseEditClick}
+            onClick={actions.onCloseEditClick}
           >
             <CloseIcon />
-          </button>
+          </div>
         </div>
         <div className="EditTrashpoint-plot">
           <div>

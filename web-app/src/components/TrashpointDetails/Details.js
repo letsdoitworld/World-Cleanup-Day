@@ -32,8 +32,8 @@ class Details extends Component {
         status,
         createdAt,
         updatedAt,
-        createdByName,
-        updatedByName,
+        creator,
+        updater,
         thumbnails,
         composition,
         hashtags,
@@ -56,7 +56,7 @@ class Details extends Component {
 
     return (
       <div className="Tpdetails">
-        <If condition={true}>
+        <If condition={isUserAllowedAdding}>
           <div
             onClick={() => { history.push('/trashpoints/create') }}
             className="Create-trashpoint"
@@ -105,28 +105,34 @@ class Details extends Component {
                   <span className="EventDetails-share">Share</span>
                 </div>
               </div>
-              <div className="Details-default-container Details-creation-info">
-                <span className="Details-trash-type-title">About creator</span>
-                <p className="Details-creation-info-block">
-                  <Userpic />
-                  <span>{createdByName}</span>
-                </p>
-                <p className="Details-creation-info-block">
-                  <TimeIcon />
-                  <span>{moment(createdAt).format('L')}</span>
-                </p>
-              </div>
-              <div className="Details-default-container Details-creation-info">
-                <span className="Details-trash-type-title">Updates</span>
-                <p className="Details-creation-info-block">
-                  <Userpic />
-                  <span>{updatedByName}</span>
-                </p>
-                <p className="Details-creation-info-block">
-                  <TimeIcon />
-                  <span>{moment(updatedAt).format('L')}</span>
-                </p>
-              </div>
+              {
+                creator &&
+                <div className="Details-default-container Details-creation-info">
+                  <span className="Details-trash-type-title">About creator</span>
+                  <p className="Details-creation-info-block">
+                    <Userpic />
+                    <span>{creator.name}</span>
+                  </p>
+                  <p className="Details-creation-info-block">
+                    <TimeIcon />
+                    <span>{moment(createdAt).format('L')}</span>
+                  </p>
+                </div>
+              }
+              {
+                updater &&
+                <div className="Details-default-container Details-creation-info">
+                  <span className="Details-trash-type-title">Updates</span>
+                  <p className="Details-creation-info-block">
+                    <Userpic />
+                    <span>{updater.name}</span>
+                  </p>
+                  <p className="Details-creation-info-block">
+                    <TimeIcon />
+                    <span>{moment(updatedAt).format('L')}</span>
+                  </p>
+                </div>
+              }
               <div className="Details-default-container">
                 <TrashAmount disabled amount={amount} />
               </div>

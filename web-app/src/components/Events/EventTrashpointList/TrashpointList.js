@@ -3,21 +3,25 @@ import { If, Else } from 'react-if';
 import PropTypes from 'prop-types';
 import { TrashpointListItem } from './TrashpointListItem';
 import { EmptyEventsState } from '../EmptyState';
+import { Loader } from '../../Spinner';
 
-export const TrashpointList = ({ trashpoints, eventId }) => (
+export const TrashpointList = ({ trashpoints, eventId, isLoading }) => (
   <div className="EventDetails-TrashpointList">
-    <If condition={!!trashpoints && !!trashpoints.length}>
+    <If condition={!isLoading}>
       <div>
         {
-          trashpoints && trashpoints.map(tp => {
+          trashpoints &&
+          trashpoints.length ?
+          trashpoints.map(tp => {
             return (
               <TrashpointListItem key={tp.id} eventId={eventId} data={tp} />
             );
-          })
+          }) :
+          <EmptyEventsState text="No trashpoints." />
         }
       </div>
       <Else>
-        <EmptyEventsState text="No trashpoints." />
+        <Loader />
       </Else>
     </If>
   </div>
@@ -26,4 +30,5 @@ export const TrashpointList = ({ trashpoints, eventId }) => (
 TrashpointList.propTypes = {
   trashpoints: PropTypes.arrayOf(PropTypes.shape).isRequired,
   eventId: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };

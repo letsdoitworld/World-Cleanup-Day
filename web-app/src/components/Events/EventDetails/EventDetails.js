@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import 'moment/locale/en-au';
 import './EventDetails.css';
-import { EmptyEventsState } from '../EmptyState';
+import { Loader } from '../../Spinner';
 import {
   LocationIconEvent,
   DateIcon,
@@ -20,10 +20,10 @@ import {
 } from '../../common/Icons';
 import ShareModal from '../../ShareModal/ShareModal';
 
-export const Details = ({ eventDetails, showShareModal }) => {
+export const Details = ({ eventDetails, showShareModal, isLoading }) => {
   moment.locale('en-au');
   return (
-    <If condition={!!eventDetails.address}>
+    <If condition={!isLoading}>
       <div className="EventDetails">
         <ShareModal
           header="Share event"
@@ -133,7 +133,7 @@ export const Details = ({ eventDetails, showShareModal }) => {
         </div>
       </div>
       <Else>
-        <EmptyEventsState />
+        <Loader />
       </Else>
     </If>
   );
@@ -142,4 +142,5 @@ export const Details = ({ eventDetails, showShareModal }) => {
 Details.propTypes = {
   eventDetails: PropTypes.instanceOf(Object).isRequired,
   showShareModal: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };

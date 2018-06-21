@@ -89,7 +89,8 @@ const fetchAllMarkers = (
         await dispatch(appActions.fetchDatasets());
         datasetId = appSelectors.getTrashpointsDatasetUUID(getState());
       } catch (ex) {
-        return dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
+        dispatch(errorActions.setErrorMessage('Failed to load trashpoint markers'));
+        dispatch({ type: TYPES.FETCH_ALL_MARKERS_FAILED });
       }
     }
 
@@ -182,6 +183,17 @@ const fetchAllMarkers = (
   }
 };
 
+const fetchTrashTypesAndOrigin = () => async dispatch => {
+  try {
+    const response = await ApiService.get(
+      API_ENDPOINTS.FETCH_TRASH_TYPES_ORIGIN,
+    );
+    console.log(response);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const fetchClusterTrashpoints = ({
   cellSize,
   coordinates,
@@ -243,6 +255,7 @@ export const fetchAdminTrashpoints = (
       `${API_ENDPOINTS.FETCH_ADMIN_TRASHPOINTS}?pageSize=${pageSize}&pageNumber=${pageNumber}`,
     );
     if (!response) {
+      dispatch(errorActions.setErrorMessage('Failed to load area trashpoints'));
       return dispatch({
         type: TYPES.FETCH_ADMIN_TRASHPOINTS_FAILED,
       });
@@ -270,12 +283,14 @@ export const fetchAdminTrashpoints = (
     });
   } catch (e) {
     console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to load area trashpoints'));
     dispatch({
       type: TYPES.FETCH_ADMIN_TRASHPOINTS_FAILED,
       payload: e,
     });
   }
 };
+
 export const resetAdminTrashpoints = () => ({
   type: TYPES.RESET_ADMIN_TRASHPOINTS,
 });
@@ -296,7 +311,8 @@ const fetchMarkerDetails = markerId => async dispatch => {
   ]);
 
   if (!imagesResponse || !detailsResponse) {
-    return dispatch({ type: TYPES.FETCH_MARKER_DETAILS_FAILED });
+    dispatch(errorActions.setErrorMessage('Failed to load trashpoint details'));
+    dispatch({ type: TYPES.FETCH_MARKER_DETAILS_FAILED });
   }
 
   const imageResponseIsArray = Array.isArray(imagesResponse.data);
@@ -528,6 +544,7 @@ export default {
   fetchAllMarkers,
   fetchClusterTrashpoints,
   fetchAdminTrashpoints,
+  fetchTrashTypesAndOrigin,
   toggleDetailsWindow,
   fetchMarkerDetails,
   deleteImage,

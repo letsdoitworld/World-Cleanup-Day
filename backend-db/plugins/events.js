@@ -306,7 +306,8 @@ module.exports = function () {
             .connect(connectVerifyDataset)
             .use(async function (dataset, responder) {
                 const clusters = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getEventsOverviewClusters);
-                const filtered = clusters.map(value => util.object.filter(
+                const records = await Promise.all(clusters.map(async (e) => await mapEvent(e)));
+                const filtered = records.map(value => util.object.filter(
                     value,
                     {   id: true,
                         name: true,

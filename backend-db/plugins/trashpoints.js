@@ -157,7 +157,7 @@ module.exports = function () {
         });
     });
 
-    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args, __) {
+    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args) {
         return connector
         .input({id: args.id})
         .use(async function (request, responder) {
@@ -167,8 +167,8 @@ module.exports = function () {
             }
             const createdByUser = await db.getAccount(trashpoint.createdBy);
             //trashpoints created with private profile but user is SUPERADMIN
-            if (createdByUser && createdByUser.public || __.user.role === Account.ROLE_SUPERADMIN
-                || __.user.role === Account.ROLE_LEADER) {
+            if (createdByUser.public || createdByUser.role === Account.ROLE_SUPERADMIN
+                || createdByUser.role === Account.ROLE_LEADER) {
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
                 if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
                     trashpoint.updater = trashpoint.creator;
@@ -180,8 +180,8 @@ module.exports = function () {
                 }
             }
             //trashpoints created by user with private profile are shown anonymously
-            if(!createdByUser.public  && __.user.role !== Account.ROLE_SUPERADMIN
-                                      && __.user.role !== Account.ROLE_LEADER) {
+            if(!createdByUser.public  && createdByUser.role !== Account.ROLE_SUPERADMIN
+                                      && createdByUser.role !== Account.ROLE_LEADER) {
                 createdByUser.name = 'anonymously';
                 createdByUser.email = 'anonymously';
                 createdByUser.pictureURL = '';

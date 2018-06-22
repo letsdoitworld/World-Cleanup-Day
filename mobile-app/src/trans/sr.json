@@ -107,7 +107,7 @@
    "label_error_modal_default_title": "Oh noes!",
    "label_error_modal_default_subtitle": "The fail whale detected a server error!",
    "label_location_permission_warning_ios": "You must change location permissions. To do this, go to Settings > Privacy > Location services.",
-   "label_location_permission_warning_android": "You must change location permissions. To do this, go to Settings > Apps.",
+   "label_location_permission_warning_android": "Мораш да промијениш команде за дозволу приступању камери. Иди на Подешавања > Апликације.",
    "label_location_off_warning": "Услуге за локацију су искључене. Молимо да укључиш ГПС у Подешавањима, како би користио/ла апликацију.",
    "label_location_modal_title": "Омогући чишћење локације.",
    "label_network_off_warning_title": "Welcome to offline mode!",

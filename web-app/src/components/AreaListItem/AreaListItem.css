@@ -3,28 +3,38 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
-  max-width: 320px;
+  border-bottom: 1px solid #e5e5e9;
+  padding: 10px 20px;
+  height: 60px;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
 }
 
-.AreaListItem-toggle-container {
+.AreaListItem-plot {
   display: flex;
   flex-direction: row;
   align-items: center;
-
 }
 
 .AreaListItem-trashlist-button {
-  margin-right: 5px;
-  color: #3E8EDE;
-  font-family: "Noto Sans";
+  color: #3e8ede;
+  font-family: "Lato";
   font-size: 15px;
   line-height: 20px;
   text-decoration: underline;
   cursor: pointer;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
 }
-.AreaListItem-header{
-  user-select: none;
+
+.AreaListItem-header {
+  font-weight: bold;
+  font-size: 15px;
+  color: #282633;
+  font-family: 'Lato' !important;
+  margin-left: 15px;
 }
 
 .AreaListItem-triangle-up {
@@ -47,12 +57,4 @@
   margin-left: 10px;
   width: 10px;
   height: 10px;
-}
-
-.AreaListItem-text-container {
-  margin-left: 13px;
-  color: rgba(43, 43, 43, 0.98);
-  font-family: "Noto Sans";
-  font-size: 17px;
-  line-height: 20px;
 }

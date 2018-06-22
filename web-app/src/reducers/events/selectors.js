@@ -48,6 +48,16 @@ export const getEventsListMeta = createSelector(
   }),
 );
 
+export const getEventsListLoading = createSelector(
+  eventsSel,
+  state => state.loading,
+);
+
+export const getEventDetailsLoading = createSelector(
+  detailsSel,
+  state => state.loading,
+);
+
 export const getSelectedSearchResultViewport = createSelector(
   stateSel,
   state => state.selectedSearchResultViewport.viewport,
@@ -62,5 +72,7 @@ export default {
   getCurrentMarkerLocation,
   getEventDetails,
   getEventsListMeta,
+  getEventsListLoading,
+  getEventDetailsLoading,
   getSelectedSearchResultViewport,
 };

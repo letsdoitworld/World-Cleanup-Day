@@ -1,69 +1,96 @@
-.List {
-    width: 325px;
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto!important;
+.UsersList-container {
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.padding-list {
-    padding-top: 60px;
+.UsersList-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 35px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.List > button:nth-child(2n+1) {
-    background-color: #F6F6F6;
+.UsersList-goback {
+  cursor: pointer;
+  position: absolute;
+  left: 15px;
+  top: 19px;
 }
 
-.List > div:nth-child(2n+1) {
-    background-color: #F6F6F6;
+.UsersList-goback img {
+  width: 10px;
 }
 
-.List-search-container {
-    height: 80px;
-    width: 325px;
-    background-color: #F6F6F6;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 10px;
+.UsersList-plot {
+  flex-direction: column;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
+  height: calc(100vh - 230px) !important;
+  display: none;
 }
 
-.List-search-input {
-    height: 30px;
-    width: 290px;
-    border: 1px solid #D9D9D9;
-    border-radius: 100px;
-    background-color: #FFFFFF;
-    padding: 5px;
-    padding-left: 15px;
+.isVisible {
+  display: flex;
 }
 
-.List-search-total {
-    align-self: stretch;
-    margin: 10px 0;
-    padding-left: 10px;
-    color: rgba(43, 43, 43, 0.98);
-    font-size: 13px;
+.UsersList-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  margin: 0 16px;
+  width: 100%;
+  font-size: 14px;
 }
 
-.List-search-input:focus {
-    outline-width: 0;
+.UsersList-search-input::placeholder {
+  color: rgba(255,255,255,0.5);
 }
 
-.List-search-input::-webkit-input-placeholder {
-    text-align: center;
+.UsersList-header-minimize {
+  width: 16px !important;
+  height: 16px !important;
+  cursor: pointer !important;
 }
 
-.List-search-input::-moz-placeholder {
-    /* Firefox 18- */
-    text-align: center;
+.UsersList-header-minimize img {
+  width: 16px !important;
+  height: 9px !important;
 }
 
-.List-search-input::-moz-placeholder {
-    /* Firefox 19+ */
-    text-align: center;
+.no-users-holder img {
+  display: block;
+  margin: 50px auto;
+  text-align: center;
 }
 
-.List-search-input::-ms-input-placeholder {
-    text-align: center;
+.no-users-text {
+  text-align: center;
+}
+
+.no-users-text .p1 {
+  color: #282633;
+  font-size: 15px;
+  line-height: 2;
+  font-weight: bold;
+}
+
+.no-users-text .p2 {
+  color: #7b7d80;
+  font-size: 15px;
+  line-height: 1.33;
 }

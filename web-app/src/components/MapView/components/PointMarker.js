@@ -54,15 +54,15 @@ const PointMarker = props => {
         onClick={() => onPointClick(point)}
         label={{
           text: String(point.count),
-          color: '#fff',
+          color: '#000',
           fontWeight: 'bold',
-          fontSize: '12px',
+          fontSize: '13px',
         }}
         icon={{
           url: clusterIcon,
           labelOrigin: {
-            x: 14,
-            y: 15,
+            x: 24,
+            y: 23,
           },
         }}
       />

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 import _ from 'lodash';
-
+import FlagIcon from 'react-flag-kit/lib/FlagIcon';
 import { COUNTRIES_HASH } from '../../shared/countries';
 import { getCountryFromStr } from '../../shared/helpers';
 
@@ -14,15 +14,6 @@ class AreaListItem extends React.Component {
     };
   }
 
-  getContainerStyle = () => {
-    let containerStyle = {};
-    if (this.props.index % 2 === 1) {
-      containerStyle = {
-        backgroundColor: '#F6F6F6',
-      };
-    }
-    return containerStyle;
-  };
   getToggleStyle = () => {
     const { area } = this.props;
     const hasChildren = area.children && area.children.length > 0;
@@ -31,6 +22,7 @@ class AreaListItem extends React.Component {
     }
     return {};
   };
+
   handleCollapseToggleClick = () => {
     if (!this.props.area.children || this.props.area.children.length === 0) {
       return;
@@ -53,10 +45,17 @@ class AreaListItem extends React.Component {
   };
 
   render() {
-    const { onClick, area, match } = this.props;
+    const { onClick, onBodyClick, area, match } = this.props;
     const hasChildren = area.children && area.children.length > 0;
     const isUserAreas = match && match.path && match.path === '/user-areas';
     let areaName = area.name;
+    let areaId;
+    const arrayOfDeprecatedIds = ['AN', 'SH', 'EH', 'AQ', '-'];
+    if (arrayOfDeprecatedIds.indexOf(area.id) !== -1) {
+      areaId = 'WW';
+    } else {
+      areaId = area.id;
+    }
     if (isUserAreas) {
       const name = COUNTRIES_HASH[getCountryFromStr(area.parentId ? area.parentId : area.id)];
       if (name) {
@@ -65,70 +64,91 @@ class AreaListItem extends React.Component {
     }
 
     return (
-      <div>
-        <div style={this.getContainerStyle()} className="AreaListItem">
+      <div
+        className="AreaListItem"
+        onClick={
+          onBodyClick ?
+          () => onBodyClick(area) :
+          null
+        }
+      >
+        <div
+          onClick={this.handleCollapseToggleClick}
+          className="AreaListItem-plot"
+          style={this.getToggleStyle()}
+        >
           <div
-            onClick={this.handleCollapseToggleClick}
-            className="AreaListItem-toggle-container"
-            style={this.getToggleStyle()}
-          >
-            <div
-              className="AreaListItem-left-padding"
-              style={{ width: this.props.leftPadding }}
-            />
-            <div className="AreaListItem-collapse-toggle">
-              {hasChildren &&
-              <div
-                className={
-                  this.state.isOpen
-                    ? 'AreaListItem-triangle-up'
-                    : 'AreaListItem-triangle-down'
-                }
-              />}
-            </div>
-            <div className="AreaListItem-text-container">
-              <span
-                style={{ fontWeight: this.state.isOpen ? 'bold' : 'normal' }}
-                className="AreaListItem-header"
-              >
-                {areaName}
-              </span>
-            </div>
-          </div>
+            className="AreaListItem-left-padding"
+            style={{ width: this.props.leftPadding }}
+          />
+          {/*
+          <div className="AreaListItem-collapse-toggle">
 
-          <div
-            onClick={() => onClick(area)}
-            className="AreaListItem-trashlist-button"
-          >
-            {this.renderRightLabel()}
+            hasChildren &&
+            <div
+              className=
+                this.state.isOpen
+                  ? 'AreaListItem-triangle-up'
+                  : 'AreaListItem-triangle-down'
+            />
           </div>
+          */}
+          <FlagIcon code={areaId} size={40} />
+          <div className="AreaListItem-text-container">
+            <span
+              className="AreaListItem-header"
+            >
+              {areaName}
+            </span>
+          </div>
+          {
+            onClick &&
+            <div
+              onClick={() => onClick(area)}
+              className="AreaListItem-trashlist-button"
+            >
+              {this.renderRightLabel()}
+            </div>
+          }
         </div>
-        {hasChildren && !isUserAreas &&
-        <Collapse isOpened={this.state.isOpen}>
-          {area.children.map((a, i) =>
-            (<AreaListItem
-              leftPadding={this.props.leftPadding + 10}
-              rightLabel={this.props.rightLabel}
-              key={a.id}
-              index={i + 1}
-              area={a}
-              onClick={onClick}
-            />),
-          )}
-        </Collapse>}
       </div>
     );
   }
 }
+
 AreaListItem.defaultProps = {
   leftPadding: 0,
   rightLabel: undefined,
 };
+
 AreaListItem.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  onBodyClick: PropTypes.func,
   area: PropTypes.any.isRequired,
   index: PropTypes.number.isRequired,
   leftPadding: PropTypes.number,
   rightLabel: PropTypes.any,
 };
+
+AreaListItem.defaultProps = {
+  onClick: null,
+  onBodyClick: null,
+};
+
 export default AreaListItem;
+
+/*
+hasChildren && !isUserAreas &&
+<Collapse isOpened={this.state.isOpen}>
+{area.children.map((a, i) =>
+  (<AreaListItem
+    leftPadding={this.props.leftPadding + 10}
+    rightLabel={this.props.rightLabel}
+    key={a.id}
+    index={i + 1}
+    area={a}
+    onClick={onClick}
+  />),
+)}
+</Collapse>
+*/

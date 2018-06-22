@@ -1,6 +1,7 @@
 import { ApiService } from '../../services';
 import { API_ENDPOINTS } from '../../shared/constants';
 import TYPES from './types';
+import { actions as errorActions } from '../error';
 
 const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USERS_REQUEST });
@@ -32,7 +33,7 @@ const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) 
         canLoadMore,
         total,
         isSearch: !!nameSearch,
-        isLoadingMore
+        isLoadingMore,
       },
     });
     return {
@@ -40,13 +41,14 @@ const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) 
       users,
       reset,
       canLoadMore,
-      total
+      total,
     };
   } catch (e) {
     console.log(e);
     dispatch({
       type: TYPES.FETCH_USERS_FAILED,
     });
+    dispatch(errorActions.setErrorMessage('Failed to load users list'));
     return false;
   }
 };
@@ -64,6 +66,7 @@ const fetchUser = ({ id }) => async dispatch => {
       });
     }
   } catch (ex) {
+    dispatch(errorActions.setErrorMessage('Failed to load user details'));
     dispatch({ type: TYPES.GET_USER_ERROR });
   }
 };
@@ -84,6 +87,12 @@ const setUserLocked = (userId, locked) => async dispatch => {
   });
 };
 
+const toggleUserslistWindow = () => dispatch => {
+  dispatch({
+    type: TYPES.TOGGLE_USERSLIST_WINDOW,
+  });
+};
+
 const resetUsers = () => ({ type: TYPES.RESET_USERS });
 
 export default {
@@ -91,4 +100,5 @@ export default {
   fetchUser,
   setUserLocked,
   resetUsers,
+  toggleUserslistWindow,
 };

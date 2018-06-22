@@ -34,7 +34,7 @@ class EventsRoot extends Component {
           updateSearchResultViewport={updateSearchResultViewport}
           history={history}
         />
-        <div className={classnames('EventsList-plot', { visible: isOpened })}>
+        <div className={classnames('EventsList-plot', 'scrollbar-modified', { visible: isOpened })}>
           { children }
         </div>
       </div>

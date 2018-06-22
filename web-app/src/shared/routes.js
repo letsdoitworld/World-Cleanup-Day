@@ -1,7 +1,8 @@
 const ROUTES = {
   ROOT: '/',
-  USERLIST: '/users',
+  USERLIST: '/countries/users',
   USER_DETAILS: '/users/:id',
+  COUNTRIES_LIST: '/countries',
   EVENTS_LIST: '/event',
   EVENT_DETAILS: '/event/:eventId',
   EVENT_TRASHPOINTS: '/event/:eventId/trashpoints',

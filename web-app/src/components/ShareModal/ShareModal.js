@@ -208,12 +208,13 @@ ShareModal.propTypes = {
   url: PropTypes.string.isRequired,
   image: PropTypes.string,
   description: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 ShareModal.defaultProps = {
   image: '',
   description: '',
+  title: '',
 };
 
 const mapStateToProps = state => ({

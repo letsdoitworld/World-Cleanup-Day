@@ -42,6 +42,15 @@ const getShowDetailsWindow = createSelector(
   state => state.showTpdetailsWindow,
 );
 
+const getTrashTypes = createSelector(
+  markersSel,
+  state => state.trashTypes,
+);
+
+const getTrashOrigin = createSelector(
+  markersSel,
+  state => state.trashOrigin,
+);
 
 const getGridValue = createSelector(stateSel, state => state.grid);
 
@@ -64,4 +73,6 @@ export default {
   getAreasTrashpoints,
   canLoadMoreAreasTrashpoints,
   getStatusCounts,
+  getTrashTypes,
+  getTrashOrigin,
 };

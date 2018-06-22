@@ -9,6 +9,7 @@ const USERS_STATE = {
   canLoadMore: true,
   loading: false,
   error: false,
+  showUserslistWindow: true,
 };
 
 const usersReducer = (state = USERS_STATE, action) => {
@@ -57,6 +58,9 @@ const usersReducer = (state = USERS_STATE, action) => {
           return u;
         }),
       };
+    }
+    case TYPES.TOGGLE_USERSLIST_WINDOW: {
+      return { ...state, showUserslistWindow: !state.showUserslistWindow };
     }
     default:
       return state;

@@ -70,16 +70,17 @@
 
 .Create-trashpoint {
   position: fixed;
-  bottom: 75px;
-  right: 50px;
-  height: 40px;
-  width: 140px;
+  bottom: 40px;
+  right: 20px;
+  height: 34px;
+  width: 138px;
   border-radius: 100px;
-  background: #3e8ede;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+  background: #e11383;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2);
   align-items: center;
   justify-content: center;
   display: flex;
+  font-weight: bold;
   cursor: pointer;
 }
 
@@ -88,7 +89,7 @@
   height: 20px;
   width: 123px;
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 20px;
   text-align: center;
 }
@@ -175,7 +176,7 @@
 .Details-composition-tag {
   background: #fff;
   flex: 1;
-  max-width: 110px;
+  max-width: 180px;
   height: 36px;
   box-sizing: border-box;
   border-radius: 18px;
@@ -194,7 +195,7 @@
 }
 
 .Tag-label {
-  max-width: 90px;
+  max-width: 150px;
   padding: 5px;
   flex: 1;
   cursor: inherit;

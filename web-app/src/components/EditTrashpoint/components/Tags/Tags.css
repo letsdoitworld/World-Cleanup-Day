@@ -22,13 +22,14 @@
 }
 
 .Tag-container {
+  background: #fff;
   flex: 1;
-  max-width: 110px;
+  max-width: 180px;
   height: 36px;
   box-sizing: border-box;
   border-radius: 18px;
   background-color: white;
-  color: #282633;
+  color: #3e8ede;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +41,7 @@
   flex-wrap: wrap;
   overflow-wrap: break-word;
   flex-direction: row;
-  border: solid 1px #7b7d80;
+  border: 1px solid #3e8ede;
 }
 
 .Tag-container.selected {
@@ -50,7 +51,7 @@
 }
 
 .Tag-label {
-  max-width: 90px;
+  max-width: 160px;
   padding: 5px;
   flex: 1;
   cursor: inherit;

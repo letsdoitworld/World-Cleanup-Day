@@ -32,6 +32,7 @@ class MarkersMap extends React.Component {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
     focusedLocation: null,
+    currentEventLocation: null,
   };
 
   static propTypes = {
@@ -47,7 +48,7 @@ class MarkersMap extends React.Component {
       PropTypes.shape,
     ).isRequired,
     tabActive: PropTypes.string.isRequired,
-    currentEventLocation: PropTypes.any.isRequired,
+    currentEventLocation: PropTypes.any,
     focusedLocation: PropTypes.any,
     isExpandAreaModalVisible: PropTypes.bool.isRequired,
     hideExpandAreaModal: PropTypes.func.isRequired,
@@ -189,6 +190,7 @@ class MarkersMap extends React.Component {
       }
     } else if (this.map && _.has(this.props, 'gridValue.gridValueToZoom')) {
       /* click handler for cluster */
+      console.log('CLUSTER');
       this.loadMarkers(this.props.tabActive);
       const diagonaleInMeters = GRID_HASH[this.props.gridValue.gridValueToZoom];
       const region = {

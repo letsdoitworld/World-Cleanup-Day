@@ -5,6 +5,12 @@ import { debounce } from 'lodash';
 
 import { actions, selectors } from '../../reducers/admin';
 import { List } from '../../components/List';
+import {
+  SearchIcon,
+  BackIcon,
+  CollapseIcon,
+  ExpandIcon,
+} from '../../components/common/Icons';
 import { UserListItem } from './components/UserListItem';
 
 class UserList extends PureComponent {
@@ -31,7 +37,8 @@ class UserList extends PureComponent {
       this.setState({
         pageSearch: 1,
         pageSizeSearch: 20,
-      },() => this.handleLoadMoreUsers(true))
+      },
+      () => this.handleLoadMoreUsers(true));
     }, 300);
   }
 
@@ -51,7 +58,17 @@ class UserList extends PureComponent {
   };
 
   handleLoadMoreUsers = (isSearch, isLoadingMore) => {
-    const { page, pageSize, loaded, canLoadMore, area, search, pageSearch, pageSizeSearch, notSearched } = this.state;
+    const {
+      page,
+      pageSize,
+      loaded,
+      canLoadMore,
+      area,
+      search,
+      pageSearch,
+      pageSizeSearch,
+      notSearched,
+    } = this.state;
     const { loading } = this.props;
     const validSearch = search && search.length >= 3;
 
@@ -60,7 +77,7 @@ class UserList extends PureComponent {
       page,
       pageSize,
       reset: !loaded,
-      area
+      area,
     };
 
     if (isSearch && validSearch) {
@@ -69,8 +86,8 @@ class UserList extends PureComponent {
       fetchUsersParams.nameSearch = search.substring(0, 10);
       fetchUsersParams.isLoadingMore = isLoadingMore;
 
-      if (loading || !canLoadMore ) {
-        if(notSearched && isLoadingMore) {
+      if (loading || !canLoadMore) {
+        if (notSearched && isLoadingMore) {
           return;
         }
       }
@@ -83,15 +100,15 @@ class UserList extends PureComponent {
                      canLoadMore: res.canLoadMore,
                      loaded: true,
                      page: 1,
-                     notSearched: true
+                     notSearched: true,
                    });
                  });
     }
 
     if (loading || !canLoadMore) {
-      if(!notSearched) {
+      if (!notSearched) {
         return;
-      }else{
+      } else {
         fetchUsersParams.reset = true;
       }
     }
@@ -104,35 +121,60 @@ class UserList extends PureComponent {
             canLoadMore: res.canLoadMore,
             loaded: true,
             pageSearch: 1,
-            notSearched: false
+            notSearched: false,
           });
         });
   };
 
   renderItems() {
     return this.props.users.map(u =>
-      <UserListItem
+      (<UserListItem
         onClick={() => this.handleUserClick(u)}
         key={u.id}
         user={u}
-      />,
+        setUserLocked={this.props.setUserLocked}
+      />),
     );
   }
 
   renderHeaderContent() {
-    const { total } = this.props;
+    const {
+      total,
+      toggleUserslistWindow,
+      userslistWindowVisible,
+      history,
+    } = this.props;
     return (
-      <div className="List-search-container">
+      <div className="UsersList-header">
+        <div onClick={() => history.goBack()} className="UsersList-goback">
+          <BackIcon />
+        </div>
+        <SearchIcon />
         <input
-          className="List-search-input"
+          className="UsersList-search-input"
           type="text"
           value={this.state.search}
           onChange={this.handleSearchChanged}
           name="search"
-          placeholder="Name"
+          placeholder="Search users"
         />
-        <div className="List-search-total">
-          {total ? total : 0} users
+        {
+          /*
+          <div className="UsersList-search-total">
+            {total ? total : 0} users
+          </div>
+          */
+        }
+        <div
+          role="button"
+          className="UsersList-header-minimize"
+          onClick={toggleUserslistWindow}
+        >
+          {
+            userslistWindowVisible ?
+              <CollapseIcon /> :
+              <ExpandIcon />
+          }
         </div>
       </div>
     );
@@ -140,11 +182,16 @@ class UserList extends PureComponent {
 
   render() {
     const { search } = this.state;
+    const { userslistWindowVisible, loading } = this.props;
     return (
       <List
-        elementHeight={62}
+        elementHeight={70}
         infinite
-        onInfiniteLoad={() => this.handleLoadMoreUsers(search && search.length >= 3, true)}
+        loading={loading}
+        userslistWindowVisible={userslistWindowVisible}
+        onInfiniteLoad={
+          () => this.handleLoadMoreUsers(search && search.length >= 3, true)
+        }
         headerContent={this.renderHeaderContent()}
         items={this.renderItems()}
       />
@@ -159,9 +206,12 @@ const mapState = state => ({
   loading: selectors.getUsersLoading(state),
   pageSize: selectors.getUsersPageSize(state),
   total: selectors.getTotalUsers(state),
+  userslistWindowVisible: selectors.getShowUserslistWindow(state),
 });
 const mapDispatch = {
   fetchUsers: actions.fetchUsers,
+  toggleUserslistWindow: actions.toggleUserslistWindow,
+  setUserLocked: actions.setUserLocked,
 };
 
 UserList.propTypes = {

@@ -22,6 +22,11 @@ const getUser = createSelector(userSelector, state => state.user);
 const getUserLoading = createSelector(userSelector, state => state.loading);
 const getUserError = createSelector(userSelector, state => state.error);
 
+const getShowUserslistWindow = createSelector(
+  usersSelector,
+  state => state.showUserslistWindow,
+);
+
 export default {
   adminSelector,
   getUsers,
@@ -35,4 +40,5 @@ export default {
   getUser,
   getUserLoading,
   getUserError,
+  getShowUserslistWindow,
 };

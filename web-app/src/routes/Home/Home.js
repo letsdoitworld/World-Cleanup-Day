@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
-import { BinIcon, EventsIcon } from '../../components/common/Icons';
+import { BinIcon, EventsIcon, UsersIcon } from '../../components/common/Icons';
 import ROUTES from '../../shared/routes';
 
 import {
@@ -22,6 +22,7 @@ import { UserDetails } from '../../pages/UserDetails';
 import { CreateTrashpoint } from '../../components/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
+import CountriesList from '../../pages/CountriesList/CountriesList';
 import { AdminMap } from '../../pages/AdminMap';
 import { EventsRoot } from '../../pages/EventsRoot';
 import EventsList from '../../pages/EventsRoot/EventsList';
@@ -71,9 +72,6 @@ class Home extends React.Component {
     this.props.agreeToTerms();
   };
 
-  isUserAllowedAddingTrashpoints =
-  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0;
-
   renderTerms = () =>
     (<div className="Home">
       <Terms
@@ -95,54 +93,49 @@ class Home extends React.Component {
     (<div className="Root-normal-route">
       <Switch>
         <Route path={ROUTES.USER_DETAILS} exact component={UserDetails} />
+        <Route path={ROUTES.COUNTRIES_LIST} exact component={CountriesList} />
         <Route path={ROUTES.USERLIST} exact component={UserList} />
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route path={ROUTES.EVENTS_LIST}>
-          {
-            () => {
-              return (
-                <EventsRoot history={history}>
-                  <Route
-                    path={ROUTES.EVENTS_LIST}
-                    exact
-                    component={EventsList}
-                  />
-                  <Route
-                    path={ROUTES.EVENT_DETAILS}
-                    exact
-                    render={
-                      ({ match }) => {
-                        return (
-                          <EventDetails eventId={match.params.eventId} />
-                        );
-                      }}
-                  />
-                  <Route
-                    path={ROUTES.EVENT_TRASHPOINTS}
-                    exact
-                    render={
-                      ({ match }) => {
-                        return (
-                          <EventTrashpointList eventId={match.params.eventId} />
-                        );
-                      }}
-                  />
-                  <Route
-                    path={ROUTES.EVENT_TRASHPOINT_DETAILS}
-                    exact
-                    render={
-                      ({ match }) => {
-                        return (
-                          <TrashpointDetails
-                            trashpointId={match.params.trashpointId}
-                          />
-                        );
-                      }}
-                  />
-                </EventsRoot>
-              );
-            }
-          }
+          <EventsRoot history={history}>
+            <Route
+              path={ROUTES.EVENTS_LIST}
+              exact
+              component={EventsList}
+            />
+            <Route
+              path={ROUTES.EVENT_DETAILS}
+              exact
+              render={
+                ({ match }) => {
+                  return (
+                    <EventDetails eventId={match.params.eventId} />
+                  );
+                }}
+            />
+            <Route
+              path={ROUTES.EVENT_TRASHPOINTS}
+              exact
+              render={
+                ({ match }) => {
+                  return (
+                    <EventTrashpointList eventId={match.params.eventId} />
+                  );
+                }}
+            />
+            <Route
+              path={ROUTES.EVENT_TRASHPOINT_DETAILS}
+              exact
+              render={
+                ({ match }) => {
+                  return (
+                    <TrashpointDetails
+                      trashpointId={match.params.trashpointId}
+                    />
+                  );
+                }}
+            />
+          </EventsRoot>
         </Route>
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
         <Route
@@ -154,9 +147,7 @@ class Home extends React.Component {
         <Route path={ROUTES.PRIVACY} render={() => <Privacy />} />
         <Route
           path={ROUTES.TRY_OUR_APP}
-          render={
-            () => (<AppLinksModal />)
-            }
+          component={AppLinksModal}
         />
         <Route
           path={ROUTES.TRASHPOINT_DETAILS}
@@ -164,7 +155,9 @@ class Home extends React.Component {
             ({ match }) =>
               (<TrashpointDetails
                 showHeader
-                isUserAllowedAdding={false}
+                isUserAllowedAdding={
+                  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0
+                }
                 trashpointId={match.params.id}
                 history={history}
               />)
@@ -188,7 +181,10 @@ class Home extends React.Component {
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       HEADER_LINKS.push({
         title: 'Users',
-        url: userProfile.role === USER_ROLES.LEADER ? '/user-areas' : '/users'
+        url: userProfile.role === USER_ROLES.LEADER
+        ? '/user-areas'
+        : '/countries',
+        image: <UsersIcon />,
       });
     }
     HEADER_LINKS.forEach(link => link.onClick = () => this.props.resetUsers());

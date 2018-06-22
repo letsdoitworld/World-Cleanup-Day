@@ -12,6 +12,7 @@ class EventsList extends Component {
   static propTypes = {
     fetchEventsList: PropTypes.func.isRequired,
     events: PropTypes.any.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     eventsMeta: PropTypes.shape({
       pageNumber: PropTypes.number,
       pageSize: PropTypes.number,
@@ -77,9 +78,9 @@ class EventsList extends Component {
   }
 
   render() {
-    const { events } = this.props;
+    const { events, isLoading } = this.props;
     return (
-      <List events={events} />
+      <List events={events} isLoading={isLoading} />
     );
   }
 }
@@ -87,6 +88,7 @@ class EventsList extends Component {
 const mapStateToProps = (state) => ({
   events: selectors.getEventsList(state),
   eventsMeta: selectors.getEventsListMeta(state),
+  isLoading: selectors.getEventsListLoading(state),
   rectangle: appSelectors.getViewport(state),
 });
 

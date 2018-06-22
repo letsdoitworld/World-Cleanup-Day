@@ -86,7 +86,7 @@ const IS_PRODUCTION = window.location.host === 'app.worldcleanupday.com';
 
 export const BASE_URL =
   process.env.NODE_ENV === 'development'
-    ? 'http://52.143.138.160:50000/api/v1'
+    ? 'https://api-staging.app.worldcleanupday.com/api/v1'
     : IS_PRODUCTION
     ? `${window.location.protocol}//api.${window.location.host}/api/v1`
     : `${window.location.protocol}//api-${window.location.host}/api/v1`;

@@ -3,9 +3,9 @@ export const GOOGLE_LOGIN_ID =
 '701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com';
 export const FACEBOOK_APP_ID = '340116156418708';
 export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.31&libraries=places,geometry&key=${GOOGLE_MAPS_API_KEY}`;
-export const DEFAULT_ZOOM_LEVEL = 7;
-export const NO_PERMISSION_ZOOM_LEVEL = 8;
-export const ESTONIA_CENTER_COORDINATES = { lat: 48.5953, lng: 35.0136 };
+export const DEFAULT_ZOOM_LEVEL = 16;
+export const NO_PERMISSION_ZOOM_LEVEL = 5;
+export const EUROPE_CENTER_COORDINATES = { lat: 55.6057228, lng: 5.2133975 };
 export const MARKER_DIAGONALE_IN_PX = 2 * Math.sqrt(Math.pow(28, 2) + Math.pow(38, 2));
 export const FOCUS_EVENT_ZOOM_LEVEL = 14;
 export const MAX_ZOOM_LEVEL = 22;
@@ -37,6 +37,7 @@ export const API_ENDPOINTS = {
   FETCH_EVENTS: '/overview/events',
   FETCH_EVENT_DETAILS: eventId => `/event/${eventId}`,
   FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
+  FETCH_TRASH_TYPES_ORIGIN: 'trashpoints/details',
 };
 export const BACKEND_LOGIN_SOURCES = {
   FACEBOOK: 'facebook',
@@ -54,18 +55,6 @@ export const TRASHPOINT_IMAGE_TYPES = {
   THUMBNAIL: 'thumbnail',
   MEDIUM: 'medium',
 };
-
-export const TRASH_COMPOSITION_TYPE_LIST = [
-  { type: 'plastic', label: 'Plastic' },
-  { type: 'metal', label: 'Metal' },
-  { type: 'glass', label: 'Glass' },
-  { type: 'electronics', label: 'Electronics' },
-  { type: 'paper', label: 'Paper/Wood' },
-  { type: 'tyres', label: 'Tyres' },
-  { type: 'domestic waste', label: 'Domestic waste' },
-  { type: 'furniture', label: 'Furniture' },
-  { type: 'organic waste', label: 'Organic waste' },
-];
 
 export const AMOUNT_STATUSES = {
   handful: 0,

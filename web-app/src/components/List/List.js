@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Infinite from 'react-infinite';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { EmptyUsersState } from './EmptyState';
+import { Loader } from '../Spinner';
 import './List.css';
 
 class List extends Component {
@@ -10,37 +13,61 @@ class List extends Component {
     document.body.clientHeight);
 
   render() {
-    const { headerContent, infinite, onInfiniteLoad, items } = this.props;
-    const paddingTop = (headerContent ? 80 : 0);
+    const {
+      headerContent,
+      infinite,
+      onInfiniteLoad,
+      items,
+      userslistWindowVisible,
+      loading,
+    } = this.props;
+    const paddingTop = (headerContent ? 40 : 0);
     const containerHeight = this.getWindowHeight() - paddingTop;
     if (infinite) {
       const infiniteList = (
         <Infinite
           containerHeight={containerHeight}
           onInfiniteLoad={onInfiniteLoad}
-          className="List"
+          className={
+            classnames(
+              'UsersList-plot',
+              'scrollbar-modified',
+              { isVisible: userslistWindowVisible })
+            }
           elementHeight={this.props.elementHeight}
           infiniteLoadBeginEdgeOffset={200}
         >
-          {items}
+          {
+            items.length ?
+            items :
+            <Loader />
+          }
         </Infinite>
       );
       if (!headerContent) {
         return infiniteList;
       }
       return (
-        <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', top: 0, left: 0 }}>
-            {headerContent}
-          </div>
-          {infiniteList}
+        <div className="UsersList-container">
+          {headerContent}
+          {
+            infiniteList
+          }
         </div>
       );
     }
     return (
-      <div className="List">
+      <div className="UsersList-container">
         {headerContent}
-        {items.map(item => item)}
+        <div className={
+          classnames(
+            'UsersList-plot',
+            'scrollbar-modified',
+            { isVisible: userslistWindowVisible })
+          }
+        >
+          {items.map(item => item)}
+        </div>
       </div>
     );
   }
@@ -50,13 +77,17 @@ List.defaultProps = {
   infinite: false,
   onInfiniteLoad: undefined,
   elementHeight: 90,
+  loading: false,
 };
+
 List.propTypes = {
   headerContent: PropTypes.element,
-  items: PropTypes.array.isRequired,
+  items: PropTypes.any.isRequired,
   infinite: PropTypes.bool,
+  userslistWindowVisible: PropTypes.bool.isRequired,
   onInfiniteLoad: PropTypes.func,
   elementHeight: PropTypes.number,
+  loading: PropTypes.bool,
 };
 
 export default List;

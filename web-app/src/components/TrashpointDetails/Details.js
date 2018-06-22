@@ -77,7 +77,7 @@ class Details extends Component {
             <div className={ classnames('Tpdetails-plot', 'scrollbar-modified', { 'visible': isOpened })}>
               <ShareModal
                 header="Share trashpoint"
-                url={`${window.location.origin}/trashpoint/${trashpointId}`}
+                url={`${window.location.origin}/trashpoints/${trashpointId}`}
                 title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
                 image={thumbnails && thumbnails[0] && thumbnails[0].url}
               />

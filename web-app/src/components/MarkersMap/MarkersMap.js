@@ -190,7 +190,6 @@ class MarkersMap extends React.Component {
       }
     } else if (this.map && _.has(this.props, 'gridValue.gridValueToZoom')) {
       /* click handler for cluster */
-      console.log('CLUSTER');
       this.loadMarkers(this.props.tabActive);
       const diagonaleInMeters = GRID_HASH[this.props.gridValue.gridValueToZoom];
       const region = {

@@ -22,8 +22,8 @@ export const List = ({ events, isLoading }) => (
                   author={ev.createdByName}
                   date={ev.startTime}
                   location={ev.address}
-                  maxNumberOfParticipants={ev.maxPeopleAmount || 20}
-                  numberOfParticipants={ev.peopleAmount}
+                  attendeesAmount={ev.attendeesAmount}
+                  maxNumberOfAttendees={ev.maxPeopleAmount}
                 />
               </NavLink>
             );

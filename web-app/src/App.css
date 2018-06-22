@@ -46,7 +46,7 @@
 }
 
 .gm-fullscreen-control, .gmnoprint {
-  display: none !important;
+  opacity: 0 !important;
 }
 
 .Root-component {

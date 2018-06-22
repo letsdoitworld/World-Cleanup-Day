@@ -66,10 +66,14 @@ export const Details = ({ eventDetails, showShareModal, isLoading }) => {
               <ShareIcon />
               <span className="EventDetails-share">Share</span>
             </div>
-            <div className="EventDetails-actions-part EventDetails-width-55">
-              <ReportIcon />
-              <span className="EventDetails-report">Report event</span>
-            </div>
+            {
+              /*
+              <div className="EventDetails-actions-part EventDetails-width-55">
+                <ReportIcon />
+                <span className="EventDetails-report">Report event</span>
+              </div>
+              */
+            }
           </div>
           <NavLink to={`/event/${eventDetails.id}/trashpoints`}>
             <div className="EventDetails-trashpoints EventDetails-infoblock">
@@ -126,7 +130,7 @@ export const Details = ({ eventDetails, showShareModal, isLoading }) => {
             <div className="EventDetails-attend-part">
               <ParticipantsIcon />
               <p>
-                {eventDetails.peopleAmount}/{eventDetails.maxPeopleAmount}
+                {eventDetails.attendeesAmount}/{eventDetails.maxPeopleAmount}
               </p>
             </div>
           </div>

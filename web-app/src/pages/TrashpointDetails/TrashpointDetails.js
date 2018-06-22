@@ -45,8 +45,8 @@ class TrashDetails extends React.Component {
       }),
       push: PropTypes.func,
     }).isRequired,
-    trashTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    trashOrigin: PropTypes.arrayOf(PropTypes.string).isRequired,
+    trashTypes: PropTypes.any.isRequired,
+    trashOrigin: PropTypes.any.isRequired,
   }
 
   static defaultProps = {

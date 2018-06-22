@@ -12,6 +12,7 @@
 }
 
 .UsersList-header {
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -20,6 +21,17 @@
   background-color: #3e8ede;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.UsersList-goback {
+  cursor: pointer;
+  position: absolute;
+  left: 15px;
+  top: 19px;
+}
+
+.UsersList-goback img {
+  width: 10px;
 }
 
 .UsersList-plot {

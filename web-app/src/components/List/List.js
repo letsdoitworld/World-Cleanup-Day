@@ -40,7 +40,7 @@ class List extends Component {
           {
             items.length ?
             items :
-            <EmptyUsersState />
+            <Loader />
           }
         </Infinite>
       );
@@ -51,9 +51,7 @@ class List extends Component {
         <div className="UsersList-container">
           {headerContent}
           {
-            loading ?
-              <Loader /> :
-              infiniteList
+            infiniteList
           }
         </div>
       );
@@ -79,14 +77,17 @@ List.defaultProps = {
   infinite: false,
   onInfiniteLoad: undefined,
   elementHeight: 90,
+  loading: false,
 };
+
 List.propTypes = {
   headerContent: PropTypes.element,
-  items: PropTypes.array.isRequired,
+  items: PropTypes.any.isRequired,
   infinite: PropTypes.bool,
   userslistWindowVisible: PropTypes.bool.isRequired,
   onInfiniteLoad: PropTypes.func,
   elementHeight: PropTypes.number,
+  loading: PropTypes.bool,
 };
 
 export default List;

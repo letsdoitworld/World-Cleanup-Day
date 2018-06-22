@@ -7,14 +7,14 @@ const options = {
   regular: {
     id: 'regular',
     label: 'REGULAR',
-    image: require('./images/img-regular-trashpoint@2x.png'),
-    selectedImage: require('./images/img-regular-trashpoint@3x.png'),
+    image: require('./images/img-regular-inactive@2x.png'),
+    selectedImage: require('./images/img-regular-trashpoint@2x.png'),
     color: '#ff7a00',
   },
   threat: {
     id: 'threat',
     label: 'THREAT',
-    image: require('./images/urgent@2x.png'),
+    image: require('./images/img-urgent-inactive@2x.png'),
     selectedImage: require('./images/urgent@2x.png'),
     color: '#fc515e',
   },

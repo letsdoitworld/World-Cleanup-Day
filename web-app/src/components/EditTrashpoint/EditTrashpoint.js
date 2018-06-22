@@ -37,6 +37,8 @@ class EditTrashpoint extends Component {
       composition,
       origin,
       location,
+      creator,
+      updater,
     } = marker;
 
     this.state = {
@@ -230,7 +232,7 @@ class EditTrashpoint extends Component {
 
   render() {
     const {
-      marker: { createdAt, updatedAt, createdByName, updatedByName },
+      marker: { createdAt, updatedAt, createdByName, updatedByName, creator, updater },
       actions,
     } = this.props;
     const {
@@ -297,28 +299,34 @@ class EditTrashpoint extends Component {
             <br /><br />
             <StatusText status={status} />
           </div>
-          <div className="Details-default-container Details-creation-info">
-            <span className="Details-trash-type-title">About creator</span>
-            <p className="Details-creation-info-block">
-              <Userpic />
-              <span>{createdByName}</span>
-            </p>
-            <p className="Details-creation-info-block">
-              <TimeIcon />
-              <span>{moment(createdAt).format('L')}</span>
-            </p>
-          </div>
-          <div className="Details-default-container Details-creation-info">
-            <span className="Details-trash-type-title">Updates</span>
-            <p className="Details-creation-info-block">
-              <Userpic />
-              <span>{updatedByName}</span>
-            </p>
-            <p className="Details-creation-info-block">
-              <TimeIcon />
-              <span>{moment(updatedAt).format('L')}</span>
-            </p>
-          </div>
+          {
+            creator &&
+            <div className="Details-default-container Details-creation-info">
+              <span className="Details-trash-type-title">About creator</span>
+              <p className="Details-creation-info-block">
+                <Userpic />
+                <span>{creator.name}</span>
+              </p>
+              <p className="Details-creation-info-block">
+                <TimeIcon />
+                <span>{moment(createdAt).format('L')}</span>
+              </p>
+            </div>
+          }
+          {
+            updater &&
+            <div className="Details-default-container Details-creation-info">
+              <span className="Details-trash-type-title">Updates</span>
+              <p className="Details-creation-info-block">
+                <Userpic />
+                <span>{updater.name}</span>
+              </p>
+              <p className="Details-creation-info-block">
+                <TimeIcon />
+                <span>{moment(updatedAt).format('L')}</span>
+              </p>
+            </div>
+          }
           <div className="EditTrashpoint-default-container">
             <StatusPicker
               status={status}
@@ -366,14 +374,14 @@ class EditTrashpoint extends Component {
           </div>
           <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
             <div
-              className="CreateTrashpoint-edit-button"
+              className="EditTrashpoint-edit-button"
               onClick={this.handleTrashpointUpdate}
             >
               <p>Save trashpoint changes</p>
             </div>
             <br />
             <div
-              className="CreateTrashpoint-edit-button"
+              className="EditTrashpoint-delete-button"
               onClick={this.handleTrashpointDelete}
             >
               <p>Delete trashpoint</p>

@@ -12,11 +12,12 @@ class EditLocation extends React.Component {
     location: PropTypes.shape({
       lat: PropTypes.number,
       lng: PropTypes.number,
-    }).isRequired,
+    }),
     status: PropTypes.string,
   };
 
   static defaultProps = {
+    location: null,
     onClose: null,
     onLocationChange: null,
     status: '',

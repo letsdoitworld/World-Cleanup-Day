@@ -227,8 +227,8 @@ Details.propTypes = {
   }).isRequired,
   isOpened: PropTypes.bool.isRequired,
   canEdit: PropTypes.bool,
-  trashTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-  trashOrigin: PropTypes.arrayOf(PropTypes.string).isRequired,
+  trashTypes: PropTypes.any.isRequired,
+  trashOrigin: PropTypes.any.isRequired,
 };
 
 Details.defaultProps = {

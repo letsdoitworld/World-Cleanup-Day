@@ -142,9 +142,13 @@ class UserList extends PureComponent {
       total,
       toggleUserslistWindow,
       userslistWindowVisible,
+      history,
     } = this.props;
     return (
       <div className="UsersList-header">
+        <div onClick={() => history.goBack()} className="UsersList-goback">
+          <BackIcon />
+        </div>
         <SearchIcon />
         <input
           className="UsersList-search-input"

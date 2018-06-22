@@ -81,7 +81,7 @@
    "label_alert_editTP_delete": "Tačka sa otpadom je uspješno izbrisana.",
    "label_error_editTP_out_of_rng_subtitle": "Van domašaja",
    "label_error_editTP_out_of_rng_text": "Podaci o tački sa otpadom mogu biti izmijenjeni samo ako ste 100 metara od nje.",
-   "label_error_saveTP_subtitle": "Sačuvajte tačku sa otpadom",
+   "label_error_saveTP_subtitle": "Sačuvaj tačku sa otpadom.",
    "label_error_saveTP_pic_and_type": "Mnogo je korisnije za nas, ako fotografišete barem jednom datu lokaciju i ako naslovite vrstu otpada.",
    "label_error_saveTP_picture": "Mnogo je korisnije za nas, ako fotografišete makar jednom datu lokaciju prije čuvanja izmjena.",
    "label_error_saveTP_trash_type": "Korisnije je za nas, ako biste razvrstali otpad prije čuvanja izmjena.",

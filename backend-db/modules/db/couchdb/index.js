@@ -857,7 +857,7 @@ const layer = {
         );
     },
     getAreasForLeader: async leaderId => {
-        const ret = await adapter.getMangoEntities(
+        const ret1 = await adapter.getMangoEntities(
             'Area',
             {
                 selector: {
@@ -867,7 +867,18 @@ const layer = {
                 }
             }
         );
-        return ret;
+        const ret2 = await adapter.getMangoEntities(
+            'Area',
+            {
+                selector: {
+                    leaderId: {
+                        $or: [leaderId]
+                    }
+                }
+            }
+        );
+        let res = ret1.concat(ret2);
+        return res;
     },
     countLeaderAreas: async leaderId => {
         const ret = await adapter.getRawDocs('Area', `_design/countByLeader/_view/view`, {

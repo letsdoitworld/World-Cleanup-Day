@@ -51,6 +51,7 @@ export const createTrashPointAction = (
   amount,
   name,
   photos,
+  team,
 ) => ({
   type: CREATE_TRASH_POINT_ACTION,
   payload: {
@@ -62,6 +63,7 @@ export const createTrashPointAction = (
     amount,
     name,
     photos,
+    team,
   },
 });
 

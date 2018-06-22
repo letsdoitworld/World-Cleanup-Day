@@ -361,6 +361,7 @@ class CreateMarker extends React.Component {
       amount,
       address,
     } = this.state;
+    const team = this.props.teamId;
 
     if (!this.validate()) {
       return;
@@ -382,6 +383,7 @@ class CreateMarker extends React.Component {
         AMOUNT_STATUSES[amount],
         address,
         photos,
+        team
       );
     });
   };

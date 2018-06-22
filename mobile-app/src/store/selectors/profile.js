@@ -15,6 +15,11 @@ export const getProfileEntity = createSelector(
   profile => profile.entity,
 );
 
+export const getProfileTeam = createSelector(
+  profileSelector,
+  profile => profile.entity.team,
+)
+
 export const isPrivateProfile = createSelector(
   getProfileEntity,
   entity => entity && !entity.public,

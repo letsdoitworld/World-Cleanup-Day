@@ -9,6 +9,7 @@ import events from './events';
 import locations from './locations';
 import createTrashPoint from './createTrashPoint';
 import error from './error';
+import teams from './teams';
 
 
 export default combineReducers({
@@ -21,4 +22,5 @@ export default combineReducers({
   events,
   createTrashPoint,
   error,
+  teams,
 });

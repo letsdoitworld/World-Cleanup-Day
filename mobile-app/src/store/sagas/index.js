@@ -5,4 +5,5 @@ export * from './trashPoints';
 export * from './events';
 export * from './locations';
 export * from './appSage';
+export * from './teams';
 

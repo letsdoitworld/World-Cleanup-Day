@@ -110,6 +110,7 @@ export const DATASETS_TYPES = {
 export const API_ENDPOINTS = {
   FETCH_DATASETS: '/datasets',
   USER_ME: '/me',
+  USER_TEAM: '/me/team',
   USER_AUTH: '/auth/external',
   FETCH_OVERVIEW_CLUSTERS: '/overview/clusters',
   FETCH_OVERVIEW_TRASHPOINTS: '/overview/trashpoints',
@@ -130,6 +131,8 @@ export const API_ENDPOINTS = {
   FETCH_EVENTS: '/overview/events',
   FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
   FETCH_CLUSTER_EVENTS: '/overview/events/grid',
+  FETCH_TEAMS: (search) => `/teams${search ? `?search=${search}` : ''}`,
+  FETCH_TEAM: teamId => `/teams/${teamId}`,
 };
 
 export const TRASHPOINT_IMAGE_TYPES = {

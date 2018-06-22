@@ -246,6 +246,7 @@ module.exports = new LocalizedStrings({
     label_private_auth_wor: 'You need to be a registered user\nin order to create events.',
     label_private_auth_trashpoint_wor: 'You need to be a registered user\nin order to create trashpoint.',
     label_register: 'Register',
+    label_teams: 'Teams',
   },
   ach: {
     label_text_app_subtitle: 'crwdns10:0crwdne10:0',

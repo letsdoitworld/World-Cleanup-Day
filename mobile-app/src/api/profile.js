@@ -32,6 +32,18 @@ async function updateProfile(profile) {
   }
 }
 
+async function updateProfileTeam(profile) {
+  try {
+    const response = await Api.put(API_ENDPOINTS.USER_TEAM, profile);
+    if (!response || !response.data) {
+      throw new Error('Could not read response data');
+    }
+    return response.data;
+  } catch (ex) {
+    throw ex;
+  }
+}
+
 async function loadMyEvents(pageSize, pageNumber) {
   try {
     const response = await Api.get('events/user',
@@ -78,6 +90,7 @@ export default {
   updateProfileStatus,
   getProfile,
   updateProfile,
+  updateProfileTeam,
   loadMyEvents,
   loadMyTrashPoints,
 };

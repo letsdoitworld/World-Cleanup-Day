@@ -94,7 +94,9 @@ const layer = {
             {
                 "selector": {
                     "$and": operands
-                },
+                }
+            },
+            {
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1)
             }

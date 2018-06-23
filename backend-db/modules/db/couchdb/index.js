@@ -861,9 +861,10 @@ const layer = {
             'Area',
             {
                 selector: {
-                    leaderId: {
-                        $all: [leaderId]
-                    }
+                    $or: [{leaderId: leaderId},
+                          {leaderId: {
+                                $all: [leaderId]
+                            }}]
                 }
             }
         );

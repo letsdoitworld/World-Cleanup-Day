@@ -159,6 +159,9 @@ module.exports = function () {
                     total = await db.countAccountsForCountry(country);
                 }
             }
+            const leaders = accounts.filter(e => e.role !== 'volunteer');
+            const volunteer = accounts.filter(e => e.role === 'volunteer');
+            accounts = leaders.concat(volunteer);
             return responder.success({
                 total,
                 pageSize,

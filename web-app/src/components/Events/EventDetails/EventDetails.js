@@ -20,18 +20,26 @@ import {
 } from '../../common/Icons';
 import ShareModal from '../../ShareModal/ShareModal';
 
-export const Details = ({ eventDetails, showShareModal, isLoading }) => {
+export const Details = ({
+  eventDetails,
+  showShareModal,
+  isLoading,
+  isShareModaVisible,
+}) => {
   moment.locale('en-au');
   return (
     <If condition={!isLoading}>
       <div className="EventDetails">
-        <ShareModal
-          header="Share event"
-          url={`${window.location.origin}/event/${eventDetails.id}`}
-          image={(eventDetails.photos && eventDetails.photos[0]) || eventCoverBig}
-          title={eventDetails.name}
-          description={eventDetails.description}
-        />
+        {
+          isShareModaVisible &&
+          <ShareModal
+            header="Share event"
+            url={`${window.location.origin}/event/${eventDetails.id}`}
+            image={(eventDetails.photos && eventDetails.photos[0]) || eventCoverBig}
+            title={eventDetails.name}
+            description={eventDetails.description}
+          />
+        }
         <div
           className="EventDetails-cover"
           style={{
@@ -147,4 +155,5 @@ Details.propTypes = {
   eventDetails: PropTypes.instanceOf(Object).isRequired,
   showShareModal: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  isShareModaVisible: PropTypes.bool.isRequired,
 };

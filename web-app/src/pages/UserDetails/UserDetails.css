@@ -58,7 +58,7 @@
   transition: all 0.3s ease-in-out;
   overflow-y: auto;
   min-height: calc(100vh - 230px) !important;
-  max-height: calc(100vh - 230px) !important; 
+  max-height: calc(100vh - 230px) !important;
   height: calc(100vh - 230px) !important;
   display: none;
 }
@@ -70,6 +70,7 @@
 .UserDetails-image-container {
   width: 100%;
   height: 194px;
+  min-height: 194px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +176,10 @@
   line-height: 18px;
   text-decoration: underline;
   cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
+
 .UserDetails-block-user.locked{
   color: #3d8ded;
 }

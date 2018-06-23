@@ -7,6 +7,16 @@ import { Loader } from '../Spinner';
 import './List.css';
 
 class List extends Component {
+  state = {
+    firstLoadPass: false,
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.loading && !this.state.firstLoadPass) {
+      this.setState({ firstLoadPass: true });
+    }
+  }
+
   getWindowHeight = () =>
     (window.innerHeight ||
     document.documentElement.clientHeight ||
@@ -25,24 +35,26 @@ class List extends Component {
     const containerHeight = this.getWindowHeight() - paddingTop;
     if (infinite) {
       const infiniteList = (
-        <Infinite
-          containerHeight={containerHeight}
-          onInfiniteLoad={onInfiniteLoad}
-          className={
-            classnames(
-              'UsersList-plot',
-              'scrollbar-modified',
-              { isVisible: userslistWindowVisible })
+        loading && !this.state.firstLoadPass ?
+          <Loader /> :
+          (<Infinite
+            containerHeight={containerHeight}
+            onInfiniteLoad={onInfiniteLoad}
+            className={
+              classnames(
+                'UsersList-plot',
+                'scrollbar-modified',
+                { isVisible: userslistWindowVisible })
+              }
+            elementHeight={this.props.elementHeight}
+            infiniteLoadBeginEdgeOffset={200}
+          >
+            {
+              items.length ?
+                items :
+                <EmptyUsersState />
             }
-          elementHeight={this.props.elementHeight}
-          infiniteLoadBeginEdgeOffset={200}
-        >
-          {
-            items.length ?
-            items :
-            <Loader />
-          }
-        </Infinite>
+          </Infinite>)
       );
       if (!headerContent) {
         return infiniteList;
@@ -51,7 +63,7 @@ class List extends Component {
         <div className="UsersList-container">
           {headerContent}
           {
-            infiniteList
+              infiniteList
           }
         </div>
       );

@@ -28,7 +28,11 @@ export const TrashpointList = ({ trashpoints, eventId, isLoading }) => (
 );
 
 TrashpointList.propTypes = {
-  trashpoints: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  trashpoints: PropTypes.arrayOf(PropTypes.shape),
   eventId: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
+};
+
+TrashpointList.defaultProps = {
+  trashpoints: [],
 };

@@ -42,6 +42,10 @@ class UserList extends PureComponent {
     }, 300);
   }
 
+  componentWillMount() {
+    this.handleLoadMoreUsers(true);
+  }
+
   handleSearchChanged = event => {
     this.setState(
       { search: event.target.value },

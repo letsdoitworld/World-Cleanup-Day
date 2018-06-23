@@ -5,6 +5,7 @@ import { selectors as userSels } from '../../reducers/user';
 import {
   actions as errActions,
 } from '../../reducers/error';
+import { API_ENDPOINTS } from '../../shared/constants';
 
 const getUserAreas = ({ userId }) => async (dispatch, getState) => {
   const authUser = userSels.getProfile(getState());
@@ -31,6 +32,7 @@ const getAreas = () => async dispatch => {
     }
     const areas = response.data;
       // get the other area
+    /*
     const otherTraspointsResponse = await ApiService.get(
       'areas/-/trashpoints?pageSize=10&pageNumber=1',
     );
@@ -42,6 +44,7 @@ const getAreas = () => async dispatch => {
         // TODO add other count
       });
     }
+    */
     dispatch(actions.getAreasSuccess({ areas }));
   } catch (ex) {
     console.log(ex);
@@ -61,6 +64,15 @@ const assignAreaLeader = ({ areaId, userId }) => async (dispatch, getState) => {
     const areas = selectors.getAreas(getState());
     const area = (areas || []).find(a => a.id === areaId);
     dispatch(actions.assignAreaLeader({ areaId, area, userId }));
+    const userRes = await ApiService.get(API_ENDPOINTS.FETCH_USER_BY_ID(userId));
+    if (!userRes) {
+      dispatch({ type: 'GET_USER_ERROR' });
+    } else {
+      dispatch({
+        type: 'GET_USER_SUCCESS',
+        payload: { user: userRes.data },
+      });
+    }
   }
 };
 
@@ -68,6 +80,15 @@ const removeAreaLeader = ({ areaId, userId }) => async dispatch => {
   const response = await ApiService.delete(`/areas/${areaId}/leader/${userId}`);
   if (response) {
     dispatch(actions.removeAreaLeader({ areaId, userId }));
+    const userRes = await ApiService.get(API_ENDPOINTS.FETCH_USER_BY_ID(userId));
+    if (!userRes) {
+      dispatch({ type: 'GET_USER_ERROR' });
+    } else {
+      dispatch({
+        type: 'GET_USER_SUCCESS',
+        payload: { user: userRes.data },
+      });
+    }
   }
 };
 export default {

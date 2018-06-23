@@ -454,10 +454,19 @@ export const createMarker = (
 ) => async (dispatch, getState) => {
   try {
     dispatch({ type: TYPES.CREATE_MARKER_REQUEST });
-    const newMarker = {
+    const newMarker = origin.length ? {
       hashtags,
       composition,
-      origin: origin.length ? origin : null,
+      origin,
+      location,
+      status,
+      name,
+      address,
+      amount,
+    } :
+    {
+      hashtags,
+      composition,
       location,
       status,
       name,

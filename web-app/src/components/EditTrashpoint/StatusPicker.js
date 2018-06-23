@@ -22,7 +22,7 @@ const options = {
   cleaned: {
     id: 'cleaned',
     label: 'CLEANED',
-    image: require('./images/icCleanedTrashpoint@2x.png'),
+    image: require('./images/icCleanedInactive@2x.png'),
     selectedImage: require('./images/icCleanedTrashpoint@2x.png'),
     color: '#7BEA4E',
   },

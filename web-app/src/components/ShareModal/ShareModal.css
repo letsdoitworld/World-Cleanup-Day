@@ -161,8 +161,19 @@
   color: #4a90e2;
 }
 
-.Line-btn {
+.LineShareButton {
   position: relative;
+  display: inline-block;
+  width: 104px;
+  height: 68px;
+}
+
+.Line-btn {
+  position: absolute;
   right: 39px;
-  bottom: 1px;
+  bottom: 0;
+}
+
+.line-it-button {
+  z-index: -1 !important;
 }

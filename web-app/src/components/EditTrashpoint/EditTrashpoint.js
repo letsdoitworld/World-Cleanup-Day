@@ -292,13 +292,6 @@ class EditTrashpoint extends Component {
               </div>
             </div>
           </div>
-          <div className="Details-default-container Details-creation-info">
-            <span className="Details-trash-type-title">
-              Type of trashpoint
-            </span>
-            <br /><br />
-            <StatusText status={status} />
-          </div>
           {
             creator &&
             <div className="Details-default-container Details-creation-info">

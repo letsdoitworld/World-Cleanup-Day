@@ -47,6 +47,8 @@ class UserDetails extends React.Component {
   };
 
   componentWillReceiveProps = nextProps => {
+    console.log(this.props, nextProps);
+
     if (
       (!this.props.user && nextProps.user) ||
       (this.props.user &&

@@ -140,7 +140,7 @@ class TrashDetails extends React.Component {
     if (!marker || !marker.id) {
       return false;
     }
-    if (authUser.role === 'superadmin') {
+    if (authUser.role === 'superadmin' || authUser.role === 'leader') {
       return true;
     }
     if (!Array.isArray(authUser.areas)) {

@@ -145,8 +145,8 @@ module.exports = function () {
                     return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
                 }
                 // see if user is still assigned to any areas
-                const cnt = await db.countLeaderAreas(accountId);
-                if (cnt === 0) {
+                const cnt = await db.getAreasForLeader(accountId);
+                if (cnt.length === 0) {
                     // if not a leader anywhere, set user role to volunteer
                     const ret = await db.modifyAccount(
                         accountId, __.user.id, {role: Account.ROLE_VOLUNTEER}
@@ -170,22 +170,26 @@ module.exports = function () {
                 }
                 //get leaders id of area
                 const leadersId = await db.getArea(areaId);
-                if (leadersId.leaderId === 0){
+                if (!leadersId.leaderId){
                     return responder.success([]);
                 }
+                let leaders = typeof leadersId.leaderId === "object" ?
+                    leadersId.leaderId :
+                    leadersId.leaderId.split();
+
                 //get leader info
-                let leaders = [];
-                for (let i = 0; i < leadersId.leaderId.length; i ++){
-                    let user = await db.getAccount(leadersId.leaderId[i]);
+                let leadersInfo = [];
+                for (let i = 0; i < leaders.length; i ++){
+                    let user = await db.getAccount(leaders[i]);
                     if(user) {
                         let userInfo = {};
                         userInfo.name = user.name;
                         userInfo.email = user.email || '';
                         userInfo.pictureURL = user.pictureURL || '';
-                        leaders.push(userInfo);
+                        leadersInfo.push(userInfo);
                     }
                 }
-                return responder.success(leaders);
+                return responder.success(leadersInfo);
             })
     });
     return PLUGIN_NAME;

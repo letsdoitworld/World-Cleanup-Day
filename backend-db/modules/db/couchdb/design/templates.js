@@ -46,6 +46,15 @@ module.exports = {
             );
             emit([doc.datasetId, gridCoords], doc);
         },
+        reduce: function (keys, values, rereduce) {
+            if (rereduce) {
+                values[0].count = values.reduce(function (prev, curr) { return prev + curr.count; }, 0);
+                return  values[0];
+            }
+
+            values[0].count = values.length;
+            return  values[0];
+        },
     },
 
     trashpointClusters: trashpointClusterTemplate,

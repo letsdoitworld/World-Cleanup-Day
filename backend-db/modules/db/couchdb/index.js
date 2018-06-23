@@ -94,7 +94,9 @@ const layer = {
             {
                 "selector": {
                     "$and": operands
-                },
+                }
+            },
+            {
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1)
             }
@@ -861,9 +863,10 @@ const layer = {
             'Area',
             {
                 selector: {
-                    leaderId: {
-                        $all: [leaderId]
-                    }
+                    $or: [{leaderId: leaderId},
+                          {leaderId: {
+                                $all: [leaderId]
+                            }}]
                 }
             }
         );

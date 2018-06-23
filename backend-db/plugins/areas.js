@@ -145,8 +145,8 @@ module.exports = function () {
                     return responder.failure(new LuciusError(E.AREA_NOT_FOUND, {id: areaId}))
                 }
                 // see if user is still assigned to any areas
-                const cnt = await db.countLeaderAreas(accountId);
-                if (cnt === 0) {
+                const cnt = await db.getAreasForLeader(accountId);
+                if (cnt.length === 0) {
                     // if not a leader anywhere, set user role to volunteer
                     const ret = await db.modifyAccount(
                         accountId, __.user.id, {role: Account.ROLE_VOLUNTEER}

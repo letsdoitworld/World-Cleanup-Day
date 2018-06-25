@@ -15,6 +15,7 @@ module.exports = {
         'role:db,cmd:getAllAreas',
         req => ({
             parentId: req.swagger.params.parentId.value,
+            nameSearch: req.swagger.params.nameSearch.value,
         }),
     ),
     assignAreaLeader: senecaRequestMw(

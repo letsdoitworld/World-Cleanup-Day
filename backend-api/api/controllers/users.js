@@ -42,6 +42,7 @@ module.exports = {
             pageNumber: req.swagger.params.pageNumber.value,
             country: req.swagger.params.country.value,
             nameSearch: req.swagger.params.nameSearch.value,
+            userRole: req.swagger.params.userRole.value,
         }),
     ),
     getOneUser: senecaRequestMw(

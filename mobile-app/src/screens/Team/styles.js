@@ -21,10 +21,18 @@ export default {
     marginBottom: 10,
     marginTop: 25,
   },
-  button: {
+  buttonBlue: {
     width: 300,
     height: 40,
     backgroundColor: '#1791DC',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+  },
+  buttonPink: {
+    width: 300,
+    height: 40,
+    backgroundColor: '#DF1E83',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,

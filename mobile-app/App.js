@@ -175,7 +175,7 @@ export default class App extends PureComponent {
           screen: TEAMS_SCREEN,
           label: 'Teams',
           icon: Icons.GroupPeople,
-          selectedIcon: Icons.EventActive,
+          selectedIcon: Icons.TeamsActive,
           title: 'Teams',
         },
         {

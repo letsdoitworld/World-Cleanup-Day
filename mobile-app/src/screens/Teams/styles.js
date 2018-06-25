@@ -28,9 +28,12 @@ export default {
     fontSize: 15,
     lineHeight: 21,
   },
-  deleteButton: {
+  deleteButtonWrapper: {
+    position: 'absolute',
     top: 13,
     right: 10,
+  },
+  deleteButton: {
     width: 21,
     height: 21,
   },
@@ -64,4 +67,9 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  noTeams: {
+    flex: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 };

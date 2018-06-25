@@ -26,7 +26,7 @@ import TrashPointMenu from './TrashPoint/TrashPointMenu';
 import ExpandSearch from './EventMap/components/ExpandSearch';
 import Teams from './Teams';
 import Team from './Team';
-import TeamTrashpoints from './TeamTrashpoints/TeamTrashpoints';
+import TeamTrashpoints from './TeamTrashpoints';
 
 export const TERMS_SCREEN = 'TERMS_SCREEN';
 export const PROFILE_SCREEN = 'PROFILE_SCREEN';

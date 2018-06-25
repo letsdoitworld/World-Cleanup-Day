@@ -76,13 +76,13 @@ export default class Team extends Component {
     const { team, loading, myTeam } = this.props;
     const btnText = team && myTeam && team.id === myTeam ? strings.label_team_leave : strings.label_team_join;
     const location = team && team.CC ? COUNTRIES_HASH[team.CC] : strings.label_text_global_team;
-    const remoteImage = team && team.image ? { uri: team.image} : null;
+    const remoteImage = team && team.image ? { uri: team.image } : null;
     return loading
       ? this.spinner()
       : team && (
       <ScrollView style={styles.container}>
         {this.renderInfo(remoteImage, strings.label_team_name, team.name)}
-        {this.renderButton(btnText)}
+        {myTeam && myTeam !== team.id ? null : this.renderButton(btnText)}
         {this.renderInfo(locationIcon, strings.label_team_location, location )}
         {this.renderInfo(listIcon, strings.label_team_members, team.members )}
         {this.renderInfo(trashIcon, strings.label_team_trashpoints, strings.label_team_trashpoints_tap, arrow, this.handleTrashpointsPress )}

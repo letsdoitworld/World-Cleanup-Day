@@ -170,6 +170,14 @@ module.exports = function () {
             if (createdByUser.public || createdByUser.role === Account.ROLE_SUPERADMIN
                 || createdByUser.role === Account.ROLE_LEADER) {
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+
+                if (trashpoint.updatedBy === 'anonymously') {
+                    createdByUser.name = 'anonymously';
+                    createdByUser.email = 'anonymously';
+                    createdByUser.pictureURL = '';
+                    trashpoint.updater = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+                }
+
                 if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
                     trashpoint.updater = trashpoint.creator;
                 } else {

@@ -229,11 +229,15 @@ const layer = {
     //========================================================
     // ACCOUNTS
     //========================================================
-    getAccounts: async (pageSize = 10, pageNumber = 1) => {
+    getAccounts: async (pageSize = 10, pageNumber = 1, role) => {
+        const startkey = role === 'admin' ? 'superadmin': 'volunteer';
+        const endkey = role === 'admin' ? ['leader', {}]: ['volunteer', {}];
         return await adapter.getEntities(
             'Account',
             '_design/byName/_view/view',
             {
+                startkey: startkey,
+                endkey: endkey,
                 sorted: true,
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),
@@ -241,7 +245,9 @@ const layer = {
             }
         );
     },
-    getAccountsByCountry: async (country, pageSize = 10, pageNumber = 1) => {
+    getAccountsByCountry: async (country, pageSize = 10, pageNumber = 1, role) => {
+        const startkey = role === 'admin' ? [country, 'leader']: [country, 'volunteer'] ;
+        const endkey = role === 'admin' ? [country, 'superadmin', {}]: [country, 'volunteer', {}];
         return await adapter.getEntities(
             'Account',
             '_design/byCountryAndName/_view/view',
@@ -249,8 +255,8 @@ const layer = {
                 sorted: true,
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),
-                startkey: [country],
-                endkey: [country, {}],
+                startkey: startkey,
+                endkey: endkey,
                 public: true
             }
         );

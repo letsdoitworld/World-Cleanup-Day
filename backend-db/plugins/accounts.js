@@ -122,7 +122,7 @@ module.exports = function () {
 
     lucius.register('role:db,cmd:getAccounts', async function (connector, args, __) {
         return connector.input(args)
-        .use(async function ({pageSize, pageNumber, country, nameSearch}, responder) {
+        .use(async function ({pageSize, pageNumber, country, nameSearch, userRole}, responder) {
             if (nameSearch) {
                 nameSearch = nameSearch.toLowerCase();
             }
@@ -134,11 +134,11 @@ module.exports = function () {
                     total = await db.countAccountsForNameSearch(nameSearch, country);
                 }
                 else if (country) {
-                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber);
+                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber, userRole);
                     total = await db.countAccountsForCountry(country);
                 }
                 else {
-                    accounts = await db.getAccounts(pageSize, pageNumber);
+                    accounts = await db.getAccounts(pageSize, pageNumber, userRole);
                     total = await db.countAccounts();
                 }
             }
@@ -155,13 +155,10 @@ module.exports = function () {
                     total = await db.countAccountsForNameSearch(nameSearch, country);
                 }
                 else {
-                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber);
+                    accounts = await db.getAccountsByCountry(country, pageSize, pageNumber, userRole);
                     total = await db.countAccountsForCountry(country);
                 }
             }
-            const leaders = accounts.filter(e => e.role !== 'volunteer');
-            const volunteer = accounts.filter(e => e.role === 'volunteer');
-            accounts = leaders.concat(volunteer);
             return responder.success({
                 total,
                 pageSize,

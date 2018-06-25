@@ -312,9 +312,10 @@ module.exports = function () {
                     }
                 }
                 const rows = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, address, location, area, rectangle);
+                const total = await db.countEvents();
                 const events = await sortEventsByDate(rows);
                 const records = await Promise.all(events.map(async (e) => await mapEvent(e)));
-                return responder.success({total: rows.length, pageSize, pageNumber, records});
+                return responder.success({total: total, pageSize, pageNumber, records});
             })
     });
 

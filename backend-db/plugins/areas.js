@@ -17,6 +17,18 @@ const retryUntilGetAreas = async lucius => {
     }
 };
 
+const sortAreasByName = async (areas) => {
+    return areas.sort((a, b) => {
+        let keyA = a.name,
+            keyB = b.name;
+        // Compare the 2 dates
+        if(keyA < keyB) return -1;
+        if(keyA > keyB) return 1;
+        return 0;
+    });
+};
+
+
 module.exports = function () {
     const lucius = new Lucius(this);
 
@@ -39,8 +51,8 @@ module.exports = function () {
             const areas = typeof parentId === 'undefined'
                 ? await db.getAllAreas()
                 : await db.getAreasByParent(parentId);
-
-            const filtered = areas.map(value => util.object.filter(
+            const sortAreas = await sortAreasByName(areas);
+            const filtered = sortAreas.map(value => util.object.filter(
                 value,
                 {id: true, name: true, parentId: true}
             ));
@@ -51,7 +63,9 @@ module.exports = function () {
     lucius.register('role:db,cmd:getMyAreas', async function (connector, args, __) {
         return connector
         .use(async function (foo, responder) {
-            return responder.success(await db.getAreasForLeader(__.user.id));
+            const areas = await db.getAreasForLeader(__.user.id);
+            const sortAreas = await sortAreasByName(areas);
+            return responder.success(sortAreas);
         });
     });
 
@@ -59,7 +73,9 @@ module.exports = function () {
         return connector.input(args)
         .request('role:db,cmd:getAccountById', ({accountId}) => ({accountId}))
         .use(async function ({id}, responder) {
-            return responder.success(await db.getAreasForLeader(id));
+            const areas = await db.getAreasForLeader(id);
+            const sortAreas = await sortAreasByName(areas);
+            return responder.success(sortAreas);
         });
     });
 

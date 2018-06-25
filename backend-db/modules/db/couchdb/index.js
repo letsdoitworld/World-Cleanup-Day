@@ -92,11 +92,9 @@ const layer = {
         return adapter.getMangoEntities(
             'Event',
             {
-                "selector": {
-                    "$and": operands
-                }
-            },
-            {
+                selector: {
+                    $and: operands
+                },
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1)
             }

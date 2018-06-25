@@ -57,7 +57,7 @@ const designDocs = {
                 view: {
                     map: function (doc) {
                         if (doc.$doctype === 'account') {
-                            emit(doc.name, doc);
+                            emit([doc.role, doc.name], doc);
                         }
                     },
                 },
@@ -69,7 +69,7 @@ const designDocs = {
                 view: {
                     map: function (doc) {
                         if (doc.$doctype === 'account' && doc.country) {
-                            emit([doc.country, doc.name], doc);
+                            emit([doc.country, doc.role, doc.name], doc);
                         }
                     },
                 },

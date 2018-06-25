@@ -22,7 +22,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="b526fc2dae30365e887d1776c5416b987a2f9781" />
+            android:value="YOUR_FABRIC_API_KEY" />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
@@ -76,7 +76,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAlWQCNc0U5q_iDjGI7NVHGvKC0bOI8brI" />
+            android:value="YOUR_GOOGLE_MAP_API_KEY" />
         <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_eas1BmpNRbbRCuSnaL0Sojjaxqf7hbpT" />
         <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_edwDakKcMeWzJ3hC3aZs9kniyuaWGCTa" />
         <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />

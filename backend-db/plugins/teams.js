@@ -50,8 +50,7 @@ module.exports = function () {
     return connector.input(args)
       .use(async function ({}, responder) {
         let teams = await db.getAllTeams();
-        let i, len;
-        for (i = 0, len = teams.length; i < len; i++) {
+        for (let i = 0; i < teams.length; i++) {
           teams[i]['trashpoints'] = await db.countTeamTrashpoints(teams[i].id);
           teams[i]['users'] = await db.countAccountsForTeam(teams[i].id);
         }

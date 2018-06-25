@@ -12,6 +12,8 @@ import styles from './styles';
 import strings from '../../assets/strings';
 import { ButtonDelete } from '../../assets/images';
 import { COUNTRIES_HASH } from '../../shared/countries';
+import { Backgrounds } from '../../assets/images';
+import { TEAM_SCREEN } from '../index';
 
 export default class Teams extends Component {
 
@@ -40,14 +42,14 @@ export default class Teams extends Component {
     <TouchableOpacity
       style={styles.teamsListItem}
       onPress={() => this.props.navigator.push({
-        screen: 'TEAM_SCREEN',
+        screen: TEAM_SCREEN,
         passProps: { teamId: item.id },
-        title: 'Team',
+        title: strings.label_text_team,
       })}>
       <Image source={{ uri: item.image }} style={styles.teamLogo} />
       <View>
         <Text style={styles.upperText}>{item.name}</Text>
-        <Text style={styles.lowerText}>{item.CC ? COUNTRIES_HASH[item.CC] : "Global"}</Text>
+        <Text style={styles.lowerText}>{item.CC ? COUNTRIES_HASH[item.CC] : strings.label_text_global_team}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -78,16 +80,21 @@ export default class Teams extends Component {
         placeholder={strings.label_text_select_country_hint}
         underlineColorAndroid={'transparent'}
       />
-      {this.state.search !== '' && <TouchableOpacity onPress={this.clearSearch}>
+      {this.state.search !== '' &&
+      <TouchableOpacity
+        style={styles.deleteButtonWrapper}
+        onPress={this.clearSearch}
+      >
         <Image source={ButtonDelete} style={styles.deleteButton} />
       </TouchableOpacity>}
     </View>
   );
 
   renderNoTeams = () => (
-    <View>
-      <Text style={styles.upperText}>Your search was so unique,</Text>
-      <Text style={styles.lowerText}>we couldn't find the match.</Text>
+    <View style={styles.noTeams}>
+      <Image source={Backgrounds.EmptyTeams} />
+      <Text style={[styles.upperText, {marginTop: 30}]}>{strings.label_text_noteams_top}</Text>
+      <Text style={styles.lowerText}>{strings.label_text_noteams_bottom}</Text>
     </View>
   );
 
@@ -108,7 +115,6 @@ export default class Teams extends Component {
 
   render() {
     const { teams, loading } = this.props;
-    console.log('PROPS', this.props);
     return (
       <View style={styles.container}>
         {this.renderSearchField()}

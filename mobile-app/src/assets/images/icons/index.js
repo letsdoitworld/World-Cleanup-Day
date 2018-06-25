@@ -44,4 +44,5 @@ module.exports = {
 
   ActiveAddedCopy: require('./pin/icActiveAddedCopy.png'),
   InactiveAdded: require('./pin/icInactiveAdded.png'),
+  TeamsActive: require('./icTeams.png'),
 };

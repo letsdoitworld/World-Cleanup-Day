@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">World Cleanup</string>
-    <string name="facebook_app_id">340116156418708</string>
-    <string name="fb_login_protocol_scheme">fb340116156418708</string>
+    <string name="facebook_app_id">FB_AAP_ID</string>
+    <string name="fb_login_protocol_scheme">FB_PROTOCOL</string>
 
 
 </resources>

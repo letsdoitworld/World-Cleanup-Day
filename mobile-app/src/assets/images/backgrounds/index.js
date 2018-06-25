@@ -7,4 +7,5 @@ module.exports = {
   firstEmptyEventDetail: require('./imgEventCoverBig1.png'),
   secondEmptyEventDetail: require('./imgEventCoverBig2.png'),
   thirdEmptyEventDetail: require('./imgEventCoverBig3.png'),
+  EmptyTeams: require('./imgNoOrganizations.png'),
 };

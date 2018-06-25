@@ -7,4 +7,4 @@ service.use('./plugins/trashpoints');
 service.use('./plugins/images');
 service.use('./plugins/areas');
 service.use('./plugins/events');
-service.use('/plugins/teams');
+service.use('./plugins/teams');

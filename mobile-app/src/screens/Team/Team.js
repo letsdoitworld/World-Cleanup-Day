@@ -12,6 +12,8 @@ import listIcon from '../../assets/images/icons/icList.png';
 import trashIcon from '../../assets/images/icons/icTrashpointsInActive.png';
 import arrow from '../../assets/images/icon_menu_arrowforward.png';
 import styles from './styles';
+import strings from '../../assets/strings';
+import { TEAM_TRASHPOINTS_SCREEN } from '../index';
 import { COUNTRIES_HASH } from '../../shared/countries';
 
 export default class Team extends Component {
@@ -23,7 +25,10 @@ export default class Team extends Component {
 
   renderButton = (btnText) => (
     <View style={styles.buttonWrapper}>
-      <TouchableOpacity style={[styles.button, { backgroundColor: btnText === 'Leave' ? '#DF1E83' : '#1791DC' }]} onPress={this.handleBtnClick}>
+      <TouchableOpacity
+        style={btnText === strings.label_team_leave ? styles.buttonPink : styles.buttonBlue}
+        onPress={this.handleBtnClick}
+      >
         <Text style={styles.btnText}>{btnText}</Text>
       </TouchableOpacity>
     </View>
@@ -47,9 +52,13 @@ export default class Team extends Component {
   );
 
   handleTrashpointsPress = () => {
+    const { lastTrashpoints } = this.props.team;
     this.props.navigator.push({
-      screen: 'TEAM_TRASHPOINTS_SCREEN',
-      title: 'Team Trashpoints',
+      screen: TEAM_TRASHPOINTS_SCREEN,
+      passProps: {
+        trashpoints: lastTrashpoints,
+      },
+      title: strings.label_text_team_trashpoints_title,
     })
   };
 
@@ -65,19 +74,19 @@ export default class Team extends Component {
 
   render() {
     const { team, loading, myTeam } = this.props;
-    const btnText = team && myTeam && team.id === myTeam ? 'Leave' : 'Join';
-    const location = team && team.CC ? COUNTRIES_HASH[team.CC] : 'Global';
+    const btnText = team && myTeam && team.id === myTeam ? strings.label_team_leave : strings.label_team_join;
+    const location = team && team.CC ? COUNTRIES_HASH[team.CC] : strings.label_text_global_team;
     const remoteImage = team && team.image ? { uri: team.image} : null;
     return loading
       ? this.spinner()
       : team && (
       <ScrollView style={styles.container}>
-        {this.renderInfo(remoteImage, 'name', team.name)}
+        {this.renderInfo(remoteImage, strings.label_team_name, team.name)}
         {this.renderButton(btnText)}
-        {this.renderInfo(locationIcon, 'location', location )}
-        {this.renderInfo(listIcon, 'joined Members', `${team.members}/40` )}
-        {this.renderInfo(trashIcon, 'reported trashpoints', 'Tap to preview trashpoints', arrow, this.handleTrashpointsPress )}
-        {this.renderInfo(null, 'description', team.teamDescription )}
+        {this.renderInfo(locationIcon, strings.label_team_location, location )}
+        {this.renderInfo(listIcon, strings.label_team_members, team.members )}
+        {this.renderInfo(trashIcon, strings.label_team_trashpoints, strings.label_team_trashpoints_tap, arrow, this.handleTrashpointsPress )}
+        {this.renderInfo(null, strings.label_team_description, team.teamDescription )}
       </ScrollView>
     );
   }

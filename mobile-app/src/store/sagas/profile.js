@@ -11,8 +11,10 @@ import {
   loadMyEventsSuccess,
   loadMyTrashPointsPaginationSuccess,
   loadMyTrashPointsSuccess,
-  UPDATE_PROFILE_STATUS_ACTION, UPDATE_PROFILE_TEAM,
-  updateProfileStatusDone, updateProfileTeamDone,
+  UPDATE_PROFILE_STATUS_ACTION,
+  updateProfileStatusDone,
+  UPDATE_PROFILE_TEAM,
+  updateProfileTeamDone,
 } from '../actions/profile';
 
 import Api from '../../api';

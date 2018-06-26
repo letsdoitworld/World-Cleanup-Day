@@ -22,6 +22,7 @@ import { UserDetails } from '../../pages/UserDetails';
 import { CreateTrashpoint } from '../../components/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
+import { TeamList } from '../../pages/TeamList';
 import { AdminMap } from '../../pages/AdminMap';
 import { EventsRoot } from '../../pages/EventsRoot';
 import EventsList from '../../pages/EventsRoot/EventsList';
@@ -96,6 +97,7 @@ class Home extends React.Component {
         <Route path={ROUTES.USER_DETAILS} exact component={UserDetails} />
         <Route path={ROUTES.USERLIST} exact component={UserList} />
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
+        <Route path={ROUTES.TEAMLIST} exact component={TeamList} />
         <Route path={ROUTES.EVENTS_LIST}>
           {
             () => {
@@ -177,6 +179,7 @@ class Home extends React.Component {
     const HEADER_LINKS = [
       { title: 'Trashpoints', url: '/trashpoints', image: <BinIcon /> },
       { title: 'Events', url: '/event', image: <EventsIcon /> },
+      { title: 'Teams', url: '/teams' }
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
       HEADER_LINKS.push({

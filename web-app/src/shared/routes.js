@@ -13,6 +13,8 @@ const ROUTES = {
   CREATE_TRASHPOINT: '/trashpoints/create',
   TRASHPOINT_DETAILS: '/trashpoints/:id?',
   TRASHPOINTS: '/trashpoints',
+  TEAMLIST: '/teams',
+  TEAM_DETAILS: '/teams/:id'
 };
 
 export default ROUTES;

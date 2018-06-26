@@ -1,6 +1,6 @@
 export const GOOGLE_MAPS_API_KEY = 'AIzaSyD0AC9TcY3xdmRsc_atlSHRreEbnEbxPEA';
 export const GOOGLE_LOGIN_ID =
-'701152837929-1lqjqlhu9v3lho6vh3bsen3qbine2l8n.apps.googleusercontent.com';
+'931132275173-qpl736bphbjbg4qo6t21na7dfj2ac9it.apps.googleusercontent.com';
 export const FACEBOOK_APP_ID = '340116156418708';
 export const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.27&libraries=places,geometry&key=${GOOGLE_MAPS_API_KEY}`;
 export const DEFAULT_ZOOM_LEVEL = 7;
@@ -37,6 +37,10 @@ export const API_ENDPOINTS = {
   FETCH_EVENTS: '/overview/events',
   FETCH_EVENT_DETAILS: eventId => `/event/${eventId}`,
   FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
+  FETCH_TEAMS: (country, superadmin) => `/teams/web?country=${country}&superadmin=${superadmin}`,
+  FETCH_ALL_TEAMS: superadmin => `/teams/web?superadmin=${superadmin}`,
+  FETCH_TEAMS_TRASHPOINTS: '/teams/trashpoints',
+  FETCH_TEAM: teamId => `/teams/${teamId}`,
 };
 export const BACKEND_LOGIN_SOURCES = {
   FACEBOOK: 'facebook',

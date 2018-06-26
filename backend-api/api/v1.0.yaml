@@ -669,6 +669,7 @@ paths:
     get:
       description: Fetch full information about a specific trashpoint ID.
       operationId: getTrashpoint
+      x-security: [bearer]
       parameters:
         - $ref: "#/parameters/UUID"
       responses:

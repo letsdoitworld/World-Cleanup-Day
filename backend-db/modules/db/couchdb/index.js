@@ -548,8 +548,6 @@ const layer = {
                         {updatedBy: userId}
                     ]
                 },
-            },
-            {
                 sorted: true,
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),

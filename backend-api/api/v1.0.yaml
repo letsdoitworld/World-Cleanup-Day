@@ -1099,7 +1099,10 @@ definitions:
         type: string
       leaderId:
         description: Area can be optionally be assigned to a user.
-        $ref: "#/definitions/UUID"
+        type:
+          - string
+          - array
+
   #-----------------------------------------------------------------------------
   # Account properties.
   #-----------------------------------------------------------------------------

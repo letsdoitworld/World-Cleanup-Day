@@ -71,6 +71,9 @@ module.exports = {
     TRASHPOINT_NOT_FOUND: {
         message: ({id}) => `Trashpoint does not exist: '${id}'.`,
     },
+    TRASHPOINT_WITHOUT_IMG: {
+        message: () => `You can't save trashpoint without image.`,
+    },
     TRASHPOINT_ALREADY_INCLUDED: {
         message: ({trashpointId}) => `Trashpoint '${trashpointId}' already included.`,
     },

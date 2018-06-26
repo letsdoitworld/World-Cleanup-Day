@@ -53,6 +53,7 @@ class MarkersMap extends React.Component {
     isExpandAreaModalVisible: PropTypes.bool.isRequired,
     hideExpandAreaModal: PropTypes.func.isRequired,
     setViewport: PropTypes.func.isRequired,
+    isLocationAllowed: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -139,8 +140,11 @@ class MarkersMap extends React.Component {
 
   handleSetMapComponent = map => {
     this.map = map;
-    if (map) {
+    const { isLocationAllowed } = this.props;
+    if (map && isLocationAllowed) {
       this.loadMarkers(this.props.tabActive);
+    } else {
+      this.setState({ searchVisible: true });
     }
   };
 
@@ -181,7 +185,7 @@ class MarkersMap extends React.Component {
 
   handleMarkerClick = marker => {
     if (!marker.isTrashpile) {
-      return;
+      this.props.onMarkerClick(marker);
     }
     if (marker && marker.count === 1) {
       /* click handler for pin */
@@ -285,6 +289,7 @@ const mapStateToProps = state => ({
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
   isExpandAreaModalVisible: appSelectors.getShowExpandAreaModal(state),
   searchResultViewport: eventSelectors.getSelectedSearchResultViewport(state),
+  isLocationAllowed: appSelectors.getGeolocationStatus(state),
 });
 const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,

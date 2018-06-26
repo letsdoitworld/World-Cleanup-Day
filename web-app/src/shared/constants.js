@@ -27,8 +27,8 @@ export const API_ENDPOINTS = {
     `/trashpoints/${trashpointId}/images`,
   DELETE_IMAGE: (trashpointId, imageId) =>
     `/trashpoints/${trashpointId}/images/${imageId}`,
-  FETCH_USERS: ({ page, pageSize, area, nameSearch }) =>
-    `/users?pageNumber=${page}&pageSize=${pageSize}${area ? `&country=${area}` : ''}${nameSearch ? `&nameSearch=${nameSearch}` : ''}`,
+  FETCH_USERS: ({ page, pageSize, area, nameSearch, userRole }) =>
+    `/users?pageNumber=${page}&pageSize=${pageSize}&userRole=${userRole}${area ? `&country=${area}` : ''}${nameSearch ? `&nameSearch=${nameSearch}` : ''}`,
   FETCH_USER_BY_ID: id => `/users/${id}`,
   FETCH_ADMIN_TRASHPOINTS: '/admin/trashpoints',
   FETCH_CLUSTER_TRASHPOINTS: '/overview/trashpoints/grid',

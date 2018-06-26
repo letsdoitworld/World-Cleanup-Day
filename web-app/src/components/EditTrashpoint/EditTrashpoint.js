@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { If } from 'react-if';
+import cn from 'classnames';
 import {
   TrashAmount,
   TrashPhotos,
@@ -60,29 +62,67 @@ class EditTrashpoint extends Component {
       })),
       hashtags: hashtags.map(h => ({ label: h, value: h, selected: true })),
       photos: thumbnails,
-      validationMessage: undefined,
+      validation: {
+        noLocation: false,
+        noTrashType: false,
+        noPhoto: false,
+      },
     };
   }
   // TODO implement validation
-  validate = () => {
+  checkType = () => {
     const { composition } = this.state;
     if (composition.filter(c => c.selected).length === 0) {
-      this.setState({
-        validationMessage: 'You must select at least 1 trash type',
-      });
-      return false;
+      return true;
     }
-    if (this.getPhotos().length === 0) {
-      this.setState({
-        validationMessage: 'You must upload at least 1 photo.',
-      });
-      return false;
+    return false;
+  };
+
+  checkLocation = () => {
+    const { location } = this.state;
+    if (!location) {
+      return true;
     }
-    return true;
+    return false;
+  };
+
+  checkPhotos = () => {
+    const { photos } = this.state;
+    if (photos.length === 0) {
+      return true;
+    }
+    return false;
+  };
+
+  validate = async () => {
+    const res = await Promise.all([
+      this.checkLocation(),
+      this.checkType(),
+      this.checkPhotos(),
+    ]).then(
+      ([ifNoLocation, ifNoType, ifNoPhoto]) => {
+        this.setState({
+          validation: {
+            noLocation: ifNoLocation,
+            noTrashType: ifNoType,
+            noPhoto: ifNoPhoto,
+          },
+        });
+        return {
+          noLocation: ifNoLocation,
+          noTrashType: ifNoType,
+          noPhoto: ifNoPhoto,
+        };
+      },
+      () => {
+        return false;
+      });
+    return res;
   };
 
   handleStatusChange = status => this.setState({ status: status.id });
-  handleTrashpointUpdate = () => {
+
+  handleTrashpointUpdate = async () => {
     const { updateTrashpoint, marker } = this.props;
     const {
       location,
@@ -96,7 +136,11 @@ class EditTrashpoint extends Component {
       amount,
     } = this.state;
 
-    if (!this.validate()) {
+    const validation = await this.validate();
+    if (
+      validation &&
+      (validation.noLocation || validation.noTrashType || validation.noPhoto)
+    ) {
       return;
     }
 
@@ -147,6 +191,11 @@ class EditTrashpoint extends Component {
     });
 
     this.setState({
+      validation: {
+        noLocation: this.state.validation.noLocation,
+        noTrashType: this.state.validation.noTrashType,
+        noPhoto: false,
+      },
       photos: [
         ...this.state.photos,
         { uri: photo.preview, base64, thumbnail: { base64: thumbnailBase64 } },
@@ -221,39 +270,35 @@ class EditTrashpoint extends Component {
       }
     });
   };
-  handleModalClicked = () => {
-    this.setState({
-      validationMessage: false,
-    });
-  };
+
   handleCloseClick = () => {
     this.props.history.push('/trashpoints');
   };
 
   render() {
     const {
-      marker: { createdAt, updatedAt, createdByName, updatedByName, creator, updater },
+      marker: {
+        createdAt,
+        updatedAt,
+        creator,
+        updater,
+      },
       actions,
     } = this.props;
     const {
-      name,
       address,
       location,
       amount,
       composition,
       origin,
+      photos,
       hashtags,
       status,
-      validationMessage,
+      validation,
     } = this.state;
     const { latitude, longitude } = location;
     return (
       <div className="EditTrashpoint">
-        <AlertModal
-          message={validationMessage}
-          isOpen={!!validationMessage}
-          onClick={this.handleModalClicked}
-        />
         <EditLocation
           onClose={this.handleEditLocationClosed}
           onLocationChange={this.handleLocationChanged}
@@ -328,24 +373,15 @@ class EditTrashpoint extends Component {
             />
           </div>
           <div className="EditTrashpoint-default-container">
-            <TrashPhotos
-              photos={this.getPhotos().map(p => {
-                if (p.url || p.uri) {
-                  return p.url || p.uri;
-                }
-                if (p.base64) {
-                  return `data:image/jpg;base64,${p.base64}`;
-                }
-              })}
-              onAddClick={this.handlePhotoAdd}
-              onDeleteClick={this.handlePhotoDelete}
-              canEdit
-            />
-          </div>
-          <div className="EditTrashpoint-default-container">
             <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
           </div>
-          <div className="EditTrashpoint-default-container">
+          <div className={
+              cn(
+                'EditTrashpoint-default-container',
+                { 'error-block': validation.noTrashType },
+              )
+            }
+          >
             <Tags
               header="Trash types"
               composition={composition}
@@ -355,6 +391,11 @@ class EditTrashpoint extends Component {
               onTagAdd={this.handleTagAdd}
               onTagDelete={this.handleTagDelete}
             />
+            <If condition={validation.noTrashType}>
+              <span className="CreateTrashpoint-err-txt">
+                You have not chosen any trash type!
+              </span>
+            </If>
           </div>
           <div className="EditTrashpoint-default-container">
             <Tags
@@ -364,6 +405,32 @@ class EditTrashpoint extends Component {
               onCompositionSelect={this.handleCompositionSelect}
               onTagSelect={this.handleTagSelect}
             />
+          </div>
+          <div className={
+              cn(
+                'EditTrashpoint-default-container',
+                { 'error-block': validation.noPhoto },
+              )
+            }
+          >
+            <TrashPhotos
+              photos={this.getPhotos().map(p => {
+                if (p.url || p.uri) {
+                  return p.url || p.uri;
+                }
+                if (p.base64) {
+                  return `data:image/jpg;base64,${p.base64}`;
+                }
+              })}
+              onAddClick={photos.length < 3 ? this.handlePhotoAdd : undefined}
+              onDeleteClick={this.handlePhotoDelete}
+              canEdit
+            />
+            <If condition={validation.noPhoto}>
+              <span className="CreateTrashpoint-err-txt">
+                You have not added any photos!
+              </span>
+            </If>
           </div>
           <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
             <div

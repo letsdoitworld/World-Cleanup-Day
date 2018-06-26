@@ -134,14 +134,22 @@ class TrashDetails extends React.Component {
   };
   canUserEditTrashPoint = () => {
     const { authUser, marker } = this.props;
+    console.log(marker);
     if (!authUser) {
       return false;
     }
     if (!marker || !marker.id) {
       return false;
     }
-    if (authUser.role === 'superadmin' || authUser.role === 'leader') {
+    if (authUser.role === 'superadmin') {
       return true;
+    }
+    if (authUser.role === 'leader') {
+      const tpCountry = marker.areas[0];
+      if (authUser.areas.indexOf(tpCountry) > -1) {
+        return true;
+      }
+      return false;
     }
     if (!Array.isArray(authUser.areas)) {
       return false;

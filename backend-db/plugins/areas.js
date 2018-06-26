@@ -54,7 +54,7 @@ module.exports = function () {
             const sortAreas = await sortAreasByName(areas);
             const filtered = sortAreas.map(value => util.object.filter(
                 value,
-                {id: true, name: true, parentId: true}
+                {id: true, name: true, parentId: true, leaderId: true}
             ));
             return responder.success(filtered);
         });

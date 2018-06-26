@@ -23,6 +23,13 @@ export default class Team extends Component {
     onFetchTeam(teamId);
   }
 
+  componentDidUpdate(prevProps) {
+    const { onFetchTeam, teamId } = this.props;
+    if (prevProps.myTeam !== this.props.myTeam) {
+      onFetchTeam(teamId);
+    }
+  }
+
   renderButton = (btnText) => (
     <View style={styles.buttonWrapper}>
       <TouchableOpacity

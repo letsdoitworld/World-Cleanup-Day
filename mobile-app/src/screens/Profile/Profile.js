@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
 import toString from 'lodash/toString';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
-
-import { EVENT_DETAILS_SCREEN, SETTINGS_SCREEN } from '../index';
+import arrow from '../../assets/images/icon_menu_arrowforward.png';
+import { EVENT_DETAILS_SCREEN, SETTINGS_SCREEN, TEAM_SCREEN } from '../index';
 import strings from '../../assets/strings';
 import { Icons, Backgrounds } from '../../assets/images';
 import { Avatar, Button, Divider, Event, Icon, Tabs, Trashpoint } from '../../components';
@@ -198,6 +198,29 @@ class Profile extends Component {
     }
   }
 
+  handleRenderTeam = () => {
+    const { profile } = this.props;
+    if (profile && profile.team && profile.teamInfo) {
+      return (
+        <View>
+          <TouchableOpacity
+            style={styles.teamContainer}
+            onPress={() => this.props.navigator.push({
+              screen: TEAM_SCREEN,
+              passProps: { teamId: profile.team },
+              title: strings.label_text_team,
+            })}
+          >
+            <Image style={{ width: 20, height: 20 }} source={{ uri: profile.teamInfo.image }} />
+            <Text style={styles.additionalInfoText}>{profile.teamInfo.name}</Text>
+            <Image source={arrow} style={styles.arrow} resizeMode="contain"/>
+          </TouchableOpacity>
+          <Divider />
+        </View>
+      )
+    }
+  };
+
   handleEventPress = (event, imageIndex) => {
     this.props.navigator.showModal({
       screen: EVENT_DETAILS_SCREEN,
@@ -311,7 +334,7 @@ class Profile extends Component {
 
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
-
+    console.log('PROFILE', profile);
     const tabs = [
       { content: this.onRenderEvents, name: strings.label_events },
       { content: this.onRenderTrashPoints, name: strings.label_trashpoints },
@@ -331,6 +354,7 @@ class Profile extends Component {
         </View>
         <Divider />
         {this.handleRenderEmail()}
+        {this.handleRenderTeam()}
         <Tabs tabs={tabs} />
       </View>
     );

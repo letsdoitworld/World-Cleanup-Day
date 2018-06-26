@@ -10,6 +10,7 @@ class Tags extends React.Component {
 
     this.state = {
       newTag: '',
+      cyrillicError: false,
     };
   }
   handleTagChange = ev => {
@@ -22,18 +23,28 @@ class Tags extends React.Component {
       return;
     }
     const newTag = `#${this.state.newTag.replace(/[^0-9a-z]/gi, '')}`;
+    const cyrillicPattern = /[а-яА-ЯЁё]/;
     const hashtagAlreadyExists = this.props.tags.find(
       hashtag => hashtag.label === newTag,
     );
+    const isCyrillicSymbols = cyrillicPattern.test(this.state.newTag);
+    if (isCyrillicSymbols) {
+      this.setState({
+        cyrillicError: true,
+      });
+      return;
+    }
     if (hashtagAlreadyExists) {
       return;
     }
 
     this.props.onTagAdd(newTag);
     this.setState({
+      cyrillicError: false,
       newTag: '',
     });
   };
+
   render() {
     const {
       composition,
@@ -43,6 +54,7 @@ class Tags extends React.Component {
       onTagDelete,
       header,
     } = this.props;
+    const { cyrillicError } = this.state;
     return (
       <div className="Tags-container">
         <span className="Tags-title">{ header }</span>
@@ -84,6 +96,11 @@ class Tags extends React.Component {
               <p className="Tags-add-button-text">Add tag</p>
             </div>
           </div>
+        </If>
+        <If condition={cyrillicError}>
+          <span className="Tags-err-txt">
+            Cyrillic symbols are not allowed for hashtags
+          </span>
         </If>
       </div>
     );

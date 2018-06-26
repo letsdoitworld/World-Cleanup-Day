@@ -6,10 +6,6 @@
   border-bottom: 1px solid #e5e5e9;
 }
 
-.UserListItem:hover {
-  background-color: #d8edff!important;
-}
-
 .UserListItem-avatar {
   height: 40px;
   width: 40px;
@@ -60,4 +56,8 @@
 .UserListItem-location {
   color: #7e7c84;
   font-size: 14px;
+}
+
+.UserListItem-ldr {
+  background-color: #ecf4fc;
 }

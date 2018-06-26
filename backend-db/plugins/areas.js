@@ -47,9 +47,9 @@ module.exports = function () {
 
     lucius.register('role:db,cmd:getAllAreas', async function (connector, args) {
         return connector.input(args)
-        .use(async function ({parentId}, responder) {
+        .use(async function ({parentId, nameSearch}, responder) {
             const areas = typeof parentId === 'undefined'
-                ? await db.getAllAreas()
+                ? await db.searchAreasByName(nameSearch)
                 : await db.getAreasByParent(parentId);
             const sortAreas = await sortAreasByName(areas);
             const filtered = sortAreas.map(value => util.object.filter(

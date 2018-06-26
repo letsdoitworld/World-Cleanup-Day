@@ -850,6 +850,15 @@ const layer = {
         const ret = await adapter.getEntities('Area', '_design/all/_view/view', {sorted: false});
         return ret;
     },
+    searchAreasByName: async (searchName = "") => {
+        return await adapter.getMangoEntities('Area', {
+          selector: {
+              name: {
+                  $regex: "(?i)" + searchName
+              }
+          }
+      });
+    },
     getAreasByParent: async parentId => {
         return await adapter.getEntities(
             'Area',

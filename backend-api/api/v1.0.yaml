@@ -478,6 +478,7 @@ paths:
           description: Use if only areas with a specific parent should be returned.
           required: false
           type: string
+        - $ref: "#/parameters/NameSearch"
       responses:
         "200":
           description: List of areas.

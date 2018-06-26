@@ -157,7 +157,7 @@ module.exports = function () {
         });
     });
 
-    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args) {
+    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args, __) {
         return connector
         .input({id: args.id})
         .use(async function (request, responder) {
@@ -168,30 +168,27 @@ module.exports = function () {
             const createdByUser = await db.getAccount(trashpoint.createdBy);
             const updatedByUser = await db.getAccount(trashpoint.updatedBy);
             //trashpoints created with private profile but user is SUPERADMIN
-            if (createdByUser.public || createdByUser.role === Account.ROLE_SUPERADMIN
-                || createdByUser.role === Account.ROLE_LEADER) {
+            if (createdByUser.public || __.user.role === Account.ROLE_SUPERADMIN
+                                     || __.user.role === Account.ROLE_LEADER) {
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
                 trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
 
                 if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
                     trashpoint.updater = trashpoint.creator;
                 }
-                if (updatedByUser && !updatedByUser.public) {
-                    updatedByUser.name = 'anonymously';
-                    updatedByUser.email = 'anonymously';
-                    updatedByUser.pictureURL = '';
-                    trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
-                }
             }
             //trashpoints created by user with private profile are shown anonymously
-            if(!createdByUser.public  && createdByUser.role !== Account.ROLE_SUPERADMIN
-                                      && createdByUser.role !== Account.ROLE_LEADER) {
+            if(!createdByUser.public  && __.user.role !== Account.ROLE_SUPERADMIN
+                                      && __.user.role !== Account.ROLE_LEADER) {
                 createdByUser.name = 'anonymously';
                 createdByUser.email = 'anonymously';
                 createdByUser.pictureURL = '';
                 trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
                 trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
                 if (trashpoint.createdBy === trashpoint.updatedBy) {
+                    trashpoint.updater = trashpoint.creator;
+                }
+                if (updatedByUser && !updatedByUser.public) {
                     trashpoint.updater = trashpoint.creator;
                 }
             }

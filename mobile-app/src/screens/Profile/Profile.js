@@ -211,7 +211,7 @@ class Profile extends Component {
               title: strings.label_text_team,
             })}
           >
-            <Image style={{ width: 20, height: 20 }} source={{ uri: profile.teamInfo.image }} />
+            <Icon path={Icons.GroupPeople} />
             <Text style={styles.additionalInfoText}>{profile.teamInfo.name}</Text>
             <Image source={arrow} style={styles.arrow} resizeMode="contain"/>
           </TouchableOpacity>
@@ -334,7 +334,6 @@ class Profile extends Component {
 
   render() {
     const { isAuthenticated, isGuestSession, profile } = this.props;
-    console.log('PROFILE', profile);
     const tabs = [
       { content: this.onRenderEvents, name: strings.label_events },
       { content: this.onRenderTrashPoints, name: strings.label_trashpoints },

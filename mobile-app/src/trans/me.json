@@ -15,7 +15,7 @@
    "label_trash_status_state_threat": "Ova tačka je prijetnja!",
    "label_trash_status_state_regular": "Ovo je regularno mjesto otpada.",
    "label_trash_status_state_cleaned": "Ova tačka je očišćena!",
-   "label_trash_status_state_outdated": "Ova tačka je očišćena!",
+   "label_trash_status_state_outdated": "Ova tačka više ne važi!",
    "label_TP_created_date": "Kreirano",
    "label_TP_updated_date": "Ažurirano",
    "label_TP_by": " od strane ",

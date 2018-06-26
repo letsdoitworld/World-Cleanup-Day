@@ -80,4 +80,16 @@ export default StyleSheet.create({
     borderTopWidth: 2,
     borderColor: colors.gray200,
   },
+  arrow: {
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    right: 15,
+  },
+  teamContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: getHeightPercentage(10),
+    paddingHorizontal: getHeightPercentage(10),
+  }
 });

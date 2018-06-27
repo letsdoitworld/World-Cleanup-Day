@@ -194,7 +194,6 @@ class MarkersMap extends React.Component {
       }
     } else if (this.map && _.has(this.props, 'gridValue.gridValueToZoom')) {
       /* click handler for cluster */
-      this.loadMarkers(this.props.tabActive);
       const diagonaleInMeters = GRID_HASH[this.props.gridValue.gridValueToZoom];
       const region = {
         ...DELTA_HASH[diagonaleInMeters],
@@ -209,6 +208,7 @@ class MarkersMap extends React.Component {
           east: lng + (longitudeDelta / 16),
         };
         this.map.fitBounds(bounds);
+        this.loadMarkers(this.props.tabActive);
       } else {
         this.setState(
           {
@@ -280,6 +280,7 @@ class MarkersMap extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   trashpointMarkers: trashpileSelectors.getAllMarkers(state),
   eventMarkers: eventSelectors.getAllEventMarkers(state),
@@ -291,6 +292,7 @@ const mapStateToProps = state => ({
   searchResultViewport: eventSelectors.getSelectedSearchResultViewport(state),
   isLocationAllowed: appSelectors.getGeolocationStatus(state),
 });
+
 const mapDispatchToProps = {
   fetchAllTrashpoints: trashpileActions.fetchAllMarkers,
   fetchAllEventMarkers: eventActions.fetchAllEventMarkers,
@@ -298,4 +300,5 @@ const mapDispatchToProps = {
   hideExpandAreaModal: appActions.hideExpandAreaModal,
   setViewport: appActions.setViewport,
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(MarkersMap);

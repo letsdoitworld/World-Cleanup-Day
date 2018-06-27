@@ -59,7 +59,16 @@ class AreaList extends React.Component {
   };
 
   renderRightLabel = area => {
-    return area.leaderId ? '' : 'Assign';
+    const { userId } = this.props;
+    if (Array.isArray(area.leaderId)) {
+      if (area.leaderId.indexOf(userId) !== -1) {
+        return '';
+      }
+    }
+    if (typeof (area.leaderId) === 'string' && area.leaderId === userId) {
+      return '';
+    }
+    return 'Assign';
   };
 
   render() {

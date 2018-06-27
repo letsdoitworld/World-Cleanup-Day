@@ -134,7 +134,6 @@ class TrashDetails extends React.Component {
   };
   canUserEditTrashPoint = () => {
     const { authUser, marker } = this.props;
-    console.log(marker);
     if (!authUser) {
       return false;
     }

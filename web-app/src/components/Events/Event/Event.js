@@ -13,7 +13,8 @@ export const Event = ({
   avatar,
   title,
   location,
-  maxNumberOfParticipants,
+  attendeesAmount,
+  maxNumberOfAttendees,
   date,
 }) => {
   const eventStatus = moment(date).isBefore(moment()) ?
@@ -41,7 +42,7 @@ export const Event = ({
           </div>
           <div className="Event-details-part2">
             <p className="Event-fill Event-info">
-              {`${0}/${maxNumberOfParticipants}`}
+              {`${attendeesAmount}/${maxNumberOfAttendees}`}
             </p>
             <p className="Event-date Event-info">
               {moment(date).format('L')}
@@ -58,7 +59,8 @@ Event.propTypes = {
   avatar: PropTypes.string,
   title: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
-  maxNumberOfParticipants: PropTypes.number.isRequired,
+  attendeesAmount: PropTypes.number.isRequired,
+  maxNumberOfAttendees: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
 };
 

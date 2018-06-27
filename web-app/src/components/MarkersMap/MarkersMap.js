@@ -32,6 +32,7 @@ class MarkersMap extends React.Component {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
     focusedLocation: null,
+    currentEventLocation: null,
   };
 
   static propTypes = {
@@ -47,7 +48,7 @@ class MarkersMap extends React.Component {
       PropTypes.shape,
     ).isRequired,
     tabActive: PropTypes.string.isRequired,
-    currentEventLocation: PropTypes.any.isRequired,
+    currentEventLocation: PropTypes.any,
     focusedLocation: PropTypes.any,
     isExpandAreaModalVisible: PropTypes.bool.isRequired,
     hideExpandAreaModal: PropTypes.func.isRequired,
@@ -79,7 +80,7 @@ class MarkersMap extends React.Component {
         lat: nextProps.currentEventLocation.latitude,
         lng: nextProps.currentEventLocation.longitude,
       });
-      if (this.map.getZoom() !== FOCUS_EVENT_ZOOM_LEVEL) {
+      if (this.map.getZoom() <= FOCUS_EVENT_ZOOM_LEVEL) {
         this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
         /*
         the only way to setZoom in this library

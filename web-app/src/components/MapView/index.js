@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { LocationService } from '../../services';
 import {
   DEFAULT_ZOOM_LEVEL,
-  ESTONIA_CENTER_COORDINATES,
+  EUROPE_CENTER_COORDINATES,
   NO_PERMISSION_ZOOM_LEVEL,
 } from '../../shared/constants';
 import GoogleMapView from './components/GoogleMap';
@@ -38,9 +38,9 @@ class MapView extends Component {
         this.setState({ mapLocation: location, zoom: DEFAULT_ZOOM_LEVEL });
       },
       () => {
-        this.props.setCurrentLocation(ESTONIA_CENTER_COORDINATES);
+        this.props.setCurrentLocation(EUROPE_CENTER_COORDINATES);
         this.setState({
-          mapLocation: ESTONIA_CENTER_COORDINATES,
+          mapLocation: EUROPE_CENTER_COORDINATES,
           zoom: NO_PERMISSION_ZOOM_LEVEL,
         });
       },

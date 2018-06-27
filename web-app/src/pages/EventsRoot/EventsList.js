@@ -12,6 +12,7 @@ class EventsList extends Component {
   static propTypes = {
     fetchEventsList: PropTypes.func.isRequired,
     events: PropTypes.any.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     eventsMeta: PropTypes.shape({
       pageNumber: PropTypes.number,
       pageSize: PropTypes.number,
@@ -35,7 +36,7 @@ class EventsList extends Component {
   }
 
   componentWillMount() {
-    const itemsPerPage = 50;
+    const itemsPerPage = 20;
     const pageNumber = 1;
     if (this.props.rectangle) {
       this.props.fetchEventsList(this.props.rectangle, itemsPerPage, pageNumber);
@@ -48,7 +49,7 @@ class EventsList extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { rectangle, fetchEventsList, eventsMeta } = this.props;
-    const defaultPageSize = 50;
+    const defaultPageSize = 20;
     const defaultPageNumber = 1;
     if ((nextProps.rectangle && !rectangle) ||
     (rectangle && nextProps.rectangle && nextProps.rectangle.se.latitude !== rectangle.se.latitude)) {
@@ -77,9 +78,9 @@ class EventsList extends Component {
   }
 
   render() {
-    const { events } = this.props;
+    const { events, isLoading } = this.props;
     return (
-      <List events={events} />
+      <List events={events} isLoading={isLoading} />
     );
   }
 }
@@ -87,6 +88,7 @@ class EventsList extends Component {
 const mapStateToProps = (state) => ({
   events: selectors.getEventsList(state),
   eventsMeta: selectors.getEventsListMeta(state),
+  isLoading: selectors.getEventsListLoading(state),
   rectangle: appSelectors.getViewport(state),
 });
 

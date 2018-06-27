@@ -9,7 +9,7 @@ const TERMS_URL =
 'https://storeldiweuprod.blob.core.windows.net/static-resources/terms_new.html';
 
 const Terms = ({ onAccept, onDecline, ifCastShadow }) =>
-  (<div className="Terms-container">
+  (<div className="Terms-container scrollbar-modified">
     <div className="Terms-cover" />
     <div className="Terms-header">
       <span className="Terms-header-title">Terms and conditions</span>

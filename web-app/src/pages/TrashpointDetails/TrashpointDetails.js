@@ -45,6 +45,8 @@ class TrashDetails extends React.Component {
       }),
       push: PropTypes.func,
     }).isRequired,
+    trashTypes: PropTypes.any.isRequired,
+    trashOrigin: PropTypes.any.isRequired,
   }
 
   static defaultProps = {
@@ -122,7 +124,7 @@ class TrashDetails extends React.Component {
     this.setState({
       edit: false,
     });
-    this.props.fetchMarkerDetails(this.props.match.params.id);
+    this.props.fetchMarkerDetails(this.props.trashpointId);
   };
   actions = {
     onCloseDetailsClick: this.handleOnCloseDetailsClick,
@@ -138,7 +140,7 @@ class TrashDetails extends React.Component {
     if (!marker || !marker.id) {
       return false;
     }
-    if (authUser.role === 'superadmin') {
+    if (authUser.role === 'superadmin' || authUser.role === 'leader') {
       return true;
     }
     if (!Array.isArray(authUser.areas)) {
@@ -161,6 +163,8 @@ class TrashDetails extends React.Component {
           history={history}
           marker={this.props.marker}
           actions={this.actions}
+          trashTypes={this.props.trashTypes}
+          trashOrigin={this.props.trashOrigin}
         />
       );
     }
@@ -176,6 +180,8 @@ class TrashDetails extends React.Component {
         actions={this.actions}
         canEdit={this.canUserEditTrashPoint()}
         showHeader={this.props.showHeader}
+        trashTypes={this.props.trashTypes}
+        trashOrigin={this.props.trashOrigin}
       />
     );
   }
@@ -185,7 +191,10 @@ const mapState = state => ({
   marker: selectors.getMarkerDetails(state),
   authUser: userSelectors.getProfile(state),
   isOpened: selectors.getShowDetailsWindow(state),
+  trashTypes: selectors.getTrashTypes(state),
+  trashOrigin: selectors.getTrashOrigin(state),
 });
+
 const mapDispatch = {
   fetchMarkerDetails: actions.fetchMarkerDetails,
   focusMapLocation: actions.focusMapLocation,

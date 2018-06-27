@@ -6,6 +6,21 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.scrollbar-modified::-webkit-scrollbar {
+  width: 6px;
+  opacity: 0.5;
+}
+
+.scrollbar-modified::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+
+.scrollbar-modified::-webkit-scrollbar-thumb {
+  background-color: rgba(74,144,226,0.4);
+  outline: 1px solid slategrey;
+  border-radius: 3px;
+}
+
 .t-a-c {
   text-align: center;
 }
@@ -30,8 +45,8 @@
   display: none;
 }
 
-.gm-fullscreen-control {
-  display: none !important;
+.gm-fullscreen-control, .gmnoprint {
+  opacity: 0 !important;
 }
 
 .Root-component {

@@ -95,7 +95,7 @@ class ShareModal extends Component {
                 <input
                   className="ShareModal-email-input-text"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter receiver email"
                   onChange={ev =>
                     this.setState({ emailToShare: ev.target.value })}
                 />
@@ -181,18 +181,20 @@ class ShareModal extends Component {
                 <PinterestIcon size={42} />
                 <span className="ShareModal-socialnets-title">Pinterest</span>
               </PinterestShareButton>
-              <div
-                className="line-it-button"
-                data-lang="en"
-                data-type="share-d"
-                data-url={url}
-                style={{ display: 'none' }}
-              />
-              <span
-                className="ShareModal-socialnets-title Line-btn"
-              >
-                LINE it!
-              </span>
+              <div className="LineShareButton">
+                <div
+                  className="line-it-button"
+                  data-lang="en"
+                  data-type="share-d"
+                  data-url={url}
+                  style={{ display: 'none' }}
+                />
+                <span
+                  className="ShareModal-socialnets-title Line-btn"
+                >
+                  LINE it!
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -208,12 +210,13 @@ ShareModal.propTypes = {
   url: PropTypes.string.isRequired,
   image: PropTypes.string,
   description: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 ShareModal.defaultProps = {
   image: '',
   description: '',
+  title: '',
 };
 
 const mapStateToProps = state => ({

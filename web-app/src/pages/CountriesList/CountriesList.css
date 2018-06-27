@@ -1,0 +1,40 @@
+.CountriesList-items {
+  height: 100%;  
+}
+
+.CountriesList-container {
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.CountriesList-plot {
+  flex-direction: column;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
+  height: calc(100vh - 230px) !important;
+  display: none;
+}
+
+.isVisible {
+  display: flex;
+}
+
+.CountriesList-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 35px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

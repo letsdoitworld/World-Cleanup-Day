@@ -23,6 +23,7 @@
     "react-dom": "^15.5.4",
     "react-dropzone": "^4.0.0",
     "react-facebook-login": "^3.6.2",
+    "react-flag-kit": "^0.2.3",
     "react-google-login": "^2.9.2",
     "react-google-maps": "^9.4.5",
     "react-id-swiper": "^1.6.1",

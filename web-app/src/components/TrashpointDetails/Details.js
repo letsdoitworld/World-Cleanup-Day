@@ -4,7 +4,6 @@ import moment from 'moment';
 import { If, Else } from 'react-if';
 import 'moment/locale/en-ie';
 import classnames from 'classnames';
-import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import closeButton from '../../assets/closeButton.png';
 import {
   Userpic,
@@ -32,10 +31,11 @@ class Details extends Component {
         status,
         createdAt,
         updatedAt,
-        createdByName,
-        updatedByName,
+        creator,
+        updater,
         thumbnails,
         composition,
+        origin,
         hashtags,
         amount,
         location,
@@ -49,6 +49,8 @@ class Details extends Component {
       showShareModal,
       showHeader,
       history,
+      trashTypes,
+      trashOrigin,
     } = this.props;
     const coordinates = location ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : '';
     const formattedLocation = `${address} | ${coordinates}`;
@@ -56,7 +58,7 @@ class Details extends Component {
 
     return (
       <div className="Tpdetails">
-        <If condition={!!isUserAllowedAdding}>
+        <If condition={isUserAllowedAdding}>
           <div
             onClick={() => { history.push('/trashpoints/create') }}
             className="Create-trashpoint"
@@ -72,10 +74,10 @@ class Details extends Component {
         </If>
         <If condition={!!trashpointId}>
           <If condition={!!location}>
-            <div className={ classnames('Tpdetails-plot', { 'visible': isOpened })}>
+            <div className={ classnames('Tpdetails-plot', 'scrollbar-modified', { 'visible': isOpened })}>
               <ShareModal
                 header="Share trashpoint"
-                url={`${window.location.origin}/trashpoint/${trashpointId}`}
+                url={`${window.location.origin}/trashpoints/${trashpointId}`}
                 title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
                 image={thumbnails && thumbnails[0] && thumbnails[0].url}
               />
@@ -105,28 +107,34 @@ class Details extends Component {
                   <span className="EventDetails-share">Share</span>
                 </div>
               </div>
-              <div className="Details-default-container Details-creation-info">
-                <span className="Details-trash-type-title">About creator</span>
-                <p className="Details-creation-info-block">
-                  <Userpic />
-                  <span>{createdByName}</span>
-                </p>
-                <p className="Details-creation-info-block">
-                  <TimeIcon />
-                  <span>{moment(createdAt).format('L')}</span>
-                </p>
-              </div>
-              <div className="Details-default-container Details-creation-info">
-                <span className="Details-trash-type-title">Updates</span>
-                <p className="Details-creation-info-block">
-                  <Userpic />
-                  <span>{updatedByName}</span>
-                </p>
-                <p className="Details-creation-info-block">
-                  <TimeIcon />
-                  <span>{moment(updatedAt).format('L')}</span>
-                </p>
-              </div>
+              {
+                creator &&
+                <div className="Details-default-container Details-creation-info">
+                  <span className="Details-trash-type-title">About creator</span>
+                  <p className="Details-creation-info-block">
+                    <Userpic />
+                    <span>{creator.name}</span>
+                  </p>
+                  <p className="Details-creation-info-block">
+                    <TimeIcon />
+                    <span>{moment(createdAt).format('L')}</span>
+                  </p>
+                </div>
+              }
+              {
+                updater &&
+                <div className="Details-default-container Details-creation-info">
+                  <span className="Details-trash-type-title">Updates</span>
+                  <p className="Details-creation-info-block">
+                    <Userpic />
+                    <span>{updater.name}</span>
+                  </p>
+                  <p className="Details-creation-info-block">
+                    <TimeIcon />
+                    <span>{moment(updatedAt).format('L')}</span>
+                  </p>
+                </div>
+              }
               <div className="Details-default-container">
                 <TrashAmount disabled amount={amount} />
               </div>
@@ -137,7 +145,7 @@ class Details extends Component {
                     const isHashtag = text.indexOf('#') === 0;
                     const label = isHashtag
                       ? text
-                      : (TRASH_COMPOSITION_TYPE_LIST.find(t => t.type === text) || {})
+                      : (trashTypes.find(t => t.type === text) || {})
                           .label;
                     if (!label) {
                       return null;
@@ -150,6 +158,25 @@ class Details extends Component {
                   })}
                 </div>
               </div>
+              {
+                origin &&
+                <div className="Details-default-container">
+                  <span className="Details-trash-type-title">Trash origin</span>
+                  <div className="Details-composition-tag-container">
+                    {origin.map((text, index) => {
+                      const label = (trashOrigin.find(t => t.type === text) || {}).label;
+                      if (!label) {
+                        return null;
+                      }
+                      return (
+                        <div className="Details-composition-tag" key={index}>
+                          <span className="Tag-label">{label}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              }
               <div className="Details-default-container">
                 <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
               </div>
@@ -200,6 +227,8 @@ Details.propTypes = {
   }).isRequired,
   isOpened: PropTypes.bool.isRequired,
   canEdit: PropTypes.bool,
+  trashTypes: PropTypes.any.isRequired,
+  trashOrigin: PropTypes.any.isRequired,
 };
 
 Details.defaultProps = {

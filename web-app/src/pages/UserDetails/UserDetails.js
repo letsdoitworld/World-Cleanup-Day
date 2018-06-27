@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { If, Else } from 'react-if';
 
 import {
   selectors as adminSels,
@@ -12,12 +13,19 @@ import {
   selectors as areaSels,
 } from '../../reducers/areas';
 import { COUNTRIES_HASH } from '../../shared/countries';
-import closeButton from '../../assets/closeButton.png';
 import { Loader } from '../../components/Spinner';
 import { USER_ROLES } from '../../shared/constants';
 import { UserAreas } from './components/UserAreas';
-import { AreaAssingList } from './components/AreaAssignList';
-import UserDetImage from './image.png';
+import { EmptyUsersState } from '../../components/List/EmptyState';
+import { AreaAssignList } from './components/AreaAssignList';
+import {
+  HumanIcon,
+  EmailIcon,
+  CollapseIcon,
+  ExpandIcon,
+  BackIcon,
+  LocationIcon24px,
+} from '../../components/common/Icons';
 
 class UserDetails extends React.Component {
   constructor(props) {
@@ -25,6 +33,7 @@ class UserDetails extends React.Component {
 
     this.state = {
       assignAreas: false,
+      userDetailsVisible: true,
     };
   }
 
@@ -38,13 +47,14 @@ class UserDetails extends React.Component {
   };
 
   componentWillReceiveProps = nextProps => {
+    console.log(this.props, nextProps);
+
     if (
       (!this.props.user && nextProps.user) ||
       (this.props.user &&
       nextProps.user &&
       this.props.user.id !== nextProps.user.id)
     ) {
-
       if (
         this.props.authUser.id === nextProps.user.id &&
         this.props.authUser.role === USER_ROLES.SUPERADMIN
@@ -72,31 +82,38 @@ class UserDetails extends React.Component {
       getUserAreas({ userId: user.id });
     }
   };
+
   handleBlockClicked = () => {
     const { user, setUserLocked } = this.props;
     setUserLocked(user.id, !user.locked);
   };
+
   handleCloseClicked = () => {
     this.props.history.push('/users');
   };
+
   handleAreaAssign = area => {
     this.props.assignAreaLeader({
       areaId: area.id,
       userId: this.props.user.id,
     });
   };
+
   handleRemoveAreaClicked = area => {
     this.props.removeAreaLeader({
       areaId: area.id,
       userId: this.props.user.id,
     });
   };
+
   handleAssignAreasClosed = () => {
     this.setState({ assignAreas: false });
   };
+
   handleAssignAreasClicked = () => {
     this.setState({ assignAreas: true });
   };
+
   renderUserAreasList = () => {
     const {
       userAreas,
@@ -140,6 +157,7 @@ class UserDetails extends React.Component {
     }
     return true;
   };
+
   renderRoleName = () => {
     const { user } = this.props;
     switch (user.role) {
@@ -155,10 +173,11 @@ class UserDetails extends React.Component {
   };
 
   render() {
-    const { user, authUser, loading, error } = this.props;
+    const { user, authUser, loading, error, history } = this.props;
+    const { userDetailsVisible } = this.state;
     if (this.state.assignAreas) {
       return (
-        <AreaAssingList
+        <AreaAssignList
           userId={user.id}
           onClick={this.handleAreaAssign}
           onClose={this.handleAssignAreasClosed}
@@ -167,87 +186,129 @@ class UserDetails extends React.Component {
     }
     if (loading || !user) {
       return (
-        <div className="UserDetails">
-          <Loader />
-        </div>
-      );
-    }
-    if (error && !user) {
-      return (
-        <div className="UserDetails">
-          <div>
-            <span>An error was encountered. Please try refreshing</span>
+        <div className="UserDetails-container">
+          <div className="UserDetails-header">
+            <div
+              className="UserDetails-header-back"
+              onClick={() => history.goBack()}
+            >
+              <BackIcon />
+            </div>
+            <span className="UserDetails-header-title">User details</span>
+            <div
+              onClick={() => this.setState(
+                { userDetailsVisible: !this.state.userDetailsVisible },
+              )}
+              className="UserDetails-minimize"
+            >
+              {
+                userDetailsVisible ?
+                  <CollapseIcon /> :
+                  <ExpandIcon />
+              }
+            </div>
+          </div>
+          <div className={
+              classnames('UserDetails-plot', { isVisible: userDetailsVisible })
+            }
+          >
+            <Loader />
           </div>
         </div>
       );
     }
+
     return (
-      <div className="UserDetails">
-        <button
-          className="UserDetails-close-button"
-          onClick={this.handleCloseClicked}
-        >
-          <img src={closeButton} alt="" />
-        </button>
-        <div className="p-20">
-          <div className="UserDetails-image-container">
-            {user.pictureURL && (
-              <img className="UserDetails-image" src={user.pictureURL} alt="" />
+      <div className="UserDetails-container">
+        <div className="UserDetails-header">
+          <div
+            className="UserDetails-header-back"
+            onClick={() => history.goBack()}
+          >
+            <BackIcon />
+          </div>
+          <span className="UserDetails-header-title">User details</span>
+          <div
+            onClick={() => this.setState(
+              { userDetailsVisible: !this.state.userDetailsVisible },
             )}
-            <div className="UserDetails-info-container">
-              {user.name && (
-                <span className="UserDetails-name">{user.name}</span>
+            className="UserDetails-minimize"
+          >
+            {
+              userDetailsVisible ?
+                <CollapseIcon /> :
+                <ExpandIcon />
+            }
+          </div>
+        </div>
+        <If condition={!loading}>
+          <div className={
+              classnames('UserDetails-plot', 'scrollbar-modified', { isVisible: userDetailsVisible })
+            }
+          >
+            <div className="UserDetails-image-container">
+              {user.pictureURL && (
+                <img className="UserDetails-image" src={user.pictureURL} alt="" />
               )}
-              {user.email && (
-                <span className="UserDetails-email">{user.email}</span>
-              )}
-              {user.country && (
-                <div className="UserDetails-country-container">
-                  <img
-                    className="UserDetails-country-image"
-                    src={UserDetImage}
-                    alt=""
-                  />
-                  <span className="UserDetails-country">
-                    {COUNTRIES_HASH[user.country]}
+              <div className="UserDetails-info-container">
+                {user.name && (
+                  <span className="UserDetails-name">{user.name}</span>
+                )}
+                {user.country && (
+                  <div className="UserDetails-country-container">
+                    <LocationIcon24px />
+                    <span className="UserDetails-country">
+                      {COUNTRIES_HASH[user.country]}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="UserDetails-areas-container">
+              <If condition={!!user.role}>
+                <div className="UserDetails-block">
+                  <HumanIcon />
+                  <span className="UserDetails-block-text">
+                    {this.renderRoleName()}
+                  </span>
+                </div>
+              </If>
+              <If condition={!!user.email}>
+                <div className="UserDetails-block">
+                  <EmailIcon />
+                  <span className="UserDetails-block-text">{user.email}</span>
+                </div>
+              </If>
+              {this.renderUserAreasList()}
+              {authUser.role === 'superadmin' &&
+              user.role !== 'superadmin' && (
+                <div className="UserDetails-area-assign-container">
+                  <span
+                    className="UserDetails-area-assign-button"
+                    onClick={this.handleAssignAreasClicked}
+                  >
+                    Assign areas
                   </span>
                 </div>
               )}
-              {user.role && (
-                <span className="UserDetails-role">
-                  {this.renderRoleName()}
+            </div>
+            <div className="UserDetails-actions-container">
+              {this.canBlockUser() && (
+                <span
+                  onClick={this.handleBlockClicked}
+                  className={classnames('UserDetails-block-user', {
+                    locked: user.locked,
+                  })}
+                >
+                  {user.locked ? 'Unblock user' : 'Block user'}
                 </span>
               )}
             </div>
           </div>
-
-          <div className="UserDetails-areas-container">
-            {this.renderUserAreasList()}
-            {authUser.role === 'superadmin' &&
-            user.role !== 'superadmin' && (
-              <div className="UserDetails-area-assign-container">
-                <span
-                  className="UserDetails-area-assign-button"
-                  onClick={this.handleAssignAreasClicked}
-                >
-                  Assign areas
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="UserDetails-actions-container">
-            {this.canBlockUser() && (
-              <span
-                onClick={this.handleBlockClicked}
-                className={classnames('UserDetails-block-user', {
-                  locked: user.locked,
-                })}
-              >
-                {user.locked ? 'Unblock user' : 'Block user'}
-              </span>
-            )}
-          </div>
-        </div>
+          <Else>
+            <Loader />
+          </Else>
+        </If>
       </div>
     );
   }

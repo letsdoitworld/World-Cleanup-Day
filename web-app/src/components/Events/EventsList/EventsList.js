@@ -4,12 +4,14 @@ import { If, Else } from 'react-if';
 import PropTypes from 'prop-types';
 import { Event } from '../Event';
 import { EmptyEventsState } from '../EmptyState';
+import { Loader } from '../../Spinner';
 
-export const List = ({ events }) => (
+export const List = ({ events, isLoading }) => (
   <div>
-    <If condition={!!events.length}>
+    <If condition={!isLoading}>
       <div>
         {
+          events.length ?
           events.map(ev => {
             return (
               <NavLink key={ev.id} to={`/event/${ev.id}`}>
@@ -20,17 +22,18 @@ export const List = ({ events }) => (
                   author={ev.createdByName}
                   date={ev.startTime}
                   location={ev.address}
-                  maxNumberOfParticipants={ev.maxPeopleAmount || 20}
-                  numberOfParticipants={ev.peopleAmount}
+                  attendeesAmount={ev.attendeesAmount}
+                  maxNumberOfAttendees={ev.maxPeopleAmount}
                 />
               </NavLink>
             );
           },
-          )
+          ) :
+          <EmptyEventsState text={'Nothing to see here!'} subheadNeeded />
         }
       </div>
       <Else>
-        <EmptyEventsState text={'Nothing to see here!'} subheadNeeded />
+        <Loader />
       </Else>
     </If>
   </div>
@@ -38,6 +41,7 @@ export const List = ({ events }) => (
 
 List.propTypes = {
   events: PropTypes.any,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 List.defaultProps = {

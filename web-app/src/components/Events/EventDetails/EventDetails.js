@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import 'moment/locale/en-au';
 import './EventDetails.css';
-import { EmptyEventsState } from '../EmptyState';
+import { Loader } from '../../Spinner';
 import {
   LocationIconEvent,
   DateIcon,
@@ -20,18 +20,26 @@ import {
 } from '../../common/Icons';
 import ShareModal from '../../ShareModal/ShareModal';
 
-export const Details = ({ eventDetails, showShareModal }) => {
+export const Details = ({
+  eventDetails,
+  showShareModal,
+  isLoading,
+  isShareModaVisible,
+}) => {
   moment.locale('en-au');
   return (
-    <If condition={!!eventDetails.address}>
+    <If condition={!isLoading}>
       <div className="EventDetails">
-        <ShareModal
-          header="Share event"
-          url={`${window.location.origin}/event/${eventDetails.id}`}
-          image={(eventDetails.photos && eventDetails.photos[0]) || eventCoverBig}
-          title={eventDetails.name}
-          description={eventDetails.description}
-        />
+        {
+          isShareModaVisible &&
+          <ShareModal
+            header="Share event"
+            url={`${window.location.origin}/event/${eventDetails.id}`}
+            image={(eventDetails.photos && eventDetails.photos[0]) || eventCoverBig}
+            title={eventDetails.name}
+            description={eventDetails.description}
+          />
+        }
         <div
           className="EventDetails-cover"
           style={{
@@ -66,10 +74,14 @@ export const Details = ({ eventDetails, showShareModal }) => {
               <ShareIcon />
               <span className="EventDetails-share">Share</span>
             </div>
-            <div className="EventDetails-actions-part EventDetails-width-55">
-              <ReportIcon />
-              <span className="EventDetails-report">Report event</span>
-            </div>
+            {
+              /*
+              <div className="EventDetails-actions-part EventDetails-width-55">
+                <ReportIcon />
+                <span className="EventDetails-report">Report event</span>
+              </div>
+              */
+            }
           </div>
           <NavLink to={`/event/${eventDetails.id}/trashpoints`}>
             <div className="EventDetails-trashpoints EventDetails-infoblock">
@@ -126,14 +138,14 @@ export const Details = ({ eventDetails, showShareModal }) => {
             <div className="EventDetails-attend-part">
               <ParticipantsIcon />
               <p>
-                {eventDetails.peopleAmount}/{eventDetails.maxPeopleAmount}
+                {eventDetails.attendeesAmount}/{eventDetails.maxPeopleAmount}
               </p>
             </div>
           </div>
         </div>
       </div>
       <Else>
-        <EmptyEventsState />
+        <Loader />
       </Else>
     </If>
   );
@@ -142,4 +154,6 @@ export const Details = ({ eventDetails, showShareModal }) => {
 Details.propTypes = {
   eventDetails: PropTypes.instanceOf(Object).isRequired,
   showShareModal: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isShareModaVisible: PropTypes.bool.isRequired,
 };

@@ -15,6 +15,8 @@ class EventsDetails extends Component {
     eventDetails: PropTypes.any.isRequired,
     eventId: PropTypes.string,
     showShareModal: PropTypes.func,
+    isLoading: PropTypes.bool.isRequired,
+    isShareModaVisible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -33,9 +35,19 @@ class EventsDetails extends Component {
   }
 
   render() {
-    const { eventDetails, showShareModal } = this.props;
+    const {
+      eventDetails,
+      showShareModal,
+      isLoading,
+      isShareModaVisible,
+    } = this.props;
     return (
-      <Details eventDetails={eventDetails} showShareModal={showShareModal} />
+      <Details
+        eventDetails={eventDetails}
+        showShareModal={showShareModal}
+        isLoading={isLoading}
+        isShareModaVisible={isShareModaVisible}
+      />
     );
   }
 }
@@ -43,6 +55,8 @@ class EventsDetails extends Component {
 const mapStateToProps = (state) => ({
   eventDetails: selectors.getEventDetails(state),
   shareModalOpened: appSelectors.getShowShareModal(state),
+  isLoading: selectors.getEventDetailsLoading(state),
+  isShareModaVisible: appSelectors.getShowShareModal(state),
 });
 
 const mapDispatchToProps = {

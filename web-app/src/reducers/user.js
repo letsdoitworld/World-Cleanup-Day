@@ -4,6 +4,7 @@ import _ from 'lodash';
 import ApiService, { BASE_URL } from '../services/Api';
 import { API_ENDPOINTS, USER_ROLES } from '../shared/constants';
 import { actions as appActions } from './app';
+import { actions as errorActions } from './error';
 
 export const TYPES = {
   SET_AUTH_TOKEN: 'SET_AUTH_TOKEN',
@@ -13,10 +14,32 @@ export const TYPES = {
   AGREE_TO_TERMS: 'AGREE_TO_TERMS',
 };
 
+const setProfile = profile => ({ type: TYPES.SET_PROFILE, profile });
+
 const authInitialState = {
   token: undefined,
   profile: { role: '' },
 };
+
+const logout = () => async dispatch => {
+  await ApiService.delete('/auth');
+  dispatch({ type: TYPES.LOGOUT });
+};
+
+const fetchProfile = () => async dispatch => {
+  const profileData = await ApiService.get(API_ENDPOINTS.USER_ME);
+  if (!profileData || !profileData.data) {
+    dispatch(logout());
+  } else {
+    dispatch(setProfile(profileData.data));
+    return profileData.data;
+  }
+};
+
+const setAuthToken = token => ({
+  type: TYPES.SET_AUTH_TOKEN,
+  token,
+});
 
 const authReducer = (state = authInitialState, action) => {
   switch (action.type) {
@@ -37,6 +60,11 @@ const authReducer = (state = authInitialState, action) => {
     default:
       return state;
   }
+};
+
+const isAllowedRole = state => {
+  const role = getRole(state);
+  return role === USER_ROLES.SUPERADMIN || role === USER_ROLES.LEADER || role === USER_ROLES.VOLUNTEER;
 };
 
 const authenticate = ({ network, token }) => async (dispatch, getState) => {
@@ -62,8 +90,10 @@ const authenticate = ({ network, token }) => async (dispatch, getState) => {
         if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
           dispatch(appActions.toggleLockedModal(true));
         }
+      } else {
+        dispatch(errorActions.setErrorMessage('Failed to log in'));
+        return;
       }
-      return;
     }
 
     const networkToken = response.data.token;
@@ -84,29 +114,8 @@ const authenticate = ({ network, token }) => async (dispatch, getState) => {
     });
   } catch (e) {
     console.log(e);
+    dispatch(errorActions.setErrorMessage('Failed to log in'));
   }
-};
-
-const fetchProfile = () => async dispatch => {
-  const profileData = await ApiService.get(API_ENDPOINTS.USER_ME);
-  if (!profileData || !profileData.data) {
-    dispatch(logout());
-  } else {
-    dispatch(setProfile(profileData.data));
-    return profileData.data;
-  }
-};
-
-const setAuthToken = token => ({
-  type: TYPES.SET_AUTH_TOKEN,
-  token,
-});
-
-const setProfile = profile => ({ type: TYPES.SET_PROFILE, profile });
-
-const logout = () => async dispatch => {
-  await ApiService.delete('/auth');
-  dispatch({ type: TYPES.LOGOUT });
 };
 
 const agreeToTerms = () => async dispatch => {
@@ -137,10 +146,6 @@ const getUserToken = state => getUserState(state).token;
 const getProfile = state => getUserState(state).profile;
 const getRole = state => getProfile(state).role;
 const isSuperAdmin = state => getRole(state) === USER_ROLES.SUPERADMIN;
-const isAllowedRole = state => {
-  const role = getRole(state);
-  return role === USER_ROLES.SUPERADMIN || role === USER_ROLES.LEADER || role === USER_ROLES.VOLUNTEER;
-};
 const isAreaLeader = state => getRole(state) === USER_ROLES.LEADER;
 
 export const selectors = {
@@ -149,7 +154,7 @@ export const selectors = {
   getRole,
   isSuperAdmin,
   isAllowedRole,
-  isAreaLeader
+  isAreaLeader,
 };
 
 export default authReducer;

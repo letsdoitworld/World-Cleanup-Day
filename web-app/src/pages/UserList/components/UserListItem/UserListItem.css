@@ -2,21 +2,19 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-top: 13px;
-  padding-left: 8px;
-  padding-bottom: 9px;
   cursor: pointer;
+  border-bottom: 1px solid #e5e5e9;
 }
 
 .UserListItem:hover {
-  background-color: #D8EDFF!important;
+  background-color: #d8edff!important;
 }
 
 .UserListItem-avatar {
   height: 40px;
   width: 40px;
-  border-radius: 50px;
-  margin-right: 7px;
+  border-radius: 100px;
+  margin: 10px 20px;
 }
 
 .UserListItem-text-container {
@@ -27,19 +25,39 @@
 }
 
 .UserListItem-header {
-  height: 20px;
-  color: #3E8EDE;
+  color: #282633;
   font-size: 15px;
   font-weight: bold;
-  line-height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: normal;
+  margin-bottom: 2px;
+  display: inline-block;
+  max-width: 60%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.UserListItem-actions {
+  margin-right: 20px;
+}
+
+.UserListItem-actions span {
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.UserListItem-block {
+  color: #e11383;
+}
+
+.UserListItem-unblock {
+  color: #3e8ede;
 }
 
 .UserListItem-location {
-  height: 16px;
-  color: rgba(43, 43, 43, 0.98);
-  font-size: 13px;
-  line-height: 16px;
+  color: #7e7c84;
+  font-size: 14px;
 }

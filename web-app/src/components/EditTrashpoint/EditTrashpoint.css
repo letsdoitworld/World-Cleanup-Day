@@ -42,6 +42,11 @@
   cursor: pointer;
 }
 
+.EditTrashpoint-close-button img {
+  width: 12px;
+  height: 12px;
+}
+
 .EditTrashpoint-address-container {
   margin-top: 5px;
   display: flex;
@@ -83,10 +88,6 @@
   align-self: stretch;
   height: 1px;
   margin: 15px 0;
-}
-
-.EditTrashpoint-edit-location-text {
-
 }
 
 .EditTrashpoint-default-container {
@@ -152,7 +153,7 @@
 }
 
 .EditTrashpoint-delete-button{
-  flex:1;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +161,39 @@
 .EditTrashpoint-delete-button p {
   cursor: pointer;
   text-align: center;
-  color:#EB5E63;
+  color :#EB5E63;
   text-decoration: underline;
   font-weight: bold;
+}
+
+.CreateTrashpoint-delete-button {
+  color: #e11383;
+  font-family: "Lato";
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.EditTrashpoint-edit-button {
+  cursor: pointer;
+  height: 35px;
+  width: 240px;
+  background: #3e8ede;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.EditTrashpoint-edit-button p {
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-size: 14px;
 }

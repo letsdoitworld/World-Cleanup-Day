@@ -16,11 +16,9 @@ import {
   Userpic,
   TimeIcon,
 } from '../common/Icons';
-import { TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from './components/Tags';
 import StatusPicker from './StatusPicker';
-import closeButton from '../../assets/closeButton.png';
 
 import './EditTrashpoint.css';
 
@@ -28,7 +26,7 @@ class EditTrashpoint extends Component {
   constructor(props) {
     super(props);
 
-    const { marker } = props;
+    const { marker, trashTypes, trashOrigin } = props;
     const {
       name,
       address,
@@ -37,7 +35,10 @@ class EditTrashpoint extends Component {
       thumbnails,
       hashtags,
       composition,
+      origin,
       location,
+      creator,
+      updater,
     } = marker;
 
     this.state = {
@@ -47,10 +48,15 @@ class EditTrashpoint extends Component {
       editLocation: false,
       amount,
       status,
-      composition: TRASH_COMPOSITION_TYPE_LIST.map(t => ({
+      composition: trashTypes.map(t => ({
         label: t.label,
         value: t.type,
         selected: composition.indexOf(t.type) >= 0,
+      })),
+      origin: trashOrigin.map(o => ({
+        label: o.label,
+        value: o.type,
+        selected: origin ? origin.indexOf(o.type) >= 0 : false,
       })),
       hashtags: hashtags.map(h => ({ label: h, value: h, selected: true })),
       photos: thumbnails,
@@ -84,6 +90,7 @@ class EditTrashpoint extends Component {
       address,
       photos,
       composition,
+      origin,
       hashtags,
       status,
       amount,
@@ -99,6 +106,7 @@ class EditTrashpoint extends Component {
       photos,
       amount,
       composition: composition.filter(t => t.selected).map(t => t.value),
+      origin: origin.filter(o => o.selected).map(o => o.value),
       hashtags: hashtags.map(t => t.value),
       address,
       name,
@@ -224,7 +232,7 @@ class EditTrashpoint extends Component {
 
   render() {
     const {
-      marker: { createdAt, updatedAt, createdByName, updatedByName },
+      marker: { createdAt, updatedAt, createdByName, updatedByName, creator, updater },
       actions,
     } = this.props;
     const {
@@ -233,6 +241,7 @@ class EditTrashpoint extends Component {
       location,
       amount,
       composition,
+      origin,
       hashtags,
       status,
       validationMessage,
@@ -256,14 +265,14 @@ class EditTrashpoint extends Component {
           <span className="EditTrashpoint-title">
             Edit trashpoint
           </span>
-          <button
+          <div
             className="EditTrashpoint-close-button"
-            onClick={actions.handleOnCloseEditClick}
+            onClick={actions.onCloseEditClick}
           >
             <CloseIcon />
-          </button>
+          </div>
         </div>
-        <div className="EditTrashpoint-plot">
+        <div className="EditTrashpoint-plot scrollbar-modified">
           <div>
             <div className="EditTrashpoint-default-container">
               <div className="EditTrashpoint-address-container">
@@ -283,35 +292,34 @@ class EditTrashpoint extends Component {
               </div>
             </div>
           </div>
-          <div className="Details-default-container Details-creation-info">
-            <span className="Details-trash-type-title">
-              Type of trashpoint
-            </span>
-            <br /><br />
-            <StatusText status={status} />
-          </div>
-          <div className="Details-default-container Details-creation-info">
-            <span className="Details-trash-type-title">About creator</span>
-            <p className="Details-creation-info-block">
-              <Userpic />
-              <span>{createdByName}</span>
-            </p>
-            <p className="Details-creation-info-block">
-              <TimeIcon />
-              <span>{moment(createdAt).format('L')}</span>
-            </p>
-          </div>
-          <div className="Details-default-container Details-creation-info">
-            <span className="Details-trash-type-title">Updates</span>
-            <p className="Details-creation-info-block">
-              <Userpic />
-              <span>{updatedByName}</span>
-            </p>
-            <p className="Details-creation-info-block">
-              <TimeIcon />
-              <span>{moment(updatedAt).format('L')}</span>
-            </p>
-          </div>
+          {
+            creator &&
+            <div className="Details-default-container Details-creation-info">
+              <span className="Details-trash-type-title">About creator</span>
+              <p className="Details-creation-info-block">
+                <Userpic />
+                <span>{creator.name}</span>
+              </p>
+              <p className="Details-creation-info-block">
+                <TimeIcon />
+                <span>{moment(createdAt).format('L')}</span>
+              </p>
+            </div>
+          }
+          {
+            updater &&
+            <div className="Details-default-container Details-creation-info">
+              <span className="Details-trash-type-title">Updates</span>
+              <p className="Details-creation-info-block">
+                <Userpic />
+                <span>{updater.name}</span>
+              </p>
+              <p className="Details-creation-info-block">
+                <TimeIcon />
+                <span>{moment(updatedAt).format('L')}</span>
+              </p>
+            </div>
+          }
           <div className="EditTrashpoint-default-container">
             <StatusPicker
               status={status}
@@ -339,6 +347,7 @@ class EditTrashpoint extends Component {
           </div>
           <div className="EditTrashpoint-default-container">
             <Tags
+              header="Trash types"
               composition={composition}
               tags={hashtags}
               onCompositionSelect={this.handleCompositionSelect}
@@ -347,16 +356,25 @@ class EditTrashpoint extends Component {
               onTagDelete={this.handleTagDelete}
             />
           </div>
+          <div className="EditTrashpoint-default-container">
+            <Tags
+              header="Trash origin"
+              tags={[]}
+              composition={origin}
+              onCompositionSelect={this.handleCompositionSelect}
+              onTagSelect={this.handleTagSelect}
+            />
+          </div>
           <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
             <div
-              className="CreateTrashpoint-edit-button"
+              className="EditTrashpoint-edit-button"
               onClick={this.handleTrashpointUpdate}
             >
               <p>Save trashpoint changes</p>
             </div>
             <br />
             <div
-              className="CreateTrashpoint-edit-button"
+              className="EditTrashpoint-delete-button"
               onClick={this.handleTrashpointDelete}
             >
               <p>Delete trashpoint</p>

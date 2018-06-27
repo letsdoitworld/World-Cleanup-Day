@@ -1,24 +1,54 @@
-.AreaAssignList {
-  width: 325px;
-  align-self: stretch;
+.AreaAssignList-сontainer {
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 9;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  position: relative;
-}
-.AreaAssignList-items{
-  margin-top: 35px;
-}
-.AreaAssignList-close-button {
-  background-image: linear-gradient(-179deg, #4AA5FF 0%, #3E8EDE 100%);
-  position: absolute;
-  top: 0;
-  right: 10px;
-  padding: 7px 10px;
-  border-radius: 0 0 10px 10px;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.AreaAssignList-close-button img {
-  width: 14px;
-  height: 14px;
+.AreaAssignList-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 35px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.AreaAssignList-header-close {
+  width: 12px;
+  height: 12px;
+}
+
+.AreaAssignList-header-close img {
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+}
+
+.AreaAssignList-header-ttl {
+  width: 90%;
+  height: 20px;
+  margin: 0 16px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.AreaAssignList-plot {
+  flex-direction: column;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
+  height: calc(100vh - 230px) !important;
+  display: flex;
 }

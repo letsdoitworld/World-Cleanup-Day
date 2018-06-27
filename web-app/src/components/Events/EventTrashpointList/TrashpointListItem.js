@@ -15,7 +15,12 @@ export const TrashpointListItem = ({ data, eventId }) => (
         alt="status"
       />
       <LocationIcon24px />
-      <p className="EventDetails-TrashpointListItem-addr">{ data.name }</p>
+      <p className="EventDetails-TrashpointListItem-addr">
+        {
+          data.name.trim() ||
+          `${data.location.latitude}, ${data.location.longitude}`
+        }
+      </p>
     </div>
   </NavLink>
 );

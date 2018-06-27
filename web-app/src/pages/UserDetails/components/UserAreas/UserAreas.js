@@ -1,32 +1,45 @@
 import React from 'react';
-
-const getContainerStyle = index => {
-  let containerStyle = {};
-  if (index % 2 === 1) {
-    containerStyle = {
-      backgroundColor: '#F6F6F6',
-    };
-  }
-  return containerStyle;
-};
+import { If } from 'react-if';
+import FlagIcon from 'react-flag-kit/lib/FlagIcon';
+import PropTypes from 'prop-types';
 
 const UserAreas = ({ areas, onClick }) => (
   <div className="UserAreas-container">
-    {areas.map((a, index) => (
+    {areas.map((a) => (
       <div
-        style={getContainerStyle(index)}
         className="UserAreas-item"
         key={a.id}
       >
-        <div className="UserAreas-name">{a.name}</div>
-        {onClick && (
-          <div className="UserAreas-remove" onClick={() => onClick(a)}>
-            x
+        <FlagIcon
+          size={40}
+          code={a.id}
+        />
+        <div className="UserAreas-name-block">
+          <span className="UserAreas-name">{a.name}</span>
+        </div>
+        <If condition={!!onClick}>
+          <div>
+            <span
+              className="UserAreas-remove"
+              onClick={() => onClick(a)}
+            >
+              Remove
+            </span>
           </div>
-        )}
+        </If>
       </div>
     ))}
   </div>
 );
+
+UserAreas.propTypes = {
+  areas: PropTypes.any,
+  onClick: PropTypes.func,
+};
+
+UserAreas.defaultProps = {
+  areas: [],
+  onClick: null,
+};
 
 export default UserAreas;

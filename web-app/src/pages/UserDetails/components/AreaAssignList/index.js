@@ -1,3 +1,3 @@
 import './AreaAssignList.css';
 
-export { default as AreaAssingList } from './AreaAssignList';
+export { default as AreaAssignList } from './AreaAssignList';

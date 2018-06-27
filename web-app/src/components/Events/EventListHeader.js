@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { If, Else } from 'react-if';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 import {
   LocationIcon,
   BackIcon,
@@ -103,23 +103,23 @@ class EventListHeader extends Component {
                         })
                       }
                     />
-                  <div className="EventsList-header-suggestions-block">
-                    {
-                      suggestions.map(sugg => {
-                        return (
-                          <div
-                            {...getSuggestionItemProps(sugg)}
-                            key={sugg.id}
-                            className="EventsList-header-suggestion"
-                          >
-                            <span className="EventsList-header-suggestion-txt">
-                              {sugg.description}
-                            </span>
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
+                    <div className="EventsList-header-suggestions-block">
+                      {
+                        suggestions.map(sugg => {
+                          return (
+                            <div
+                              {...getSuggestionItemProps(sugg)}
+                              key={sugg.id}
+                              className="EventsList-header-suggestion"
+                            >
+                              <span className="EventsList-header-suggestion-txt">
+                                {sugg.description}
+                              </span>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
                   </div>
                 )
               }

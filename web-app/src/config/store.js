@@ -9,6 +9,7 @@ import {
   userReducer,
   adminReducer,
   areaReducer,
+  errorReducer,
 } from '../reducers';
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   admin: adminReducer,
   areas: areaReducer,
+  error: errorReducer,
 });
 
 const resetStateOnSignOutReducer = reducer => (state, action) => {
@@ -33,6 +35,7 @@ const resetStateOnSignOutReducer = reducer => (state, action) => {
     events: undefined,
     admin: undefined,
     area: undefined,
+    error: undefined,
   };
   return reducer(stateWithoutSensitiveData, action);
 };

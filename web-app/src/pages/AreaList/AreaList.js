@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import classnames from 'classnames';
 import { Loader } from '../../components/Spinner';
 import { AreaListItem } from '../../components/AreaListItem';
 import { TrashpointList } from '../TrashpointList';
@@ -13,6 +13,11 @@ import {
 } from '../../reducers/areas';
 import { selectors as userSels } from '../../reducers/user';
 import { actions as trashpileActions } from '../../reducers/trashpile';
+import {
+  SearchIcon,
+  ExpandIcon,
+  CollapseIcon,
+} from '../../components/common/Icons';
 
 class AreaList extends React.Component {
   constructor(props) {
@@ -21,6 +26,7 @@ class AreaList extends React.Component {
       selectedArea: props.location.state
         ? props.location.state.selectedArea
         : undefined,
+      areasWindowVisible: true,
     };
   }
 
@@ -48,17 +54,20 @@ class AreaList extends React.Component {
     const isUserAreas = match && match.path && match.path === '/user-areas';
     if (isUserAreas && isAreaLeader) {
       const areaId = getCountryFromStr(area.parentId ? area.parentId : area.id);
-      return history.push(`/users?area=${areaId}`);
+      return history.push(`/countries/users?area=${areaId}`);
     }
 
     this.setState({ selectedArea: area });
   };
+
   renderInnerAreaList = () => {
     const { loading, areas, error, match } = this.props;
     if (loading) {
       return (
         <div className="AreaList-message">
-          <Loader />
+          {
+            // <Loader />
+          }
         </div>
       );
     }
@@ -74,7 +83,7 @@ class AreaList extends React.Component {
     }
     return areas.map((a, i) => (
       <AreaListItem
-        onClick={this.handleListItemClick}
+        onBodyClick={this.handleListItemClick}
         index={i}
         area={a}
         key={a.id}
@@ -82,6 +91,7 @@ class AreaList extends React.Component {
       />
     ));
   };
+
   handleBackClick = () => {
     this.setState({ selectedArea: undefined }, () => {
       this.props.resetAreaTrashpoints();
@@ -90,14 +100,14 @@ class AreaList extends React.Component {
 
   render() {
     const { loading } = this.props;
-    const { selectedArea } = this.state;
+    const { selectedArea, areasWindowVisible } = this.state;
     if (selectedArea && loading) {
-      return <Loader />;
+      return;
     }
     if (selectedArea) {
       return (
-        <div className="AreaList">
-          <div className="AreaList-top-band">
+        <div className="AreaList-container">
+          <div className="AreaList-header">
             <div
               onClick={this.handleBackClick}
               className="AreaList-top-band-back"
@@ -113,12 +123,47 @@ class AreaList extends React.Component {
         </div>
       );
     }
-    return <div className="AreaList">{this.renderInnerAreaList()}</div>;
+    return (
+      <div className="AreaList-container">
+        <div
+          className="AreaList-header"
+        >
+          <SearchIcon />
+          <input
+            className="UsersList-search-input"
+            type="text"
+            name="search"
+            placeholder="Search areas"
+          />
+        <div
+          onClick={() => {
+            this.setState({
+              areasWindowVisible: !this.state.areasWindowVisible,
+            });
+          }}
+          className="AreaList-minimize"
+        >
+          {
+            areasWindowVisible ?
+              <CollapseIcon /> :
+              <ExpandIcon />
+          }
+        </div>
+        </div>
+        <div className={
+          classnames(
+            'AreaList-plot', 'scrollbar-modified', { isVisible: areasWindowVisible },
+          )}
+        >
+          {this.renderInnerAreaList()}
+        </div>
+      </div>);
   }
 }
 AreaList.defaultProps = {
   areas: undefined,
 };
+
 AreaList.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any.isRequired,

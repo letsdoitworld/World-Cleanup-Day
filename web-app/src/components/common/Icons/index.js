@@ -9,6 +9,8 @@ import locationBlack24px from '../../../assets/icLocationOnBlack24Px.png';
 import locationPinActive from '../../../assets/icLocationPinActive.png';
 import locationPinInactive from '../../../assets/icLocationPinInactive.png';
 import groupBlack24px from '../../../assets/icGroupBlack24Px.png';
+import search from '../../../assets/ic-search.png';
+import users from '../../../assets/ic-users.png';
 import hidePanel from '../../../assets/hide-panel.png';
 import fb from '../../../assets/ic-facebook-active.png';
 import google from '../../../assets/ic-google-plus-active.png';
@@ -28,10 +30,14 @@ import logout from '../../../assets/logout.png';
 import rubbish from '../../../assets/icDeleteInactive.png';
 import rubbishActive from '../../../assets/ic-organization.png';
 
+import human from '../../../assets/ic-name-copy.png';
+
 import eventCover from '../../../assets/img-event-cover-small-1.png';
 import eventCoverBig from '../../../assets/img-event-cover-big-1.png';
 import noEventsCover from '../../../assets/img-no-events.png';
+import noUsersCover from '../../../assets/img-no-users.png';
 import expandArea from '../../../assets/img-expand-small.png';
+import errorImg from '../../../assets/img-error.png';
 
 import activeCleanedTP from '../../../assets/trashpoints/icActiveCleanedTrashpointMap.png';
 import activeInToxicTP from '../../../assets/trashpoints/icActiveInactiveToxicTrashpointMap.png';
@@ -63,6 +69,7 @@ export const LocationIcon24px = () => <img src={locationBlack24px} alt="location
 export const GroupIcon24px = () => <img src={groupBlack24px} alt="group-icon-black" />;
 export const MinimizeIcon = () => <img src={hidePanel} alt="minimize-icon" />;
 export const FbIcon = () => <img src={fb} alt="fb-icon" />;
+export const HumanIcon = () => <img src={human} alt="human" />;
 export const GoogleIcon = () => <img src={google} alt="google-icon" />;
 export const ShareIcon = () => <img src={share} alt="share-icon" />;
 export const ParticipantsIcon = () => <img src={participants} alt="participants-icon" />;
@@ -73,6 +80,8 @@ export const Userpic = () => (<img
   src={userpicHolder}
   alt="userpic"
 />);
+export const SearchIcon = () => <img src={search} alt="search" />;
+export const UsersIcon = () => <img src={users} alt="users" />
 export const EmailIcon = () => <img src={email} alt="email" />;
 export const PhoneIcon = () => <img src={phone} alt="phone" />;
 export const BackIcon = () => <img src={back} alt="back" />;
@@ -109,5 +118,7 @@ export {
   eventCover,
   eventCoverBig,
   noEventsCover,
+  noUsersCover,
   expandArea,
+  errorImg,
 };

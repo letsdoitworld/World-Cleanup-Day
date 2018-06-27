@@ -60,7 +60,12 @@ const TrashPhotos = ({
         onAddClick ?
         photos.map((photo, index) =>
           (<div key={photo} className="TrashPhotos-img-container-create">
-            <img src={photo} alt="" />
+            <div
+              className="TrashPhotos-img-container-create-img"
+              style={{
+                backgroundImage: `url(${photo})`
+              }}
+            />
             {canEdit &&
               <button onClick={() => onDeleteClick(index)}>
                 <CloseIcon />
@@ -70,7 +75,12 @@ const TrashPhotos = ({
         <Swiper {...swiperOptions(photos.length === 1, photos.length === 2)}>
           {photos.map((photo, index) =>
             (<div key={photo} className="TrashPhotos-img-container">
-              <img src={photo} alt="" />
+              <div
+                className="TrashPhotos-img-container-img"
+                style={{
+                  backgroundImage: `url(${photo})`
+                }}
+              />
               {canEdit &&
                 <button onClick={() => onDeleteClick(index)}>
                   <CloseIcon />

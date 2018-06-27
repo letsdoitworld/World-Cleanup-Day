@@ -7,7 +7,10 @@ import _ from 'lodash';
 import { actions, selectors } from '../../reducers/trashpile';
 import { EditTrashpoint } from '../../components/EditTrashpoint';
 import { Details } from '../../components/TrashpointDetails';
-import { actions as appActions } from '../../reducers/app';
+import {
+  actions as appActions,
+  selectors as appSelectors,
+} from '../../reducers/app';
 import { selectors as userSelectors } from '../../reducers/user';
 import { USER_ROLES } from '../../shared/constants';
 
@@ -47,6 +50,7 @@ class TrashDetails extends React.Component {
     }).isRequired,
     trashTypes: PropTypes.any.isRequired,
     trashOrigin: PropTypes.any.isRequired,
+    isShareModalVisible: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -189,6 +193,7 @@ class TrashDetails extends React.Component {
         showHeader={this.props.showHeader}
         trashTypes={this.props.trashTypes}
         trashOrigin={this.props.trashOrigin}
+        isShareModalVisible={this.props.isShareModalVisible}
       />
     );
   }
@@ -198,6 +203,7 @@ const mapState = state => ({
   marker: selectors.getMarkerDetails(state),
   authUser: userSelectors.getProfile(state),
   isOpened: selectors.getShowDetailsWindow(state),
+  isShareModalVisible: appSelectors.getShowShareModal(state),
   trashTypes: selectors.getTrashTypes(state),
   trashOrigin: selectors.getTrashOrigin(state),
 });

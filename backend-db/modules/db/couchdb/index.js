@@ -856,7 +856,9 @@ const layer = {
               name: {
                   $regex: "(?i)" + searchName
               }
-          }
+          },
+          sort: [{name: "asc"}],
+          limit: 500 //because db has limit 24 records
       });
     },
     getAreasByParent: async parentId => {
@@ -880,7 +882,9 @@ const layer = {
                           {leaderId: {
                                 $all: [leaderId]
                             }}]
-                }
+                },
+                sort: [{name: "asc"}],
+                limit: 500
             }
         );
         return ret;

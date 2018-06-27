@@ -23,6 +23,7 @@ const TYPE_TO_DB_MAP = {
     'Area': 'areas',
     'Event': 'events',
     'Detail': 'details',
+    'Team': 'teams',
 };
 
 const cdb = require('./driver');

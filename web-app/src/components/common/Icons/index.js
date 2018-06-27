@@ -31,7 +31,7 @@ import rubbish from '../../../assets/icDeleteInactive.png';
 import rubbishActive from '../../../assets/ic-organization.png';
 
 import human from '../../../assets/ic-name-copy.png';
-
+import teamsIcon from '../../../assets/ic-teams-active.png';
 import eventCover from '../../../assets/img-event-cover-small-1.png';
 import eventCoverBig from '../../../assets/img-event-cover-big-1.png';
 import noEventsCover from '../../../assets/img-no-events.png';
@@ -81,7 +81,8 @@ export const Userpic = () => (<img
   alt="userpic"
 />);
 export const SearchIcon = () => <img src={search} alt="search" />;
-export const UsersIcon = () => <img src={users} alt="users" />
+export const UsersIcon = () => <img src={users} alt="users" />;
+export const TeamsIcon = () => <img src={teamsIcon} alt="teams" />;
 export const EmailIcon = () => <img src={email} alt="email" />;
 export const PhoneIcon = () => <img src={phone} alt="phone" />;
 export const BackIcon = () => <img src={back} alt="back" />;

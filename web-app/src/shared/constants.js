@@ -38,6 +38,10 @@ export const API_ENDPOINTS = {
   FETCH_EVENT_DETAILS: eventId => `/event/${eventId}`,
   FETCH_OVERVIEW_EVENT_CLUSTERS: '/overview/events/clusters',
   FETCH_TRASH_TYPES_ORIGIN: 'trashpoints/details',
+  FETCH_TEAMS: (country, superadmin) => `/teams/web?country=${country}&superadmin=${superadmin}`,
+  FETCH_ALL_TEAMS: superadmin => `/teams/web?superadmin=${superadmin}`,
+  FETCH_TEAMS_TRASHPOINTS: '/teams/trashpoints',
+  FETCH_TEAM: teamId => `/teams/${teamId}`,
 };
 export const BACKEND_LOGIN_SOURCES = {
   FACEBOOK: 'facebook',
@@ -77,6 +81,33 @@ export const SHARED_MODAL_STYLES = {
     transform: 'translate(-50%, -50%)',
     padding: '24px',
     borderRadius: '10px',
+  },
+};
+
+export const STATUS_COUNT_HASH = {
+  threat: {
+    label: 'THREAT',
+    color: '#FC505E',
+    background: 'linear-gradient(180deg, #FE6669 0%, #FC505E 100%)',
+    borderColor: '#E93A47',
+  },
+  regular: {
+    label: 'REGULAR',
+    color: '#FF7800',
+    background: 'linear-gradient(180deg, #FF9900 0%, #FF7800 100%)',
+    borderColor: '#EE7200',
+  },
+  cleaned: {
+    label: 'CLEANED',
+    color: '#5DBA37',
+    background: 'linear-gradient(180deg, #7BEA4E 0%, #5DBA37 100%)',
+    borderColor: '#57B531',
+  },
+  outdated: {
+    label: 'OUTDATED',
+    color: '#E3E3E3',
+    background: 'linear-gradient(180deg, #E3E3E3 0%, #C3C3C3 100%)',
+    borderColor: '#ABABAB',
   },
 };
 

@@ -52,6 +52,7 @@ class Account extends Type {
             role: true,
             pictureURL: true,
             country: true,
+            team: true,
             termsAcceptedAt: true,
             locked: true,
             createdAt: true,
@@ -71,6 +72,7 @@ declareConstants(Account, {
     ROLE_LEADER: 'leader',
     ROLE_ADMIN: 'admin',
     ROLE_SUPERADMIN: 'superadmin',
+    DEFAULT_TEAM: null,
 });
 
 class Session extends Type {
@@ -142,6 +144,7 @@ class Trashpoint extends Type {
             origin: true,
             name: true,
             address: true,
+            team: true,
             hashtags: true,
             counter: true,
             createdAt: true,
@@ -255,6 +258,26 @@ class Detail extends Type {
     }
 }
 
+class Team extends Type {
+    constructor(data) {
+        super();
+        this.value = util.object.filter(data, {
+            id: true,
+            name: true,
+            teamDescription: true,
+            image: true,
+            trashpoints: true,
+            createdAt: true,
+            createdBy: true,
+            updatedAt: true,
+            updatedBy: true,
+            nationalTeam: true,
+            CC: true
+        });
+        //FIXME: validate field values
+    }
+}
+
 const datatypeFactory = (datatype, data) => {
     switch (datatype) {
     case 'Dataset':
@@ -275,6 +298,8 @@ const datatypeFactory = (datatype, data) => {
         return new Event(data);
     case 'Detail':
         return new Detail(data);
+    case 'Team':
+        return new Team(data);
     default:
         throw new TypeError(`Unknown data type '${datatype}'.`)
     }

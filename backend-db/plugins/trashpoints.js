@@ -159,42 +159,62 @@ module.exports = function () {
 
     lucius.register('role:db,cmd:getTrashpointById', async function (connector, args) {
         return connector
-        .input({id: args.id})
+        .input({id: args.id, userId: args.userId})
         .use(async function (request, responder) {
             const trashpoint = await db.getTrashpoint(request.id);
             if (!trashpoint) {
                 return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: request.id}));
             }
+            //if userId -false show guest mode
+            const user = request.userId ? await db.getAccount(request.userId): false;
             const createdByUser = await db.getAccount(trashpoint.createdBy);
+            const updatedByUser = await db.getAccount(trashpoint.updatedBy);
+            trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+            trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+
             //trashpoints created with private profile but user is SUPERADMIN
-            if (createdByUser.public || createdByUser.role === Account.ROLE_SUPERADMIN
-                || createdByUser.role === Account.ROLE_LEADER) {
-                trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
-
-                if (trashpoint.updatedBy === 'anonymously') {
-                    createdByUser.name = 'anonymously';
-                    createdByUser.email = 'anonymously';
-                    createdByUser.pictureURL = '';
-                    trashpoint.updater = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
-                }
-
-                if (trashpoint.creator && trashpoint.updatedBy === trashpoint.createdBy) {
-                    trashpoint.updater = trashpoint.creator;
-                } else {
-                    const updatedByUser = await db.getAccount(trashpoint.updatedBy);
-                    if (updatedByUser) {
+            if (user) {
+                const role = user.role === Account.ROLE_SUPERADMIN || user.role === Account.ROLE_LEADER;
+                if (createdByUser.public || role) {
+                    if (trashpoint.updatedBy !== trashpoint.createdBy && !updatedByUser.public && !role) {
+                        updatedByUser.name = 'anonymously';
+                        updatedByUser.email = 'anonymously';
+                        updatedByUser.pictureURL = '';
+                        trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                    }
+                    if(role) {
                         trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
                     }
                 }
+                if (!createdByUser.public && user.role !== Account.ROLE_SUPERADMIN
+                    && user.role !== Account.ROLE_LEADER) {
+                    createdByUser.name = 'anonymously';
+                    createdByUser.email = 'anonymously';
+                    createdByUser.pictureURL = '';
+                    trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+                    if (trashpoint.createdBy === trashpoint.updatedBy || !updatedByUser.public) {
+                        trashpoint.updater = trashpoint.creator;
+                    }
+                }
             }
-            //trashpoints created by user with private profile are shown anonymously
-            if(!createdByUser.public  && createdByUser.role !== Account.ROLE_SUPERADMIN
-                                      && createdByUser.role !== Account.ROLE_LEADER) {
-                createdByUser.name = 'anonymously';
-                createdByUser.email = 'anonymously';
-                createdByUser.pictureURL = '';
-                trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
-                trashpoint.updater = trashpoint.creator;
+            //guest mode
+            if (!user) {
+                if (createdByUser.public && trashpoint.updatedBy !== trashpoint.createdBy && !updatedByUser.public) {
+                    updatedByUser.name = 'anonymously';
+                    updatedByUser.email = 'anonymously';
+                    updatedByUser.pictureURL = '';
+                    trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
+                }
+                //trashpoints created by user with private profile are shown anonymously
+                if (!createdByUser.public) {
+                    createdByUser.name = 'anonymously';
+                    createdByUser.email = 'anonymously';
+                    createdByUser.pictureURL = '';
+                    trashpoint.creator = _.pick(createdByUser, ['id', 'name', 'email', 'pictureURL']);
+                    if (trashpoint.createdBy === trashpoint.updatedBy || !updatedByUser.public) {
+                        trashpoint.updater = trashpoint.creator;
+                    }
+                }
             }
 
             trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);

@@ -41,7 +41,7 @@ module.exports = function () {
                 : await db.getAreasByParent(parentId);
             const filtered = areas.map(value => util.object.filter(
                 value,
-                {id: true, name: true, parentId: true}
+                {id: true, name: true, parentId: true, leaderId: true}
             ));
             return responder.success(filtered);
         });

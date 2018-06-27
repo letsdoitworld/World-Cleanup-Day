@@ -852,9 +852,9 @@ const layer = {
     },
     searchAreasByName: async (searchName = "") => {
         return await adapter.getMangoEntities('Area', {
-          selector: {
-              name: {
-                  $regex: "(?i)" + searchName
+          "selector": {
+              "name": {
+                  "$regex": "(?i)" + searchName
               }
           },
           sort: [{name: "asc"}],

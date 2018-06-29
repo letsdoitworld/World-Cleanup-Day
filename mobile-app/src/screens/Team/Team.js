@@ -89,7 +89,7 @@ export default class Team extends Component {
       : team && (
       <ScrollView style={styles.container}>
         {this.renderInfo(remoteImage, strings.label_team_name, team.name)}
-        {this.renderButton(btnText)}
+        {myTeam && myTeam !== team.id ? null : this.renderButton(btnText)}
         {this.renderInfo(locationIcon, strings.label_team_location, location )}
         {this.renderInfo(listIcon, strings.label_team_members, team.members )}
         {this.renderInfo(trashIcon, strings.label_team_trashpoints, strings.label_team_trashpoints_tap, arrow, this.handleTrashpointsPress )}

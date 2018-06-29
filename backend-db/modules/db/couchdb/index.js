@@ -996,7 +996,7 @@ const layer = {
       const neededParams = ['name', 'teamDescription', 'CC'];
       _.each(metadata, async (team, key) => {
         const existedTeam = existingTeams[team.id];
-        if (!existedTeam && (!team.CC || CCs.includes(team.CC))) {
+        if (!existedTeam && (!team.CC || (team.CC && CCs.includes(team.CC)))) {
           // team.image = gravatar.url(team.name, {s: '100', r: 'x', d: 'identicon'}, true);
           if (!team.image) {
             team.image = teamImages[key % teamImages.length];

@@ -74,7 +74,7 @@ const confirmUploadedPhotos = (trashpointId, uploadedPhotos) => {
   const promise = Api.post(url, uploadedPhotos);
   return promise;
 };
-const handleUpload = async ({ photos, markerId }) => {
+export const handleUpload = async ({ photos, markerId }) => {
   if ((photos || []).length === 0) {
     return true;
   }

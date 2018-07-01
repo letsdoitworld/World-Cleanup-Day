@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import io.branch.rnbranch.RNBranchPackage;
 import io.branch.referral.Branch;
+import org.pgsqlite.SQLitePluginPackage;
 
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import io.fabric.sdk.android.Fabric;
@@ -41,7 +42,8 @@ public class MainApplication extends NavigationApplication {
                 new RNGoogleSigninPackage(),
                 new PickerPackage(),
                 new ReactNativeExceptionHandlerPackage(),
-                new RNBranchPackage()
+                new RNBranchPackage(),
+                new SQLitePluginPackage()
         );
     }
 

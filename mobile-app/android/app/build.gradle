@@ -169,6 +169,7 @@ dependencies {
     compile project(':react-native-gesture-handler')
     compile project(':react-native-fbsdk')
     compile project(':react-native-branch')
+    compile project(':react-native-sqlite-storage')
     
     compile(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'

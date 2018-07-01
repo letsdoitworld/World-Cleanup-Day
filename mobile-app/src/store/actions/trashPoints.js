@@ -12,6 +12,7 @@ import {
   LOAD_TRASH_POINT_FROM_CLUSTER_ACTION,
   REQUEST_TRASH_POINTS_MAP_ACTION,
   IS_TRASH_POINTS_EMPTY,
+  CREATE_TRASH_POINT_OFFLINE,
 } from '../types/trashPoints';
 
 export const searchTrashPointsAction = (query, page, pageSize, location) => ({
@@ -54,6 +55,31 @@ export const createTrashPointAction = (
   team,
 ) => ({
   type: CREATE_TRASH_POINT_ACTION,
+  payload: {
+    hashtags,
+    composition,
+    location,
+    status,
+    address,
+    amount,
+    name,
+    photos,
+    team,
+  },
+});
+
+export const createTrashPointOfflineAction = (
+  hashtags,
+  composition,
+  location,
+  status,
+  address,
+  amount,
+  name,
+  photos,
+  team,
+) => ({
+  type: CREATE_TRASH_POINT_OFFLINE,
   payload: {
     hashtags,
     composition,

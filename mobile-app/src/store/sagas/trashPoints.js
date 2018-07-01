@@ -1,22 +1,25 @@
 import { call, put, take } from 'redux-saga/effects';
 import isEmpty from 'lodash/isEmpty';
 import {
-  CREATE_TRASH_POINT_ACTION,
+  CREATE_TRASH_POINT_ACTION, CREATE_TRASH_POINT_OFFLINE,
   LOAD_TRASH_POINT_FROM_CLUSTER_ACTION,
   REQUEST_TRASH_POINTS_MAP_ACTION,
   SEARCH_TRASH_POINTS_ACTION,
 } from '../types/trashPoints';
-import { controlProgress } from '../actions/app';
+import { controlProgress, updateSyncStatus } from '../actions/app';
 import { setErrorMessage } from '../actions/error';
+// import { isConnected } from '../selectors';
 import {
   createTrashPointErrorAction,
   createTrashPointSuccessAction,
   loadTrashPointsForMapSuccess,
   searchTrashPointsSuccessAction,
   showNewTrashPointsDeltaAction,
-  isTrashPointEmpty,
+  isTrashPointEmpty, createTrashPointOfflineAction,
 } from '../actions/trashPoints';
 import Api from '../../api';
+import OfflineService from '../../services/Offline';
+import { API_ENDPOINTS } from '../../shared/constants';
 
 // import {LOAD_EVENTS_FOR_MAP_ACTION,
 // loadEventsForMapSuccess, showNewDeltaAction} from "../actions/events";
@@ -79,7 +82,6 @@ function* createTrashPoint(
       photos,
       team,
     );
-
     if (response.data) {
       yield put(createTrashPointSuccessAction(response.data.trashpoint));
     } else {
@@ -90,6 +92,75 @@ function* createTrashPoint(
   }
 }
 
+function* createTrashpointOffline(
+  hashtags,
+  composition,
+  location,
+  status,
+  address,
+  amount,
+  name,
+  photos,
+  team,
+) {
+  try {
+    const newMarker = {
+      hashtags,
+      composition,
+      location,
+      status,
+      name,
+      address,
+      amount,
+      team
+    };
+    const response = yield call(
+      OfflineService.saveTrashpoint,
+      API_ENDPOINTS.CREATE_TRASHPOINT,
+      newMarker,
+      photos,
+    );
+    if (response.data) {
+      yield put(updateSyncStatus(false));
+      yield put(createTrashPointSuccessAction(response.data));
+    } else {
+      yield put(setErrorMessage('No response data '));
+    }
+  } catch (error) {
+    yield put(setErrorMessage(error.message));
+  }
+}
+
+export function* createTrashPointOfflineFlow() {
+  while (true) {
+    const { payload } = yield take(CREATE_TRASH_POINT_OFFLINE);
+    const {
+      hashtags,
+      composition,
+      location,
+      status,
+      address,
+      amount,
+      name,
+      photos,
+      team,
+    } = payload;
+    yield put(controlProgress(true));
+    yield call(
+      createTrashpointOffline,
+      hashtags,
+      composition,
+      location,
+      status,
+      address,
+      amount,
+      name,
+      photos,
+      team,
+    );
+    yield put(controlProgress(false));
+  }
+}
 
 export function* createTrashPointFlow() {
   while (true) {

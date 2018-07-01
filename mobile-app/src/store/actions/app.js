@@ -1,3 +1,9 @@
+import {
+  SET_CONNECTION_CHECKED,
+  UPDATE_NETWORK_STATUS,
+  UPDATE_LACK_CONNECTION_MESSAGE_STATUS,
+  UPDATE_SYNC_STATUS,
+} from '../types/app';
 
 export const SET_ACTIVE_SCREEN = 'SET_ACTIVE_SCREEN';
 export const setActiveScreen = activeScreen => ({
@@ -27,3 +33,11 @@ export const fetchDatasetUIIDError = error => ({
   type: FETCH_DATASETS_SUCCESS,
   error,
 });
+
+export const setConnectionChecked = () => ({ type: SET_CONNECTION_CHECKED });
+export const updateNetworkStatus = isConnected =>
+  ({ type: UPDATE_NETWORK_STATUS, payload: { isConnected } });
+export const updateSyncStatus = inSync =>
+  ({ type: UPDATE_SYNC_STATUS, payload: { inSync } });
+export const updateLackConnMessStatus = noLackConnectionAlert =>
+  ({ type: UPDATE_LACK_CONNECTION_MESSAGE_STATUS, payload: { noLackConnectionAlert } });

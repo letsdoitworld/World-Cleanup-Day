@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { compose } from 'recompose';
 
 import {
   fetchTeams,
@@ -15,6 +16,7 @@ import {
 } from '../../store/selectors';
 
 import Component from './Teams';
+import { withNetworkGuard } from '../../services/Network';
 
 const selector = createStructuredSelector({
   teams: getTeams,
@@ -26,4 +28,8 @@ const actions = {
   onFetchTeams: fetchTeams,
 };
 
-export default connect(selector, actions)(Component);
+
+export default compose(
+  connect(selector, actions),
+  withNetworkGuard(),
+)(Component);

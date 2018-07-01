@@ -489,10 +489,10 @@ class TrashPoints extends Component {
 
   handleFabPress = async () => {
     const { isAuthenticated, userCoord } = this.props;
-    if (!await checkConnection()) {
-      this.showWarningDialog(CLIENT_ERRORS.networkError, []);
-      return;
-    }
+    // if (!await checkConnection()) {
+    //   this.showWarningDialog(CLIENT_ERRORS.networkError, []);
+    //   return;
+    // }
     if (isAuthenticated) {
       if (userCoord && userCoord.latitude) {
         try {

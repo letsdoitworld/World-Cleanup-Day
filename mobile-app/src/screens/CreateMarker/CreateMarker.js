@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import ImagePicker from 'react-native-image-crop-picker';
 import { ActivityIndicator,
+  Alert,
   BackHandler,
   ScrollView,
   Text,
@@ -18,14 +19,15 @@ import { Tags } from '../../components/Tags';
 import { AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { AlertModal } from '../../components/AlertModal';
 import { CustomSlider } from '../../components/CustomSlider';
-import { MARKER_STATUSES, TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
+import { CLIENT_ERRORS, MARKER_STATUSES, TRASH_COMPOSITION_TYPE_LIST } from '../../shared/constants';
 import { Badges } from '../../assets/images';
 
 import styles from './styles';
 import { geocodeCoordinates, getCurrentPosition } from '../../shared/geo';
 
 import { ADD_LOCATION, CREATE_MARKER } from '../index';
-import { getWidthPercentage } from '../../shared/helpers';
+import { checkConnection, getWidthPercentage } from '../../shared/helpers';
+import { createTrashPointOfflineAction } from '../../store/actions/trashPoints';
 
 const HANDFUL_IMAGE_DATA = {
   default: require('../../components/AmountPicker/images/icon_handful_blue_outline.png'),
@@ -362,18 +364,30 @@ class CreateMarker extends React.Component {
       address,
     } = this.state;
     const team = this.props.teamId;
-
     if (!this.validate()) {
       return;
     }
-
     this.setState((previousState) => {
       return {
         ...previousState,
         disableCreateTrashpointButton: true,
         isCreateButtonPressed: true,
       };
-    }, () => {
+    }, async () => {
+      if (!await checkConnection()) {
+        this.props.createTrashPointOfflineAction(
+          [...hashtags.map(t => t.label)],
+          [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],
+          this.state.editableLocation,
+          status,
+          address,
+          AMOUNT_STATUSES[amount],
+          address,
+          photos,
+          team
+        );
+        return;
+      }
       this.props.createTrashPointAction(
         [...hashtags.map(t => t.label)],
         [...trashCompositionTypes.filter(t => t.selected).map(t => t.type)],

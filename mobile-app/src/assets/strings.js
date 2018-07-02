@@ -162,7 +162,7 @@ module.exports = new LocalizedStrings({
     label_location_permission_warning_android: 'You must change location permissions. To do this, go to Settings > Apps.',
     label_location_off_warning: 'Location Services are turned off. Please enable your GPS in your Settings to use the application.',
     label_location_modal_title: 'Enable location',
-    label_network_off_warning_title: 'No network connection',
+    label_network_off_warning_title: 'Welcome to offline mode',
     label_network_off_warning: 'Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.',
     label_loading_image_text: 'Almost there...',
     label_loading_image_subtext: 'Please wait while we save your actions.',

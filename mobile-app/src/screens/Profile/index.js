@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+
 import { guestLogIn } from '../../store/actions/auth';
 
 import {
@@ -31,6 +32,8 @@ import {
 } from '../../store/selectors';
 
 import Component from './Profile';
+import { withNetworkGuard } from '../../services/Network';
+import { compose } from 'recompose';
 
 const selector = createStructuredSelector({
   profile: getProfileEntity,
@@ -59,4 +62,7 @@ const actions = {
   onSetError: setErrorMessage,
 };
 
-export default connect(selector, actions)(Component);
+export default compose(
+  connect(selector, actions),
+  withNetworkGuard(),
+)(Component);

@@ -8,6 +8,7 @@ import * as appActions from '../store/actions/app';
 import { AlertModal } from '../components/AlertModal';
 import { Badges } from '../assets/images';
 import OfflineService from './Offline';
+import strings from '../assets/strings';
 
 const CONNECTION_CHECK_INTERVAL = 10; // seconds
 
@@ -51,27 +52,22 @@ export const withNetworkGuard = () => (WrappedComponent) => {
       this.handleCloseAlertModal =
         this.handleCloseAlertModal.bind(this);
 
-      this.closeAlertModalButton = {
-        text: "BUTTON TEXT",
-        onPress: this.handleCloseAlertModal,
-      };
+      // this.closeAlertModalButton = {
+      //   text: "BUTTON TEXT",
+      //   onPress: this.handleCloseAlertModal,
+      // };
     }
     componentWillMount() {
       this.checkConnection();
-      console.log('Will mounted');
 
       this.connectionCheckInterval = setInterval(async () => {
         const isConnected = await NetInfo.isConnected.fetch();
-        console.log('isConnected', isConnected);
-        console.log('isConnected props', this.props.isConnected);
 
         if (isConnected !== this.props.isConnected) {
-          console.log('connection status changed');
           this.handleConnectionStatusChanged(isConnected);
         }
 
         if (isConnected && !this.props.inSync) {
-          // Alert.alert('insyc', 'sadad');
           await OfflineService.syncToServer();
           this.handleSyncStatusChanged(true);
         }
@@ -136,10 +132,11 @@ export const withNetworkGuard = () => (WrappedComponent) => {
         <View style={{ flex: 1 }}>
           <AlertModal
             visible={showUserWarning}
-            title="Welcome to offline mode"
-            subtitle="Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application."
+            title={strings.label_network_off_warning_title}
+            subtitle={strings.label_network_off_warning}
             image={Badges.NoConnection}
-            buttons={[this.closeAlertModalButton]}
+            onPress={this.handleCloseAlertModal}
+            onOverlayPress={this.handleCloseAlertModal}
           />
           <WrappedComponent {...this.props} />
         </View>

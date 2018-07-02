@@ -19,7 +19,9 @@ class OfflineService {
 
   executeSql = async (sql, params = []) => {
     return new Promise((resolve, reject) => offlineDB.transaction(tx => {
-      tx.executeSql(sql, params, (_, { rows }) => resolve(rows._array), reject)
+      tx.executeSql(sql, params, (_, results) => {
+        resolve(results.rows.raw())
+      }, reject)
     }))
   }
 
@@ -48,24 +50,24 @@ class OfflineService {
 
   async syncToServer() {
     const transaction = await offlineDB.transaction(tx => {
-      tx.executeSql('SELECT id FROM trashpoints WHERE status = 0', [], async (_, { rows: { _array } }) => {
+      tx.executeSql('SELECT id FROM trashpoints WHERE status = 0', [], async (_, results) => {
         const idsToPush = [];
-        for (let i = 0; i < _array.length; i++) {
-          idsToPush.push(_array[i].id);
+        for (let i = 0; i < results.rows.length; i++) {
+          idsToPush.push(results.rows.item(i).id);
         }
         if (idsToPush.length > 0) {
           const whereIds = idsToPush.join(',');
           tx.executeSql('UPDATE trashpoints SET status = 1 WHERE id IN (' + whereIds + ')', []);
           tx.executeSql(
             'SELECT id, url, marker, photos, status FROM trashpoints WHERE id IN (' + whereIds + ')',
-            [], async (_, { rows: { _array } }) => {
-              for (let i = 0; i < _array.length; i++) {
+            [], async (_, results) => {
+              for (let i = 0; i < results.rows.length; i++) {
                 let dataOk = true;
                 let trashpoint = {};
                 try {
-                  trashpoint = {id: _array[i].id, url: _array[i].url};
-                  trashpoint.marker = JSON.parse(_array[i].marker);
-                  trashpoint.photos = JSON.parse(_array[i].photos);
+                  trashpoint = {id: results.rows.item(i).id, url: results.rows.item(i).url};
+                  trashpoint.marker = JSON.parse(results.rows.item(i).marker);
+                  trashpoint.photos = JSON.parse(results.rows.item(i).photos);
                 } catch (e) {
                   dataOk = false;
                 }

@@ -27,6 +27,8 @@ import {
 import { guestLogIn } from '../../store/actions/auth';
 
 import Component from './Events';
+import { withNetworkGuard } from '../../services/Network';
+import { compose } from 'recompose';
 
 const selector = createStructuredSelector({
   events: getEventsEntity,
@@ -52,4 +54,7 @@ const actions = {
   onGuestLogIn: guestLogIn,
 };
 
-export default connect(selector, actions)(Component);
+export default compose(
+  connect(selector, actions),
+  withNetworkGuard(),
+)(Component);

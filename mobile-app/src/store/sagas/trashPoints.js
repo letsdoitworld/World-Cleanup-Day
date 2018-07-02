@@ -1,4 +1,4 @@
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, select } from 'redux-saga/effects';
 import isEmpty from 'lodash/isEmpty';
 import {
   CREATE_TRASH_POINT_ACTION, CREATE_TRASH_POINT_OFFLINE,
@@ -8,6 +8,7 @@ import {
 } from '../types/trashPoints';
 import { controlProgress, updateSyncStatus } from '../actions/app';
 import { setErrorMessage } from '../actions/error';
+import { datasetUUID } from '../selectors';
 // import { isConnected } from '../selectors';
 import {
   createTrashPointErrorAction,
@@ -15,7 +16,8 @@ import {
   loadTrashPointsForMapSuccess,
   searchTrashPointsSuccessAction,
   showNewTrashPointsDeltaAction,
-  isTrashPointEmpty, createTrashPointOfflineAction,
+  isTrashPointEmpty,
+  createTrashPointOfflineAction,
 } from '../actions/trashPoints';
 import Api from '../../api';
 import OfflineService from '../../services/Offline';
@@ -104,7 +106,9 @@ function* createTrashpointOffline(
   team,
 ) {
   try {
+    const datasetId = yield select(datasetUUID);
     const newMarker = {
+      datasetId,
       hashtags,
       composition,
       location,

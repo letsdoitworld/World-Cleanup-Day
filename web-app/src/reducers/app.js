@@ -18,6 +18,7 @@ export const TYPES = {
   HIDE_LOCKED_MODAL: 'HIDE_LOCKED_MODAL',
   SET_ACTIVE_TAB: 'SET_ACTIVE_TAB',
   SET_CURRENT_LOCATION: 'SET_CURRENT_LOCATION',
+  SET_CHOSEN_MARKER_COORD: 'SET_CHOSEN_MARKER_COORD',
   ROUTER: 'ROUTER',
   SET_VIEWPORT: 'SET_VIEWPORT',
   CHANGE_GEOLOCATION_STATUS: 'CHANGE_GEOLOCATION_STATUS',
@@ -33,6 +34,7 @@ const appReducer = (
     showLockedModal: false,
     currentTabActive: 'trashpoints',
     currentLocation: {},
+    chosenMarkerCoordinates: {},
     geoLocationAllowed: false,
     router: {
       action: '',
@@ -85,6 +87,11 @@ const appReducer = (
       return { ...state, currentLocation: action.currentLocation };
     case TYPES.CHANGE_GEOLOCATION_STATUS:
       return { ...state, geoLocationAllowed: true };
+    case TYPES.SET_CHOSEN_MARKER_COORD:
+      return {
+        ...state,
+        chosenMarkerCoordinates: action.chosenMarkerCoordinates,
+      };
     case TYPES.ROUTER:
       return {
         ...state,
@@ -183,6 +190,12 @@ const setCurrentLocation = currentLocation => dispatch =>
     currentLocation,
   });
 
+const setChosenMarkerCoordinates = chosenMarkerCoordinates => dispatch =>
+  dispatch({
+    type: TYPES.SET_CHOSEN_MARKER_COORD,
+    chosenMarkerCoordinates,
+  });
+
 const changeGeolocationStatus = () => dispatch =>
 dispatch({
   type: TYPES.CHANGE_GEOLOCATION_STATUS,
@@ -218,6 +231,7 @@ export const actions = {
   setViewport,
   changeGeolocationStatus,
   updateRouterInfo,
+  setChosenMarkerCoordinates,
 };
 
 const getAppState = state => state.app;
@@ -231,6 +245,8 @@ const getShowLoginPopover = state => getAppState(state).showLoginPopover;
 const getShowLockedModal = state => getAppState(state).showLockedModal;
 const getCurrentActiveTab = state => getAppState(state).currentTabActive;
 const getCurrentLocation = state => getAppState(state).currentLocation;
+const getChosenMarkerCoordinates =
+state => getAppState(state).chosenMarkerCoordinates;
 const getRouterInfo = state => getAppState(state).router;
 const getViewport = state => getAppState(state).rectangle;
 const getGeolocationStatus = state => getAppState(state).geoLocationAllowed;
@@ -245,6 +261,7 @@ export const selectors = {
   getShowLockedModal,
   getCurrentActiveTab,
   getCurrentLocation,
+  getChosenMarkerCoordinates,
   getRouterInfo,
   getGeolocationStatus,
   getViewport,

@@ -47,6 +47,10 @@ class MarkersMap extends React.Component {
     eventMarkers: PropTypes.arrayOf(
       PropTypes.shape,
     ).isRequired,
+    chosenMarkerCoordinates: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+    }).isRequired,
     tabActive: PropTypes.string.isRequired,
     currentEventLocation: PropTypes.any,
     focusedLocation: PropTypes.any,
@@ -71,15 +75,15 @@ class MarkersMap extends React.Component {
     }
     if (
       (this.map &&
-      this.props.currentEventLocation &&
-      nextProps.currentEventLocation.latitude !== this.props.currentEventLocation.latitude) ||
+      this.props.chosenMarkerCoordinates &&
+      nextProps.chosenMarkerCoordinates.latitude !== this.props.chosenMarkerCoordinates.latitude) ||
       (this.map &&
-      nextProps.currentEventLocation &&
-      !this.props.currentEventLocation)
+      nextProps.chosenMarkerCoordinates &&
+      !this.props.chosenMarkerCoordinates)
     ) {
       this.map.panTo({
-        lat: nextProps.currentEventLocation.latitude,
-        lng: nextProps.currentEventLocation.longitude,
+        lat: nextProps.chosenMarkerCoordinates.latitude,
+        lng: nextProps.chosenMarkerCoordinates.longitude,
       });
       if (this.map.getZoom() <= FOCUS_EVENT_ZOOM_LEVEL) {
         this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
@@ -127,22 +131,29 @@ class MarkersMap extends React.Component {
       flag updatedOnMount helps us avoid undesirable effects
       in future usage
     */
-    if (this.map && this.props.currentEventLocation && !this.state.updatedOnMount) {
+    if (
+      this.map &&
+      this.props.chosenMarkerCoordinates.latitude &&
+      !this.state.updatedOnMount
+    ) {
+      this.setState({ updatedOnMount: true });
       this.map.panTo({
-        lat: this.props.currentEventLocation.latitude,
-        lng: this.props.currentEventLocation.longitude,
+        lat: this.props.chosenMarkerCoordinates.latitude,
+        lng: this.props.chosenMarkerCoordinates.longitude,
       });
       this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
       this.loadMarkers(this.props.tabActive);
-      this.setState({ updatedOnMount: true });
+      console.log('LOAD - WILL UPD', this.state.updatedOnMount);
     }
   }
 
   handleSetMapComponent = map => {
     this.map = map;
     const { isLocationAllowed } = this.props;
-    if (map && isLocationAllowed) {
+    if (map && isLocationAllowed && !this.state.updatedOnMount) {
+      this.setState({ updatedOnMount: true });
       this.loadMarkers(this.props.tabActive);
+      console.log('SET MAP');
     } else {
       this.setState({ searchVisible: true });
     }
@@ -154,7 +165,7 @@ class MarkersMap extends React.Component {
     }
   };
 
-  loadMarkers = (markersType) => {
+  loadMarkers = markersType => {
     if (!this.state.updateRegion) {
       return this.setState({ updateRegion: true });
     }
@@ -247,7 +258,7 @@ class MarkersMap extends React.Component {
       isExpandAreaModalVisible,
       hideExpandAreaModal,
     } = this.props;
-    const visiblePoints =
+    const chosenTabPoints =
       tabActive === 'trashpoints' ? trashpointMarkers : eventMarkers;
     return (
       <div className="h-100">
@@ -271,7 +282,7 @@ class MarkersMap extends React.Component {
         />
         <MapView
           isUserLoggedIn={isUserLoggedIn}
-          points={visiblePoints}
+          points={chosenTabPoints}
           setMapComponent={this.handleSetMapComponent}
           boundsChanged={this.handleBoundsChanged}
           onPointClick={this.handleMarkerClick}
@@ -284,12 +295,12 @@ class MarkersMap extends React.Component {
 const mapStateToProps = state => ({
   trashpointMarkers: trashpileSelectors.getAllMarkers(state),
   eventMarkers: eventSelectors.getAllEventMarkers(state),
-  currentEventMarker: eventSelectors.getCurrentMarkerID(state),
   currentEventLocation: eventSelectors.getCurrentMarkerLocation(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
   isExpandAreaModalVisible: appSelectors.getShowExpandAreaModal(state),
   searchResultViewport: eventSelectors.getSelectedSearchResultViewport(state),
+  chosenMarkerCoordinates: appSelectors.getChosenMarkerCoordinates(state),
   isLocationAllowed: appSelectors.getGeolocationStatus(state),
 });
 

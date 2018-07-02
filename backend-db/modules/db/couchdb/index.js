@@ -766,133 +766,6 @@ const layer = {
         return await adapter.removeDocument('Trashpoint', '_design/all/_view/view', id);
     },
 
-    //========================================================
-    // IMAGES
-    //========================================================
-    getImage: async id => {
-        return await adapter.getOneEntityById('Image', '_design/all/_view/view', id);
-    },
-    allocateImage: async (type, trashpointId, eventId, who, parentId = undefined) => {
-        const id = util.uuid.random();
-        const imgData = trashpointId ?
-            {
-                type,
-                status: types.Image.STATUS_PENDING,
-                trashpointId,
-                parentId,
-            }
-            :
-            {
-                type,
-                status: types.Image.STATUS_PENDING,
-                eventId,
-                parentId,
-            };
-        const imgDate = {
-            updatedAt: util.time.getNowUTC(),
-            updatedBy: who,
-            createdAt: util.time.getNowUTC(),
-            createdBy: who,
-        };
-        await adapter.createDocument('Image', id, imgData, imgDate);
-
-        return await layer.getImage(id);
-    },
-    modifyImage: async (id, who, update, rawImageDoc = null) => {
-        return await adapter.modifyDocument(
-            'Image',
-            rawImageDoc || await adapter.getOneRawDocById('Image', '_design/all/_view/view', id),
-            update,
-            {
-                updatedAt: util.time.getNowUTC(),
-                updatedBy: who,
-            }
-        );
-    },
-    removeImage: async id => {
-        return await adapter.removeDocument('Image', '_design/all/_view/view', id);
-    },
-    getTrashpointImages: async (trashpointId, status = null) => {
-        const ret = await adapter.getEntities(
-            'Image',
-            '_design/byTrashpointAndStatusAndCreation/_view/view',
-            {
-                descending: true, //XXX: when desc=true, startkey and endkey are reversed
-                startkey: status ? [trashpointId, status, {}] : [trashpointId, {}],
-                endkey: status ? [trashpointId, status] : [trashpointId],
-                sorted: true,
-            }
-        );
-        return ret;
-    },
-    getTrashpointImagesByType: async (trashpointId, type, status = null) => {
-        const ret = await adapter.getEntities(
-            'Image',
-            '_design/byTrashpointAndTypeAndStatusAndCreation/_view/view',
-            {
-                descending: true, //XXX: when desc=true, startkey and endkey are reversed
-                startkey: status ? [trashpointId, type, status, {}] : [trashpointId, type, {}],
-                endkey: status ? [trashpointId, type, status] : [trashpointId, type],
-                sorted: true,
-            }
-        );
-        return ret;
-    },
-    getEventImagesByType: async (eventId, type, status = null) => {
-        const ret = await adapter.getEntities(
-            'Image',
-            '_design/byEventAndTypeAndStatusAndCreation/_view/view',
-            {
-                descending: true, //XXX: when desc=true, startkey and endkey are reversed
-                startkey: status ? [eventId, type, status, {}] : [eventId, type, {}],
-                endkey: status ? [eventId, type, status] : [eventId, type],
-                sorted: true,
-            }
-        );
-        return ret;
-    },
-    getEventImages: async (eventId, status = null) => {
-        const ret = await adapter.getEntities(
-            'Image',
-            '_design/byEventAndStatusAndCreation/_view/view',
-            {
-                descending: true, //XXX: when desc=true, startkey and endkey are reversed
-                startkey: status ? [eventId, status, {}] : [eventId, {}],
-                endkey: status ? [eventId, status] : [eventId],
-                sorted: true,
-            }
-        );
-        return ret;
-    },
-    getChildImages: async (parentId, trashpointId, eventId) => {
-        let ret = null;
-        if (trashpointId) {
-            ret = await adapter.getEntities(
-                'Image',
-                '_design/byTrashpointAndParent/_view/view',
-                {
-                    keys: [
-                        [trashpointId, parentId],
-                    ],
-                    sorted: false,
-                }
-            );
-        }
-        if (eventId) {
-            ret = await adapter.getEntities(
-                'Image',
-                '_design/byEventAndParent/_view/view',
-                {
-                    keys: [
-                        [eventId, parentId],
-                    ],
-                    sorted: false,
-                }
-            );
-        }
-
-        return ret;
-    },
 
     //========================================================
     // IMAGES
@@ -1208,7 +1081,7 @@ const layer = {
         const neededParams = ['name', 'teamDescription', 'CC'];
         _.each(metadata, async (team, key) => {
             const existedTeam = existingTeams[team.id];
-            if (!existedTeam && (!team.CC || CCs.includes(team.CC))) {
+            if (!existedTeam && (!team.CC || (team.CC && CCs.includes(team.CC)))) {
                 // team.image = gravatar.url(team.name, {s: '100', r: 'x', d: 'identicon'}, true);
                 if (!team.image) {
                     team.image = teamImages[key % teamImages.length];

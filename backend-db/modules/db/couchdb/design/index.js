@@ -136,6 +136,19 @@ const designDocs = {
                 },
             },
         },
+        countByTeam: {
+            $version: 1,
+            views: {
+                view: {
+                    map: function (doc) {
+                        if (doc.$doctype === 'account' && doc.team) {
+                            emit(doc.team, null);
+                        }
+                    },
+                    reduce: '_count',
+                },
+            },
+        },
     },
     sessions: {
         all: {

@@ -118,22 +118,6 @@ const connectVerifyDataset = async function (connector, input) {
         });
 };
 
-const sortEventsByDate = async (events) => {
-    events.sort((a, b) => {
-        let keyA = new Date(a.startTime),
-            keyB = new Date(b.startTime);
-        // Compare the 2 dates
-        if(keyA < keyB) return -1;
-        if(keyA > keyB) return 1;
-        return 0;
-    });
-
-    let upcomingEvent = events.filter(e => new Date(e.startTime) > new Date());
-    let oldEvent = events.filter(e => new Date(e.startTime) < new Date()).reverse();
-
-    return upcomingEvent.concat(oldEvent);
-};
-
 module.exports = function () {
     const lucius = new Lucius(this);
 
@@ -313,8 +297,7 @@ module.exports = function () {
                 }
                 const rows = await db.getEventsByNameOrderByDistance(pageSize, pageNumber, name, address, location, area, rectangle);
                 const total = await db.countEvents();
-                const events = await sortEventsByDate(rows);
-                const records = await Promise.all(events.map(async (e) => await mapEvent(e)));
+                const records = await Promise.all(rows.map(async (e) => await mapEvent(e)));
                 return responder.success({total: total, pageSize, pageNumber, records});
             })
     });
@@ -324,8 +307,7 @@ module.exports = function () {
             .connect(connectVerifyDataset)
             .use(async function (dataset, responder) {
                 const clusters = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getEventsOverviewClusters);
-                const sortEvents = await sortEventsByDate(clusters);
-                const records = await Promise.all(sortEvents.map(async (e) => await mapEvent(e)));
+                const records = await Promise.all(clusters.map(async (e) => await mapEvent(e)));
                 const filtered = records.map(value => util.object.filter(
                     value,
                     {   id: true,
@@ -349,8 +331,7 @@ module.exports = function () {
             .connect(connectVerifyDataset)
             .use(async function (dataset, responder) {
                 const events = await fetchRectangleMarkers(dataset.id, args.cellSize, args.rectangle, db.getOverviewEvents);
-                const sortEvents = await sortEventsByDate(events);
-                const records = await Promise.all(sortEvents.map(mapEvent));
+                const records = await Promise.all(events.map(mapEvent));
                 return responder.success(records);
             })
     });
@@ -360,8 +341,7 @@ module.exports = function () {
             .connect(connectVerifyDataset)
             .use(async function (dataset, responder) {
                 const events = await db.getGridCellEvents(dataset.id, args.cellSize, args.coordinates);
-                const sortEvents = await sortEventsByDate(events);
-                const records = await Promise.all(sortEvents.map(mapEvent));
+                const records = await Promise.all(events.map(mapEvent));
                 return responder.success(records);
             })
     });
@@ -371,8 +351,7 @@ module.exports = function () {
             .input(args)
             .use(async function ({pageSize, pageNumber}, responder) {
                 const events = await db.getUserOwnEvents(__.user.id, pageSize, pageNumber);
-                const sortEvents = await sortEventsByDate(events);
-                const records = await Promise.all(sortEvents.map(async (e) => await mapEvent(e)));
+                const records = await Promise.all(events.map(async (e) => await mapEvent(e)));
                 return responder.success({total: events.length, pageSize, pageNumber, records});
             })
     });

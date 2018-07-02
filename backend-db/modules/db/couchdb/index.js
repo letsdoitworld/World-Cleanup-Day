@@ -95,6 +95,7 @@ const layer = {
                 selector: {
                     $and: operands
                 },
+                sort: [{startTime: "desc"}],
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1)
             }
@@ -163,26 +164,31 @@ const layer = {
     },
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
         let paramsQuery = {
+            selector: {
+                $or: [
+                    {createdBy: userId},
+                    {attendees: {
+                            $all: [userId]
+                        }
+                    }
+                ]
+            },
+            sort: [{startTime: "desc"}],
             limit: pageSize,
             skip: pageSize * (pageNumber - 1),
         };
+        //get all events created by user
         if (pageSize === 0 || pageNumber === 0) {
-             paramsQuery = {};
+            paramsQuery = {
+                selector: {
+                    createdBy: userId
+                }
+            };
         }
 
         return await adapter.getMangoEntities(
             'Event',
-            {
-                selector: {
-                    $or: [
-                        {createdBy: userId},
-                        {attendees: {
-                                $all: [userId]
-                            }
-                        }
-                    ]
-                },
-            }
+            paramsQuery
         );
 
     },
@@ -501,9 +507,10 @@ const layer = {
         return adapter.getMangoEntities(
             'Trashpoint',
             {
-                "selector": {
+                selector: {
                     "$and": operands
                 },
+                sort: [{createdAt: "desc"}],
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1)
             }
@@ -548,9 +555,7 @@ const layer = {
                         {updatedBy: userId}
                     ]
                 },
-            },
-            {
-                sorted: true,
+                sort: [{createdAt: "desc"}],
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),
             }
@@ -622,15 +627,19 @@ const layer = {
             ;
     },
     countUserTrashpoints: async userId => {
-        const ret = await adapter.getRawDocs(
+        const ret = await adapter.getMangoEntities(
             'Trashpoint',
-            '_design/countByCreatingUser/_view/view', {
-                key: userId,
+            { selector: {
+                    $or: [
+                        {createdBy: userId},
+                        {updatedBy: userId}
+                    ]
+                }
             });
         if (!ret.length) {
             return 0;
         }
-        return parseInt(ret.pop());
+        return ret.length;
     },
     countTrashpoints: async () => {
         const ret = await adapter.getRawDocs(

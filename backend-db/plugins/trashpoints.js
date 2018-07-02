@@ -133,11 +133,13 @@ module.exports = function () {
                     }
                   }
               }
+
               trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
               trashpoint.photos = trashpoint.photos.map(p => p.url);
               return trashpoint;
             }));
-            return responder.success({total: trashpoints.length, pageSize, pageNumber, records});
+            const total = await db.countTrashpoints();
+            return responder.success({total: total, pageSize, pageNumber, records});
         })
     });
 

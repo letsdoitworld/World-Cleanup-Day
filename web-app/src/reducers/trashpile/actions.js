@@ -495,7 +495,6 @@ export const createMarker = (
     }
 
     let uploadStatus;
-
     if (isEdit && newPhotos.length > 0) {
       uploadStatus = await handleUpload({
         photos: newPhotos,

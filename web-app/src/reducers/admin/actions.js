@@ -3,24 +3,45 @@ import { API_ENDPOINTS } from '../../shared/constants';
 import TYPES from './types';
 import { actions as errorActions } from '../error';
 
-const fetchUsers = ({ page, pageSize, reset, area, nameSearch, isLoadingMore }) => async dispatch => {
+const fetchUsers = ({
+  page,
+  pageSize,
+  reset,
+  area,
+  nameSearch,
+  isLoadingMore,
+}) => async dispatch => {
   dispatch({ type: TYPES.FETCH_USERS_REQUEST });
   try {
-    const url = API_ENDPOINTS.FETCH_USERS({ page, pageSize, area, nameSearch });
-    const response = await ApiService.get(url);
+    const requestParams = userRole => ({
+      page,
+      pageSize,
+      area,
+      nameSearch,
+      userRole,
+    });
+
+    const adminUrl = API_ENDPOINTS.FETCH_USERS(requestParams('admin'));
+    const volunteerUrl = API_ENDPOINTS.FETCH_USERS(requestParams('volunteer'));
+
+    const [adminResponse, volunteerRes] = await Promise.all([
+      ApiService.get(adminUrl),
+      ApiService.get(volunteerUrl),
+    ]);
+
     if (
-      !response ||
-      !response.data ||
-      !response.status ||
-      response.status !== 200
+      !adminResponse ||
+      !volunteerRes
     ) {
       dispatch({
         type: TYPES.FETCH_USERS_FAILED,
       });
+      dispatch(errorActions.setErrorMessage('Failed to load users list'));
       return false;
     }
-    const data = response.data;
-    const users = Array.isArray(data.records) ? data.records : [];
+
+    const data = volunteerRes.data;
+    const users = [...adminResponse.data.records, ...volunteerRes.data.records];
     const total = data.total;
     const canLoadMore = data.pageSize * data.pageNumber < total;
 

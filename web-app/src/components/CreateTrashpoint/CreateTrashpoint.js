@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { If } from 'react-if';
+import cn from 'classnames';
 import { TrashAmount, TrashPhotos } from '../TrashpointDetails';
-
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';
-import { actions as trashpileOperations, selectors } from '../../reducers/trashpile';
-import { AlertModal } from '../../components/AlertModal';
+import {
+  actions as trashpileOperations,
+  selectors,
+} from '../../reducers/trashpile';
+import { actions as errorActions } from '../../reducers/error';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from '../EditTrashpoint/components/Tags';
 import StatusPicker from '../EditTrashpoint/StatusPicker';
@@ -16,6 +20,11 @@ import imageLocation from '../../assets/icon_location@2x.png';
 import './CreateTrashpoint.css';
 
 class CreateTrashpoint extends Component {
+  static propTypes = {
+    trashTypes: PropTypes.arrayOf(PropTypes.shape).isRequired,
+    trashOrigin: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  }
+  // TODO implement validation
   constructor(props) {
     super(props);
     const {
@@ -41,35 +50,68 @@ class CreateTrashpoint extends Component {
       })),
       hashtags: [],
       photos: [],
-      validationMessage: undefined,
+      validation: {
+        noLocation: false,
+        noTrashType: false,
+        noPhoto: false,
+      },
     };
   }
-  // TODO implement validation
-  validate = () => {
-    const { typesComposition, location, photos } = this.state;
+
+  checkType = () => {
+    const { typesComposition } = this.state;
     if (typesComposition.filter(c => c.selected).length === 0) {
-      this.setState({
-        validationMessage: 'You must select at least 1 trash type',
-      });
-      return false;
+      return true;
     }
-    if (!location) {
-      this.setState({
-        validationMessage: 'You must select a location.',
-      });
-      return false;
-    }
-    if (photos.length === 0) {
-      this.setState({
-        validationMessage: 'You must upload at least 1 photo.',
-      });
-      return false;
-    }
-    return true;
+    return false;
   };
+
+  checkLocation = () => {
+    const { location } = this.state;
+    if (!location) {
+      return true;
+    }
+    return false;
+  };
+
+  checkPhotos = () => {
+    const { photos } = this.state;
+    if (photos.length === 0) {
+      return true;
+    }
+    return false;
+  };
+
+  validate = async () => {
+    const res = await Promise.all([
+      this.checkLocation(),
+      this.checkType(),
+      this.checkPhotos(),
+    ]).then(
+      ([ifNoLocation, ifNoType, ifNoPhoto]) => {
+        this.setState({
+          validation: {
+            noLocation: ifNoLocation,
+            noTrashType: ifNoType,
+            noPhoto: ifNoPhoto,
+          },
+        });
+        return {
+          noLocation: ifNoLocation,
+          noTrashType: ifNoType,
+          noPhoto: ifNoPhoto,
+        };
+      },
+      () => {
+        return false;
+      });
+    return res;
+  };
+
   handleStatusChange = status => this.setState({ status: status.id });
-  handleTrashpointUpdate = () => {
-    const { createTrashpoint } = this.props;
+
+  handleTrashpointUpdate = async () => {
+    const { createTrashpoint, setErrorMessage } = this.props;
     const {
       location,
       name,
@@ -81,7 +123,12 @@ class CreateTrashpoint extends Component {
       status,
       amount,
     } = this.state;
-    if (!this.validate()) {
+
+    const validation = await this.validate();
+    if (
+      validation &&
+      (validation.noLocation || validation.noTrashType || validation.noPhoto)
+    ) {
       return;
     }
 
@@ -97,7 +144,10 @@ class CreateTrashpoint extends Component {
       name,
     }).then(
       res => {
-        if (res) {
+        if (res.type === 'SET_ERROR_MESSAGE') {
+        setErrorMessage('Location already exists! Choose another location in order to create trashpoint.');
+        }
+        if (res && !res.type) {
           this.props.history.push(`/trashpoints/${res.id}`);
         }
       },
@@ -127,6 +177,11 @@ class CreateTrashpoint extends Component {
     });
 
     this.setState({
+      validation: {
+        noLocation: this.state.validation.noLocation,
+        noTrashType: this.state.validation.noTrashType,
+        noPhoto: false,
+      },
       photos: [
         ...this.state.photos,
         {
@@ -142,6 +197,11 @@ class CreateTrashpoint extends Component {
 
   handleCompositionSelect = composition => {
     composition.selected = !composition.selected;
+    this.state.validation = {
+      noLocation: this.state.validation.noLocation,
+      noTrashType: false,
+      noPhoto: this.state.validation.noPhoto,
+    };
     this.setState({});
   };
 
@@ -183,6 +243,11 @@ class CreateTrashpoint extends Component {
       longitude: lng,
     });
     this.setState({
+      validation: {
+        noLocation: false,
+        noTrashType: this.state.validation.noTrashType,
+        noPhoto: this.state.validation.noPhoto,
+      },
       name: data.streetAddress || 'Unknown address',
       address: data.completeAddress || 'Unknown address',
       location: {
@@ -200,13 +265,18 @@ class CreateTrashpoint extends Component {
   handleEditLocationOpen = () => {
     this.setState({ editLocation: true });
   };
+
   handleCloseClick = () => {
     this.props.history.push('/trashpoints');
   };
 
   handleModalClicked = () => {
     this.setState({
-      validationMessage: false,
+      validation: {
+        noLocation: false,
+        noTrashType: false,
+        noPhoto: false,
+      },
     });
   };
 
@@ -236,8 +306,6 @@ class CreateTrashpoint extends Component {
 
   render() {
     const {
-      name,
-      address,
       location,
       amount,
       typesComposition,
@@ -245,17 +313,12 @@ class CreateTrashpoint extends Component {
       hashtags,
       status,
       photos,
-      validationMessage,
+      validation,
     } = this.state;
     const { latitude, longitude } = location || {};
 
     return (
       <div className="CreateTrashpoint">
-        <AlertModal
-          message={validationMessage}
-          isOpen={!!validationMessage}
-          onClick={this.handleModalClicked}
-        />
         <EditLocation
           onClose={this.handleEditLocationClosed}
           onLocationChange={this.handleLocationChanged}
@@ -275,7 +338,13 @@ class CreateTrashpoint extends Component {
           </button>
         </div>
         <div className="CreateTrashpoint-plot scrollbar-modified">
-          <div className="CreateTrashpoint-default-container">
+          <div className={
+              cn(
+                'CreateTrashpoint-default-container',
+                { 'error-block': validation.noLocation },
+              )
+            }
+          >
             <div className="CreateTrashpoint-address-container">
               <div>
                 {this.hasAddressLineSet() && <img src={imageLocation} alt="" />}
@@ -293,6 +362,11 @@ class CreateTrashpoint extends Component {
                 Edit location
               </span>
               <EditLocationInput onChange={this.handleLocationChanged} />
+              <If condition={validation.noLocation}>
+                <span className="CreateTrashpoint-err-txt">
+                  You have not chosen location!
+                </span>
+              </If>
             </div>
           </div>
           <div className="CreateTrashpoint-default-container">
@@ -304,7 +378,13 @@ class CreateTrashpoint extends Component {
           <div className="CreateTrashpoint-default-container">
             <TrashAmount onSelect={this.handleAmountChanged} amount={amount} />
           </div>
-          <div className="CreateTrashpoint-default-container">
+          <div className={
+              cn(
+                'CreateTrashpoint-default-container',
+                { 'error-block': validation.noTrashType },
+              )
+            }
+          >
             <Tags
               composition={typesComposition}
               tags={hashtags}
@@ -314,6 +394,11 @@ class CreateTrashpoint extends Component {
               onTagAdd={this.handleTagAdd}
               onTagDelete={this.handleTagDelete}
             />
+            <If condition={validation.noTrashType}>
+              <span className="CreateTrashpoint-err-txt">
+                You have not chosen any trash type!
+              </span>
+            </If>
           </div>
           <div className="CreateTrashpoint-default-container">
             <Tags
@@ -324,7 +409,13 @@ class CreateTrashpoint extends Component {
               onTagSelect={this.handleTagSelect}
             />
           </div>
-          <div className="CreateTrashpoint-default-container">
+          <div className={
+              cn(
+                'CreateTrashpoint-default-container',
+                { 'error-block': validation.noPhoto },
+              )
+            }
+          >
             <TrashPhotos
               onAddClick={photos.length < 3 ? this.handlePhotoAdd : undefined}
               photos={photos.map(p => {
@@ -338,6 +429,11 @@ class CreateTrashpoint extends Component {
               onDeleteClick={this.handlePhotoDelete}
               canEdit
             />
+            <If condition={validation.noPhoto}>
+              <span className="CreateTrashpoint-err-txt">
+                You have not added any photos!
+              </span>
+            </If>
           </div>
           <div className="CreateTrashpoint-default-container CreateTrashpoint-edit-button-container">
             <div
@@ -362,6 +458,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createTrashpoint(marker) {
     return dispatch(trashpileOperations.createMarker(marker, false));
+  },
+  setErrorMessage(msg) {
+    return dispatch(errorActions.setErrorMessage(msg));
   },
 });
 

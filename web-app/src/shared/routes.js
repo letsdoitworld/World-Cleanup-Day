@@ -15,6 +15,8 @@ const ROUTES = {
   TRASHPOINT_DETAILS: '/trashpoints/:id?',
   TRASHPOINTS: '/trashpoints',
   TRY_OUR_APP: '/try-our-app',
+  TEAMS_LIST: '/teams',
+  TEAM_DETAILS: '/teams/:id',
 };
 
 export default ROUTES;

@@ -11,6 +11,7 @@ import {
 } from '../../../../reducers/areas';
 import {
   CloseIcon,
+  SearchIcon,
 } from '../../../../components/common/Icons';
 
 class AreaList extends React.Component {
@@ -21,12 +22,19 @@ class AreaList extends React.Component {
       getAreas();
     }
   }
+
   handleListItemClick = area => {
     if (this.props.onClick) {
       this.props.onClick(area);
     }
   };
-  renderRightLabel = area => (area.leaderId ? '' : 'Assign');
+
+  handleCloseClick = () => {
+    if (this.props.onClose) {
+      this.props.onClose();
+    }
+  };
+
   renderInnerAreaList = () => {
     const { loading, areas, error, userId } = this.props;
     if (loading) {
@@ -49,33 +57,60 @@ class AreaList extends React.Component {
       </div>
     );
   };
-  handleCloseClick = () => {
-    if (this.props.onClose) {
-      this.props.onClose();
+
+  renderRightLabel = area => {
+    const { userId } = this.props;
+    if (Array.isArray(area.leaderId)) {
+      if (area.leaderId.indexOf(userId) !== -1) {
+        return '';
+      }
     }
+    if (typeof (area.leaderId) === 'string' && area.leaderId === userId) {
+      return '';
+    }
+    return 'Assign';
   };
+
   render() {
+    const { getAreas } = this.props;
     return (
       <div className="AreaAssignList-сontainer">
         <div
           className="AreaAssignList-header"
-          onClick={this.handleCloseClick}
         >
-          <span className="AreaAssignList-header-ttl">Assign area to user</span>
-          <div className="AreaAssignList-header-close">
+          <SearchIcon />
+          <input
+            className="UsersList-search-input"
+            type="text"
+            name="search"
+            placeholder="Search areas to assign"
+            onChange={
+              e => {
+                e.target.value.length > 2 ?
+                getAreas(e.target.value) :
+                getAreas();
+              }
+            }
+          />
+          <div
+            onClick={this.handleCloseClick}
+            className="AreaAssignList-header-close"
+          >
             <CloseIcon />
           </div>
         </div>
-        <div className="AreaAssignList-plot">
+        <div className="AreaAssignList-plot scrollbar-modified">
           {this.renderInnerAreaList()}
         </div>
       </div>
     );
   }
 }
+
 AreaList.defaultProps = {
   areas: undefined,
 };
+
 AreaList.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.any.isRequired,
@@ -97,6 +132,7 @@ const mapState = state => ({
   loading: areaSels.areAreasLoading(state),
   error: areaSels.hasAreasError(state),
 });
+
 const mapDispatch = {
   getAreas: areaActs.getAreas,
 };

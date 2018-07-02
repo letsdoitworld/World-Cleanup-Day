@@ -21,10 +21,16 @@ const getUserAreas = ({ userId }) => async (dispatch, getState) => {
   dispatch(actions.getUserAreasSuccess({ userId, areas }));
   return areas;
 };
-const getAreas = () => async dispatch => {
+
+const getAreas = (nameSearch) => async dispatch => {
   try {
     dispatch(actions.getAreas());
-    const response = await ApiService.get('/areas');
+    const response = await ApiService.get('/areas', {
+      params: {
+        nameSearch,
+      },
+    },
+    );
     if (!response) {
       dispatch(actions.getAreasError({ error: true }));
       dispatch(errActions.setErrorMessage('Failed to load areas'));

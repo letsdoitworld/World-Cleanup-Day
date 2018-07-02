@@ -20,6 +20,7 @@ export const TYPES = {
   SET_CURRENT_LOCATION: 'SET_CURRENT_LOCATION',
   ROUTER: 'ROUTER',
   SET_VIEWPORT: 'SET_VIEWPORT',
+  CHANGE_GEOLOCATION_STATUS: 'CHANGE_GEOLOCATION_STATUS',
 };
 
 const appReducer = (
@@ -32,6 +33,7 @@ const appReducer = (
     showLockedModal: false,
     currentTabActive: 'trashpoints',
     currentLocation: {},
+    geoLocationAllowed: false,
     router: {
       action: '',
       hash: '',
@@ -81,6 +83,8 @@ const appReducer = (
       return { ...state, currentTabActive: action.tabName };
     case TYPES.SET_CURRENT_LOCATION:
       return { ...state, currentLocation: action.currentLocation };
+    case TYPES.CHANGE_GEOLOCATION_STATUS:
+      return { ...state, geoLocationAllowed: true };
     case TYPES.ROUTER:
       return {
         ...state,
@@ -179,6 +183,11 @@ const setCurrentLocation = currentLocation => dispatch =>
     currentLocation,
   });
 
+const changeGeolocationStatus = () => dispatch =>
+dispatch({
+  type: TYPES.CHANGE_GEOLOCATION_STATUS,
+});
+
 const setViewport = rectangle => dispatch =>
   dispatch({
     type: TYPES.SET_VIEWPORT,
@@ -207,6 +216,7 @@ export const actions = {
   setActiveTab,
   setCurrentLocation,
   setViewport,
+  changeGeolocationStatus,
   updateRouterInfo,
 };
 
@@ -223,6 +233,7 @@ const getCurrentActiveTab = state => getAppState(state).currentTabActive;
 const getCurrentLocation = state => getAppState(state).currentLocation;
 const getRouterInfo = state => getAppState(state).router;
 const getViewport = state => getAppState(state).rectangle;
+const getGeolocationStatus = state => getAppState(state).geoLocationAllowed;
 
 export const selectors = {
   getTrashpointsDatasetUUID,
@@ -235,6 +246,7 @@ export const selectors = {
   getCurrentActiveTab,
   getCurrentLocation,
   getRouterInfo,
+  getGeolocationStatus,
   getViewport,
 };
 

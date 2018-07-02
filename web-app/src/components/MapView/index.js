@@ -20,7 +20,6 @@ class MapView extends Component {
     this.state = {
       mapLocation: undefined,
       zoom: DEFAULT_ZOOM_LEVEL,
-      mapLoaded: false,
     };
   }
 
@@ -30,12 +29,17 @@ class MapView extends Component {
         mapLocation: this.props.location,
         zoom: 16,
       });
+      this.props.changeGeolocationStatus();
       return;
     }
     LocationService.getLocation().then(
       location => {
         this.props.setCurrentLocation(location);
-        this.setState({ mapLocation: location, zoom: DEFAULT_ZOOM_LEVEL });
+        this.setState({
+          mapLocation: location,
+          zoom: DEFAULT_ZOOM_LEVEL,
+        });
+        this.props.changeGeolocationStatus();
       },
       () => {
         this.props.setCurrentLocation(EUROPE_CENTER_COORDINATES);
@@ -71,7 +75,7 @@ class MapView extends Component {
       zoom: propZoom,
       cursor,
     } = this.props;
-    const { mapLocation, zoom } = this.state;
+    const { mapLocation, zoom, locationAllowed } = this.state;
     const isMapReady = !!mapLocation;
     if (!isMapReady) {
       return <Loader />;
@@ -88,6 +92,7 @@ class MapView extends Component {
         location={mapLocation}
         zoom={propZoom || zoom}
         center={propCenter}
+        locationAllowed={locationAllowed}
         setMapComponent={this.handleMapLoad}
         isIdle={this.handleIdle}
         onBoundsChanged={boundsChanged}
@@ -113,6 +118,7 @@ MapView.propTypes = {
     lat: PropTypes.number,
     lng: PropTypes.number,
   }),
+  changeGeolocationStatus: PropTypes.func.isRequired,
 };
 
 MapView.defaultProps = {
@@ -127,6 +133,7 @@ MapView.defaultProps = {
 };
 
 const mapDispatchToProps = {
+  changeGeolocationStatus: appActions.changeGeolocationStatus,
   setCurrentLocation: appActions.setCurrentLocation,
 };
 

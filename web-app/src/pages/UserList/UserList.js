@@ -74,8 +74,7 @@ class UserList extends PureComponent {
       notSearched,
     } = this.state;
     const { loading } = this.props;
-    const validSearch = search && search.length >= 3;
-
+    const validSearch = search && search.length >= 3
 
     const fetchUsersParams = {
       page,
@@ -95,7 +94,6 @@ class UserList extends PureComponent {
           return;
         }
       }
-
       return this.props
                  .fetchUsers(fetchUsersParams)
                  .then(res => {

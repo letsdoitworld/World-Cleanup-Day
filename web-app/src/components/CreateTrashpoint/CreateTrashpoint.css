@@ -158,3 +158,15 @@
   text-decoration: underline;
   font-weight: bold;
 }
+
+.CreateTrashpoint-err-txt {
+  text-align: center;
+  font-size: 14px;
+  display: block;
+  margin-top: 25px;
+  color: rgba(255, 0, 0, 0.7);
+}
+
+.error-block {
+  background-color: rgba(255, 0, 0, 0.07);
+}

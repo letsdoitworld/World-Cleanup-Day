@@ -261,7 +261,7 @@
 	"label_contact_details": "Kontaktni podatki",
 	"label_phone_number": "Telefonska številka",
 	"label_email": "E-pošta",
-	"label_max_number_of_attendees": "Max number of attendees",
+	"label_max_number_of_attendees": "Največje število udeležencev",
 	"label_enter_digits_hint": "Vnesite števke",
 	"label_invalid_event_field": "Title is required and should be less than 70 characters.",
 	"label_invalid_coordinator_field": "Coordinator name should be less than 70 characters.",

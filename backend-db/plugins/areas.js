@@ -126,7 +126,7 @@ module.exports = function () {
             // if user not already leader, make them leader
             if (account.role !== Account.ROLE_LEADER) {
                 const ret = await db.modifyAccount(
-                    account.id, __.user.id, {role: Account.ROLE_LEADER}
+                    account.id, __.user.id, {role: Account.ROLE_LEADER, public: true}
                 );
                 if (!ret) {
                     return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id: account.id}))

@@ -4,6 +4,7 @@ import locations from './locations';
 import createEvent from './createEvent';
 import trashPoints from './trashPoints';
 import events from './events';
+import teams from './teams';
 import appApi from './appApi';
 
 export default {
@@ -14,4 +15,5 @@ export default {
   locations,
   events,
   appApi,
+  teams,
 };

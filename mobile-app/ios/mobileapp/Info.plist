@@ -36,10 +36,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.YOUR_WEB_GOOGLE_MAP_KEY</string>
+			<string>com.googleusercontent.apps.701152837929-grecrqed498k551gr70aqsfanspaum3v</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.YOUR_WEB_GOOGLE_MAP_KEY</string>
+				<string>com.googleusercontent.apps.701152837929-grecrqed498k551gr70aqsfanspaum3v</string>
 			</array>
 		</dict>
 		<dict>
@@ -56,16 +56,27 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>YOUR_IOS_GOOGLE_MAP_KEY.apps.googleusercontent.com</string>
+			<string>701152837929-grecrqed498k551gr70aqsfanspaum3v.apps.googleusercontent.com</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>YOUR_IOS_GOOGLE_MAP_KEY.apps.googleusercontent.com</string>
+				<string>701152837929-grecrqed498k551gr70aqsfanspaum3v.apps.googleusercontent.com</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>YOUR_FB</string>
+				<string>100003367944771</string>
+			</array>
+		</dict>
+		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.googleusercontent.apps.931132275173-fvb2788pvr62qsaugvmi7qa58tq01jmu</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.931132275173-fvb2788pvr62qsaugvmi7qa58tq01jmu</string>
 			</array>
 		</dict>
 	</array>
@@ -74,7 +85,7 @@
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
-		<string>YOUR_FABRIC_KEY</string>
+		<string>b526fc2dae30365e887d1776c5416b987a2f9781</string>
 		<key>Kits</key>
 		<array>
 			<dict>
@@ -86,7 +97,7 @@
 		</array>
 	</dict>
 	<key>FacebookAppID</key>
-	<string>YOUR_FacebookAppID</string>
+	<string>340116156418708</string>
 	<key>FacebookDisplayName</key>
 	<string>CleanUpWorld</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -150,6 +161,6 @@
 	<key>branch_app_domain</key>
 	<string>cleanupworld.app.link</string>
 	<key>branch_key</key>
-	<string>YOUR_BRANCH_KEY</string>
+	<string>key_live_cmt7rMY5u2bd0x2eShop1bgkEBbqU3z0</string>
 </dict>
 </plist>

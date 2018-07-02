@@ -13,6 +13,8 @@ import {
   loadMyTrashPointsSuccess,
   UPDATE_PROFILE_STATUS_ACTION,
   updateProfileStatusDone,
+  UPDATE_PROFILE_TEAM,
+  updateProfileTeamDone,
 } from '../actions/profile';
 
 import Api from '../../api';
@@ -103,5 +105,21 @@ export function* loadMyTrashPointsFlow() {
     const { payload } = yield take(LOAD_MY_TRASH_POINTS_ACTION);
     const { pageSize, pageNumber } = payload;
     yield call(loadMyTrashPoints, pageSize, pageNumber);
+  }
+}
+
+export function* updateProfileTeam(teamId) {
+  try {
+    const response = yield call(Api.profile.updateProfileTeam, teamId);
+    yield put(updateProfileTeamDone(response));
+  } catch (error) {
+    yield put(setErrorMessage(error.message));
+  }
+}
+
+export function* updateProfileTeamFlow() {
+  while (true) {
+    const { payload } = yield take(UPDATE_PROFILE_TEAM);
+    yield call(updateProfileTeam, payload);
   }
 }

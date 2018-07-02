@@ -109,4 +109,22 @@ export const LOAD_MY_EVENTS_ERROR = 'profile/LOAD_MY_EVENTS_ERROR';
 export const loadMyEventsError = error => ({
   type: LOAD_MY_EVENTS_ERROR,
   payload: error,
+})
+
+export const UPDATE_PROFILE_TEAM = 'teams/UPDATE_PROFILE_TEAM';
+export const updateProfileTeam = teamId => ({
+  type: UPDATE_PROFILE_TEAM,
+  payload: teamId,
+});
+
+export const UPDATE_PROFILE_TEAM_SUCCESS = 'teams/UPDATE_PROFILE_TEAM_SUCCESS';
+export const updateProfileTeamDone = profile => ({
+  type: UPDATE_PROFILE_TEAM_SUCCESS,
+  payload: profile,
+});
+
+export const UPDATE_PROFILE_TEAM_ERROR = 'teams/UPDATE_PROFILE_TEAM_ERROR';
+export const updateProfileTeamError = error => ({
+  type: UPDATE_PROFILE_TEAM_ERROR,
+  payload: error,
 });

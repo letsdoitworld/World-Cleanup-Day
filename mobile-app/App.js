@@ -13,6 +13,7 @@ import {
   registerScreens,
   TRASH_POINTS,
   TERMS_SCREEN,
+  TEAMS_SCREEN,
 } from './src/screens';
 import './src/config/styles';
 import { Icons } from './src/assets/images';
@@ -169,6 +170,13 @@ export default class App extends PureComponent {
           icon: Icons.Event,
           selectedIcon: Icons.EventActive,
           title: '',
+        },
+        {
+          screen: TEAMS_SCREEN,
+          label: 'Teams',
+          icon: Icons.GroupPeople,
+          selectedIcon: Icons.TeamsActive,
+          title: 'Teams',
         },
         {
           screen: PROFILE_SCREEN,

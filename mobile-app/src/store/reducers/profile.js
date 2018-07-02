@@ -22,6 +22,9 @@ import {
   LOAD_MY_TRASH_POINTS_ERROR,
   LOAD_MY_EVENTS_PAGINATION_SUCCESS,
   LOAD_MY_TRASH_POINTS_PAGINATION_SUCCESS,
+  UPDATE_PROFILE_TEAM,
+  UPDATE_PROFILE_TEAM_SUCCESS,
+  UPDATE_PROFILE_TEAM_ERROR,
 } from '../actions/profile';
 
 
@@ -95,6 +98,25 @@ const handlers = {
     );
   },
   [UPDATE_PROFILE_ERROR]: (state, { payload }) => {
+    return state.withMutations(mState =>
+      mState
+        .set('updating', false)
+        .set('updatingError', payload),
+    );
+  },
+  [UPDATE_PROFILE_TEAM]: (state) => {
+    return state.withMutations(mState =>
+      mState.set('updating', true));
+  },
+  [UPDATE_PROFILE_TEAM_SUCCESS]: (state, { payload }) => {
+    return state.withMutations(mState =>
+      mState
+        .set('updating', false)
+        .set('updatingError', null)
+        .set('entity', payload),
+    );
+  },
+  [UPDATE_PROFILE_TEAM_ERROR]: (state, { payload }) => {
     return state.withMutations(mState =>
       mState
         .set('updating', false)

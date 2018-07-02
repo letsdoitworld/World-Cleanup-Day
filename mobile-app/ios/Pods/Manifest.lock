@@ -23,9 +23,9 @@ PODS:
   - FirebaseAnalytics (3.9.0):
     - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseCore (3.6.0):
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseInstanceID (1.0.10):
     - FirebaseCore (~> 3.6)
   - Google/Core (3.1.0):
@@ -39,20 +39,20 @@ PODS:
   - GoogleMaps/Maps (2.6.0):
     - GoogleMaps/Base
   - GoogleSignIn (4.1.2):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
     - GTMOAuth2 (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
   - GoogleToolboxForMac/DebugUtils (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - GoogleToolboxForMac/Defines (2.1.3)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3)":
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
     - GoogleToolboxForMac/DebugUtils (= 2.1.3)
     - GoogleToolboxForMac/Defines (= 2.1.3)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.3)"
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
   - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
   - GTMSessionFetcher (1.1.14):
@@ -129,44 +129,23 @@ DEPENDENCIES:
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
-SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Bolts
-    - Crashlytics
-    - Fabric
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - FBSDKShareKit
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseCore
-    - FirebaseInstanceID
-    - Google
-    - GoogleMaps
-    - GoogleSignIn
-    - GoogleToolboxForMac
-    - GTMOAuth2
-    - GTMSessionFetcher
-    - QBImagePickerController
-    - RSKImageCropper
-
 EXTERNAL SOURCES:
   Branch-SDK:
-    :path: "../node_modules/react-native-branch/ios"
+    :path: ../node_modules/react-native-branch/ios
   React:
-    :path: "../node_modules/react-native"
+    :path: ../node_modules/react-native
   react-native-branch:
-    :path: "../node_modules/react-native-branch"
+    :path: ../node_modules/react-native-branch
   ReactNativePermissions:
-    :path: "../node_modules/react-native-permissions"
+    :path: ../node_modules/react-native-permissions
   RNImageCropPicker:
-    :path: "../node_modules/react-native-image-crop-picker"
+    :path: ../node_modules/react-native-image-crop-picker
   yoga:
-    :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
+    :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  Branch-SDK: a445c64853318321a900da1efbab54459484e07b
+  Branch-SDK: 82b57443b76b28193ac22e0f7e9afc2c62c21e7f
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
@@ -183,13 +162,13 @@ SPEC CHECKSUMS:
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
-  React: 9914d9682e3e7f052c6e9d3ada61378014dca2ac
-  react-native-branch: 8988998ef912c6373dc39a24e4638f02a1268265
-  ReactNativePermissions: 9f2d9c45c98800795e6c2ed330e25d11a66a8169
-  RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
+  React: a699ffba5161ee79517e9eed0a417d157013567d
+  react-native-branch: 463977136001e2e8f9142384916b82de3c6b6e29
+  ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
+  RNImageCropPicker: 9a57db293fc3588e30d72027969388c07779785d
   RSKImageCropper: d9a1acbc0600bf8decc8f0d21895872c99a9e4cf
-  yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
+  yoga: 66e85d2f10e1069dcfeb7b7223ac2b41d9465df2
 
 PODFILE CHECKSUM: 320983021bf852d82160373a29904b3cae7e467f
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.3.1

@@ -6,29 +6,16 @@ import TYPES from './types';
 
 const fetchAllTeams = () => async (dispatch, getState) => {
   dispatch({ type: TYPES.FETCH_TEAMS_REQUEST });
-  const areas = userSelectors.getProfile(getState()).areas;
+  const country = userSelectors.getProfile(getState()).country;
   const superadmin = userSelectors.getProfile(getState()).role === USER_ROLES.SUPERADMIN;
-  let response;
-  let teams = [];
-  if (areas.length > 0) {
-    response = await Promise.all(areas.map(area => ApiService.get(API_ENDPOINTS.FETCH_TEAMS(area, superadmin))));
-    response.forEach(r => {
-      if (r && r.data.length > 0) {
-        teams = [...teams, ...r.data];
-      }
-    });
-  } else {
-    response = await ApiService.get(API_ENDPOINTS.FETCH_ALL_TEAMS(superadmin));
-    teams = response.data;
-  }
-
+  const response = country ? await ApiService.get(API_ENDPOINTS.FETCH_TEAMS(country, superadmin)) : await ApiService.get(API_ENDPOINTS.FETCH_ALL_TEAMS(superadmin));
   if (!response) {
     return dispatch({ type: TYPES.FETCH_TEAMS_FAILED });
   }
 
   dispatch({
     type: TYPES.FETCH_TEAMS_SUCCESS,
-    teams,
+    teams: response.data,
   });
 };
 

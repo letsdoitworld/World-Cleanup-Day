@@ -1,6 +1,7 @@
 import { SQLite } from 'expo';
 import { Api } from "./index";
 import { handleUpload, deleteImage } from "../reducers/trashpile/operations";
+import { fetchAddress } from '../reducers/location/operations';
 
 const offlineDB = SQLite.openDatabase('db.offline');
 
@@ -70,6 +71,11 @@ class OfflineService {
                   trashpoint.dphotos = JSON.parse(_array[i].dphotos);
                 } catch (e) {
                   dataOk = false;
+                }
+                if (trashpoint.marker.address === " " || "") {
+                  const address = await fetchAddress(trashpoint.marker.location);
+                  trashpoint.marker.address = address.completeAddress;
+                  trashpoint.marker.name = `${streetAddress} ${streetNumber}`;
                 }
                 if (dataOk && trashpoint && trashpoint.url && trashpoint.marker) {
                   const createMarkerResponse = await Api.put(trashpoint.url, trashpoint.marker);

@@ -179,10 +179,10 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id}))
             }
             if (account.team) {
-                account.teamInfo = await db.getTeam(account.team);
-                account.teamInfo.members = await db.countAccountsForTeam(account.team);
-                account.teamInfo.trashpoints = await db.countTeamTrashpoints(account.team);
-                const trashpoints = await db.getTeamTrashpoints(account.team, 4);
+                account.teamInfo = await db.getTeam(account.team)
+                account.teamInfo.members = await db.countAccountsForTeam(account.team)
+                account.teamInfo.trashpoints = await db.countTeamTrashpoints(account.team)
+                const trashpoints = await db.getTeamTrashpoints(account.team, 4)
                 account.teamInfo.lastTrashpoints = trashpoints[0];
                 account.teamInfo.groupCount = trashpoints[1];
             }

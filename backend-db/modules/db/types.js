@@ -54,6 +54,7 @@ class Account extends Type {
             country: true,
             team: true,
             termsAcceptedAt: true,
+            team: true,
             locked: true,
             createdAt: true,
             createdBy: true,
@@ -311,5 +312,5 @@ const normalizeData = (datatype, data) => (datatypeFactory(datatype, data)).expo
 module.exports = {
     datatypeFactory,
     normalizeData,
-    Dataset, Account, Session, Trashpoint, Image, Cluster, Area, Event
+    Dataset, Account, Session, Trashpoint, Image, Cluster, Area, Event, Team
 };

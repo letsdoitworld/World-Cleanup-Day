@@ -451,18 +451,18 @@ paths:
           $ref: "#/responses/ErrorSet"
   #-----------------------------------------------------------------------------
   /teams:
-      x-swagger-router-controller: teams
-      get:
-        description: List all teams.
-        operationId: getAllTeams
-        parameters:
-          - $ref: "#/parameters/Country"
-          - $ref: "#/parameters/Search"
-        responses:
-          "200":
-            $ref: "#/responses/Teams"
-          "default":
-            $ref: "#/responses/ErrorSet"
+    x-swagger-router-controller: teams
+    get:
+      description: List all teams.
+      operationId: getAllTeams
+      parameters:
+        - $ref: "#/parameters/Country"
+        - $ref: "#/parameters/Search"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /teams/{id}:
     x-swagger-router-controller: teams
     get:
@@ -913,17 +913,6 @@ parameters:
         country:
           $ref: "#/definitions/CountryCode"
   #-----------------------------------------------------------------------------
-  ModifyTeam:
-    name: update
-    in: body
-    required: true
-    schema:
-      type: object
-      required: [team]
-      properties:
-        team:
-          $ref: "#/definitions/UUID"
-  #-----------------------------------------------------------------------------
   ModifyPrivacyProfile:
     name: update
     in: body
@@ -934,6 +923,17 @@ parameters:
       properties:
         value:
           type: boolean
+  #-----------------------------------------------------------------------------
+  ModifyTeam:
+    name: update
+    in: body
+    required: true
+    schema:
+      type: object
+      required: [team]
+      properties:
+        team:
+          $ref: "#/definitions/UUID"
   #-----------------------------------------------------------------------------
   ModifyTrashpoint:
     name: trashpoint

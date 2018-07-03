@@ -27,7 +27,6 @@ const teamImages = [
     'https://ucarecdn.com/82023a51-d50a-4f2f-aa0f-7e3a938de06b/Blueish.png'
 ];
 
-
 const layer = {
     //========================================================
     // COMMON
@@ -374,7 +373,7 @@ const layer = {
             email,
             role,
             pictureURL,
-            team,
+            team
         }, {
             locked: false,
             createdAt: util.time.getNowUTC(),
@@ -651,6 +650,33 @@ const layer = {
                 return val;
             })
             ;
+    },
+    countTeamTrashpoints: async teamId => {
+        const ret = await adapter.getRawDocs(
+            'Trashpoint',
+            '_design/countByTeam/_view/view', {
+                key: teamId,
+            });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
+    getTeamTrashpoints: async (teamId, amount) => {
+        const trashpoints = await adapter.getEntities(
+            'Trashpoint',
+            '_design/byTeam/_view/view', {
+                descending: true, //XXX: when desc=true, startkey and endkey are reversed
+                startkey: [teamId, {}],
+                endkey: [teamId],
+                sorted: true
+            })
+        let groupCount = {}
+        if (trashpoints.length) {
+            _.forEach(_.groupBy(trashpoints, 'status'), (group, status) => groupCount[status] = group.length);
+        }
+        const cutedTrashpoints = amount > 0 ? trashpoints.slice(-amount) : trashpoints;
+        return [cutedTrashpoints, groupCount];
     },
     countUserTrashpoints: async userId => {
         const ret = await adapter.getMangoEntities(
@@ -1093,7 +1119,7 @@ const layer = {
         const neededParams = ['name', 'teamDescription', 'CC'];
         _.each(metadata, async (team, key) => {
             const existedTeam = existingTeams[team.id];
-            if (!existedTeam && (!team.CC || CCs.includes(team.CC))) {
+            if (!existedTeam && (!team.CC || (team.CC && CCs.includes(team.CC)))) {
                 // team.image = gravatar.url(team.name, {s: '100', r: 'x', d: 'identicon'}, true);
                 if (!team.image) {
                     team.image = teamImages[key % teamImages.length];

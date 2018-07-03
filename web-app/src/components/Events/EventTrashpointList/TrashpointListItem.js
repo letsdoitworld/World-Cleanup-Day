@@ -6,8 +6,8 @@ import {
   LocationIcon24px,
 } from '../../common/Icons';
 
-export const TrashpointListItem = ({ data, eventId }) => (
-  <NavLink to={`/event/${eventId}/trashpoints/${data.id}`}>
+export const TrashpointListItem = ({ data, targetSection, targetId }) => (
+  <NavLink to={`/${targetSection}/${targetId}/trashpoints/${data.id}`}>
     <div className="EventDetails-TrashpointListItem">
       <img
         className="EventDetails-TrashpointListItem-status"
@@ -27,5 +27,6 @@ export const TrashpointListItem = ({ data, eventId }) => (
 
 TrashpointListItem.propTypes = {
   data: PropTypes.any.isRequired,
-  eventId: PropTypes.string.isRequired,
+  targetId: PropTypes.string.isRequired,
+  targetSection: PropTypes.string.isRequired,
 };

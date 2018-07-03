@@ -485,6 +485,7 @@ export const createMarker = (
       toDeletePhotos = photos.filter(
         p => p.id !== undefined && p.delete === true && !!p.parentId,
       );
+      console.log(newPhotos, toDeletePhotos, photos);
     }
     const url = isEdit
       ? API_ENDPOINTS.UPDATE_TRASHPOINT(id)

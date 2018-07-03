@@ -5,7 +5,12 @@ import { TrashpointListItem } from './TrashpointListItem';
 import { EmptyEventsState } from '../EmptyState';
 import { Loader } from '../../Spinner';
 
-export const TrashpointList = ({ trashpoints, eventId, isLoading }) => (
+export const TrashpointList = ({
+  trashpoints,
+  targetId,
+  targetSection,
+  isLoading,
+}) => (
   <div className="EventDetails-TrashpointList">
     <If condition={!isLoading}>
       <div>
@@ -14,7 +19,12 @@ export const TrashpointList = ({ trashpoints, eventId, isLoading }) => (
           trashpoints.length ?
           trashpoints.map(tp => {
             return (
-              <TrashpointListItem key={tp.id} eventId={eventId} data={tp} />
+              <TrashpointListItem
+                key={tp.id}
+                targetId={targetId}
+                targetSection={targetSection}
+                data={tp}
+              />
             );
           }) :
           <EmptyEventsState text="No trashpoints." />
@@ -29,7 +39,8 @@ export const TrashpointList = ({ trashpoints, eventId, isLoading }) => (
 
 TrashpointList.propTypes = {
   trashpoints: PropTypes.arrayOf(PropTypes.shape),
-  eventId: PropTypes.string.isRequired,
+  targetId: PropTypes.string.isRequired,
+  targetSection: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 

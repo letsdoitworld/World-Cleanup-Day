@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { orderBy } from 'lodash';
 import classnames from 'classnames';
-
+import { If, Else } from 'react-if';
+import { EmptyTeamsState } from './EmptyTeamsState';
 import { actions, selectors } from '../../reducers/teams';
-import { List } from '../../components/List';
 import { Loader } from '../../components/Spinner';
 import { TeamsListItem } from './components/TeamsListItem';
 import {
@@ -34,16 +34,6 @@ class TeamsList extends PureComponent {
     this.props.fetchAllTeams();
   }
 
-  handleSearchChanged = event => {
-    this.setState({
-      search: event.target.value
-    });
-  };
-
-  handleSetSort = sortBy => {
-    this.setState({ sortBy });
-  };
-
   getFilteredTeams = () => {
     const { search } = this.state;
     const { teams } = this.props;
@@ -52,10 +42,19 @@ class TeamsList extends PureComponent {
       return teams;
     }
     return teams.filter(
-      c => c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      c => c.name.toLowerCase().indexOf(search.toLowerCase()) !== -1,
     );
   };
 
+  handleSearchChanged = event => {
+    this.setState({
+      search: event.target.value,
+    });
+  };
+
+  handleSetSort = sortBy => {
+    this.setState({ sortBy });
+  };
 
   handleTeamClick = id => {
     if (!id) {
@@ -77,40 +76,58 @@ class TeamsList extends PureComponent {
         this.state.sortBy,
         this.state.sortBy === 'name' ? ['asc'] : ['desc']
       );
-      return teamsSorted.map(t =>
-        <TeamsListItem
-          key={t.id}
-          team={t}
-          fetchTeam={() => this.handleTeamClick(t.id)}
-        />,
-      );
+      return teamsSorted.length ?
+        teamsSorted.map(t =>
+          (<TeamsListItem
+            key={t.id}
+            team={t}
+            fetchTeam={() => this.handleTeamClick(t.id)}
+          />),
+        ) :
+        <EmptyTeamsState />;
     }
   }
 
-  renderHeaderContent() {
+  renderContent() {
     const { plotVisible } = this.state;
     return (
-      <div className="List-search-container TeamsList-header">
-        <SearchIcon />
-        <input
-          className="UsersList-search-input"
-          type="text"
-          value={this.state.search}
-          onChange={this.handleSearchChanged}
-          name="search"
-          placeholder="Team name"
-        />
-        <div
-          className="AreaList-minimize"
-          onClick={
-            () => this.setState({ plotVisible: !this.state.plotVisible })
+      <div className="TeamsList-container">
+        <div className="TeamsList-header">
+          <SearchIcon />
+          <input
+            className="TeamsList-search-input"
+            type="text"
+            value={this.state.search}
+            onChange={this.handleSearchChanged}
+            name="search"
+            placeholder="Team name"
+          />
+          <div
+            className="TeamsList-minimize"
+            onClick={
+              () => this.setState({ plotVisible: !this.state.plotVisible })
+            }
+          >
+            {
+              plotVisible ?
+                <CollapseIcon /> :
+                <ExpandIcon />
+            }
+          </div>
+        </div>
+        <div className={
+            classnames(
+              'TeamsList-plot',
+              'scrollbar-modified',
+              { isVisible: plotVisible },
+            )
           }
         >
-          {
-            plotVisible ?
-              <CollapseIcon /> :
-              <ExpandIcon />
-          }
+          <div className="TeamsList-items">
+            {
+              this.renderItems()
+            }
+          </div>
         </div>
       </div>
     );
@@ -118,11 +135,7 @@ class TeamsList extends PureComponent {
 
   render() {
     return (
-      <List
-        elementHeight={62}
-        headerContent={this.renderHeaderContent()}
-        items={this.renderItems()}
-      />
+      this.renderContent()
     );
   }
 }

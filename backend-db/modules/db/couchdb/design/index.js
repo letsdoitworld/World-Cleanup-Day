@@ -64,11 +64,11 @@ const designDocs = {
             },
         },
         byCountryAndName: {
-            $version: 1,
+            $version: 2,
             views: {
                 view: {
                     map: function (doc) {
-                        if (doc.$doctype === 'account' && doc.country) {
+                        if (doc.$doctype === 'account') {
                             emit([doc.country, doc.role, doc.name], doc);
                         }
                     },
@@ -124,11 +124,11 @@ const designDocs = {
             },
         },
         countByCountry: {
-            $version: 1,
+            $version: 2,
             views: {
                 view: {
                     map: function (doc) {
-                        if (doc.$doctype === 'account' && doc.country) {
+                        if (doc.$doctype === 'account') {
                             emit(doc.country, null);
                         }
                     },

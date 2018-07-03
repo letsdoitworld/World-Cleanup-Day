@@ -264,6 +264,7 @@ const layer = {
         );
     },
     getAccountsByCountry: async (country, pageSize = 10, pageNumber = 1, role) => {
+        country = (country === "NOC") ? null : country;
         const startkey = role === 'admin' ? [country, 'leader']: [country, 'volunteer'] ;
         const endkey = role === 'admin' ? [country, 'superadmin', {}]: [country, 'volunteer', {}];
         return await adapter.getEntities(
@@ -304,6 +305,7 @@ const layer = {
         return parseInt(ret.pop());
     },
     countAccountsForCountry: async country => {
+        country = (country === "NOC") ? null : country;
         const ret = await adapter.getRawDocs('Account', '_design/countByCountry/_view/view', {
             key: country,
             group: true,
@@ -651,33 +653,7 @@ const layer = {
             })
             ;
     },
-    countTeamTrashpoints: async teamId => {
-        const ret = await adapter.getRawDocs(
-            'Trashpoint',
-            '_design/countByTeam/_view/view', {
-                key: teamId,
-            });
-        if (!ret.length) {
-            return 0;
-        }
-        return parseInt(ret.pop());
-    },
-    getTeamTrashpoints: async (teamId, amount) => {
-        const trashpoints = await adapter.getEntities(
-            'Trashpoint',
-            '_design/byTeam/_view/view', {
-                descending: true, //XXX: when desc=true, startkey and endkey are reversed
-                startkey: [teamId, {}],
-                endkey: [teamId],
-                sorted: true
-            })
-        let groupCount = {}
-        if (trashpoints.length) {
-            _.forEach(_.groupBy(trashpoints, 'status'), (group, status) => groupCount[status] = group.length);
-        }
-        const cutedTrashpoints = amount > 0 ? trashpoints.slice(-amount) : trashpoints;
-        return [cutedTrashpoints, groupCount];
-    },
+
     countUserTrashpoints: async userId => {
         const ret = await adapter.getMangoEntities(
             'Trashpoint',

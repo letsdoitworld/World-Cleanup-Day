@@ -1,6 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
 import { Api } from './index';
 import { handleUpload } from '../api/trashPoints';
+import { geocodeCoordinates } from '../shared/geo';
 
 const offlineDB = SQLite.openDatabase('db.offline');
 
@@ -72,6 +73,9 @@ class OfflineService {
                   dataOk = false;
                 }
                 if (dataOk && trashpoint && trashpoint.url && trashpoint.marker) {
+                  const location = trashpoint.marker.location;
+                  const place = await geocodeCoordinates(location);
+                  trashpoint.marker.address = place.mainText;
                   const createMarkerResponse = await Api.put(trashpoint.url, trashpoint.marker);
                   if (createMarkerResponse || trashpoint && trashpoint.marker && !trashpoint.marker.datasetId) {
                     offlineDB.transaction(tx => {

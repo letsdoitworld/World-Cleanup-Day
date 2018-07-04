@@ -15,6 +15,8 @@ const filterBriefAccountData = account => util.object.filter(account, {
     country: true,
     pictureURL: true,
     termsAcceptedAt: true,
+    team: true,
+    teamInfo: true,
     public: true
 });
 
@@ -176,6 +178,14 @@ module.exports = function () {
             if (!account) {
                 return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id}))
             }
+            if (account.team) {
+                account.teamInfo = await db.getTeam(account.team)
+                account.teamInfo.members = await db.countAccountsForTeam(account.team)
+                account.teamInfo.trashpoints = await db.countTeamTrashpoints(account.team)
+                const trashpoints = await db.getTeamTrashpoints(account.team, 4)
+                account.teamInfo.lastTrashpoints = trashpoints[0];
+                account.teamInfo.groupCount = trashpoints[1];
+            }
             return responder.success(filterBriefAccountData(account));
         })
     });
@@ -269,6 +279,17 @@ module.exports = function () {
                 account.areas = (await db.getAreasForLeader(account.id)).map(area => area.id);
             } else {
                 account.areas = [];
+            }
+            if (account.team) {
+                const teamInfo = await db.getTeam(account.team);
+                if (teamInfo) {
+                    account.teamInfo = teamInfo;
+                    account.teamInfo.members = await db.countAccountsForTeam(account.team);
+                    account.teamInfo.trashpoints = await db.countTeamTrashpoints(account.team);
+                    const trashpoints = await db.getTeamTrashpoints(account.team, 4);
+                    account.teamInfo.lastTrashpoints = trashpoints[0];
+                    account.teamInfo.groupCount = trashpoints[1];
+                }
             }
             return responder.success(account);
         });

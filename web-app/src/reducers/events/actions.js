@@ -172,6 +172,7 @@ const fetchEventDetails = eventId => async dispatch => {
       type: TYPES.FETCH_EVENT_DETAILS_SUCCESS,
       event: res.data,
     });
+    dispatch(appActions.setChosenMarkerCoordinates(res.data.location));
   } catch (e) {
     console.log(e);
     dispatch(errorActions.setErrorMessage('Failed to load event details'));

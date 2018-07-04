@@ -19,11 +19,43 @@ const ImageService = {
 
       canvas.width = 270; // target width
       canvas.height = 180; // target height
-
       const image = new Image();
-      document.body.appendChild(image);
 
+      const calculateTargetSize = (imgWidth, imgHeight) => {
+        let sizeCoeff;
+        const ifUploadedImgOversized =
+        (imgWidth > canvas.width || imgHeight > canvas.heigth);
+        const ifWidthMoreThanHeight = imgWidth > imgHeight;
+        if (
+          ifUploadedImgOversized &&
+          ifWidthMoreThanHeight
+        ) {
+          sizeCoeff = imgWidth / canvas.width;
+          return {
+            width: imgWidth / sizeCoeff,
+            height: imgHeight / sizeCoeff,
+          };
+        }
+        if (ifUploadedImgOversized && !ifWidthMoreThanHeight) {
+          sizeCoeff = imgHeight / canvas.width;
+          return {
+            width: imgWidth / sizeCoeff,
+            height: imgHeight / sizeCoeff,
+          };
+        }
+        return {
+          width: imgWidth,
+          height: imgHeight,
+        };
+      };
+
+      console.log();
+
+      document.body.appendChild(image);
       image.onload = () => {
+        const targetSize = calculateTargetSize(image.width, image.height);
+        const targetWidth = targetSize.width;
+        const targetHeight = targetSize.height;
         ctx.drawImage(
           image,
           0,
@@ -32,8 +64,8 @@ const ImageService = {
           image.height,
           0,
           0,
-          canvas.width,
-          canvas.height,
+          targetWidth,
+          targetHeight,
         );
 
         // create a new base64 encoding

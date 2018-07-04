@@ -17,18 +17,6 @@ const retryUntilGetAreas = async lucius => {
     }
 };
 
-const sortAreasByName = async (areas) => {
-    return areas.sort((a, b) => {
-        let keyA = a.name,
-            keyB = b.name;
-        // Compare the 2 dates
-        if(keyA < keyB) return -1;
-        if(keyA > keyB) return 1;
-        return 0;
-    });
-};
-
-
 module.exports = function () {
     const lucius = new Lucius(this);
 
@@ -51,10 +39,9 @@ module.exports = function () {
             const areas = typeof parentId === 'undefined'
                 ? await db.searchAreasByName(nameSearch)
                 : await db.getAreasByParent(parentId);
-            const sortAreas = await sortAreasByName(areas);
-            const filtered = sortAreas.map(value => util.object.filter(
+            const filtered = areas.map(value => util.object.filter(
                 value,
-                {id: true, name: true, parentId: true}
+                {id: true, name: true, parentId: true, leaderId: true}
             ));
             return responder.success(filtered);
         });
@@ -64,8 +51,7 @@ module.exports = function () {
         return connector
         .use(async function (foo, responder) {
             const areas = await db.getAreasForLeader(__.user.id);
-            const sortAreas = await sortAreasByName(areas);
-            return responder.success(sortAreas);
+            return responder.success(areas);
         });
     });
 
@@ -74,8 +60,7 @@ module.exports = function () {
         .request('role:db,cmd:getAccountById', ({accountId}) => ({accountId}))
         .use(async function ({id}, responder) {
             const areas = await db.getAreasForLeader(id);
-            const sortAreas = await sortAreasByName(areas);
-            return responder.success(sortAreas);
+            return responder.success(areas);
         });
     });
 
@@ -126,7 +111,7 @@ module.exports = function () {
             // if user not already leader, make them leader
             if (account.role !== Account.ROLE_LEADER) {
                 const ret = await db.modifyAccount(
-                    account.id, __.user.id, {role: Account.ROLE_LEADER}
+                    account.id, __.user.id, {role: Account.ROLE_LEADER, public: true}
                 );
                 if (!ret) {
                     return responder.failure(new LuciusError(E.ACCOUNT_NOT_FOUND, {id: account.id}))

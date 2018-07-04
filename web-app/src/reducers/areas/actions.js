@@ -20,6 +20,9 @@ const getUserAreasError = ({ userId, error }) => ({
 });
 
 const getAreas = () => ({ type: TYPES.GET_AREAS });
+
+const searchAreas = () => ({ type: TYPES.SEARCH_AREAS });
+
 const getAreasSuccess = ({ areas }) => ({
   type: TYPES.GET_AREAS_SUCCESS,
   payload: { areas },
@@ -44,6 +47,7 @@ export default {
   getUserAreasError,
 
   getAreas,
+  searchAreas,
   getAreasSuccess,
   getAreasError,
 

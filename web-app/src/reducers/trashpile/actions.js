@@ -348,6 +348,9 @@ const fetchMarkerDetails = markerId => async dispatch => {
       type: TYPES.FETCH_MARKER_DETAILS_SUCCESS,
       marker,
     });
+    dispatch(
+      appActions.setChosenMarkerCoordinates(detailsResponse.data.location),
+    );
     return marker;
   } catch (e) {
     dispatch(errorActions.setErrorMessage('Failed to load trashpoint details'));
@@ -495,7 +498,6 @@ export const createMarker = (
     }
 
     let uploadStatus;
-
     if (isEdit && newPhotos.length > 0) {
       uploadStatus = await handleUpload({
         photos: newPhotos,

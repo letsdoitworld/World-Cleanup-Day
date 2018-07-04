@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
-import { BinIcon, EventsIcon, UsersIcon } from '../../components/common/Icons';
+import {
+  BinIcon,
+  EventsIcon,
+  UsersIcon,
+  TeamsIcon,
+} from '../../components/common/Icons';
 import ROUTES from '../../shared/routes';
 
 import {
@@ -25,6 +30,8 @@ import { UserList } from '../../pages/UserList';
 import CountriesList from '../../pages/CountriesList/CountriesList';
 import { AdminMap } from '../../pages/AdminMap';
 import { EventsRoot } from '../../pages/EventsRoot';
+import { TeamsList } from '../../pages/TeamsList';
+import { TeamDetails } from '../../pages/TeamDetails';
 import EventsList from '../../pages/EventsRoot/EventsList';
 import EventDetails from '../../pages/EventsRoot/EventDetails';
 import EventTrashpointList from '../../pages/EventsRoot/EventTrashpointList';
@@ -96,6 +103,8 @@ class Home extends React.Component {
         <Route path={ROUTES.COUNTRIES_LIST} exact component={CountriesList} />
         <Route path={ROUTES.USERLIST} exact component={UserList} />
         <Route path={ROUTES.AREALIST} exact component={AreaList} />
+        <Route path={ROUTES.TEAMS_LIST} exact component={TeamsList} />
+        <Route path={ROUTES.TEAM_DETAILS} exact component={TeamDetails} />
         <Route path={ROUTES.EVENTS_LIST}>
           <EventsRoot history={history}>
             <Route
@@ -156,7 +165,10 @@ class Home extends React.Component {
               (<TrashpointDetails
                 showHeader
                 isUserAllowedAdding={
-                  [USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(this.props.userProfile.role) >= 0
+                  [
+                    USER_ROLES.SUPERADMIN,
+                    USER_ROLES.LEADER,
+                  ].indexOf(this.props.userProfile.role) >= 0
                 }
                 trashpointId={match.params.id}
                 history={history}
@@ -179,13 +191,20 @@ class Home extends React.Component {
       { title: 'Events', url: '/event', image: <EventsIcon /> },
     ];
     if ([USER_ROLES.SUPERADMIN, USER_ROLES.LEADER].indexOf(userProfile.role) >= 0) {
-      HEADER_LINKS.push({
-        title: 'Users',
-        url: userProfile.role === USER_ROLES.LEADER
-        ? '/user-areas'
-        : '/countries',
-        image: <UsersIcon />,
-      });
+      HEADER_LINKS.push(
+        {
+          title: 'Teams',
+          url: '/teams',
+          image: <TeamsIcon />,
+        },
+        {
+          title: 'Users',
+          url: userProfile.role === USER_ROLES.LEADER
+          ? '/user-areas'
+          : '/countries',
+          image: <UsersIcon />,
+        },
+      );
     }
     HEADER_LINKS.forEach(link => link.onClick = () => this.props.resetUsers());
     return (

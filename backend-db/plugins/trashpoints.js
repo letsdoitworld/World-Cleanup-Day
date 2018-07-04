@@ -133,11 +133,13 @@ module.exports = function () {
                     }
                   }
               }
+
               trashpoint.photos = await db.getTrashpointImagesByType(trashpoint.id, Image.TYPE_MEDIUM);
               trashpoint.photos = trashpoint.photos.map(p => p.url);
               return trashpoint;
             }));
-            return responder.success({total: trashpoints.length, pageSize, pageNumber, records});
+            const total = await db.countTrashpoints();
+            return responder.success({total: total, pageSize, pageNumber, records});
         })
     });
 
@@ -157,7 +159,7 @@ module.exports = function () {
         });
     });
 
-    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args) {
+    lucius.register('role:db,cmd:getTrashpointById', async function (connector, args, __) {
         return connector
         .input({id: args.id, userId: args.userId})
         .use(async function (request, responder) {
@@ -300,9 +302,6 @@ module.exports = function () {
         .set('images')
         .get(['areas', 'request', 'images'])
         .use(async function ({areas, request, images}, responder) {
-            const modifyByUser = await db.getAccount(__.user.id);
-            //if user with private profile update trashpoint
-            const userId = modifyByUser.public ? __.user.id : 'anonymously';
             const trashpointId = request.trashpointId;
             const trashpointData = request.trashpointData;
             trashpointData.areas = areas;
@@ -310,7 +309,7 @@ module.exports = function () {
                 return responder.failure(new LuciusError(E.TRASHPOINT_WITHOUT_IMG));
             }
 
-            const trashpoint = await db.modifyTrashpoint(trashpointId, userId, trashpointData);
+            const trashpoint = await db.modifyTrashpoint(trashpointId, __.user.id, trashpointData);
             if (!trashpoint) {
                 return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: trashpointId}));
             }

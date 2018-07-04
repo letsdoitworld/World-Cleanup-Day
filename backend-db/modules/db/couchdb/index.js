@@ -12,8 +12,20 @@ const cdb = require('./driver');
 const adapter = require('./adapter');
 const types = require('../types');
 const grid = require('../../geo/grid');
+const _ = require('lodash');
+const COUNTRY_LIST = require('./countries');
 
 const RETRY_CONFLICTS = 3;
+const CCs = Object.keys(COUNTRY_LIST);
+
+const teamImages = [
+    'https://ucarecdn.com/069167ae-5519-475b-a6bf-69bee37a1200/Reddie.png',
+    'https://ucarecdn.com/3ca80cb0-2bae-43e1-a8b4-16b6a1c41145/Yellowish.png',
+    'https://ucarecdn.com/478662d2-74d6-458e-8325-feef48697f26/Brownie.png',
+    'https://ucarecdn.com/cdb9551f-d911-4356-bd75-ba0df7460ce9/Orangey.png',
+    'https://ucarecdn.com/7c0a324e-3447-495b-90a9-f7b5a6958d36/Yellow.png',
+    'https://ucarecdn.com/82023a51-d50a-4f2f-aa0f-7e3a938de06b/Blueish.png'
+];
 
 const layer = {
     //========================================================
@@ -95,6 +107,7 @@ const layer = {
                 selector: {
                     $and: operands
                 },
+                sort: [{startTime: "desc"}],
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1)
             }
@@ -163,26 +176,31 @@ const layer = {
     },
     getUserOwnEvents: async (userId, pageSize = 10, pageNumber = 1) => {
         let paramsQuery = {
+            selector: {
+                $or: [
+                    {createdBy: userId},
+                    {attendees: {
+                            $all: [userId]
+                        }
+                    }
+                ]
+            },
+            sort: [{startTime: "desc"}],
             limit: pageSize,
             skip: pageSize * (pageNumber - 1),
         };
+        //get all events created by user
         if (pageSize === 0 || pageNumber === 0) {
-             paramsQuery = {};
+            paramsQuery = {
+                selector: {
+                    createdBy: userId
+                }
+            };
         }
 
         return await adapter.getMangoEntities(
             'Event',
-            {
-                selector: {
-                    $or: [
-                        {createdBy: userId},
-                        {attendees: {
-                                $all: [userId]
-                            }
-                        }
-                    ]
-                },
-            }
+            paramsQuery
         );
 
     },
@@ -246,6 +264,7 @@ const layer = {
         );
     },
     getAccountsByCountry: async (country, pageSize = 10, pageNumber = 1, role) => {
+        country = (country === "NOC") ? null : country;
         const startkey = role === 'admin' ? [country, 'leader']: [country, 'volunteer'] ;
         const endkey = role === 'admin' ? [country, 'superadmin', {}]: [country, 'volunteer', {}];
         return await adapter.getEntities(
@@ -286,11 +305,24 @@ const layer = {
         return parseInt(ret.pop());
     },
     countAccountsForCountry: async country => {
+        country = (country === "NOC") ? null : country;
         const ret = await adapter.getRawDocs('Account', '_design/countByCountry/_view/view', {
             key: country,
             group: true,
             public: true
         });
+        if (!ret.length) {
+            return 0;
+        }
+        return parseInt(ret.pop());
+    },
+    countAccountsForTeam: async teamId => {
+        const ret = await adapter.getRawDocs(
+            'Account',
+            '_design/countByTeam/_view/view', {
+                key: teamId,
+                group: true,
+            });
         if (!ret.length) {
             return 0;
         }
@@ -337,12 +369,13 @@ const layer = {
             }
         );
     },
-    createAccount: async (id, name, email, role, pictureURL) => {
+    createAccount: async (id, name, email, role, pictureURL, team) => {
         await adapter.createDocument('Account', id, {
             name,
             email,
             role,
             pictureURL,
+            team
         }, {
             locked: false,
             createdAt: util.time.getNowUTC(),
@@ -501,9 +534,10 @@ const layer = {
         return adapter.getMangoEntities(
             'Trashpoint',
             {
-                "selector": {
+                selector: {
                     "$and": operands
                 },
+                sort: [{createdAt: "desc"}],
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1)
             }
@@ -548,9 +582,7 @@ const layer = {
                         {updatedBy: userId}
                     ]
                 },
-            },
-            {
-                sorted: true,
+                sort: [{createdAt: "desc"}],
                 limit: pageSize,
                 skip: pageSize * (pageNumber - 1),
             }
@@ -621,16 +653,48 @@ const layer = {
             })
             ;
     },
+
     countUserTrashpoints: async userId => {
+        const ret = await adapter.getMangoEntities(
+            'Trashpoint',
+            { selector: {
+                    $or: [
+                        {createdBy: userId},
+                        {updatedBy: userId}
+                    ]
+                }
+            });
+        if (!ret.length) {
+            return 0;
+        }
+        return ret.length;
+    },
+    countTeamTrashpoints: async teamId => {
         const ret = await adapter.getRawDocs(
             'Trashpoint',
-            '_design/countByCreatingUser/_view/view', {
-                key: userId,
+            '_design/countByTeam/_view/view', {
+                key: teamId,
             });
         if (!ret.length) {
             return 0;
         }
         return parseInt(ret.pop());
+    },
+    getTeamTrashpoints: async (teamId, amount) => {
+        const trashpoints = await adapter.getEntities(
+            'Trashpoint',
+            '_design/byTeam/_view/view', {
+                descending: true, //XXX: when desc=true, startkey and endkey are reversed
+                startkey: [teamId, {}],
+                endkey: [teamId],
+                sorted: true
+            })
+        let groupCount = {}
+        if (trashpoints.length) {
+            _.forEach(_.groupBy(trashpoints, 'status'), (group, status) => groupCount[status] = group.length);
+        }
+        const cutedTrashpoints = amount > 0 ? trashpoints.slice(-amount) : trashpoints;
+        return [cutedTrashpoints, groupCount];
     },
     countTrashpoints: async () => {
         const ret = await adapter.getRawDocs(
@@ -852,11 +916,13 @@ const layer = {
     },
     searchAreasByName: async (searchName = "") => {
         return await adapter.getMangoEntities('Area', {
-          selector: {
-              name: {
-                  $regex: "(?i)" + searchName
+          "selector": {
+              "name": {
+                  "$regex": "(?i)" + searchName
               }
-          }
+          },
+          sort: [{name: "asc"}],
+          limit: 500 //because db has limit 24 records
       });
     },
     getAreasByParent: async parentId => {
@@ -880,7 +946,9 @@ const layer = {
                           {leaderId: {
                                 $all: [leaderId]
                             }}]
-                }
+                },
+                sort: [{name: "asc"}],
+                limit: 500
             }
         );
         return ret;
@@ -984,6 +1052,59 @@ const layer = {
             }
         }
         return false;
+    },
+    //========================================================
+    // TEAMS
+    //========================================================
+    getTeam: id => adapter.getOneEntityById('Team', '_design/byTeamId/_view/view', id),
+    getAllTeams: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: true}),
+    getAllTeamsByCountry: async (country, search) => {
+        const teams = await adapter.getEntities(
+            'Team',
+            '_design/all/_view/view',
+            {
+                sorted: true,
+            }
+        );
+        const filteredTeams = search ? teams.filter(team =>
+            team.name && team.name.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
+            team.teamDescription && team.teamDescription.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
+            COUNTRY_LIST[team.CC] && COUNTRY_LIST[team.CC].toUpperCase().indexOf(search.toUpperCase()) > -1
+        ) : teams;
+        const sortedTeamsByCountry = _.sortBy(filteredTeams, team => team.CC !== country);
+        return sortedTeamsByCountry
+    },
+    getCountTeamsTrashpoints: () => adapter.getEntities('Team', '_design/all/_view/view', {sorted: false}),
+    getRawTeamDoc: id => adapter.getOneRawDocById('Team', '_design/byTeamId/_view/view', id),
+    createTeam: async (id, who, create) => {
+        await adapter.createDocument('Team', id, create, {
+            createdAt: util.time.getNowUTC(),
+            createdBy: who || undefined,
+        });
+        return await layer.getTeam(id);
+    },
+    seedTeams: async (metadata) => {
+        const ret = await layer.getAllTeams();
+        if (!Array.isArray(ret)) {
+            return false;
+        }
+        const existingTeams = ret.reduce((prev, team) => {
+            prev[team.id] = team;
+            return prev;
+        }, {});
+        const neededParams = ['name', 'teamDescription', 'CC'];
+        _.each(metadata, async (team, key) => {
+            const existedTeam = existingTeams[team.id];
+            if (!existedTeam && (!team.CC || (team.CC && CCs.includes(team.CC)))) {
+                // team.image = gravatar.url(team.name, {s: '100', r: 'x', d: 'identicon'}, true);
+                if (!team.image) {
+                    team.image = teamImages[key % teamImages.length];
+                }
+                team.nationalTeam = true;
+                await layer.createTeam(team.id, null, _.pick(team, [...neededParams, 'image', 'nationalTeam']));
+            }
+        });
+        return true;
     },
 };
 

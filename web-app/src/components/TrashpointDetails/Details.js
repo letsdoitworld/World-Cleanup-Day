@@ -51,6 +51,7 @@ class Details extends Component {
       history,
       trashTypes,
       trashOrigin,
+      isShareModalVisible,
     } = this.props;
     const coordinates = location ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : '';
     const formattedLocation = `${address} | ${coordinates}`;
@@ -75,12 +76,15 @@ class Details extends Component {
         <If condition={!!trashpointId}>
           <If condition={!!location}>
             <div className={ classnames('Tpdetails-plot', 'scrollbar-modified', { 'visible': isOpened })}>
-              <ShareModal
-                header="Share trashpoint"
-                url={`${window.location.origin}/trashpoints/${trashpointId}`}
-                title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
-                image={thumbnails && thumbnails[0] && thumbnails[0].url}
-              />
+              {
+                isShareModalVisible &&
+                <ShareModal
+                  header="Share trashpoint"
+                  url={`${window.location.origin}/trashpoints/${trashpointId}`}
+                  title={`I just marked this trashpoint in ${ formattedLocation }. Check the details:`}
+                  image={thumbnails && thumbnails[0] && thumbnails[0].url}
+                />
+              }
               <div className="Details-default-container">
                 <div className="Details-address-container">
                   <div>

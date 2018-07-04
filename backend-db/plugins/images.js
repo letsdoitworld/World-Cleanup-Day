@@ -59,7 +59,7 @@ module.exports = function () {
                 imgSet.push(parentImg);
 
                 const thumbnailImg = await db.allocateImage(
-                    Image.TYPE_THUMBNAIL, trashpoint.id, __.user.id, parentImg.id
+                    Image.TYPE_THUMBNAIL, trashpoint.id, null, __.user.id, parentImg.id
                 );
                 imgSet.push(thumbnailImg);
             }

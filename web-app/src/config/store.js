@@ -10,6 +10,7 @@ import {
   adminReducer,
   areaReducer,
   errorReducer,
+  teamsReducer,
 } from '../reducers';
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   admin: adminReducer,
   areas: areaReducer,
   error: errorReducer,
+  teams: teamsReducer,
 });
 
 const resetStateOnSignOutReducer = reducer => (state, action) => {

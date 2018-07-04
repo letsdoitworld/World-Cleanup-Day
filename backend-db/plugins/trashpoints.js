@@ -188,8 +188,7 @@ module.exports = function () {
                         trashpoint.updater = _.pick(updatedByUser, ['id', 'name', 'email', 'pictureURL']);
                     }
                 }
-                if (!createdByUser.public && user.role !== Account.ROLE_SUPERADMIN
-                    && user.role !== Account.ROLE_LEADER) {
+                if (!createdByUser.public && !role) {
                     createdByUser.name = 'anonymously';
                     createdByUser.email = 'anonymously';
                     createdByUser.pictureURL = '';

@@ -36,6 +36,7 @@ module.exports = {
         'role:db,cmd:getTrashpointById',
         req => ({
             id: req.swagger.params.id.value,
+            userId: req.swagger.params.userId.value,
         }),
     ),
     getTrashpointDetails: senecaRequestMw(

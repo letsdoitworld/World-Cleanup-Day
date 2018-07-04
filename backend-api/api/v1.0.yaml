@@ -716,6 +716,11 @@ paths:
       x-security: [bearer]
       parameters:
         - $ref: "#/parameters/UUID"
+        - name: userId
+          description: user id.
+          in: query
+          required: false
+          type: string
       responses:
         "200":
           description: Individual trashpoint or cluster.

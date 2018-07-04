@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
-import { dm } from '../../themes';
+import { colors, dm } from '../../themes';
+import { getHeightPercentage } from '../../shared/helpers';
 
 const { width } = Dimensions.get('window');
 
@@ -71,5 +72,17 @@ export default {
     flex: 0.7,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  guestContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.yellow,
+  },
+  imgPlaceholder: {
+    width: Dimensions.get('window').width * 0.9,
+    height: 300,
+    backgroundColor: colors.gray200,
+    marginHorizontal: getHeightPercentage(20),
   }
 };

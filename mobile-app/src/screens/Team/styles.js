@@ -60,6 +60,22 @@ export default {
     position: 'absolute',
     right: 15,
   },
+  circle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 25,
+    height: 25,
+    position: 'absolute',
+    right: 40,
+    borderRadius: 12.5,
+    backgroundColor: '#DF1E83'
+  },
+  circleText: {
+    fontFamily,
+    color: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    fontSize: 16,
+  },
   text: {
     fontFamily,
     fontSize,

@@ -47,13 +47,18 @@ export default class Team extends Component {
     id === myTeam ? onUpdateProfileTeam({ team: '' }) : onUpdateProfileTeam({ team: id })
   };
 
-  renderInfo = (icon, title, text, arrow, onPress) => (
+  renderInfo = (icon, title, text, arrow, onPress, counter) => (
     <View style={{ marginTop: 15 }}>
       <Text style={styles.infoTitle}>{title.toUpperCase()}</Text>
       <TouchableOpacity style={styles.infoTextWrapper} onPress={onPress}>
         {icon && <Image source={icon} style={styles.image} resizeMode="contain"/>}
         <Text style={styles.text}>{text}</Text>
         {arrow && <Image source={arrow} style={styles.arrow} resizeMode="contain"/>}
+        {!!(counter || counter === 0) &&
+          <View style={styles.circle}>
+            <Text style={styles.circleText}>{counter}</Text>
+          </View>
+        }
       </TouchableOpacity>
     </View>
   );
@@ -92,7 +97,14 @@ export default class Team extends Component {
         {myTeam && myTeam !== team.id ? null : this.renderButton(btnText)}
         {this.renderInfo(locationIcon, strings.label_team_location, location )}
         {this.renderInfo(listIcon, strings.label_team_members, team.members )}
-        {this.renderInfo(trashIcon, strings.label_team_trashpoints, strings.label_team_trashpoints_tap, arrow, this.handleTrashpointsPress )}
+        {this.renderInfo(
+          trashIcon,
+          strings.label_team_trashpoints,
+          strings.label_team_trashpoints_tap,
+          arrow,
+          this.handleTrashpointsPress,
+          team.trashpoints
+        )}
         {this.renderInfo(null, strings.label_team_description, team.teamDescription )}
       </ScrollView>
     );

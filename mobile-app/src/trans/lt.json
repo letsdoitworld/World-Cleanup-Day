@@ -270,7 +270,7 @@
 	"label_invalid_phone_number": "Netinkamas telefono numeris",
 	"label_invalid_email": "Negaliojantis el. paštas",
 	"label_invalid_attendees": "Invalid attendees",
-	"label_invalid_location": " is required",
+	"label_invalid_location": " yra privaloma",
 	"label_no_location": "Choose your location",
 	"label_private_profile_wor_title": "Update your privacy settings!",
 	"label_private_profile_wor": "Your profile should be public\nin order to post event.",

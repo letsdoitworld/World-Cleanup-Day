@@ -15,7 +15,7 @@
 	"label_trash_status_state_threat": "¡Este punto es una amenaza!",
 	"label_trash_status_state_regular": "Este es un punto de desechos regular.",
 	"label_trash_status_state_cleaned": "¡Este punto está limpio!",
-	"label_trash_status_state_outdated": "¡Este punto está obsoleto!",
+	"label_trash_status_state_outdated": "¡Este punto está desactualizado!",
 	"label_TP_created_date": "Creado",
 	"label_TP_updated_date": "Actualizado",
 	"label_TP_by": " por ",

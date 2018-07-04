@@ -14,6 +14,7 @@ import { ButtonDelete } from '../../assets/images';
 import { COUNTRIES_HASH } from '../../shared/countries';
 import { Backgrounds } from '../../assets/images';
 import { TEAM_SCREEN } from '../index';
+import { Button } from '../../components/Button';
 
 export default class Teams extends Component {
 
@@ -98,6 +99,18 @@ export default class Teams extends Component {
     </View>
   );
 
+  renderGuestTeams = () => {
+    return (
+      <View style={styles.guestContainer}>
+        <View style={styles.imgPlaceholder} />
+        <Button
+          onPress={this.props.onGuestLogIn}
+          text="Log In"
+        />
+      </View>
+    )
+  }
+
   spinner = () => {
     return (
       <ActivityIndicator
@@ -109,12 +122,15 @@ export default class Teams extends Component {
   };
 
   componentDidMount() {
-    const { onFetchTeams } = this.props;
-    onFetchTeams();
+    const { onFetchTeams, isAuthenticated, isGuestSession } = this.props;
+    if (isAuthenticated && !isGuestSession) {
+      onFetchTeams();
+    }
   }
 
   render() {
-    const { teams, loading } = this.props;
+    const { teams, loading, isAuthenticated, isGuestSession } = this.props;
+    if (!isAuthenticated && isGuestSession) return this.renderGuestTeams();
     return (
       <View style={styles.container}>
         {this.renderSearchField()}

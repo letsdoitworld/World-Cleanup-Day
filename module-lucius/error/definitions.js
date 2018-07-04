@@ -122,4 +122,7 @@ module.exports = {
     OFFLINE_ATTENDEES_AMOUNT: {
         message: () => `The number of offline attendees must be less or equal to the maximum number`
     },
+    TEAM_NOT_FOUND: {
+        message: ({id}) => `Team not found: '${id}'.`,
+    }
 };

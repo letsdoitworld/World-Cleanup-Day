@@ -36,6 +36,7 @@ import eventCover from '../../../assets/img-event-cover-small-1.png';
 import eventCoverBig from '../../../assets/img-event-cover-big-1.png';
 import noEventsCover from '../../../assets/img-no-events.png';
 import noUsersCover from '../../../assets/img-no-users.png';
+import noTeamsCover from '../../../assets/img-no-organizations.png';
 import expandArea from '../../../assets/img-expand-small.png';
 import errorImg from '../../../assets/img-error.png';
 
@@ -120,6 +121,7 @@ export {
   eventCoverBig,
   noEventsCover,
   noUsersCover,
+  noTeamsCover,
   expandArea,
   errorImg,
 };

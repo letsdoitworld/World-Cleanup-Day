@@ -81,16 +81,34 @@ class ApiService {
     }
   }
 }
-const IS_PRODUCTION = window.location.host === 'app.worldcleanupday.com';
+
 // export const BASE_URL = 'https://api.app.worldcleanupday.com/api/v1'
 
-export const BASE_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'https://api-staging.app.worldcleanupday.com/api/v1'
-    : IS_PRODUCTION
-    ? `${window.location.protocol}//api.${window.location.host}/api/v1`
-    : `${window.location.protocol}//api-${window.location.host}/api/v1`;
+let BASE_URL;
+if (process.env.NODE_ENV === 'development') {
+  switch (window.location.host) {
+    case 'localhost:3000':
+      BASE_URL = `${window.location.protocol}//api-staging.app.worldcleanupday.com/api/v1`;
+      break;
+    default:
+      BASE_URL = `${window.location.protocol}//${window.location.host}:50000/api/v1`;
+  }
+} else {
+  switch (window.location.host) {
+    case 'staging.app.worldcleanupday.com':
+      BASE_URL = `${window.location.protocol}//api-${window.location.host}/api/v1`;
+      break;
+    case 'app.worldcleanupday.com':
+      BASE_URL = `${window.location.protocol}//api.${window.location.host}/api/v1`;
+      break;
+    default:
+      BASE_URL = `${window.location.protocol}//api-${window.location.host}/api/v1`;
+  }
+}
 
+export {
+  BASE_URL,
+};
 
 const apiService = new ApiService();
 apiService.setBaseURL(BASE_URL);

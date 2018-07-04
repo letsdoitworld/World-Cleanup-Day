@@ -2,15 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
+import { NavLink } from 'react-router-dom';
+import { If, Else } from 'react-if';
 import { actions, selectors } from '../../reducers/teams';
-import { List } from '../../components/List';
-import { TrashpointListItem } from '../TrashpointList/components/TrashpointListItem';
+import {
+  TrashpointListItem,
+} from '../TrashpointList/components/TrashpointListItem';
+import {
+  TrashpointList,
+} from '../../components/Events/EventTrashpointList/TrashpointList';
+import {
+  TrashpointDetails,
+} from '../TrashpointDetails';
 import { Loader } from '../../components/Spinner';
-import imageMembers from '../../assets/ic_organization@3x.png';
-import imageLocation from '../../assets/icon_location@3x.png';
+import {
+  BackIcon,
+  ExpandIcon,
+  CollapseIcon,
+  LocationIconEvent,
+  RubbishIconActive,
+  ParticipantsIcon,
+} from '../../components/common/Icons';
 import { COUNTRIES_HASH } from '../../shared/countries';
-import { STATUS_COUNT_HASH } from '../../shared/constants';
 
 class TeamDetails extends Component {
   constructor(props) {
@@ -20,6 +33,7 @@ class TeamDetails extends Component {
       page: 1,
       pageSize: 15,
       loaded: false,
+      isVisible: true,
     };
 
     this.handleLoadMore = _.debounce(this.handleLoadMore.bind(this), 300, {
@@ -77,29 +91,41 @@ class TeamDetails extends Component {
       return null;
     }
 
+    const options = {
+      threat: {
+        id: 'threat',
+        label: 'THREAT',
+        selectedImage: require('./images/urgent@2x.png'),
+        color: '#fc515e',
+      },
+      regular: {
+        id: 'regular',
+        label: 'REGULAR',
+        selectedImage: require('./images/img-regular-trashpoint@2x.png'),
+        color: '#ff7a00',
+      },
+      cleaned: {
+        id: 'cleaned',
+        label: 'CLEANED',
+        selectedImage: require('./images/icCleanedTrashpoint@2x.png'),
+        color: '#7BEA4E',
+      },
+    };
+
     return (
-      <div className="StatusCounts-container">
-        {_.map(STATUS_COUNT_HASH, (status, key) => {
+      <div className="TeamDetails-statuses">
+        {_.map(options, (status, key) => {
           const count = statusCounts[key] || 0;
           return (
-            <div className="StatusCount-container" key={key}>
-              <div
-                className="StatusCount-circle"
-                style={{
-                  border: `1px solid ${status.borderColor}`,
-                  background: status.background,
-                }}
-              >
-                <span className="StatusCount-circle-label">
-                  {count}
-                </span>
-              </div>
-              <span
-                style={{ color: status.color }}
-                className="StatusCount-label"
-              >
-                {status.label}
-              </span>
+            <div className="TeamDetails-statuses-body" key={key}>
+              <img
+                className="TeamDetails-statuses-img"
+                src={status.selectedImage}
+                alt="tp"
+              />
+              <p className="TeamDetails-statuses-tp-count">
+                {count}
+              </p>
             </div>
           );
         })}
@@ -109,62 +135,113 @@ class TeamDetails extends Component {
 
 
   handleBackClick = () => {
-    this.props.history.push('/teams');
+    this.props.history.goBack();
   };
 
-  oneOrMany = (number, str) => (number === 0 || number) && (number === 1 ? `${number} ${str}` : `${number} ${str}s`);
-
   render() {
-
     const { team, match: { params } } = this.props;
-    return team.id === params.id ?
-      <div className="AreaList">
-        <div className="AreaList-top-band">
+    const { isVisible } = this.state;
+    const teamsListCondition = !!(params.id && !params.trashpoints && !params.tpId);
+    const tpListCondition = !!(params.id && params.trashpoints && !params.tpId);
+    const tpDetCondition = !!(params.id && params.trashpoints && params.tpId);
+    console.log(teamsListCondition, tpListCondition, tpDetCondition);
+    return (
+      <div className="TeamDetails-container">
+        <div className="TeamDetails-header">
           <div
             onClick={this.handleBackClick}
-            className="AreaList-top-band-back">
-            <div className="AreaList-top-band-left-arrow"/>
+            className="TeamDetails-header-back"
+          >
+            <BackIcon />
           </div>
-          <div className="AreaList-top-band-area">{team.name}</div>
+          <div className="TeamDetails-header-title">
+            {team.name || 'Loading...'}
+          </div>
+          <div
+            className="TeamDetails-header-minimize"
+          >
+            {
+              isVisible ?
+                <CollapseIcon /> :
+                <ExpandIcon />
+            }
+          </div>
         </div>
-        < div className="TeamDetails-body">
-          <div className="TeamDetails-logo">
-            <img className="TeamDetails-logo" src={team.image}/>
-          </div>
-          <div>
-            <div className="TeamDetails-members">
-              <img className="TeamDetails-members-icon" src={imageLocation}/>
-              <p className="TeamDetails-members-p">
-                {team.CC ? COUNTRIES_HASH[team.CC] : 'Global'}
-              </p>
+        <div className="TeamDetails-plot">
+          <If condition={team.id === params.id}>
+            <div>
+              {
+                teamsListCondition &&
+                <div>
+                  <div className="TeamDetails-flex TeamDetails-infoblock">
+                    <LocationIconEvent />
+                    <span className="TeamDetails-textfield">
+                      {team.CC ? COUNTRIES_HASH[team.CC] : 'Global'}
+                    </span>
+                  </div>
+                  <div className="TeamDetails-members TeamDetails-infoblock">
+                    <h2 className="TeamDetails-infoblock-header">Members</h2>
+                    <p>
+                      <ParticipantsIcon />
+                      <span className="TeamDetails-textfield">
+                        {team.members}
+                      </span>
+                    </p>
+                  </div>
+                  <NavLink to={`/teams/${team.id}/trashpoints`}>
+                    <div
+                      className="TeamDetails-trashpoints TeamDetails-infoblock"
+                    >
+                      <h2 className="TeamDetails-infoblock-header">
+                        Trashpoints
+                      </h2>
+                      <p>
+                        <RubbishIconActive />
+                        <span className="TeamDetails-preview">
+                          Click to preview trashpoints
+                        </span>
+                        <span className="pointer">{'>'}</span>
+                        <span className="TeamDetails-trashpoints-num">
+                          {team.trashpoints}
+                        </span>
+                      </p>
+                    </div>
+                  </NavLink>
+                  <div className="TeamDetails-infoblock">
+                    {this.renderStatusCounts()}
+                  </div>
+                  <div className="TeamDetails-descr TeamDetails-infoblock">
+                    <h2 className="TeamDetails-infoblock-header">
+                      Description
+                    </h2>
+                    <span>
+                      {team.teamDescription}
+                    </span>
+                  </div>
+                </div>
+              }
+              {
+                tpListCondition &&
+                <TrashpointList
+                  trashpoints={team.lastTrashpoints || []}
+                  targetSection={'teams'}
+                  targetId={team.id}
+                />
+              }
+              {
+                tpDetCondition &&
+                <TrashpointDetails
+                  trashpointId={params.tpId}
+                />
+              }
             </div>
-            <div className="TeamDetails-members">
-              <img className="TeamDetails-members-icon" src={imageMembers}/>
-              <p className="TeamDetails-members-p">
-                {this.oneOrMany(team.members, 'member')}
-              </p>
-            </div>
-          </div>
+            <Else>
+              <Loader />
+            </Else>
+          </If>
         </div>
-        <p className="TeamDetails-description-p">{team.teamDescription}</p>
-        <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
-          <div style={{ flex: -1 }}>
-            {this.renderStatusCounts()}
-          </div>
-          <div style={{ flex: '1' }}>
-            <List
-              infinite
-              isInfiniteLoading={this.props.loading}
-              onInfiniteLoad={this.handleLoadMore}
-              items={this.renderItems()}
-            />
-          </div>
-        </div>
-      </div> :
-      <div className="AreaList">
-        <Loader/>
       </div>
-      ;
+    );
   }
 }
 

@@ -11,30 +11,31 @@ class EventTrashpointList extends Component {
   static propTypes = {
     fetchEventDetails: PropTypes.func.isRequired,
     eventDetails: PropTypes.any.isRequired,
-    eventId: PropTypes.string,
+    targetId: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
-    eventId: '',
+    targetId: '',
   };
 
   componentWillMount() {
-    this.props.fetchEventDetails(this.props.eventId);
+    this.props.fetchEventDetails(this.props.targetId);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.eventId && nextProps.eventId !== this.props.eventId) {
-      this.props.fetchEventDetails(nextProps.eventId);
+    if (nextProps.targetId && nextProps.targetId !== this.props.targetId) {
+      this.props.fetchEventDetails(nextProps.targetId);
     }
   }
 
   render() {
-    const { eventDetails, eventId, isLoading } = this.props;
+    const { eventDetails, targetId, isLoading } = this.props;
     const { trashpoints } = eventDetails;
     return (
       <TrashpointList
-        eventId={eventId}
+        targetId={targetId}
+        targetSection={'event'}
         trashpoints={trashpoints}
         isLoading={isLoading}
       />

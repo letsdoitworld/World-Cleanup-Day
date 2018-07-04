@@ -128,7 +128,7 @@ class Home extends React.Component {
               render={
                 ({ match }) => {
                   return (
-                    <EventTrashpointList eventId={match.params.eventId} />
+                    <EventTrashpointList targetId={match.params.eventId} />
                   );
                 }}
             />

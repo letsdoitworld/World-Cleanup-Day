@@ -1,28 +1,141 @@
-.TeamDetails-body {
-    display: flex;
-    flex-direction: row;
+.TeamDetails-container {
+  width: 380px;
+  position: fixed;
+  bottom: 45px;
+  left: 50px;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.TeamDetails-logo {
-    width: 110px
+.TeamDetails-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 35px;
+  background-color: #3e8ede;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.TeamDetails-members {
-    width: 150px;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
+.TeamDetails-plot {
+  flex-direction: column;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
+  height: calc(100vh - 230px) !important;
+  display: flex;
 }
 
-.TeamDetails-members-icon {
-    height: 20px;
-    margin-right: 10px;
+.TeamDetails-header-back {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  color: #fff;
+  vertical-align: top;
 }
 
-.TeamDetails-members-p {
-    margin: 0;
+.TeamDetails-header-title {
+  width: 90%;
+  height: 20px;
+  margin: 0 16px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-weight: bold;
 }
 
-.TeamDetails-description-p {
-    padding: 10px
+.TeamDetails-header-minimize {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.TeamDetails-header-minimize img {
+  width: 16px;
+  height: 9px;
+}
+
+.TeamDetails-infoblock {
+  padding: 20px 30px;
+  border-bottom: 0.2px solid rgba(0,0,0,0.3);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.TeamDetails-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.TeamDetails-textfield {
+  margin-left: 16px;
+}
+
+.TeamDetails-infoblock-header {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #3e8ede;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.TeamDetails-trashpoints-num {
+  font-size: 17px;
+  display: inline-block;
+  width: 29px;
+  height: 29px;
+  background-color: #e11383;
+  color: white;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 28px;
+  float: right;
+  font-weight: bold;
+  position: relative;
+  bottom: 5px;
+  right: 10px;
+}
+
+.pointer {
+  font-size: 28px;
+  float: right;
+  vertical-align: middle;
+  color: #008fdf;
+  position: relative;
+  bottom: 10px;
+  right: 0px;
+}
+
+.TeamDetails-preview {
+  margin-left: 16px;
+  position: relative;
+  bottom: 4px;
+}
+
+.TeamDetails-statuses {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.TeamDetails-statuses-body {
+  display: inline-block;
+  width: 33%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.TeamDetails-statuses-img {
+  width: 63px;
+  height: 63px;
+}
+
+.TeamDetails-statuses-tp-count {
+  font-size: 15px;
+  margin-top: 6px;
 }

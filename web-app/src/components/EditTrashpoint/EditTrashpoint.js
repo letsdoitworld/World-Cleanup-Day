@@ -135,7 +135,6 @@ class EditTrashpoint extends Component {
       status,
       amount,
     } = this.state;
-
     const validation = await this.validate();
     if (
       validation &&
@@ -143,6 +142,7 @@ class EditTrashpoint extends Component {
     ) {
       return;
     }
+    console.log(photos);
 
     updateTrashpoint({
       location,
@@ -465,6 +465,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(trashpileOperations.deleteMarker(...args)),
   updateMarkerLocation: (...args) => {
     dispatch(trashpileOperations.updateMarkerLocation(...args));
+  },
+  deleteImage: (markerId, imageId) => {
+    dispatch(trashpileOperations.deleteImage(markerId, imageId));
   },
 });
 

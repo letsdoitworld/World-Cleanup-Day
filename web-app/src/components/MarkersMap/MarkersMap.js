@@ -143,7 +143,6 @@ class MarkersMap extends React.Component {
       });
       this.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setZoom(FOCUS_EVENT_ZOOM_LEVEL);
       this.loadMarkers(this.props.tabActive);
-      console.log('LOAD - WILL UPD', this.state.updatedOnMount);
     }
   }
 
@@ -153,7 +152,6 @@ class MarkersMap extends React.Component {
     if (map && isLocationAllowed && !this.state.updatedOnMount) {
       this.setState({ updatedOnMount: true });
       this.loadMarkers(this.props.tabActive);
-      console.log('SET MAP');
     } else {
       this.setState({ searchVisible: true });
     }

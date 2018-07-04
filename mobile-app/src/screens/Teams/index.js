@@ -6,7 +6,7 @@ import {
 } from '../../store/actions/teams';
 
 import { guestLogIn } from '../../store/actions/auth';
-
+ 
 import {
   getTeams,
   getLoader,
@@ -15,7 +15,7 @@ import {
 import {
   getUserCountry,
   isAuthenticated,
-  isGuestSession,
+  isGuestSession
 } from '../../store/selectors';
 
 import Component from './Teams';
@@ -25,12 +25,12 @@ const selector = createStructuredSelector({
   loading: getLoader,
   country: getUserCountry,
   isAuthenticated,
-  isGuestSession,
+  isGuestSession
 });
 
 const actions = {
   onFetchTeams: fetchTeams,
-  onGuestLogIn: guestLogIn,
+  onGuestLogIn: guestLogIn
 };
 
 export default connect(selector, actions)(Component);

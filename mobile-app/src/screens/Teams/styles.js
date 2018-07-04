@@ -84,5 +84,5 @@ export default {
     height: 300,
     backgroundColor: colors.gray200,
     marginHorizontal: getHeightPercentage(20),
-  },
+  }
 };

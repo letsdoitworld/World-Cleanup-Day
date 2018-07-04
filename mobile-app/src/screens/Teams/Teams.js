@@ -98,7 +98,7 @@ export default class Teams extends Component {
       <Text style={styles.lowerText}>{strings.label_text_noteams_bottom}</Text>
     </View>
   );
-
+ 
   renderGuestTeams = () => {
     return (
       <View style={styles.guestContainer}>
@@ -110,7 +110,7 @@ export default class Teams extends Component {
       </View>
     )
   }
-
+ 
   spinner = () => {
     return (
       <ActivityIndicator

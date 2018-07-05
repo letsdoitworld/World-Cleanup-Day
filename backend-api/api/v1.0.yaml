@@ -879,6 +879,18 @@ parameters:
     required: true
     type: integer
     minimum: 1
+  From:
+    name: from
+    in: query
+    description: date
+    required: false
+    type: string
+  To:
+    name: to
+    in: query
+    description: date.
+    required: false
+    type: string
   #-----------------------------------------------------------------------------
   ImageAllocate:
     name: request
@@ -921,6 +933,12 @@ parameters:
     minLength: 3
     maxLength: 10
   #-----------------------------------------------------------------------------
+  NameTeam:
+    name: nameTeam
+    in: query
+    required: false
+    type: string
+  #-----------------------------------------------------------------------------
   Search:
     name: search
     in: query
@@ -928,6 +946,12 @@ parameters:
     type: string
     minLength: 3
     maxLength: 60
+  #-----------------------------------------------------------------------------
+  Superadmin:
+    name: superadmin
+    in: query
+    required: false
+    type: boolean
   #-----------------------------------------------------------------------------
   Country:
     name: country

@@ -30,6 +30,6 @@ const actions = {
 
 
 export default compose(
-  connect(selector, actions),
   withNetworkGuard(),
+  connect(selector, actions),
 )(Component);

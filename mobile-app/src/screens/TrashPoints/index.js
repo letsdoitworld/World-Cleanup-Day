@@ -53,5 +53,4 @@ const actions = {
 
 export default compose(
   connect(selector, actions),
-  withNetworkGuard(),
 )(Component);

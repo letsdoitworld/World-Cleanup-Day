@@ -235,7 +235,9 @@ export default class App extends PureComponent {
     }
     if (this.currentError !== error) {
       this.currentError = error;
-      App.errorLightBox(error);
+      if (error !== 'Network Error') {
+        App.errorLightBox(error);
+      }
     }
   }
 

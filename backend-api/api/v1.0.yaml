@@ -463,6 +463,44 @@ paths:
           $ref: "#/responses/Teams"
         "default":
           $ref: "#/responses/ErrorSet"
+  /teams/list:
+    x-swagger-router-controller: teams
+    get:
+      description: List of all teams between two dates.
+      operationId: getTeamsInBetween
+      parameters:
+        - $ref: "#/parameters/From"
+        - $ref: "#/parameters/To"
+        - $ref: "#/parameters/NameTeam"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/web:
+    x-swagger-router-controller: teams
+    get:
+      description: List all teams attached to this admin.
+      operationId: getAllTeamsWeb
+      x-security: [bearer, {roles:[superadmin, leader]}]
+      parameters:
+        - $ref: "#/parameters/Country"
+        - $ref: "#/parameters/Superadmin"
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
+  /teams/trashpoints:
+    x-swagger-router-controller: teams
+    get:
+      description: Fetch information about trashpoints for all teams.
+      operationId: getCountTeamsTrashpoints
+      responses:
+        "200":
+          $ref: "#/responses/Teams"
+        "default":
+          $ref: "#/responses/ErrorSet"
   /teams/{id}:
     x-swagger-router-controller: teams
     get:

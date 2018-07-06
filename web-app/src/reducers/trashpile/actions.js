@@ -320,9 +320,6 @@ const fetchMarkerDetails = markerId => async dispatch => {
       }),
     ]);
 
-    const res = await axios.get(`${BASE_URL}${API_ENDPOINTS.FETCH_TRASHPOINT_DETAILS(markerId)}`);
-    res.then(r => console.log(r));
-
     if (!imagesResponse || !detailsResponse) {
       dispatch(errorActions.setErrorMessage('Failed to load trashpoint details'));
       dispatch({ type: TYPES.FETCH_MARKER_DETAILS_FAILED });

@@ -73,7 +73,6 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.userProfile);
     if (nextProps.userProfile.locked) {
       this.handleLockedUser();
     }

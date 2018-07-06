@@ -82,7 +82,7 @@ class ApiService {
   }
 }
 
-// export const BASE_URL = 'https://api.app.worldcleanupday.com/api/v1'
+// export const BASE_URL = 'https://api-staging.app.worldcleanupday.com/api/v1'
 
 let BASE_URL;
 if (process.env.NODE_ENV === 'development') {

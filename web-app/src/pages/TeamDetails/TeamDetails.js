@@ -144,7 +144,7 @@ class TeamDetails extends Component {
     const teamsListCondition = !!(params.id && !params.trashpoints && !params.tpId);
     const tpListCondition = !!(params.id && params.trashpoints && !params.tpId);
     const tpDetCondition = !!(params.id && params.trashpoints && params.tpId);
-    console.log(teamsListCondition, tpListCondition, tpDetCondition);
+
     return (
       <div className="TeamDetails-container">
         <div className="TeamDetails-header">

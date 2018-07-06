@@ -56,9 +56,11 @@ class Home extends React.Component {
     agreeToTerms: PropTypes.func.isRequired,
     userProfile: PropTypes.shape({
       role: PropTypes.string,
+      locked: PropTypes.bool,
     }).isRequired,
     resetUsers: PropTypes.func.isRequired,
     updateRouterInfo: PropTypes.func.isRequired,
+    toggleLockedModal: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
@@ -70,6 +72,12 @@ class Home extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userProfile.locked) {
+      this.handleLockedUser();
+    }
+  }
+
   handleLogout = () => {
     this.props.history.push(ROUTES.TRASHPOINTS_ROOT);
     this.props.logout();
@@ -78,6 +86,11 @@ class Home extends React.Component {
   handleTermsAccept = () => {
     this.props.agreeToTerms();
   };
+
+  handleLockedUser = () => {
+    this.props.toggleLockedModal();
+    this.props.logout();
+  }
 
   renderTerms = () =>
     (<div className="Home">
@@ -171,6 +184,7 @@ class Home extends React.Component {
                   ].indexOf(this.props.userProfile.role) >= 0
                 }
                 trashpointId={match.params.id}
+                ifEditMode={!!match.params.edit}
                 history={history}
               />)
           }
@@ -231,6 +245,7 @@ const mapDispatchToProps = dispatch => ({
   agreeToTerms: () => dispatch(userActions.agreeToTerms()),
   resetUsers: () => dispatch(adminActions.resetUsers()),
   updateRouterInfo: (router) => dispatch(appActions.updateRouterInfo(router)),
+  toggleLockedModal: () => dispatch(appActions.toggleLockedModal(true)),
 });
 
 export default connect(mapState, mapDispatchToProps)(Home);

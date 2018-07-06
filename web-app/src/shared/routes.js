@@ -12,7 +12,7 @@ const ROUTES = {
   PRIVACY: '/privacy',
   TRASHPOINTS_ROOT: '/trashpoints',
   CREATE_TRASHPOINT: '/trashpoints/create',
-  TRASHPOINT_DETAILS: '/trashpoints/:id?',
+  TRASHPOINT_DETAILS: '/trashpoints/:id?/:edit?',
   TRASHPOINTS: '/trashpoints',
   TRY_OUR_APP: '/try-our-app',
   TEAMS_LIST: '/teams',

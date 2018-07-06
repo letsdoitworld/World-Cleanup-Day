@@ -189,7 +189,9 @@ class Details extends Component {
                 <div className="Details-default-container">
                   <div
                     className="CreateTrashpoint-edit-button"
-                    onClick={actions.onEditTrashpointClick}
+                    onClick={
+                      () => this.props.history.push(`/trashpoints/${trashpointId}/edit`)
+                    }
                   >
                     <p>Update trashpoint</p>
                   </div>

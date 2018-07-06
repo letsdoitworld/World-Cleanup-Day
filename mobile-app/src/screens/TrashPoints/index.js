@@ -14,6 +14,7 @@ import {
   showTrashPointsNewDeltaEntity,
   errorHandle,
   noTrashPoints,
+  isConnected,
 } from '../../store/selectors';
 
 import Component from './TrashPoints';
@@ -39,6 +40,7 @@ const selector = createStructuredSelector({
   isAuthenticated,
   appError: errorHandle,
   isEmpty: noTrashPoints,
+  isConnected,
 });
 
 const actions = {

@@ -12,7 +12,7 @@ import {
 } from '../../store/selectors/teams';
 
 import {
-  getUserCountry
+  getUserCountry, isConnected
 } from '../../store/selectors';
 
 import Component from './Teams';
@@ -22,6 +22,7 @@ const selector = createStructuredSelector({
   teams: getTeams,
   loading: getLoader,
   country: getUserCountry,
+  isConnected: isConnected,
 });
 
 const actions = {

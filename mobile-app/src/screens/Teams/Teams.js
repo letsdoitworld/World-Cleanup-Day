@@ -14,6 +14,7 @@ import { ButtonDelete } from '../../assets/images';
 import { COUNTRIES_HASH } from '../../shared/countries';
 import { Backgrounds } from '../../assets/images';
 import { TEAM_SCREEN } from '../index';
+import { EmptyStateScreen } from '../../components/EmptyStateScreen/EmptyStateScreen';
 
 export default class Teams extends Component {
 
@@ -113,8 +114,22 @@ export default class Teams extends Component {
     onFetchTeams();
   }
 
+  componentDidUpdate(prevProps) {
+    const {isConnected, onFetchTeams} = this.props;
+    if (!prevProps.isConnected && isConnected) {
+      onFetchTeams();
+    }
+
+  }
+
   render() {
-    const { teams, loading } = this.props;
+    const { teams, loading, isConnected } = this.props;
+    if (!isConnected) {
+      return <EmptyStateScreen
+        title={strings.label_text_offline}
+        description={strings.label_error_network_text}
+      />
+    }
     return (
       <View style={styles.container}>
         {this.renderSearchField()}

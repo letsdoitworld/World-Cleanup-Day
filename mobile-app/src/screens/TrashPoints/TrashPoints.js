@@ -213,7 +213,7 @@ class TrashPoints extends Component {
       });
     }
     setTimeout(() => {
-      if (this.props.isEmpty) {
+      if (this.props.isEmpty && this.props.isConnected) {
         this.props.navigator.showLightBox({
           screen: EXPAND_SEARCH,
           passProps: {

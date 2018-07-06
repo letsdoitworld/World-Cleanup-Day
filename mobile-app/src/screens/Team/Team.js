@@ -7,6 +7,7 @@ import {
   Image,
   ActivityIndicator
 } from 'react-native';
+import { EmptyStateScreen } from '../../components/EmptyStateScreen/EmptyStateScreen';
 import locationIcon from '../../assets/images/ic_location.png';
 import listIcon from '../../assets/images/icons/icList.png';
 import trashIcon from '../../assets/images/icons/icTrashpointsInActive.png';
@@ -24,8 +25,8 @@ export default class Team extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { onFetchTeam, teamId } = this.props;
-    if (prevProps.myTeam !== this.props.myTeam) {
+    const { onFetchTeam, teamId, isConnected } = this.props;
+    if (prevProps.myTeam !== this.props.myTeam || (!prevProps.isConnected && isConnected)) {
       onFetchTeam(teamId);
     }
   }
@@ -80,10 +81,16 @@ export default class Team extends Component {
   };
 
   render() {
-    const { team, loading, myTeam } = this.props;
+    const { team, loading, myTeam, isConnected } = this.props;
     const btnText = team && myTeam && team.id === myTeam ? strings.label_team_leave : strings.label_team_join;
     const location = team && team.CC ? COUNTRIES_HASH[team.CC] : strings.label_text_global_team;
     const remoteImage = team && team.image ? { uri: team.image } : null;
+    if (!isConnected) {
+      return <EmptyStateScreen
+        title={strings.label_text_offline}
+        description={strings.label_error_network_text}
+      />
+    }
     return loading
       ? this.spinner()
       : team && (

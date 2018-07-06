@@ -9,13 +9,14 @@ import {
 } from '../../store/actions/profile';
 
 import { getTeam, getLoader } from '../../store/selectors/teams';
-import { getProfileTeam } from '../../store/selectors';
+import { getProfileTeam, isConnected } from '../../store/selectors';
 import Component from './Team';
 
 const selector = createStructuredSelector({
   team: getTeam,
   loading: getLoader,
   myTeam: getProfileTeam,
+  isConnected: isConnected,
 });
 
 const actions = {

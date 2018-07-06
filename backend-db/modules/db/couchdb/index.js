@@ -281,6 +281,7 @@ const layer = {
         );
     },
     getAccountsByNameSearch: async (nameSearch, pageSize = 10, pageNumber = 1, country = null) => {
+        country = (country === "NOC") ? null : country;
         return await adapter.getEntities(
             'Account',
             '_design/byNamePieces/_view/view',
@@ -329,6 +330,7 @@ const layer = {
         return parseInt(ret.pop());
     },
     countAccountsForNameSearch: async (nameSearch, country = null) => {
+        country = (country === "NOC") ? null : country;
         const ret = await adapter.getRawDocs('Account', '_design/byNamePieces/_view/view', {
             startkey: country ? [nameSearch, country] : [nameSearch],
             endkey: country ? [nameSearch, country, {}] : [nameSearch, {}],

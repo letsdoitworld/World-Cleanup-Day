@@ -14,11 +14,13 @@ import {
   selectors as userSels,
 } from '../../reducers/user';
 import { COUNTRY_LIST } from '../../shared/countries';
+import { getCountryFromStr } from '../../shared/helpers';
 import { actions as errorActions } from '../../reducers/error';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from '../EditTrashpoint/components/Tags';
 import StatusPicker from '../EditTrashpoint/StatusPicker';
 import { CloseIcon, LocationIconEvent } from '../common/Icons';
+import { Loader } from '../Spinner';
 import imageLocation from '../../assets/icon_location@2x.png';
 
 import './CreateTrashpoint.css';
@@ -64,8 +66,8 @@ class CreateTrashpoint extends Component {
     };
   }
 
-  componentWillMount() {
-    this.props.fetchTrashTypesAndOrigin();
+  async componentWillMount() {
+    await this.props.fetchTrashTypesAndOrigin();
   }
 
   checkType = () => {
@@ -86,10 +88,11 @@ class CreateTrashpoint extends Component {
 
   checkIfLocationPermitted = () => {
     const { userProfile } = this.props;
+    const arrOfUserCountries = userProfile.areas.map(a => getCountryFromStr(a));
     if (
       this.state.country &&
       userProfile.role === 'leader' &&
-      userProfile.areas.indexOf(this.state.country) === -1
+      arrOfUserCountries.indexOf(this.state.country) === -1
     ) {
       return true;
     }
@@ -169,9 +172,6 @@ class CreateTrashpoint extends Component {
       name,
     }).then(
       res => {
-        if (res.type === 'SET_ERROR_MESSAGE') {
-          setErrorMessage('Location already exists! Choose another location in order to create trashpoint.');
-        }
         if (res && !res.type) {
           this.props.history.push(`/trashpoints/${res.id}`);
         }

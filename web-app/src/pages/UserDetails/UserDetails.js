@@ -184,7 +184,7 @@ class UserDetails extends React.Component {
     }
     if (loading || !user) {
       return (
-        <div className="UserDetails-container">
+        <div className="UserDetails-container scrollbar-modified">
           <div className="UserDetails-header">
             <div
               className="UserDetails-header-back"

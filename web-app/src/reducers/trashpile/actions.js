@@ -308,7 +308,7 @@ const toggleDetailsWindow = () => ({
   type: TYPES.TOGGLE_TP_DETAILS_WINDOW,
 });
 
-const fetchMarkerDetails = markerId => async dispatch => {
+const fetchMarkerDetails = (markerId, mapFocusNeeded) => async dispatch => {
   try {
     dispatch({ type: TYPES.FETCH_MARKER_DETAILS_REQUEST });
     const [imagesResponse, detailsResponse] = await Promise.all([
@@ -350,7 +350,10 @@ const fetchMarkerDetails = markerId => async dispatch => {
       marker,
     });
     dispatch(
-      appActions.setChosenMarkerCoordinates(detailsResponse.data.location),
+      appActions.setChosenMarkerCoordinates({
+        ...detailsResponse.data.location,
+        mapFocusNeeded,
+      }),
     );
     return marker;
   } catch (e) {

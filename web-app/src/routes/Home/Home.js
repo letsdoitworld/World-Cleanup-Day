@@ -89,7 +89,7 @@ class Home extends React.Component {
 
   handleLockedUser = () => {
     this.props.toggleLockedModal();
-    this.props.logout();
+    // this.props.logout();
   }
 
   renderTerms = () =>
@@ -153,6 +153,9 @@ class Home extends React.Component {
                   return (
                     <TrashpointDetails
                       trashpointId={match.params.trashpointId}
+                      isUserAllowedAdding={false}
+                      ifEditMode={false}
+                      mapFocusNeeded={false}
                     />
                   );
                 }}
@@ -184,6 +187,7 @@ class Home extends React.Component {
                   ].indexOf(this.props.userProfile.role) >= 0
                 }
                 trashpointId={match.params.id}
+                mapFocusNeeded={true}
                 ifEditMode={!!match.params.edit}
                 history={history}
               />)

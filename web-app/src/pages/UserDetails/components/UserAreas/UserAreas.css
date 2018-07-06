@@ -13,6 +13,12 @@
 
 .UserAreas-name-block {
   display: inline-block;
+  max-width: 60%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  top: 3px;
 }
 
 .UserAreas-name {

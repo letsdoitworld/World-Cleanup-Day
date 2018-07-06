@@ -160,7 +160,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 75%;
+  max-width: 68%;
 }
 
 .EventDetails-TrashpointListItem-status {

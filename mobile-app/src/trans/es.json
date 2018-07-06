@@ -225,7 +225,7 @@
 	"label_start": "Inicia",
 	"label_date": "Fecha",
 	"label_no_selected": "No seleccionado",
-	"label_no_organization": "No se ha agregó organización",
+	"label_no_organization": "No se ha agregó ninguna organización",
 	"label_offline_attendees": "Asistentes fuera de línea",
 	"label_no_offline_attendees": "Sin asistentes fuera de línea",
 	"label_invite_offline_attendees": "Si usted planea traer personas con usted, agregue el número",

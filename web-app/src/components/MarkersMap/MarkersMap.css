@@ -4,7 +4,7 @@
   width: 138px;
   height: 34px;
   top: 134px;
-  right: 20px;
+  left: calc(50vw - 69px);
   z-index: 9;
   background-color: #fff;
   box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2);

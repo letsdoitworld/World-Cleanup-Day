@@ -11,6 +11,7 @@ import {
   destinationPoint,
 } from '../../shared/helpers';
 import { ApiService } from '../../services';
+import { BASE_URL } from '../../services/Api';
 import selectors from './selectors';
 import { actions as appActions, selectors as appSelectors } from '../app';
 import { actions as errorActions } from '../error';
@@ -319,6 +320,9 @@ const fetchMarkerDetails = markerId => async dispatch => {
       }),
     ]);
 
+    const res = await axios.get(`${BASE_URL}${API_ENDPOINTS.FETCH_TRASHPOINT_DETAILS(markerId)}`);
+    res.then(r => console.log(r));
+
     if (!imagesResponse || !detailsResponse) {
       dispatch(errorActions.setErrorMessage('Failed to load trashpoint details'));
       dispatch({ type: TYPES.FETCH_MARKER_DETAILS_FAILED });
@@ -354,7 +358,6 @@ const fetchMarkerDetails = markerId => async dispatch => {
     return marker;
   } catch (e) {
     dispatch(errorActions.setErrorMessage('Failed to load trashpoint details'));
-    console.log(e);
   }
 };
 
@@ -510,6 +513,7 @@ export const createMarker = (
         await Promise.all(toDeletePhotos.map(p => deleteImage(id, p.parentId)));
       } catch (ex) {
         console.log(ex);
+        dispatch(errorActions.setErrorMessage('Failed to delete photos'));
       }
     }
 

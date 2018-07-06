@@ -79,8 +79,8 @@ export const SHARED_MODAL_STYLES = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    padding: '24px',
     borderRadius: '10px',
+    padding: 0,
   },
 };
 

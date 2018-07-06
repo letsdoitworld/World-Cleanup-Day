@@ -87,7 +87,7 @@ const authenticate = ({ network, token }) => async (dispatch, getState) => {
         response.data.length > 0
       ) {
         const error = response.data[0];
-        if (error.code && error.code === 'AUTH_ACCOUNT_IS_LOCKED') {
+        if (error.code && error.code === 'ACCOUNT_BLOCKED') {
           dispatch(appActions.toggleLockedModal(true));
         }
       } else {

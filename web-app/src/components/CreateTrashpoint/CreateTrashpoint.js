@@ -10,6 +10,10 @@ import {
   actions as trashpileOperations,
   selectors,
 } from '../../reducers/trashpile';
+import {
+  selectors as userSels,
+} from '../../reducers/user';
+import { COUNTRY_LIST } from '../../shared/countries';
 import { actions as errorActions } from '../../reducers/error';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from '../EditTrashpoint/components/Tags';
@@ -34,6 +38,7 @@ class CreateTrashpoint extends Component {
     this.state = {
       name: '',
       address: '',
+      country: '',
       location: undefined,
       editLocation: false,
       amount: 'handful',
@@ -52,10 +57,15 @@ class CreateTrashpoint extends Component {
       photos: [],
       validation: {
         noLocation: false,
+        notPermittedToCreate: false,
         noTrashType: false,
         noPhoto: false,
       },
     };
+  }
+
+  componentWillMount() {
+    this.props.fetchTrashTypesAndOrigin();
   }
 
   checkType = () => {
@@ -74,6 +84,18 @@ class CreateTrashpoint extends Component {
     return false;
   };
 
+  checkIfLocationPermitted = () => {
+    const { userProfile } = this.props;
+    if (
+      this.state.country &&
+      userProfile.role === 'leader' &&
+      userProfile.areas.indexOf(this.state.country) === -1
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   checkPhotos = () => {
     const { photos } = this.state;
     if (photos.length === 0) {
@@ -85,19 +107,22 @@ class CreateTrashpoint extends Component {
   validate = async () => {
     const res = await Promise.all([
       this.checkLocation(),
+      this.checkIfLocationPermitted(),
       this.checkType(),
       this.checkPhotos(),
     ]).then(
-      ([ifNoLocation, ifNoType, ifNoPhoto]) => {
+      ([ifnoLocation, ifNotPermitted, ifNoType, ifNoPhoto]) => {
         this.setState({
           validation: {
-            noLocation: ifNoLocation,
+            noLocation: ifnoLocation,
+            notPermittedToCreate: ifNotPermitted,
             noTrashType: ifNoType,
             noPhoto: ifNoPhoto,
           },
         });
         return {
-          noLocation: ifNoLocation,
+          noLocation: ifnoLocation,
+          notPermittedToCreate: ifNotPermitted,
           noTrashType: ifNoType,
           noPhoto: ifNoPhoto,
         };
@@ -145,7 +170,7 @@ class CreateTrashpoint extends Component {
     }).then(
       res => {
         if (res.type === 'SET_ERROR_MESSAGE') {
-        setErrorMessage('Location already exists! Choose another location in order to create trashpoint.');
+          setErrorMessage('Location already exists! Choose another location in order to create trashpoint.');
         }
         if (res && !res.type) {
           this.props.history.push(`/trashpoints/${res.id}`);
@@ -179,6 +204,7 @@ class CreateTrashpoint extends Component {
     this.setState({
       validation: {
         noLocation: this.state.validation.noLocation,
+        notPermittedToCreate: this.state.validation.notPermittedToCreate,
         noTrashType: this.state.validation.noTrashType,
         noPhoto: false,
       },
@@ -199,6 +225,7 @@ class CreateTrashpoint extends Component {
     composition.selected = !composition.selected;
     this.state.validation = {
       noLocation: this.state.validation.noLocation,
+      notPermittedToCreate: this.state.validation.notPermittedToCreate,
       noTrashType: false,
       noPhoto: this.state.validation.noPhoto,
     };
@@ -242,14 +269,18 @@ class CreateTrashpoint extends Component {
       latitude: lat,
       longitude: lng,
     });
+    const chosenCountryCode =
+    COUNTRY_LIST.filter(c => c.name === data.country)[0].code;
     this.setState({
       validation: {
         noLocation: false,
+        notPermittedToCreate: false,
         noTrashType: this.state.validation.noTrashType,
         noPhoto: this.state.validation.noPhoto,
       },
       name: data.streetAddress || 'Unknown address',
       address: data.completeAddress || 'Unknown address',
+      country: chosenCountryCode,
       location: {
         latitude: lat,
         longitude: lng,
@@ -274,6 +305,7 @@ class CreateTrashpoint extends Component {
     this.setState({
       validation: {
         noLocation: false,
+        notPermittedToCreate: false,
         noTrashType: false,
         noPhoto: false,
       },
@@ -288,6 +320,7 @@ class CreateTrashpoint extends Component {
 
   renderAddressLine = () => {
     const { location, address } = this.state;
+    console.log('ADDR', location);
     const { latitude, longitude } = location || {};
     if (address && latitude && longitude) {
       return `${address} | ${location.latitude.toFixed(
@@ -341,7 +374,10 @@ class CreateTrashpoint extends Component {
           <div className={
               cn(
                 'CreateTrashpoint-default-container',
-                { 'error-block': validation.noLocation },
+                {
+                  'error-block':
+                  validation.noLocation || validation.notPermittedToCreate,
+                },
               )
             }
           >
@@ -362,11 +398,18 @@ class CreateTrashpoint extends Component {
                 Edit location
               </span>
               <EditLocationInput onChange={this.handleLocationChanged} />
-              <If condition={validation.noLocation}>
+              {
+                validation.noLocation &&
                 <span className="CreateTrashpoint-err-txt">
                   You have not chosen location!
                 </span>
-              </If>
+              }
+              {
+                validation.notPermittedToCreate &&
+                <span className="CreateTrashpoint-err-txt">
+                  You can create trashpoint only in countries you are assigned to
+                </span>
+              }
             </div>
           </div>
           <div className="CreateTrashpoint-default-container">
@@ -453,6 +496,7 @@ class CreateTrashpoint extends Component {
 const mapStateToProps = state => ({
   trashTypes: selectors.getTrashTypes(state),
   trashOrigin: selectors.getTrashOrigin(state),
+  userProfile: userSels.getProfile(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -461,6 +505,9 @@ const mapDispatchToProps = dispatch => ({
   },
   setErrorMessage(msg) {
     return dispatch(errorActions.setErrorMessage(msg));
+  },
+  fetchTrashTypesAndOrigin() {
+    return dispatch(trashpileOperations.fetchTrashTypesAndOrigin());
   },
 });
 

@@ -147,7 +147,7 @@ class UserDetails extends React.Component {
     if (user.id === authUser.id) {
       return false;
     }
-    if (authUser.role !== 'superadmin') {
+    if (['superadmin', 'leader'].indexOf(authUser.role) === -1) {
       return false;
     }
     if (user.role === 'superadmin') {
@@ -279,7 +279,8 @@ class UserDetails extends React.Component {
               </If>
               {this.renderUserAreasList()}
               {authUser.role === 'superadmin' &&
-              user.role !== 'superadmin' && (
+              user.role !== 'superadmin' &&
+              !user.locked && (
                 <div className="UserDetails-area-assign-container">
                   <span
                     className="UserDetails-area-assign-button"

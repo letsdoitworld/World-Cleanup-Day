@@ -62,6 +62,8 @@ class EditTrashpoint extends Component {
       })),
       hashtags: hashtags.map(h => ({ label: h, value: h, selected: true })),
       photos: thumbnails,
+      photosUploadCounter: thumbnails.length,
+      canAddMorePhotos: true,
       validation: {
         noLocation: false,
         noTrashType: false,
@@ -142,7 +144,6 @@ class EditTrashpoint extends Component {
     ) {
       return;
     }
-    console.log(photos);
 
     updateTrashpoint({
       location,
@@ -168,16 +169,10 @@ class EditTrashpoint extends Component {
   handlePhotoDelete = index => {
     const { photos } = this.state;
     const photo = photos[index];
-    if (photos[index].parentId) {
-      photos[index].delete = true;
-      this.setState({});
-    } else {
-      photos.splice(index, 1);
-      this.setState({
-        photos,
-      });
-    }
+    photos[index].delete = true;
+    this.setState({});
   };
+
   handlePhotoAdd = async photos => {
     if (!photos || photos.length === 0) {
       return;
@@ -202,6 +197,22 @@ class EditTrashpoint extends Component {
       ],
     });
   };
+
+  handleIfMorePhotosPossible = photos => {
+    // user can add only 3 photos per one edit
+    // deleted photos not counting
+    const { photosUploadCounter } = this.state;
+    const permittedCountPerOneEdit = 3;
+    const filteredPhotos = photos.filter(p => !p.delete);
+    console.log(photosUploadCounter, filteredPhotos.length);
+
+    if (
+      filteredPhotos.length - photosUploadCounter < permittedCountPerOneEdit
+    ) {
+      return true;
+    }
+    return false;
+  }
 
   handleCompositionSelect = composition => {
     composition.selected = !composition.selected;
@@ -271,10 +282,6 @@ class EditTrashpoint extends Component {
     });
   };
 
-  handleCloseClick = () => {
-    this.props.history.push('/trashpoints');
-  };
-
   render() {
     const {
       marker: {
@@ -282,6 +289,7 @@ class EditTrashpoint extends Component {
         updatedAt,
         creator,
         updater,
+        id,
       },
       actions,
     } = this.props;
@@ -312,7 +320,9 @@ class EditTrashpoint extends Component {
           </span>
           <div
             className="EditTrashpoint-close-button"
-            onClick={actions.onCloseEditClick}
+            onClick={
+              () => this.props.history.push(`/trashpoints/${id}`)
+            }
           >
             <CloseIcon />
           </div>
@@ -422,7 +432,7 @@ class EditTrashpoint extends Component {
                   return `data:image/jpg;base64,${p.base64}`;
                 }
               })}
-              onAddClick={photos.length < 3 ? this.handlePhotoAdd : undefined}
+              onAddClick={this.handleIfMorePhotosPossible(photos) ? this.handlePhotoAdd : undefined}
               onDeleteClick={this.handlePhotoDelete}
               canEdit
             />
@@ -465,9 +475,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(trashpileOperations.deleteMarker(...args)),
   updateMarkerLocation: (...args) => {
     dispatch(trashpileOperations.updateMarkerLocation(...args));
-  },
-  deleteImage: (markerId, imageId) => {
-    dispatch(trashpileOperations.deleteImage(markerId, imageId));
   },
 });
 

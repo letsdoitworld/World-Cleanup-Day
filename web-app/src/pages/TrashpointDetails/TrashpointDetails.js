@@ -28,6 +28,7 @@ class TrashDetails extends React.Component {
     match: PropTypes.shape({
       params: PropTypes.shape({
         id: PropTypes.string,
+        edit: PropTypes.string,
       }),
     }),
     isOpened: PropTypes.bool.isRequired,
@@ -51,6 +52,7 @@ class TrashDetails extends React.Component {
     trashTypes: PropTypes.any.isRequired,
     trashOrigin: PropTypes.any.isRequired,
     isShareModalVisible: PropTypes.bool.isRequired,
+    ifEditMode: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -73,6 +75,7 @@ class TrashDetails extends React.Component {
     if (this.props.showHeader) {
       this.props.setActiveTab('trashpoints');
     }
+    this.props.fetchTrashTypesAndOrigin();
   }
 
   componentDidMount() {
@@ -125,10 +128,8 @@ class TrashDetails extends React.Component {
     this.setState({ edit: true });
   };
   handleEditSuccess = () => {
-    this.setState({
-      edit: false,
-    });
     this.props.fetchMarkerDetails(this.props.trashpointId);
+    this.props.history.push(`/trashpoints/${this.props.trashpointId}`);
   };
   actions = {
     onCloseDetailsClick: this.handleOnCloseDetailsClick,
@@ -167,8 +168,8 @@ class TrashDetails extends React.Component {
   };
 
   render() {
-    const { history } = this.props;
-    if (this.state.edit) {
+    const { history, ifEditMode } = this.props;
+    if (ifEditMode) {
       return (
         <EditTrashpoint
           history={history}
@@ -210,6 +211,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   fetchMarkerDetails: actions.fetchMarkerDetails,
+  fetchTrashTypesAndOrigin: actions.fetchTrashTypesAndOrigin,
   focusMapLocation: actions.focusMapLocation,
   setActiveTab: appActions.setActiveTab,
   showShareModal: appActions.showShareModal,

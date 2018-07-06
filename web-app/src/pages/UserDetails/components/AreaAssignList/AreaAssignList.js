@@ -17,10 +17,7 @@ import {
 class AreaList extends React.Component {
   componentWillMount() {
     const { loading, areas, getAreas } = this.props;
-
-    if ((!areas || areas.length === 0) && !loading) {
-      getAreas();
-    }
+    getAreas();
   }
 
   handleListItemClick = area => {
@@ -52,6 +49,7 @@ class AreaList extends React.Component {
             index={i}
             area={a}
             key={a.id}
+            needsChildren
           />),
         )}
       </div>
@@ -78,20 +76,25 @@ class AreaList extends React.Component {
         <div
           className="AreaAssignList-header"
         >
-          <SearchIcon />
-          <input
-            className="UsersList-search-input"
-            type="text"
-            name="search"
-            placeholder="Search areas to assign"
-            onChange={
-              e => {
-                e.target.value.length > 2 ?
-                getAreas(e.target.value) :
-                getAreas();
+          {
+            /*
+            <SearchIcon />
+            <input
+              className="UsersList-search-input"
+              type="text"
+              name="search"
+              placeholder="Search areas to assign"
+              onChange={
+                e => {
+                  e.target.value.length > 2 ?
+                  getAreas(e.target.value) :
+                  getAreas();
+                }
               }
-            }
-          />
+            />
+            */
+          }
+          <span className="UsersList-search-input" />
           <div
             onClick={this.handleCloseClick}
             className="AreaAssignList-header-close"

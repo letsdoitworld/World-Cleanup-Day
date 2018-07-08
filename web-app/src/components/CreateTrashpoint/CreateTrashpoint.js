@@ -30,7 +30,7 @@ class CreateTrashpoint extends Component {
     trashTypes: PropTypes.arrayOf(PropTypes.shape).isRequired,
     trashOrigin: PropTypes.arrayOf(PropTypes.shape).isRequired,
   }
-  // TODO implement validation
+
   constructor(props) {
     super(props);
     const {
@@ -269,8 +269,12 @@ class CreateTrashpoint extends Component {
       latitude: lat,
       longitude: lng,
     });
-    const chosenCountryCode =
-    COUNTRY_LIST.filter(c => c.name === data.country)[0].code;
+    let chosenCountryCode = 'WW';
+    const chosenCountry =
+    COUNTRY_LIST.filter(c => c.name === data.country);
+    if (chosenCountry.length) {
+      chosenCountryCode = chosenCountry[0].code;
+    }
     this.setState({
       validation: {
         noLocation: false,
@@ -320,7 +324,6 @@ class CreateTrashpoint extends Component {
 
   renderAddressLine = () => {
     const { location, address } = this.state;
-    console.log('ADDR', location);
     const { latitude, longitude } = location || {};
     if (address && latitude && longitude) {
       return `${address} | ${location.latitude.toFixed(

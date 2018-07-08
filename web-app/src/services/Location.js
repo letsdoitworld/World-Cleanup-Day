@@ -21,7 +21,7 @@ export default {
   },
   fetchAddress: async ({ latitude, longitude }) => {
     const { data } = await axios.get(
-      `${GOOGLE_GEOCODE_API_URL}?key=${API_KEY}&latlng=${latitude},${longitude}`,
+      `${GOOGLE_GEOCODE_API_URL}?key=${API_KEY}&latlng=${latitude},${longitude}&language=EN`,
     );
     let completeAddress = '';
     let streetAddress = '';

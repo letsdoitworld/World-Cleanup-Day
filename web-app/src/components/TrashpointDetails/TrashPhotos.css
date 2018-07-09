@@ -49,6 +49,7 @@
 .TrashPhotos-img-container {
   position: relative;
   padding-bottom: 20px;
+  cursor: pointer;
 }
 
 .TrashPhotos-img-container-img, .TrashPhotos-img-container-create-img {

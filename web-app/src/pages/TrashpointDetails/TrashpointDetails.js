@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import querystring from 'query-string';
 import _ from 'lodash';
 
 import { actions, selectors } from '../../reducers/trashpile';
@@ -163,7 +162,7 @@ class TrashDetails extends React.Component {
   };
 
   render() {
-    const { history, ifEditMode, mapFocusNeeded } = this.props;
+    const { history, ifEditMode } = this.props;
     if (ifEditMode) {
       return (
         <EditTrashpoint

@@ -34,6 +34,7 @@ class Details extends Component {
         creator,
         updater,
         thumbnails,
+        mediumPhotos,
         composition,
         origin,
         hashtags,
@@ -56,7 +57,6 @@ class Details extends Component {
     const coordinates = location ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : '';
     const formattedLocation = `${address} | ${coordinates}`;
     moment.locale('en-ie');
-
     return (
       <div className="Tpdetails">
         <If condition={isUserAllowedAdding}>
@@ -182,7 +182,11 @@ class Details extends Component {
                 </div>
               }
               <div className="Details-default-container">
-                <TrashPhotos photos={(thumbnails || []).map(t => t.url)} />
+                <TrashPhotos photos={(thumbnails || []).map(thumbnail => ({
+                    thumbnailUrl: thumbnail.url,
+                    mediumPhotoUrl: mediumPhotos.find((mediumPhoto) => mediumPhoto.id === thumbnail.parentId).url,
+                  }))}
+              />
               </div>
               <div className="Details-filler" />
               <If condition={canEdit}>

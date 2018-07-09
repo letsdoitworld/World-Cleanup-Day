@@ -24,6 +24,7 @@ export const Details = ({
   eventDetails,
   showShareModal,
   isLoading,
+  isError,
   isShareModaVisible,
 }) => {
   moment.locale('en-au');
@@ -155,5 +156,6 @@ Details.propTypes = {
   eventDetails: PropTypes.instanceOf(Object).isRequired,
   showShareModal: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
   isShareModaVisible: PropTypes.bool.isRequired,
 };

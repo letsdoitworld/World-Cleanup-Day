@@ -1,0 +1,27 @@
+.Photo-header {
+  display: flex;
+  justify-content: space-between;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  width: 100%;
+  background-color: #4a90e2;
+  padding: 18px 24px 16px 24px;
+  box-sizing: border-box;
+}
+
+.Photo-body {
+  width: 100%;
+  height: calc(75vh - 47px);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-clip: padding-box;
+  background-size: contain;
+}
+
+.Photo-placeholder {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.87);
+  width: 90%;
+}

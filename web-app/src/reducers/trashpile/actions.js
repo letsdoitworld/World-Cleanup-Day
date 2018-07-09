@@ -333,7 +333,6 @@ const fetchMarkerDetails = (markerId, mapFocusNeeded) => async dispatch => {
     const mediumPhotos = imageResponseIsArray
       ? photos.filter(({ type }) => type === TRASHPOINT_IMAGE_TYPES.MEDIUM)
       : [];
-
     const marker = {
       ...detailsResponse.data,
       position: {

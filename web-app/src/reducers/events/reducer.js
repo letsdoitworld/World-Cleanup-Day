@@ -106,7 +106,7 @@ const eventDetailsReducer = (state = EVENT_DETAILS_INITIAL_STATE, action) => {
     case TYPES.FETCH_EVENT_DETAILS_REQUEST:
       return { ...state, loading: true };
     case TYPES.FETCH_EVENT_DETAILS_FAILED:
-      return { ...state, loading: false, error: true };
+      return { ...state, error: true };
     case TYPES.FETCH_EVENT_DETAILS_SUCCESS:
       return { ...state, event: action.event, loading: false };
     default:

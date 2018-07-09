@@ -58,6 +58,11 @@ export const getEventDetailsLoading = createSelector(
   state => state.loading,
 );
 
+export const getEventDetailsError = createSelector(
+  detailsSel,
+  state => state.error,
+);
+
 export const getSelectedSearchResultViewport = createSelector(
   stateSel,
   state => state.selectedSearchResultViewport.viewport,
@@ -74,5 +79,6 @@ export default {
   getEventsListMeta,
   getEventsListLoading,
   getEventDetailsLoading,
+  getEventDetailsError,
   getSelectedSearchResultViewport,
 };

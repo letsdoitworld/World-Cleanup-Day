@@ -90,7 +90,7 @@ class EditTrashpoint extends Component {
 
   checkPhotos = () => {
     const { photos } = this.state;
-    if (photos.length === 0) {
+    if (photos.filter(p => !p.delete).length === 0) {
       return true;
     }
     return false;
@@ -204,8 +204,6 @@ class EditTrashpoint extends Component {
     const { photosUploadCounter } = this.state;
     const permittedCountPerOneEdit = 3;
     const filteredPhotos = photos.filter(p => !p.delete);
-    console.log(photosUploadCounter, filteredPhotos.length);
-
     if (
       filteredPhotos.length - photosUploadCounter < permittedCountPerOneEdit
     ) {
@@ -277,7 +275,7 @@ class EditTrashpoint extends Component {
     }
     this.props.deleteMarker({ markerId: marker.id }).then(res => {
       if (res) {
-        history.push('/');
+        history.push('/trashpoints');
       }
     });
   };

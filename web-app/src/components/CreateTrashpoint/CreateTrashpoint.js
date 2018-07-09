@@ -139,7 +139,7 @@ class CreateTrashpoint extends Component {
   handleStatusChange = status => this.setState({ status: status.id });
 
   handleTrashpointUpdate = async () => {
-    const { createTrashpoint, setErrorMessage } = this.props;
+    const { createTrashpoint } = this.props;
     const {
       location,
       name,
@@ -505,9 +505,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createTrashpoint(marker) {
     return dispatch(trashpileOperations.createMarker(marker, false));
-  },
-  setErrorMessage(msg) {
-    return dispatch(errorActions.setErrorMessage(msg));
   },
   fetchTrashTypesAndOrigin() {
     return dispatch(trashpileOperations.fetchTrashTypesAndOrigin());

@@ -5,6 +5,10 @@ import _ from 'lodash';
 import FlagIcon from 'react-flag-kit/lib/FlagIcon';
 import { COUNTRIES_HASH } from '../../shared/countries';
 import { getCountryFromStr } from '../../shared/helpers';
+import {
+  CollapseIcon,
+  ExpandIcon,
+} from '../common/Icons';
 
 class AreaListItem extends React.Component {
   constructor(props) {
@@ -23,10 +27,11 @@ class AreaListItem extends React.Component {
     return {};
   };
 
-  handleCollapseToggleClick = () => {
+  handleCollapseToggleClick = (e) => {
     if (!this.props.area.children || this.props.area.children.length === 0) {
       return;
     }
+    e.stopPropagation();
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   };
 
@@ -45,12 +50,12 @@ class AreaListItem extends React.Component {
   };
 
   render() {
-    const { onClick, onBodyClick, area, match } = this.props;
+    const { onClick, onBodyClick, area, match, stopPropagation, noFlag, needsChildren } = this.props;
     const hasChildren = area.children && area.children.length > 0;
     const isUserAreas = match && match.path && match.path === '/user-areas';
     let areaName = area.name;
     let areaId;
-    const arrayOfDeprecatedIds = ['AN', 'SH', 'EH', 'AQ', '-'];
+    const arrayOfDeprecatedIds = ['AN', 'SH', 'EH', 'AQ', '-', 'NOC'];
     if (arrayOfDeprecatedIds.indexOf(area.id) !== -1) {
       areaId = 'WW';
     } else {
@@ -60,6 +65,7 @@ class AreaListItem extends React.Component {
       const name = COUNTRIES_HASH[getCountryFromStr(area.parentId ? area.parentId : area.id)];
       if (name) {
         areaName = name;
+        areaId = area.parentId || area.id;
       }
     }
 
@@ -68,32 +74,39 @@ class AreaListItem extends React.Component {
         className="AreaListItem"
         onClick={
           onBodyClick ?
-          () => onBodyClick(area) :
+          (e) => {
+            onBodyClick(area);
+            if (stopPropagation) {
+              e.stopPropagation();
+            }
+          } :
           null
         }
       >
         <div
-          onClick={this.handleCollapseToggleClick}
           className="AreaListItem-plot"
           style={this.getToggleStyle()}
         >
           <div
             className="AreaListItem-left-padding"
-            style={{ width: this.props.leftPadding }}
           />
-          {/*
-          <div className="AreaListItem-collapse-toggle">
-
-            hasChildren &&
+          {
+            hasChildren && needsChildren &&
             <div
-              className=
+              onClick={(e) => this.handleCollapseToggleClick(e)}
+              className="AreaListItem-collapse-toggle"
+            >
+              {
                 this.state.isOpen
-                  ? 'AreaListItem-triangle-up'
-                  : 'AreaListItem-triangle-down'
-            />
-          </div>
-          */}
-          <FlagIcon code={areaId} size={40} />
+                  ? <ExpandIcon />
+                  : <CollapseIcon />
+              }
+            </div>
+          }
+          {
+            !noFlag &&
+            <FlagIcon code={areaId} size={40} />
+          }
           <div className="AreaListItem-text-container">
             <span
               className="AreaListItem-header"
@@ -111,6 +124,23 @@ class AreaListItem extends React.Component {
             </div>
           }
         </div>
+        {
+          hasChildren && !isUserAreas && needsChildren &&
+          <Collapse isOpened={this.state.isOpen}>
+          {area.children.map((a, i) =>
+            (<AreaListItem
+              leftPadding={this.props.leftPadding + 10}
+              rightLabel={this.props.rightLabel}
+              key={a.id}
+              index={i + 1}
+              area={a}
+              onClick={onClick}
+              stopPropagation
+              noFlag
+            />),
+          )}
+          </Collapse>
+        }
       </div>
     );
   }
@@ -136,19 +166,3 @@ AreaListItem.defaultProps = {
 };
 
 export default AreaListItem;
-
-/*
-hasChildren && !isUserAreas &&
-<Collapse isOpened={this.state.isOpen}>
-{area.children.map((a, i) =>
-  (<AreaListItem
-    leftPadding={this.props.leftPadding + 10}
-    rightLabel={this.props.rightLabel}
-    key={a.id}
-    index={i + 1}
-    area={a}
-    onClick={onClick}
-  />),
-)}
-</Collapse>
-*/

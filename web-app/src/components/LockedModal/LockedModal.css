@@ -1,0 +1,23 @@
+.Locked-header {
+  display: flex;
+  justify-content: space-between;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  width: 100%;
+  background-color: #4a90e2;
+  padding: 13px 24px 16px 24px;
+  box-sizing: border-box;
+}
+
+.Locked-body {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.Locked-placeholder {
+  display: inline-block;
+  width: 90%;
+}

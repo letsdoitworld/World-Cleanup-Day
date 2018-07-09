@@ -3,16 +3,21 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import { SHARED_MODAL_STYLES } from '../../shared/constants';
-import closeButton from '../../assets/closeButton.png';
+import {
+  CloseIcon,
+} from '../common/Icons';
 
 import './LockedModal.css';
 
 const LockedModal = ({ isOpen, onClick }) =>
   (<Modal isOpen={isOpen} style={SHARED_MODAL_STYLES} contentLabel="">
-    <button className="Shared-modal-close-button" onClick={onClick}>
-      <img src={closeButton} alt="" />
-    </button>
-    <div>
+    <div className="Locked-header">
+      <span className="Locked-placeholder" />
+      <button className="Shared-modal-close-button" onClick={onClick}>
+        <CloseIcon />
+      </button>
+    </div>
+    <div className="Locked-body">
       <div className="NoAuthorization-modal">
         <span className="NoAuthorization-modal-title">
           Your account is locked.

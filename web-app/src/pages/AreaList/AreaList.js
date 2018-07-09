@@ -65,9 +65,7 @@ class AreaList extends React.Component {
     if (loading) {
       return (
         <div className="AreaList-message">
-          {
-            // <Loader />
-          }
+          <Loader />
         </div>
       );
     }
@@ -81,6 +79,7 @@ class AreaList extends React.Component {
     if (areas.length === 0) {
       return <div className="AreaList-message">You have no assigned areas</div>;
     }
+    console.log(areas);
     return areas.map((a, i) => (
       <AreaListItem
         onBodyClick={this.handleListItemClick}
@@ -152,7 +151,9 @@ class AreaList extends React.Component {
         </div>
         <div className={
           classnames(
-            'AreaList-plot', 'scrollbar-modified', { isVisible: areasWindowVisible },
+            'AreaList-plot',
+            'scrollbar-modified',
+            { isVisible: areasWindowVisible },
           )}
         >
           {this.renderInnerAreaList()}

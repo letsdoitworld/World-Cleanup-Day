@@ -53,6 +53,7 @@ class TrashDetails extends React.Component {
     trashOrigin: PropTypes.any.isRequired,
     isShareModalVisible: PropTypes.bool.isRequired,
     ifEditMode: PropTypes.bool.isRequired,
+    mapFocusNeeded: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -79,10 +80,11 @@ class TrashDetails extends React.Component {
   }
 
   componentDidMount() {
-    const { trashpointId, history } = this.props;
+    const { trashpointId, history, mapFocusNeeded } = this.props;
     if (trashpointId) {
       this.fetchMarkerDetails({
         id: trashpointId,
+        mapFocusNeeded,
         // focusMap: !!querystring.parse(history.location.search).focus,
       });
     }
@@ -95,19 +97,12 @@ class TrashDetails extends React.Component {
     ) {
       this.fetchMarkerDetails({
         id: nextProps.trashpointId,
-        focusMap: !!querystring.parse(nextProps.history.location.search).focus,
+        mapFocusNeeded: this.props.mapFocusNeeded,
       });
     }
   }
-  fetchMarkerDetails = ({ id, focusMap = false }) => {
-    this.props.fetchMarkerDetails(id).then(marker => {
-      if (!marker) {
-        return;
-      }
-      if (focusMap) {
-        this.props.focusMapLocation(marker.location);
-      }
-    });
+  fetchMarkerDetails = ({ id, mapFocusNeeded }) => {
+    this.props.fetchMarkerDetails(id, mapFocusNeeded);
   };
   handleOnCloseDetailsClick = () => {
     const url = '/trashpoints';
@@ -168,7 +163,7 @@ class TrashDetails extends React.Component {
   };
 
   render() {
-    const { history, ifEditMode } = this.props;
+    const { history, ifEditMode, mapFocusNeeded } = this.props;
     if (ifEditMode) {
       return (
         <EditTrashpoint

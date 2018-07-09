@@ -79,7 +79,6 @@ class AreaList extends React.Component {
     if (areas.length === 0) {
       return <div className="AreaList-message">You have no assigned areas</div>;
     }
-    console.log(areas);
     return areas.map((a, i) => (
       <AreaListItem
         onBodyClick={this.handleListItemClick}

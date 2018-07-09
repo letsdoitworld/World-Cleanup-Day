@@ -91,7 +91,7 @@ class TeamsList extends PureComponent {
   renderContent() {
     const { plotVisible } = this.state;
     return (
-      <div className="TeamsList-container">
+      <div className="TeamsList-container scrollbar-modified">
         <div className="TeamsList-header">
           <SearchIcon />
           <input

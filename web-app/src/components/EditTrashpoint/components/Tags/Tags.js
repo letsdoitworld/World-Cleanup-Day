@@ -10,7 +10,7 @@ class Tags extends React.Component {
 
     this.state = {
       newTag: '',
-      cyrillicError: false,
+      wrongSymbolsError: false,
     };
   }
   handleTagChange = ev => {
@@ -23,14 +23,14 @@ class Tags extends React.Component {
       return;
     }
     const newTag = `#${this.state.newTag.replace(/[^0-9a-z]/gi, '')}`;
-    const cyrillicPattern = /[а-яА-ЯЁё]/;
+    const pattern = /[a-zA-Z0-9]/;
     const hashtagAlreadyExists = this.props.tags.find(
       hashtag => hashtag.label === newTag,
     );
-    const isCyrillicSymbols = cyrillicPattern.test(this.state.newTag);
-    if (isCyrillicSymbols) {
+    const hashtagMatchesAllowedPattern = pattern.test(this.state.newTag);
+    if (!hashtagMatchesAllowedPattern) {
       this.setState({
-        cyrillicError: true,
+        wrongSymbolsError: true,
       });
       return;
     }
@@ -40,7 +40,7 @@ class Tags extends React.Component {
 
     this.props.onTagAdd(newTag);
     this.setState({
-      cyrillicError: false,
+      wrongSymbolsError: false,
       newTag: '',
     });
   };
@@ -54,7 +54,7 @@ class Tags extends React.Component {
       onTagDelete,
       header,
     } = this.props;
-    const { cyrillicError } = this.state;
+    const { wrongSymbolsError } = this.state;
     return (
       <div className="Tags-container">
         <span className="Tags-title">{ header }</span>
@@ -97,9 +97,9 @@ class Tags extends React.Component {
             </div>
           </div>
         </If>
-        <If condition={cyrillicError}>
+        <If condition={wrongSymbolsError}>
           <span className="Tags-err-txt">
-            Cyrillic symbols are not allowed for hashtags
+            Only a-z, A-Z and 1-9 are allowed
           </span>
         </If>
       </div>

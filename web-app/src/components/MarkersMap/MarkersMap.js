@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { connect } from 'react-redux';
 import MapView from '../MapView';
 import {
@@ -32,7 +31,6 @@ class MarkersMap extends React.Component {
     onMarkerClick: null,
     fetchAllEventMarkers: null,
     focusedLocation: null,
-    currentEventLocation: null,
   };
 
   static propTypes = {
@@ -50,9 +48,9 @@ class MarkersMap extends React.Component {
     chosenMarkerCoordinates: PropTypes.shape({
       latitude: PropTypes.number,
       longitude: PropTypes.number,
+      mapFocusNeeded: PropTypes.bool,
     }).isRequired,
     tabActive: PropTypes.string.isRequired,
-    currentEventLocation: PropTypes.any,
     focusedLocation: PropTypes.any,
     isExpandAreaModalVisible: PropTypes.bool.isRequired,
     hideExpandAreaModal: PropTypes.func.isRequired,
@@ -76,9 +74,11 @@ class MarkersMap extends React.Component {
     if (
       (this.map &&
       this.props.chosenMarkerCoordinates &&
+      nextProps.chosenMarkerCoordinates.mapFocusNeeded &&
       nextProps.chosenMarkerCoordinates.latitude !== this.props.chosenMarkerCoordinates.latitude) ||
       (this.map &&
       nextProps.chosenMarkerCoordinates &&
+      nextProps.chosenMarkerCoordinates.mapFocusNeeded &&
       !this.props.chosenMarkerCoordinates)
     ) {
       this.map.panTo({
@@ -134,6 +134,7 @@ class MarkersMap extends React.Component {
     if (
       this.map &&
       this.props.chosenMarkerCoordinates.latitude &&
+      this.props.chosenMarkerCoordinates.mapFocusNeeded &&
       !this.state.updatedOnMount
     ) {
       this.setState({ updatedOnMount: true });
@@ -293,7 +294,6 @@ class MarkersMap extends React.Component {
 const mapStateToProps = state => ({
   trashpointMarkers: trashpileSelectors.getAllMarkers(state),
   eventMarkers: eventSelectors.getAllEventMarkers(state),
-  currentEventLocation: eventSelectors.getCurrentMarkerLocation(state),
   gridValue: trashpileSelectors.getGridValue(state),
   focusedLocation: trashpileSelectors.getFocusedLocation(state),
   isExpandAreaModalVisible: appSelectors.getShowExpandAreaModal(state),

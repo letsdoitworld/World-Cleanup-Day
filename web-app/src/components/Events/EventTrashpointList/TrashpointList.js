@@ -11,7 +11,7 @@ export const TrashpointList = ({
   targetSection,
   isLoading,
 }) => (
-  <div className="EventDetails-TrashpointList">
+  <div className="EventDetails-TrashpointList scrollbar-modified">
     <If condition={!isLoading}>
       <div>
         {
@@ -39,11 +39,13 @@ export const TrashpointList = ({
 
 TrashpointList.propTypes = {
   trashpoints: PropTypes.arrayOf(PropTypes.shape),
-  targetId: PropTypes.string.isRequired,
+  targetId: PropTypes.string,
   targetSection: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 TrashpointList.defaultProps = {
   trashpoints: [],
+  targetId: '',
+  isLoading: false,
 };

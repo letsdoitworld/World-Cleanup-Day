@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { If, Else } from 'react-if';
@@ -159,6 +160,10 @@ class TeamDetails extends Component {
           </div>
           <div
             className="TeamDetails-header-minimize"
+            onClick={
+              () =>
+                this.setState({ isVisible: !this.state.isVisible })
+            }
           >
             {
               isVisible ?
@@ -167,7 +172,11 @@ class TeamDetails extends Component {
             }
           </div>
         </div>
-        <div className="TeamDetails-plot">
+        <div
+          className={
+            cn('TeamDetails-plot', 'scrollbar-modified', { isVisible })
+          }
+        >
           <If condition={team.id === params.id}>
             <div>
               {
@@ -232,6 +241,9 @@ class TeamDetails extends Component {
                 tpDetCondition &&
                 <TrashpointDetails
                   trashpointId={params.tpId}
+                  isUserAllowedAdding={false}
+                  ifEditMode={false}
+                  mapFocusNeeded={false}
                 />
               }
             </div>
@@ -255,10 +267,16 @@ const mapDispatch = dispatch => ({
 });
 
 TeamDetails.propTypes = {
-  trashpoints: PropTypes.array.isRequired,
-  fetchTrashpoints: PropTypes.func.isRequired,
+  trashpoints: PropTypes.arrayOf(),
+  fetchTrashpoints: PropTypes.func,
   loading: PropTypes.bool.isRequired,
-  canLoadMore: PropTypes.bool.isRequired,
+  canLoadMore: PropTypes.bool,
+};
+
+TeamDetails.defaultProps = {
+  fetchTrashpoints: null,
+  trashpoints: null,
+  canLoadMore: false,
 };
 
 export default connect(mapState, mapDispatch)(TeamDetails);

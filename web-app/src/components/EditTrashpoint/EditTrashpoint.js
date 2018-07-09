@@ -469,7 +469,7 @@ const mapDispatchToProps = dispatch => ({
     return dispatch(trashpileOperations.createMarker(marker, true));
   },
   fetchMarkerDetails(markerId) {
-    return dispatch(trashpileOperations.fetchMarkerDetails(markerId));
+    return dispatch(trashpileOperations.fetchMarkerDetails(markerId, true));
   },
   deleteMarker: (...args) =>
     dispatch(trashpileOperations.deleteMarker(...args)),

@@ -180,8 +180,9 @@
   margin-bottom: 15px;
 }
 
-.UserDetails-block-user.locked{
+.UserDetails-block-user.locked {
   color: #3d8ded;
+  margin-top: 55px;
 }
 
 .UserDetails-area-assign-container {

@@ -34,7 +34,11 @@ const appReducer = (
     showLockedModal: false,
     currentTabActive: 'trashpoints',
     currentLocation: {},
-    chosenMarkerCoordinates: {},
+    chosenMarkerCoordinates: {
+      latitude: 0,
+      longitude: 0,
+      mapFocusNeeded: false,
+    },
     geoLocationAllowed: false,
     router: {
       action: '',

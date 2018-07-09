@@ -103,7 +103,7 @@ class Home extends Component {
           showEdit: false
         },
         () => {
-          this.props.fetchMarkerDetails(markerId);
+          this.props.fetchMarkerDetails(markerId, true);
         },
       );
     }

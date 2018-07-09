@@ -76,10 +76,10 @@ module.exports = function () {
             if (locked) {
                 //delete user from area leader
                 const areaUserLeader = await db.getAreasForLeader(__.user.id);
-                for (let i = 0; i < areaUserLeader.length; i++){
-                    let indexLeader = areaUserLeader[i].leaderId.indexOf(__.user.id);
+                for (let i = 0; i < areaUserLeader.length; i++) {
+                    let indexLeader = areaUserLeader[i].leaderId.indexOf(accountId);
                     areaUserLeader[i].leaderId.splice(indexLeader, 1);
-                    await db.modifyArea(areaUserLeader[i].id, __.user.id, {leaderId: areaUserLeader[i]});
+                    await db.modifyArea(areaUserLeader[i].id, __.user.id, {leaderId: areaUserLeader[i].leaderId});
                 }
 
                 //delete upcoming events

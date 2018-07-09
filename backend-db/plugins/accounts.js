@@ -76,21 +76,27 @@ module.exports = function () {
             if (locked) {
                 //delete user from area leader
                 const areaUserLeader = await db.getAreasForLeader(__.user.id);
-                for (let i = 0; i < areaUserLeader.length; i++) {
-                    let indexLeader = areaUserLeader[i].leaderId.indexOf(accountId);
-                    areaUserLeader[i].leaderId.splice(indexLeader, 1);
-                    await db.modifyArea(areaUserLeader[i].id, __.user.id, {leaderId: areaUserLeader[i].leaderId});
+                for (let area of areaUserLeader) {
+                    let areaLeadersId = typeof area.leaderId === "object" ?
+                        area.leaderId :
+                        area.leaderId.split();
+
+                    let indexLeader = areaLeadersId.indexOf(accountId);
+                    if (indexLeader !== -1) {
+                        area.leaderId.splice(indexLeader, 1);
+                        await db.modifyArea(area.id, __.user.id, {leaderId: area.leaderId});
+                    }
                 }
 
                 //delete upcoming events
                 const events = await db.getUserOwnEvents(args.accountId, 0 , 0);
-                let eventsId = [];
+                let eventsIds = [];
                 events.filter(t => {
                     if (t.startTime > util.time.getNowUTC())
-                    eventsId.push(t.id);
+                    eventsIds.push(t.id);
                 });
-                for (let i = 0; i < eventsId.length; i++) {
-                    await lucius.request('role:db,cmd:deleteEventById', {id: eventsId[i], __: __});
+                for (let eventsId of eventsIds) {
+                    await lucius.request('role:db,cmd:deleteEventById', {id: eventsId, __: __});
                 }
             }
             return responder.success();

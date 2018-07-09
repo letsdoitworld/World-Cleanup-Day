@@ -40,9 +40,10 @@ class AreaList extends React.Component {
     if (error) {
       return <div>{error}</div>;
     }
+    const NO_COUNTRY_ID = 'NOC';
     return (
       <div className="AreaAssignList-items">
-        {areas.map((a, i) =>
+        {areas.filter(a => a.id !== NO_COUNTRY_ID).map((a, i) =>
           (<AreaListItem
             rightLabel={this.renderRightLabel}
             onClick={this.handleListItemClick}

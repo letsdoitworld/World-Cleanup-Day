@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { If } from 'react-if';
 import cn from 'classnames';
 import { TrashAmount, TrashPhotos } from '../TrashpointDetails';
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';
-import {
-  actions as trashpileOperations,
-  selectors,
-} from '../../reducers/trashpile';
-import {
-  selectors as userSels,
-} from '../../reducers/user';
 import { COUNTRY_LIST } from '../../shared/countries';
 import { getCountryFromStr } from '../../shared/helpers';
-import { actions as errorActions } from '../../reducers/error';
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from '../EditTrashpoint/components/Tags';
 import StatusPicker from '../EditTrashpoint/StatusPicker';
 import { CloseIcon, LocationIconEvent } from '../common/Icons';
-import { Loader } from '../Spinner';
 import imageLocation from '../../assets/icon_location@2x.png';
 
 import './CreateTrashpoint.css';
@@ -57,6 +47,7 @@ class CreateTrashpoint extends Component {
       })),
       hashtags: [],
       photos: [],
+      buttonLocked: false,
       validation: {
         noLocation: false,
         notPermittedToCreate: false,
@@ -64,10 +55,6 @@ class CreateTrashpoint extends Component {
         noPhoto: false,
       },
     };
-  }
-
-  async componentWillMount() {
-    await this.props.fetchTrashTypesAndOrigin();
   }
 
   checkType = () => {
@@ -139,7 +126,7 @@ class CreateTrashpoint extends Component {
   handleStatusChange = status => this.setState({ status: status.id });
 
   handleTrashpointUpdate = async () => {
-    const { createTrashpoint, setErrorMessage } = this.props;
+    const { createTrashpoint } = this.props;
     const {
       location,
       name,
@@ -160,6 +147,10 @@ class CreateTrashpoint extends Component {
       return;
     }
 
+    this.setState({
+      buttonLocked: true,
+    });
+
     createTrashpoint({
       location,
       status,
@@ -173,10 +164,18 @@ class CreateTrashpoint extends Component {
     }).then(
       res => {
         if (res && !res.type) {
+          this.setState({
+            buttonLocked: false,
+          });
           this.props.history.push(`/trashpoints/${res.id}`);
         }
       },
-      err => console.log(err),
+      err => {
+        this.setState({
+          buttonLocked: false,
+        });
+        console.log(err);
+      },
     );
   };
 
@@ -350,9 +349,9 @@ class CreateTrashpoint extends Component {
       status,
       photos,
       validation,
+      buttonLocked,
     } = this.state;
     const { latitude, longitude } = location || {};
-
     return (
       <div className="CreateTrashpoint">
         <EditLocation
@@ -458,6 +457,7 @@ class CreateTrashpoint extends Component {
           <div className={
               cn(
                 'CreateTrashpoint-default-container',
+                'scrollbar-modified',
                 { 'error-block': validation.noPhoto },
               )
             }
@@ -473,6 +473,7 @@ class CreateTrashpoint extends Component {
                 }
               })}
               onDeleteClick={this.handlePhotoDelete}
+              isEditMode
               canEdit
             />
             <If condition={validation.noPhoto}>
@@ -481,43 +482,24 @@ class CreateTrashpoint extends Component {
               </span>
             </If>
           </div>
-          <div className="CreateTrashpoint-default-container CreateTrashpoint-edit-button-container">
-            <div
-              className="CreateTrashpoint-edit-button"
-              onClick={this.handleTrashpointUpdate}
-            >
-              <p>Create trashpoint</p>
+          {
+            !buttonLocked ?
+            <div className="CreateTrashpoint-default-container CreateTrashpoint-edit-button-container">
+              <div
+                className="CreateTrashpoint-edit-button"
+                onClick={this.handleTrashpointUpdate}
+              >
+                <p>Create trashpoint</p>
+              </div>
+            </div> :
+            <div className="CreateTrashpoint-default-container">
+              <div className="CreateTrashpoint-creating">Processing...</div>
             </div>
-          </div>
-          <div className="CreateTrashpoint-filler" />
+          }
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  trashTypes: selectors.getTrashTypes(state),
-  trashOrigin: selectors.getTrashOrigin(state),
-  userProfile: userSels.getProfile(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  createTrashpoint(marker) {
-    return dispatch(trashpileOperations.createMarker(marker, false));
-  },
-  setErrorMessage(msg) {
-    return dispatch(errorActions.setErrorMessage(msg));
-  },
-  fetchTrashTypesAndOrigin() {
-    return dispatch(trashpileOperations.fetchTrashTypesAndOrigin());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTrashpoint);
-
-
-/*
-<StatusText status={status} />
-
-*/
+export default CreateTrashpoint;

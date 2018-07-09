@@ -24,7 +24,7 @@ import {
 } from '../../reducers/admin';
 
 import { UserDetails } from '../../pages/UserDetails';
-import { CreateTrashpoint } from '../../components/CreateTrashpoint';
+import { CreateTrashpoint } from '../../pages/CreateTrashpoint';
 import { AreaList } from '../../pages/AreaList';
 import { UserList } from '../../pages/UserList';
 import CountriesList from '../../pages/CountriesList/CountriesList';

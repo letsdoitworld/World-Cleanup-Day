@@ -6,9 +6,7 @@ import cn from 'classnames';
 import {
   TrashAmount,
   TrashPhotos,
-  StatusText,
 } from '../TrashpointDetails';
-import { AlertModal } from '../../components/AlertModal';
 import LocationService from '../../services/Location';
 import ImageService from '../../services/Image';
 import { actions as trashpileOperations } from '../../reducers/trashpile';
@@ -21,6 +19,7 @@ import {
 import { EditLocation, EditLocationInput } from '../../components/EditLocation';
 import { Tags } from './components/Tags';
 import StatusPicker from './StatusPicker';
+import { Loader } from '../Spinner';
 
 import './EditTrashpoint.css';
 
@@ -39,8 +38,6 @@ class EditTrashpoint extends Component {
       composition,
       origin,
       location,
-      creator,
-      updater,
     } = marker;
 
     this.state = {
@@ -63,7 +60,7 @@ class EditTrashpoint extends Component {
       hashtags: hashtags.map(h => ({ label: h, value: h, selected: true })),
       photos: thumbnails,
       photosUploadCounter: thumbnails.length,
-      canAddMorePhotos: true,
+      buttonLocked: false,
       validation: {
         noLocation: false,
         noTrashType: false,
@@ -71,7 +68,7 @@ class EditTrashpoint extends Component {
       },
     };
   }
-  // TODO implement validation
+
   checkType = () => {
     const { composition } = this.state;
     if (composition.filter(c => c.selected).length === 0) {
@@ -90,7 +87,7 @@ class EditTrashpoint extends Component {
 
   checkPhotos = () => {
     const { photos } = this.state;
-    if (photos.length === 0) {
+    if (photos.filter(p => !p.delete).length === 0) {
       return true;
     }
     return false;
@@ -144,7 +141,9 @@ class EditTrashpoint extends Component {
     ) {
       return;
     }
-
+    this.setState({
+      buttonLocked: true,
+    });
     updateTrashpoint({
       location,
       status,
@@ -159,10 +158,18 @@ class EditTrashpoint extends Component {
     }).then(
       res => {
         if (res) {
+          this.setState({
+            buttonLocked: false,
+          });
           this.props.actions.onTrashpointEditSuccess();
         }
       },
-      err => console.log(err),
+      err => {
+        this.setState({
+          buttonLocked: false,
+        });
+        console.log(err);
+      },
     );
   };
 
@@ -204,8 +211,6 @@ class EditTrashpoint extends Component {
     const { photosUploadCounter } = this.state;
     const permittedCountPerOneEdit = 3;
     const filteredPhotos = photos.filter(p => !p.delete);
-    console.log(photosUploadCounter, filteredPhotos.length);
-
     if (
       filteredPhotos.length - photosUploadCounter < permittedCountPerOneEdit
     ) {
@@ -275,9 +280,15 @@ class EditTrashpoint extends Component {
     if (!marker) {
       return;
     }
+    this.setState({
+      buttonLocked: true,
+    });
     this.props.deleteMarker({ markerId: marker.id }).then(res => {
+      this.setState({
+        buttonLocked: false,
+      });
       if (res) {
-        history.push('/');
+        history.push('/trashpoints');
       }
     });
   };
@@ -303,6 +314,7 @@ class EditTrashpoint extends Component {
       hashtags,
       status,
       validation,
+      buttonLocked,
     } = this.state;
     const { latitude, longitude } = location;
     return (
@@ -419,6 +431,7 @@ class EditTrashpoint extends Component {
           <div className={
               cn(
                 'EditTrashpoint-default-container',
+                'scrollbar-modified',
                 { 'error-block': validation.noPhoto },
               )
             }
@@ -434,6 +447,7 @@ class EditTrashpoint extends Component {
               })}
               onAddClick={this.handleIfMorePhotosPossible(photos) ? this.handlePhotoAdd : undefined}
               onDeleteClick={this.handlePhotoDelete}
+              isEditMode
               canEdit
             />
             <If condition={validation.noPhoto}>
@@ -442,22 +456,27 @@ class EditTrashpoint extends Component {
               </span>
             </If>
           </div>
-          <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
-            <div
-              className="EditTrashpoint-edit-button"
-              onClick={this.handleTrashpointUpdate}
-            >
-              <p>Save trashpoint changes</p>
+          {
+            !buttonLocked ?
+            <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
+              <div
+                className="EditTrashpoint-edit-button"
+                onClick={this.handleTrashpointUpdate}
+              >
+                <p>Save trashpoint changes</p>
+              </div>
+              <br />
+              <div
+                className="EditTrashpoint-delete-button"
+                onClick={this.handleTrashpointDelete}
+              >
+                <p>Delete trashpoint</p>
+              </div>
+            </div> :
+            <div className="EditTrashpoint-default-container EditTrashpoint-edit-button-container">
+              <div className="EditTrashpoint-uploading">Processing...</div>
             </div>
-            <br />
-            <div
-              className="EditTrashpoint-delete-button"
-              onClick={this.handleTrashpointDelete}
-            >
-              <p>Delete trashpoint</p>
-            </div>
-          </div>
-          <div className="EditTrashpoint-filler" />
+          }
         </div>
       </div>
     );

@@ -197,3 +197,7 @@
   letter-spacing: 0.5px;
   font-size: 14px;
 }
+
+.EditTrashpoint-uploading {
+  text-align: center;
+}

@@ -531,15 +531,24 @@ class TrashPoints extends Component {
               height,
             });
 
-
-            this.props.navigator.push({
-              screen: CREATE_MARKER,
-              title: strings.label_button_createTP_confirm_create,
-              passProps: {
-                photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
-                coords: userCoord,
+            await navigator.geolocation.getCurrentPosition(
+              (position) => {
+                this.props.navigator.push({
+                  screen: CREATE_MARKER,
+                  title: strings.label_button_createTP_confirm_create,
+                  passProps: {
+                    photos: [{ uri, base64, thumbnail: { base64: thumbnailBase64 } }],
+                    coords: position.coords,
+                  },
+                });
               },
-            });
+              (error) => {
+                if (error.code === 1 && !this.props.appError) {
+                  this.setState({ showUserWarning: true });
+                }
+              },
+              { enableHighAccuracy: true, timeout: 800000 },
+            );
           });
         } catch (err) {
           this.props.onSetError(err.message);

@@ -297,17 +297,11 @@ module.exports = function () {
         .request('role:geo,cmd:resolveLocation')
         .set('areas')
         // update the trashpoint
-        .request('role:db,cmd:getTrashpointImages', {trashpointId: args.trashpointId})
-        .set('images')
-        .get(['areas', 'request', 'images'])
-        .use(async function ({areas, request, images}, responder) {
+        .get(['areas', 'request'])
+        .use(async function ({areas, request}, responder) {
             const trashpointId = request.trashpointId;
             const trashpointData = request.trashpointData;
             trashpointData.areas = areas;
-            if (images.length === 0 || !images) {
-                return responder.failure(new LuciusError(E.TRASHPOINT_WITHOUT_IMG));
-            }
-
             const trashpoint = await db.modifyTrashpoint(trashpointId, __.user.id, trashpointData);
             if (!trashpoint) {
                 return responder.failure(new LuciusError(E.TRASHPOINT_NOT_FOUND, {id: trashpointId}));

@@ -15,7 +15,7 @@ const fetchAllTeams = () => async (dispatch, getState) => {
     const superadmin = userSelectors.getProfile(getState()).role === USER_ROLES.SUPERADMIN;
     let response;
     let teams = [];
-    if (areas.length > 0) {
+    if (areasFiltered.length > 0) {
       response = await Promise.all(areasFiltered.map(area => ApiService.get(API_ENDPOINTS.FETCH_TEAMS(area, superadmin))));
       response.forEach(r => {
         if (r && r.data.length > 0) {

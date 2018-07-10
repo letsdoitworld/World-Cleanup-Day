@@ -142,7 +142,7 @@ class CreateTrashpoint extends Component {
     const validation = await this.validate();
     if (
       validation &&
-      (validation.noLocation || validation.noTrashType || validation.noPhoto)
+      (validation.notPermittedToCreate || validation.noLocation || validation.noTrashType || validation.noPhoto)
     ) {
       return;
     }

@@ -3,16 +3,20 @@ import { ApiService } from '../../services';
 import { selectors as userSelectors } from '../../reducers/user';
 import { actions as errorActions } from '../../reducers/error';
 import TYPES from './types';
+import { getCountryFromStr } from '../../shared/helpers';
 
 const fetchAllTeams = () => async (dispatch, getState) => {
   try {
     dispatch({ type: TYPES.FETCH_TEAMS_REQUEST });
     const areas = userSelectors.getProfile(getState()).areas;
+    const areasFiltered = areas.map(a => getCountryFromStr(a)).filter((value, index, self) => self.indexOf(value) === index);
+    // converting areas to countries and filtering only unique values
+    // e.g. if user is assigned few areas in one country
     const superadmin = userSelectors.getProfile(getState()).role === USER_ROLES.SUPERADMIN;
     let response;
     let teams = [];
-    if (areas.length > 0) {
-      response = await Promise.all(areas.map(area => ApiService.get(API_ENDPOINTS.FETCH_TEAMS(area, superadmin))));
+    if (areasFiltered.length > 0) {
+      response = await Promise.all(areasFiltered.map(area => ApiService.get(API_ENDPOINTS.FETCH_TEAMS(area, superadmin))));
       response.forEach(r => {
         if (r && r.data.length > 0) {
           teams = [...teams, ...r.data];

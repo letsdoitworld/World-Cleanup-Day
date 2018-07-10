@@ -76,7 +76,7 @@ class TeamsList extends PureComponent {
         this.state.sortBy,
         this.state.sortBy === 'name' ? ['asc'] : ['desc']
       );
-      return teamsSorted.length ?
+      return teams.length ?
         teamsSorted.map(t =>
           (<TeamsListItem
             key={t.id}

@@ -30,7 +30,7 @@
 }
 
 .AreaListItem-text-container {
-  max-width: 80%;
+  max-width: 73%;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

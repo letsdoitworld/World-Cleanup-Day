@@ -36,10 +36,6 @@ class CountriesList extends Component {
     getCountries();
   }
 
-  componentWillUnmount() {
-
-  }
-
   render() {
     const { countries, history, getCountries, loading } = this.props;
     const { plotVisible } = this.state;

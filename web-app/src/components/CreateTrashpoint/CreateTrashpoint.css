@@ -167,6 +167,10 @@
   color: rgba(255, 0, 0, 0.7);
 }
 
+.CreateTrashpoint-creating {
+  text-align: center;
+}
+
 .error-block {
   background-color: rgba(255, 0, 0, 0.07);
 }

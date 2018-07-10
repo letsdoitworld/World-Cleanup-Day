@@ -16,6 +16,7 @@ class EventsDetails extends Component {
     eventId: PropTypes.string,
     showShareModal: PropTypes.func,
     isLoading: PropTypes.bool.isRequired,
+    isError: PropTypes.bool.isRequired,
     isShareModaVisible: PropTypes.bool.isRequired,
   };
 
@@ -39,6 +40,7 @@ class EventsDetails extends Component {
       eventDetails,
       showShareModal,
       isLoading,
+      isError,
       isShareModaVisible,
     } = this.props;
     return (
@@ -46,6 +48,7 @@ class EventsDetails extends Component {
         eventDetails={eventDetails}
         showShareModal={showShareModal}
         isLoading={isLoading}
+        isError={isError}
         isShareModaVisible={isShareModaVisible}
       />
     );
@@ -56,6 +59,7 @@ const mapStateToProps = (state) => ({
   eventDetails: selectors.getEventDetails(state),
   shareModalOpened: appSelectors.getShowShareModal(state),
   isLoading: selectors.getEventDetailsLoading(state),
+  isError: selectors.getEventDetailsError(state),
   isShareModaVisible: appSelectors.getShowShareModal(state),
 });
 

@@ -796,7 +796,6 @@ paths:
      get:
        description: Get compositions and origins trashpoints.
        operationId: getTrashpointDetails
-       x-security: [bearer]
        responses:
          "200":
            description: Types trashpoints.

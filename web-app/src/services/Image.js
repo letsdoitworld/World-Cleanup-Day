@@ -51,8 +51,6 @@ const ImageService = {
         };
       };
 
-      console.log();
-
       document.body.appendChild(image);
       image.onload = () => {
         const targetSize = calculateTargetSize(image.width, image.height);
@@ -109,7 +107,6 @@ const ImageService = {
         let lng = EXIF.getTag(this, 'GPSLongitude');
         ref = EXIF.getTag(this, 'GPSLongitudeRef');
         lng = sanitizeEXIFCoordinate(lng, ref);
-        console.log(lat + " | " + lng); // TODO: remove when verified
         image.lat = lat;
         image.lng = lng;
       });

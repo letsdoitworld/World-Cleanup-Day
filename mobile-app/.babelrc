@@ -1,0 +1,13 @@
+{
+  "presets": [
+    "react-native", "react-native-dotenv"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-react-jsx-source",
+        "transform-class-properties"
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">World Cleanup</string>
+    <string name="facebook_app_id">FACEBOOK_API</string>
+    <string name="fb_login_protocol_scheme">FB_LOGIN_PROTOCOL</string>
+
+
+</resources>

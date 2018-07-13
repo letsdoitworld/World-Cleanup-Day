@@ -1,0 +1,25 @@
+default_platform(:ios)
+platform :ios do
+  before_all do
+    cocoapods(
+      repo_update: true
+    )
+  end
+  desc "Build ipa"
+  lane :release do
+    gym(
+      scheme: "mobileapp",
+      workspace: "mobileapp.xcworkspace",
+      configuration: "Release",
+      output_directory: "./build/Products/",
+      export_method: "development",
+      build_path: "./build",
+      derived_data_path: "./build"
+    )
+    crashlytics(
+      api_token: 'cc9f6bf2eb7bea9c558343478586b25c62c12afb',
+      build_secret: '6ebcd3057d44fe70fed2410a8b99d6cb191273fa117a16f76c0ee704df5ca4ed',
+    )
+  end
+end
+

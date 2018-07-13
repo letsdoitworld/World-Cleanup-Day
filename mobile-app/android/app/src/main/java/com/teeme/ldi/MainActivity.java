@@ -1,8 +1,0 @@
-package com.teeme.ldi;
-
-import com.reactnativenavigation.controllers.SplashActivity;
-
-public class MainActivity extends SplashActivity {
-
-
-}

@@ -1,6 +1,0 @@
-framework module Pods_mobileapp {
-  umbrella header "Pods-mobileapp-umbrella.h"
-
-  export *
-  module * { export * }
-}

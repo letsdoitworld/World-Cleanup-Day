@@ -30,13 +30,13 @@ Thank you for considering contributing to World Cleanup Day Mobile App! See the 
 ## 3: Tell Your Friends!
 Join the movement and let's clean up the World together!
 
-* Facebook: https://www.facebook.com/letsdoitworld
-* Twitter: https://twitter.com/letsdoitworld
-* Instagram: https://www.instagram.com/letsdoitworld/
-* YouTube: https://www.youtube.com/letsdoitworld
+* Facebook: https://www.facebook.com/worldcleanupday2018/
+* Twitter: https://twitter.com/letsdoitworld/
+* Instagram: https://www.instagram.com/worldcleanupday2018/
+* YouTube: https://www.youtube.com/letsdoitworld/
 * Flickr: https://www.flickr.com/letsdoitworld/
 * Wikipedia: https://en.wikipedia.org/wiki/Let%27s_Do_It!_World
-* Homepage: https://www.letsdoitworld.org/
+* Homepage: https://www.worldcleanupday.org/
 
 ## API
 See the [API docs](http://ldiw-api.s3-website.eu-central-1.amazonaws.com/)

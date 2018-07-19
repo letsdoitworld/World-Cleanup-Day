@@ -109,24 +109,27 @@ export default class TrashPoint extends Component {
     }
     if (!nextProps.trashPointDetails && this.props.trashPointDetails
       && !this.props.cancelTrashPointFromEvent) {
-      this.props.navigator.dismissAllModals();
+      this.props.navigator.pop();
     }
   }
 
   componentWillUnmount() {
     this.props.clearTrashPointDetails();
     this.props.clearTrashPointImagesDetails();
+    this.props.setDeleteActionComplete();
   }
 
   onNavigatorEvent(event) {
     switch (event.id) {
       case 'willAppear': {
-        this.updateOpened = false;
-        this.props.getTrashPointAction({
-          trashpointId: this.props.trashPoint.id,
-          userId: this.props.profile && this.props.profile.id,
-        });
-        this.props.getTrashPointImagesAction(this.state.trashPoint.id);
+        if (!this.props.updateTrashpoint.trashpointDeleted) {
+          this.updateOpened = false;
+          this.props.getTrashPointAction({
+            trashpointId: this.props.trashPoint.id,
+            userId: this.props.profile && this.props.profile.id,
+          });
+          this.props.getTrashPointImagesAction(this.state.trashPoint.id);
+        }
         break;
       }
       case cancelId: {
@@ -135,7 +138,7 @@ export default class TrashPoint extends Component {
           break;
         }
         // We need this for close modal when app open from social network link
-        this.props.navigator.dismissAllModals();
+        this.props.navigator.pop();
         break;
       }
       case menuId: {
@@ -415,7 +418,7 @@ export default class TrashPoint extends Component {
             }}
           />
           <View style={styles.row}>
-            <Image source={LocationIcon} />
+            <Image source={LocationIcon}/>
             <Text style={styles.textLabel}>
               {address}
             </Text>
@@ -472,7 +475,7 @@ export default class TrashPoint extends Component {
             </Text>
           </View>
           <View style={[styles.row, { marginTop: 1 }]}>
-            <Image source={require('./images/icTime.png')} />
+            <Image source={require('./images/icTime.png')}/>
             <Text style={styles.textLabel}>
               {moment(createdAt).format('DD.MM.YYYY')}
             </Text>
@@ -495,7 +498,7 @@ export default class TrashPoint extends Component {
             </Text>
           </View>
           <View style={[styles.row, { marginTop: 1 }]}>
-            <Image source={require('./images/icTime.png')} />
+            <Image source={require('./images/icTime.png')}/>
             <Text style={styles.textLabel}>
               {updatedAt ? moment(updatedAt).format('DD.MM.YYYY')
                 : strings.label_time_to_contribute}
@@ -517,19 +520,19 @@ export default class TrashPoint extends Component {
             </Text>
           </View>
           }
-          {tags && tags.length > 0 && <Tags tags={tags} />}
+          {tags && tags.length > 0 && <Tags tags={tags}/>}
           <View style={styles.rowHeader}>
             <Text style={styles.textHeader}>
               {strings.label_trash_type}
             </Text>
           </View>
-          {composition && <Chips types={composition} />}
+          {composition && <Chips types={composition}/>}
           {origin && <View style={styles.rowHeader}>
             <Text style={styles.textHeader}>
               {strings.label_trash_origin}
             </Text>
           </View>}
-          {origin && <Chips types={origin} />}
+          {origin && <Chips types={origin}/>}
           <View style={styles.rowHeader}>
             <Text style={styles.textHeader}>
               {strings.label_photos}

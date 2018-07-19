@@ -283,6 +283,7 @@ function* deleteTrashPoint(
       yield put(setErrorMessage('No response data '));
     }
   } catch (error) {
+    console.warn(error)
     yield put(setErrorMessage(error.message));
   }
 }

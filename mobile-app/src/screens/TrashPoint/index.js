@@ -5,9 +5,10 @@ import {
   getTrashPointAction,
   getTrashPointImagesAction,
   clearTrashPointDetails,
-  clearTrashPointImagesDetails,
+  clearTrashPointImagesDetails, setDeleteActionComplete,
 } from '../../store/actions/trashPoints';
 import {
+  getCreateTrashPointEntity,
   getProfileEntity,
   getTrashPointDetailsEntity,
   getTrashPointImagesEntity,
@@ -21,12 +22,14 @@ const mapDispatch = {
   getTrashPointImagesAction,
   clearTrashPointImagesDetails,
   onGuestLogIn: guestLogIn,
+  setDeleteActionComplete,
 };
 const selector = createStructuredSelector({
   trashPointImages: getTrashPointImagesEntity,
   isLoading,
   trashPointDetails: getTrashPointDetailsEntity,
   profile: getProfileEntity,
+  updateTrashpoint: getCreateTrashPointEntity,
 });
 
 export default connect(selector, mapDispatch)(Component);

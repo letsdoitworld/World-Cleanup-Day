@@ -261,7 +261,7 @@ class Profile extends Component {
   };
 
   handleTrashpointPress = (trashpoint) => {
-    this.props.navigator.showModal({
+    this.props.navigator.push({
       screen: TRASH_POINT,
       title: strings.label_trashpoint,
       passProps: {

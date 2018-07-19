@@ -28,7 +28,9 @@ import {
   DELETE_TRASH_POINT_SUCCESS_ACTION,
   CLEAN_TRASH_POINT_DETAILS,
   CLEAN_TRASH_POINT_IMAGE_DETAILS,
-  GET_TRASH_POINT_ORIGIN_ACTION, UPDATE_TRASH_POINT_SUCCESS_ACTION,
+  GET_TRASH_POINT_ORIGIN_ACTION,
+  UPDATE_TRASH_POINT_SUCCESS_ACTION,
+  DELETE_TRASH_POINT_COMPLETE_ACTION,
 } from '../types/trashPoints';
 
 export const searchTrashPointsAction = (query, page, pageSize, location) => ({
@@ -79,6 +81,11 @@ export const getTrashPointDetailsAction = () => ({
 export const getTrashPointOriginAction = () => ({
   type: GET_TRASH_POINT_ORIGIN_ACTION,
 });
+
+export const setDeleteActionComplete = () => ({
+  type: DELETE_TRASH_POINT_COMPLETE_ACTION,
+});
+
 
 export const createTrashPointAction = (
   hashtags,

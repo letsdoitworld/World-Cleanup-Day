@@ -1,3 +1,3 @@
 files:
   - source: /mobile-app/src/i18n/ui-strings.json
-    translation: /mobile-app/src/assets/translations/%three_letters_code%.json
+    translation: /mobile-app/src/assets/translations/%locale_with_underscore%.json

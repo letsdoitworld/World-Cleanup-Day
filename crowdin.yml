@@ -1,3 +1,3 @@
 files:
-  - source: /mobile-app/src/assets/strings.json
+  - source: /mobile-app/src/i18n/ui-strings.json
     translation: /mobile-app/src/assets/translations/%three_letters_code%.json

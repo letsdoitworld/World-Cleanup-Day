@@ -108,7 +108,7 @@ class TrashPointMenu extends PureComponent {
                 fontSize: 12,
               }}
             >
-              Far far away, behind the word mountains, far from the countries.
+              {strings.menu_sub_title}
             </Text>
           </View>
           <TouchableOpacity onPress={this.pressShare}>

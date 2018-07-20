@@ -18,7 +18,6 @@ const mapDispatch = {
   getTrashPointDetailsAction,
   getTrashPointOriginAction,
   dismissSuccessUpdate,
-
 };
 const selector = createStructuredSelector({
   createTrashPoint: getCreateTrashPointEntity,

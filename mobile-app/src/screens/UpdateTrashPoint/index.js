@@ -7,7 +7,7 @@ import {
   updateTrashPointAction,
   deleteTrashPointAction,
   getTrashPointDetailsAction,
-  getTrashPointOriginAction,
+  getTrashPointOriginAction, setDeleteActionComplete,
 } from '../../store/actions/trashPoints';
 import {
   getCreateTrashPointEntity, getProfileEntity,

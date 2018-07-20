@@ -20,13 +20,11 @@ import { Tags } from '../../components/Tags';
 import { AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { AlertModal } from '../../components/AlertModal';
 import { CustomSlider } from '../../components/CustomSlider';
-import {
-  MARKER_STATUSES,
-} from '../../shared/constants';
+import { MARKER_STATUSES } from '../../shared/constants';
 import { Badges } from '../../assets/images';
 
 import styles from './styles';
-import { geocodeCoordinates, getCurrentPosition } from '../../shared/geo';
+import { geocodeCoordinates } from '../../shared/geo';
 
 import { ADD_LOCATION, CREATE_MARKER } from '../index';
 import { getWidthPercentage } from '../../shared/helpers';
@@ -162,13 +160,17 @@ class BaseTrashpointEdit extends React.Component {
     this.props.getTrashPointOriginAction();
     await this.fetchAddressAsync();
 
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    BackHandler.addEventListener('hardwareBackPress', this.openModal);
   }
 
   componentWillReceiveProps(nextProps) {
     const { isConnected: wasConnected, createTrashPoint, trashPoint } = this.props;
     const { isConnected } = nextProps;
     const { address, locationSetByUser } = this.state;
+    if (this.props.createTrashPoint.trashpointDeleted) {
+      this.props.navigator.popToRoot();
+      return;
+    }
     if (!wasConnected && isConnected && !locationSetByUser &&
       (!address || !address.completeAddress)) {
       this.fetchAddressAsync().catch();
@@ -189,7 +191,7 @@ class BaseTrashpointEdit extends React.Component {
     }
 
     if (createTrashPoint.trashpointCompositions && !this.props.createTrashPoint.error
-     && !this.state.isEditLocationPress) {
+      && !this.state.isEditLocationPress) {
       let listTrashCompositions = createTrashPoint.trashpointCompositions;
       if (trashPoint && trashPoint.composition.length > 0) {
         listTrashCompositions = listTrashCompositions.map(item => ({
@@ -215,7 +217,7 @@ class BaseTrashpointEdit extends React.Component {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    BackHandler.removeEventListener('hardwareBackPress', this.openModal);
   }
 
 
@@ -323,7 +325,7 @@ class BaseTrashpointEdit extends React.Component {
     // Fix me!!!
     // const coords = await getCurrentPosition();
     this.props.dismissSuccessUpdate();
-    this.props.navigator.pop();
+    this.props.navigator.pop({ animated: false });
 
     this.props.navigator.push({
       screen: CREATE_MARKER,
@@ -647,48 +649,48 @@ class BaseTrashpointEdit extends React.Component {
                   ? HANDFUL_IMAGE_DATA.active
                   : HANDFUL_IMAGE_DATA.default,
                 text:
-  <Text
-    key={strings.label_handful}
-    style={[styles.label, amount >= 0 ? { color: 'rgb(0, 143, 223)' } : {}]}
-  >
-    {strings.label_handful}
-  </Text>,
+                  <Text
+                    key={strings.label_handful}
+                    style={[styles.label, amount >= 0 ? { color: 'rgb(0, 143, 223)' } : {}]}
+                  >
+                    {strings.label_handful}
+                  </Text>,
               }, {
                 position: getWidthPercentage(91.2),
                 image: amount >= 1
                   ? BAGFUL_IMAGE_DATA.active
                   : BAGFUL_IMAGE_DATA.default,
                 text:
-  <Text
-    key={strings.label_bagful}
-    style={[styles.label, amount >= 1 ? { color: 'rgb(0, 143, 223)' } : {}]}
-  >
-    {strings.label_bagful}
-  </Text>,
+                  <Text
+                    key={strings.label_bagful}
+                    style={[styles.label, amount >= 1 ? { color: 'rgb(0, 143, 223)' } : {}]}
+                  >
+                    {strings.label_bagful}
+                  </Text>,
               }, {
                 position: getWidthPercentage(172),
                 image: amount >= 2
                   ? CARTLOAD_IMAGE_DATA.active
                   : CARTLOAD_IMAGE_DATA.default,
                 text:
-  <Text
-    key={strings.label_cartload}
-    style={[styles.label, amount >= 2 ? { color: 'rgb(0, 143, 223)' } : {}]}
-  >
-    {strings.label_cartload}
-  </Text>,
+                  <Text
+                    key={strings.label_cartload}
+                    style={[styles.label, amount >= 2 ? { color: 'rgb(0, 143, 223)' } : {}]}
+                  >
+                    {strings.label_cartload}
+                  </Text>,
               }, {
                 position: getWidthPercentage(253.2),
                 image: amount >= 3
                   ? TRUCKLOAD_IMAGE_DATA.active
                   : TRUCKLOAD_IMAGE_DATA.default,
                 text:
-  <Text
-    key={strings.label_truck}
-    style={[styles.label, amount >= 3 ? { color: 'rgb(0, 143, 223)' } : {}]}
-  >
-    {strings.label_truck}
-  </Text>,
+                  <Text
+                    key={strings.label_truck}
+                    style={[styles.label, amount >= 3 ? { color: 'rgb(0, 143, 223)' } : {}]}
+                  >
+                    {strings.label_truck}
+                  </Text>,
               }]}
             />
           </View>

@@ -6,6 +6,8 @@ import {
   GET_TRASH_POINT_DETAILS_SUCCESS_ACTION,
   DISMISS_SUCCESS_UPDATE,
   UPDATE_TRASH_POINT_SUCCESS_ACTION,
+  DELETE_TRASH_POINT_SUCCESS_ACTION,
+  DELETE_TRASH_POINT_COMPLETE_ACTION,
 } from '../types/trashPoints';
 
 import { createReducer } from '../helpers/createReducer';
@@ -17,6 +19,7 @@ export const initialState = Immutable.Map(
     updatedTrashPoint: null,
     trashpointCompositions: null,
     trashpointOrigins: null,
+    trashpointDeleted: false
   });
 
 function mapStringToTagObject(type: string) {
@@ -63,6 +66,16 @@ const handlers = {
   [DISMISS_SUCCESS_UPDATE]: (state) => {
     return state.withMutations(mState => mState
       .set('success', false),
+    );
+  },
+  [DELETE_TRASH_POINT_SUCCESS_ACTION]: (state, { payload }) => {
+    return state.withMutations(mState => mState
+      .set('trashpointDeleted', true),
+    );
+  },
+  [DELETE_TRASH_POINT_COMPLETE_ACTION]: (state, { payload }) => {
+    return state.withMutations(mState => mState
+      .set('trashpointDeleted', false),
     );
   },
 };

@@ -22,7 +22,7 @@ export const API_ENDPOINTS = {
   CREATE_TRASHPOINT: '/trashpoints',
   UPDATE_TRASHPOINT: trashpointId => `/trashpoints/${trashpointId}`,
   FETCH_USERS_TRASHPOINTS: '/trashpoints/user',
-  FETCH_TRASHPOINT_DETAILS: trashpointId => `/trashpoints/${trashpointId}`,
+  FETCH_TRASHPOINT_DETAILS: (trashpointId, userId) => `/trashpoints/${trashpointId}?userId=${userId}`,
   FETCH_TRASHPOINT_IMAGES: trashpointId =>
     `/trashpoints/${trashpointId}/images`,
   DELETE_IMAGE: (trashpointId, imageId) =>

@@ -14,6 +14,7 @@ import { ApiService } from '../../services';
 import { BASE_URL } from '../../services/Api';
 import selectors from './selectors';
 import { actions as appActions, selectors as appSelectors } from '../app';
+import { selectors as userSelectors } from '../user';
 import { actions as errorActions } from '../error';
 
 import TYPES from './types';
@@ -308,14 +309,15 @@ const toggleDetailsWindow = () => ({
   type: TYPES.TOGGLE_TP_DETAILS_WINDOW,
 });
 
-const fetchMarkerDetails = (markerId, mapFocusNeeded) => async dispatch => {
+const fetchMarkerDetails = (markerId, mapFocusNeeded) => async (dispatch, getState) => {
   try {
     dispatch({ type: TYPES.FETCH_MARKER_DETAILS_REQUEST });
+    const userId = userSelectors.getProfile(getState()).id;
     const [imagesResponse, detailsResponse] = await Promise.all([
       ApiService.get(API_ENDPOINTS.FETCH_TRASHPOINT_IMAGES(markerId), {
         withToken: false,
       }),
-      ApiService.get(API_ENDPOINTS.FETCH_TRASHPOINT_DETAILS(markerId), {
+      ApiService.get(API_ENDPOINTS.FETCH_TRASHPOINT_DETAILS(markerId, userId), {
         withToken: false,
       }),
     ]);

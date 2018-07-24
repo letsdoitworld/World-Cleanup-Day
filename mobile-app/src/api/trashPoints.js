@@ -224,7 +224,11 @@ async function createTrashPointRequest(
       },
     };
   } catch (error) {
-    throw error;
+    const thrownError = {
+      message: error.response.data[0].message,
+    };
+
+    throw thrownError;
   }
 }
 

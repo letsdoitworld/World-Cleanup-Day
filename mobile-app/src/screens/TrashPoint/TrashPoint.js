@@ -90,8 +90,8 @@ export default class TrashPoint extends Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  componentWillMount() {
-    this.hanleUpdateTrashPointLocation();
+  componentDidMount() {
+    this.handleUpdateTrashPointLocation();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -197,7 +197,7 @@ export default class TrashPoint extends Component {
     };
   }
 
-  hanleUpdateTrashPointLocation() {
+  handleUpdateTrashPointLocation() {
     this.checkPermissionsAndHandleLocation().then(async (res) => {
       if (res === 'authorized') {
         let myLocation;

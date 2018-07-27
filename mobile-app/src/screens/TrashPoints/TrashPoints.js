@@ -428,7 +428,7 @@ class TrashPoints extends Component {
   };
 
   handleTrashPointsPress = (marker) => {
-    this.props.navigator.showModal({
+    this.props.navigator.push({
       screen: TRASH_POINT,
       title: strings.label_trashpoint,
       passProps: {

@@ -71,7 +71,7 @@ export default class TrashPoint extends Component {
       trashPoint: props.trashPoint,
       userLocation: null,
       photos: [],
-      isUpdateTrashPointVisible: false,
+      isUpdateTrashPointVisible: true,
       showUserWarning: false,
     };
 
@@ -102,15 +102,21 @@ export default class TrashPoint extends Component {
       const hoursFromCreation = this.localizedTime
         .diff(moment(nextProps.trashPointDetails.createdAt), 'hours');
       const isTrashPointNew = hoursFromCreation < 24;
-      this.setState({
-        trashPoint: nextProps.trashPointDetails,
-        isUpdateTrashPointVisible: isTrashPointNew,
-      });
+      setTimeout(() => {
+        this.setState({
+          trashPoint: nextProps.trashPointDetails,
+          isUpdateTrashPointVisible: isTrashPointNew,
+        });
+      }, 300)
     }
     if (!nextProps.trashPointDetails && this.props.trashPointDetails
       && !this.props.cancelTrashPointFromEvent) {
       this.props.navigator.pop();
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state != nextState;
   }
 
   componentWillUnmount() {
@@ -124,6 +130,7 @@ export default class TrashPoint extends Component {
       case 'willAppear': {
         if (!this.props.updateTrashpoint.trashpointDeleted) {
           this.updateOpened = false;
+          console.log('onNavigatorEvent work')
           this.props.getTrashPointAction({
             trashpointId: this.props.trashPoint.id,
             userId: this.props.profile && this.props.profile.id,
@@ -394,6 +401,7 @@ export default class TrashPoint extends Component {
         selected: false,
       };
     }) : [];
+    console.log('Render ', this.state.trashPoint);
     const photos = this.state.photos;
     return (
       <View

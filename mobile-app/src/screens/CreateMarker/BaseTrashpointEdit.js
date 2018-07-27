@@ -3,7 +3,7 @@ import _ from 'lodash';
 import ImagePicker from 'react-native-image-crop-picker';
 import {
   ActivityIndicator,
-  BackHandler,
+  BackHandler, Platform,
   ScrollView,
   Text,
   TextInput,
@@ -20,11 +20,12 @@ import { Tags } from '../../components/Tags';
 import { AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { AlertModal } from '../../components/AlertModal';
 import { CustomSlider } from '../../components/CustomSlider';
-import { MARKER_STATUSES } from '../../shared/constants';
+import { DEFAULT_ZOOM, MARKER_STATUSES } from '../../shared/constants';
 import { Badges } from '../../assets/images';
 
 import styles from './styles';
-import { geocodeCoordinates } from '../../shared/geo';
+import { geocodeCoordinates,
+    getCurrentPosition} from '../../shared/geo';
 
 import { ADD_LOCATION, CREATE_MARKER } from '../index';
 import { getWidthPercentage } from '../../shared/helpers';
@@ -77,6 +78,8 @@ class BaseTrashpointEdit extends React.Component {
 
     const { photos, coords, trashPoint } = props;
 
+    console.log('COnstructor ', coords);
+
     const hashtags = trashPoint &&
       trashPoint.hashtags
       && trashPoint.hashtags.map((hashtag) => {
@@ -85,6 +88,8 @@ class BaseTrashpointEdit extends React.Component {
           selected: false,
         };
       });
+
+    this.actualCoords = coords;
 
     const trashPointCompositions = props.createTrashPoint.trashpointCompositions;
     const trashCompositionTypes = trashPointCompositions ? trashPointCompositions.map(
@@ -156,6 +161,24 @@ class BaseTrashpointEdit extends React.Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
+  async componentDidMount() {
+    if (Platform.OS === 'ios') {
+      this.watchID = navigator.geolocation.watchPosition((position)=>{
+        if (position) {
+          const { coords: { latitude, longitude } } = position;
+          this.actualCoords = {
+            latitude,
+            longitude,
+            latitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+          };
+        }
+        },
+        {enableHighAccuracy: true, timeout: 1000, maximumAge: 0,distanceFilter:1});
+    }
+  }
+
   async componentWillMount() {
     this.props.getTrashPointOriginAction();
     await this.fetchAddressAsync();
@@ -217,6 +240,8 @@ class BaseTrashpointEdit extends React.Component {
   }
 
   componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+    navigator.geolocation.stopObserving();
     BackHandler.removeEventListener('hardwareBackPress', this.openModal);
   }
 
@@ -321,9 +346,13 @@ class BaseTrashpointEdit extends React.Component {
       width,
       height,
     });
-    const coords = this.props.coords;
-    // Fix me!!!
-    // const coords = await getCurrentPosition();
+    var newPosition;
+    if (Platform.OS === 'ios') {
+      newPosition = this.actualCoords
+    } else {
+      newPosition = await getCurrentPosition();
+    }
+    console.log('successAddAnotherTrashPoint ', newPosition)
     this.props.dismissSuccessUpdate();
     this.props.navigator.pop({ animated: false });
 
@@ -332,7 +361,7 @@ class BaseTrashpointEdit extends React.Component {
       title: strings.label_button_createTP_confirm_create,
       passProps: {
         photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
-        coords,
+        coords: newPosition,
       },
     });
   };

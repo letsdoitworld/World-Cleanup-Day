@@ -46,7 +46,7 @@
   display: none;
 }
 
-.gm-fullscreen-control, .gmnoprint {
+.gm-fullscreen-control {
   opacity: 0 !important;
 }
 

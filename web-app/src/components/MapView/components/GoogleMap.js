@@ -21,6 +21,7 @@ export default withGoogleMap(props => {
     mapTypeControl: false,
     streetViewControl: false,
     scaleControl: true,
+    zoomControl: true,
     minZoom: 3,
   };
   if (cursor) {

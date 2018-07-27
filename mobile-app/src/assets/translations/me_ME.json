@@ -144,7 +144,7 @@
     "label_error_generic_error_subtitle": "Van granica",
     "label_error_generic_error_text": "Greška na serveru.",
     "label_error_network_subtitle": "Nema internet konekcije.",
-    "label_error_network_text": "Mobile data is disabled. Enable mobile data or connect your phone to Wi-Fi to use the application.",
+    "label_error_network_text": "Prenos podataka je isključen. Omogući prenos podataka ili poveži svoj telefon na bežični internet, za korišćenje aplikacije. ",
     "label_error_location_subtitle": "Omogući rad u vezi sa lokacijom",
     "label_error_location_text": "Usluge za lokaciju su isključene. Molimo uključi GPS u Podešavanjima, kako bi koristio/la aplikaciju.",
     "label_error_loc_permission_text": "Usluge za lokaciju nijesu dozvoljene. Molimo da ih dozvoliš kako bi aplikaciju mogao/la da koristiš.",

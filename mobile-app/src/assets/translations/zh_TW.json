@@ -137,7 +137,7 @@
     "label_error_editTP_out_of_rng_text": "垃圾點只能在100米範圍內進行更改。",
     "label_error_saveTP_subtitle": "保全垃圾點",
     "label_error_saveTP_pic_and_type": "喔不！您必須填寫所有需要的資訊來建立新的垃圾點",
-    "label_error_saveTP_picture": "It's more useful for us if you to take at least one picture of the trashpoint before saving.",
+    "label_error_saveTP_picture": "若您在儲存前拍至少一張垃圾點的相片，會對我們更有幫助。",
     "label_error_saveTP_trash_type": "設置垃圾的類型之前會對我們更有幫助。",
     "label_error_change_loc_subtitle": "超出範圍",
     "label_error_change_loc_text": "請在位置100米範圍內放置剌點。",

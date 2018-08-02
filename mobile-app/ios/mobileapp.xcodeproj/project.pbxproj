@@ -1878,8 +1878,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.teeme.ldi;
 				PRODUCT_NAME = mobileapp;
-				PROVISIONING_PROFILE = "d9d89b31-2e0a-412d-8984-a7111f7664e4";
-				PROVISIONING_PROFILE_SPECIFIER = clean_up;
+				PROVISIONING_PROFILE = "ea0b1603-1c5c-4106-a591-10aaf7587311";
+				PROVISIONING_PROFILE_SPECIFIER = iOS_developed_provision;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;

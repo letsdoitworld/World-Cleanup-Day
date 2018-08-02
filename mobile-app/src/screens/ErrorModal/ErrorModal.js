@@ -48,8 +48,16 @@ export default class ErrorModal extends PureComponent {
         subtitle = strings.label_private_profile_wor_title;
         image = Badges.Privacy;
         break;
-      default:
+      case CLIENT_ERRORS.error400:
+      case CLIENT_ERRORS.error403:
+      case CLIENT_ERRORS.error404:
+      case CLIENT_ERRORS.error500:
         message = strings.label_something_went_wrong;
+        subtitle = strings.label_error_message;
+        image = Badges.NoConnection;
+        break;
+      default:
+        message = this.props.error;
         subtitle = strings.label_error_message;
         image = Badges.NoConnection;
     }

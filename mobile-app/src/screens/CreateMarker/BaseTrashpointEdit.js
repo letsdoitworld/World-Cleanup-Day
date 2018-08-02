@@ -79,8 +79,6 @@ class BaseTrashpointEdit extends React.Component {
 
     const { photos, coords, trashPoint } = props;
 
-    console.log('COnstructor ', coords);
-
     const hashtags = trashPoint &&
       trashPoint.hashtags
       && trashPoint.hashtags.map((hashtag) => {
@@ -354,7 +352,6 @@ class BaseTrashpointEdit extends React.Component {
     } else {
       newPosition = await getCurrentPosition();
     }
-    console.log('successAddAnotherTrashPoint ', newPosition)
     this.props.dismissSuccessUpdate();
     this.props.navigator.pop({ animated: false });
 
@@ -517,7 +514,6 @@ class BaseTrashpointEdit extends React.Component {
       temporaryHashtag: null,
     });
 
-    console.log("handleAddHahstag ", hashtags);
   };
 
   handleChangeHashtagText = (text) => {

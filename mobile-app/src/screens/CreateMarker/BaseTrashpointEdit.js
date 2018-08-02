@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
@@ -103,7 +104,7 @@ class BaseTrashpointEdit extends React.Component {
     const state = {
       initialPhotos: trashPoint && [...trashPoint.photos],
       photos: photos ? [...photos] : [],
-      temporaryHashtag: '',
+      temporaryHashtag: null,
       amount: trashPoint ? AMOUNT_STATUSES[trashPoint.amount] : AMOUNT_STATUSES.handful,
       status: trashPoint ? trashPoint.status : MARKER_STATUSES.REGULAR,
       congratsShown: !!trashPoint,
@@ -131,7 +132,7 @@ class BaseTrashpointEdit extends React.Component {
     };
 
     this.successCancelButton = {
-      text: strings.label_button_cancel,
+      text: strings.label_text_lets_do_it,
       onPress: this.successCancel.bind(this),
     };
     this.successUpdateButton = {
@@ -199,7 +200,6 @@ class BaseTrashpointEdit extends React.Component {
       this.fetchAddressAsync().catch();
     }
     if (this.props.createTrashPoint.error) {
-      console.log('createTrashPoint.error work');
       this.setState((previousState) => {
         return {
           ...previousState,
@@ -273,10 +273,10 @@ class BaseTrashpointEdit extends React.Component {
   };
 
   onUpdateSuccessPress = () => {
-    if (this.props.onBackFromUpdate) {
-      this.props.onBackFromUpdate(this.props.createTrashPoint.updatedTrashPoint);
-    }
-    this.setState({ isUpdateDialogShown: false });
+    this.setState({
+      isUpdateDialogShown: false,
+      temporaryHashtag: null,
+    });
     this.props.navigator.pop();
   };
 
@@ -286,9 +286,11 @@ class BaseTrashpointEdit extends React.Component {
 
   closeModal = () => {
     this.setState({ showModal: false });
+
   };
 
   leave = () => {
+    this.setState({ showModal: false });
     this.props.navigator.pop();
   };
 
@@ -487,7 +489,7 @@ class BaseTrashpointEdit extends React.Component {
   };
 
   handleAddHahstag = () => {
-    const { temporaryHashtag } = this.state;
+    const temporaryHashtag = get(this.state, 'temporaryHashtag', '');
     const hashtags = this.state.hashtags || [];
 
     if (hashtags.length === MAX_HASHTAGS_NO) {
@@ -506,14 +508,16 @@ class BaseTrashpointEdit extends React.Component {
 
     if (labels.length === 0) {
       return this.setState({
-        temporaryHashtag: '',
+        temporaryHashtag: null,
       });
     }
 
     this.setState({
       hashtags: [...hashtags, ...labels.map(label => ({ label }))],
-      temporaryHashtag: '',
+      temporaryHashtag: null,
     });
+
+    console.log("handleAddHahstag ", hashtags);
   };
 
   handleChangeHashtagText = (text) => {
@@ -646,8 +650,8 @@ class BaseTrashpointEdit extends React.Component {
               visible
               title={strings.label_trashpoint_created}
               subtitle={strings.label_thank_you_for_contr}
-              text={strings.label_title_trashpoint_created}
-              buttons={[this.successCancelButton, this.registerButton]}
+              text={''}
+              buttons={[this.successCancelButton]}
             />
           }
           <LocationPicker
@@ -754,12 +758,12 @@ class BaseTrashpointEdit extends React.Component {
               maxLength={25}
             />
             <TouchableOpacity
-              disabled={this.state.temporaryHashtag.length === 0}
+              disabled={!this.state.temporaryHashtag}
               onPress={this.handleAddHahstag}
             >
               <View
                 style={[styles.addButtonContainer,
-                  this.state.temporaryHashtag.length > 0
+                  this.state.temporaryHashtag
                     ? {} : { backgroundColor: 'rgb(126, 124, 132)' }]}
               >
                 <Text style={[styles.addButtonPlus]}>

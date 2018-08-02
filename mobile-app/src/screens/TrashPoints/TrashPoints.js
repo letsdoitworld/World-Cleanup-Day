@@ -194,6 +194,9 @@ class TrashPoints extends Component {
     const trashpoint = this.state.mapTrashPoints.find(
       trash => trash.id === marker.id,
     );
+    if (!trashpoint) {
+      return
+    }
 
     if (marker && marker.count === 1) {
       const list = this.getDataList();
@@ -606,7 +609,6 @@ class TrashPoints extends Component {
 
   renderContent = () => {
     const { markers, initialRegion } = this.state;
-
     // const checked = this.handleSelectStatus(selectedItem);
 
     switch (this.state.mode) {

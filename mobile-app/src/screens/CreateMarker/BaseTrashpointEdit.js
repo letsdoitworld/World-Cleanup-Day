@@ -3,13 +3,14 @@ import _ from 'lodash';
 import ImagePicker from 'react-native-image-crop-picker';
 import {
   ActivityIndicator,
-  BackHandler,
+  BackHandler, Platform,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import strings from '../../assets/strings';
 import ImageService from '../../services/Image';
@@ -20,11 +21,12 @@ import { Tags } from '../../components/Tags';
 import { AMOUNT_STATUSES } from '../../components/AmountPicker';
 import { AlertModal } from '../../components/AlertModal';
 import { CustomSlider } from '../../components/CustomSlider';
-import { MARKER_STATUSES } from '../../shared/constants';
+import { DEFAULT_ZOOM, MARKER_STATUSES } from '../../shared/constants';
 import { Badges } from '../../assets/images';
 
 import styles from './styles';
-import { geocodeCoordinates } from '../../shared/geo';
+import { geocodeCoordinates,
+    getCurrentPosition} from '../../shared/geo';
 
 import { ADD_LOCATION, CREATE_MARKER } from '../index';
 import { getWidthPercentage } from '../../shared/helpers';
@@ -86,6 +88,8 @@ class BaseTrashpointEdit extends React.Component {
         };
       });
 
+    this.actualCoords = coords;
+
     const trashPointCompositions = props.createTrashPoint.trashpointCompositions;
     const trashCompositionTypes = trashPointCompositions ? trashPointCompositions.map(
       trashCompositionType => ({
@@ -98,7 +102,7 @@ class BaseTrashpointEdit extends React.Component {
     const state = {
       initialPhotos: trashPoint && [...trashPoint.photos],
       photos: photos ? [...photos] : [],
-      temporaryHashtag: '',
+      temporaryHashtag: null,
       amount: trashPoint ? AMOUNT_STATUSES[trashPoint.amount] : AMOUNT_STATUSES.handful,
       status: trashPoint ? trashPoint.status : MARKER_STATUSES.REGULAR,
       congratsShown: !!trashPoint,
@@ -126,7 +130,7 @@ class BaseTrashpointEdit extends React.Component {
     };
 
     this.successCancelButton = {
-      text: strings.label_button_cancel,
+      text: strings.label_text_lets_do_it,
       onPress: this.successCancel.bind(this),
     };
     this.successUpdateButton = {
@@ -156,6 +160,24 @@ class BaseTrashpointEdit extends React.Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
+  async componentDidMount() {
+    if (Platform.OS === 'ios') {
+      this.watchID = navigator.geolocation.watchPosition((position)=>{
+        if (position) {
+          const { coords: { latitude, longitude } } = position;
+          this.actualCoords = {
+            latitude,
+            longitude,
+            latitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+            longitudeDelta: DEFAULT_ZOOM,
+          };
+        }
+        },
+        {enableHighAccuracy: true, timeout: 1000, maximumAge: 0,distanceFilter:1});
+    }
+  }
+
   async componentWillMount() {
     this.props.getTrashPointOriginAction();
     await this.fetchAddressAsync();
@@ -176,7 +198,6 @@ class BaseTrashpointEdit extends React.Component {
       this.fetchAddressAsync().catch();
     }
     if (this.props.createTrashPoint.error) {
-      console.log('createTrashPoint.error work');
       this.setState((previousState) => {
         return {
           ...previousState,
@@ -217,6 +238,8 @@ class BaseTrashpointEdit extends React.Component {
   }
 
   componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+    navigator.geolocation.stopObserving();
     BackHandler.removeEventListener('hardwareBackPress', this.openModal);
   }
 
@@ -248,10 +271,10 @@ class BaseTrashpointEdit extends React.Component {
   };
 
   onUpdateSuccessPress = () => {
-    if (this.props.onBackFromUpdate) {
-      this.props.onBackFromUpdate(this.props.createTrashPoint.updatedTrashPoint);
-    }
-    this.setState({ isUpdateDialogShown: false });
+    this.setState({
+      isUpdateDialogShown: false,
+      temporaryHashtag: null,
+    });
     this.props.navigator.pop();
   };
 
@@ -261,9 +284,11 @@ class BaseTrashpointEdit extends React.Component {
 
   closeModal = () => {
     this.setState({ showModal: false });
+
   };
 
   leave = () => {
+    this.setState({ showModal: false });
     this.props.navigator.pop();
   };
 
@@ -321,9 +346,12 @@ class BaseTrashpointEdit extends React.Component {
       width,
       height,
     });
-    const coords = this.props.coords;
-    // Fix me!!!
-    // const coords = await getCurrentPosition();
+    var newPosition;
+    if (Platform.OS === 'ios') {
+      newPosition = this.actualCoords
+    } else {
+      newPosition = await getCurrentPosition();
+    }
     this.props.dismissSuccessUpdate();
     this.props.navigator.pop({ animated: false });
 
@@ -332,7 +360,7 @@ class BaseTrashpointEdit extends React.Component {
       title: strings.label_button_createTP_confirm_create,
       passProps: {
         photos: [{ uri, thumbnail: { base64: thumbnailBase64 }, base64 }],
-        coords,
+        coords: newPosition,
       },
     });
   };
@@ -458,7 +486,7 @@ class BaseTrashpointEdit extends React.Component {
   };
 
   handleAddHahstag = () => {
-    const { temporaryHashtag } = this.state;
+    const temporaryHashtag = get(this.state, 'temporaryHashtag', '');
     const hashtags = this.state.hashtags || [];
 
     if (hashtags.length === MAX_HASHTAGS_NO) {
@@ -477,14 +505,15 @@ class BaseTrashpointEdit extends React.Component {
 
     if (labels.length === 0) {
       return this.setState({
-        temporaryHashtag: '',
+        temporaryHashtag: null,
       });
     }
 
     this.setState({
       hashtags: [...hashtags, ...labels.map(label => ({ label }))],
-      temporaryHashtag: '',
+      temporaryHashtag: null,
     });
+
   };
 
   handleChangeHashtagText = (text) => {
@@ -617,8 +646,8 @@ class BaseTrashpointEdit extends React.Component {
               visible
               title={strings.label_trashpoint_created}
               subtitle={strings.label_thank_you_for_contr}
-              text={strings.label_title_trashpoint_created}
-              buttons={[this.successCancelButton, this.registerButton]}
+              text={''}
+              buttons={[this.successCancelButton]}
             />
           }
           <LocationPicker
@@ -725,12 +754,12 @@ class BaseTrashpointEdit extends React.Component {
               maxLength={25}
             />
             <TouchableOpacity
-              disabled={this.state.temporaryHashtag.length === 0}
+              disabled={!this.state.temporaryHashtag}
               onPress={this.handleAddHahstag}
             >
               <View
                 style={[styles.addButtonContainer,
-                  this.state.temporaryHashtag.length > 0
+                  this.state.temporaryHashtag
                     ? {} : { backgroundColor: 'rgb(126, 124, 132)' }]}
               >
                 <Text style={[styles.addButtonPlus]}>

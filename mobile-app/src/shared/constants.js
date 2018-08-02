@@ -85,6 +85,10 @@ export const CLIENT_ERRORS = {
   registerEventError: 'Event register first',
   privacyError: 'Change privacy',
   networkError: 'Network error',
+  error400: 'Request failed with status code 400',
+  error403: 'Request failed with status code 403',
+  error404: 'Request failed with status code 404',
+  error500: 'Request failed with status code 500',
 };
 export const TRASH_COMPOSITION_TYPE_LIST = [
   { type: 'plastic', label: 'Plastic' },

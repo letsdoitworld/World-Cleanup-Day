@@ -68,7 +68,12 @@ export async function getCurrentPositionAndroid() {
 
 export async function getCurrentPositionIos(options) {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    navigator.geolocation.getCurrentPosition(resolve, reject, {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 1000,
+      ...options,
+    });
   });
 }
 

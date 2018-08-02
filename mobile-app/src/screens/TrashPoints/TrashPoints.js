@@ -194,6 +194,9 @@ class TrashPoints extends Component {
     const trashpoint = this.state.mapTrashPoints.find(
       trash => trash.id === marker.id,
     );
+    if (!trashpoint) {
+      return
+    }
 
     if (marker && marker.count === 1) {
       const list = this.getDataList();
@@ -428,7 +431,7 @@ class TrashPoints extends Component {
   };
 
   handleTrashPointsPress = (marker) => {
-    this.props.navigator.showModal({
+    this.props.navigator.push({
       screen: TRASH_POINT,
       title: strings.label_trashpoint,
       passProps: {
@@ -606,7 +609,6 @@ class TrashPoints extends Component {
 
   renderContent = () => {
     const { markers, initialRegion } = this.state;
-
     // const checked = this.handleSelectStatus(selectedItem);
 
     switch (this.state.mode) {

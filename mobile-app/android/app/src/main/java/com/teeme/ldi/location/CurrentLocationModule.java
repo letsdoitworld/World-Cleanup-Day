@@ -139,9 +139,8 @@ public class CurrentLocationModule extends ReactContextBaseJavaModule implements
 
         if (lastLocation != null) {
             resolvePromises(buildCurrentLocationInfo(lastLocation));
-        } else {
-            getLocationByLocationsManager();
         }
+        getLocationByLocationsManager();
     }
 
     @SuppressWarnings("MissingPermission")

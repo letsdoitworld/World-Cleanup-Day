@@ -1,9 +1,9 @@
 {
-    "trashPoints_counter": "{0} trashpoints selected",
-    "label_no_trashpoints_selected": "No trashpoints selected",
-    "label_nav_bar_list": "List",
+    "trashPoints_counter": "{0} ruskpunkt vald",
+    "label_no_trashpoints_selected": "Eingi ruskpunkt vald",
+    "label_nav_bar_list": "Yvirlit",
     "label_nav_bar_map": "Landkort",
-    "label_add": "Add",
+    "label_add": "Legg afturat",
     "label_time_to_contribute": "Time to contribute!",
     "label_share_trashpoint": "Please check this trashpoint",
     "label_share_trashpoint_title": "Share trashpoint",

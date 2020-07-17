@@ -13,7 +13,7 @@
     "classnames": "^2.2.5",
     "exif-js": "^2.3.0",
     "history": "4.6.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "lodash.get": "^4.4.2",
     "moment": "2.18.1",
     "node-sass-chokidar": "^0.0.3",

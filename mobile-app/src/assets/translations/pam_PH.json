@@ -251,7 +251,7 @@
     "label_no_location": "Choose your location",
     "label_private_profile_wor_title": "Update your privacy settings!",
     "label_private_profile_wor": "Your profile should be public\nin order to post event.",
-    "label_private_auth_wor_title": "Oh no!",
+    "label_private_auth_wor_title": "Ah hindi!",
     "label_private_auth_wor": "You need to be a registered user\nin order to create events.",
     "label_private_auth_trashpoint_wor": "You need to be a registered user\nin order to create trashpoint.",
     "label_register": "Register",
